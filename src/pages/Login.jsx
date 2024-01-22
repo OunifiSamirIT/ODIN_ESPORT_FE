@@ -46,7 +46,7 @@ function Login() {
           );
         } else {
           setIsEmailVerified(true);
-          navigate("/");
+          navigate("/home");
         }
       } else {
         setErrMsg({ status: "failed", message: result.message });

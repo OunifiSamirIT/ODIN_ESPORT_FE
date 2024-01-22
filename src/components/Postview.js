@@ -19,7 +19,7 @@ class Postview extends Component {
         return (
             <div className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
                 <div className="card-body p-0 d-flex">
-                    <figure className="avatar me-3"><img src={`assets/images/${avater}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
+                    <figure className="avatar me-3"><img src={`${avater}`} alt="avater" className="shadow-sm rounded-circle w45" /></figure>
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1"> {user} <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500"> {time}</span></h4>
                     <div className="ms-auto pointer"><i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i></div>
                     
@@ -28,7 +28,7 @@ class Postview extends Component {
                 <div className="card-body p-0 mb-3 rounded-3 overflow-hidden uttam-die">
                     <a href="/defaultvideo" className="video-btn">
                         <video autoPlay loop className="float-right w-100">
-                            <source src={`assets/images/${postvideo}`} type="video/mp4" />
+                            <source src={`${postvideo}`} type="video/mp4" />
                         </video>
                     </a>
                 </div>
@@ -39,7 +39,7 @@ class Postview extends Component {
                 {postimage ?
                 <div className="card-body d-block p-0 mb-3">
                     <div className="row ps-2 pe-2">
-                        <div className="col-sm-12 p-1"><img src={`assets/images/${postimage}`} className="rounded-3 w-100" alt="post" /></div>                                        
+                        <div className="col-sm-12 p-1"><img src={`${postimage}`} className="rounded-3 w-100" alt="post" /></div>                                        
                     </div>
                 </div>
                 : ''}
