@@ -1,7 +1,7 @@
 import React, { Component, Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Login from "../assets/Loggin.png"
-import Logo from '../assets/logo.png'
+import Login from "../assets/Loggin.png";
+import Logo from "../assets/logo.png";
 
 function Register() {
   const [step, setStep] = useState(1);
@@ -38,15 +38,77 @@ function Register() {
     typeresponsable: "",
     roles: [],
   });
-
+  const [inputErrors, setInputErrors] = useState({
+    nom: "",
+    prenom: "",
+    date_naissance: "",
+    gender: "",
+    nationality: "",
+    countryresidence: "",
+    cityresidence: "",
+    tel: "",
+    email: "",
+    login: "",
+    profil: "",
+    password: "",
+    
+  });
+  
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+
+    setInputErrors({
+      ...inputErrors,
+      [e.target.name]: "", // Clear the error when the user starts typing
+    });
   };
 
+  const validateInputs = () => {
+    const newInputErrors = {};
+
+    for (const key in formData) {
+      const value = formData[key];
+
+      if (typeof value === 'string' && value.trim() === "") {
+        newInputErrors[key] = `${key} cannot be empty.`;
+      }
+    }
+
+    // Compare password and confirmPassword
+    if (formData.profil === "player" && formData.password !== formData.confirmPassword) {
+      newInputErrors.confirmPassword = "Passwords do not match.";
+    }
+
+    setInputErrors(newInputErrors);
+    return Object.keys(newInputErrors).length === 0; // Return true if no errors
+  };
+
+  const isPasswordValid = () => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/;
+    const isFormatValid = passwordRegex.test(formData.password);
+    const doPasswordsMatch = formData.password === formData.confirmPassword;
+  
+    return isFormatValid && doPasswordsMatch;
+  };
+  
+  
   const handleNextStep = () => {
+    // Validate all inputs, including password format and match
+    if (!isPasswordValid()) {
+      setInputErrors({
+        ...inputErrors,
+        password: "Password format is invalid or passwords do not match.",
+        confirmPassword: "Password format is invalid or passwords do not match.",
+      });
+      return;
+    }
+  
+    const isValid = validateInputs();
+  
+    // Your existing logic to update roles and navigate to the next step
     const profileRoleMap = {
       player: "player",
       coach: "coach",
@@ -60,11 +122,13 @@ function Register() {
   
     setFormData({
       ...formData,
-      roles: [selectedRole], 
+      roles: [selectedRole],
     });
   
     setStep(step + 1);
   };
+  
+  
 
   const handlePrevStep = () => {
     setStep(step - 1);
@@ -88,7 +152,11 @@ function Register() {
         },
         body: JSON.stringify(formData),
       });
-
+      if (formData.password !== formData.confirmPassword) {
+        console.error("Passwords do not match.");
+        // You may want to handle this case by showing an error message to the user
+        return;
+      }
       if (response.ok) {
         console.log("User registered successfully!");
         navigate("/login");
@@ -104,7 +172,12 @@ function Register() {
       <div className="main-wrap ">
         <div className="nav-header bg-transparent shadow-none border-0">
           <div className="nav-top w-100">
-              <Link to="/"><img src={Logo} className='h-14 w-14 '/><span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">ODIN E-SPORT </span> </Link>
+            <Link to="/">
+              <img src={Logo} className="h-14 w-14 " />
+              <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">
+                ODIN E-SPORT{" "}
+              </span>{" "}
+            </Link>
 
             <button className="nav-menu me-0 ms-auto"></button>
 
@@ -122,13 +195,18 @@ function Register() {
             </a>
           </div>
         </div>
+        
 
         <div className="row ">
-        <div className="col-xl-4 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat">
-    <div className="h-full flex items-center justify-center mt-14 ml-10">
-      <img src={Login} className="object-contain max-h-full " alt="Login Image" />
-    </div>
-  </div>
+          <div className="col-xl-4 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat">
+            <div className="h-full flex items-center justify-center mt-14 ml-10">
+              <img
+                src={Login}
+                className="object-contain max-h-full "
+                alt="Login Image"
+              />
+            </div>
+          </div>
           <div className="col-xl-8 h-full  align-items-center d-flex bg-white rounded-3 overflow-hidden">
             <div className="card shadow-none border-0  me-auto login-card">
               <div className="card-body rounded-0 text-left    ">
@@ -136,14 +214,14 @@ function Register() {
                   Create your account
                 </h2>
                 <div className=" h-[680px] w-[700px] lg:mt-10 overflow-y-scroll overflow-x-hidden ">
-                  <form
-                    className="xl:w-auto h-full  "
-                    onSubmit={handleSubmit}
-                  >
+                  <form className="xl:w-auto h-full  " onSubmit={handleSubmit}>
+                 
                     {step === 1 && (
                       <div className="h-max w-full ">
                         <div className="row">
-                        <label className="mb-2 text-2xl font-serif">Please Select Your Profil:</label>
+                          <label className="mb-2 text-2xl font-serif">
+                            Please Select Your Profil:
+                          </label>
 
                           <div className="col-7 col-md-2 mb-3">
                             <div className="form-check">
@@ -274,7 +352,9 @@ function Register() {
                             onChange={handleInputChange}
                             className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                             placeholder="Your Name"
-                          />
+                            
+                          />          <div className="text-red-500">{inputErrors.nom}</div>
+
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-user text-grey-500 pe-0"></i>
@@ -287,7 +367,8 @@ function Register() {
                             className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                             placeholder="Your Prenom"
                             onChange={handleInputChange}
-                          />
+                          />          <div className="text-red-500">{inputErrors.prenom}</div>
+
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-email text-grey-500 pe-0"></i>
@@ -299,7 +380,8 @@ function Register() {
                             className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                             placeholder="Email"
                             onChange={handleInputChange}
-                          />
+                          />          <div className="text-red-500">{inputErrors.email}</div>
+
                         </div>
                         <div className="form-group icon-input mb-3">
                           <input
@@ -310,18 +392,21 @@ function Register() {
                             className="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
                             placeholder="Password"
                             onChange={handleInputChange}
-                          />
+                          />          <div className="text-red-500">{inputErrors.password}</div>
+
                           <i className="font-sm ti-lock text-grey-500 pe-0"></i>
                         </div>
                         <div className="form-group icon-input mb-1">
-                          <input
-                            type="password"
-                            className="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
-                            placeholder="Confirm Password"
-                          />
-                          <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                        </div>
-
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            className="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
+            placeholder="Confirm Password"
+            onChange={handleInputChange}
+          />
+          <div className="text-red-500">{inputErrors.confirmPassword}</div>
+        </div>
                         {/* Additional form fields */}
 
                         <div className="form-group icon-input mb-3">
@@ -333,7 +418,8 @@ function Register() {
                             className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                             placeholder="Date of Birth"
                             onChange={handleInputChange}
-                          />
+                          />          <div className="text-red-500">{inputErrors.date_naissance}</div>
+
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-user text-grey-500 pe-0"></i>
@@ -347,7 +433,8 @@ function Register() {
                             <option value="">Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
-                          </select>
+                          </select>          <div className="text-red-500">{inputErrors.gender}</div>
+
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-world text-grey-500 pe-0"></i>
@@ -358,7 +445,8 @@ function Register() {
                             className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                             placeholder="Nationality"
                             onChange={handleInputChange}
-                          />
+                          />          <div className="text-red-500">{inputErrors.nationality}</div>
+
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-world text-grey-500 pe-0"></i>
@@ -369,7 +457,8 @@ function Register() {
                             className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                             placeholder="Country of Residence"
                             onChange={handleInputChange}
-                          />
+                          />          <div className="text-red-500">{inputErrors.countryresidence}</div>
+
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-location-pin text-grey-500 pe-0"></i>
@@ -380,7 +469,8 @@ function Register() {
                             className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                             placeholder="City of Residence"
                             onChange={handleInputChange}
-                          />
+                          />          <div className="text-red-500">{inputErrors.cityresidence}</div>
+
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-mobile text-grey-500 pe-0"></i>
@@ -392,7 +482,8 @@ function Register() {
                             className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                             placeholder="Phone Number"
                             onChange={handleInputChange}
-                          />
+                          />          <div className="text-red-500">{inputErrors.tel}</div>
+
                         </div>
 
                         <div className="form-group icon-input mb-3">
@@ -405,7 +496,8 @@ function Register() {
                             className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
                             placeholder="Login"
                             onChange={handleInputChange}
-                          />
+                          />          <div className="text-red-500">{inputErrors.login}</div>
+
                         </div>
                         <div className="form-group mb-1">
                           <button
