@@ -34,7 +34,11 @@ function Home() {
   const [postsData, setPostsData] = useState([]);
   const fileInputRef = useRef(null);
   const [articles, setArticles] = useState([]); // New state for articles
+  const [isActive, setIsActive] = useState(false);
 
+  const toggleActive = () => setIsActive(!isActive);
+
+  const emojiClass = `${isActive ? "active" : ""}`;
   const toggleOpen = () => setIsOpen(!isOpen);
 
   const handleFileChange = (e, type) => {
@@ -90,8 +94,6 @@ function Home() {
   };
   const menuClass = `${isOpen ? " show" : ""}`;
 
-
-
   useEffect(() => {
     const fetchArticles = async () => {
       try {
@@ -125,12 +127,6 @@ function Home() {
     fetchArticles();
   }, []);
 
-
-
-
-
-
-
   return (
     <Fragment>
       <Header />
@@ -155,18 +151,18 @@ function Home() {
                         alt="icon"
                         className="shadow-sm rounded-circle w30"
                       />
-                    </figure>
-                    {previewImage && (
-            <div className="mt-3">
-              <img
-                src={previewImage}
-                alt="Preview"
-                className="rounded-xxl"
-                style={{ maxWidth: "100%", maxHeight: "200px" }}
-              />
-            </div>
-          )}
-                    <form onSubmit={handleSubmit(handlePostSubmit)}>
+                     </figure>
+                     {previewImage && (
+                      <div className="mt-3">
+                        <img
+                          src={previewImage}
+                          alt="Preview"
+                          className="rounded-xxl"
+                          style={{ maxWidth: "100%", maxHeight: "200px" }}
+                        />
+                      </div>
+                     )}
+                     <form onSubmit={handleSubmit(handlePostSubmit)}>
                       <textarea
                         {...register("description", { required: true })}
                         className="h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg"
@@ -194,12 +190,69 @@ function Home() {
                           <span className="d-none-xs">Video</span>
                         </label>
                       </div>
-                      <button type="submit" className="bg-sky-400 rounded-lg p-1 float-right" >Create Post</button>
+                      <button
+                        type="submit"
+                        className="bg-sky-400 rounded-lg p-1 float-right"
+                      >
+                        Create Post
+                      </button>
                     </form>
                   </div>
                 </div>
-
+                {/* ------------------------ */}
                 {articles.map((article) => (
+                  <div
+                    key={article.id}
+                    className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
+                  >
+                    <div className="card-body p-0 d-flex">
+                      <figure className="avatar me-3"></figure>
+                      <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+                        {article.titre}{" "}
+                        <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                          {article.time}
+                        </span>
+                      </h4>
+                      <div className="ms-auto pointer">
+                        <i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
+                      </div>
+                    </div>
+
+                    {/* <div className="card-body p-0 mb-3 rounded-3 overflow-hidden uttam-die">
+      <a href="/defaultvideo" className="video-btn">
+        <video autoPlay loop className="float-right w-100">
+          <source src={article.video} type="video/mp4" />
+        </video>
+      </a>
+    </div> */}
+
+                    <div className="card-body p-0 me-lg-5">
+                      <p className="fw-500 text-grey-500 lh-26 font-xssss w-100 mb-2">
+                        {article.description}{" "}
+                        <a
+                          href="/defaultvideo"
+                          className="fw-600 text-primary ms-2"
+                        >
+                          See more
+                        </a>
+                      </p>
+                    </div>
+
+                    <div className="card-body d-block p-0 mb-3">
+                      <div className="row ps-2 pe-2">
+                        <div className="col-sm-12 p-1">
+                          <img
+                            src={article.image}
+                            className="rounded-3 w-100"
+                            alt="post"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {/* {articles.map((article) => (
                   <Postview
                     key={article?.id} // Make sure to provide a unique key for each Postview
                     id={article?.id}
@@ -210,25 +263,9 @@ function Home() {
                     // time={article.time}
                     des={article.description}
                   />
-                ))}
-                <Postview
-                  id="31"
-                  postvideo=""
-                  postimage="post.png"
-                  avater="user.png"
-                  user="David Goria"
-                  time="22 min ago"
-                  des="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus."
-                />
-                <Postview
-                  id="33"
-                  postvideo=""
-                  postimage="post.png"
-                  avater="user.png"
-                  user="Anthony Daugloi"
-                  time="2 hour ago"
-                  des="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus."
-                />
+                 
+                ))} */}
+
                 <Memberslider />
                 <Postview
                   id="35"

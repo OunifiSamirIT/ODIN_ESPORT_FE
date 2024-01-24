@@ -9,6 +9,7 @@ import './main.scss';
 import Demo from './demo/Demo';
 
 import Home from './pages/Home';
+import Homee from './pages/Home copy';
 
 import Badge from './pages/Badge';
 import Group from './pages/Group';
@@ -63,7 +64,7 @@ function Root (){
           <BrowserRouter basename={'/'}>
 <Routes>
                     <Route  path="/" element={<Demo />} />
-                    <Route  path="/home" element={<Home/>}/>
+                    <Route  path="/home" element={<Homee/>}/>
 
                     <Route  path={`/defaultbadge`} element={<Badge/>}/>
                     <Route  path={`/defaultgroup`} element={<Group/>}/>

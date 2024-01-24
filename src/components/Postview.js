@@ -44,7 +44,7 @@ class Postview extends Component {
                 </div>
                 : ''}
                 <div className="card-body d-flex p-0">
-                    <div className="emoji-bttn pointer d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2" onClick={this.toggleActive}><i className="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i> <i className="feather-heart text-white bg-red-gradiant me-2 btn-round-xs font-xss"></i>2.8K Like</div>
+                    <div className="emoji-bttn pointer d-flex align-items-center fw-600 text-grey-900 text-dark lh-26 font-xssss me-2" onClick={this.toggleActive}><i className="feather-thumbs-up text-white bg-primary-gradiant me-1 btn-round-xs font-xss"></i> 2.8K Like</div>
                     <div className={`emoji-wrap pointer ${emojiClass}`}>
                         <ul className="emojis list-inline mb-0">
                             <li className="emoji list-inline-item"><i className="em em---1"></i> </li>
