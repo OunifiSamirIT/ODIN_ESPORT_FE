@@ -11,12 +11,36 @@ function Register() {
   const [selectedProfile, setSelectedProfile] = useState("");
 
   const [validationError, setValidationError] = useState("");
-
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [skillsError, setSkillsError] = useState(false);
+  const handleSkillToggle = (skill) => {
+    const updatedSkills = [...selectedSkills];
+  
+    if (updatedSkills.includes(skill)) {
+      // Remove skill if already selected
+      const index = updatedSkills.indexOf(skill);
+      updatedSkills.splice(index, 1);
+    } else {
+      // Add skill if not selected and the limit is not reached
+      if (updatedSkills.length < 10) {
+        updatedSkills.push(skill);
+      }
+    }
+  
+    setSelectedSkills(updatedSkills);
+    setSkillsError(updatedSkills.length >= 10);
+  };
+  
+  
+  
+  
+    
   const isPasswordValid = () => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/;
     return passwordRegex.test(formData.password);
   };
-
+ 
+  
   const handleInputChange = (e) => {
     setValidationError(""); 
 
@@ -57,7 +81,7 @@ function Register() {
     NumeroWhatsup: "",
     positionPlay: "",
     positionSecond: "",
-    skillsInProfile: "",
+    skillsInProfile: [],
 
 
 
@@ -194,6 +218,8 @@ function Register() {
       console.error("An error occurred:", error);
     }
   };
+  console.log("Skills Error:", skillsError);
+
   return (
     <Fragment>
       <div className="main-wrap ">
@@ -547,7 +573,7 @@ function Register() {
                     {step === 2 && (
                       <div>
                         {formData.profil === "player" && (
-                          <div style={{ maxHeight: "600px" }}>
+                          <div style={{ maxHeight: "1000px" }}>
                             <div className="form-group icon-input mb-3">
                               <i className="font-sm ti-user text-grey-500 pe-0"></i>
                               <input
@@ -635,17 +661,49 @@ function Register() {
                               />
                             </div>
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="skillsInProfile"
-                                name="skillsInProfile"
-                                value={formData.skillsInProfile}
-                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Skills in Profile"
-                                onChange={handleInputChange}
-                              />
-                            </div>
+  {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
+  {[
+    'Rapidite',
+    'Tacle',
+    'Defence',
+    'Tirs de loin',
+    'Header',
+    'jeu en une touche',
+    'Rapidite de la prise de désicion',
+    'Frappe puissante',
+    'Agilité',
+    'Controller du Ballon',
+    'Dribble',
+    'Exploitation de l\'espace',
+    'Evaluation des risques sur les terrain',
+    'Endurance',
+    'Equilibre et Coordination',
+    'Auto-Motivation',
+    // Add other skills...
+  ].map((skill) => (
+    <div key={skill} className="form-check form-check-inline">
+      <input
+        type="checkbox"
+        id={skill}
+        name="skillsInProfile"
+        value={skill}
+        checked={selectedSkills.includes(skill)}
+        onChange={() => handleSkillToggle(skill)}
+        className="form-check-input"
+      />
+      <label htmlFor={skill} className="form-check-label">
+        {skill}
+      </label>
+    </div>
+  ))}
+  
+</div>
+{skillsError && (
+    <div className="text-danger mt-2">
+      Please select at least one skill (up to 10) before proceeding.
+    </div>
+  )}
+
                             <div
                               className="form-group mb-1"
                               style={{ display: "flex" }}
