@@ -29,6 +29,7 @@ import {
   BiSolidVideo,
   BiUndo,
 } from "react-icons/bi";
+import Loading from "../components/Loading";
 function Home() {
   const {
     register,
@@ -164,30 +165,30 @@ function Home() {
         console.error("Error fetching data:", error);
       }
     };
-    const fetchComments = async () => {
-      try {
-        const response = await fetch('http://localhost:8088/api/commentaires/');
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setComments(data);
-      } catch (error) {
-        console.error('Error fetching comments:', error.message);
-      }
-    };
+    
 
     fetchComments();
     fetchArticles();
   }, []);
+  const fetchComments = async () => {
+    try {
+      const response = await fetch('http://localhost:8088/api/commentaires/');
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
+      const data = await response.json();
+      setComments(data);
+    } catch (error) {
+      console.error('Error fetching comments:', error.message);
+    }
+  };
   const addComment = async (articleId) => {
     try {
       if (articleId) {
         // Retrieve user information from local storage
         const user = JSON.parse(localStorage.getItem("user"));
-
+  
         const response = await fetch(
           "http://localhost:8088/api/commentaires/",
           {
@@ -202,13 +203,10 @@ function Home() {
             }),
           }
         );
-
+  
         const newComment = await response.json();
         console.log("Comment created:", newComment);
-
-        // Set the new comment in the state
-        setNewComment(newComment);
-
+  
         // Update the state with the new comment immediately
         setArticleComments((prevComments) => {
           const updatedComments = { ...prevComments };
@@ -218,9 +216,7 @@ function Home() {
           ];
           return updatedComments;
         });
-        
   
-        
         // Clear the comment input
         setComment("");
       }
@@ -228,6 +224,8 @@ function Home() {
       console.error("Error adding comment:", error);
     }
   };
+  
+  
 
   const addReply = async (commentId, replyText) => {
     try {
@@ -454,38 +452,7 @@ function Home() {
                       </div>
 
                       <div className=" px-4 rounded-lg">
-                        {/* <div className="px-6 py-4">
-                          <div className="font-bold text-xl mb-2">
-                            {article.titre}
-                          </div>
-                          <p className="text-gray-700 text-base">
-                            {article.description}
-                          </p>
-                        </div>
-
-                        <div className="px-6 pt-4 pb-2">
-                        </div>
-                        <div className="flex items-center">
-                          <img
-                            className="w-10 h-10 rounded-full mr-4"
-                            src="/img/jonathan.jpg"
-                            alt="Avatar of Jonathan Reinink"
-                          />
-                          <div className="text-sm">
-                            <p className="text-gray-900 leading-none">
-                              <p className="text-gray-700 text-base">
-                                {"   "} {article.user && article.user.login}
-                              </p>
-                              <label>
-                                --{article.user && article.user.profil}--
-                              </label>
-                            </p>
-                          </div>
-                          <p className="text-gray-600 ml-80 float-right">
-                            {article.createdAt &&
-                              article.createdAt.substring(0, 10)}
-                          </p>
-                        </div> */}
+                        
 
                         {article.user &&
                           article.user.id === storedUserData.id && (
@@ -501,19 +468,22 @@ function Home() {
                           )}
 
                         {selectedArticleId === article.id && (
-                          <div className=" p-4 bg-slate-600 rounded-lg mt-4">
+                          <div className=" p-4 bg-slate-100 rounded-lg mt-4">
                             {(() => {
                               if (!articleComments[article.id]) {
+                                fetchComments();
+
                                 fetch(
                                   `http://localhost:8088/api/commentaires/article/${article.id}`
                                 )
                                   .then((response) => response.json())
-                                  .then((comments) => {
+                                  .then((response) => {
                                     setArticleComments((prevComments) => ({
                                       ...prevComments,
-                                      [article.id]: comments,
+                                      [article.id]: response,
                                     }));
-                                  })
+                                    console.log("------------------",articleComments)
+                                  })                                 
 
                                   
                                   .catch((error) =>
@@ -531,6 +501,8 @@ function Home() {
                                 <>
                                   {articleComments[article.id]?.map(
                                     (commentItem) => (
+                                      
+
                                       <div
                                         key={commentItem.comm_id}
                                         className="mb-2"
@@ -538,11 +510,11 @@ function Home() {
                                         {/* Display comment details */}
                                         <div className="flex flex-col">
                                           <div className="flex items-center mb-1">
-                                            <div className="bg-white rounded-full w-20 h-10 mr-4 border-2">
-                                              {commentItem.user_login}
+                                            <div className="bg-white rounded-full text-black w-20 h-10 mr-4 border-2">
+                                              {commentItem?.user_login} 
                                             </div>
-                                            <div className="bg-white w-10 rounded-sm flex-grow">
-                                              {commentItem.comm_desc}
+                                            <div className="bg-white w-10 h-10 text-black rounded-sm flex-grow">
+                                              {commentItem?.comm_desc}  {commentItem?.description}
                                             </div>
                                           </div>
 
@@ -663,6 +635,8 @@ function Home() {
                                       addComment(article.id);
                                       // Reset the comment input after adding a comment
                                       setComment("");
+                                      fetchComments(); 
+
                                     }}
                                     className="bg-[#0444a4] text-white py-1 px-6 rounded-full font-semibold text-sm mt-2"
                                   >

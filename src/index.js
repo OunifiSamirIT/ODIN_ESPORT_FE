@@ -76,7 +76,7 @@ function Root (){
                     <Route  path={`/defaultanalytics`} element={<Analytics/>}/>
                     
                     
-                    <Route  path={`/accountinformation`} element={<Account/>}/>
+                    <Route  path={"/accountinformation"} element={<Account/>}/>
                     <Route  path={`/defaultmember`} element={<Member/>}/>
                     <Route  path={`/contactinformation`} element={<Contactinfo/>}/>
                     <Route  path={`/socialaccount`} element={<Socialaccount/>}/>
