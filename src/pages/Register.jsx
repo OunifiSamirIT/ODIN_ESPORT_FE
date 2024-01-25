@@ -1,11 +1,48 @@
 import React, { Component, Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Login from "../assets/Loggin.png"
-import Logo from '../assets/logo.png'
+import Login from "../assets/Loggin.png";
+import Logo from "../assets/logo.png";
 
 function Register() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+  const [inputErrors, setInputErrors] = useState({});
+  const [profileError, setProfileError] = useState(false);
+  const [selectedProfile, setSelectedProfile] = useState("");
+
+
+  const [validationError, setValidationError] = useState("");
+
+  const isPasswordValid = () => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/;
+    return passwordRegex.test(formData.password);
+  };
+
+
+
+
+
+
+
+  const handleInputChange = (e) => {
+    setValidationError(""); // Clear any previous validation error
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+
+    if (e.target.name === "profil") {
+      // Clear the error message for profile selection when the user starts typing in the profile field
+      setProfileError(false);
+    } else {
+      // Clear the error message when the user starts typing in a field other than profile
+      setInputErrors({
+        ...inputErrors,
+        [e.target.name]: undefined,
+      });
+    }
+  };
 
   const [formData, setFormData] = useState({
     nom: "",
@@ -39,14 +76,24 @@ function Register() {
     roles: [],
   });
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  //   const handleInputChange = (e) => {
+  //     setFormData({
+  //       ...formData,
+  //       [e.target.name]: e.target.value,
+  //     });
+  //   };
 
   const handleNextStep = () => {
+    if (!isPasswordValid()) {
+        setValidationError(
+          "Password must be at least 8 characters long and include one uppercase letter and one special character"
+        );
+        return;
+      }
+      if (formData.password !== formData.confirmPassword) {
+        setValidationError("Passwords do not match");
+        return;
+      }
     const profileRoleMap = {
       player: "player",
       coach: "coach",
@@ -54,16 +101,64 @@ function Register() {
       scout: "scout",
       advertise: "advertise",
     };
-  
+
     const selectedProfile = formData.profil;
     const selectedRole = profileRoleMap[selectedProfile];
-  
-    setFormData({
-      ...formData,
-      roles: [selectedRole], 
-    });
-  
-    setStep(step + 1);
+
+    // Check if all required fields are filled in
+    const requiredFields = [
+      "nom",
+      "prenom",
+      "date_naissance",
+      "gender",
+      "nationality",
+      "countryresidence",
+      "cityresidence",
+      "tel",
+      "email",
+      "login",
+      "profil",
+      "password",
+    ];
+    const isProfileSelected = selectedProfile !== "";
+    setProfileError(!isProfileSelected); // Set profile error state
+
+    const areAllFieldsFilled = requiredFields.every(
+      (field) => formData[field] !== ""
+    );
+
+    console.log("Selected Profile:", selectedProfile);
+    console.log("Form Data:", formData);
+    console.log("Are All Fields Filled:", areAllFieldsFilled);
+    console.log("Is Profile Selected:", isProfileSelected);
+
+    if (areAllFieldsFilled && isProfileSelected) {
+      if (selectedProfile === "player") {
+        setFormData({
+          ...formData,
+          roles: [selectedRole],
+        });
+        setStep(2); // Navigate to step 2 if the selected profile is "player"
+      } else {
+        setFormData({
+          ...formData,
+          roles: [selectedRole],
+        });
+        setStep(step + 1);
+      }
+    } else {
+      // Set error messages for empty fields
+      const errors = {};
+      requiredFields.forEach((field) => {
+        if (formData[field] === "") {
+          errors[field] = "This field is required";
+        }
+      });
+      setInputErrors(errors);
+
+      // Alert the user or provide feedback that some fields are missing
+      console.log("Please fill in all required fields.");
+    }
   };
 
   const handlePrevStep = () => {
@@ -99,12 +194,17 @@ function Register() {
       console.error("An error occurred:", error);
     }
   };
-  return ( 
+  return (
     <Fragment>
       <div className="main-wrap ">
         <div className="nav-header bg-transparent shadow-none border-0">
           <div className="nav-top w-100">
-              <Link to="/"><img src={Logo} className='h-14 w-14 '/><span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">ODIN E-SPORT </span> </Link>
+            <Link to="/">
+              <img src={Logo} className="h-14 w-14 " />
+              <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">
+                ODIN E-SPORT{" "}
+              </span>{" "}
+            </Link>
 
             <button className="nav-menu me-0 ms-auto"></button>
 
@@ -124,11 +224,15 @@ function Register() {
         </div>
 
         <div className="row ">
-        <div className="col-xl-4 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat">
-    <div className="h-full flex items-center justify-center mt-14 ml-10">
-      <img src={Login} className="object-contain max-h-full " alt="Login Image" />
-    </div>
-  </div>
+          <div className="col-xl-4 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat">
+            <div className="h-full flex items-center justify-center mt-14 ml-10">
+              <img
+                src={Login}
+                className="object-contain max-h-full "
+                alt="Login Image"
+              />
+            </div>
+          </div>
           <div className="col-xl-8 h-full  align-items-center d-flex bg-white rounded-3 overflow-hidden">
             <div className="card shadow-none border-0  me-auto login-card">
               <div className="card-body rounded-0 text-left    ">
@@ -136,123 +240,62 @@ function Register() {
                   Create your account
                 </h2>
                 <div className=" h-[680px] w-[700px] lg:mt-10 overflow-y-scroll overflow-x-hidden ">
-                  <form
-                    className="xl:w-auto h-full  "
-                    onSubmit={handleSubmit}
-                  >
+                  <form className="xl:w-auto h-full  " onSubmit={handleSubmit}>
                     {step === 1 && (
                       <div className="h-max w-full ">
                         <div className="row">
-                        <label className="mb-2 text-2xl font-serif">Please Select Your Profil:</label>
+                          <label className="mb-2 text-2xl font-serif">
+                            Please Select Your Profil:
+                          </label>
+                          {[
+                            "player",
+                            "coach",
+                            "agent",
+                            "scout",
+                            "advertise",
+                          ].map((profile) => (
+                            <div key={profile} className="col-6 col-md-2 mb-3">
+                              <div className="form-check">
+                                <input
+                                  type="radio"
+                                  id={profile}
+                                  name="profil"
+                                  value={profile}
+                                  checked={selectedProfile === profile}
+                                  onChange={() => {
+                                    const selectedProfileValue = profile;
+                                    console.log(
+                                      "Selected Profile Value:",
+                                      selectedProfileValue
+                                    );
+                                    setSelectedProfile(selectedProfileValue);
+                                    handleInputChange({
+                                      target: {
+                                        name: "profil",
+                                        value: selectedProfileValue,
+                                      },
+                                    });
+                                  }}
+                                  className="form-check-input"
+                                />
 
-                          <div className="col-7 col-md-2 mb-3">
-                            <div className="form-check">
-                              <input
-                                type="radio"
-                                id="player"
-                                name="profile"
-                                value="player"
-                                checked={formData.profil === "player"}
-                                onChange={() =>
-                                  setFormData({ ...formData, profil: "player" })
-                                }
-                                className="form-check-input"
-                              />
-                              <label
-                                htmlFor="player"
-                                className="form-check-label"
-                              >
-                                Player
-                              </label>
+                                <label
+                                  htmlFor={profile}
+                                  className="form-check-label"
+                                >
+                                  {profile.charAt(0).toUpperCase() +
+                                    profile.slice(1)}
+                                </label>
+                              </div>
                             </div>
-                          </div>
-                          <div className="col-6 col-md-2 mb-3">
-                            <div className="form-check">
-                              <input
-                                type="radio"
-                                id="coach"
-                                name="profile"
-                                value="coach"
-                                checked={formData.profil === "coach"}
-                                onChange={() =>
-                                  setFormData({ ...formData, profil: "coach" })
-                                }
-                                className="form-check-input"
-                              />
-                              <label
-                                htmlFor="coach"
-                                className="form-check-label"
-                              >
-                                Coach
-                              </label>
+                          ))}
+
+                          {console.log(profileError)}
+                          {profileError && (
+                            <div className="text-danger mt-2">
+                              Please select a profile before proceeding.
                             </div>
-                          </div>
-                          <div className="col-6 col-md-2 mb-3">
-                            <div className="form-check">
-                              <input
-                                type="radio"
-                                id="agent"
-                                name="profile"
-                                value="agent"
-                                checked={formData.profil === "agent"}
-                                onChange={() =>
-                                  setFormData({ ...formData, profil: "agent" })
-                                }
-                                className="form-check-input"
-                              />
-                              <label
-                                htmlFor="agent"
-                                className="form-check-label"
-                              >
-                                Agent
-                              </label>
-                            </div>
-                          </div>
-                          <div className="col-6 col-md-2 mb-3">
-                            <div className="form-check">
-                              <input
-                                type="radio"
-                                id="scout"
-                                name="profile"
-                                value="scout"
-                                checked={formData.profil === "scout"}
-                                onChange={() =>
-                                  setFormData({ ...formData, profil: "scout" })
-                                }
-                                className="form-check-input"
-                              />
-                              <label
-                                htmlFor="scout"
-                                className="form-check-label"
-                              >
-                                Scout
-                              </label>
-                            </div>
-                          </div>
-                          <div className="col-6 col-md-3 mb-3">
-                            <div className="form-check">
-                              <input
-                                type="radio"
-                                id="advertise"
-                                name="profile"
-                                value="advertise"
-                                checked={formData.profil === "advertise"}
-                                onChange={() =>
-                                  setFormData({
-                                    ...formData,
-                                    profil: "advertise",
-                                  })
-                                }
-                                className="form-check-input"
-                              />
-                              <label
-                                htmlFor="advertise"
-                                className="form-check-label"
-                              >
-                                Advertise
-                              </label>
-                            </div>
-                          </div>
+                          )}
                         </div>
 
                         {/* <div className="form-group icon-input mb-3">
@@ -272,22 +315,35 @@ function Register() {
                             name="nom"
                             value={formData.nom}
                             onChange={handleInputChange}
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["nom"] ? "is-invalid" : ""
+                            }`}
                             placeholder="Your Name"
                           />
+                          {inputErrors["nom"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["nom"]}
+                            </div>
+                          )}
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-user text-grey-500 pe-0"></i>
-
                           <input
                             type="text"
                             value={formData.prenom}
                             id="prenom"
                             name="prenom"
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["prenom"] ? "is-invalid" : ""
+                            }`}
                             placeholder="Your Prenom"
                             onChange={handleInputChange}
                           />
+                          {inputErrors["prenom"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["prenom"]}
+                            </div>
+                          )}
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-email text-grey-500 pe-0"></i>
@@ -296,31 +352,53 @@ function Register() {
                             value={formData.email}
                             id="email"
                             name="email"
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["email"] ? "is-invalid" : ""
+                            }`}
                             placeholder="Email"
                             onChange={handleInputChange}
                           />
+                          {inputErrors["email"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["email"]}
+                            </div>
+                          )}
                         </div>
                         <div className="form-group icon-input mb-3">
-                          <input
-                            type="password"
-                            value={formData.password}
-                            id="password"
-                            name="password"
-                            className="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
-                            placeholder="Password"
-                            onChange={handleInputChange}
-                          />
-                          <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                        </div>
-                        <div className="form-group icon-input mb-1">
-                          <input
-                            type="password"
-                            className="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
-                            placeholder="Confirm Password"
-                          />
-                          <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                        </div>
+        <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+        <input
+          type="password"
+          value={formData.password}
+          id="password"
+          name="password"
+          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+            validationError ? "is-invalid" : ""
+          }`}
+          placeholder="Password"
+          onChange={handleInputChange}
+        />
+        {validationError && (
+          <div className="invalid-feedback">{validationError}</div>
+        )}
+      </div>
+
+      <div className="form-group icon-input mb-3">
+        <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+        <input
+          type="password"
+          value={formData.confirmPassword}
+          id="confirmPassword"
+          name="confirmPassword"
+          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+            validationError ? "is-invalid" : ""
+          }`}
+          placeholder="Confirm Password"
+          onChange={handleInputChange}
+        />
+        {validationError && (
+          <div className="invalid-feedback">{validationError}</div>
+        )}
+      </div>
 
                         {/* Additional form fields */}
 
@@ -337,17 +415,23 @@ function Register() {
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-user text-grey-500 pe-0"></i>
-
                           <select
                             name="gender"
                             value={formData.gender}
                             onChange={handleInputChange}
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["gender"] ? "is-invalid" : ""
+                            }`}
                           >
                             <option value="">Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                           </select>
+                          {inputErrors["gender"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["gender"]}
+                            </div>
+                          )}
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-world text-grey-500 pe-0"></i>
@@ -355,10 +439,17 @@ function Register() {
                             type="text"
                             name="nationality"
                             value={formData.nationality}
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["nationality"] ? "is-invalid" : ""
+                            }`}
                             placeholder="Nationality"
                             onChange={handleInputChange}
                           />
+                          {inputErrors["nationality"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["nationality"]}
+                            </div>
+                          )}
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-world text-grey-500 pe-0"></i>
@@ -366,10 +457,19 @@ function Register() {
                             type="text"
                             name="countryresidence"
                             value={formData.countryresidence}
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["countryresidence"]
+                                ? "is-invalid"
+                                : ""
+                            }`}
                             placeholder="Country of Residence"
                             onChange={handleInputChange}
                           />
+                          {inputErrors["countryresidence"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["countryresidence"]}
+                            </div>
+                          )}
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-location-pin text-grey-500 pe-0"></i>
@@ -377,10 +477,17 @@ function Register() {
                             type="text"
                             name="cityresidence"
                             value={formData.cityresidence}
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["cityresidence"] ? "is-invalid" : ""
+                            }`}
                             placeholder="City of Residence"
                             onChange={handleInputChange}
                           />
+                          {inputErrors["cityresidence"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["cityresidence"]}
+                            </div>
+                          )}
                         </div>
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-mobile text-grey-500 pe-0"></i>
@@ -389,10 +496,17 @@ function Register() {
                             value={formData.tel}
                             id="tel"
                             name="tel"
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["tel"] ? "is-invalid" : ""
+                            }`}
                             placeholder="Phone Number"
                             onChange={handleInputChange}
                           />
+                          {inputErrors["tel"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["tel"]}
+                            </div>
+                          )}
                         </div>
 
                         <div className="form-group icon-input mb-3">
@@ -402,10 +516,17 @@ function Register() {
                             value={formData.login}
                             id="login"
                             name="login"
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["login"] ? "is-invalid" : ""
+                            }`}
                             placeholder="Login"
                             onChange={handleInputChange}
                           />
+                          {inputErrors["login"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["login"]}
+                            </div>
+                          )}
                         </div>
                         <div className="form-group mb-1">
                           <button

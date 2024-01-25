@@ -7,6 +7,9 @@ function Login() {
   const [isEmailVerified, setIsEmailVerified] = useState(true);
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loginError, setLoginError] = useState(false); // New state variable for login error
+  const [invalidPassword, setInvalidPassword] = useState(false); // New state variable for invalid password
+
   const navigate = useNavigate();
   const {
     register,
@@ -49,7 +52,13 @@ function Login() {
           navigate("/home");
         }
       } else {
-        setErrMsg({ status: "failed", message: result.message });
+        if (response.status === 401) {
+          setInvalidPassword(true); // Set invalidPassword to true if the password is invalid
+        } else {
+          setErrMsg({ status: "failed", message: result.message });
+          setLoginError(true); // Set loginError to true for other login errors
+        }
+
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -106,7 +115,11 @@ function Login() {
                     />
                     <i className="font-sm ti-lock text-grey-500 pe-0"></i>
                   </div>
-
+                  {loginError && (
+            <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
+              User not found. Please check your credentials.
+            </div>
+          )}
                   <div className="form-check text-left mb-3">
                     <input
                       type="checkbox"
@@ -126,7 +139,11 @@ function Login() {
 
                   {/* Display verification message if email is not verified */}
                   {!isEmailVerified && verificationMessage}
-
+                  {invalidPassword && (
+            <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
+              Invalid password. Please check your password and try again.
+            </div>
+          )}
                   <div className="col-sm-12 p-0 text-left">
                     <div className="form-group mb-1">
                       <button
