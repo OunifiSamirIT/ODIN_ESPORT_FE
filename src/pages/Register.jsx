@@ -10,7 +10,6 @@ function Register() {
   const [profileError, setProfileError] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState("");
 
-
   const [validationError, setValidationError] = useState("");
 
   const isPasswordValid = () => {
@@ -18,14 +17,8 @@ function Register() {
     return passwordRegex.test(formData.password);
   };
 
-
-
-
-
-
-
   const handleInputChange = (e) => {
-    setValidationError(""); // Clear any previous validation error
+    setValidationError(""); 
 
     setFormData({
       ...formData,
@@ -33,10 +26,9 @@ function Register() {
     });
 
     if (e.target.name === "profil") {
-      // Clear the error message for profile selection when the user starts typing in the profile field
+      
       setProfileError(false);
     } else {
-      // Clear the error message when the user starts typing in a field other than profile
       setInputErrors({
         ...inputErrors,
         [e.target.name]: undefined,
@@ -60,10 +52,18 @@ function Register() {
     // Additional fields for player
     height: "",
     weight: "",
-    strongSkill: "",
+    piedFort: "",
+    licence: "",
+    NumeroWhatsup: "",
     positionPlay: "",
     positionSecond: "",
     skillsInProfile: "",
+
+
+
+
+
+
     // Additional fields for coach
     totalTeam: "",
     countryCoachedIn: "",
@@ -85,15 +85,15 @@ function Register() {
 
   const handleNextStep = () => {
     if (!isPasswordValid()) {
-        setValidationError(
-          "Password must be at least 8 characters long and include one uppercase letter and one special character"
-        );
-        return;
-      }
-      if (formData.password !== formData.confirmPassword) {
-        setValidationError("Passwords do not match");
-        return;
-      }
+      setValidationError(
+        "Password must be at least 8 characters long and include one uppercase letter and one special character"
+      );
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setValidationError("Passwords do not match");
+      return;
+    }
     const profileRoleMap = {
       player: "player",
       coach: "coach",
@@ -365,40 +365,44 @@ function Register() {
                           )}
                         </div>
                         <div className="form-group icon-input mb-3">
-        <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-        <input
-          type="password"
-          value={formData.password}
-          id="password"
-          name="password"
-          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-            validationError ? "is-invalid" : ""
-          }`}
-          placeholder="Password"
-          onChange={handleInputChange}
-        />
-        {validationError && (
-          <div className="invalid-feedback">{validationError}</div>
-        )}
-      </div>
+                          <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+                          <input
+                            type="password"
+                            value={formData.password}
+                            id="password"
+                            name="password"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              validationError ? "is-invalid" : ""
+                            }`}
+                            placeholder="Password"
+                            onChange={handleInputChange}
+                          />
+                          {validationError && (
+                            <div className="invalid-feedback">
+                              {validationError}
+                            </div>
+                          )}
+                        </div>
 
-      <div className="form-group icon-input mb-3">
-        <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-        <input
-          type="password"
-          value={formData.confirmPassword}
-          id="confirmPassword"
-          name="confirmPassword"
-          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-            validationError ? "is-invalid" : ""
-          }`}
-          placeholder="Confirm Password"
-          onChange={handleInputChange}
-        />
-        {validationError && (
-          <div className="invalid-feedback">{validationError}</div>
-        )}
-      </div>
+                        <div className="form-group icon-input mb-3">
+                          <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+                          <input
+                            type="password"
+                            value={formData.confirmPassword}
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              validationError ? "is-invalid" : ""
+                            }`}
+                            placeholder="Confirm Password"
+                            onChange={handleInputChange}
+                          />
+                          {validationError && (
+                            <div className="invalid-feedback">
+                              {validationError}
+                            </div>
+                          )}
+                        </div>
 
                         {/* Additional form fields */}
 
@@ -543,17 +547,17 @@ function Register() {
                     {step === 2 && (
                       <div>
                         {formData.profil === "player" && (
-                          <div
-                            style={{ maxHeight: "300px", overflowY: "auto" }}
-                          >
+                          <div style={{ maxHeight: "600px" }}>
                             <div className="form-group icon-input mb-3">
                               <i className="font-sm ti-user text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="height"
                                 name="height"
+                                value={formData.height}
+
                                 className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Height"
+                                placeholder="Taille"
                                 onChange={handleInputChange}
                               />
                             </div>
@@ -565,7 +569,20 @@ function Register() {
                                 name="weight"
                                 value={formData.weight}
                                 className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Weight"
+                                placeholder="Poids"
+                                onChange={handleInputChange}
+                              />
+                            </div>
+
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <input
+                                type="text"
+                                id="piedFort"
+                                name="piedFort"
+                                value={formData.piedFort}
+                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                                placeholder="Pied Forte"
                                 onChange={handleInputChange}
                               />
                             </div>
@@ -573,11 +590,23 @@ function Register() {
                               <i className="font-sm ti-user text-grey-500 pe-0"></i>
                               <input
                                 type="text"
-                                id="strongSkill"
-                                name="strongSkill"
-                                value={formData.strongSkill}
+                                id="licence"
+                                name="licence"
+                                value={formData.licence}
                                 className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Strong Skill"
+                                placeholder="Licence"
+                                onChange={handleInputChange}
+                              />
+                            </div>
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <input
+                                type="text"
+                                id="NumeroWhatsup"
+                                name="NumeroWhatsup"
+                                value={formData.NumeroWhatsup}
+                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                                placeholder="Numero Whatsup"
                                 onChange={handleInputChange}
                               />
                             </div>
@@ -617,7 +646,10 @@ function Register() {
                                 onChange={handleInputChange}
                               />
                             </div>
-                            <div className="form-group mb-1">
+                            <div
+                              className="form-group mb-1"
+                              style={{ display: "flex" }}
+                            >
                               <button
                                 type="button"
                                 onClick={handlePrevStep}
@@ -634,17 +666,6 @@ function Register() {
                             </div>
                           </div>
                         )}
-
-                        <div className="form-check text-left mb-3">
-                          <input
-                            type="checkbox"
-                            className="form-check-input mt-2"
-                            id="exampleCheck2"
-                          />
-                          <label className="form-check-label font-xsss text-grey-500">
-                            Accept Term and Conditions
-                          </label>
-                        </div>
                       </div>
                     )}
                   </form>
