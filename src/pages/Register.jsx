@@ -11,15 +11,15 @@ function Register() {
   const [selectedProfile, setSelectedProfile] = useState("");
 
   const [validationError, setValidationError] = useState("");
-  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState("");
   const [skillsError, setSkillsError] = useState(false);
+
   const handleSkillToggle = (skill) => {
-    const updatedSkills = [...selectedSkills];
+    let updatedSkills = formData.skillsInProfile.split(','); // Convert string to array
   
     if (updatedSkills.includes(skill)) {
       // Remove skill if already selected
-      const index = updatedSkills.indexOf(skill);
-      updatedSkills.splice(index, 1);
+      updatedSkills = updatedSkills.filter((s) => s !== skill);
     } else {
       // Add skill if not selected and the limit is not reached
       if (updatedSkills.length < 10) {
@@ -27,9 +27,16 @@ function Register() {
       }
     }
   
-    setSelectedSkills(updatedSkills);
+    setFormData({
+      ...formData,
+      skillsInProfile: updatedSkills.join(','), // Convert back to string
+    });
     setSkillsError(updatedSkills.length >= 10);
   };
+  
+  
+
+  
   
   
   
@@ -76,12 +83,12 @@ function Register() {
     // Additional fields for player
     height: "",
     weight: "",
-    piedFort: "",
-    licence: "",
+    PiedFort: "",
+    Licence: "",
     NumeroWhatsup: "",
     positionPlay: "",
     positionSecond: "",
-    skillsInProfile: [],
+    skillsInProfile: "",
 
 
 
@@ -195,29 +202,114 @@ function Register() {
       roles: selectedRoles,
     });
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Form Data:", formData); // Log form data
 
-    try {
-      const response = await fetch("http://localhost:8088/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
 
-      if (response.ok) {
-        console.log("User registered successfully!");
-        navigate("/login");
-      } else {
-        console.error("Registration failed.");
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
+
+
+
+
+
+
+
+  const getRequiredFields = (step) => {
+    if (step === 2) {
+      return [
+        "height",
+        "weight",
+        "piedFort",
+        "licence",
+        "NumeroWhatsup",
+        "positionPlay",
+        "positionSecond",
+        // Add other required fields in Step 2...
+      ];
+    } else {
+      return [];
     }
   };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Submit button clicked!"); // Add this line
+
+    // Validate skills selection
+    // if (selectedSkills.length === 0 || selectedSkills.length > 10) {
+    //   setSkillsError(true);
+    //   return;
+    // } else {
+    //   setSkillsError(false);
+    // }
+    if (selectedSkills.length === 0 || selectedSkills.length > 10) {
+      console.log("Skills error detected");
+    }
+  
+    // Validate other fields
+    const requiredFields = getRequiredFields(step);
+  
+    const areAllFieldsFilled = requiredFields.every(
+      (field) => formData[field] !== ""
+    );
+  
+    if (areAllFieldsFilled) {
+      try {
+        const response = await fetch("http://localhost:8088/api/auth/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        if (response.ok) {
+          console.log("User registered successfully!");
+          navigate("/login");
+        } else {
+          console.error("Registration failed.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    } else {
+      // Set error messages for empty fields
+      const errors = {};
+      requiredFields.forEach((field) => {
+        if (formData[field] === "") {
+          errors[field] = "This field is required";
+        }
+      });
+      setInputErrors(errors);
+    
+      // Log the errors to the console
+      console.log("Input Errors:", errors);
+    }
+    
+  };
+  
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log("Form Data:", formData); // Log form data
+
+
+    
+  //   try {
+  //     const response = await fetch("http://localhost:8088/api/auth/signup", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     if (response.ok) {
+  //       console.log("User registered successfully!");
+  //       navigate("/login");
+  //     } else {
+  //       console.error("Registration failed.");
+  //     }
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
   console.log("Skills Error:", skillsError);
 
   return (
@@ -374,7 +466,7 @@ function Register() {
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-email text-grey-500 pe-0"></i>
                           <input
-                            type="text"
+                            type="email"
                             value={formData.email}
                             id="email"
                             name="email"
@@ -575,91 +667,129 @@ function Register() {
                         {formData.profil === "player" && (
                           <div style={{ maxHeight: "1000px" }}>
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="height"
-                                name="height"
-                                value={formData.height}
+  <i className="font-sm ti-user text-grey-500 pe-0"></i>
+  <input
+    type="text"
+    id="height"
+    name="height"
+    value={formData.height}
+    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+      inputErrors["height"] ? "is-invalid" : ""
+    }`}
+    placeholder="Height"
+    onChange={handleInputChange}
+  />
+  {inputErrors["height"] && (
+    <div className="invalid-feedback">{inputErrors["height"]}</div>
+  )}
+</div>
+<div className="form-group icon-input mb-3">
+  <i className="font-sm ti-user text-grey-500 pe-0"></i>
+  <input
+    type="text"
+    id="weight"
+    name="weight"
+    value={formData.weight}
+    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+      inputErrors["weight"] ? "is-invalid" : ""
+    }`}
+    placeholder="Weight"
+    onChange={handleInputChange}
+  />
+  {inputErrors["weight"] && (
+    <div className="invalid-feedback">{inputErrors["weight"]}</div>
+  )}
+</div>
 
-                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Taille"
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="weight"
-                                name="weight"
-                                value={formData.weight}
-                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Poids"
-                                onChange={handleInputChange}
-                              />
-                            </div>
+<div className="form-group icon-input mb-3">
+  <i className="font-sm ti-user text-grey-500 pe-0"></i>
+  <input
+    type="text"
+    id="PiedFort"
+    name="PiedFort"
+    value={formData.PiedFort}
+    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+      inputErrors["PiedFort"] ? "is-invalid" : ""
+    }`}
+    placeholder="Pied Forte"
+    onChange={handleInputChange}
+  />
+  {inputErrors["PiedFort"] && (
+    <div className="invalid-feedback">{inputErrors["PiedFort"]}</div>
+  )}
+</div>
 
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="piedFort"
-                                name="piedFort"
-                                value={formData.piedFort}
-                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Pied Forte"
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="licence"
-                                name="licence"
-                                value={formData.licence}
-                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Licence"
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="NumeroWhatsup"
-                                name="NumeroWhatsup"
-                                value={formData.NumeroWhatsup}
-                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Numero Whatsup"
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="positionPlay"
-                                name="positionPlay"
-                                value={formData.positionPlay}
-                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Position Play"
-                                onChange={handleInputChange}
-                              />
-                            </div>
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="positionSecond"
-                                name="positionSecond"
-                                value={formData.positionSecond}
-                                className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                                placeholder="Position Second"
-                                onChange={handleInputChange}
-                              />
-                            </div>
+<div className="form-group icon-input mb-3">
+  <i className="font-sm ti-user text-grey-500 pe-0"></i>
+  <input
+    type="text"
+    id="Licence"
+    name="Licence"
+    value={formData.Licence}
+    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+      inputErrors["Licence"] ? "is-invalid" : ""
+    }`}
+    placeholder="Licence"
+    onChange={handleInputChange}
+  />
+  {inputErrors["Licence"] && (
+    <div className="invalid-feedback">{inputErrors["Licence"]}</div>
+  )}
+</div>
+<div className="form-group icon-input mb-3">
+  <i className="font-sm ti-user text-grey-500 pe-0"></i>
+  <input
+    type="text"
+    id="NumeroWhatsup"
+    name="NumeroWhatsup"
+    value={formData.NumeroWhatsup}
+    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+      inputErrors["NumeroWhatsup"] ? "is-invalid" : ""
+    }`}
+    placeholder="Numero Whatsup"
+    onChange={handleInputChange}
+  />
+  {inputErrors["NumeroWhatsup"] && (
+    <div className="invalid-feedback">{inputErrors["NumeroWhatsup"]}</div>
+  )}
+</div>
+
+<div className="form-group icon-input mb-3">
+  <i className="font-sm ti-user text-grey-500 pe-0"></i>
+  <input
+    type="text"
+    id="positionPlay"
+    name="positionPlay"
+    value={formData.positionPlay}
+    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+      inputErrors["positionPlay"] ? "is-invalid" : ""
+    }`}
+    placeholder="Position Play"
+    onChange={handleInputChange}
+  />
+  {inputErrors["positionPlay"] && (
+    <div className="invalid-feedback">{inputErrors["positionPlay"]}</div>
+  )}
+</div>
+
+<div className="form-group icon-input mb-3">
+  <i className="font-sm ti-user text-grey-500 pe-0"></i>
+  <input
+    type="text"
+    id="positionSecond"
+    name="positionSecond"
+    value={formData.positionSecond}
+    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+      inputErrors["positionSecond"] ? "is-invalid" : ""
+    }`}
+    placeholder="Position Second"
+    onChange={handleInputChange}
+  />
+  {inputErrors["positionSecond"] && (
+    <div className="invalid-feedback">{inputErrors["positionSecond"]}</div>
+  )}
+</div>
+
                             <div className="form-group icon-input mb-3">
   {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
   {[
@@ -680,22 +810,26 @@ function Register() {
     'Equilibre et Coordination',
     'Auto-Motivation',
     // Add other skills...
-  ].map((skill) => (
-    <div key={skill} className="form-check form-check-inline">
-      <input
-        type="checkbox"
-        id={skill}
-        name="skillsInProfile"
-        value={skill}
-        checked={selectedSkills.includes(skill)}
-        onChange={() => handleSkillToggle(skill)}
-        className="form-check-input"
-      />
-      <label htmlFor={skill} className="form-check-label">
-        {skill}
-      </label>
-    </div>
-  ))}
+  ].map((skillsInProfile) => (
+  <div key={skillsInProfile} className="form-check form-check-inline me-2 mb-2">
+    <input
+      type="checkbox"
+      id={skillsInProfile}
+      name="skillsInProfile"
+      checked={selectedSkills.includes(skillsInProfile)}
+      onChange={() => handleSkillToggle(skillsInProfile)}
+      className="form-check-input d-none"
+    />
+    <label
+      htmlFor={skillsInProfile}
+      className={`form-check-label btn ${
+        selectedSkills.includes(skillsInProfile) ? "btn-dark" : "btn-light"
+      }`}
+    >
+      {skillsInProfile}
+    </label>
+  </div>
+))}
   
 </div>
 {skillsError && (
