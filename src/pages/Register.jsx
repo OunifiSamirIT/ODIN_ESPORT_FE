@@ -13,6 +13,7 @@ function Register() {
   const [validationError, setValidationError] = useState("");
   const [selectedSkills, setSelectedSkills] = useState("");
   const [skillsError, setSkillsError] = useState(false);
+  const [coachSkillsError, setCoachSkillsError] = useState(false);
 
   const handleSkillToggle = (skill) => {
     let updatedSkills = formData.skillsInProfile.split(','); // Convert string to array
@@ -35,6 +36,27 @@ function Register() {
   };
   
   
+
+// Function to toggle coach skills
+// Function to toggle coach skills
+const handleCoachSkillToggle = (coachSkill) => {
+  let updatedCoachSkills = formData.skills.split(',');
+
+  if (updatedCoachSkills.includes(coachSkill)) {
+    updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
+  } else {
+    if (updatedCoachSkills.length < 10) {
+      updatedCoachSkills.push(coachSkill);
+    }
+  }
+
+  setFormData({
+    ...formData,
+    skills: updatedCoachSkills.join(','),
+  });
+  setCoachSkillsError(updatedCoachSkills.length >= 10 );
+};
+
 
   
   
@@ -240,15 +262,16 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submit button clicked!"); // Add this line
+   
+    const selectedCoachSkills = formData.skills.split(',');
 
-    // Validate skills selection
-    // if (selectedSkills.length === 0 || selectedSkills.length > 10) {
-    //   setSkillsError(true);
-    //   return;
-    // } else {
-    //   setSkillsError(false);
-    // }
-    if ( selectedSkills.length > 10) {
+    if (selectedCoachSkills.length === 0) {
+      setSkillsError(true);
+      return;
+    } else {
+      setSkillsError(false);
+    }
+    if ( selectedSkills.length > 1) {
       console.log("Skills error detected");
     }
   
@@ -288,7 +311,12 @@ function Register() {
       });
       setInputErrors(errors);
       
-  
+      if (selectedCoachSkills.length === 0) {
+        setSkillsError(true);
+        return;
+      } else {
+        setSkillsError(false);
+      }
       // Log the errors to the console
       console.log("Input Errors:", errors);
     }
@@ -777,13 +805,11 @@ function Register() {
 </div>
 
                             <div className="form-group icon-input mb-3">
-  {/* <i className="font-sm ti-user text-grey-500 pe-0"></i> */}
   {[
     'Rapidite',
     'Tacle',
     'Defence',
     'Tirs de loin',
-    'Header',
     'jeu en une touche',
     'Rapidite de la prise de désicion',
     'Frappe puissante',
@@ -887,25 +913,76 @@ function Register() {
             )}
           </div>
 
-          <div className="form-group icon-input mb-3">
-            <i className="font-sm ti-user text-grey-500 pe-0"></i>
+          {/* <div className="form-group icon-input mb-3">
             <input
               type="text"
               id="skills"
               name="skills"
-              value={formData.skills}
-              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+              
+              className={` ${
                 inputErrors["skills"] ? "is-invalid" : ""
               }`}
-              placeholder="Skills"
               onChange={handleInputChange}
             />
             {inputErrors["skills"] && (
               <div className="invalid-feedback">{inputErrors["skills"]}</div>
             )}
-          </div>
+          </div> */}
 
-          {/* Additional coach-specific fields go here */}
+
+
+
+       <div className="form-group icon-input mb-3">
+       {[
+  'Connaissance Tactique',
+  'Competence Technique',
+  'Leadership',
+  'Communication',
+  'Gestion de groupe',
+  'Analyse',
+  'Planification',
+  'Adaptabilité',
+  'Ethique',
+  'Connaissance des regles',
+  'Gestion de stress',
+  'Developpement individuel',
+  'Empathie',
+  // Add other coach-specific skills...
+].map((coachSkill) => (
+  <div key={coachSkill} className="form-check form-check-inline me-2 mb-2">
+    <input
+      type="checkbox"
+      id={coachSkill}
+      name="coachSkillsInProfile"
+      checked={formData.skills.split(',').includes(coachSkill)}
+      onChange={() => handleCoachSkillToggle(coachSkill)}
+      className="form-check-input d-none"
+    />
+    <label
+      htmlFor={coachSkill}
+      className={`form-check-label btn ${
+        formData.skills.split(',').includes(coachSkill)
+          ? 'btn-secondary'
+          : 'btn-light'
+      } ${!formData.skills.split(',').includes(coachSkill) && coachSkillsError ? 'border-danger' : ''}`}
+    >
+      {coachSkill}
+    </label>
+  </div>
+))}
+
+
+</div>
+{!formData.skills.split(',').some(skill => skill.trim() !== '') && (
+  <div className="text-danger mt-2">
+    Please select at least one coach skill before proceeding (up to 10).
+  </div>
+)}
+
+
+
+
+
 
           <div className="form-group mb-1" style={{ display: "flex" }}>
             <button
