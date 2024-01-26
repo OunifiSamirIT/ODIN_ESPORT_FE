@@ -164,7 +164,8 @@ function Register() {
     console.log("Is Profile Selected:", isProfileSelected);
 
     if (areAllFieldsFilled && isProfileSelected) {
-      if (selectedProfile === "player") {
+      if (selectedProfile === "player" || selectedProfile === "coach" || selectedProfile === "agent" || selectedProfile ==="scout" || selectedProfile === "advertise"
+      ) {
         setFormData({
           ...formData,
           roles: [selectedRole],
@@ -213,19 +214,27 @@ function Register() {
 
   const getRequiredFields = (step) => {
     if (step === 2) {
-      return [
-        "height",
-        "weight",
-        "piedFort",
-        "licence",
-        "NumeroWhatsup",
-        "positionPlay",
-        "positionSecond",
-        // Add other required fields in Step 2...
-      ];
-    } else {
-      return [];
+      if (selectedProfile === "player") {
+        return [
+          "height",
+          "weight",
+          "PiedFort",
+          "Licence",
+          "NumeroWhatsup",
+          "positionPlay",
+          "positionSecond",
+          // Add other required fields for player...
+        ];
+      } else if (selectedProfile === "coach") {
+        return [
+          "totalTeam",
+          "countryCoachedIn",
+          "skills",
+          // Add other required fields for coach...
+        ];
+      }
     }
+    return [];
   };
   
   const handleSubmit = async (e) => {
@@ -239,7 +248,7 @@ function Register() {
     // } else {
     //   setSkillsError(false);
     // }
-    if (selectedSkills.length === 0 || selectedSkills.length > 10) {
+    if ( selectedSkills.length > 10) {
       console.log("Skills error detected");
     }
   
@@ -278,39 +287,15 @@ function Register() {
         }
       });
       setInputErrors(errors);
-    
+      
+  
       // Log the errors to the console
       console.log("Input Errors:", errors);
     }
     
   };
   
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("Form Data:", formData); // Log form data
-
-
-    
-  //   try {
-  //     const response = await fetch("http://localhost:8088/api/auth/signup", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (response.ok) {
-  //       console.log("User registered successfully!");
-  //       navigate("/login");
-  //     } else {
-  //       console.error("Registration failed.");
-  //     }
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //   }
-  // };
-  console.log("Skills Error:", skillsError);
+ 
 
   return (
     <Fragment>
@@ -330,7 +315,8 @@ function Register() {
               href="/login"
               className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl"
             >
-              Login
+              Se connecter
+
             </a>
             <a
               href="/register"
@@ -355,7 +341,7 @@ function Register() {
             <div className="card shadow-none border-0  me-auto login-card">
               <div className="card-body rounded-0 text-left    ">
                 <h2 className="text-center items-center text-3xl font-bold mt-6 ">
-                  Create your account
+                 Creer un compte 
                 </h2>
                 <div className=" h-[680px] w-[700px] lg:mt-10 overflow-y-scroll overflow-x-hidden ">
                   <form className="xl:w-auto h-full  " onSubmit={handleSubmit}>
@@ -363,7 +349,7 @@ function Register() {
                       <div className="h-max w-full ">
                         <div className="row">
                           <label className="mb-2 text-2xl font-serif">
-                            Please Select Your Profil:
+                           Choisir une Profile :
                           </label>
                           {[
                             "player",
@@ -820,12 +806,14 @@ function Register() {
       onChange={() => handleSkillToggle(skillsInProfile)}
       className="form-check-input d-none"
     />
-    <label
-      htmlFor={skillsInProfile}
-      className={`form-check-label btn ${
-        selectedSkills.includes(skillsInProfile) ? "btn-dark" : "btn-light"
-      }`}
-    >
+      <label
+            htmlFor={skillsInProfile}
+            className={`form-check-label btn ${
+              formData.skillsInProfile.split(',').includes(skillsInProfile)
+                ? 'btn-secondary' // Change this to the color you want after selecting
+                : 'btn-light' // Change this to the color you want before selecting
+            }`}
+          >
       {skillsInProfile}
     </label>
   </div>
@@ -858,8 +846,91 @@ function Register() {
                             </div>
                           </div>
                         )}
+
+
+
+{formData.profil === "coach" && (
+        <div>
+          <div className="form-group icon-input mb-3">
+            <i className="font-sm ti-user text-grey-500 pe-0"></i>
+            <input
+              type="text"
+              id="totalTeam"
+              name="totalTeam"
+              value={formData.totalTeam}
+              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                inputErrors["totalTeam"] ? "is-invalid" : ""
+              }`}
+              placeholder="Total Team"
+              onChange={handleInputChange}
+            />
+            {inputErrors["totalTeam"] && (
+              <div className="invalid-feedback">{inputErrors["totalTeam"]}</div>
+            )}
+          </div>
+
+          <div className="form-group icon-input mb-3">
+            <i className="font-sm ti-user text-grey-500 pe-0"></i>
+            <input
+              type="text"
+              id="countryCoachedIn"
+              name="countryCoachedIn"
+              value={formData.countryCoachedIn}
+              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                inputErrors["countryCoachedIn"] ? "is-invalid" : ""
+              }`}
+              placeholder="Country Coached In"
+              onChange={handleInputChange}
+            />
+            {inputErrors["countryCoachedIn"] && (
+              <div className="invalid-feedback">{inputErrors["countryCoachedIn"]}</div>
+            )}
+          </div>
+
+          <div className="form-group icon-input mb-3">
+            <i className="font-sm ti-user text-grey-500 pe-0"></i>
+            <input
+              type="text"
+              id="skills"
+              name="skills"
+              value={formData.skills}
+              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                inputErrors["skills"] ? "is-invalid" : ""
+              }`}
+              placeholder="Skills"
+              onChange={handleInputChange}
+            />
+            {inputErrors["skills"] && (
+              <div className="invalid-feedback">{inputErrors["skills"]}</div>
+            )}
+          </div>
+
+          {/* Additional coach-specific fields go here */}
+
+          <div className="form-group mb-1" style={{ display: "flex" }}>
+            <button
+              type="button"
+              onClick={handlePrevStep}
+              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+            >
+              Previous
+            </button>
+            <button
+              type="submit"
+              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      )}
                       </div>
                     )}
+
+
+
+
+
                   </form>
                 </div>
 
