@@ -7,8 +7,26 @@ class Header extends Component {
     state = {
         isOpen: false,
         isActive: false,
-        isNoti: false
-    };
+        isNoti: false,
+        user: null,
+      };
+    
+      componentDidMount() {
+        // Fetch user information based on the id from localStorage
+        const storedUserData = JSON.parse(localStorage.getItem('user'));
+        const id = storedUserData ? storedUserData.id : null;
+    
+        if (id) {
+          // Replace the API endpoint with your actual endpoint for fetching user data
+          fetch(`http://localhost:8088/api/user/${id}`)
+            .then((response) => response.json())
+            .then((userData) => {
+              this.setState({ user: userData });
+            })
+            .catch((error) => console.error('Error fetching user data:', error));
+        }
+      }
+    
 
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
     toggleActive = () => this.setState({ isActive: !this.state.isActive });
@@ -19,6 +37,7 @@ class Header extends Component {
         const buttonClass = `${this.state.isOpen ? " active" : ""}`;
         const searchClass = `${this.state.isActive ? " show" : ""}`;
         const notiClass = `${this.state.isNoti ? " show" : ""}`;
+        const { user } = this.state;
 
         return (
             <div className="nav-header bg-white shadow-xs border-0">
@@ -70,8 +89,9 @@ class Header extends Component {
                 </div>
                 <Link to="/defaultmessage" className="p-2 text-center ms-3 menu-icon chat-active-btn"><i className="feather-message-square font-xl text-current"></i></Link>
                 <Darkbutton />
-                <Link to="/defaultsettings" className="p-0 ms-3 menu-icon"><img src="assets/images/user.png" alt="user" className="w40 mt--1" /></Link>
-
+                <Link to="/defaultsettings" className="p-0 menu-icon">
+          <img src={user ? user.image : ''} alt="user" className="w-14 h-14 rounded-full" />
+        </Link>
                 <nav className={`navigation scroll-bar ${navClass}`}>
                     <div className="container ps-0 pe-0">
                         <div className="nav-content">

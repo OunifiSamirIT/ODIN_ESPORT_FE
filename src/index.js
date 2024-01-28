@@ -139,7 +139,7 @@ function Root() {
           </>
         ) : (
           // Redirect to login if not authenticated
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<Navigate to="/home" replace />} />
         )}
        
       </Routes>

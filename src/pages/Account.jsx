@@ -15,6 +15,9 @@ function Account() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [validationError, setValidationError] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+  const [file, setFile] = useState(null);
 
   const isPasswordValid = () => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/;
@@ -74,6 +77,7 @@ function Account() {
   });
   const handleSelect = (e) => {
     setPicture(e.target.files[0]);
+    // Update formData to include the selected image
     setFormData({
       ...formData,
       image: e.target.files[0],
@@ -117,62 +121,130 @@ function Account() {
     return <p>Loading...</p>;
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData.password.length < 8) {
-      setValidationError("Password must be at least 8 characters long.");
-      // setIsModalOpen(true);
-      return; // Don't proceed with the form submission
-    }
-    try {
-      // Update user information
-      const userResponse = await fetch(`http://localhost:8088/api/user/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-      if (!userResponse.ok) {
-        console.error("User update failed.");
-        // Handle the failure case for user update
+  //   if (formData.password.length < 8) {
+  //     setValidationError("Password must be at least 8 characters long.");
+  //     // setIsModalOpen(true);
+  //     return; // Don't proceed with the form submission
+  //   }
+  //   try {
+  //     // Update user information
+
+  //     const formDataWithImage = new FormData();
+  // Object.entries(formData).forEach(([key, value]) => {
+  //   formDataWithImage.append(key, value);
+  // });
+  // formDataWithImage.append("image", picture);
+
+  //     const userResponse = await fetch(`http://localhost:8088/api/user/${id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: formDataWithImage,
+  //     });
+
+  //     if (!userResponse.ok) {
+  //       console.error("User update failed.");
+  //       // Handle the failure case for user update
+  //       return;
+  //     }
+
+  //     // Update player information
+  //     const playerResponse = await fetch(
+  //       `http://localhost:8088/api/player/${id}`,
+  //       {
+  //         method: "PUT",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           height: formData.height,
+  //           weight: formData.weight,
+  //           strongSkill: formData.strongSkill,
+  //           positionPlay: formData.positionPlay,
+  //           positionSecond: formData.positionSecond,
+  //           skillsInProfile: formData.skillsInProfile,
+  //           // Add other player fields as needed
+  //         }),
+  //       }
+  //     );
+
+  //     if (playerResponse.ok) {
+  //       console.log("User and player information updated successfully!");
+  //       navigate("/");
+  //     } else {
+  //       console.error("Update failed.");
+  //       // Handle other error cases
+  //     }
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //     // Handle the error case, e.g., show an error message
+  //   }
+  // };
+ 
+ 
+  const handleFileChange = (e, type) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    // Create a preview URL for the selected file
+    const previewURL = URL.createObjectURL(selectedFile);
+    setPreviewImage(previewURL);
+  };
+ 
+  const handleUserUpdate = async (e) => {
+    e.preventDefault(); // Prevent the default form submission
+  
+    try {
+      // Check if required fields are filled
+      if (!formData.nom || !formData.prenom || !formData.tel) {
+        setErrMsg({ status: "failed", message: "Fill all the required information" });
         return;
       }
-
-      // Update player information
-      const playerResponse = await fetch(
-        `http://localhost:8088/api/player/${id}`,
+  
+      const formDataToUpdate = new FormData();
+      formDataToUpdate.append("nom", formData.nom);
+      formDataToUpdate.append("prenom", formData.prenom);
+      formDataToUpdate.append("date_naissance", formData.date_naissance || "");
+      formDataToUpdate.append("gender", formData.gender || "");
+      formDataToUpdate.append("nationality", formData.nationality || "");
+      formDataToUpdate.append("countryresidence", formData.countryresidence || "");
+      formDataToUpdate.append("cityresidence", formData.cityresidence || "");
+      formDataToUpdate.append("tel", formData.tel);
+      formDataToUpdate.append("login", formData.login);
+      formDataToUpdate.append("password", formData.password || "");
+      formDataToUpdate.append("image", file);
+  
+      // Make a PUT request to update the user profile
+      const response = await fetch(
+        `http://localhost:8088/api/user/${storedUserData.id}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            height: formData.height,
-            weight: formData.weight,
-            strongSkill: formData.strongSkill,
-            positionPlay: formData.positionPlay,
-            positionSecond: formData.positionSecond,
-            skillsInProfile: formData.skillsInProfile,
-            // Add other player fields as needed
-          }),
+          body: formDataToUpdate,
         }
       );
-
-      if (playerResponse.ok) {
-        console.log("User and player information updated successfully!");
-        navigate("/");
+  
+      if (response.ok) {
+        const updatedUser = await response.json();
+        setUserData(updatedUser);
+  
+        // Handle other state updates or redirects as needed
       } else {
-        console.error("Update failed.");
-        // Handle other error cases
+        // Handle errors
+        console.error("Error updating user profile:", response.statusText);
+        const errorData = await response.json();
+        setErrMsg({ status: "failed", message: errorData.message || "Error updating user profile" });
       }
     } catch (error) {
-      console.error("An error occurred:", error);
-      // Handle the error case, e.g., show an error message
+      console.error("Error updating user profile:", error);
+      setErrMsg({ status: "failed", message: "Error updating user profile" });
     }
   };
-
+  
+  
   return (
     <Fragment>
       <Header />
@@ -211,8 +283,7 @@ function Account() {
                     </div>
                   </div>
 
-                  <form onSubmit={handleSubmit}>
-                    {step === 1 && (
+                  <form onSubmit={handleUserUpdate}>
                       <div>
                         {" "}
                         {validationError && (
@@ -379,12 +450,16 @@ function Account() {
                             <div className="card mt-3 border-0">
                               <div className="card-body d-flex justify-content-between align-items-end p-0">
                                 <div className="form-group mb-0 w-100">
-                                  <input
-                                    type="file"
-                                    name="file"
-                                    id="file"
-                                    className="input-file"
-                                  />
+                       
+        <input
+  type="file"
+  name="file"
+  accept="image/*"
+
+  id="file"
+  onChange={(e) => handleFileChange(e, "image")}
+  className="input-file"
+/>{previewImage && <img src={previewImage} alt="Preview" />}
                                   <label
                                     htmlFor="file"
                                     className="rounded-3 text-center bg-white btn-tertiary js-labelFile p-4 w-100 border-dashed"
@@ -413,7 +488,6 @@ function Account() {
                           <div className="col-lg-12">
                           <button
                             type="submit"
-                            //   onClick={handleNextStep}
                               className="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block"
                             >
                               Save
@@ -421,7 +495,6 @@ function Account() {
                           </div>
                         </div>
                       </div>
-                    )}
 
 
 

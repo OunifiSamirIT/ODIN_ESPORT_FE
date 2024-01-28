@@ -56,6 +56,7 @@ function Home() {
   const [commentReply, setCommentReply] = useState("");
   const [newComment, setNewComment] = useState(null); // New state for the newly added comment
   const [comments, setComments] = useState([]);
+  const [user, setUser] = useState([]);
 
   const toggleActive = () => setIsActive(!isActive);
 
@@ -116,6 +117,28 @@ function Home() {
   const menuClass = `${isOpen ? " show" : ""}`;
 
   useEffect(() => {
+
+    const storedUserData = JSON.parse(localStorage.getItem('user'));
+    const id = storedUserData ? storedUserData.id : null;
+
+    if (id) {
+      // Replace the API endpoint with your actual endpoint for fetching user data
+      fetch(`http://localhost:8088/api/user/${id}`)
+        .then((response) => response.json())
+        .then((userData) => {
+          setUser(userData);
+        })
+        .catch((error) => console.error('Error fetching user data:', error));
+    }
+
+
+
+
+
+
+
+
+
     const fetchArticles = async () => {
       try {
         const response = await fetch("http://localhost:8088/api/articles/");
@@ -132,8 +155,6 @@ function Home() {
             )
           )
         );
-        console.log(usersResponse);
-
         const articlesWithUsers = result.rows.map((article, index) => ({
           ...article,
           user: usersResponse[index],
@@ -285,13 +306,13 @@ function Home() {
                 {/* <Createpost /> */}
                 <div className="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
                   <div className="card-body p-0 mt-3 position-relative">
-                    <figure className="avatar position-absolute ms-2 mt-1 top-5">
+                    {/* <figure className="avatar position-absolute ms-2 mt-1 top-5">
                       <img
-                        src="assets/images/user.png"
+                        src={user.image}
                         alt="icon"
-                        className="shadow-sm rounded-circle w30"
+                        className="shadow-sm rounded-circle w-14 h-14"
                       />
-                    </figure>
+                    </figure> */}
                     {previewImage && (
                       <div className="mt-3">
                         <img
@@ -304,11 +325,11 @@ function Home() {
                     )}
                     <form onSubmit={handleSubmit(handlePostSubmit)}>
                       <div className="w-full flex items-center gap-2 py-4 border-b border-[#66666645]">
-                        {/* <img
-                  src={ NoProfile}
+                        <img
+                  src={ user.image}
                   alt="User Image"
-                  className="w-14 h-14 rounded-full object-cover"
-                /> */}
+                  className="w-20 h-16 rounded-full object-fill"
+                />
                         <label>{storedUserData.login}</label>
                         <TextInput
                           styles="w-full rounded-full py-5 text-bl"
