@@ -2,6 +2,11 @@ import React, { Component, Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Login from "../assets/Loggin.png";
 import Logo from "../assets/logo.png";
+import Logo1 from "../assets/1.png";
+import Logo2 from "../assets/2.png";
+import Logo3 from "../assets/3.png";
+import Logo4 from "../assets/4.png";
+import Logo5 from "../assets/5.png";
 
 function Register() {
   const [step, setStep] = useState(1);
@@ -14,6 +19,34 @@ function Register() {
   const [selectedSkills, setSelectedSkills] = useState("");
   const [skillsError, setSkillsError] = useState(false);
   const [coachSkillsError, setCoachSkillsError] = useState(false);
+
+  const profilesData = [
+    {
+      profile: "player",
+      logo: Logo2,
+      description: "Joueur",
+    },
+    {
+      profile: "coach",
+      logo: Logo1,
+      description: "Entraineur",
+    },
+    {
+      profile: "agent",
+      logo: Logo3,
+      description: "Manager",
+    },
+    {
+      profile: "scout",
+      logo: Logo4,
+      description: "Scout",
+    },
+    {
+      profile: "other",
+      logo: Logo5,
+      description: "Autre",
+    },
+  ];
 
   const handleSkillToggle = (skill) => {
     let updatedSkills = formData.skillsInProfile.split(","); // Convert string to array
@@ -35,8 +68,26 @@ function Register() {
     setSkillsError(updatedSkills.length >= 10);
   };
 
-  // Function to toggle coach skills
-  // Function to toggle coach skills
+  const handleSkillToggleAutre = (skill) => {
+    let updatedSkills = formData.skillsAutre.split(","); // Convert string to array
+
+    if (updatedSkills.includes(skill)) {
+      // Remove skill if already selected
+      updatedSkills = updatedSkills.filter((s) => s !== skill);
+    } else {
+      // Add skill if not selected and the limit is not reached
+      if (updatedSkills.length < 10) {
+        updatedSkills.push(skill);
+      }
+    }
+
+    setFormData({
+      ...formData,
+      skillsAutre: updatedSkills.join(","), // Convert back to string
+    });
+    setSkillsError(updatedSkills.length >= 10);
+  };
+
   const handleCoachSkillToggle = (coachSkill) => {
     let updatedCoachSkills = formData.skills.split(",");
 
@@ -63,14 +114,38 @@ function Register() {
   const handleInputChange = (e) => {
     setValidationError("");
 
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-
+    // Check if the input being changed is the profile field
     if (e.target.name === "profil") {
+      // Get the selected profile value
+      const selectedProfileValue = e.target.value;
+
+      // Map the selected profile value to the corresponding role
+      const profileRoleMap = {
+        player: "player",
+        coach: "coach",
+        agent: "agent",
+        scout: "scout",
+        other: "other",
+      };
+      const selectedRole = profileRoleMap[selectedProfileValue];
+
+      // Update the form data with the selected role
+      setFormData({
+        ...formData,
+        [e.target.name]: selectedProfileValue,
+        roles: [selectedRole], // Set the roles field to the selected role
+      });
+
+      // Reset any profile error state since a profile has been selected
       setProfileError(false);
     } else {
+      // For other input fields, update the form data as usual
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+
+      // Reset any input errors for the changed field
       setInputErrors({
         ...inputErrors,
         [e.target.name]: undefined,
@@ -113,6 +188,14 @@ function Register() {
     skillsagent: "",
     pays: "",
     paysclub: "",
+    //scout
+    engagement: "",
+    nb_joueurdetecter: "",
+    paysscout: "",
+    skillsscout: "",
+    //other
+    profession: "",
+    skillsAutre: "",
     //role
     roles: [],
   });
@@ -195,7 +278,7 @@ function Register() {
       coach: "coach",
       agent: "agent",
       scout: "scout",
-      advertise: "advertise",
+      other: "other",
     };
 
     const selectedProfile = formData.profil;
@@ -234,7 +317,7 @@ function Register() {
         selectedProfile === "coach" ||
         selectedProfile === "agent" ||
         selectedProfile === "scout" ||
-        selectedProfile === "advertise"
+        selectedProfile === "other"
       ) {
         setFormData({
           ...formData,
@@ -310,6 +393,22 @@ function Register() {
             // Add other required fields for players...
           ];
         }
+      } else if (selectedProfile === "scout") {
+        return [
+          "engagement",
+          "nb_joueurdetecter",
+          "paysscout",
+          "skillsscout",
+
+          // Add other required fields for players...
+        ];
+      } else if (selectedProfile === "other") {
+        return [
+          "profession",
+          "skillsAutre",
+
+          // Add other required fields for players...
+        ];
       }
     }
     return [];
@@ -349,8 +448,11 @@ function Register() {
         });
 
         if (response.ok) {
-          console.log("User registered successfully!");
+          const responseData = await response.json();
+
+          console.log("Server Response Data:", responseData);
           navigate("/login");
+          console.log("User registered successfully!");
         } else {
           console.error("Registration failed.");
         }
@@ -418,15 +520,18 @@ function Register() {
             </div>
           </div>
           <div className="col-xl-8 h-full  align-items-center d-flex bg-slate-100 rounded-3 overflow-hidden">
-            <div className="card shadow-none border-0  me-auto login-card bg-slate-100 ">
-              <div className="card-body rounded-0 text-left    ">
-                <h2 className="text-center items-center text-3xl font-bold mt-6 bg-slate-100 ">
-                  Creer un compte
+            <div className="card shadow-none border-0 ml-6 me-auto login-card bg-slate-100 ">
+              <div className="card-body rounded-0 text-center ml-6    ">
+                <h2 className="text-center items-center text-3xl font-bold mt-6  bg-slate-100 ">
+                  Creer une compte
                 </h2>
-                <div className=" h-[680px] w-[700px] lg:mt-10 overflow-y-visible  overflow-x-hidden ">
-                  <form className="xl:w-auto h-full  " onSubmit={handleSubmit}>
+                <div className="sm:h-[340] sm:w-[350px] lg:h-[680px] lg:w-[750px] xl:h-[680px] xl:w-[700px] lg:mt-10 overflow-y-visible  overflow-x-hidden ">
+                  <form
+                    className="w-auto h-full sm:w-full  "
+                    onSubmit={handleSubmit}
+                  >
                     {step === 1 && (
-                      <div className="h-max w-full ">
+                      <div className="h-max lg:w-full  ">
                         {/* <div className="form-group icon-input mb-3">
                         <i className="font-sm ti-user text-grey-500 pe-0"></i>
                         <input
@@ -673,13 +778,13 @@ function Register() {
                       </div>
                     )}
 
-                    {step === 2 && (
+                    {/* {step === 2 && (
                       <div className="h-max w-full ">
                         <div className="row">
                           <label className="mb-2 text-2xl font-serif">
                             Choisir une Profile :
                           </label>
-                          {["player", "coach", "agent", "scout", "Autre"].map(
+                          {["player", "coach", "agent", "scout", "other"].map(
                             (profile) => (
                               <div
                                 key={profile}
@@ -733,20 +838,104 @@ function Register() {
                           )}
                         </div>
 
-                        {/* <div className="form-group icon-input mb-3">
-                        <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                        <input
-                          type="text"
-                          className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                          placeholder="Profil"
-                        />
-                      </div> */}
+                      
 
                         <div
                           className="form-group mb-1 mt-48 "
                           style={{ display: "flex" }}
                         >
                           {" "}
+                          <button
+                            type="button"
+                            onClick={handlePrevStep}
+                            className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                          >
+                            Previous
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleNextStep}
+                            className="form-control flex  items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0"
+                          >
+                            Next
+                          </button>
+                        </div>
+                      </div>
+                    )} */}
+                    {step === 2 && (
+                      <div className="h-max w-full">
+                        <div className="row">
+                          <label className="mb-2 text-2xl font-serif">
+                            Choisir une Profile :
+                          </label>
+                          {profilesData.map((data) => (
+                            <div
+                              key={data.profile}
+                              className="col-6 col-md-2 mb-3"
+                            >
+                              <div
+                                className={`bg-white w-32 h-40 rounded-lg p-2  cursor-pointer ${
+                                  selectedProfile === data.profile
+                                    ? "bg-blue-500 "
+                                    : ""
+                                }`}
+                                onClick={() => {
+                                  const selectedProfileValue = data.profile;
+                                  console.log(
+                                    "Selected Profile Value:",
+                                    selectedProfileValue
+                                  );
+                                  setSelectedProfile(selectedProfileValue);
+                                  handleInputChange({
+                                    target: {
+                                      name: "profil",
+                                      value: selectedProfileValue,
+                                    },
+                                  });
+                                }}
+                              >
+                                {/* <label
+                                  className={`text-2xl  ${
+                                    selectedProfile === data.profile
+                                      ? "text-blue-600 animate-pulse"
+                                      : "text-black "
+                                  }`}
+                                >
+                                  {data.profile.charAt(0).toUpperCase() +
+                                    data.profile.slice(1)}
+                                </label> */}
+                                <div
+                                  className={`text-2xl  ${
+                                    selectedProfile === data.profile
+                                      ? "bg-blue-600  rounded-3xl"
+                                      : "text-black "
+                                  }`}
+                                >
+                                  {" "}
+                                  <img
+                                    src={data.logo}
+                                    alt="Logo"
+                                    className="w-16 h-16 mt-2"
+                                  />
+                                </div>
+                                <p className="text-base mt-2">
+                                  {data.description}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                          {console.log(profileError)}
+                          {profileError && (
+                            <div className="text-danger mt-2">
+                              Please select a profile before proceeding.
+                            </div>
+                          )}
+                        </div>
+
+                        <div
+                          className="form-group mb-1 mt-48"
+                          style={{ display: "flex" }}
+                        >
                           <button
                             type="button"
                             onClick={handlePrevStep}
@@ -770,7 +959,7 @@ function Register() {
                         {formData.profil === "player" && (
                           <div style={{ maxHeight: "1000px" }}>
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <i className="font-sm ti-ruler text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="height"
@@ -789,7 +978,7 @@ function Register() {
                               )}
                             </div>
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <i className="font-sm ti-anchor text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="weight"
@@ -809,7 +998,7 @@ function Register() {
                             </div>
 
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <i className="font-sm ti-thumb-up text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="PiedFort"
@@ -829,7 +1018,7 @@ function Register() {
                             </div>
 
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <i className="font-sm ti-id-badge text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="Licence"
@@ -848,7 +1037,7 @@ function Register() {
                               )}
                             </div>
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <i className="font-sm ti-headphone-alt text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="NumeroWhatsup"
@@ -870,7 +1059,7 @@ function Register() {
                             </div>
 
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <i className="font-sm ti-pin text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="positionPlay"
@@ -892,7 +1081,7 @@ function Register() {
                             </div>
 
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <i className="font-sm ti-pin text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="positionSecond"
@@ -994,7 +1183,7 @@ function Register() {
                         {formData.profil === "coach" && (
                           <div>
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <i className="font-sm ti-medall text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="totalTeam"
@@ -1014,7 +1203,7 @@ function Register() {
                             </div>
 
                             <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
                               <input
                                 type="text"
                                 id="countryCoachedIn"
@@ -1172,54 +1361,60 @@ function Register() {
                                   <div>
                                     <label
                                       htmlFor="clubCovered"
-                                      className="block mb-2"
+                                      className="block text-left mb-2"
                                     >
                                       Nom du Club:
                                     </label>
-                                    <input
-                                      type="text"
-                                      id="clubCovered"
-                                      name="clubCovered"
-                                      className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                        inputErrors["clubCovered"]
-                                          ? "is-invalid"
-                                          : ""
-                                      }`}
-                                      onChange={handleInputChange}
-                                      value={formData.clubCovered}
-                                      placeholder="Enter club covered"
-                                    />
-                                    {inputErrors["clubCovered"] && (
-                                      <div className="invalid-feedback">
-                                        {inputErrors["clubCovered"]}
-                                      </div>
-                                    )}
-
-<div>
-                                      <label
-                                        htmlFor="paysclub"
-                                        className="block mb-2"
-                                      >
-                                        Nom du Pays:
-                                      </label>
+                                    <div className="form-group icon-input mb-3">
+                                      <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
                                       <input
                                         type="text"
-                                        id="paysclub"
-                                        name="paysclub"
+                                        id="clubCovered"
+                                        name="clubCovered"
                                         className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                          inputErrors["paysclub"]
+                                          inputErrors["clubCovered"]
                                             ? "is-invalid"
                                             : ""
                                         }`}
                                         onChange={handleInputChange}
-                                        value={formData.paysclub}
-                                        placeholder="Enter pays club"
+                                        value={formData.clubCovered}
+                                        placeholder="Enter club covered"
                                       />
-                                      {inputErrors["paysclub"] && (
+                                      {inputErrors["clubCovered"] && (
                                         <div className="invalid-feedback">
-                                          {inputErrors["paysAgent"]}
+                                          {inputErrors["clubCovered"]}
                                         </div>
                                       )}
+                                    </div>
+                                    <div>
+                                      <label
+                                        htmlFor="paysclub"
+                                        className="block text-left mb-2"
+                                      >
+                                        Nom du Pays:
+                                      </label>
+                                      <div className="form-group icon-input mb-3">
+                                        <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
+
+                                        <input
+                                          type="text"
+                                          id="paysclub"
+                                          name="paysclub"
+                                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                            inputErrors["paysclub"]
+                                              ? "is-invalid"
+                                              : ""
+                                          }`}
+                                          onChange={handleInputChange}
+                                          value={formData.paysclub}
+                                          placeholder="Enter pays club"
+                                        />
+                                        {inputErrors["paysclub"] && (
+                                          <div className="invalid-feedback">
+                                            {inputErrors["paysAgent"]}
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
                                   </div>
                                 )}
@@ -1230,7 +1425,7 @@ function Register() {
                                       htmlFor="totalPlayer"
                                       className="block mb-2"
                                     >
-                                      Total Players:
+                                      Totale du Joueurs:
                                     </label>
                                     <input
                                       type="text"
@@ -1244,7 +1439,6 @@ function Register() {
                                       onChange={handleInputChange}
                                       value={formData.totalPlayer}
                                       placeholder="Enter total players managed"
-                                      
                                     />
                                     {inputErrors.totalPlayer && (
                                       <div className="invalid-feedback">
@@ -1277,11 +1471,7 @@ function Register() {
                                       </div>
                                     )}
 
-
-
-
-
-<div>
+                                    <div>
                                       <label
                                         htmlFor="paysAgent"
                                         className="block mb-2"
@@ -1311,6 +1501,606 @@ function Register() {
                                 )}
                               </div>
                             )}
+
+                            <div
+                              className="form-group mb-1"
+                              style={{ display: "flex" }}
+                            >
+                              <button
+                                type="button"
+                                onClick={handlePrevStep}
+                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                              >
+                                Previous
+                              </button>
+                              <button
+                                type="submit"
+                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                              >
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                        {formData.profil === "scout" && (
+                          <div>
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-ticket text-grey-500 pe-0"></i>
+                              <input
+                                type="text"
+                                id="engagement"
+                                name="engagement"
+                                onChange={handleInputChange}
+                                value={formData.engagement}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["engagement"] ? "is-invalid" : ""
+                                }`}
+                                placeholder="Engagement "
+                              />
+                              {inputErrors["engagement"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["engagement"]}
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-basketball text-grey-500 pe-0"></i>
+                              <input
+                                type="text"
+                                id="nb_joueurdetecter"
+                                name="nb_joueurdetecter"
+                                value={formData.nb_joueurdetecter}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["nb_joueurdetecter"]
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                                placeholder="Nomber des joueurs detecter"
+                                onChange={handleInputChange}
+                              />
+                              {inputErrors["nb_joueurdetecter"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["nb_joueurdetecter"]}
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-map-alt text-grey-500 pe-0"></i>
+                              <input
+                                type="text"
+                                id="paysscout"
+                                name="paysscout"
+                                onChange={handleInputChange}
+                                value={formData.paysscout}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["paysscout"] ? "is-invalid" : ""
+                                }`}
+                                placeholder="Pays"
+                              />
+                              {inputErrors["paysscout"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["paysscout"]}
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                              <input
+                                type="text"
+                                id="skillsscout"
+                                name="skillsscout"
+                                onChange={handleInputChange}
+                                value={formData.skillsscout}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["skillsscout"] ? "is-invalid" : ""
+                                }`}
+                                placeholder="Skill"
+                              />
+                              {inputErrors["skillsscout"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["skillsscout"]}
+                                </div>
+                              )}
+                            </div>
+
+                            <div
+                              className="form-group mb-1"
+                              style={{ display: "flex" }}
+                            >
+                              <button
+                                type="button"
+                                onClick={handlePrevStep}
+                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                              >
+                                Previous
+                              </button>
+                              <button
+                                type="submit"
+                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                              >
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                        {formData.profil === "other" && (
+                          <div>
+                            <label htmlFor="profession" className="block mb-2">
+                              Profession
+                            </label>
+                            <select
+                              id="profession"
+                              name="profession"
+                              className={`w-full p-2 mb-4 ${
+                                inputErrors["profession"] ? "is-invalid" : ""
+                              }`}
+                              onChange={handleInputChange}
+                              value={formData.profession}
+                              required
+                            >
+                              <option value="">Select Type Responsable</option>
+                              <option value="Fan Football">Fan Football</option>
+                              <option value="Journaliste Sportif">
+                                Journaliste Sportif
+                              </option>
+                              <option value="Arbitre Football">
+                                Arbitre Football
+                              </option>
+                              <option value="Analyste de performance ">
+                                Analyste de performance
+                              </option>
+                              <option value="Nutrtitionniste">
+                                Nutrtitionniste
+                              </option>
+                              <option value="Physiotherpeute">
+                                Physiotherpeute
+                              </option>
+                              <option value="Analyste de football">
+                                Analyste de football
+                              </option>
+                              <option value="Médecin d'équipe">
+                                Médecin d'équipe
+                              </option>
+                              <option value="Prof de fitnesse">
+                                Prof de fitnesse
+                              </option>
+                            </select>
+                            {inputErrors["Profession"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["Profession"]}
+                              </div>
+                            )}
+
+                            {formData.profession && (
+                              <div>
+                                {formData.profession === "Fan Football" && (
+                                  <div className="form-group icon-input mb-3">
+                                    {[
+                                      "Engagement emotionnel",
+                                      "Fidelité",
+                                      "Defence",
+                                      "Esprit Sportif",
+                                      "Réseautage Social",
+                                      "Rapidite de la prise de désicion",
+                                      "Adabtabilité",
+                                      "Motivation",
+                                      "Respecter",
+                                    ].map((skillsAutre) => (
+                                      <div
+                                        key={skillsAutre}
+                                        className="form-check form-check-inline me-2 mb-2"
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          id={skillsAutre}
+                                          name="skillsAutre"
+                                          checked={selectedSkills.includes(
+                                            skillsAutre
+                                          )}
+                                          onChange={() =>
+                                            handleSkillToggleAutre(skillsAutre)
+                                          }
+                                          className="form-check-input d-none"
+                                        />
+                                        <label
+                                          htmlFor={skillsAutre}
+                                          className={`form-check-label btn ${
+                                            formData.skillsAutre
+                                              .split(",")
+                                              .includes(skillsAutre)
+                                              ? "btn-secondary" // Change this to the color you want after selecting
+                                              : "btn-light" // Change this to the color you want before selecting
+                                          }`}
+                                        >
+                                          {skillsAutre}
+                                        </label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {formData.profession ===
+                                  "Journaliste Sportif" && (
+                                  <div className="form-group icon-input mb-3">
+                                    {[
+                                      "Rechercher",
+                                      "Rédaction",
+                                      "Communication",
+                                      "Maitrise des Medias sociaux",
+                                      "Rédactivé",
+                                      "Gestion du Temps",
+                                      "Analyse critique",
+                                      "Adaptabilité",
+                                    ].map((skillsAutre) => (
+                                      <div
+                                        key={skillsAutre}
+                                        className="form-check form-check-inline me-2 mb-2"
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          id={skillsAutre}
+                                          name="skillsAutre"
+                                          checked={selectedSkills.includes(
+                                            skillsAutre
+                                          )}
+                                          onChange={() =>
+                                            handleSkillToggleAutre(skillsAutre)
+                                          }
+                                          className="form-check-input d-none"
+                                        />
+                                        <label
+                                          htmlFor={skillsAutre}
+                                          className={`form-check-label btn ${
+                                            formData.skillsAutre
+                                              .split(",")
+                                              .includes(skillsAutre)
+                                              ? "btn-secondary" // Change this to the color you want after selecting
+                                              : "btn-light" // Change this to the color you want before selecting
+                                          }`}
+                                        >
+                                          {skillsAutre}
+                                        </label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {formData.profession === "Arbitre Football" && (
+                                  <div className="form-group icon-input mb-3">
+                                    {[
+                                      "Encouragement",
+                                      "Ecoute",
+                                      "Communication",
+                                      "Leadership",
+                                      "motivation",
+                                      "Autorité et respect",
+                                      "Gestion des Conflits",
+                                      "Réactivité",
+                                      "Gestion de stress",
+                                    ].map((skillsAutre) => (
+                                      <div
+                                        key={skillsAutre}
+                                        className="form-check form-check-inline me-2 mb-2"
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          id={skillsAutre}
+                                          name="skillsAutre"
+                                          checked={selectedSkills.includes(
+                                            skillsAutre
+                                          )}
+                                          onChange={() =>
+                                            handleSkillToggleAutre(skillsAutre)
+                                          }
+                                          className="form-check-input d-none"
+                                        />
+                                        <label
+                                          htmlFor={skillsAutre}
+                                          className={`form-check-label btn ${
+                                            formData.skillsAutre
+                                              .split(",")
+                                              .includes(skillsAutre)
+                                              ? "btn-secondary" // Change this to the color you want after selecting
+                                              : "btn-light" // Change this to the color you want before selecting
+                                          }`}
+                                        >
+                                          {skillsAutre}
+                                        </label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {formData.profession ===
+                                  "Analyste de performance" && (
+                                  <div className="form-group icon-input mb-3">
+                                    {[
+                                      "Esprit Equipe",
+                                      "Adaptabilité",
+                                      "Communication",
+                                      "Collaboration",
+                                      "Analyse vidéo",
+                                      "Gestion du temps",
+                                      "Gestion de stress",
+                                    ].map((skillsAutre) => (
+                                      <div
+                                        key={skillsAutre}
+                                        className="form-check form-check-inline me-2 mb-2"
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          id={skillsAutre}
+                                          name="skillsAutre"
+                                          checked={selectedSkills.includes(
+                                            skillsAutre
+                                          )}
+                                          onChange={() =>
+                                            handleSkillToggleAutre(skillsAutre)
+                                          }
+                                          className="form-check-input d-none"
+                                        />
+                                        <label
+                                          htmlFor={skillsAutre}
+                                          className={`form-check-label btn ${
+                                            formData.skillsAutre
+                                              .split(",")
+                                              .includes(skillsAutre)
+                                              ? "btn-secondary" // Change this to the color you want after selecting
+                                              : "btn-light" // Change this to the color you want before selecting
+                                          }`}
+                                        >
+                                          {skillsAutre}
+                                        </label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {formData.profession === "Nutrtitionniste" && (
+                                  <div className="form-group icon-input mb-3">
+                                    {[
+                                      "Evaluation nutrionnelle",
+                                      "Planfication de régimes",
+                                      "Communication",
+                                      "Ecoute",
+                                      "Encouragement",
+                                      "Compréhension des besoin",
+                                    ].map((skillsAutre) => (
+                                      <div
+                                        key={skillsAutre}
+                                        className="form-check form-check-inline me-2 mb-2"
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          id={skillsAutre}
+                                          name="skillsAutre"
+                                          checked={selectedSkills.includes(
+                                            skillsAutre
+                                          )}
+                                          onChange={() =>
+                                            handleSkillToggleAutre(skillsAutre)
+                                          }
+                                          className="form-check-input d-none"
+                                        />
+                                        <label
+                                          htmlFor={skillsAutre}
+                                          className={`form-check-label btn ${
+                                            formData.skillsAutre
+                                              .split(",")
+                                              .includes(skillsAutre)
+                                              ? "btn-secondary" // Change this to the color you want after selecting
+                                              : "btn-light" // Change this to the color you want before selecting
+                                          }`}
+                                        >
+                                          {skillsAutre}
+                                        </label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {formData.profession === "Physiotherpeute" && (
+                                  <div className="form-group icon-input mb-3">
+                                    {[
+                                      "Ethique professionnelle",
+                                      "Gestion du temps",
+                                      "Empathy",
+                                      "Compétences Physiothérapeute",
+                                      "Analyse des mouvements sportifs",
+                                    ].map((skillsAutre) => (
+                                      <div
+                                        key={skillsAutre}
+                                        className="form-check form-check-inline me-2 mb-2"
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          id={skillsAutre}
+                                          name="skillsAutre"
+                                          checked={selectedSkills.includes(
+                                            skillsAutre
+                                          )}
+                                          onChange={() =>
+                                            handleSkillToggleAutre(skillsAutre)
+                                          }
+                                          className="form-check-input d-none"
+                                        />
+                                        <label
+                                          htmlFor={skillsAutre}
+                                          className={`form-check-label btn ${
+                                            formData.skillsAutre
+                                              .split(",")
+                                              .includes(skillsAutre)
+                                              ? "btn-secondary" // Change this to the color you want after selecting
+                                              : "btn-light" // Change this to the color you want before selecting
+                                          }`}
+                                        >
+                                          {skillsAutre}
+                                        </label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {formData.profession ===
+                                  "Analyste de football" && (
+                                  <div className="form-group icon-input mb-3">
+                                    {[
+                                      "Compétences analytiques",
+                                      "Compétences statstiques",
+                                      "Connaissance tactique",
+                                      "Communication Efficace",
+                                      "Adabtabilité",
+                                      "Compréension des adversaires",
+                                      "Rapports détaillés",
+                                      "Collaboration",
+                                      "Gestion du temps",
+                                      "Ethique professionnelle",
+                                    ].map((skillsAutre) => (
+                                      <div
+                                        key={skillsAutre}
+                                        className="form-check form-check-inline me-2 mb-2"
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          id={skillsAutre}
+                                          name="skillsAutre"
+                                          checked={selectedSkills.includes(
+                                            skillsAutre
+                                          )}
+                                          onChange={() =>
+                                            handleSkillToggleAutre(skillsAutre)
+                                          }
+                                          className="form-check-input d-none"
+                                        />
+                                        <label
+                                          htmlFor={skillsAutre}
+                                          className={`form-check-label btn ${
+                                            formData.skillsAutre
+                                              .split(",")
+                                              .includes(skillsAutre)
+                                              ? "btn-secondary" // Change this to the color you want after selecting
+                                              : "btn-light" // Change this to the color you want before selecting
+                                          }`}
+                                        >
+                                          {skillsAutre}
+                                        </label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {formData.profession === "Médecin d'équipe" && (
+                                  <div className="form-group icon-input mb-3">
+                                    {[
+                                      "Diagnostic des blessures",
+                                      "Prévention des blessures",
+                                      "Gestion du stress",
+                                      "Technologie médicale",
+                                      "Empathy",
+                                      "Calme",
+                                    ].map((skillsAutre) => (
+                                      <div
+                                        key={skillsAutre}
+                                        className="form-check form-check-inline me-2 mb-2"
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          id={skillsAutre}
+                                          name="skillsAutre"
+                                          checked={selectedSkills.includes(
+                                            skillsAutre
+                                          )}
+                                          onChange={() =>
+                                            handleSkillToggleAutre(skillsAutre)
+                                          }
+                                          className="form-check-input d-none"
+                                        />
+                                        <label
+                                          htmlFor={skillsAutre}
+                                          className={`form-check-label btn ${
+                                            formData.skillsAutre
+                                              .split(",")
+                                              .includes(skillsAutre)
+                                              ? "btn-secondary" // Change this to the color you want after selecting
+                                              : "btn-light" // Change this to the color you want before selecting
+                                          }`}
+                                        >
+                                          {skillsAutre}
+                                        </label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                                {formData.profession === "Prof de fitnesse" && (
+                                  <div className="form-group icon-input mb-3">
+                                    {[
+                                      "Adaptabilité",
+                                      "Communication",
+                                      "Motivation",
+                                      "Encadrement en groupe",
+                                      "Ecoute",
+                                      "Encouragement",
+                                      "Leadership",
+                                    ].map((skillsAutre) => (
+                                      <div
+                                        key={skillsAutre}
+                                        className="form-check form-check-inline me-2 mb-2"
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          id={skillsAutre}
+                                          name="skillsAutre"
+                                          checked={selectedSkills.includes(
+                                            skillsAutre
+                                          )}
+                                          onChange={() =>
+                                            handleSkillToggleAutre(skillsAutre)
+                                          }
+                                          className="form-check-input d-none"
+                                        />
+                                        <label
+                                          htmlFor={skillsAutre}
+                                          className={`form-check-label btn ${
+                                            formData.skillsAutre
+                                              .split(",")
+                                              .includes(skillsAutre)
+                                              ? "btn-secondary" // Change this to the color you want after selecting
+                                              : "btn-light" // Change this to the color you want before selecting
+                                          }`}
+                                        >
+                                          {skillsAutre}
+                                        </label>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+
+                            {/* <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-basketball text-grey-500 pe-0"></i>
+                              <input
+                                type="text"
+                                id="skillsAutre"
+                                name="skillsAutre"
+                                value={formData.skillsAutre}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["skillsAutre"] ? "is-invalid" : ""
+                                }`}
+                                placeholder="Nomber des joueurs detecter"
+                                onChange={handleInputChange}
+                              />
+                              {inputErrors["skillsAutre"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["skillsAutre"]}
+                                </div>
+                              )}
+                            </div> */}
 
                             <div
                               className="form-group mb-1"

@@ -1,15 +1,29 @@
-import React, { useState, Fragment } from "react";
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, Fragment, useEffect } from "react";
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 
-function Login() {
+function Login({ setAuthStatus }) {
   const [verificationMessage, setVerificationMessage] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(true);
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loginError, setLoginError] = useState(false); // New state variable for login error
   const [invalidPassword, setInvalidPassword] = useState(false); // New state variable for invalid password
+  const location = useLocation();
 
+  // Use state to track whether to reload the component
+  const [shouldReload, setShouldReload] = useState(false);
+
+  // Check if the component needs to be reloaded when the route changes
+  useEffect(() => {
+    // Set the reload state to true when the route changes
+    setShouldReload(true);
+
+    // You can perform any additional logic or data fetching needed on reload
+
+    // Example: Force a re-fetch of user data or perform other actions
+    // fetchData();
+  }, [location.pathname]);
   const navigate = useNavigate();
   const {
     register,
@@ -34,6 +48,10 @@ function Login() {
 
       if (response.ok) {
         localStorage.setItem("user", JSON.stringify(result));
+        localStorage.setItem('accessToken', result.accessToken);
+
+        // Call the setAuthStatus function with the token
+        setAuthStatus(true, result.accessToken);
 
         const verificationResponse = await fetch(
           `http://localhost:8088/api/auth/check-verification/${result.id}`
@@ -43,8 +61,8 @@ function Login() {
         if (!verificationResult.isVerified) {
           setIsEmailVerified(false);
           setVerificationMessage(
-            <div className="bg-red-100 text-xl mt-8 animate-bounce rounded-md">
-              Please verify your email before logging in.
+            <div className="bg-blue-200 text-base p-2 justify-center mt-8 mb-1 animate-pulse rounded-md">
+              Verifier Votre Compte pour seconnecter
             </div>
           );
         } else {
