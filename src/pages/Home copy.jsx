@@ -23,6 +23,7 @@ import CustomButton from "../components/CustomButton";
 import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
 
 import {
+  BiEditAlt,
   BiImages,
   BiLike,
   BiSolidCommentCheck,
@@ -30,6 +31,7 @@ import {
   BiUndo,
 } from "react-icons/bi";
 import Loading from "../components/Loading";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 function Home() {
   const {
     register,
@@ -117,8 +119,7 @@ function Home() {
   const menuClass = `${isOpen ? " show" : ""}`;
 
   useEffect(() => {
-
-    const storedUserData = JSON.parse(localStorage.getItem('user'));
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -128,16 +129,8 @@ function Home() {
         .then((userData) => {
           setUser(userData);
         })
-        .catch((error) => console.error('Error fetching user data:', error));
+        .catch((error) => console.error("Error fetching user data:", error));
     }
-
-
-
-
-
-
-
-
 
     const fetchArticles = async () => {
       try {
@@ -145,7 +138,9 @@ function Home() {
         const result = await response.json();
 
         // Extract userIds from articles
-        const userIds = result.rows.map((article) => article.userId);
+        // const userIds = result.rows.map((article) => article.userId);
+        const reversedArticles = result.rows.reverse();
+        const userIds = reversedArticles.map((article) => article.userId);
 
         // Fetch user information for each userId
         const usersResponse = await Promise.all(
@@ -155,7 +150,7 @@ function Home() {
             )
           )
         );
-        const articlesWithUsers = result.rows.map((article, index) => ({
+        const articlesWithUsers = reversedArticles.map((article, index) => ({
           ...article,
           user: usersResponse[index],
         }));
@@ -186,14 +181,13 @@ function Home() {
         console.error("Error fetching data:", error);
       }
     };
-    
 
     fetchComments();
     fetchArticles();
   }, []);
   const fetchComments = async () => {
     try {
-      const response = await fetch('http://localhost:8088/api/commentaires/');
+      const response = await fetch("http://localhost:8088/api/commentaires/");
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -201,7 +195,7 @@ function Home() {
       const data = await response.json();
       setComments(data);
     } catch (error) {
-      console.error('Error fetching comments:', error.message);
+      console.error("Error fetching comments:", error.message);
     }
   };
   const addComment = async (articleId) => {
@@ -209,7 +203,7 @@ function Home() {
       if (articleId) {
         // Retrieve user information from local storage
         const user = JSON.parse(localStorage.getItem("user"));
-  
+
         const response = await fetch(
           "http://localhost:8088/api/commentaires/",
           {
@@ -224,10 +218,10 @@ function Home() {
             }),
           }
         );
-  
+
         const newComment = await response.json();
         console.log("Comment created:", newComment);
-  
+
         // Update the state with the new comment immediately
         setArticleComments((prevComments) => {
           const updatedComments = { ...prevComments };
@@ -237,7 +231,7 @@ function Home() {
           ];
           return updatedComments;
         });
-  
+
         // Clear the comment input
         setComment("");
       }
@@ -245,8 +239,10 @@ function Home() {
       console.error("Error adding comment:", error);
     }
   };
-  
-  
+  const handleEditClick = (article) => {
+    setEditArticle(article);
+    // Navigate to the edit page with the article ID
+  };
 
   const addReply = async (commentId, replyText) => {
     try {
@@ -291,6 +287,7 @@ function Home() {
       console.error("Error adding reply:", error);
     }
   };
+
   return (
     <Fragment>
       <Header />
@@ -302,7 +299,7 @@ function Home() {
           <div className="middle-sidebar-left">
             <div className="row feed-body">
               <div className="col-xl-8 col-xxl-9 col-lg-8">
-                <Storyslider />
+                {/* <Storyslider /> */}
                 {/* <Createpost /> */}
                 <div className="card w-100 shadow-xss rounded-xxl border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
                   <div className="card-body p-0 mt-3 position-relative">
@@ -326,10 +323,10 @@ function Home() {
                     <form onSubmit={handleSubmit(handlePostSubmit)}>
                       <div className="w-full flex items-center gap-2 py-4 border-b border-[#66666645]">
                         <img
-                  src={ user.image}
-                  alt="User Image"
-                  className="w-20 h-16 rounded-full object-fill"
-                />
+                          src={user.image}
+                          alt="User Image"
+                          className="w-20 h-16 rounded-full object-fill"
+                        />
                         <label>{storedUserData.login}</label>
                         <TextInput
                           styles="w-full rounded-full py-5 text-bl"
@@ -426,7 +423,14 @@ function Home() {
                       className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
                     >
                       <div className="card-body p-0 d-flex">
-                        {/* <figure className="avatar me-3"></figure> */}
+                        <figure className="avatar me-3">
+                          <img
+                            src={article.user.image}
+                            className="rounded-full w-16 h-16"
+                            alt="post"
+                          />{" "}
+                        </figure>
+
                         <h4 className="fw-700 text-grey-900 font-xssss mt-1">
                           {article.titre}
                           <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
@@ -438,14 +442,9 @@ function Home() {
                         </div>
                       </div>
                       <div className="card-body p-0 me-lg-5">
-                        <p className="fw-500 text-grey-500 lh-26 font-xssss w-100 mb-2">
+                        <p className="fw-500 text-grey-500 lh-26 ml-8 bg-slate-50 rounded-md font-xssss w-100 mb-2">
                           {article.description}{" "}
-                          <a
-                            href="/defaultvideo"
-                            className="fw-600 text-primary ms-2"
-                          >
-                            See more
-                          </a>
+                         
                         </p>
                       </div>
                       <div className="card-body d-block p-0 mb-3">
@@ -472,24 +471,24 @@ function Home() {
                         </div>
                       </div>
 
-                      <div className=" px-4 rounded-lg">
-                        
-
+                      <div className="  rounded-lg">
                         {article.user &&
                           article.user.id === storedUserData.id && (
                             <div className="flex items-center justify-end mt-2">
                               <label
-                                className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                className="flex items-center  gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                 onClick={() => handleEditClick(article)}
                               >
-                                <BiSolidCommentCheck />
-                                <span>Edit</span>
+                                <BiEditAlt  />
+                                <Link to={`/editPost/${article.id}`}>
+                                  <span>Edit</span>
+                                </Link>{" "}
                               </label>
                             </div>
                           )}
 
                         {selectedArticleId === article.id && (
-                          <div className=" p-4 bg-slate-100 rounded-lg mt-4">
+                          <div className="  bg-slate-100 rounded-lg ">
                             {(() => {
                               if (!articleComments[article.id]) {
                                 fetchComments();
@@ -503,10 +502,12 @@ function Home() {
                                       ...prevComments,
                                       [article.id]: response,
                                     }));
-                                    console.log("------------------",articleComments)
-                                  })                                 
+                                    console.log(
+                                      "------------------",
+                                      articleComments
+                                    );
+                                  })
 
-                                  
                                   .catch((error) =>
                                     console.error(
                                       "Error fetching comments:",
@@ -522,8 +523,6 @@ function Home() {
                                 <>
                                   {articleComments[article.id]?.map(
                                     (commentItem) => (
-                                      
-
                                       <div
                                         key={commentItem.comm_id}
                                         className="mb-2"
@@ -532,10 +531,11 @@ function Home() {
                                         <div className="flex flex-col">
                                           <div className="flex items-center mb-1">
                                             <div className="bg-white rounded-full text-black w-20 h-10 mr-4 border-2">
-                                              {commentItem?.user_login} 
+                                              {commentItem?.user_login}
                                             </div>
                                             <div className="bg-white w-10 h-10 text-black rounded-sm flex-grow">
-                                              {commentItem?.comm_desc}  {commentItem?.description}
+                                              {commentItem?.comm_desc}{" "}
+                                              {commentItem?.description}
                                             </div>
                                           </div>
 
@@ -656,8 +656,7 @@ function Home() {
                                       addComment(article.id);
                                       // Reset the comment input after adding a comment
                                       setComment("");
-                                      fetchComments(); 
-
+                                      fetchComments();
                                     }}
                                     className="bg-[#0444a4] text-white py-1 px-6 rounded-full font-semibold text-sm mt-2"
                                   >

@@ -1,52 +1,35 @@
-import React,{Component} from 'react';
+import React,{useState} from 'react';
 import { Link , NavLink } from 'react-router-dom';
 
-import Darkbutton from '../components/Darkbutton';
-import Logo from '../assets/logo.png'
-class Header extends Component {
-    state = {
-        isOpen: false,
-        isActive: false,
-        isNoti: false,
-        user: null,
-      };
-    
-      componentDidMount() {
-        // Fetch user information based on the id from localStorage
-        const storedUserData = JSON.parse(localStorage.getItem('user'));
-        const id = storedUserData ? storedUserData.id : null;
-    
-        if (id) {
-          // Replace the API endpoint with your actual endpoint for fetching user data
-          fetch(`http://localhost:8088/api/user/${id}`)
-            .then((response) => response.json())
-            .then((userData) => {
-              this.setState({ user: userData });
-            })
-            .catch((error) => console.error('Error fetching user data:', error));
+import Darkbutton from '../../../components/Darkbutton';
+
+const  Header  = () => {
+    const [state , setState] = useState(
+        {
+            isOpen: false,
+            isActive: false,
+            isNoti: false
         }
-      }
-    
+    )
 
-    toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
-    toggleActive = () => this.setState({ isActive: !this.state.isActive });
-    toggleisNoti = () => this.setState({ isNoti: !this.state.isNoti });
 
-    render() {
-        const navClass = `${this.state.isOpen ? " nav-active" : ""}`;
-        const buttonClass = `${this.state.isOpen ? " active" : ""}`;
-        const searchClass = `${this.state.isActive ? " show" : ""}`;
-        const notiClass = `${this.state.isNoti ? " show" : ""}`;
-        const { user } = this.state;
+    const toggleOpen = () => setState({ isOpen: !state.isOpen });
+    const toggleActive = () => setState({ isActive: !state.isActive });
+    const toggleisNoti = () => setState({ isNoti: !state.isNoti });
+
+        const navClass = `${state.isOpen ? " nav-active" : ""}`;
+        const buttonClass = `${state.isOpen ? " active" : ""}`;
+        const searchClass = `${state.isActive ? " show" : ""}`;
+        const notiClass = `${state.isNoti ? " show" : ""}`;
 
         return (
             <div className="nav-header bg-white shadow-xs border-0">
                 <div className="nav-top">
-                    <Link to="/"><img src={Logo} className='h-14 w-14 '/><span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">ODIN E-SPORT </span> </Link>
+                    <Link to="/"><i className="feather-zap text-success display2-size me-3 ms-0"></i><span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Sociala. </span> </Link>
                     <Link to="/defaultmessage" className="mob-menu ms-auto me-2 chat-active-btn"><i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></Link>
                     <Link to="/defaultvideo" className="mob-menu me-2"><i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></Link>
-                    <span onClick={this.toggleActive} className="me-2 menu-search-icon mob-menu"><i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
-                    <button onClick={this.toggleOpen} className={`nav-menu me-0 ms-2 ${buttonClass}`}></button>
+                    <span onClick={toggleActive} className="me-2 menu-search-icon mob-menu"><i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
+                    <button onClick={toggleOpen} className={`nav-menu me-0 ms-2 ${buttonClass}`}></button>
                 </div>
                 
                 <form action="#" className="float-left header-search ms-3">
@@ -62,59 +45,44 @@ class Header extends Component {
                 <NavLink activeClassName="active" to="/shop2" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></NavLink>
 
                     
-                <span className={`p-2 pointer text-center ms-auto menu-icon ${notiClass}`} id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false" onClick={this.toggleisNoti}><span className="dot-count bg-warning"></span><i className="feather-bell font-xl text-current"></i></span>
+                <span className={`p-2 pointer text-center ms-auto menu-icon ${notiClass}`} id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false" onClick={toggleisNoti}><span className="dot-count bg-warning"></span><i className="feather-bell font-xl text-current"></i></span>
                 <div className={`dropdown-menu p-4 right-0 rounded-xxl border-0 shadow-lg ${notiClass}`} aria-labelledby="dropdownMenu3">
                     <h4 className="fw-700 font-xss mb-4">Notification</h4>
                     <div className="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-                        <img src="assets/images/user.png" alt="user" className="w40 position-absolute left-0" />
+                        <img src="/assets/images/user.png" alt="user" className="w40 position-absolute left-0" />
                         <h5 className="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Hendrix Stamp <span className="text-grey-400 font-xsssss fw-600 float-right mt-1"> 3 min</span></h5>
                         <h6 className="text-grey-500 fw-500 font-xssss lh-4">There are many variations of pass..</h6>
                     </div>
                     <div className="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-                        <img src="assets/images/user.png" alt="user" className="w40 position-absolute left-0" />
+                        <img src="/assets/images/user.png" alt="user" className="w40 position-absolute left-0" />
                         <h5 className="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Goria Coast <span className="text-grey-400 font-xsssss fw-600 float-right mt-1"> 2 min</span></h5>
                         <h6 className="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
                     </div>
 
                     <div className="card bg-transparent-card w-100 border-0 ps-5 mb-3">
-                        <img src="assets/images/user.png" alt="user" className="w40 position-absolute left-0" />
+                        <img src="/assets/images/user.png" alt="user" className="w40 position-absolute left-0" />
                         <h5 className="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Surfiya Zakir <span className="text-grey-400 font-xsssss fw-600 float-right mt-1"> 1 min</span></h5>
                         <h6 className="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
                     </div>
                     <div className="card bg-transparent-card w-100 border-0 ps-5">
-                        <img src="assets/images/user.png" alt="user" className="w40 position-absolute left-0" />
+                        <img src="/assets/images/user.png" alt="user" className="w40 position-absolute left-0" />
                         <h5 className="font-xsss text-grey-900 mb-1 mt-0 fw-700 d-block">Victor Exrixon <span className="text-grey-400 font-xsssss fw-600 float-right mt-1"> 30 sec</span></h5>
                         <h6 className="text-grey-500 fw-500 font-xssss lh-4">Mobile Apps UI Designer is require..</h6>
                     </div>
                 </div>
                 <Link to="/defaultmessage" className="p-2 text-center ms-3 menu-icon chat-active-btn"><i className="feather-message-square font-xl text-current"></i></Link>
                 <Darkbutton />
-                <Link to="/defaultsettings" className="p-0 menu-icon">
-          <img src={user ? user.image : ''} alt="user" className="w-14 h-14 rounded-full" />
-        </Link>
-                <nav className={`navigation scroll-bar ${navClass}`}>
+                <Link to="/defaultsettings" className="p-0 ms-3 menu-icon"><img src="/assets/images/user-1.png" alt="user" className="w40 mt--1" /></Link>
+
+                <nav className={`navigation scroll-bar ${navClass} mt-3`}>
                     <div className="container ps-0 pe-0">
                         <div className="nav-content">
-                            <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2 mt-2">
-                                {/* <div className="nav-caption fw-600 font-xssss text-grey-500"><span>New </span>Feeds</div> */}
-                                <ul className="mb-1 top-content">
-                                    <li className="logo d-none d-xl-block d-lg-block"></li>
-                                    <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>Mon Profile </span></Link></li>                        
-
-                                    <li><Link to="/home" className="nav-content-bttn open-font"><i className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span>Acceuil</span></Link></li>
-                                    <li><Link to="/defaultbadge" className="nav-content-bttn open-font"><i className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></Link></li>
-                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Stories</span></Link></li>
-                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span> Groupes</span></Link></li>
-                                </ul>
-                            </div>
-
                             <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2">
-                                <div className="nav-caption fw-600 font-xssss text-grey-500"><span>More </span>Pages</div>
+                                <div className="nav-caption fw-600 font-xssss text-grey-500"><span>Actions</span></div>
                                 <ul className="mb-3">
-                                    <li><Link to="/defaultemailbox" className="nav-content-bttn open-font"><i className="font-xl text-current feather-inbox me-3"></i><span>Email Box</span><span className="circle-count bg-warning mt-1">584</span></Link></li>
-                                    <li><Link to="/defaulthotel" className="nav-content-bttn open-font"><i className="font-xl text-current feather-home me-3"></i><span>Near Hotel</span></Link></li>
-                                    <li><Link to="/defaultevent" className="nav-content-bttn open-font"><i className="font-xl text-current feather-map-pin me-3"></i><span>Latest Event</span></Link></li>
-                                    <li><Link to="/defaultlive" className="nav-content-bttn open-font"><i className="font-xl text-current feather-youtube me-3"></i><span>Live Stream</span></Link></li>                        
+                                    <li><Link to="/admin/users" className="nav-content-bttn open-font"><i className="font-xl text-current feather-users me-3"></i><span>Users</span><span className="circle-count bg-warning mt-1">584</span></Link></li>
+                                    <li><Link to="/admin/events" className="nav-content-bttn open-font"><i className="font-xl text-current feather-map-pin me-3"></i><span>Events</span></Link></li>
+                                    <li><Link to="/admin/album" className="nav-content-bttn open-font"><i className="font-xl text-current feather-image me-3"></i><span>Gallerie</span></Link></li>                    
                                 </ul>
                             </div>
                             <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1">
@@ -122,7 +90,6 @@ class Header extends Component {
                                 <ul className="mb-1">
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
                                     <li><Link to="/defaultsettings" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-settings me-3 text-grey-500"></i><span>Settings</span></Link></li>
-                                    <li><Link to="/defaultanalytics" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li>
                                     <li><Link to="/defaultmessage" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>Chat</span><span className="circle-count bg-warning mt-0">23</span></Link></li>
                                 </ul>
                             </div>
@@ -138,7 +105,7 @@ class Header extends Component {
                                 <ion-icon name="search-outline" role="img" className="md hydrated" aria-label="search outline"></ion-icon>
                             </i>
                             <span className="ms-1 mt-1 d-inline-block close searchbox-close">
-                                <i className="ti-close font-xs" onClick={this.toggleActive}></i>
+                                <i className="ti-close font-xs" onClick={toggleActive}></i>
                             </span>
                         </div>
                     </form>
@@ -147,6 +114,4 @@ class Header extends Component {
             </div>
         );
     }
-}
-
 export default Header;
