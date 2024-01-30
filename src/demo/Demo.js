@@ -1,10 +1,7 @@
 import React,{Component} from 'react';
 
 import './demo.css';
-import Hero from "../assets/hero.jpg"
-import Hero2 from "../assets/ball.png"
-import Hero3 from "../assets/BA.jpg"
-import Hero4 from "../assets/ODIN.png"
+import Hero from "../assets/ball.png"
 const newDemoList = [
     {
         imageUrl: 'home.jpg',
@@ -201,31 +198,30 @@ class Demo extends Component {
             <div className="header-wrapper demo-style">
                 <div className="container max-container">
                     <div className="row">
-                        <div className="col-lg-2 col-md-6 col-sm-3 col-xs-6"><a href="/" className="logo"><span className="d-inline-block text-gray-900 fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">ODIN E-SPORT </span> </a></div>
-                        
-                        <div className="col-lg-10 col-md-12 col-sm-6 col-xs-12 text-right">
-                        <a href="/" className="btn btn-lg text-white rounded-xl text-uppercase">Contact</a>
-    <a href="/" className="btn btn-lg btn-primary rounded-xl text-uppercase">Seconnecter</a>
- <span>   </span>   <a href="/" className="btn btn-lg btn-secondary rounded-xl text-uppercase">Register</a>
-</div>
-                        
+                        <div className="col-lg-3 col-md-6 col-sm-3 col-xs-5"><a href="/" className="logo"><span className="d-inline-block fredoka-font ls-3 fw-600 text-current  font-xxl logo-text mb-0">ODIN E-SPORT </span> </a></div>
+                        <div className="col-lg-6 col-md-6 col-sm-6 d-none d-lg-block">
+                            
+
+                        </div>
+                        <div className="col-lg-3 col-md-8 col-sm-3 col-xs-8  w-28 text-right ">
+                            <a href="/" className="btn btn-lg btn-primary  sm:ml-4 text-uppercase">Seconnecter</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <img className="banner-wrapper vh-100 w-full bscover demo-style"
-    src={Hero}
-    alt="Hero Image"
-/>
-                <div className="banner-content">
+            <div className="banner-wrapper vh-100 bscover demo-style" 
+            style={{backgroundImage: `url("assets/images/demo/banner-bg-1.jpg")`}}>
+                <div className="banner-content mt-6">
                     <div className="container max-container">
                         <div className="row">
                             <div className="col-lg-5 col-md-6 col-sm-8">
+
                                 <h2 className="title-text mb-5 mt-5"><b>ELEVATE YOUR GAME, SEIZE YOUR FUTURE</b></h2>
-                                <h2 className="d-inline-block mr-3">Connect with top football scouts and trainers, showcase your skills, and take the next step in your soccer journey. Your future in football starts here.</h2>
+                                <h4 className="d-inline-block"><span>Connect with top football scouts and trainers, showcase your skills, and take the next step in your soccer journey. Your future in football starts here.</span></h4>
                                 
                                 <div className="clearfix"></div>
-                                <a href="#demo" className="btn btn-lg btn-primary rounded-xl mr-4 text-uppercase mt-5">Start Your Journey Now!</a>
+                                <a href="#demo" className="btn btn-lg btn-primary mr-4 text-uppercase mt-5">See DEMOs</a>
 
 
                                 <div className="icon-scroll pos-bottom-center icon-white"></div>
@@ -234,111 +230,81 @@ class Demo extends Component {
                         </div>
                     </div>
                 </div>
-
-            <div className="section pb100 pt50 demo-style bg-slate-100" id="feature">
-            <div className="w-[1184px] h-[424px] m-6 py-10 justify-center items-center gap-[117px] inline-flex">
-  <div className="flex-col justify-start items-start gap-10 inline-flex">
-    <div className="flex-col justify-start items-start gap-2 flex">
-      <div className="text-zinc-900 text-[42px] font-bold font-serif">Unlocking Football Dreams</div>
-      <div className="text-zinc-900 text-2xl font-light font-serif">A Comprehensive Experience for All</div>
-    </div>
-    <div className="w-[588px] h-[137px] text-zinc-900 text-lg font-normal font-serif">ODIN E-SPORT offers a comprehensive experience for all stakeholders in the football ecosystem, from young talents to player agents, coaches, and football clubs. Whether you're a young talent seeking to shine or a football professional looking for the next star, our platform is the place where dreams come true and opportunities materialize.</div>
-    <div className="px-8 py-2 bg-blue-600 rounded-[30px] justify-center items-center gap-2 inline-flex">
-      <div className="text-white text-base font-medium font-serif">Primary Button</div>
-    </div>
-  </div>
-  <div className="w-[479px] h-[335.26px] relative">
-    {/* <img className="w-[77px] h-[77px] left-[402px] top-0 absolute rounded-[20px]" src={} /> */}
-    <div className="w-[402.12px] h-[230.26px] left-0 top-[105px] absolute">
-      <img className="w-[413px] h-[239px] left-[-11px] top-[-2px] absolute rounded-[20px]" src={Hero2} />
-    </div>
-  </div>
-</div>
             </div>
 
-            <div className="w-[1184px] h-[712px] m-14 py-14 justify-center items-end gap-[101px] inline-flex">
-  <div className="flex-col justify-start items-start gap-8 inline-flex">
-    <img className="w-[161px] h-[161px]" src={Hero3} />
-    <div className="flex-col justify-start items-start gap-4 flex">
-      <div className="text-black text-[42px] font-bold font-serif">How can we help?</div>
-      <div className="w-[503px] text-black text-xl font-normal font-serif">Feel free to ask questions or share feedback about Odin Esport, the premier community for football players and entities. Your input is vital <br/>as we cultivate an inclusive space for football professionals worldwide.</div>
-    </div>
-    <div className="w-[100px] h-[47.68px] relative" />
-  </div>
-  <div className="w-[580px] h-[600px] px-[101px] py-2 bg-white rounded-[30px] flex-col justify-center items-start gap-8 inline-flex">
-    <div className="w-[242px] text-black text-[42px] font-bold font-serif">Contact Us</div>
-    <div className="flex-col justify-start items-center gap-6 flex">
-      <div className="flex-col justify-start items-start gap-4 flex">
-        <div className="text-zinc-900 text-lg font-normal font-serif">Full Name</div>
-        <div className="w-[378px] px-4 py-2 rounded-[20px] border border-zinc-900 justify-start items-center gap-2 inline-flex">
-          <div className="opacity-70 text-zinc-900 text-base font-normal font-serif">Full Name</div>
-        </div>
-      </div>
-      <div className="flex-col justify-start items-start gap-4 flex">
-        <div className="text-zinc-900 text-lg font-normal font-serif">Email</div>
-        <div className="w-[378px] px-4 py-2 rounded-[20px] border border-zinc-900 justify-start items-center gap-2 inline-flex">
-          <div className="opacity-70 text-zinc-900 text-base font-normal font-serif">Email</div>
-        </div>
-      </div>
-      <div className="flex-col justify-start items-start gap-4 flex">
-        <div className="text-zinc-900 text-lg font-normal font-serif">Message</div>
-        <div className="w-[378px] h-[150px] p-6 rounded-[20px] border border-zinc-900 justify-start items-start gap-2 inline-flex">
-          <div className="opacity-70 text-zinc-900 text-base font-normal font-serif">Message...</div>
-        </div>
-      </div>
-      <div className="w-[378px] px-8 py-2 bg-blue-600 rounded-[30px] justify-center items-center gap-2 inline-flex">
-        <div className="text-white text-base font-medium font-serif">Envoyer</div>
-      </div>
-    </div>
-  </div>
-</div>
-<div className="w-[1280px] h-48 py-6 bg-blue-600 flex-col justify-center items-center gap-6 inline-flex">
-  <div className="w-[1183.74px] py-2 justify-between items-center inline-flex">
-    <div className="w-[653.74px] h-[52.61px] flex-col justify-center items-start gap-2.5 inline-flex">
-      <div className="w-[143.73px] h-[100.61px] relative">
-        <img className='mb-10' src={Hero4}/>
-      </div>
-    </div>
-    <div className="py-4 justify-center items-center gap-6 flex">
-    
-      <div className="justify-center items-center gap-4 flex">
-        <div className="w-[25px] h-[25px] relative">
-        </div>
-        <div className="w-[25px] h-[25px] relative">
-          <div className="w-[15.67px] h-[15.01px] left-[4.66px] top-[5px] absolute">
-          </div>
-        </div>
-        <div className="w-[25px] h-[25px] relative">
-        </div>
-        <div className="w-[25px] h-[25px] relative">
-        </div>
-        <div className="w-[25px] h-[25px] relative">
-          <div className="w-[13.53px] h-[15.78px] left-[5.74px] top-[4.61px] absolute">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div className="flex-col justify-start items-start flex">
-    <div className="w-[1184px] h-[0px] border border-white">
+            <div className="section pb100 pt50 demo-style" id="feature">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <img src="assets/images/demo/com-1.png" alt="com" className="img-fluid" />
+                        </div>
+                        <div className="col-lg-5 offset-lg-1">
+                            <h2 className="title-text2 mb-4 mt-5"><b>Unlocking Football Dreams </b>A Comprehensive Experience for All</h2>				<p>ODIN E-SPORT offers a comprehensive experience for all stakeholders in the football ecosystem, from young talents to player agents, coaches, and football clubs. Whether you're a young talent seeking to shine or a football professional looking for the next star, our platform is the place where dreams come true and opportunities materialize.</p>
+                            <a href="#demo" className="btn btn-lg btn-primary mr-4 text-uppercase mt-4">Components</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-    </div>
-    <div className="w-[1184px] justify-between items-center inline-flex">
-      <div className="text-white text-xs font-normal font-['Sora']">All Rights Reserved © 2024 Odin Esport</div>
-      <div className="flex-col justify-start items-start gap-6 inline-flex">
-        <div className="px-8 py-2 rounded-[30px] justify-center items-center gap-2 inline-flex">
-          <div className="text-white text-base font-medium font-['Sora'] underline">Privacy Policy</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>          
+                <div className="section demo-style" id="mobile">
+                    <div className="container max-container">
+                        <div className="col-lg-12 p-5 rounded-3 bscover" 
+                        style={{backgroundImage: `url("assets/images/demo/mobile-banner-2.png")`}}>
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-lg-5 mt-5 mb-5">
+                                        <h2 className="title-text2 mb-4"><b>Mobile Optimize Design for any Device</b></h2>
+                                        <p>With beautifully designed custom post types to show off your works and collections.Sociala powers thousands of apps at some of the smartest companies around the world. Be a part of professional community</p>
+                                        <a href="/" className="btn btn-lg btn-primary mr-4 text-uppercase mt-4">See Demo</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-           
+                <div className="section pb50 pt100 demo-style" id="demo">
+                    <div className="container-fluid max-container">
+                        <div className="row justify-content-center">
+                            <div className="col-md-8 col-lg-6 col-xl-4 text-center">
+                                <h2 className="title-text2 mb-4"><b>Choose Demo</b></h2>
+                                <p className="mb-5">Create a really awesome website, choose the version that will suit your requirements in a best way.</p>
+                            </div>
+                            <div className="clearfix"></div>
+                            
+                        </div>
+                        <div className="row">
+                            <div className="col-sm-12 mt-5"></div>
+                            
+                            {newDemoList.map((value , index) => (
+                                // Start Single Demo 
+                                <div key={index} className="col-lg-4 col-md-6 demo-item">
+                                    <a href={`/${value.url} `}>
+                                        <img src={`assets/images/demo/${value.imageUrl}`} alt="demo-i" className="w-100" />
+                                        <span>{value.title}</span>
+                                    </a>
+                                </div>          
+                                
+                                // End Single Demo
+                            ))}
+                        </div>
+                    </div>
+                </div>
 
-             
+                <div className="p100 bg-black demo-style" id="contact">
+                    <div className="container">
+                        <div className="row justify-content-center">
+                            <div className="col-lg-6 text-center">
+                                <h2 className="title-text2 text-white mt-4"><b>Beautiful designs to get you started</b></h2>
+                                <p className="text-white ml-5 mr-5">Create a really awesome website, choose the version that will suit your requirements in a best way.</p>
+                                <div className="col-sm-12 text-center mt-5"><a href="/" className="btn-lg btn bg-white">PURCHASE NOW</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         );
     }
