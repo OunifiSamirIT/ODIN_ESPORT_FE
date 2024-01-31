@@ -1739,7 +1739,7 @@ function Register() {
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-mobile text-grey-500 pe-0"></i>
                           <input
-                            type="text"
+                            type="number"
                             value={formData.tel}
                             id="tel"
                             name="tel"
