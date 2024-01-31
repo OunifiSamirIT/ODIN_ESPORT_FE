@@ -102,7 +102,7 @@ function Login({ setAuthStatus }) {
           <div
             className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
             style={{
-              backgroundImage: `url("https://via.placeholder.com/800x950.png")`,
+              backgroundImage: `url("assets/images/demo/banner-bg-1.jpg")`,
             }}
           ></div>
           <div className="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
@@ -119,7 +119,7 @@ function Login({ setAuthStatus }) {
                       type="text"
                       {...register("login")}
                       className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                      placeholder="Your Email Address"
+                      placeholder="Votre Nom Utilisateur"
                     />
                   </div>
 
@@ -128,7 +128,7 @@ function Login({ setAuthStatus }) {
                       type="password"
                       {...register("password")}
                       className="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
-                      placeholder="Password"
+                      placeholder="Mot de Passe"
                     />
                     <i className="font-sm ti-lock text-grey-500 pe-0"></i>
                   </div>
@@ -180,7 +180,7 @@ function Login({ setAuthStatus }) {
 
                   <div className="col-sm-12 p-0 text-center mt-2">
                     <h6 className="mb-0 d-inline-block bg-white fw-500 font-xsss text-grey-500 mb-3">
-                      Or, Sign in with your social account{" "}
+                      Ou, Register avec votre compte Google ou Facbook
                     </h6>
                     {/* <div className="form-group mb-1">
                       <Link
@@ -214,13 +214,13 @@ function Login({ setAuthStatus }) {
     <button className="btn btn-primary mb-2" >
       <div className="d-flex align-items-center w-48">
         <img src="assets/images/icon-3.png" alt="Google Icon" className="social-icon w-10 h-10 mr-2" />
-        Sign in with Google
+        Se connecter avec Facebook
       </div>
     </button>
     <button className="btn bg-black" >
       <div className="d-flex align-items-center">
         <img src="assets/images/icon-1.png" alt="Facebook Icon" className="social-icon w-10 h-10 mr-2" />
-        <p className="text-white">Sign in with Facebook</p>
+        <p className="text-white">Se connecter avec Google </p>
       </div>
     </button>
   </div>
