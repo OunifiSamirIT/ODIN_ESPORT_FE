@@ -203,4 +203,4 @@ function Root() {
 
 const root = createRoot(rootElement);
 root.render(<Root />);
-// serviceWorker.register();
+ serviceWorker.register();
