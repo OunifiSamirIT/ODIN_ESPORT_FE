@@ -512,7 +512,7 @@ function Userpage () {
                             <div className="flex items-center justify-end mt-2">
                               <label
                                 className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                onClick={() => handleEditClick(article)}
+                                // onClick={() => handleEditClick(article)}
                               >
                                 <BiSolidCommentCheck />
                                 <span>Edit</span>

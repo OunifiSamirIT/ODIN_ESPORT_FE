@@ -229,7 +229,7 @@ function Account() {
   
       if (response.ok) {
         const updatedUser = await response.json();
-        setUserData(updatedUser);
+        // setUserData(updatedUser);
   
         // Handle other state updates or redirects as needed
       } else {
