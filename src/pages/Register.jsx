@@ -1408,71 +1408,7 @@ function Register() {
     return [];
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("Submit button clicked!"); // Add this line
-
-  //   const selectedCoachSkills = formData.skills.split(",");
-
-  //   if (selectedCoachSkills.length === 0) {
-  //     setSkillsError(true);
-  //     return;
-  //   } else {
-  //     setSkillsError(false);
-  //   }
-  //   if (selectedSkills.length > 1) {
-  //     console.log("Skills error detected");
-  //   }
-
-  //   // Validate other fields
-  //   const requiredFields = getRequiredFields(step);
-
-  //   const areAllFieldsFilled = requiredFields.every(
-  //     (field) => formData[field] !== ""
-  //   );
-
-  //   if (areAllFieldsFilled) {
-  //     try {
-  //       const response = await fetch("http://localhost:8088/api/auth/signup", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(formData),
-  //       });
-
-  //       if (response.ok) {
-  //         const responseData = await response.json();
-
-  //         console.log("Server Response Data:", responseData);
-  //         navigate("/login");
-  //         console.log("User registered successfully!");
-  //       } else {
-  //         console.error("Registration failed.");
-  //       }
-  //     } catch (error) {
-  //       console.error("An error occurred:", error);
-  //     }
-  //   } else {
-  //     // Set error messages for empty fields
-  //     const errors = {};
-  //     requiredFields.forEach((field) => {
-  //       if (formData[field] === "") {
-  //         errors[field] = "This field is required";
-  //       }
-  //     });
-  //     setInputErrors(errors);
-
-  //     if (selectedCoachSkills.length === 0) {
-  //       setSkillsError(true);
-  //       return;
-  //     } else {
-  //       setSkillsError(false);
-  //     }
-  //     // Log the errors to the console
-  //     console.log("Input Errors:", errors);
-  //   }
-  // };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submit button clicked!");
@@ -1617,7 +1553,7 @@ function Register() {
                             className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
                               inputErrors["nom"] ? "is-invalid" : ""
                             }`}
-                            placeholder="Your Name"
+                            placeholder="Votre Nom"
                           />
                           {inputErrors["nom"] && (
                             <div className="invalid-feedback">
@@ -1635,7 +1571,7 @@ function Register() {
                             className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
                               inputErrors["prenom"] ? "is-invalid" : ""
                             }`}
-                            placeholder="Your Prenom"
+                            placeholder="Votre Prenom"
                             onChange={handleInputChange}
                           />
                           {inputErrors["prenom"] && (
@@ -1673,7 +1609,7 @@ function Register() {
                             className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
                               validationError ? "is-invalid" : ""
                             }`}
-                            placeholder="Password"
+                            placeholder="Votre Mot de passe "
                             onChange={handleInputChange}
                           />
                           {validationError && (
@@ -1693,7 +1629,7 @@ function Register() {
                             className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
                               validationError ? "is-invalid" : ""
                             }`}
-                            placeholder="Confirm Password"
+                            placeholder="Confirmer votre mot de passe"
                             onChange={handleInputChange}
                           />
                           {validationError && (
@@ -1726,9 +1662,9 @@ function Register() {
                               inputErrors["gender"] ? "is-invalid" : ""
                             }`}
                           >
-                            <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="">Select Sexe </option>
+                            <option value="male">Homme</option>
+                            <option value="female">Femme</option>
                           </select>
                           {inputErrors["gender"] && (
                             <div className="invalid-feedback">
@@ -1747,7 +1683,7 @@ function Register() {
                             onChange={handleInputChange}
                           >
                             <option value="" disabled>
-                              Select Nationality
+                              Select votre Nationalite
                             </option>
                             {generateOptions("nationalite")}
                           </select>
@@ -1771,7 +1707,7 @@ function Register() {
                             onChange={handleInputChange}
                           >
                             <option value="" disabled>
-                              Select Country of Residence
+                              Pays de  Residence
                             </option>
                             {generateOptions("libelle")}
                           </select>
@@ -1791,7 +1727,7 @@ function Register() {
                             className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
                               inputErrors["cityresidence"] ? "is-invalid" : ""
                             }`}
-                            placeholder="City of Residence"
+                            placeholder="Ville"
                             onChange={handleInputChange}
                           />
                           {inputErrors["cityresidence"] && (
@@ -1810,7 +1746,7 @@ function Register() {
                             className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
                               inputErrors["tel"] ? "is-invalid" : ""
                             }`}
-                            placeholder="Phone Number"
+                            placeholder="Numero Mobile"
                             onChange={handleInputChange}
                           />
                           {inputErrors["tel"] && (
@@ -1830,7 +1766,7 @@ function Register() {
                             className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
                               inputErrors["login"] ? "is-invalid" : ""
                             }`}
-                            placeholder="Login"
+                            placeholder="Votre nom utlisateur"
                             onChange={handleInputChange}
                           />
                           {inputErrors["login"] && (
