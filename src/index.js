@@ -104,33 +104,33 @@ function Root() {
   return (
     <BrowserRouter basename={"/"}>
       <Routes>
-        <Route path="/" element={<Demo />} />
-        <Route
+        <Route exact path="/" element={<Demo />} />
+        <Route exact
           path="/login"
           element={<Login setAuthStatus={setAuthStatus} />}
         />
-        <Route path="/register" element={<Register />} />
-        <Route path={"/login/:token"} element={<Loginreset />} />
-        <Route path={"/api/auth/verify-email"} element={<Loginemail />} />
-        <Route path={"/forgot"} element={<Forgot />} />
-        <Route path={`/password`} element={<Password />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path={"/login/:token"} element={<Loginreset />} />
+        <Route exact path={"/api/auth/verify-email"} element={<Loginemail />} />
+        <Route exact path={"/forgot"} element={<Forgot />} />
+        <Route exact path={`/password`} element={<Password />} />
         
         {/* Private Routes - Only accessible when authenticated */}
 
 
-                    <Route  path="/admin" element={<AdminHome />} />
-                    <Route  path="/admin/users" element={<Users />} />
-                    <Route  path="/admin/users/create" element={<CreateUser />} />
-                    <Route  path="/admin/users/edit/:id" element={<EditUser />} />
-                    <Route  path="admin/events" element={<EventA />} />
-                    <Route  path="/gallery/view/:id" element={<ViewAlbum />} />
-                    {/* <Route  path="/" element={<Demo />} /> */}
+                    <Route exact  path="/admin" element={<AdminHome />} />
+                    <Route exact  path="/admin/users" element={<Users />} />
+                    <Route exact  path="/admin/users/create" element={<CreateUser />} />
+                    <Route exact  path="/admin/users/edit/:id" element={<EditUser />} />
+                    <Route exact  path="admin/events" element={<EventA />} />
+                    <Route exact  path="/gallery/view/:id" element={<ViewAlbum />} />
+                    {/* <Route exact  path="/" element={<Demo />} /> */}
 
-                    <Route  path={`/events`} element={<UserEvent/>}/>
+                    <Route exact  path={`/events`} element={<UserEvent/>}/>
                     
-                    <Route  path="/admin/album" element={<Album/>}/>
-                    <Route  path="/admin/events/create" element={<AddEvent/>}/>
-                    <Route  path="/admin/album/create" element={<AddAlbum/>}/>
+                    <Route exact  path="/admin/album" element={<Album/>}/>
+                    <Route exact  path="/admin/events/create" element={<AddEvent/>}/>
+                    <Route exact  path="/admin/album/create" element={<AddAlbum/>}/>
 
 
 
@@ -142,54 +142,54 @@ function Root() {
 
         {isAuthenticated ? (
           <>
-            <Route path="/home" element={<Homee />} />
-            <Route path={`/defaultsettings`} element={<Settings setAuthStatus={setAuthStatus}/>} />
-            <Route path={`/defaultbadge`} element={<Badge />} />
-            <Route path="/gallery" element={<Gallery />} />
-        <Route path={`/defaultgroup`} element={<Group />} />
-        <Route path={`/defaultstorie`} element={<Storie />} />
-        <Route path={`/defaultemailbox`} element={<Email />} />
-        <Route path={`/defaultemailopen`} element={<Emailopen />} />
-        <Route path={`/defaultvideo`} element={<Videos />} />
-        {/* <Route path="/edit/:articleId" element={<EditPage />} /> */}
+            <Route exact path="/home" element={<Homee />} />
+            <Route exact path={`/defaultsettings`} element={<Settings setAuthStatus={setAuthStatus}/>} />
+            <Route exact path={`/defaultbadge`} element={<Badge />} />
+            <Route exact path="/gallery" element={<Gallery />} />
+        <Route exact path={`/defaultgroup`} element={<Group />} />
+        <Route exact path={`/defaultstorie`} element={<Storie />} />
+        <Route exact path={`/defaultemailbox`} element={<Email />} />
+        <Route exact path={`/defaultemailopen`} element={<Emailopen />} />
+        <Route exact path={`/defaultvideo`} element={<Videos />} />
+        {/* <Route exact path="/edit/:articleId" element={<EditPage />} /> */}
 
-        <Route path="/editPost/:articleId" element={<EditPost />} />
-        <Route path={`/defaultanalytics`} element={<Analytics />} />
+        <Route exact path="/editPost/:articleId" element={<EditPost />} />
+        <Route exact path={`/defaultanalytics`} element={<Analytics />} />
 
-        <Route path={"/accountinformation"} element={<Account />} />
-        <Route path={`/defaultmember`} element={<Member />} />
-        <Route path="/contactinformation" element={<Contactinfo />} />
-        <Route path={`/socialaccount`} element={<Socialaccount />} />
-        <Route path={`/payment`} element={<Payment />} />
-        <Route path={`/defaultnoti`} element={<Notification />} />
-        <Route path={`/helpbox`} element={<Helpbox />} />
-        {/* <Route
+        <Route exact path={"/accountinformation"} element={<Account />} />
+        <Route exact path={`/defaultmember`} element={<Member />} />
+        <Route exact path="/contactinformation" element={<Contactinfo />} />
+        <Route exact path={`/socialaccount`} element={<Socialaccount />} />
+        <Route exact path={`/payment`} element={<Payment />} />
+        <Route exact path={`/defaultnoti`} element={<Notification />} />
+        <Route exact path={`/helpbox`} element={<Helpbox />} />
+        {/* <Route exact
           path={"/login"}
           element={<Login setAuthStatus={setAuthStatus} />}
         /> */}
        
-        <Route path={`/notfound`} element={<Notfound />} />
+        <Route exact path={`/notfound`} element={<Notfound />} />
 
-        <Route path={`/shop1`} element={<ShopOne />} />
-        <Route path={`/shop2`} element={<ShopTwo />} />
-        <Route path={`/shop3`} element={<ShopThree />} />
-        <Route path={`/singleproduct`} element={<Singleproduct />} />
-        <Route path={`/cart`} element={<Cart />} />
-        <Route path={`/checkout`} element={<Checkout />} />
-        <Route path={`/defaultmessage`} element={<Chat />} />
-        <Route path={`/defaultlive`} element={<Live />} />
+        <Route exact path={`/shop1`} element={<ShopOne />} />
+        <Route exact path={`/shop2`} element={<ShopTwo />} />
+        <Route exact path={`/shop3`} element={<ShopThree />} />
+        <Route exact path={`/singleproduct`} element={<Singleproduct />} />
+        <Route exact path={`/cart`} element={<Cart />} />
+        <Route exact path={`/checkout`} element={<Checkout />} />
+        <Route exact path={`/defaultmessage`} element={<Chat />} />
+        <Route exact path={`/defaultlive`} element={<Live />} />
 
-        <Route path={`/defaultjob`} element={<Job />} />
-        <Route path={`/defaultevent`} element={<Event />} />
-        <Route path={`/defaulthotel`} element={<Hotel />} />
-        <Route path={`/grouppage`} element={<Grouppage />} />
-        <Route path="/userpage" element={<Userpage />} />
-        <Route path={`/authorpage`} element={<Authorpage />} />
-        <Route path={`/comingsoon`} element={<Comingsoon />} />
-        <Route path={`/defaulthoteldetails`} element={<Hotelsingle />} />
+        <Route exact path={`/defaultjob`} element={<Job />} />
+        <Route exact path={`/defaultevent`} element={<Event />} />
+        <Route exact path={`/defaulthotel`} element={<Hotel />} />
+        <Route exact path={`/grouppage`} element={<Grouppage />} />
+        <Route exact path="/userpage" element={<Userpage />} />
+        <Route exact path={`/authorpage`} element={<Authorpage />} />
+        <Route exact path={`/comingsoon`} element={<Comingsoon />} />
+        <Route exact path={`/defaulthoteldetails`} element={<Hotelsingle />} />
           </>
         ) : (
-          <Route path="*" element={<Navigate to="/home" replace />} />
+          <Route exact path="*" element={<Navigate to="/home" replace />} />
         )}
        
       </Routes>
