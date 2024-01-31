@@ -111,7 +111,7 @@ function Root() {
         />
         <Route exact path="/register" element={<Register />} />
         <Route exact path={"/login/:token"} element={<Loginreset />} />
-        <Route exact path={"/api/auth/verify-email"} element={<Loginemail />} />
+        {/* <Route exact path={"/api/auth/verify-email"} element={<Loginemail />} /> */}
         <Route exact path={"/forgot"} element={<Forgot />} />
         <Route exact path={`/password`} element={<Password />} />
         
