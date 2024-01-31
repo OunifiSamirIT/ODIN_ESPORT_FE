@@ -55,7 +55,7 @@ function Friends () {
             setFriendRequests(data);
           } catch (err) {
             console.error("Error fetching friend requests:", err);
-            setError("Error fetching friend requests.");
+            
           }
         };
     

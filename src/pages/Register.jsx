@@ -9,989 +9,988 @@ import Logo4 from "../assets/4.png";
 import Logo5 from "../assets/5.png";
 // import pays from "./Pays.json";
 
-
-
-
-const pays = [{
-  "id": 1,
-  "nationalite": "afghane",
-  "libelle": "Afghanistan"
-},
+const pays = [
   {
-      "id": 2,
-      "nationalite": "sudafricaine",
-      "libelle": "Afrique du Sud"
+    id: 1,
+    nationalite: "afghane",
+    libelle: "Afghanistan",
   },
   {
-      "id": 3,
-      "nationalite": "albanaise",
-      "libelle": "Albanie"
+    id: 2,
+    nationalite: "sudafricaine",
+    libelle: "Afrique du Sud",
   },
   {
-      "id": 4,
-      "nationalite": "algérienne",
-      "libelle": "Algérie"
+    id: 3,
+    nationalite: "albanaise",
+    libelle: "Albanie",
   },
   {
-      "id": 5,
-      "nationalite": "allemande",
-      "libelle": "Allemagne"
+    id: 4,
+    nationalite: "algérienne",
+    libelle: "Algérie",
   },
   {
-      "id": 6,
-      "nationalite": "andorrane",
-      "libelle": "Andorre"
+    id: 5,
+    nationalite: "allemande",
+    libelle: "Allemagne",
   },
   {
-      "id": 7,
-      "nationalite": "angolaise",
-      "libelle": "Angola"
+    id: 6,
+    nationalite: "andorrane",
+    libelle: "Andorre",
   },
   {
-      "id": 8,
-      "nationalite": "antiguayenne",
-      "libelle": "Antigua-et-Barbuda"
+    id: 7,
+    nationalite: "angolaise",
+    libelle: "Angola",
   },
   {
-      "id": 9,
-      "nationalite": "saoudienne",
-      "libelle": "Arabie saoudite"
+    id: 8,
+    nationalite: "antiguayenne",
+    libelle: "Antigua-et-Barbuda",
   },
   {
-      "id": 10,
-      "nationalite": "argentine",
-      "libelle": "Argentine"
+    id: 9,
+    nationalite: "saoudienne",
+    libelle: "Arabie saoudite",
   },
   {
-      "id": 11,
-      "nationalite": "arménienne",
-      "libelle": "Arménie"
+    id: 10,
+    nationalite: "argentine",
+    libelle: "Argentine",
   },
   {
-      "id": 12,
-      "nationalite": "australienne",
-      "libelle": "Australie"
+    id: 11,
+    nationalite: "arménienne",
+    libelle: "Arménie",
   },
   {
-      "id": 13,
-      "nationalite": "autrichienne",
-      "libelle": "Autriche"
+    id: 12,
+    nationalite: "australienne",
+    libelle: "Australie",
   },
   {
-      "id": 14,
-      "nationalite": "azerbaïdjanaise",
-      "libelle": "Azerbaïdjan"
+    id: 13,
+    nationalite: "autrichienne",
+    libelle: "Autriche",
   },
   {
-      "id": 15,
-      "nationalite": "bahaméenne",
-      "libelle": "Bahamas"
+    id: 14,
+    nationalite: "azerbaïdjanaise",
+    libelle: "Azerbaïdjan",
   },
   {
-      "id": 16,
-      "nationalite": "bahreïnienne",
-      "libelle": "Bahreïn"
+    id: 15,
+    nationalite: "bahaméenne",
+    libelle: "Bahamas",
   },
   {
-      "id": 17,
-      "nationalite": "bangladaise",
-      "libelle": "Bangladesh"
+    id: 16,
+    nationalite: "bahreïnienne",
+    libelle: "Bahreïn",
   },
   {
-      "id": 18,
-      "nationalite": "barbadienne",
-      "libelle": "Barbade"
+    id: 17,
+    nationalite: "bangladaise",
+    libelle: "Bangladesh",
   },
   {
-      "id": 19,
-      "nationalite": "belge",
-      "libelle": "Belgique"
+    id: 18,
+    nationalite: "barbadienne",
+    libelle: "Barbade",
   },
   {
-      "id": 20,
-      "nationalite": "bélizienne",
-      "libelle": "Belize"
+    id: 19,
+    nationalite: "belge",
+    libelle: "Belgique",
   },
   {
-      "id": 22,
-      "nationalite": "bhoutanaise",
-      "libelle": "Bhoutan"
+    id: 20,
+    nationalite: "bélizienne",
+    libelle: "Belize",
   },
   {
-      "id": 24,
-      "nationalite": "birmane",
-      "libelle": "Birmanie"
+    id: 22,
+    nationalite: "bhoutanaise",
+    libelle: "Bhoutan",
   },
   {
-      "id": 23,
-      "nationalite": "biélorusse",
-      "libelle": "Biélorussie"
+    id: 24,
+    nationalite: "birmane",
+    libelle: "Birmanie",
   },
   {
-      "id": 25,
-      "nationalite": "bolivienne",
-      "libelle": "Bolivie"
+    id: 23,
+    nationalite: "biélorusse",
+    libelle: "Biélorussie",
   },
   {
-      "id": 26,
-      "nationalite": "bosnienne",
-      "libelle": "Bosnie-Herzégovine"
+    id: 25,
+    nationalite: "bolivienne",
+    libelle: "Bolivie",
   },
   {
-      "id": 27,
-      "nationalite": "botswanaise",
-      "libelle": "Botswana"
+    id: 26,
+    nationalite: "bosnienne",
+    libelle: "Bosnie-Herzégovine",
   },
   {
-      "id": 29,
-      "nationalite": "brunéienne",
-      "libelle": "Brunei"
+    id: 27,
+    nationalite: "botswanaise",
+    libelle: "Botswana",
   },
   {
-      "id": 28,
-      "nationalite": "brésilienne",
-      "libelle": "Brésil"
+    id: 29,
+    nationalite: "brunéienne",
+    libelle: "Brunei",
   },
   {
-      "id": 30,
-      "nationalite": "bulgare",
-      "libelle": "Bulgarie"
+    id: 28,
+    nationalite: "brésilienne",
+    libelle: "Brésil",
   },
   {
-      "id": 31,
-      "nationalite": "burkinabé",
-      "libelle": "Burkina"
+    id: 30,
+    nationalite: "bulgare",
+    libelle: "Bulgarie",
   },
   {
-      "id": 32,
-      "nationalite": "burundaise",
-      "libelle": "Burundi"
+    id: 31,
+    nationalite: "burkinabé",
+    libelle: "Burkina",
   },
   {
-      "id": 21,
-      "nationalite": "béninoise",
-      "libelle": "Bénin"
+    id: 32,
+    nationalite: "burundaise",
+    libelle: "Burundi",
   },
   {
-      "id": 33,
-      "nationalite": "cambodgienne",
-      "libelle": "Cambodge"
+    id: 21,
+    nationalite: "béninoise",
+    libelle: "Bénin",
   },
   {
-      "id": 34,
-      "nationalite": "camerounaise",
-      "libelle": "Cameroun"
+    id: 33,
+    nationalite: "cambodgienne",
+    libelle: "Cambodge",
   },
   {
-      "id": 35,
-      "nationalite": "canadienne",
-      "libelle": "Canada"
+    id: 34,
+    nationalite: "camerounaise",
+    libelle: "Cameroun",
   },
   {
-      "id": 36,
-      "nationalite": "cap-verdienne",
-      "libelle": "Cap-Vert"
+    id: 35,
+    nationalite: "canadienne",
+    libelle: "Canada",
   },
   {
-      "id": 144,
-      "nationalite": "centrafricaine",
-      "libelle": "Centrafrique"
+    id: 36,
+    nationalite: "cap-verdienne",
+    libelle: "Cap-Vert",
   },
   {
-      "id": 37,
-      "nationalite": "chilienne",
-      "libelle": "Chili"
+    id: 144,
+    nationalite: "centrafricaine",
+    libelle: "Centrafrique",
   },
   {
-      "id": 38,
-      "nationalite": "chinoise",
-      "libelle": "Chine"
+    id: 37,
+    nationalite: "chilienne",
+    libelle: "Chili",
   },
   {
-      "id": 39,
-      "nationalite": "chypriote",
-      "libelle": "Chypre"
+    id: 38,
+    nationalite: "chinoise",
+    libelle: "Chine",
   },
   {
-      "id": 40,
-      "nationalite": "colombienne",
-      "libelle": "Colombie"
+    id: 39,
+    nationalite: "chypriote",
+    libelle: "Chypre",
   },
   {
-      "id": 41,
-      "nationalite": "comorienne",
-      "libelle": "Comores"
+    id: 40,
+    nationalite: "colombienne",
+    libelle: "Colombie",
   },
   {
-      "id": 42,
-      "nationalite": "congolaise",
-      "libelle": "Congo"
+    id: 41,
+    nationalite: "comorienne",
+    libelle: "Comores",
   },
   {
-      "id": 43,
-      "nationalite": "nord-coréenne",
-      "libelle": "Corée du Nord"
+    id: 42,
+    nationalite: "congolaise",
+    libelle: "Congo",
   },
   {
-      "id": 44,
-      "nationalite": "sud-coréenne",
-      "libelle": "Corée du Sud"
+    id: 43,
+    nationalite: "nord-coréenne",
+    libelle: "Corée du Nord",
   },
   {
-      "id": 45,
-      "nationalite": "costaricienne",
-      "libelle": "Costa Rica"
+    id: 44,
+    nationalite: "sud-coréenne",
+    libelle: "Corée du Sud",
   },
   {
-      "id": 47,
-      "nationalite": "croate",
-      "libelle": "Croatie"
+    id: 45,
+    nationalite: "costaricienne",
+    libelle: "Costa Rica",
   },
   {
-      "id": 48,
-      "nationalite": "cubaine",
-      "libelle": "Cuba"
+    id: 47,
+    nationalite: "croate",
+    libelle: "Croatie",
   },
   {
-      "id": 46,
-      "nationalite": "ivoirienne",
-      "libelle": "Côte d'Ivoire"
+    id: 48,
+    nationalite: "cubaine",
+    libelle: "Cuba",
   },
   {
-      "id": 49,
-      "nationalite": "danoise",
-      "libelle": "Danemark"
+    id: 46,
+    nationalite: "ivoirienne",
+    libelle: "Côte d'Ivoire",
   },
   {
-      "id": 50,
-      "nationalite": "djiboutienne",
-      "libelle": "Djibouti"
+    id: 49,
+    nationalite: "danoise",
+    libelle: "Danemark",
   },
   {
-      "id": 51,
-      "nationalite": "dominiquaise",
-      "libelle": "Dominique"
+    id: 50,
+    nationalite: "djiboutienne",
+    libelle: "Djibouti",
   },
   {
-      "id": 52,
-      "nationalite": "egyptienne",
-      "libelle": "Egypte"
+    id: 51,
+    nationalite: "dominiquaise",
+    libelle: "Dominique",
   },
   {
-      "id": 53,
-      "nationalite": "emirienne",
-      "libelle": "Emirats arabes unis"
+    id: 52,
+    nationalite: "egyptienne",
+    libelle: "Egypte",
   },
   {
-      "id": 54,
-      "nationalite": "equatorienne",
-      "libelle": "Equateur"
+    id: 53,
+    nationalite: "emirienne",
+    libelle: "Emirats arabes unis",
   },
   {
-      "id": 55,
-      "nationalite": "erythréenne",
-      "libelle": "Erythrée"
+    id: 54,
+    nationalite: "equatorienne",
+    libelle: "Equateur",
   },
   {
-      "id": 56,
-      "nationalite": "espagnole",
-      "libelle": "Espagne"
+    id: 55,
+    nationalite: "erythréenne",
+    libelle: "Erythrée",
   },
   {
-      "id": 57,
-      "nationalite": "estonienne",
-      "libelle": "Estonie"
+    id: 56,
+    nationalite: "espagnole",
+    libelle: "Espagne",
   },
   {
-      "id": 58,
-      "nationalite": "américaine",
-      "libelle": "Etats-Unis"
+    id: 57,
+    nationalite: "estonienne",
+    libelle: "Estonie",
   },
   {
-      "id": 59,
-      "nationalite": "ethiopienne",
-      "libelle": "Ethiopie"
+    id: 58,
+    nationalite: "américaine",
+    libelle: "Etats-Unis",
   },
   {
-      "id": 60,
-      "nationalite": "fidjienne",
-      "libelle": "Fidji"
+    id: 59,
+    nationalite: "ethiopienne",
+    libelle: "Ethiopie",
   },
   {
-      "id": 61,
-      "nationalite": "finlandaise",
-      "libelle": "Finlande"
+    id: 60,
+    nationalite: "fidjienne",
+    libelle: "Fidji",
   },
   {
-      "id": 62,
-      "nationalite": "française",
-      "libelle": "France"
+    id: 61,
+    nationalite: "finlandaise",
+    libelle: "Finlande",
   },
   {
-      "id": 63,
-      "nationalite": "gabonaise",
-      "libelle": "Gabon"
+    id: 62,
+    nationalite: "française",
+    libelle: "France",
   },
   {
-      "id": 64,
-      "nationalite": "gambienne",
-      "libelle": "Gambie"
+    id: 63,
+    nationalite: "gabonaise",
+    libelle: "Gabon",
   },
   {
-      "id": 66,
-      "nationalite": "ghanéenne",
-      "libelle": "Ghana"
+    id: 64,
+    nationalite: "gambienne",
+    libelle: "Gambie",
   },
   {
-      "id": 68,
-      "nationalite": "grenadienne",
-      "libelle": "Grenade"
+    id: 66,
+    nationalite: "ghanéenne",
+    libelle: "Ghana",
   },
   {
-      "id": 67,
-      "nationalite": "grecque",
-      "libelle": "Grèce"
+    id: 68,
+    nationalite: "grenadienne",
+    libelle: "Grenade",
   },
   {
-      "id": 69,
-      "nationalite": "guatémaltèque",
-      "libelle": "Guatemala"
+    id: 67,
+    nationalite: "grecque",
+    libelle: "Grèce",
   },
   {
-      "id": 70,
-      "nationalite": "guinéenne",
-      "libelle": "Guinée"
+    id: 69,
+    nationalite: "guatémaltèque",
+    libelle: "Guatemala",
   },
   {
-      "id": 71,
-      "nationalite": "equatoguinéenne",
-      "libelle": "Guinée équatoriale"
+    id: 70,
+    nationalite: "guinéenne",
+    libelle: "Guinée",
   },
   {
-      "id": 72,
-      "nationalite": "bissaoguinéenne",
-      "libelle": "Guinée-Bissao"
+    id: 71,
+    nationalite: "equatoguinéenne",
+    libelle: "Guinée équatoriale",
   },
   {
-      "id": 73,
-      "nationalite": "guyanienne",
-      "libelle": "Guyana"
+    id: 72,
+    nationalite: "bissaoguinéenne",
+    libelle: "Guinée-Bissao",
   },
   {
-      "id": 65,
-      "nationalite": "géorgienne",
-      "libelle": "Géorgie"
+    id: 73,
+    nationalite: "guyanienne",
+    libelle: "Guyana",
   },
   {
-      "id": 74,
-      "nationalite": "haïtienne",
-      "libelle": "Haïti"
+    id: 65,
+    nationalite: "géorgienne",
+    libelle: "Géorgie",
   },
   {
-      "id": 75,
-      "nationalite": "hondurienne",
-      "libelle": "Honduras"
+    id: 74,
+    nationalite: "haïtienne",
+    libelle: "Haïti",
   },
   {
-      "id": 77,
-      "nationalite": "hongroise",
-      "libelle": "Hongrie"
+    id: 75,
+    nationalite: "hondurienne",
+    libelle: "Honduras",
   },
   {
-      "id": 79,
-      "nationalite": "indienne",
-      "libelle": "Inde"
+    id: 77,
+    nationalite: "hongroise",
+    libelle: "Hongrie",
   },
   {
-      "id": 80,
-      "nationalite": "indonésienne",
-      "libelle": "Indonésie"
+    id: 79,
+    nationalite: "indienne",
+    libelle: "Inde",
   },
   {
-      "id": 81,
-      "nationalite": "irakienne",
-      "libelle": "Irak"
+    id: 80,
+    nationalite: "indonésienne",
+    libelle: "Indonésie",
   },
   {
-      "id": 82,
-      "nationalite": "iranienne",
-      "libelle": "Iran"
+    id: 81,
+    nationalite: "irakienne",
+    libelle: "Irak",
   },
   {
-      "id": 83,
-      "nationalite": "irlandaise",
-      "libelle": "Irlande"
+    id: 82,
+    nationalite: "iranienne",
+    libelle: "Iran",
   },
   {
-      "id": 84,
-      "nationalite": "islandaise",
-      "libelle": "Islande"
+    id: 83,
+    nationalite: "irlandaise",
+    libelle: "Irlande",
   },
   {
-      "id": 85,
-      "nationalite": "israélienne",
-      "libelle": "Israël"
+    id: 84,
+    nationalite: "islandaise",
+    libelle: "Islande",
   },
   {
-      "id": 86,
-      "nationalite": "italienne",
-      "libelle": "Italie"
+    id: 85,
+    nationalite: "israélienne",
+    libelle: "Israël",
   },
   {
-      "id": 87,
-      "nationalite": "jamaïquaine",
-      "libelle": "Jamaïque"
+    id: 86,
+    nationalite: "italienne",
+    libelle: "Italie",
   },
   {
-      "id": 88,
-      "nationalite": "japonaise",
-      "libelle": "Japon"
+    id: 87,
+    nationalite: "jamaïquaine",
+    libelle: "Jamaïque",
   },
   {
-      "id": 90,
-      "nationalite": "jordanienne",
-      "libelle": "Jordanie"
+    id: 88,
+    nationalite: "japonaise",
+    libelle: "Japon",
   },
   {
-      "id": 89,
-      "nationalite": "palestinienne",
-      "libelle": "Jérusalem - Territoires palestiniens"
+    id: 90,
+    nationalite: "jordanienne",
+    libelle: "Jordanie",
   },
   {
-      "id": 91,
-      "nationalite": "kazakhstanais",
-      "libelle": "Kazakhstan"
+    id: 89,
+    nationalite: "palestinienne",
+    libelle: "Jérusalem - Territoires palestiniens",
   },
   {
-      "id": 92,
-      "nationalite": "kényane",
-      "libelle": "Kenya"
+    id: 91,
+    nationalite: "kazakhstanais",
+    libelle: "Kazakhstan",
   },
   {
-      "id": 93,
-      "nationalite": "kirghize",
-      "libelle": "Kirghizstan"
+    id: 92,
+    nationalite: "kényane",
+    libelle: "Kenya",
   },
   {
-      "id": 94,
-      "nationalite": "kiribatienne",
-      "libelle": "Kiribati"
+    id: 93,
+    nationalite: "kirghize",
+    libelle: "Kirghizstan",
   },
   {
-      "id": 198,
-      "nationalite": "kosovare",
-      "libelle": "Kosovo"
+    id: 94,
+    nationalite: "kiribatienne",
+    libelle: "Kiribati",
   },
   {
-      "id": 95,
-      "nationalite": "koweïtienne",
-      "libelle": "Koweït"
+    id: 198,
+    nationalite: "kosovare",
+    libelle: "Kosovo",
   },
   {
-      "id": 96,
-      "nationalite": "laotienne",
-      "libelle": "Laos"
+    id: 95,
+    nationalite: "koweïtienne",
+    libelle: "Koweït",
   },
   {
-      "id": 97,
-      "nationalite": "lesothienne",
-      "libelle": "Lesotho"
+    id: 96,
+    nationalite: "laotienne",
+    libelle: "Laos",
   },
   {
-      "id": 98,
-      "nationalite": "lettone",
-      "libelle": "Lettonie"
+    id: 97,
+    nationalite: "lesothienne",
+    libelle: "Lesotho",
   },
   {
-      "id": 99,
-      "nationalite": "libanaise",
-      "libelle": "Liban"
+    id: 98,
+    nationalite: "lettone",
+    libelle: "Lettonie",
   },
   {
-      "id": 100,
-      "nationalite": "libérienne",
-      "libelle": "Liberia"
+    id: 99,
+    nationalite: "libanaise",
+    libelle: "Liban",
   },
   {
-      "id": 101,
-      "nationalite": "libyenne",
-      "libelle": "Libye"
+    id: 100,
+    nationalite: "libérienne",
+    libelle: "Liberia",
   },
   {
-      "id": 102,
-      "nationalite": "liechtensteinoise",
-      "libelle": "Liechtenstein"
+    id: 101,
+    nationalite: "libyenne",
+    libelle: "Libye",
   },
   {
-      "id": 103,
-      "nationalite": "lituanienne",
-      "libelle": "Lituanie"
+    id: 102,
+    nationalite: "liechtensteinoise",
+    libelle: "Liechtenstein",
   },
   {
-      "id": 104,
-      "nationalite": "luxembourgeoise",
-      "libelle": "Luxembourg"
+    id: 103,
+    nationalite: "lituanienne",
+    libelle: "Lituanie",
   },
   {
-      "id": 105,
-      "nationalite": "macédonienne",
-      "libelle": "Macédoine"
+    id: 104,
+    nationalite: "luxembourgeoise",
+    libelle: "Luxembourg",
   },
   {
-      "id": 106,
-      "nationalite": "malgache",
-      "libelle": "Madagascar"
+    id: 105,
+    nationalite: "macédonienne",
+    libelle: "Macédoine",
   },
   {
-      "id": 107,
-      "nationalite": "malaisienne",
-      "libelle": "Malaisie"
+    id: 106,
+    nationalite: "malgache",
+    libelle: "Madagascar",
   },
   {
-      "id": 108,
-      "nationalite": "malawienne",
-      "libelle": "Malawi"
+    id: 107,
+    nationalite: "malaisienne",
+    libelle: "Malaisie",
   },
   {
-      "id": 109,
-      "nationalite": "maldivienne",
-      "libelle": "Maldives"
+    id: 108,
+    nationalite: "malawienne",
+    libelle: "Malawi",
   },
   {
-      "id": 110,
-      "nationalite": "malienne",
-      "libelle": "Mali"
+    id: 109,
+    nationalite: "maldivienne",
+    libelle: "Maldives",
   },
   {
-      "id": 111,
-      "nationalite": "maltaise",
-      "libelle": "Malte"
+    id: 110,
+    nationalite: "malienne",
+    libelle: "Mali",
   },
   {
-      "id": 112,
-      "nationalite": "marocaine",
-      "libelle": "Maroc"
+    id: 111,
+    nationalite: "maltaise",
+    libelle: "Malte",
   },
   {
-      "id": 113,
-      "nationalite": "marshallaise",
-      "libelle": "Marshall"
+    id: 112,
+    nationalite: "marocaine",
+    libelle: "Maroc",
   },
   {
-      "id": 114,
-      "nationalite": "mauricienne",
-      "libelle": "Maurice"
+    id: 113,
+    nationalite: "marshallaise",
+    libelle: "Marshall",
   },
   {
-      "id": 115,
-      "nationalite": "mauritanienne",
-      "libelle": "Mauritanie"
+    id: 114,
+    nationalite: "mauricienne",
+    libelle: "Maurice",
   },
   {
-      "id": 116,
-      "nationalite": "mexicaine",
-      "libelle": "Mexique"
+    id: 115,
+    nationalite: "mauritanienne",
+    libelle: "Mauritanie",
   },
   {
-      "id": 117,
-      "nationalite": "micronésienne",
-      "libelle": "Micronésie"
+    id: 116,
+    nationalite: "mexicaine",
+    libelle: "Mexique",
   },
   {
-      "id": 118,
-      "nationalite": "moldave",
-      "libelle": "Moldavie"
+    id: 117,
+    nationalite: "micronésienne",
+    libelle: "Micronésie",
   },
   {
-      "id": 119,
-      "nationalite": "monégasque",
-      "libelle": "Monaco"
+    id: 118,
+    nationalite: "moldave",
+    libelle: "Moldavie",
   },
   {
-      "id": 120,
-      "nationalite": "mongole",
-      "libelle": "Mongolie"
+    id: 119,
+    nationalite: "monégasque",
+    libelle: "Monaco",
   },
   {
-      "id": 197,
-      "nationalite": "monténégrine",
-      "libelle": "Monténégro"
+    id: 120,
+    nationalite: "mongole",
+    libelle: "Mongolie",
   },
   {
-      "id": 121,
-      "nationalite": "mozambicaine",
-      "libelle": "Mozambique"
+    id: 197,
+    nationalite: "monténégrine",
+    libelle: "Monténégro",
   },
   {
-      "id": 122,
-      "nationalite": "namibienne",
-      "libelle": "Namibie"
+    id: 121,
+    nationalite: "mozambicaine",
+    libelle: "Mozambique",
   },
   {
-      "id": 123,
-      "nationalite": "nauruane",
-      "libelle": "Nauru"
+    id: 122,
+    nationalite: "namibienne",
+    libelle: "Namibie",
   },
   {
-      "id": 125,
-      "nationalite": "nicaraguayenne",
-      "libelle": "Nicaragua"
+    id: 123,
+    nationalite: "nauruane",
+    libelle: "Nauru",
   },
   {
-      "id": 126,
-      "nationalite": "nigérienne",
-      "libelle": "Niger"
+    id: 125,
+    nationalite: "nicaraguayenne",
+    libelle: "Nicaragua",
   },
   {
-      "id": 127,
-      "nationalite": "nigériane",
-      "libelle": "Nigeria"
+    id: 126,
+    nationalite: "nigérienne",
+    libelle: "Niger",
   },
   {
-      "id": 128,
-      "nationalite": "norvégienne",
-      "libelle": "Norvège"
+    id: 127,
+    nationalite: "nigériane",
+    libelle: "Nigeria",
   },
   {
-      "id": 129,
-      "nationalite": "néo-zélandaise",
-      "libelle": "Nouvelle-Zélande"
+    id: 128,
+    nationalite: "norvégienne",
+    libelle: "Norvège",
   },
   {
-      "id": 124,
-      "nationalite": "népalaise",
-      "libelle": "Népal"
+    id: 129,
+    nationalite: "néo-zélandaise",
+    libelle: "Nouvelle-Zélande",
   },
   {
-      "id": 130,
-      "nationalite": "omanaise",
-      "libelle": "Oman"
+    id: 124,
+    nationalite: "népalaise",
+    libelle: "Népal",
   },
   {
-      "id": 131,
-      "nationalite": "ougandaise",
-      "libelle": "Ouganda"
+    id: 130,
+    nationalite: "omanaise",
+    libelle: "Oman",
   },
   {
-      "id": 132,
-      "nationalite": "ouzbèke",
-      "libelle": "Ouzbékistan"
+    id: 131,
+    nationalite: "ougandaise",
+    libelle: "Ouganda",
   },
   {
-      "id": 133,
-      "nationalite": "pakistanaise",
-      "libelle": "Pakistan"
+    id: 132,
+    nationalite: "ouzbèke",
+    libelle: "Ouzbékistan",
   },
   {
-      "id": 134,
-      "nationalite": "palaoise",
-      "libelle": "Palaos"
+    id: 133,
+    nationalite: "pakistanaise",
+    libelle: "Pakistan",
   },
   {
-      "id": 135,
-      "nationalite": "panaméenne",
-      "libelle": "Panama"
+    id: 134,
+    nationalite: "palaoise",
+    libelle: "Palaos",
   },
   {
-      "id": 136,
-      "nationalite": "papouasienne",
-      "libelle": "Papouasie-Nouvelle-Guinée"
+    id: 135,
+    nationalite: "panaméenne",
+    libelle: "Panama",
   },
   {
-      "id": 137,
-      "nationalite": "paraguayenne",
-      "libelle": "Paraguay"
+    id: 136,
+    nationalite: "papouasienne",
+    libelle: "Papouasie-Nouvelle-Guinée",
   },
   {
-      "id": 138,
-      "nationalite": "néerlandaise",
-      "libelle": "Pays-Bas"
+    id: 137,
+    nationalite: "paraguayenne",
+    libelle: "Paraguay",
   },
   {
-      "id": 140,
-      "nationalite": "philippine",
-      "libelle": "Philippines"
+    id: 138,
+    nationalite: "néerlandaise",
+    libelle: "Pays-Bas",
   },
   {
-      "id": 141,
-      "nationalite": "polonaise",
-      "libelle": "Pologne"
+    id: 140,
+    nationalite: "philippine",
+    libelle: "Philippines",
   },
   {
-      "id": 142,
-      "nationalite": "portugaise",
-      "libelle": "Portugal"
+    id: 141,
+    nationalite: "polonaise",
+    libelle: "Pologne",
   },
   {
-      "id": 139,
-      "nationalite": "péruvienne",
-      "libelle": "Pérou"
+    id: 142,
+    nationalite: "portugaise",
+    libelle: "Portugal",
   },
   {
-      "id": 143,
-      "nationalite": "qatarienne",
-      "libelle": "Qatar"
+    id: 139,
+    nationalite: "péruvienne",
+    libelle: "Pérou",
   },
   {
-      "id": 148,
-      "nationalite": "roumaine",
-      "libelle": "Roumanie"
+    id: 143,
+    nationalite: "qatarienne",
+    libelle: "Qatar",
   },
   {
-      "id": 149,
-      "nationalite": "britannique",
-      "libelle": "Royaume-Uni"
+    id: 148,
+    nationalite: "roumaine",
+    libelle: "Roumanie",
   },
   {
-      "id": 150,
-      "nationalite": "russe",
-      "libelle": "Russie"
+    id: 149,
+    nationalite: "britannique",
+    libelle: "Royaume-Uni",
   },
   {
-      "id": 151,
-      "nationalite": "rwandaise",
-      "libelle": "Rwanda"
+    id: 150,
+    nationalite: "russe",
+    libelle: "Russie",
   },
   {
-      "id": 146,
-      "nationalite": "dominicaine",
-      "libelle": "République dominicaine"
+    id: 151,
+    nationalite: "rwandaise",
+    libelle: "Rwanda",
   },
   {
-      "id": 145,
-      "nationalite": "congolaise (RDC)",
-      "libelle": "République démocratique du Congo"
+    id: 146,
+    nationalite: "dominicaine",
+    libelle: "République dominicaine",
   },
   {
-      "id": 147,
-      "nationalite": "tchèque",
-      "libelle": "République tchèque"
+    id: 145,
+    nationalite: "congolaise (RDC)",
+    libelle: "République démocratique du Congo",
   },
   {
-      "id": 152,
-      "nationalite": "christophienne",
-      "libelle": "Saint-Christophe-et-Niévès"
+    id: 147,
+    nationalite: "tchèque",
+    libelle: "République tchèque",
   },
   {
-      "id": 154,
-      "nationalite": "marinaise",
-      "libelle": "Saint-Marin"
+    id: 152,
+    nationalite: "christophienne",
+    libelle: "Saint-Christophe-et-Niévès",
   },
   {
-      "id": 155,
-      "nationalite": null,
-      "libelle": "Saint-Siège"
+    id: 154,
+    nationalite: "marinaise",
+    libelle: "Saint-Marin",
   },
   {
-      "id": 156,
-      "nationalite": "vincentaise",
-      "libelle": "Saint-Vincent-et-les Grenadines"
+    id: 155,
+    nationalite: null,
+    libelle: "Saint-Siège",
   },
   {
-      "id": 153,
-      "nationalite": "lucienne",
-      "libelle": "Sainte-Lucie"
+    id: 156,
+    nationalite: "vincentaise",
+    libelle: "Saint-Vincent-et-les Grenadines",
   },
   {
-      "id": 157,
-      "nationalite": "salomonaise",
-      "libelle": "Salomon"
+    id: 153,
+    nationalite: "lucienne",
+    libelle: "Sainte-Lucie",
   },
   {
-      "id": 158,
-      "nationalite": "salvadorienne",
-      "libelle": "Salvador"
+    id: 157,
+    nationalite: "salomonaise",
+    libelle: "Salomon",
   },
   {
-      "id": 159,
-      "nationalite": "samoene",
-      "libelle": "Samoa"
+    id: 158,
+    nationalite: "salvadorienne",
+    libelle: "Salvador",
   },
   {
-      "id": 160,
-      "nationalite": "santoméenne",
-      "libelle": "Sao Tomé-et-Principe"
+    id: 159,
+    nationalite: "samoene",
+    libelle: "Samoa",
   },
   {
-      "id": 162,
-      "nationalite": "serbe",
-      "libelle": "Serbie"
+    id: 160,
+    nationalite: "santoméenne",
+    libelle: "Sao Tomé-et-Principe",
   },
   {
-      "id": 163,
-      "nationalite": "seychelloise",
-      "libelle": "Seychelles"
+    id: 162,
+    nationalite: "serbe",
+    libelle: "Serbie",
   },
   {
-      "id": 164,
-      "nationalite": "sierraléonaise",
-      "libelle": "Sierra Leone"
+    id: 163,
+    nationalite: "seychelloise",
+    libelle: "Seychelles",
   },
   {
-      "id": 165,
-      "nationalite": "singapourienne",
-      "libelle": "Singapour"
+    id: 164,
+    nationalite: "sierraléonaise",
+    libelle: "Sierra Leone",
   },
   {
-      "id": 166,
-      "nationalite": "slovaque",
-      "libelle": "Slovaquie"
+    id: 165,
+    nationalite: "singapourienne",
+    libelle: "Singapour",
   },
   {
-      "id": 167,
-      "nationalite": "slovène",
-      "libelle": "Slovénie"
+    id: 166,
+    nationalite: "slovaque",
+    libelle: "Slovaquie",
   },
   {
-      "id": 168,
-      "nationalite": "somalienne",
-      "libelle": "Somalie"
+    id: 167,
+    nationalite: "slovène",
+    libelle: "Slovénie",
   },
   {
-      "id": 169,
-      "nationalite": "soudanaise",
-      "libelle": "Soudan"
+    id: 168,
+    nationalite: "somalienne",
+    libelle: "Somalie",
   },
   {
-      "id": 170,
-      "nationalite": "srilankaise",
-      "libelle": "Sri Lanka"
+    id: 169,
+    nationalite: "soudanaise",
+    libelle: "Soudan",
   },
   {
-      "id": 172,
-      "nationalite": "suisse",
-      "libelle": "Suisse"
+    id: 170,
+    nationalite: "srilankaise",
+    libelle: "Sri Lanka",
   },
   {
-      "id": 173,
-      "nationalite": "surinamaise",
-      "libelle": "Suriname"
+    id: 172,
+    nationalite: "suisse",
+    libelle: "Suisse",
   },
   {
-      "id": 171,
-      "nationalite": "suédoise",
-      "libelle": "Suède"
+    id: 173,
+    nationalite: "surinamaise",
+    libelle: "Suriname",
   },
   {
-      "id": 174,
-      "nationalite": "swazie",
-      "libelle": "Swaziland"
+    id: 171,
+    nationalite: "suédoise",
+    libelle: "Suède",
   },
   {
-      "id": 175,
-      "nationalite": "syrienne",
-      "libelle": "Syrie"
+    id: 174,
+    nationalite: "swazie",
+    libelle: "Swaziland",
   },
   {
-      "id": 161,
-      "nationalite": "sénégalaise",
-      "libelle": "Sénégal"
+    id: 175,
+    nationalite: "syrienne",
+    libelle: "Syrie",
   },
   {
-      "id": 176,
-      "nationalite": "tadjike",
-      "libelle": "Tadjikistan"
+    id: 161,
+    nationalite: "sénégalaise",
+    libelle: "Sénégal",
   },
   {
-      "id": 178,
-      "nationalite": "tanzanienne",
-      "libelle": "Tanzanie"
+    id: 176,
+    nationalite: "tadjike",
+    libelle: "Tadjikistan",
   },
   {
-      "id": 177,
-      "nationalite": "taïwanaise",
-      "libelle": "Taïwan"
+    id: 178,
+    nationalite: "tanzanienne",
+    libelle: "Tanzanie",
   },
   {
-      "id": 179,
-      "nationalite": "tchadienne",
-      "libelle": "Tchad"
+    id: 177,
+    nationalite: "taïwanaise",
+    libelle: "Taïwan",
   },
   {
-      "id": 180,
-      "nationalite": "thaïlandaise",
-      "libelle": "Thaïlande"
+    id: 179,
+    nationalite: "tchadienne",
+    libelle: "Tchad",
   },
   {
-      "id": 181,
-      "nationalite": "timoraise",
-      "libelle": "Timor oriental"
+    id: 180,
+    nationalite: "thaïlandaise",
+    libelle: "Thaïlande",
   },
   {
-      "id": 182,
-      "nationalite": "togolaise",
-      "libelle": "Togo"
+    id: 181,
+    nationalite: "timoraise",
+    libelle: "Timor oriental",
   },
   {
-      "id": 183,
-      "nationalite": "tongienne",
-      "libelle": "Tonga"
+    id: 182,
+    nationalite: "togolaise",
+    libelle: "Togo",
   },
   {
-      "id": 184,
-      "nationalite": "trinidadienne",
-      "libelle": "Trinité-et-Tobago"
+    id: 183,
+    nationalite: "tongienne",
+    libelle: "Tonga",
   },
   {
-      "id": 185,
-      "nationalite": "tunisienne",
-      "libelle": "Tunisie"
+    id: 184,
+    nationalite: "trinidadienne",
+    libelle: "Trinité-et-Tobago",
   },
   {
-      "id": 186,
-      "nationalite": "turkmène",
-      "libelle": "Turkménistan"
+    id: 185,
+    nationalite: "tunisienne",
+    libelle: "Tunisie",
   },
   {
-      "id": 187,
-      "nationalite": "turque",
-      "libelle": "Turquie"
+    id: 186,
+    nationalite: "turkmène",
+    libelle: "Turkménistan",
   },
   {
-      "id": 188,
-      "nationalite": "tuvaluane",
-      "libelle": "Tuvalu"
+    id: 187,
+    nationalite: "turque",
+    libelle: "Turquie",
   },
   {
-      "id": 189,
-      "nationalite": "ukrainienne",
-      "libelle": "Ukraine"
+    id: 188,
+    nationalite: "tuvaluane",
+    libelle: "Tuvalu",
   },
   {
-      "id": 190,
-      "nationalite": "uruguayenne",
-      "libelle": "Uruguay"
+    id: 189,
+    nationalite: "ukrainienne",
+    libelle: "Ukraine",
   },
   {
-      "id": 191,
-      "nationalite": "vanuataise",
-      "libelle": "Vanuatu"
+    id: 190,
+    nationalite: "uruguayenne",
+    libelle: "Uruguay",
   },
   {
-      "id": 192,
-      "nationalite": "vénézuélienne",
-      "libelle": "Venezuela"
+    id: 191,
+    nationalite: "vanuataise",
+    libelle: "Vanuatu",
   },
   {
-      "id": 193,
-      "nationalite": "vietnamienne",
-      "libelle": "Viêt Nam"
+    id: 192,
+    nationalite: "vénézuélienne",
+    libelle: "Venezuela",
   },
   {
-      "id": 194,
-      "nationalite": "yéménite",
-      "libelle": "Yémen"
+    id: 193,
+    nationalite: "vietnamienne",
+    libelle: "Viêt Nam",
   },
   {
-      "id": 195,
-      "nationalite": "zambienne",
-      "libelle": "Zambie"
+    id: 194,
+    nationalite: "yéménite",
+    libelle: "Yémen",
   },
   {
-      "id": 196,
-      "nationalite": "zimbabwéenne",
-      "libelle": "Zimbabwe"
-  }]
+    id: 195,
+    nationalite: "zambienne",
+    libelle: "Zambie",
+  },
+  {
+    id: 196,
+    nationalite: "zimbabwéenne",
+    libelle: "Zimbabwe",
+  },
+];
 
 function Register() {
   const [step, setStep] = useState(1);
@@ -1053,18 +1052,13 @@ function Register() {
     setSkillsError(updatedSkills.length >= 10);
   };
 
-
   const generateOptions = (field) => {
-    return pays.map(country => (
+    return pays.map((country) => (
       <option key={country.id} value={country[field]}>
         {country[field]}
       </option>
     ));
   };
-  
-  
-
-
 
   const handleSkillToggleAutre = (skill) => {
     let updatedSkills = formData.skillsAutre.split(","); // Convert string to array
@@ -1414,12 +1408,77 @@ function Register() {
     return [];
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log("Submit button clicked!"); // Add this line
+
+  //   const selectedCoachSkills = formData.skills.split(",");
+
+  //   if (selectedCoachSkills.length === 0) {
+  //     setSkillsError(true);
+  //     return;
+  //   } else {
+  //     setSkillsError(false);
+  //   }
+  //   if (selectedSkills.length > 1) {
+  //     console.log("Skills error detected");
+  //   }
+
+  //   // Validate other fields
+  //   const requiredFields = getRequiredFields(step);
+
+  //   const areAllFieldsFilled = requiredFields.every(
+  //     (field) => formData[field] !== ""
+  //   );
+
+  //   if (areAllFieldsFilled) {
+  //     try {
+  //       const response = await fetch("http://localhost:8088/api/auth/signup", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(formData),
+  //       });
+
+  //       if (response.ok) {
+  //         const responseData = await response.json();
+
+  //         console.log("Server Response Data:", responseData);
+  //         navigate("/login");
+  //         console.log("User registered successfully!");
+  //       } else {
+  //         console.error("Registration failed.");
+  //       }
+  //     } catch (error) {
+  //       console.error("An error occurred:", error);
+  //     }
+  //   } else {
+  //     // Set error messages for empty fields
+  //     const errors = {};
+  //     requiredFields.forEach((field) => {
+  //       if (formData[field] === "") {
+  //         errors[field] = "This field is required";
+  //       }
+  //     });
+  //     setInputErrors(errors);
+
+  //     if (selectedCoachSkills.length === 0) {
+  //       setSkillsError(true);
+  //       return;
+  //     } else {
+  //       setSkillsError(false);
+  //     }
+  //     // Log the errors to the console
+  //     console.log("Input Errors:", errors);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submit button clicked!"); // Add this line
-
+    console.log("Submit button clicked!");
+  
     const selectedCoachSkills = formData.skills.split(",");
-
+  
     if (selectedCoachSkills.length === 0) {
       setSkillsError(true);
       return;
@@ -1429,14 +1488,14 @@ function Register() {
     if (selectedSkills.length > 1) {
       console.log("Skills error detected");
     }
-
+  
     // Validate other fields
     const requiredFields = getRequiredFields(step);
-
+  
     const areAllFieldsFilled = requiredFields.every(
       (field) => formData[field] !== ""
     );
-
+  
     if (areAllFieldsFilled) {
       try {
         const response = await fetch("http://localhost:8088/api/auth/signup", {
@@ -1446,15 +1505,21 @@ function Register() {
           },
           body: JSON.stringify(formData),
         });
-
+  
         if (response.ok) {
           const responseData = await response.json();
-
+  
           console.log("Server Response Data:", responseData);
           navigate("/login");
           console.log("User registered successfully!");
         } else {
-          console.error("Registration failed.");
+          // Check if the email is already in use
+          if (response.status === 409) {
+            // Assuming status code 409 indicates a conflict, i.e., email already in use
+            setValidationError("Email is already in use. Please use a different email.");
+          } else {
+            console.error("Registration failed.");
+          }
         }
       } catch (error) {
         console.error("An error occurred:", error);
@@ -1468,7 +1533,7 @@ function Register() {
         }
       });
       setInputErrors(errors);
-
+  
       if (selectedCoachSkills.length === 0) {
         setSkillsError(true);
         return;
@@ -1479,7 +1544,7 @@ function Register() {
       console.log("Input Errors:", errors);
     }
   };
-
+  
   return (
     <Fragment>
       <div className="main-wrap bg-slate-100 ">
@@ -1672,45 +1737,50 @@ function Register() {
                           )}
                         </div>
                         <div className="form-group icon-input mb-3">
-  <i className="font-sm ti-world text-grey-500 pe-0"></i>
-  <select
-    name="nationality"
-    value={formData.nationality}
-    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-      inputErrors["nationality"] ? "is-invalid" : ""
-    }`}
-    onChange={handleInputChange}
-  >
-    <option value="" disabled>Select Nationality</option>
-    {generateOptions("nationalite")}
-  </select>
-  {inputErrors["nationality"] && (
-    <div className="invalid-feedback">
-      {inputErrors["nationality"]}
-    </div>
-  )}
-</div>
+                          <i className="font-sm ti-world text-grey-500 pe-0"></i>
+                          <select
+                            name="nationality"
+                            value={formData.nationality}
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["nationality"] ? "is-invalid" : ""
+                            }`}
+                            onChange={handleInputChange}
+                          >
+                            <option value="" disabled>
+                              Select Nationality
+                            </option>
+                            {generateOptions("nationalite")}
+                          </select>
+                          {inputErrors["nationality"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["nationality"]}
+                            </div>
+                          )}
+                        </div>
 
-<div className="form-group icon-input mb-3">
-  <i className="font-sm ti-world text-grey-500 pe-0"></i>
-  <select
-    name="countryresidence"
-    value={formData.countryresidence}
-    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-      inputErrors["countryresidence"] ? "is-invalid" : ""
-    }`}
-    onChange={handleInputChange}
-  >
-    <option value="" disabled>Select Country of Residence</option>
-    {generateOptions("libelle")}
-  </select>
-  {inputErrors["countryresidence"] && (
-    <div className="invalid-feedback">
-      {inputErrors["countryresidence"]}
-    </div>
-  )}
-</div>
-
+                        <div className="form-group icon-input mb-3">
+                          <i className="font-sm ti-world text-grey-500 pe-0"></i>
+                          <select
+                            name="countryresidence"
+                            value={formData.countryresidence}
+                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                              inputErrors["countryresidence"]
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                            onChange={handleInputChange}
+                          >
+                            <option value="" disabled>
+                              Select Country of Residence
+                            </option>
+                            {generateOptions("libelle")}
+                          </select>
+                          {inputErrors["countryresidence"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["countryresidence"]}
+                            </div>
+                          )}
+                        </div>
 
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-location-pin text-grey-500 pe-0"></i>
@@ -1775,7 +1845,7 @@ function Register() {
                             onClick={handleNextStep1}
                             className="form-control flex  items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0"
                           >
-                            Next
+                            Suivant
                           </button>
                         </div>
                       </div>
@@ -1944,14 +2014,14 @@ function Register() {
                             onClick={handlePrevStep}
                             className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
                           >
-                            Previous
+                            Retour
                           </button>
                           <button
                             type="button"
                             onClick={handleNextStep}
                             className="form-control flex  items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0"
                           >
-                            Next
+                            Suivant
                           </button>
                         </div>
                       </div>
@@ -1962,61 +2032,71 @@ function Register() {
                         {formData.profil === "player" && (
                           <div style={{ maxHeight: "1000px" }}>
                             <div className="form-group icon-input mb-3">
-        <i className="font-sm ti-arrow-up text-grey-500 pe-0"></i>
-        <input
-          type="number" // Use type "number" for weight input
-          id="weight"
-          name="weight"
-          value={formData.weight}
-          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${inputErrors["weight"] ? "is-invalid" : ""}`}
-          placeholder="Weight (kg)"
-          onChange={handleInputChange}
-        />
-        {inputErrors["weight"] && (
-          <div className="invalid-feedback">
-            {inputErrors["weight"]}
-          </div>
-        )}
-      </div>
+                              <i className="font-sm ti-arrow-up text-grey-500 pe-0"></i>
+                              <input
+                                type="number" // Use type "number" for weight input
+                                id="weight"
+                                name="weight"
+                                value={formData.weight}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["weight"] ? "is-invalid" : ""
+                                }`}
+                                placeholder="Weight (kg)"
+                                onChange={handleInputChange}
+                              />
+                              {inputErrors["weight"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["weight"]}
+                                </div>
+                              )}
+                            </div>
 
-      <div className="form-group icon-input mb-3">
-        <i className="font-sm ti-anchor text-grey-500 pe-0"></i>
-        <input
-          type="number" // Use type "number" for height input
-          id="height"
-          name="height"
-          value={formData.height}
-          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${inputErrors["height"] ? "is-invalid" : ""}`}
-          placeholder="Height (cm)"
-          onChange={handleInputChange}
-        />
-        {inputErrors["height"] && (
-          <div className="invalid-feedback">
-            {inputErrors["height"]}
-          </div>
-        )}
-      </div>
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-anchor text-grey-500 pe-0"></i>
+                              <input
+                                type="number" // Use type "number" for height input
+                                id="height"
+                                name="height"
+                                value={formData.height}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["height"] ? "is-invalid" : ""
+                                }`}
+                                placeholder="Height (cm)"
+                                onChange={handleInputChange}
+                              />
+                              {inputErrors["height"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["height"]}
+                                </div>
+                              )}
+                            </div>
 
-      <div className="form-group icon-input mb-3">
-        <i className="font-sm ti-thumb-up text-grey-500 pe-0"></i>
-        <select
-          id="PiedFort"
-          name="PiedFort"
-          value={formData.PiedFort}
-          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${inputErrors["PiedFort"] ? "is-invalid" : ""}`}
-          onChange={handleInputChange}
-        >
-          <option value="" disabled>Select Pied Forte</option>
-          <option value="PiedGauche">Pied Gauche</option>
-          <option value="PiedDroit">Pied Droit</option>
-          <option value="DeuxPieds">Les deux pieds</option>
-        </select>
-        {inputErrors["PiedFort"] && (
-          <div className="invalid-feedback">
-            {inputErrors["PiedFort"]}
-          </div>
-        )}
-      </div>
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-thumb-up text-grey-500 pe-0"></i>
+                              <select
+                                id="PiedFort"
+                                name="PiedFort"
+                                value={formData.PiedFort}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["PiedFort"] ? "is-invalid" : ""
+                                }`}
+                                onChange={handleInputChange}
+                              >
+                                <option value="" disabled>
+                                  Select Pied Forte
+                                </option>
+                                <option value="PiedGauche">Pied Gauche</option>
+                                <option value="PiedDroit">Pied Droit</option>
+                                <option value="DeuxPieds">
+                                  Les deux pieds
+                                </option>
+                              </select>
+                              {inputErrors["PiedFort"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["PiedFort"]}
+                                </div>
+                              )}
+                            </div>
 
                             <div className="form-group icon-input mb-3">
                               <i className="font-sm ti-id-badge text-grey-500 pe-0"></i>
@@ -2060,61 +2140,115 @@ function Register() {
                             </div>
 
                             <div className="form-group icon-input mb-3">
-        <i className="font-sm ti-pin text-grey-500"></i>
-        <select
-          id="positionPlay"
-          name="positionPlay"
-          value={formData.positionPlay}
-          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${inputErrors["positionPlay"] ? "is-invalid" : ""}`}
-          onChange={handleInputChange}
-        >
-          <option value="" disabled>Select Primary Position</option>
-          <option value="Gardien de but">Gardien de but</option>
-          <option value="Défenseur central">Défenseur central</option>
-          <option value="Arrière droit">Arrière droit</option>
-          <option value="Arrière gauche">Arrière gauche</option>
-          <option value="Milieu défensif">Milieu défensif</option>
-          <option value="Milieu central">Milieu central</option>
-          <option value="Milieu offensif">Milieu offensif</option>
-          <option value="Ailier droit">Ailier droit</option>
-          <option value="Ailier gauche">Ailier gauche</option>
-          <option value="Attaquant de pointe">Attaquant de pointe</option>
-          <option value="Attaquant polyvalent">Attaquant polyvalent</option>
-        </select>
-        {inputErrors["positionPlay"] && (
-          <div className="invalid-feedback">
-            {inputErrors["positionPlay"]}
-          </div>
-        )}
-      </div>
+                              <i className="font-sm ti-pin text-grey-500"></i>
+                              <select
+                                id="positionPlay"
+                                name="positionPlay"
+                                value={formData.positionPlay}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["positionPlay"]
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                                onChange={handleInputChange}
+                              >
+                                <option value="" disabled>
+                                  Select Primary Position
+                                </option>
+                                <option value="Gardien de but">
+                                  Gardien de but
+                                </option>
+                                <option value="Défenseur central">
+                                  Défenseur central
+                                </option>
+                                <option value="Arrière droit">
+                                  Arrière droit
+                                </option>
+                                <option value="Arrière gauche">
+                                  Arrière gauche
+                                </option>
+                                <option value="Milieu défensif">
+                                  Milieu défensif
+                                </option>
+                                <option value="Milieu central">
+                                  Milieu central
+                                </option>
+                                <option value="Milieu offensif">
+                                  Milieu offensif
+                                </option>
+                                <option value="Ailier droit">
+                                  Ailier droit
+                                </option>
+                                <option value="Ailier gauche">
+                                  Ailier gauche
+                                </option>
+                                <option value="Attaquant de pointe">
+                                  Attaquant de pointe
+                                </option>
+                                <option value="Attaquant polyvalent">
+                                  Attaquant polyvalent
+                                </option>
+                              </select>
+                              {inputErrors["positionPlay"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["positionPlay"]}
+                                </div>
+                              )}
+                            </div>
 
-      <div className="form-group icon-input mb-3">
-        <i className="font-sm ti-pin text-grey-500"></i>
-        <select
-          id="positionSecond"
-          name="positionSecond"
-          value={formData.positionSecond}
-          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${inputErrors["positionSecond"] ? "is-invalid" : ""}`}
-          onChange={handleInputChange}
-        >
-          <option value="" disabled>Select Secondary Position</option>
-          <option value="Gardien de but (GK)">Gardien de but (GK)</option>
-          <option value="Arrière droit (RB)">Arrière droit (RB)</option>
-          <option value="Arrière gauche( LB)">Arrière gauche( LB)</option>
-          <option value="Défenseur central (CB)">Défenseur central (CB)</option>
-          <option value="Milieu défensif (CDM)">Milieu défensif (CDM)</option>
-          <option value="Milieu central ( CM)">Milieu central ( CM)</option>
-          <option value="Milieu offensif ( CAM)">Milieu offensif ( CAM)</option>
-          <option value="Ailier droit (RW)">Ailier droit (RW)</option>
-          <option value="Ailier gauche ( LW)">Ailier gauche ( LW)</option>
-          <option value="Avant-centre ">Avant-centre ( ST)</option>
-        </select>
-        {inputErrors["positionSecond"] && (
-          <div className="invalid-feedback">
-            {inputErrors["positionSecond"]}
-          </div>
-        )}
-      </div>
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-pin text-grey-500"></i>
+                              <select
+                                id="positionSecond"
+                                name="positionSecond"
+                                value={formData.positionSecond}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["positionSecond"]
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                                onChange={handleInputChange}
+                              >
+                                <option value="" disabled>
+                                  Select Secondary Position
+                                </option>
+                                <option value="Gardien de but (GK)">
+                                  Gardien de but (GK)
+                                </option>
+                                <option value="Arrière droit (RB)">
+                                  Arrière droit (RB)
+                                </option>
+                                <option value="Arrière gauche( LB)">
+                                  Arrière gauche( LB)
+                                </option>
+                                <option value="Défenseur central (CB)">
+                                  Défenseur central (CB)
+                                </option>
+                                <option value="Milieu défensif (CDM)">
+                                  Milieu défensif (CDM)
+                                </option>
+                                <option value="Milieu central ( CM)">
+                                  Milieu central ( CM)
+                                </option>
+                                <option value="Milieu offensif ( CAM)">
+                                  Milieu offensif ( CAM)
+                                </option>
+                                <option value="Ailier droit (RW)">
+                                  Ailier droit (RW)
+                                </option>
+                                <option value="Ailier gauche ( LW)">
+                                  Ailier gauche ( LW)
+                                </option>
+                                <option value="Avant-centre ">
+                                  Avant-centre ( ST)
+                                </option>
+                              </select>
+                              {inputErrors["positionSecond"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["positionSecond"]}
+                                </div>
+                              )}
+                            </div>
                             <div className="form-group icon-input mb-3">
                               {[
                                 "Rapidite",
@@ -2215,58 +2349,58 @@ function Register() {
                               )}
                             </div>
 
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-strategy text-grey-500 pe-0"></i>
+                              <select
+                                name="footballTactic"
+                                value={formData.footballTactic}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["footballTactic"]
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                                onChange={handleInputChange}
+                              >
+                                <option value="" disabled>
+                                  Select Football Tactic
+                                </option>
+                                <option value="4-4-2">4-4-2</option>
+                                <option value="4-3-3">4-3-3</option>
+                                <option value="4-2-3-1">4-2-3-1</option>
+                                <option value="5-3-2">5-3-2</option>
+                                <option value="5-4-1">5-4-1</option>
+                                <option value="catenaccio">3-4-3</option>
+                              </select>
+                              {inputErrors["footballTactic"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["footballTactic"]}
+                                </div>
+                              )}
+                            </div>
 
                             <div className="form-group icon-input mb-3">
-  <i className="font-sm ti-strategy text-grey-500 pe-0"></i>
-  <select
-    name="footballTactic"
-    value={formData.footballTactic}
-    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-      inputErrors["footballTactic"] ? "is-invalid" : ""
-    }`}
-    onChange={handleInputChange}
-  >
-    <option value="" disabled>Select Football Tactic</option>
-    <option value="4-4-2">4-4-2</option>
-    <option value="4-3-3">4-3-3</option>
-    <option value="4-2-3-1">4-2-3-1</option>
-    <option value="5-3-2">5-3-2</option>
-    <option value="5-4-1">5-4-1</option>
-    <option value="catenaccio">3-4-3</option>
-   
-  </select>
-  {inputErrors["footballTactic"] && (
-    <div className="invalid-feedback">
-      {inputErrors["footballTactic"]}
-    </div>
-  )}
-</div>
-
-
-
-
-
-
-                            <div className="form-group icon-input mb-3">
-  <i className="font-sm ti-world text-grey-500 pe-0"></i>
-  <select
-    name="countryCoachedIn"
-    value={formData.countryCoachedIn}
-    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-      inputErrors["countryCoachedIn"] ? "is-invalid" : ""
-    }`}
-    onChange={handleInputChange}
-  >
-    <option value="" disabled>Select Country Coached In</option>
-    {generateOptions("libelle")}
-  </select>
-  {inputErrors["countryCoachedIn"] && (
-    <div className="invalid-feedback">
-      {inputErrors["countryCoachedIn"]}
-    </div>
-  )}
-</div>
-
+                              <i className="font-sm ti-world text-grey-500 pe-0"></i>
+                              <select
+                                name="countryCoachedIn"
+                                value={formData.countryCoachedIn}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["countryCoachedIn"]
+                                    ? "is-invalid"
+                                    : ""
+                                }`}
+                                onChange={handleInputChange}
+                              >
+                                <option value="" disabled>
+                                  Select Country Coached In
+                                </option>
+                                {generateOptions("libelle")}
+                              </select>
+                              {inputErrors["countryCoachedIn"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["countryCoachedIn"]}
+                                </div>
+                              )}
+                            </div>
 
                             {/* <div className="form-group icon-input mb-3">
             <input
@@ -2389,7 +2523,9 @@ function Register() {
                               value={formData.typeresponsable}
                               required
                             >
-                              <option value="">Select Le Type De Responsabilité</option>
+                              <option value="">
+                                Select Le Type De Responsabilité
+                              </option>
                               <option value="club">Club</option>
                               <option value="players">Players</option>
                             </select>
@@ -2431,28 +2567,36 @@ function Register() {
                                       )}
                                     </div>
                                     <div>
-  <label htmlFor="paysclub" className="block text-left mb-2">
-    Nom du Pays:
-  </label>
-  <div className="form-group icon-input mb-3">
-    <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
-    <select
-      name="paysclub"
-      value={formData.paysclub}
-      className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-        inputErrors["paysclub"] ? "is-invalid" : ""
-      }`}
-      onChange={handleInputChange}
-    >
-      <option value="" disabled>Select Country</option>
-      {generateOptions("libelle")}
-    </select>
-    {inputErrors["paysclub"] && (
-      <div className="invalid-feedback">{inputErrors["paysclub"]}</div>
-    )}
-  </div>
-</div>
-
+                                      <label
+                                        htmlFor="paysclub"
+                                        className="block text-left mb-2"
+                                      >
+                                        Nom du Pays:
+                                      </label>
+                                      <div className="form-group icon-input mb-3">
+                                        <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
+                                        <select
+                                          name="paysclub"
+                                          value={formData.paysclub}
+                                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                            inputErrors["paysclub"]
+                                              ? "is-invalid"
+                                              : ""
+                                          }`}
+                                          onChange={handleInputChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select Country
+                                          </option>
+                                          {generateOptions("libelle")}
+                                        </select>
+                                        {inputErrors["paysclub"] && (
+                                          <div className="invalid-feedback">
+                                            {inputErrors["paysclub"]}
+                                          </div>
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 )}
 
@@ -2508,29 +2652,37 @@ function Register() {
                                       </div>
                                     )}
 
-<div>
-  <label htmlFor="pays" className="block mb-2">
-    Nom du Pays:
-  </label>
-  <div className="form-group icon-input mb-3">
-    <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
-    <select
-      name="pays"
-      value={formData.pays}
-      className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-        inputErrors["pays"] ? "is-invalid" : ""
-      }`}
-      onChange={handleInputChange}
-    >
-      <option value="" disabled>Select Country</option>
-      {generateOptions("libelle")}
-    </select>
-    {inputErrors["pays"] && (
-      <div className="invalid-feedback">{inputErrors["pays"]}</div>
-    )}
-  </div>
-</div>
-
+                                    <div>
+                                      <label
+                                        htmlFor="pays"
+                                        className="block mb-2"
+                                      >
+                                        Nom du Pays:
+                                      </label>
+                                      <div className="form-group icon-input mb-3">
+                                        <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
+                                        <select
+                                          name="pays"
+                                          value={formData.pays}
+                                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                            inputErrors["pays"]
+                                              ? "is-invalid"
+                                              : ""
+                                          }`}
+                                          onChange={handleInputChange}
+                                        >
+                                          <option value="" disabled>
+                                            Select Country
+                                          </option>
+                                          {generateOptions("libelle")}
+                                        </select>
+                                        {inputErrors["pays"] && (
+                                          <div className="invalid-feedback">
+                                            {inputErrors["pays"]}
+                                          </div>
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 )}
                               </div>
@@ -2559,26 +2711,29 @@ function Register() {
 
                         {formData.profil === "scout" && (
                           <div>
-                           <div className="form-group icon-input mb-3">
-  <i className="font-sm ti-ticket text-grey-500 pe-0"></i>
-  <select
-    name="engagement"
-    value={formData.engagement}
-    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-      inputErrors["engagement"] ? "is-invalid" : ""
-    }`}
-    onChange={handleInputChange}
-  >
-    <option value="" disabled>Select Engagement</option>
-    <option value="plein-temps">Plein Temps</option>
-    <option value="mi-temps">Mi-Temps</option>
-    <option value="volontaire">Volontaire</option>
-  </select>
-  {inputErrors["engagement"] && (
-    <div className="invalid-feedback">{inputErrors["engagement"]}</div>
-  )}
-</div>
-
+                            <div className="form-group icon-input mb-3">
+                              <i className="font-sm ti-ticket text-grey-500 pe-0"></i>
+                              <select
+                                name="engagement"
+                                value={formData.engagement}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["engagement"] ? "is-invalid" : ""
+                                }`}
+                                onChange={handleInputChange}
+                              >
+                                <option value="" disabled>
+                                  Select Engagement
+                                </option>
+                                <option value="plein-temps">Plein Temps</option>
+                                <option value="mi-temps">Mi-Temps</option>
+                                <option value="volontaire">Volontaire</option>
+                              </select>
+                              {inputErrors["engagement"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["engagement"]}
+                                </div>
+                              )}
+                            </div>
 
                             <div className="form-group icon-input mb-3">
                               <i className="font-sm ti-basketball text-grey-500 pe-0"></i>
@@ -2603,23 +2758,26 @@ function Register() {
                             </div>
 
                             <div className="form-group icon-input mb-3">
-  <i className="font-sm ti-map-alt text-grey-500 pe-0"></i>
-  <select
-    name="paysscout"
-    value={formData.paysscout}
-    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-      inputErrors["paysscout"] ? "is-invalid" : ""
-    }`}
-    onChange={handleInputChange}
-  >
-    <option value="" disabled>Select Pays</option>
-    {generateOptions("libelle")}
-  </select>
-  {inputErrors["paysscout"] && (
-    <div className="invalid-feedback">{inputErrors["paysscout"]}</div>
-  )}
-</div>
-
+                              <i className="font-sm ti-map-alt text-grey-500 pe-0"></i>
+                              <select
+                                name="paysscout"
+                                value={formData.paysscout}
+                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                  inputErrors["paysscout"] ? "is-invalid" : ""
+                                }`}
+                                onChange={handleInputChange}
+                              >
+                                <option value="" disabled>
+                                  Select Pays
+                                </option>
+                                {generateOptions("libelle")}
+                              </select>
+                              {inputErrors["paysscout"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["paysscout"]}
+                                </div>
+                              )}
+                            </div>
 
                             <div className="form-group icon-input mb-3">
                               <i className="font-sm ti-user text-grey-500 pe-0"></i>
@@ -3145,13 +3303,13 @@ function Register() {
                                 onClick={handlePrevStep}
                                 className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
                               >
-                                Previous
+                                Retour
                               </button>
                               <button
                                 type="submit"
                                 className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
                               >
-                                Submit
+                                Register
                               </button>
                             </div>
                           </div>

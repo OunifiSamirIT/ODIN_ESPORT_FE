@@ -42,7 +42,7 @@ const EditPage = () => {
   const handleUpdateArticle = async () => {
     try {
       if (!editArticle.description) {
-        setErrMsg({ status: "failed", message: "Fill all the information" });
+        // setErrMsg({ status: "failed", message: "Fill all the information" });
         return;
       }
 
@@ -77,11 +77,11 @@ const EditPage = () => {
         // Handle errors
         console.error("Error updating article:", response.statusText);
         const errorData = await response.json();
-        setErrMsg({ status: "failed", message: errorData.message || "Error updating article" });
+        // setErrMsg({ status: "failed", message: errorData.message || "Error updating article" });
       }
     } catch (error) {
       console.error("Error updating article:", error);
-      setErrMsg({ status: "failed", message: "Error updating article" });
+      // setErrMsg({ status: "failed", message: "Error updating article" });
     }
   };
   

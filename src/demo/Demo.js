@@ -208,7 +208,7 @@ class Demo extends Component {
               <div className="col-lg-6 col-md-6 col-sm-6 d-none d-lg-block"></div>
               <div className="col-lg-3 col-md-8 col-sm-3 col-xs-8  w-28 text-right ">
                 <a
-                  href="/"
+                  href="/login"
                   className="btn btn-lg btn-primary  sm:ml-4 text-uppercase"
                 >
                   Seconnecter

@@ -1,6 +1,6 @@
 import React,{Component, useEffect, useState} from 'react';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
+// import Lightbox from 'react-image-lightbox';
+// import 'react-image-lightbox/style.css';
 import { Link } from 'react-router-dom';
 
 

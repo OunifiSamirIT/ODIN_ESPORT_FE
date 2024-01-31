@@ -7,8 +7,8 @@ import Popupchat from '../components/Popupchat';
 
 import Slider from "react-slick";
 
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
+// import Lightbox from 'react-image-lightbox';
+// import 'react-image-lightbox/style.css';
 
 const slideList = [
     {   
@@ -157,7 +157,7 @@ class Hotelsingle extends Component {
                                         <div className="row ps-3 pe-3">
                                             {TabOne.map((value , index) => (
                                                 <div className="col-sm-4 col-xss-4 pe-1 ps-1 mb-2" key={index}>
-                                                    {isOpen && (
+                                                    {/* {isOpen && (
                                                         <Lightbox
                                                             mainSrc={TabOne[tab1].bigImage}
                                                             onCloseRequest={() => this.setState({ isOpen: false })}
@@ -172,7 +172,7 @@ class Hotelsingle extends Component {
                                                                 })
                                                             }
                                                         />
-                                                    )}
+                                                    )} */}
                                                     
                                                     <div onClick={() => this.setState({ isOpen: true, tab1: index })}>
                                                         <a href="#portfolio-details">
