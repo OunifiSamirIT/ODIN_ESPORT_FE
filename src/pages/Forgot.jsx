@@ -27,7 +27,7 @@ function Forgot() {
 
       // Make an API request to initiate the password reset
       const response = await fetch(
-        "http://localhost:8088/api/auth/forgotPassword",
+        "https://odine-sport.com/api/auth/forgotPassword",
         {
           method: "POST",
           headers: {

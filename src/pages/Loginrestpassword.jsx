@@ -26,7 +26,7 @@ function Login() {
       const resetToken = pathTokens[pathTokens.length - 1];
       
       // Make an API request to reset the password using fetch
-      const response = await fetch("http://localhost:8088/api/auth/resetPassword", {
+      const response = await fetch("https://odine-sport.com/api/auth/resetPassword", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

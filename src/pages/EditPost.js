@@ -28,7 +28,7 @@ function EditPost() {
     const fetchArticle = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8088/api/articles/${articleId}`
+          `https://odine-sport.com/api/articles/${articleId}`
         );
         if (response.ok) {
           const article = await response.json();
@@ -77,7 +77,7 @@ function EditPost() {
       }
 
       const response = await fetch(
-        `http://localhost:8088/api/articles/${editArticle.id}`,
+        `https://odine-sport.com/api/articles/${editArticle.id}`,
         {
           method: "PUT",
           body: formData,

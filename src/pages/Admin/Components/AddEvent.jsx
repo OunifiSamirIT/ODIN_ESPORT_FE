@@ -23,7 +23,7 @@ const AddEvent = () => {
             formData.append('files', file);
           }); 
         formData.append("userID", storedUserData.id);         
-      await fetch("http://localhost:8088/api/event/upload", {
+      await fetch("https://odine-sport.com/api/event/upload", {
           method: 'POST',
           body: formData,
         });

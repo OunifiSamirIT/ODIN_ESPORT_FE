@@ -88,7 +88,7 @@ const ViewAlbum = () => {
    
     const fetchAlbumData = async () => {
         setIsLoading(true);
-        const url = "http://localhost:8088/api/album/" + id;
+        const url = "https://odine-sport.com/api/album/" + id;
         try {
           const response = await fetch(url);
           const result = await response.json();

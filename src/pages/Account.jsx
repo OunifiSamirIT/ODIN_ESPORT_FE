@@ -90,7 +90,7 @@ function Account() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch(`http://localhost:8088/api/user/${id}`);
+        const response = await fetch(`https://odine-sport.com/api/user/${id}`);
         const data = await response.json();
         setUserInfo(data);
         console.log("eeeeeeeeeeeeeee", userInfo);
@@ -138,7 +138,7 @@ function Account() {
   // });
   // formDataWithImage.append("image", picture);
 
-  //     const userResponse = await fetch(`http://localhost:8088/api/user/${id}`, {
+  //     const userResponse = await fetch(`https://odine-sport.com/api/user/${id}`, {
   //       method: "PUT",
   //       headers: {
   //         "Content-Type": "application/json",
@@ -154,7 +154,7 @@ function Account() {
 
   //     // Update player information
   //     const playerResponse = await fetch(
-  //       `http://localhost:8088/api/player/${id}`,
+  //       `https://odine-sport.com/api/player/${id}`,
   //       {
   //         method: "PUT",
   //         headers: {
@@ -220,7 +220,7 @@ function Account() {
   
       // Make a PUT request to update the user profile
       const response = await fetch(
-        `http://localhost:8088/api/user/${storedUserData.id}`,
+        `https://odine-sport.com/api/user/${storedUserData.id}`,
         {
           method: "PUT",
           body: formDataToUpdate,

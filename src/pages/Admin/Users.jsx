@@ -14,7 +14,7 @@ const User = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("http://localhost:8088/api/user");
+                const response = await fetch("https://odine-sport.com/api/user");
                 const result = await response.json();
 
                 setUsers(result.rows);

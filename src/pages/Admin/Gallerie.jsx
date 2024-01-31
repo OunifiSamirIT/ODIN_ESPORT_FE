@@ -18,7 +18,7 @@ const  Album =  () =>  {
     useEffect(() => {
         const fetchAlbums = async () => {
             try {
-                const response = await fetch("http://localhost:8088/api/album");
+                const response = await fetch("https://odine-sport.com/api/album");
                 const result = await response.json();
 
                 setAlbum(result.data);

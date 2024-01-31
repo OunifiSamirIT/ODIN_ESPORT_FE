@@ -93,13 +93,13 @@ function Home() {
       formData.append("fileType", fileType);
 
       // Make a POST request to create a new article
-      await fetch("http://localhost:8088/api/articles/", {
+      await fetch("https://odine-sport.com/api/articles/", {
         method: "POST",
         body: formData,
       });
 
       // After creating the article, fetch the updated list of articles
-      const response = await fetch("http://localhost:8088/api/articles/");
+      const response = await fetch("https://odine-sport.com/api/articles/");
       const updatedPostsData = await response.json();
 
       // Update the list of posts and reset the preview image
@@ -124,7 +124,7 @@ function Home() {
 
     if (id) {
       // Replace the API endpoint with your actual endpoint for fetching user data
-      fetch(`http://localhost:8088/api/user/${id}`)
+      fetch(`https://odine-sport.com/api/user/${id}`)
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -134,7 +134,7 @@ function Home() {
 
     const fetchArticles = async () => {
       try {
-        const response = await fetch("http://localhost:8088/api/articles/");
+        const response = await fetch("https://odine-sport.com/api/articles/");
         const result = await response.json();
 
         // Extract userIds from articles
@@ -145,7 +145,7 @@ function Home() {
         // Fetch user information for each userId
         const usersResponse = await Promise.all(
           userIds.map((userId) =>
-            fetch(`http://localhost:8088/api/user/${userId}`).then((response) =>
+            fetch(`https://odine-sport.com/api/user/${userId}`).then((response) =>
               response.json()
             )
           )
@@ -160,7 +160,7 @@ function Home() {
         // Fetch comments for each article
         const commentsPromises = articlesWithUsers.map(async (article) => {
           const response = await fetch(
-            `http://localhost:8088/api/commentaires/?articleId=${article.id}`
+            `https://odine-sport.com/api/commentaires/?articleId=${article.id}`
           );
           const comments = await response.json();
           return { articleId: article.id, comments };
@@ -187,7 +187,7 @@ function Home() {
   }, []);
   const fetchComments = async () => {
     try {
-      const response = await fetch("http://localhost:8088/api/commentaires/");
+      const response = await fetch("https://odine-sport.com/api/commentaires/");
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -205,7 +205,7 @@ function Home() {
         const user = JSON.parse(localStorage.getItem("user"));
 
         const response = await fetch(
-          "http://localhost:8088/api/commentaires/",
+          "https://odine-sport.com/api/commentaires/",
           {
             method: "POST",
             headers: {
@@ -251,7 +251,7 @@ function Home() {
         const user = JSON.parse(localStorage.getItem("user"));
 
         const response = await fetch(
-          `http://localhost:8088/api/replies`, // Update the endpoint here
+          `https://odine-sport.com/api/replies`, // Update the endpoint here
           {
             method: "POST",
             headers: {
@@ -494,7 +494,7 @@ function Home() {
                                 fetchComments();
 
                                 fetch(
-                                  `http://localhost:8088/api/commentaires/article/${article.id}`
+                                  `https://odine-sport.com/api/commentaires/article/${article.id}`
                                 )
                                   .then((response) => response.json())
                                   .then((response) => {
@@ -562,7 +562,7 @@ function Home() {
                                                   try {
                                                     const response =
                                                       await fetch(
-                                                        `http://localhost:8088/api/replies/${commentItem.comm_id}`
+                                                        `https://odine-sport.com/api/replies/${commentItem.comm_id}`
                                                       );
                                                     const replies =
                                                       await response.json();

@@ -12,7 +12,7 @@ const Event = () => {
 
     const hanleEventApplication = async (userID , eventID) => {
 
-        const url = "http://localhost:8088/api/event/apply/" + userID +"/" + eventID
+        const url = "https://odine-sport.com/api/event/apply/" + userID +"/" + eventID
         const response = await fetch(url , {
             method: 'POST',
           });
@@ -23,7 +23,7 @@ const Event = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await fetch("http://localhost:8088/api/event");
+                const response = await fetch("https://odine-sport.com/api/event");
                 const result = await response.json();
 
                 setEvent(result.data);

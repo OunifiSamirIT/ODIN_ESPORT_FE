@@ -1498,7 +1498,7 @@ function Register() {
   
     if (areAllFieldsFilled) {
       try {
-        const response = await fetch("http://localhost:8088/api/auth/signup", {
+        const response = await fetch("https://odine-sport.com/api/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
