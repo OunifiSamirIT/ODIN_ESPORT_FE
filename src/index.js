@@ -102,6 +102,8 @@ function Root() {
     };
 
   return (
+    <React.StrictMode>
+
     <BrowserRouter basename={"/"}>
       <Routes>
         <Route exact path="/" element={<Demo />} />
@@ -194,6 +196,8 @@ function Root() {
        
       </Routes>
     </BrowserRouter>
+    </React.StrictMode>
+
   );
 }
 
