@@ -9,7 +9,7 @@ function Friendsilder () {
 
     useEffect(() => {
       // Fetch data from your API endpoint using the fetch API
-      fetch("http://localhost:8088/api/agents")
+      fetch("https://odine-sport.com/api/agents")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error fetching agents: ${response.status}`);
@@ -20,7 +20,7 @@ function Friendsilder () {
       .catch((error) => console.error("Error fetching agents:", error));
      
      
-      fetch("http://localhost:8088/api/players")
+      fetch("https://odine-sport.com/api/players")
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error fetching players: ${response.status}`);

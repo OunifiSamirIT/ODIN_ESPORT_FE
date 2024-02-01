@@ -106,79 +106,57 @@ function Userpage () {
           setPosting(false);
         }
       };
-    useEffect(() => {
-
-        const storedUserData = JSON.parse(localStorage.getItem('user'));
-        const id = storedUserData ? storedUserData.id : null;
     
-        if (id) {
-          // Replace the API endpoint with your actual endpoint for fetching user data
-          fetch(`https://odine-sport.com/api/user/${id}`)
-            .then((response) => response.json())
-            .then((userData) => {
-              setUser(userData);
-            })
-            .catch((error) => console.error('Error fetching user data:', error));
-
-
-
-            const fetchArticles = async () => {
-                try {
-                    const response = await fetch("https://odine-sport.com/api/articles/");
-                    const result = await response.json();
-            
-                    // Extract userIds from articles
-                    const userIds = result.rows.map((article) => article.userId);
-            
-                    // Fetch user information for each userId
-                    const usersResponse = await Promise.all(
-                        userIds.map((userId) =>
-                            fetch(`https://odine-sport.com/api/user/${userId}`).then((response) =>
-                                response.json()
-                            )
-                        )
-                    );
-            
-                    const articlesWithUsers = result.rows
-                        .map((article, index) => ({
-                            ...article,
-                            user: usersResponse[index],
-                        }))
-                        .filter((article) => article.user.id === storedUserData.id); // Filter articles based on userId
-            
-                    setArticles(articlesWithUsers);
-            
-                    // Fetch comments for each article
-                    const commentsPromises = articlesWithUsers.map(async (article) => {
-                        const response = await fetch(
-                            `https://odine-sport.com/api/commentaires/?articleId=${article.id}`
-                        );
-                        const comments = await response.json();
-                        return { articleId: article.id, comments };
-                    });
-            
-                    const commentsResults = await Promise.all(commentsPromises);
-            
-                    const articleCommentsData = commentsResults.reduce(
-                        (acc, { articleId, comments }) => {
-                            acc[articleId] = comments;
-                            return acc;
-                        },
-                        {}
-                    );
-            
-                    setArticleCommentsCounts(articleCommentsData);
-                } catch (error) {
-                    console.error("Error fetching data:", error);
-                }
-            };
-            
-              
-          
-              fetchComments();
-              fetchArticles();
-        }},[])
-
+        const fetchArticles = async () => {
+          try {
+              const response = await fetch("https://odine-sport.com/api/articles/");
+              const result = await response.json();
+      
+              // Extract userIds from articles
+              const userIds = result.rows.map((article) => article.userId);
+      
+              // Fetch user information for each userId
+              const usersResponse = await Promise.all(
+                  userIds.map((userId) =>
+                      fetch(`https://odine-sport.com/api/user/${userId}`).then((response) =>
+                          response.json()
+                      )
+                  )
+              );
+      
+              const articlesWithUsers = result.rows
+                  .map((article, index) => ({
+                      ...article,
+                      user: usersResponse[index],
+                  }))
+                  .filter((article) => article.user.id === storedUserData.id); // Filter articles based on userId
+      
+              setArticles(articlesWithUsers);
+      
+              // Fetch comments for each article
+              const commentsPromises = articlesWithUsers.map(async (article) => {
+                  const response = await fetch(
+                      `https://odine-sport.com/api/commentaires/?articleId=${article.id}`
+                  );
+                  const comments = await response.json();
+                  return { articleId: article.id, comments };
+              });
+      
+              const commentsResults = await Promise.all(commentsPromises);
+      
+              const articleCommentsData = commentsResults.reduce(
+                  (acc, { articleId, comments }) => {
+                      acc[articleId] = comments;
+                      return acc;
+                  },
+                  {}
+              );
+      
+              setArticleCommentsCounts(articleCommentsData);
+          } catch (error) {
+              console.error("Error fetching data:", error);
+          }
+      };
         const fetchComments = async () => {
             try {
                 const response = await fetch('https://odine-sport.com/api/commentaires/');
@@ -307,7 +285,29 @@ function Userpage () {
             }
           };
 
+          useEffect(() => {
+
+            const storedUserData = JSON.parse(localStorage.getItem('user'));
+            const id = storedUserData ? storedUserData.id : null;
         
+            if (id) {
+              // Replace the API endpoint with your actual endpoint for fetching user data
+              fetch(`https://odine-sport.com/api/user/${id}`)
+                .then((response) => response.json())
+                .then((userData) => {
+                  setUser(userData);
+                })
+                .catch((error) => console.error('Error fetching user data:', error));
+    
+    
+    
+             
+                
+                  
+              
+                  fetchComments();
+                  fetchArticles();
+            }},[])
         return (
             <Fragment> 
                 <Header />

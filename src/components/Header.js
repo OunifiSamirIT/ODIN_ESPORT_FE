@@ -18,7 +18,7 @@ class Header extends Component {
     
         if (id) {
           // Replace the API endpoint with your actual endpoint for fetching user data
-          fetch(`http://localhost:8088/api/user/${id}`)
+          fetch(`https://odine-sport.com/api/user/${id}`)
             .then((response) => response.json())
             .then((userData) => {
               this.setState({ user: userData });

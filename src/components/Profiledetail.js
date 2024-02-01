@@ -12,7 +12,7 @@ function Profiledetail () {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch(`http://localhost:8088/api/other/${id}`);
+        const response = await fetch(`https://odine-sport.com/api/other/${id}`);
         const data = await response.json();
         setUserInfo(data);
         console.log("hhhsksksk" , userInfo)

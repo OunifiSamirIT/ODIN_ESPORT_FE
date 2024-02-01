@@ -30,7 +30,7 @@ function  Profilephoto () {
     if (storedUserData) {
       const userId = storedUserData.id;
       // Fetch gallery items for the specific user ID
-      fetch(`http://localhost:8088/api/articles/gallery/${userId}`)
+      fetch(`https://odine-sport.com/api/articles/gallery/${userId}`)
         .then(response => response.json())
         .then(data => setGalleryItems(data.gallery))
         .catch(error => console.error(error));

@@ -29,7 +29,7 @@ function Friends () {
     
         // Fetch user info using user ID
         if (userId) {
-          fetch(`http://localhost:8088/api/user/${userId}`)
+          fetch(`https://odine-sport.com/api/user/${userId}`)
             .then((response) => {
               console.log("Response from the server:", response);
               return response.json();
@@ -45,7 +45,7 @@ function Friends () {
         const fetchFriendRequests = async () => {
           try {
             const response = await fetch(
-              `http://localhost:8088/api/user/${userId}/friend-requests`
+              `https://odine-sport.com/api/user/${userId}/friend-requests`
             );
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);

@@ -69,13 +69,13 @@ function Home() {
       formData.append("fileType", fileType);
 
       // Make a POST request to create a new article
-      await fetch("http://localhost:8088/api/articles/", {
+      await fetch("https://odine-sport.com/api/articles/", {
         method: "POST",
         body: formData,
       });
 
       // After creating the article, fetch the updated list of articles
-      const response = await fetch("http://localhost:8088/api/articles/");
+      const response = await fetch("https://odine-sport.com/api/articles/");
       const updatedPostsData = await response.json();
 
       // Update the list of posts and reset the preview image
@@ -97,7 +97,7 @@ function Home() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch("http://localhost:8088/api/articles/");
+        const response = await fetch("https://odine-sport.com/api/articles/");
         const result = await response.json();
 
         // Extract userIds from articles
@@ -106,7 +106,7 @@ function Home() {
         // Fetch user information for each userId
         const usersResponse = await Promise.all(
           userIds.map((userId) =>
-            fetch(`http://localhost:8088/api/user/${userId}`).then((response) =>
+            fetch(`https://odine-sport.com/api/user/${userId}`).then((response) =>
               response.json()
             )
           )
