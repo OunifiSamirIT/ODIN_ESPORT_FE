@@ -31,6 +31,7 @@ import Register from "./pages/Register";
 import Forgot from "./pages/Forgot";
 import Notfound from "./pages/Notfound";
 import Gallery from "./pages/Gallerie";
+import Galleryuser from "./pages/Gallerieuserodin";
 
 import ShopOne from "./pages/ShopOne";
 import ShopTwo from "./pages/ShopTwo";
@@ -46,6 +47,7 @@ import Hotel from "./pages/Hotel";
 import Videos from "./pages/Videos";
 import EditPost from "./pages/EditPost";
 import Comingsoon from "./pages/Comingsoon";
+import PostView from "./components/Createpost";
 
 import Grouppage from "./pages/Grouppage";
 import Userpage from "./pages/Userpage";
@@ -69,6 +71,7 @@ import CreateUser from './pages/Admin/Components/CreateUser'
 
 import UserEvent from './pages/UserEvent';
 import ViewAlbum from './pages/Admin/Components/ViewAlbum';
+import ViewAlbumodinuser from './pages/ViewAlbumOdin';
 
 
 
@@ -112,6 +115,11 @@ function Root() {
           element={<Login setAuthStatus={setAuthStatus} />}
         />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/postview" element={<PostView />} />
+
+
+
+        
         <Route exact path={"/login/:token"} element={<Loginreset />} />
         {/* <Route exact path={"/api/auth/verify-email"} element={<Loginemail />} /> */}
         <Route exact path={"/forgot"} element={<Forgot />} />
@@ -126,11 +134,17 @@ function Root() {
                     <Route exact  path="/admin/users/edit/:id" element={<EditUser />} />
                     <Route exact  path="admin/events" element={<EventA />} />
                     <Route exact  path="/gallery/view/:id" element={<ViewAlbum />} />
+                   
+                   {/* changement 02/02 */}
+                    <Route exact  path="/odingallery/view/:id" element={<ViewAlbumodinuser />} />
                     {/* <Route exact  path="/" element={<Demo />} /> */}
 
                     <Route exact  path={`/events`} element={<UserEvent/>}/>
                     
                     <Route exact  path="/admin/album" element={<Album/>}/>
+
+                    {/* 02/02 */}
+                    <Route exact  path="/odin/album" element={<Galleryuser/>}/>
                     <Route exact  path="/admin/events/create" element={<AddEvent/>}/>
                     <Route exact  path="/admin/album/create" element={<AddAlbum/>}/>
 
@@ -148,7 +162,7 @@ function Root() {
             <Route exact path={`/defaultsettings`} element={<Settings setAuthStatus={setAuthStatus}/>} />
             <Route exact path={`/defaultbadge`} element={<Badge />} />
             <Route exact path="/gallery" element={<Gallery />} />
-        <Route exact path={`/defaultgroup`} element={<Group />} />
+        <Route exact path={`/defaultgroup`} element={<Galleryuser />} />
         <Route exact path={`/defaultstorie`} element={<Storie />} />
         <Route exact path={`/defaultemailbox`} element={<Email />} />
         <Route exact path={`/defaultemailopen`} element={<Emailopen />} />

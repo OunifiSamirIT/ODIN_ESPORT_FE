@@ -46,12 +46,12 @@ const User = () => {
                                         <div key={index} className="col-md-4 col-sm-4 pe-2 ps-2">
                                             <div className="card d-block w-100 h-100 shadow-xss rounded-xxl border-0 mb-3 mt-3 pb-3">
                                                 <div className="card-body d-block pt-4 text-center">
-                                                    <h4 className="font-xs ls-1 fw-700 text-grey-900">Surfiya Zakir <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">@surfiyazakir22</span></h4>
+                                                    <h4 className="font-xs ls-1 fw-700 text-grey-900">{value.nom}<span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">@surfiyazakir22</span></h4>
                                                 </div>
                                                 <div className="card-body d-flex align-items-center ps-4 pe-4 pt-0">
-                                                    <h4 className="font-xsssss text-center text-grey-500 fw-600 ms-2 me-2"><b className="text-grey-900 mb-1 font-xss fw-700 d-inline-block ls-3 text-dark">Role </b> Player</h4>
-                                                    <h4 className="font-xsssss text-center text-grey-500 fw-600 ms-2 me-2"><b className="text-grey-900 mb-1 font-xss fw-700 d-inline-block ls-3 text-dark">Country</b>Tunisia</h4>
-                                                    <h4 className="font-xsssss text-center text-grey-500 fw-600 ms-2 me-2"><b className="text-grey-900 mb-1 font-xss fw-700 d-inline-block ls-3 text-dark">Age</b> 28</h4>
+                                                    <h4 className="font-xsssss text-center text-grey-500 fw-600 ms-2 me-2"><b className="text-grey-900 mb-1 font-xss fw-700 d-inline-block ls-3 text-dark">Role </b> {value.profil}</h4>
+                                                    <h4 className="font-xsssss text-center text-grey-500 fw-600 ms-2 me-2"><b className="text-grey-900 mb-1 font-xss fw-700 d-inline-block ls-3 text-dark">Country</b>{value.nationality}</h4>
+                                                    <h4 className="font-xsssss text-center text-grey-500 fw-600 ms-2 me-2"><b className="text-grey-900 mb-1 font-xss fw-700 d-inline-block ls-3 text-dark">Age</b></h4>
                                                 </div>
                                                 <div className="card-body d-flex align-items-center justify-content-center ps-4 pe-4 pt-0">
                                                     <a href="/defaultmember" className="bg-success p-3 z-index-1 rounded-3 text-white font-xsssss text-uppercase fw-700 ls-3">View Profile</a>

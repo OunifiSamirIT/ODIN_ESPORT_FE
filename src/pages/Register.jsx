@@ -1003,6 +1003,7 @@ function Register() {
   const [selectedSkills, setSelectedSkills] = useState("");
   const [skillsError, setSkillsError] = useState(false);
   const [coachSkillsError, setCoachSkillsError] = useState(false);
+  const [emailError, setEmailError] = useState("");
 
   const profilesData = [
     {
@@ -1448,14 +1449,9 @@ function Register() {
           console.log("Server Response Data:", responseData);
           navigate("/login");
           console.log("User registered successfully!");
-        } else {
-          // Check if the email is already in use
-          if (response.status === 409) {
-            // Assuming status code 409 indicates a conflict, i.e., email already in use
-            setValidationError("Email is already in use. Please use a different email.");
-          } else {
-            console.error("Registration failed.");
-          }
+        }  else {
+          const errorData = await response.json(); // Parse the error response
+          setEmailError(errorData.message || "Registration failed.");
         }
       } catch (error) {
         console.error("An error occurred:", error);
@@ -1483,1793 +1479,1787 @@ function Register() {
   
   return (
     <Fragment>
-      <div className="main-wrap bg-slate-100 ">
-        <div className="nav-header bg-transparent shadow-none border-0">
-          <div className="nav-top w-100">
-            <Link to="/">
-              <img src={Logo} className="h-14 w-14 " />
-              <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">
-                ODIN E-SPORT{" "}
-              </span>{" "}
-            </Link>
+    <div className="main-wrap bg-slate-100 mt-16  md:mt:10 lg:mt-10 ">
+      <div className="nav-header bg-slate-100   shadow-none border-0">
+        <div className="nav-top mb-0 w-100">
+          <Link to="/">
+            <img src={Logo} className="h-14 w-14 " />
+            <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">
+              ODIN E-SPORT{" "}
+            </span>{" "}
+          </Link>
 
-            <button className="nav-menu me-0 ms-auto"></button>
+          <button className="nav-menu me-0 ms-auto"></button>
 
-            <a
-              href="/login"
-              className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl"
-            >
-              Se connecter
-            </a>
-            <a
-              href="/register"
-              className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl"
-            >
-              Register
-            </a>
+          <a
+            href="/login"
+            className="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl"
+          >
+            Se connecter
+          </a>
+          <a
+            href="/register"
+            className="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl"
+          >
+            Register
+          </a>
+        </div>
+      </div>
+
+      <div className="row  ">
+        <div className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat">
+          <div className="h-full flex items-center justify-center mt-14 ml-10">
+            <img
+              src={Login}
+              className="object-contain max-h-full "
+              alt="Login Image"
+            />
           </div>
         </div>
+        <div className="col-xl-6 align-items-center lg:h-[1480px] lg:mt-56 d-flex bg-slate-100 rounded-3" style={{ height: '1000px' }}>
+          <div className="card shadow-none border-0 ml-6 me-auto login-card bg-slate-100 lg:mt-60 ">
+            <div className="card-body rounded-0 text-center ml-6    ">
+              <h2 className="text-center items-center text-3xl font-bold mt-14  bg-slate-100 ">
+                Creer une compte
+              </h2>
+              <div className="sm:h-[540] sm:w-[350px] md:h-[840] md:w-[350px] lg:h-[1480px]  lg:w-[550px] xl:h-[1480px] xl:w-[700px] ">
+  <form className="w-auto h-full sm:w-full " onSubmit={handleSubmit}>
+                  {step === 1 && (
+                    <div className="h-max lg:w-full  ">
+                      
 
-        <div className="row ">
-          <div className="col-xl-4 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat">
-            <div className="h-full flex items-center justify-center mt-14 ml-10">
-              <img
-                src={Login}
-                className="object-contain max-h-full "
-                alt="Login Image"
-              />
-            </div>
-          </div>
-          <div className="col-xl-8 h-full  align-items-center d-flex bg-slate-100 rounded-3 overflow-hidden">
-            <div className="card shadow-none border-0 ml-6 me-auto login-card bg-slate-100 ">
-              <div className="card-body rounded-0 text-center ml-6    ">
-                <h2 className="text-center items-center text-3xl font-bold mt-6  bg-slate-100 ">
-                  Creer une compte
-                </h2>
-                <div className="sm:h-[340] sm:w-[350px] lg:h-[680px] lg:w-[750px] xl:h-[680px] xl:w-[700px] lg:mt-10 overflow-y-visible  overflow-x-hidden ">
-                  <form
-                    className="w-auto h-full sm:w-full  "
-                    onSubmit={handleSubmit}
-                  >
-                    {step === 1 && (
-                      <div className="h-max lg:w-full  ">
-                        {/* <div className="form-group icon-input mb-3">
+                      <div className="form-group icon-input mb-3">
                         <i className="font-sm ti-user text-grey-500 pe-0"></i>
                         <input
                           type="text"
-                          className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                          placeholder="Profil"
+                          id="nom"
+                          name="nom"
+                          value={formData.nom}
+                          onChange={handleInputChange}
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            inputErrors["nom"] ? "is-invalid" : ""
+                          }`}
+                          placeholder="Votre Nom"
                         />
-                      </div> */}
-
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                          <input
-                            type="text"
-                            id="nom"
-                            name="nom"
-                            value={formData.nom}
-                            onChange={handleInputChange}
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              inputErrors["nom"] ? "is-invalid" : ""
-                            }`}
-                            placeholder="Votre Nom"
-                          />
-                          {inputErrors["nom"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["nom"]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                          <input
-                            type="text"
-                            value={formData.prenom}
-                            id="prenom"
-                            name="prenom"
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              inputErrors["prenom"] ? "is-invalid" : ""
-                            }`}
-                            placeholder="Votre Prenom"
-                            onChange={handleInputChange}
-                          />
-                          {inputErrors["prenom"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["prenom"]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-email text-grey-500 pe-0"></i>
-                          <input
-                            type="email"
-                            value={formData.email}
-                            id="email"
-                            name="email"
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              inputErrors["email"] ? "is-invalid" : ""
-                            }`}
-                            placeholder="Email"
-                            onChange={handleInputChange}
-                          />
-                          {inputErrors["email"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["email"]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                          <input
-                            type="password"
-                            value={formData.password}
-                            id="password"
-                            name="password"
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              validationError ? "is-invalid" : ""
-                            }`}
-                            placeholder="Votre Mot de passe "
-                            onChange={handleInputChange}
-                          />
-                          {validationError && (
-                            <div className="invalid-feedback">
-                              {validationError}
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-lock text-grey-500 pe-0"></i>
-                          <input
-                            type="password"
-                            value={formData.confirmPassword}
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              validationError ? "is-invalid" : ""
-                            }`}
-                            placeholder="Confirmer votre mot de passe"
-                            onChange={handleInputChange}
-                          />
-                          {validationError && (
-                            <div className="invalid-feedback">
-                              {validationError}
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Additional form fields */}
-
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-calendar text-grey-500 pe-0"></i>
-                          <input
-                            type="date"
-                            value={formData.date_naissance}
-                            name="date_naissance"
-                            className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
-                            placeholder="Date of Birth"
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                          <select
-                            name="gender"
-                            value={formData.gender}
-                            onChange={handleInputChange}
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              inputErrors["gender"] ? "is-invalid" : ""
-                            }`}
-                          >
-                            <option value="">Select Sexe </option>
-                            <option value="male">Homme</option>
-                            <option value="female">Femme</option>
-                          </select>
-                          {inputErrors["gender"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["gender"]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-world text-grey-500 pe-0"></i>
-                          <select
-                            name="nationality"
-                            value={formData.nationality}
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              inputErrors["nationality"] ? "is-invalid" : ""
-                            }`}
-                            onChange={handleInputChange}
-                          >
-                            <option value="" disabled>
-                              Select votre Nationalite
-                            </option>
-                            {generateOptions("nationalite")}
-                          </select>
-                          {inputErrors["nationality"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["nationality"]}
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-world text-grey-500 pe-0"></i>
-                          <select
-                            name="countryresidence"
-                            value={formData.countryresidence}
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              inputErrors["countryresidence"]
-                                ? "is-invalid"
-                                : ""
-                            }`}
-                            onChange={handleInputChange}
-                          >
-                            <option value="" disabled>
-                              Pays de  Residence
-                            </option>
-                            {generateOptions("libelle")}
-                          </select>
-                          {inputErrors["countryresidence"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["countryresidence"]}
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-location-pin text-grey-500 pe-0"></i>
-                          <input
-                            type="text"
-                            name="cityresidence"
-                            value={formData.cityresidence}
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              inputErrors["cityresidence"] ? "is-invalid" : ""
-                            }`}
-                            placeholder="Ville"
-                            onChange={handleInputChange}
-                          />
-                          {inputErrors["cityresidence"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["cityresidence"]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-mobile text-grey-500 pe-0"></i>
-                          <input
-                            type="number"
-                            value={formData.tel}
-                            id="tel"
-                            name="tel"
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              inputErrors["tel"] ? "is-invalid" : ""
-                            }`}
-                            placeholder="Numero Mobile"
-                            onChange={handleInputChange}
-                          />
-                          {inputErrors["tel"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["tel"]}
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="form-group icon-input mb-3">
-                          <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                          <input
-                            type="text"
-                            value={formData.login}
-                            id="login"
-                            name="login"
-                            className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                              inputErrors["login"] ? "is-invalid" : ""
-                            }`}
-                            placeholder="Votre nom utlisateur"
-                            onChange={handleInputChange}
-                          />
-                          {inputErrors["login"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["login"]}
-                            </div>
-                          )}
-                        </div>
-                        <div className="form-group mb-1">
-                          <button
-                            type="button"
-                            onClick={handleNextStep1}
-                            className="form-control flex  items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0"
-                          >
-                            Suivant
-                          </button>
-                        </div>
+                        {inputErrors["nom"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["nom"]}
+                          </div>
+                        )}
                       </div>
-                    )}
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                        <input
+                          type="text"
+                          value={formData.prenom}
+                          id="prenom"
+                          name="prenom"
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            inputErrors["prenom"] ? "is-invalid" : ""
+                          }`}
+                          placeholder="Votre Prenom"
+                          onChange={handleInputChange}
+                        />
+                        {inputErrors["prenom"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["prenom"]}
+                          </div>
+                        )}
+                      </div>
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-email text-grey-500 pe-0"></i>
+                        <input
+                          type="email"
+                          value={formData.email}
+                          id="email"
+                          name="email"
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            inputErrors["email"] ? "is-invalid" : ""
+                          }`}
+                          placeholder="Email"
+                          onChange={handleInputChange}
+                        />
+                        {inputErrors["email"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["email"]}
+                          </div>
+                        )}
 
-                    {/* {step === 2 && (
-                      <div className="h-max w-full ">
-                        <div className="row">
-                          <label className="mb-2 text-2xl font-serif">
-                            Choisir une Profile :
-                          </label>
-                          {["player", "coach", "agent", "scout", "other"].map(
-                            (profile) => (
-                              <div
-                                key={profile}
-                                className="col-6 col-md-2 mb-3"
-                              >
-                                <div
-                                  className={`bg-white w-28 h-40 rounded-lg p-4  ${
-                                    selectedProfile === profile
-                                      ? "border-y-indigo-800"
-                                      : ""
-                                  }`}
-                                >
-                                  <input
-                                    type="radio"
-                                    id={profile}
-                                    name="profil"
-                                    value={profile}
-                                    checked={selectedProfile === profile}
-                                    onChange={() => {
-                                      const selectedProfileValue = profile;
-                                      console.log(
-                                        "Selected Profile Value:",
-                                        selectedProfileValue
-                                      );
-                                      setSelectedProfile(selectedProfileValue);
-                                      handleInputChange({
-                                        target: {
-                                          name: "profil",
-                                          value: selectedProfileValue,
-                                        },
-                                      });
-                                    }}
-                                    className="form-check-input"
-                                  />
-                                  <label
-                                    htmlFor={profile}
-                                    className="form-check-label text-2xl text-black "
-                                  >
-                                    {profile.charAt(0).toUpperCase() +
-                                      profile.slice(1)}
-                                  </label>
-                                </div>
-                              </div>
-                            )
-                          )}
-                          {console.log(profileError)}
-                          {profileError && (
-                            <div className="text-danger mt-2">
-                              Please select a profile before proceeding.
-                            </div>
-                          )}
-                        </div>
+                      </div>
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+                        <input
+                          type="password"
+                          value={formData.password}
+                          id="password"
+                          name="password"
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            validationError ? "is-invalid" : ""
+                          }`}
+                          placeholder="Votre Mot de passe "
+                          onChange={handleInputChange}
+                        />
+                        {validationError && (
+                          <div className="invalid-feedback">
+                            {validationError}
+                          </div>
+                        )}
+                      </div>
 
-                      
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-lock text-grey-500 pe-0"></i>
+                        <input
+                          type="password"
+                          value={formData.confirmPassword}
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            validationError ? "is-invalid" : ""
+                          }`}
+                          placeholder="Confirmer votre mot de passe"
+                          onChange={handleInputChange}
+                        />
+                        {validationError && (
+                          <div className="invalid-feedback">
+                            {validationError}
+                          </div>
+                        )}
+                      </div>
 
-                        <div
-                          className="form-group mb-1 mt-48 "
-                          style={{ display: "flex" }}
+                      {/* Additional form fields */}
+
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-calendar text-grey-500 pe-0"></i>
+                        <input
+                          type="date"
+                          value={formData.date_naissance}
+                          name="date_naissance"
+                          className="style2-input ps-5 form-control text-grey-900 font-xsss fw-600"
+                          placeholder="Date of Birth"
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                        <select
+                          name="gender"
+                          value={formData.gender}
+                          onChange={handleInputChange}
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            inputErrors["gender"] ? "is-invalid" : ""
+                          }`}
                         >
-                          {" "}
-                          <button
-                            type="button"
-                            onClick={handlePrevStep}
-                            className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                          >
-                            Previous
-                          </button>
-                          <button
-                            type="button"
-                            onClick={handleNextStep}
-                            className="form-control flex  items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0"
-                          >
-                            Next
-                          </button>
-                        </div>
+                          <option value="">Select Sexe </option>
+                          <option value="male">Homme</option>
+                          <option value="female">Femme</option>
+                        </select>
+                        {inputErrors["gender"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["gender"]}
+                          </div>
+                        )}
                       </div>
-                    )} */}
-                    {step === 2 && (
-                      <div className="h-max w-full">
-                        <div className="row">
-                          <label className="mb-2 text-2xl font-serif">
-                            Choisir une Profile :
-                          </label>
-                          {profilesData.map((data) => (
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-world text-grey-500 pe-0"></i>
+                        <select
+                          name="nationality"
+                          value={formData.nationality}
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            inputErrors["nationality"] ? "is-invalid" : ""
+                          }`}
+                          onChange={handleInputChange}
+                        >
+                          <option value="" disabled>
+                            Select votre Nationalite
+                          </option>
+                          {generateOptions("nationalite")}
+                        </select>
+                        {inputErrors["nationality"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["nationality"]}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-world text-grey-500 pe-0"></i>
+                        <select
+                          name="countryresidence"
+                          value={formData.countryresidence}
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            inputErrors["countryresidence"]
+                              ? "is-invalid"
+                              : ""
+                          }`}
+                          onChange={handleInputChange}
+                        >
+                          <option value="" disabled>
+                            Pays de  Residence
+                          </option>
+                          {generateOptions("libelle")}
+                        </select>
+                        {inputErrors["countryresidence"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["countryresidence"]}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-location-pin text-grey-500 pe-0"></i>
+                        <input
+                          type="text"
+                          name="cityresidence"
+                          value={formData.cityresidence}
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            inputErrors["cityresidence"] ? "is-invalid" : ""
+                          }`}
+                          placeholder="Ville"
+                          onChange={handleInputChange}
+                        />
+                        {inputErrors["cityresidence"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["cityresidence"]}
+                          </div>
+                        )}
+                      </div>
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-mobile text-grey-500 pe-0"></i>
+                        <input
+                          type="number"
+                          value={formData.tel}
+                          id="tel"
+                          name="tel"
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            inputErrors["tel"] ? "is-invalid" : ""
+                          }`}
+                          placeholder="Numero Mobile"
+                          onChange={handleInputChange}
+                        />
+                        {inputErrors["tel"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["tel"]}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="form-group icon-input mb-3">
+                        <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                        <input
+                          type="text"
+                          value={formData.login}
+                          id="login"
+                          name="login"
+                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                            inputErrors["login"] ? "is-invalid" : ""
+                          }`}
+                          placeholder="Votre nom utlisateur"
+                          onChange={handleInputChange}
+                        />
+                        {inputErrors["login"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["login"]}
+                          </div>
+                        )}
+                      </div>
+                      <div className="form-group mb-1">
+                        <button
+                          type="button"
+                          onClick={handleNextStep1}
+                          className="form-control flex  items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0"
+                        >
+                          Suivant
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* {step === 2 && (
+                    <div className="h-max w-full ">
+                      <div className="row">
+                        <label className="mb-2 text-2xl font-serif">
+                          Choisir une Profile :
+                        </label>
+                        {["player", "coach", "agent", "scout", "other"].map(
+                          (profile) => (
                             <div
-                              key={data.profile}
+                              key={profile}
                               className="col-6 col-md-2 mb-3"
                             >
                               <div
-                                className={`bg-white w-32 h-40 rounded-lg p-2  cursor-pointer ${
-                                  selectedProfile === data.profile
-                                    ? "bg-blue-500 "
+                                className={`bg-white w-28 h-40 rounded-lg p-4  ${
+                                  selectedProfile === profile
+                                    ? "border-y-indigo-800"
                                     : ""
                                 }`}
-                                onClick={() => {
-                                  const selectedProfileValue = data.profile;
-                                  console.log(
-                                    "Selected Profile Value:",
-                                    selectedProfileValue
-                                  );
-                                  setSelectedProfile(selectedProfileValue);
-                                  handleInputChange({
-                                    target: {
-                                      name: "profil",
-                                      value: selectedProfileValue,
-                                    },
-                                  });
-                                }}
                               >
-                                {/* <label
-                                  className={`text-2xl  ${
-                                    selectedProfile === data.profile
-                                      ? "text-blue-600 animate-pulse"
-                                      : "text-black "
-                                  }`}
+                                <input
+                                  type="radio"
+                                  id={profile}
+                                  name="profil"
+                                  value={profile}
+                                  checked={selectedProfile === profile}
+                                  onChange={() => {
+                                    const selectedProfileValue = profile;
+                                    console.log(
+                                      "Selected Profile Value:",
+                                      selectedProfileValue
+                                    );
+                                    setSelectedProfile(selectedProfileValue);
+                                    handleInputChange({
+                                      target: {
+                                        name: "profil",
+                                        value: selectedProfileValue,
+                                      },
+                                    });
+                                  }}
+                                  className="form-check-input"
+                                />
+                                <label
+                                  htmlFor={profile}
+                                  className="form-check-label text-2xl text-black "
                                 >
-                                  {data.profile.charAt(0).toUpperCase() +
-                                    data.profile.slice(1)}
-                                </label> */}
-                                <div
-                                  className={`text-2xl  ${
-                                    selectedProfile === data.profile
-                                      ? "bg-blue-600  rounded-3xl"
-                                      : "text-black "
-                                  }`}
-                                >
-                                  {" "}
-                                  <img
-                                    src={data.logo}
-                                    alt="Logo"
-                                    className="w-16 h-16 mt-2"
-                                  />
-                                </div>
-                                <p className="text-base mt-2">
-                                  {data.description}
-                                </p>
+                                  {profile.charAt(0).toUpperCase() +
+                                    profile.slice(1)}
+                                </label>
                               </div>
                             </div>
-                          ))}
-                          {console.log(profileError)}
-                          {profileError && (
-                            <div className="text-danger mt-2">
-                              Please select a profile before proceeding.
-                            </div>
-                          )}
-                        </div>
-
-                        <div
-                          className="form-group mb-1 mt-48"
-                          style={{ display: "flex" }}
-                        >
-                          <button
-                            type="button"
-                            onClick={handlePrevStep}
-                            className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                          >
-                            Retour
-                          </button>
-                          <button
-                            type="button"
-                            onClick={handleNextStep}
-                            className="form-control flex  items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0"
-                          >
-                            Suivant
-                          </button>
-                        </div>
+                          )
+                        )}
+                        {console.log(profileError)}
+                        {profileError && (
+                          <div className="text-danger mt-2">
+                            Please select a profile before proceeding.
+                          </div>
+                        )}
                       </div>
-                    )}
 
-                    {step === 3 && (
-                      <div>
-                        {formData.profil === "player" && (
-                          <div style={{ maxHeight: "1000px" }}>
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-arrow-up text-grey-500 pe-0"></i>
-                              <input
-                                type="number" // Use type "number" for weight input
-                                id="weight"
-                                name="weight"
-                                value={formData.weight}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["weight"] ? "is-invalid" : ""
-                                }`}
-                                placeholder="Weight (kg)"
-                                onChange={handleInputChange}
-                              />
-                              {inputErrors["weight"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["weight"]}
-                                </div>
-                              )}
-                            </div>
+                    
 
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-anchor text-grey-500 pe-0"></i>
-                              <input
-                                type="number" // Use type "number" for height input
-                                id="height"
-                                name="height"
-                                value={formData.height}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["height"] ? "is-invalid" : ""
-                                }`}
-                                placeholder="Height (cm)"
-                                onChange={handleInputChange}
-                              />
-                              {inputErrors["height"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["height"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-thumb-up text-grey-500 pe-0"></i>
-                              <select
-                                id="PiedFort"
-                                name="PiedFort"
-                                value={formData.PiedFort}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["PiedFort"] ? "is-invalid" : ""
-                                }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                  Select Pied Forte
-                                </option>
-                                <option value="PiedGauche">Pied Gauche</option>
-                                <option value="PiedDroit">Pied Droit</option>
-                                <option value="DeuxPieds">
-                                  Les deux pieds
-                                </option>
-                              </select>
-                              {inputErrors["PiedFort"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["PiedFort"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-id-badge text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="Licence"
-                                name="Licence"
-                                value={formData.Licence}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["Licence"] ? "is-invalid" : ""
-                                }`}
-                                placeholder="Licence"
-                                onChange={handleInputChange}
-                              />
-                              {inputErrors["Licence"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["Licence"]}
-                                </div>
-                              )}
-                            </div>
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-headphone-alt text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="NumeroWhatsup"
-                                name="NumeroWhatsup"
-                                value={formData.NumeroWhatsup}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["NumeroWhatsup"]
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                                placeholder="Numero Whatsup"
-                                onChange={handleInputChange}
-                              />
-                              {inputErrors["NumeroWhatsup"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["NumeroWhatsup"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-pin text-grey-500"></i>
-                              <select
-                                id="positionPlay"
-                                name="positionPlay"
-                                value={formData.positionPlay}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["positionPlay"]
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                  Select Primary Position
-                                </option>
-                                <option value="Gardien de but">
-                                  Gardien de but
-                                </option>
-                                <option value="Défenseur central">
-                                  Défenseur central
-                                </option>
-                                <option value="Arrière droit">
-                                  Arrière droit
-                                </option>
-                                <option value="Arrière gauche">
-                                  Arrière gauche
-                                </option>
-                                <option value="Milieu défensif">
-                                  Milieu défensif
-                                </option>
-                                <option value="Milieu central">
-                                  Milieu central
-                                </option>
-                                <option value="Milieu offensif">
-                                  Milieu offensif
-                                </option>
-                                <option value="Ailier droit">
-                                  Ailier droit
-                                </option>
-                                <option value="Ailier gauche">
-                                  Ailier gauche
-                                </option>
-                                <option value="Attaquant de pointe">
-                                  Attaquant de pointe
-                                </option>
-                                <option value="Attaquant polyvalent">
-                                  Attaquant polyvalent
-                                </option>
-                              </select>
-                              {inputErrors["positionPlay"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["positionPlay"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-pin text-grey-500"></i>
-                              <select
-                                id="positionSecond"
-                                name="positionSecond"
-                                value={formData.positionSecond}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["positionSecond"]
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                  Select Secondary Position
-                                </option>
-                                <option value="Gardien de but (GK)">
-                                  Gardien de but (GK)
-                                </option>
-                                <option value="Arrière droit (RB)">
-                                  Arrière droit (RB)
-                                </option>
-                                <option value="Arrière gauche( LB)">
-                                  Arrière gauche( LB)
-                                </option>
-                                <option value="Défenseur central (CB)">
-                                  Défenseur central (CB)
-                                </option>
-                                <option value="Milieu défensif (CDM)">
-                                  Milieu défensif (CDM)
-                                </option>
-                                <option value="Milieu central ( CM)">
-                                  Milieu central ( CM)
-                                </option>
-                                <option value="Milieu offensif ( CAM)">
-                                  Milieu offensif ( CAM)
-                                </option>
-                                <option value="Ailier droit (RW)">
-                                  Ailier droit (RW)
-                                </option>
-                                <option value="Ailier gauche ( LW)">
-                                  Ailier gauche ( LW)
-                                </option>
-                                <option value="Avant-centre ">
-                                  Avant-centre ( ST)
-                                </option>
-                              </select>
-                              {inputErrors["positionSecond"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["positionSecond"]}
-                                </div>
-                              )}
-                            </div>
-                            <div className="form-group icon-input mb-3">
-                              {[
-                                "Rapidite",
-                                "Tacle",
-                                "Defence",
-                                "Tirs de loin",
-                                "jeu en une touche",
-                                "Rapidite de la prise de désicion",
-                                "Frappe puissante",
-                                "Agilité",
-                                "Controller du Ballon",
-                                "Dribble",
-                                "Exploitation de l'espace",
-                                "Evaluation des risques sur les terrain",
-                                "Endurance",
-                                "Equilibre et Coordination",
-                                "Auto-Motivation",
-                                // Add other skills...
-                              ].map((skillsInProfile) => (
-                                <div
-                                  key={skillsInProfile}
-                                  className="form-check form-check-inline me-2 mb-2"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    id={skillsInProfile}
-                                    name="skillsInProfile"
-                                    checked={selectedSkills.includes(
-                                      skillsInProfile
-                                    )}
-                                    onChange={() =>
-                                      handleSkillToggle(skillsInProfile)
-                                    }
-                                    className="form-check-input d-none"
-                                  />
-                                  <label
-                                    htmlFor={skillsInProfile}
-                                    className={`form-check-label btn ${
-                                      formData.skillsInProfile
-                                        .split(",")
-                                        .includes(skillsInProfile)
-                                        ? "btn-secondary" // Change this to the color you want after selecting
-                                        : "btn-light" // Change this to the color you want before selecting
-                                    }`}
-                                  >
-                                    {skillsInProfile}
-                                  </label>
-                                </div>
-                              ))}
-                            </div>
-                            {skillsError && (
-                              <div className="text-danger mt-2">
-                                Please select at least one skill (up to 10)
-                                before proceeding.
-                              </div>
-                            )}
-
+                      <div
+                        className="form-group mb-1 mt-48 "
+                        style={{ display: "flex" }}
+                      >
+                        {" "}
+                        <button
+                          type="button"
+                          onClick={handlePrevStep}
+                          className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                        >
+                          Previous
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleNextStep}
+                          className="form-control flex  items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0"
+                        >
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                  )} */}
+                  {step === 2 && (
+                    <div className="h-max w-full">
+                      <div className="row">
+                        <label className="mb-2 text-2xl font-serif">
+                          Choisir une Profile :
+                        </label>
+                        {profilesData.map((data) => (
+                          <div
+                            key={data.profile}
+                            className="col-6 col-md-2 mb-3"
+                          >
                             <div
-                              className="form-group mb-1"
-                              style={{ display: "flex" }}
+                              className={`bg-white w-32 h-40 rounded-lg p-2  cursor-pointer ${
+                                selectedProfile === data.profile
+                                  ? "bg-blue-500 "
+                                  : ""
+                              }`}
+                              onClick={() => {
+                                const selectedProfileValue = data.profile;
+                                console.log(
+                                  "Selected Profile Value:",
+                                  selectedProfileValue
+                                );
+                                setSelectedProfile(selectedProfileValue);
+                                handleInputChange({
+                                  target: {
+                                    name: "profil",
+                                    value: selectedProfileValue,
+                                  },
+                                });
+                              }}
                             >
-                              <button
-                                type="button"
-                                onClick={handlePrevStep}
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                              {/* <label
+                                className={`text-2xl  ${
+                                  selectedProfile === data.profile
+                                    ? "text-blue-600 animate-pulse"
+                                    : "text-black "
+                                }`}
                               >
-                                Previous
-                              </button>
-                              <button
-                                type="submit"
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                                {data.profile.charAt(0).toUpperCase() +
+                                  data.profile.slice(1)}
+                              </label> */}
+                              <div
+                                className={`text-2xl  ${
+                                  selectedProfile === data.profile
+                                    ? "bg-blue-600  rounded-3xl"
+                                    : "text-black "
+                                }`}
                               >
-                                Submit
-                              </button>
+                                {" "}
+                                <img
+                                  src={data.logo}
+                                  alt="Logo"
+                                  className="w-16 h-16 mt-2"
+                                />
+                              </div>
+                              <p className="text-base mt-2">
+                                {data.description}
+                              </p>
                             </div>
                           </div>
-                        )}
-
-                        {formData.profil === "coach" && (
-                          <div>
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-medall text-grey-500 pe-0"></i>
-                              <input
-                                type="number"
-                                id="totalTeam"
-                                name="totalTeam"
-                                value={formData.totalTeam}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["totalTeam"] ? "is-invalid" : ""
-                                }`}
-                                placeholder="Total Team"
-                                onChange={handleInputChange}
-                              />
-                              {inputErrors["totalTeam"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["totalTeam"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-strategy text-grey-500 pe-0"></i>
-                              <select
-                                name="footballTactic"
-                                value={formData.footballTactic}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["footballTactic"]
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                  Select Football Tactic
-                                </option>
-                                <option value="4-4-2">4-4-2</option>
-                                <option value="4-3-3">4-3-3</option>
-                                <option value="4-2-3-1">4-2-3-1</option>
-                                <option value="5-3-2">5-3-2</option>
-                                <option value="5-4-1">5-4-1</option>
-                                <option value="catenaccio">3-4-3</option>
-                              </select>
-                              {inputErrors["footballTactic"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["footballTactic"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-world text-grey-500 pe-0"></i>
-                              <select
-                                name="countryCoachedIn"
-                                value={formData.countryCoachedIn}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["countryCoachedIn"]
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                  Select Country Coached In
-                                </option>
-                                {generateOptions("libelle")}
-                              </select>
-                              {inputErrors["countryCoachedIn"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["countryCoachedIn"]}
-                                </div>
-                              )}
-                            </div>
-
-                            {/* <div className="form-group icon-input mb-3">
-            <input
-              type="text"
-              id="skills"
-              name="skills"
-              
-              className={` ${
-                inputErrors["skills"] ? "is-invalid" : ""
-              }`}
-              onChange={handleInputChange}
-            />
-            {inputErrors["skills"] && (
-              <div className="invalid-feedback">{inputErrors["skills"]}</div>
-            )}
-          </div> */}
-
-                            <div className="form-group icon-input mb-3">
-                              {[
-                                "Connaissance Tactique",
-                                "Competence Technique",
-                                "Leadership",
-                                "Communication",
-                                "Gestion de groupe",
-                                "Analyse",
-                                "Planification",
-                                "Adaptabilité",
-                                "Ethique",
-                                "Connaissance des regles",
-                                "Gestion de stress",
-                                "Developpement individuel",
-                                "Empathie",
-                                // Add other coach-specific skills...
-                              ].map((coachSkill) => (
-                                <div
-                                  key={coachSkill}
-                                  className="form-check form-check-inline me-2 mb-2"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    id={coachSkill}
-                                    name="coachSkillsInProfile"
-                                    checked={formData.skills
-                                      .split(",")
-                                      .includes(coachSkill)}
-                                    onChange={() =>
-                                      handleCoachSkillToggle(coachSkill)
-                                    }
-                                    className="form-check-input d-none"
-                                  />
-                                  <label
-                                    htmlFor={coachSkill}
-                                    className={`form-check-label btn ${
-                                      formData.skills
-                                        .split(",")
-                                        .includes(coachSkill)
-                                        ? "btn-secondary"
-                                        : "btn-light"
-                                    } ${
-                                      !formData.skills
-                                        .split(",")
-                                        .includes(coachSkill) &&
-                                      coachSkillsError
-                                        ? "border-danger"
-                                        : ""
-                                    }`}
-                                  >
-                                    {coachSkill}
-                                  </label>
-                                </div>
-                              ))}
-                            </div>
-                            {!formData.skills
-                              .split(",")
-                              .some((skill) => skill.trim() !== "") && (
-                              <div className="text-danger mt-2">
-                                Please select at least one coach skill before
-                                proceeding (up to 10).
-                              </div>
-                            )}
-
-                            <div
-                              className="form-group mb-1"
-                              style={{ display: "flex" }}
-                            >
-                              <button
-                                type="button"
-                                onClick={handlePrevStep}
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                              >
-                                Previous
-                              </button>
-                              <button
-                                type="submit"
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                              >
-                                Submit
-                              </button>
-                            </div>
+                        ))}
+                        {console.log(profileError)}
+                        {profileError && (
+                          <div className="text-danger mt-2">
+                            Please select a profile before proceeding.
                           </div>
                         )}
+                      </div>
 
-                        {formData.profil === "agent" && (
-                          <div>
-                            <label
-                              htmlFor="typeresponsable"
-                              className="block mb-2"
-                            >
-                              Type Responsable:
-                            </label>
+                      <div
+                        className="form-group mb-1 mt-48"
+                        style={{ display: "flex" }}
+                      >
+                        <button
+                          type="button"
+                          onClick={handlePrevStep}
+                          className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                        >
+                          Retour
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleNextStep}
+                          className="form-control flex  items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0"
+                        >
+                          Suivant
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {step === 3 && (
+                    <div>
+                      {formData.profil === "player" && (
+                        <div style={{ maxHeight: "1000px" }}>
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-arrow-up text-grey-500 pe-0"></i>
+                            <input
+                              type="number" // Use type "number" for weight input
+                              id="weight"
+                              name="weight"
+                              value={formData.weight}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["weight"] ? "is-invalid" : ""
+                              }`}
+                              placeholder="Weight (kg)"
+                              onChange={handleInputChange}
+                            />
+                            {inputErrors["weight"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["weight"]}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-anchor text-grey-500 pe-0"></i>
+                            <input
+                              type="number" // Use type "number" for height input
+                              id="height"
+                              name="height"
+                              value={formData.height}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["height"] ? "is-invalid" : ""
+                              }`}
+                              placeholder="Height (cm)"
+                              onChange={handleInputChange}
+                            />
+                            {inputErrors["height"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["height"]}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-thumb-up text-grey-500 pe-0"></i>
                             <select
-                              id="typeresponsable"
-                              name="typeresponsable"
-                              className={`w-full p-2 mb-4 ${
-                                inputErrors["typeresponsable"]
+                              id="PiedFort"
+                              name="PiedFort"
+                              value={formData.PiedFort}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["PiedFort"] ? "is-invalid" : ""
+                              }`}
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                Select Pied Forte
+                              </option>
+                              <option value="PiedGauche">Pied Gauche</option>
+                              <option value="PiedDroit">Pied Droit</option>
+                              <option value="DeuxPieds">
+                                Les deux pieds
+                              </option>
+                            </select>
+                            {inputErrors["PiedFort"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["PiedFort"]}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-id-badge text-grey-500 pe-0"></i>
+                            <input
+                              type="text"
+                              id="Licence"
+                              name="Licence"
+                              value={formData.Licence}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["Licence"] ? "is-invalid" : ""
+                              }`}
+                              placeholder="Licence"
+                              onChange={handleInputChange}
+                            />
+                            {inputErrors["Licence"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["Licence"]}
+                              </div>
+                            )}
+                          </div>
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-headphone-alt text-grey-500 pe-0"></i>
+                            <input
+                              type="text"
+                              id="NumeroWhatsup"
+                              name="NumeroWhatsup"
+                              value={formData.NumeroWhatsup}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["NumeroWhatsup"]
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                              placeholder="Numero Whatsup"
+                              onChange={handleInputChange}
+                            />
+                            {inputErrors["NumeroWhatsup"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["NumeroWhatsup"]}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-pin text-grey-500"></i>
+                            <select
+                              id="positionPlay"
+                              name="positionPlay"
+                              value={formData.positionPlay}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["positionPlay"]
                                   ? "is-invalid"
                                   : ""
                               }`}
                               onChange={handleInputChange}
-                              value={formData.typeresponsable}
-                              required
                             >
-                              <option value="">
-                                Select Le Type De Responsabilité
+                              <option value="" disabled>
+                                Select Primary Position
                               </option>
-                              <option value="club">Club</option>
-                              <option value="players">Players</option>
+                              <option value="Gardien de but">
+                                Gardien de but
+                              </option>
+                              <option value="Défenseur central">
+                                Défenseur central
+                              </option>
+                              <option value="Arrière droit">
+                                Arrière droit
+                              </option>
+                              <option value="Arrière gauche">
+                                Arrière gauche
+                              </option>
+                              <option value="Milieu défensif">
+                                Milieu défensif
+                              </option>
+                              <option value="Milieu central">
+                                Milieu central
+                              </option>
+                              <option value="Milieu offensif">
+                                Milieu offensif
+                              </option>
+                              <option value="Ailier droit">
+                                Ailier droit
+                              </option>
+                              <option value="Ailier gauche">
+                                Ailier gauche
+                              </option>
+                              <option value="Attaquant de pointe">
+                                Attaquant de pointe
+                              </option>
+                              <option value="Attaquant polyvalent">
+                                Attaquant polyvalent
+                              </option>
                             </select>
-                            {inputErrors["typeresponsable"] && (
+                            {inputErrors["positionPlay"] && (
                               <div className="invalid-feedback">
-                                {inputErrors["typeresponsable"]}
+                                {inputErrors["positionPlay"]}
                               </div>
                             )}
+                          </div>
 
-                            {formData.typeresponsable && (
-                              <div>
-                                {formData.typeresponsable === "club" && (
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-pin text-grey-500"></i>
+                            <select
+                              id="positionSecond"
+                              name="positionSecond"
+                              value={formData.positionSecond}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["positionSecond"]
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                Select Secondary Position
+                              </option>
+                              <option value="Gardien de but (GK)">
+                                Gardien de but (GK)
+                              </option>
+                              <option value="Arrière droit (RB)">
+                                Arrière droit (RB)
+                              </option>
+                              <option value="Arrière gauche( LB)">
+                                Arrière gauche( LB)
+                              </option>
+                              <option value="Défenseur central (CB)">
+                                Défenseur central (CB)
+                              </option>
+                              <option value="Milieu défensif (CDM)">
+                                Milieu défensif (CDM)
+                              </option>
+                              <option value="Milieu central ( CM)">
+                                Milieu central ( CM)
+                              </option>
+                              <option value="Milieu offensif ( CAM)">
+                                Milieu offensif ( CAM)
+                              </option>
+                              <option value="Ailier droit (RW)">
+                                Ailier droit (RW)
+                              </option>
+                              <option value="Ailier gauche ( LW)">
+                                Ailier gauche ( LW)
+                              </option>
+                              <option value="Avant-centre ">
+                                Avant-centre ( ST)
+                              </option>
+                            </select>
+                            {inputErrors["positionSecond"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["positionSecond"]}
+                              </div>
+                            )}
+                          </div>
+                          <div className="form-group icon-input mb-3">
+                            {[
+                              "Rapidite",
+                              "Tacle",
+                              "Defence",
+                              "Tirs de loin",
+                              "jeu en une touche",
+                              "Rapidite de la prise de désicion",
+                              "Frappe puissante",
+                              "Agilité",
+                              "Controller du Ballon",
+                              "Dribble",
+                              "Exploitation de l'espace",
+                              "Evaluation des risques sur les terrain",
+                              "Endurance",
+                              "Equilibre et Coordination",
+                              "Auto-Motivation",
+                              // Add other skills...
+                            ].map((skillsInProfile) => (
+                              <div
+                                key={skillsInProfile}
+                                className="form-check form-check-inline me-2 mb-2"
+                              >
+                                <input
+                                  type="checkbox"
+                                  id={skillsInProfile}
+                                  name="skillsInProfile"
+                                  checked={selectedSkills.includes(
+                                    skillsInProfile
+                                  )}
+                                  onChange={() =>
+                                    handleSkillToggle(skillsInProfile)
+                                  }
+                                  className="form-check-input d-none"
+                                />
+                                <label
+                                  htmlFor={skillsInProfile}
+                                  className={`form-check-label btn ${
+                                    formData.skillsInProfile
+                                      .split(",")
+                                      .includes(skillsInProfile)
+                                      ? "btn-secondary" // Change this to the color you want after selecting
+                                      : "btn-light" // Change this to the color you want before selecting
+                                  }`}
+                                >
+                                  {skillsInProfile}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                          {skillsError && (
+                            <div className="text-danger mt-2">
+                              Please select at least one skill (up to 10)
+                              before proceeding.
+                            </div>
+                          )}
+
+                          <div
+                            className="form-group mb-1"
+                            style={{ display: "flex" }}
+                          >
+                            <button
+                              type="button"
+                              onClick={handlePrevStep}
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                            >
+                              Previous
+                            </button>
+                            <button
+                              type="submit"
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                            >
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {formData.profil === "coach" && (
+                        <div>
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-medall text-grey-500 pe-0"></i>
+                            <input
+                              type="number"
+                              id="totalTeam"
+                              name="totalTeam"
+                              value={formData.totalTeam}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["totalTeam"] ? "is-invalid" : ""
+                              }`}
+                              placeholder="Total Team"
+                              onChange={handleInputChange}
+                            />
+                            {inputErrors["totalTeam"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["totalTeam"]}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-strategy text-grey-500 pe-0"></i>
+                            <select
+                              name="footballTactic"
+                              value={formData.footballTactic}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["footballTactic"]
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                Select Football Tactic
+                              </option>
+                              <option value="4-4-2">4-4-2</option>
+                              <option value="4-3-3">4-3-3</option>
+                              <option value="4-2-3-1">4-2-3-1</option>
+                              <option value="5-3-2">5-3-2</option>
+                              <option value="5-4-1">5-4-1</option>
+                              <option value="catenaccio">3-4-3</option>
+                            </select>
+                            {inputErrors["footballTactic"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["footballTactic"]}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-world text-grey-500 pe-0"></i>
+                            <select
+                              name="countryCoachedIn"
+                              value={formData.countryCoachedIn}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["countryCoachedIn"]
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                Select Country Coached In
+                              </option>
+                              {generateOptions("libelle")}
+                            </select>
+                            {inputErrors["countryCoachedIn"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["countryCoachedIn"]}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* <div className="form-group icon-input mb-3">
+          <input
+            type="text"
+            id="skills"
+            name="skills"
+            
+            className={` ${
+              inputErrors["skills"] ? "is-invalid" : ""
+            }`}
+            onChange={handleInputChange}
+          />
+          {inputErrors["skills"] && (
+            <div className="invalid-feedback">{inputErrors["skills"]}</div>
+          )}
+        </div> */}
+
+                          <div className="form-group icon-input mb-3">
+                            {[
+                              "Connaissance Tactique",
+                              "Competence Technique",
+                              "Leadership",
+                              "Communication",
+                              "Gestion de groupe",
+                              "Analyse",
+                              "Planification",
+                              "Adaptabilité",
+                              "Ethique",
+                              "Connaissance des regles",
+                              "Gestion de stress",
+                              "Developpement individuel",
+                              "Empathie",
+                              // Add other coach-specific skills...
+                            ].map((coachSkill) => (
+                              <div
+                                key={coachSkill}
+                                className="form-check form-check-inline me-2 mb-2"
+                              >
+                                <input
+                                  type="checkbox"
+                                  id={coachSkill}
+                                  name="coachSkillsInProfile"
+                                  checked={formData.skills
+                                    .split(",")
+                                    .includes(coachSkill)}
+                                  onChange={() =>
+                                    handleCoachSkillToggle(coachSkill)
+                                  }
+                                  className="form-check-input d-none"
+                                />
+                                <label
+                                  htmlFor={coachSkill}
+                                  className={`form-check-label btn ${
+                                    formData.skills
+                                      .split(",")
+                                      .includes(coachSkill)
+                                      ? "btn-secondary"
+                                      : "btn-light"
+                                  } ${
+                                    !formData.skills
+                                      .split(",")
+                                      .includes(coachSkill) &&
+                                    coachSkillsError
+                                      ? "border-danger"
+                                      : ""
+                                  }`}
+                                >
+                                  {coachSkill}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                          {!formData.skills
+                            .split(",")
+                            .some((skill) => skill.trim() !== "") && (
+                            <div className="text-danger mt-2">
+                              Please select at least one coach skill before
+                              proceeding (up to 10).
+                            </div>
+                          )}
+
+                          <div
+                            className="form-group mb-1"
+                            style={{ display: "flex" }}
+                          >
+                            <button
+                              type="button"
+                              onClick={handlePrevStep}
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                            >
+                              Previous
+                            </button>
+                            <button
+                              type="submit"
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                            >
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {formData.profil === "agent" && (
+                        <div>
+                          <label
+                            htmlFor="typeresponsable"
+                            className="block mb-2"
+                          >
+                            Type Responsable:
+                          </label>
+                          <select
+                            id="typeresponsable"
+                            name="typeresponsable"
+                            className={`w-full p-2 mb-4 ${
+                              inputErrors["typeresponsable"]
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                            onChange={handleInputChange}
+                            value={formData.typeresponsable}
+                            required
+                          >
+                            <option value="">
+                              Select Le Type De Responsabilité
+                            </option>
+                            <option value="club">Club</option>
+                            <option value="players">Players</option>
+                          </select>
+                          {inputErrors["typeresponsable"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["typeresponsable"]}
+                            </div>
+                          )}
+
+                          {formData.typeresponsable && (
+                            <div>
+                              {formData.typeresponsable === "club" && (
+                                <div>
+                                  <label
+                                    htmlFor="clubCovered"
+                                    className="block text-left mb-2"
+                                  >
+                                    Nom du Club:
+                                  </label>
+                                  <div className="form-group icon-input mb-3">
+                                    <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
+                                    <input
+                                      type="text"
+                                      id="clubCovered"
+                                      name="clubCovered"
+                                      className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                        inputErrors["clubCovered"]
+                                          ? "is-invalid"
+                                          : ""
+                                      }`}
+                                      onChange={handleInputChange}
+                                      value={formData.clubCovered}
+                                      placeholder="Enter club covered"
+                                    />
+                                    {inputErrors["clubCovered"] && (
+                                      <div className="invalid-feedback">
+                                        {inputErrors["clubCovered"]}
+                                      </div>
+                                    )}
+                                  </div>
                                   <div>
                                     <label
-                                      htmlFor="clubCovered"
+                                      htmlFor="paysclub"
                                       className="block text-left mb-2"
                                     >
-                                      Nom du Club:
+                                      Nom du Pays:
                                     </label>
                                     <div className="form-group icon-input mb-3">
                                       <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
-                                      <input
-                                        type="text"
-                                        id="clubCovered"
-                                        name="clubCovered"
+                                      <select
+                                        name="paysclub"
+                                        value={formData.paysclub}
                                         className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                          inputErrors["clubCovered"]
+                                          inputErrors["paysclub"]
                                             ? "is-invalid"
                                             : ""
                                         }`}
                                         onChange={handleInputChange}
-                                        value={formData.clubCovered}
-                                        placeholder="Enter club covered"
-                                      />
-                                      {inputErrors["clubCovered"] && (
+                                      >
+                                        <option value="" disabled>
+                                          Select Country
+                                        </option>
+                                        {generateOptions("libelle")}
+                                      </select>
+                                      {inputErrors["paysclub"] && (
                                         <div className="invalid-feedback">
-                                          {inputErrors["clubCovered"]}
+                                          {inputErrors["paysclub"]}
                                         </div>
                                       )}
                                     </div>
-                                    <div>
-                                      <label
-                                        htmlFor="paysclub"
-                                        className="block text-left mb-2"
-                                      >
-                                        Nom du Pays:
-                                      </label>
-                                      <div className="form-group icon-input mb-3">
-                                        <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
-                                        <select
-                                          name="paysclub"
-                                          value={formData.paysclub}
-                                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                            inputErrors["paysclub"]
-                                              ? "is-invalid"
-                                              : ""
-                                          }`}
-                                          onChange={handleInputChange}
-                                        >
-                                          <option value="" disabled>
-                                            Select Country
-                                          </option>
-                                          {generateOptions("libelle")}
-                                        </select>
-                                        {inputErrors["paysclub"] && (
-                                          <div className="invalid-feedback">
-                                            {inputErrors["paysclub"]}
-                                          </div>
-                                        )}
-                                      </div>
-                                    </div>
                                   </div>
-                                )}
+                                </div>
+                              )}
 
-                                {formData.typeresponsable === "players" && (
+                              {formData.typeresponsable === "players" && (
+                                <div>
+                                  <label
+                                    htmlFor="totalPlayer"
+                                    className="block mb-2"
+                                  >
+                                    Totale du Joueurs:
+                                  </label>
+                                  <input
+                                    type="number"
+                                    id="totalPlayer"
+                                    name="totalPlayer"
+                                    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                      inputErrors["totalPlayer"]
+                                        ? "is-invalid"
+                                        : ""
+                                    }`}
+                                    onChange={handleInputChange}
+                                    value={formData.totalPlayer}
+                                    placeholder="Enter total players managed"
+                                  />
+                                  {inputErrors.totalPlayer && (
+                                    <div className="invalid-feedback">
+                                      {inputErrors.totalPlayer}
+                                    </div>
+                                  )}
+
+                                  <label
+                                    htmlFor="totalCareerTransfers"
+                                    className="block mb-2"
+                                  >
+                                    Total Career Transfers:
+                                  </label>
+                                  <input
+                                    type="number"
+                                    id="totalCareerTransfers"
+                                    name="totalCareerTransfers"
+                                    className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                      inputErrors["totalCareerTransfers"]
+                                        ? "is-invalid"
+                                        : ""
+                                    }`}
+                                    onChange={handleInputChange}
+                                    value={formData.totalCareerTransfers}
+                                    placeholder="Enter total career transfers for club"
+                                  />
+                                  {inputErrors.totalCareerTransfers && (
+                                    <div className="invalid-feedback">
+                                      {inputErrors.totalCareerTransfers}
+                                    </div>
+                                  )}
+
                                   <div>
                                     <label
-                                      htmlFor="totalPlayer"
+                                      htmlFor="pays"
                                       className="block mb-2"
                                     >
-                                      Totale du Joueurs:
+                                      Nom du Pays:
                                     </label>
-                                    <input
-                                      type="number"
-                                      id="totalPlayer"
-                                      name="totalPlayer"
-                                      className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                        inputErrors["totalPlayer"]
-                                          ? "is-invalid"
-                                          : ""
-                                      }`}
-                                      onChange={handleInputChange}
-                                      value={formData.totalPlayer}
-                                      placeholder="Enter total players managed"
-                                    />
-                                    {inputErrors.totalPlayer && (
-                                      <div className="invalid-feedback">
-                                        {inputErrors.totalPlayer}
-                                      </div>
-                                    )}
-
-                                    <label
-                                      htmlFor="totalCareerTransfers"
-                                      className="block mb-2"
-                                    >
-                                      Total Career Transfers:
-                                    </label>
-                                    <input
-                                      type="number"
-                                      id="totalCareerTransfers"
-                                      name="totalCareerTransfers"
-                                      className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                        inputErrors["totalCareerTransfers"]
-                                          ? "is-invalid"
-                                          : ""
-                                      }`}
-                                      onChange={handleInputChange}
-                                      value={formData.totalCareerTransfers}
-                                      placeholder="Enter total career transfers for club"
-                                    />
-                                    {inputErrors.totalCareerTransfers && (
-                                      <div className="invalid-feedback">
-                                        {inputErrors.totalCareerTransfers}
-                                      </div>
-                                    )}
-
-                                    <div>
-                                      <label
-                                        htmlFor="pays"
-                                        className="block mb-2"
+                                    <div className="form-group icon-input mb-3">
+                                      <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
+                                      <select
+                                        name="pays"
+                                        value={formData.pays}
+                                        className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                          inputErrors["pays"]
+                                            ? "is-invalid"
+                                            : ""
+                                        }`}
+                                        onChange={handleInputChange}
                                       >
-                                        Nom du Pays:
-                                      </label>
-                                      <div className="form-group icon-input mb-3">
-                                        <i className="font-sm ti-flag-alt-2 text-grey-500 pe-0"></i>
-                                        <select
-                                          name="pays"
-                                          value={formData.pays}
-                                          className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                            inputErrors["pays"]
-                                              ? "is-invalid"
-                                              : ""
-                                          }`}
-                                          onChange={handleInputChange}
-                                        >
-                                          <option value="" disabled>
-                                            Select Country
-                                          </option>
-                                          {generateOptions("libelle")}
-                                        </select>
-                                        {inputErrors["pays"] && (
-                                          <div className="invalid-feedback">
-                                            {inputErrors["pays"]}
-                                          </div>
-                                        )}
-                                      </div>
+                                        <option value="" disabled>
+                                          Select Country
+                                        </option>
+                                        {generateOptions("libelle")}
+                                      </select>
+                                      {inputErrors["pays"] && (
+                                        <div className="invalid-feedback">
+                                          {inputErrors["pays"]}
+                                        </div>
+                                      )}
                                     </div>
                                   </div>
-                                )}
-                              </div>
-                            )}
+                                </div>
+                              )}
+                            </div>
+                          )}
 
-                            <div
-                              className="form-group mb-1"
-                              style={{ display: "flex" }}
+                          <div
+                            className="form-group mb-1"
+                            style={{ display: "flex" }}
+                          >
+                            <button
+                              type="button"
+                              onClick={handlePrevStep}
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
                             >
-                              <button
-                                type="button"
-                                onClick={handlePrevStep}
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                              >
-                                Previous
-                              </button>
-                              <button
-                                type="submit"
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                              >
-                                Submit
-                              </button>
-                            </div>
-                          </div>
-                        )}
-
-                        {formData.profil === "scout" && (
-                          <div>
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-ticket text-grey-500 pe-0"></i>
-                              <select
-                                name="engagement"
-                                value={formData.engagement}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["engagement"] ? "is-invalid" : ""
-                                }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                  Select Engagement
-                                </option>
-                                <option value="plein-temps">Plein Temps</option>
-                                <option value="mi-temps">Mi-Temps</option>
-                                <option value="volontaire">Volontaire</option>
-                              </select>
-                              {inputErrors["engagement"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["engagement"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-basketball text-grey-500 pe-0"></i>
-                              <input
-                                type="number"
-                                id="nb_joueurdetecter"
-                                name="nb_joueurdetecter"
-                                value={formData.nb_joueurdetecter}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["nb_joueurdetecter"]
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                                placeholder="Nomber des joueurs detecter"
-                                onChange={handleInputChange}
-                              />
-                              {inputErrors["nb_joueurdetecter"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["nb_joueurdetecter"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-map-alt text-grey-500 pe-0"></i>
-                              <select
-                                name="paysscout"
-                                value={formData.paysscout}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["paysscout"] ? "is-invalid" : ""
-                                }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                  Select Pays
-                                </option>
-                                {generateOptions("libelle")}
-                              </select>
-                              {inputErrors["paysscout"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["paysscout"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-user text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="skillsscout"
-                                name="skillsscout"
-                                onChange={handleInputChange}
-                                value={formData.skillsscout}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["skillsscout"] ? "is-invalid" : ""
-                                }`}
-                                placeholder="Skill"
-                              />
-                              {inputErrors["skillsscout"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["skillsscout"]}
-                                </div>
-                              )}
-                            </div>
-
-                            <div
-                              className="form-group mb-1"
-                              style={{ display: "flex" }}
+                              Previous
+                            </button>
+                            <button
+                              type="submit"
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
                             >
-                              <button
-                                type="button"
-                                onClick={handlePrevStep}
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                              >
-                                Previous
-                              </button>
-                              <button
-                                type="submit"
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                              >
-                                Submit
-                              </button>
-                            </div>
+                              Submit
+                            </button>
                           </div>
-                        )}
+                        </div>
+                      )}
 
-                        {formData.profil === "other" && (
-                          <div>
-                            <label htmlFor="profession" className="block mb-2">
-                              Profession
-                            </label>
+                      {formData.profil === "scout" && (
+                        <div>
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-ticket text-grey-500 pe-0"></i>
                             <select
-                              id="profession"
-                              name="profession"
-                              className={`w-full p-2 mb-4 ${
-                                inputErrors["profession"] ? "is-invalid" : ""
+                              name="engagement"
+                              value={formData.engagement}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["engagement"] ? "is-invalid" : ""
                               }`}
                               onChange={handleInputChange}
-                              value={formData.profession}
-                              required
                             >
-                              <option value="">Select Type Responsable</option>
-                              <option value="Fan Football">Fan Football</option>
-                              <option value="Journaliste Sportif">
-                                Journaliste Sportif
+                              <option value="" disabled>
+                                Select Engagement
                               </option>
-                              <option value="Arbitre Football">
-                                Arbitre Football
-                              </option>
-                              <option value="Analyste de performance ">
-                                Analyste de performance
-                              </option>
-                              <option value="Nutrtitionniste">
-                                Nutrtitionniste
-                              </option>
-                              <option value="Physiotherpeute">
-                                Physiotherpeute
-                              </option>
-                              <option value="Analyste de football">
-                                Analyste de football
-                              </option>
-                              <option value="Médecin d'équipe">
-                                Médecin d'équipe
-                              </option>
-                              <option value="Prof de fitnesse">
-                                Prof de fitnesse
-                              </option>
+                              <option value="plein-temps">Plein Temps</option>
+                              <option value="mi-temps">Mi-Temps</option>
+                              <option value="volontaire">Volontaire</option>
                             </select>
-                            {inputErrors["Profession"] && (
+                            {inputErrors["engagement"] && (
                               <div className="invalid-feedback">
-                                {inputErrors["Profession"]}
+                                {inputErrors["engagement"]}
                               </div>
                             )}
+                          </div>
 
-                            {formData.profession && (
-                              <div>
-                                {formData.profession === "Fan Football" && (
-                                  <div className="form-group icon-input mb-3">
-                                    {[
-                                      "Engagement emotionnel",
-                                      "Fidelité",
-                                      "Defence",
-                                      "Esprit Sportif",
-                                      "Réseautage Social",
-                                      "Rapidite de la prise de désicion",
-                                      "Adabtabilité",
-                                      "Motivation",
-                                      "Respecter",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre
-                                              .split(",")
-                                              .includes(skillsAutre)
-                                              ? "btn-secondary" // Change this to the color you want after selecting
-                                              : "btn-light" // Change this to the color you want before selecting
-                                          }`}
-                                        >
-                                          {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {formData.profession ===
-                                  "Journaliste Sportif" && (
-                                  <div className="form-group icon-input mb-3">
-                                    {[
-                                      "Rechercher",
-                                      "Rédaction",
-                                      "Communication",
-                                      "Maitrise des Medias sociaux",
-                                      "Rédactivé",
-                                      "Gestion du Temps",
-                                      "Analyse critique",
-                                      "Adaptabilité",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre
-                                              .split(",")
-                                              .includes(skillsAutre)
-                                              ? "btn-secondary" // Change this to the color you want after selecting
-                                              : "btn-light" // Change this to the color you want before selecting
-                                          }`}
-                                        >
-                                          {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {formData.profession === "Arbitre Football" && (
-                                  <div className="form-group icon-input mb-3">
-                                    {[
-                                      "Encouragement",
-                                      "Ecoute",
-                                      "Communication",
-                                      "Leadership",
-                                      "motivation",
-                                      "Autorité et respect",
-                                      "Gestion des Conflits",
-                                      "Réactivité",
-                                      "Gestion de stress",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre
-                                              .split(",")
-                                              .includes(skillsAutre)
-                                              ? "btn-secondary" // Change this to the color you want after selecting
-                                              : "btn-light" // Change this to the color you want before selecting
-                                          }`}
-                                        >
-                                          {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {formData.profession ===
-                                  "Analyste de performance" && (
-                                  <div className="form-group icon-input mb-3">
-                                    {[
-                                      "Esprit Equipe",
-                                      "Adaptabilité",
-                                      "Communication",
-                                      "Collaboration",
-                                      "Analyse vidéo",
-                                      "Gestion du temps",
-                                      "Gestion de stress",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre
-                                              .split(",")
-                                              .includes(skillsAutre)
-                                              ? "btn-secondary" // Change this to the color you want after selecting
-                                              : "btn-light" // Change this to the color you want before selecting
-                                          }`}
-                                        >
-                                          {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {formData.profession === "Nutrtitionniste" && (
-                                  <div className="form-group icon-input mb-3">
-                                    {[
-                                      "Evaluation nutrionnelle",
-                                      "Planfication de régimes",
-                                      "Communication",
-                                      "Ecoute",
-                                      "Encouragement",
-                                      "Compréhension des besoin",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre
-                                              .split(",")
-                                              .includes(skillsAutre)
-                                              ? "btn-secondary" // Change this to the color you want after selecting
-                                              : "btn-light" // Change this to the color you want before selecting
-                                          }`}
-                                        >
-                                          {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {formData.profession === "Physiotherpeute" && (
-                                  <div className="form-group icon-input mb-3">
-                                    {[
-                                      "Ethique professionnelle",
-                                      "Gestion du temps",
-                                      "Empathy",
-                                      "Compétences Physiothérapeute",
-                                      "Analyse des mouvements sportifs",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre
-                                              .split(",")
-                                              .includes(skillsAutre)
-                                              ? "btn-secondary" // Change this to the color you want after selecting
-                                              : "btn-light" // Change this to the color you want before selecting
-                                          }`}
-                                        >
-                                          {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {formData.profession ===
-                                  "Analyste de football" && (
-                                  <div className="form-group icon-input mb-3">
-                                    {[
-                                      "Compétences analytiques",
-                                      "Compétences statstiques",
-                                      "Connaissance tactique",
-                                      "Communication Efficace",
-                                      "Adabtabilité",
-                                      "Compréension des adversaires",
-                                      "Rapports détaillés",
-                                      "Collaboration",
-                                      "Gestion du temps",
-                                      "Ethique professionnelle",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre
-                                              .split(",")
-                                              .includes(skillsAutre)
-                                              ? "btn-secondary" // Change this to the color you want after selecting
-                                              : "btn-light" // Change this to the color you want before selecting
-                                          }`}
-                                        >
-                                          {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {formData.profession === "Médecin d'équipe" && (
-                                  <div className="form-group icon-input mb-3">
-                                    {[
-                                      "Diagnostic des blessures",
-                                      "Prévention des blessures",
-                                      "Gestion du stress",
-                                      "Technologie médicale",
-                                      "Empathy",
-                                      "Calme",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre
-                                              .split(",")
-                                              .includes(skillsAutre)
-                                              ? "btn-secondary" // Change this to the color you want after selecting
-                                              : "btn-light" // Change this to the color you want before selecting
-                                          }`}
-                                        >
-                                          {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-                                {formData.profession === "Prof de fitnesse" && (
-                                  <div className="form-group icon-input mb-3">
-                                    {[
-                                      "Adaptabilité",
-                                      "Communication",
-                                      "Motivation",
-                                      "Encadrement en groupe",
-                                      "Ecoute",
-                                      "Encouragement",
-                                      "Leadership",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre
-                                              .split(",")
-                                              .includes(skillsAutre)
-                                              ? "btn-secondary" // Change this to the color you want after selecting
-                                              : "btn-light" // Change this to the color you want before selecting
-                                          }`}
-                                        >
-                                          {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-basketball text-grey-500 pe-0"></i>
+                            <input
+                              type="number"
+                              id="nb_joueurdetecter"
+                              name="nb_joueurdetecter"
+                              value={formData.nb_joueurdetecter}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["nb_joueurdetecter"]
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                              placeholder="Nomber des joueurs detecter"
+                              onChange={handleInputChange}
+                            />
+                            {inputErrors["nb_joueurdetecter"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["nb_joueurdetecter"]}
                               </div>
                             )}
+                          </div>
 
-                            {/* <div className="form-group icon-input mb-3">
-                              <i className="font-sm ti-basketball text-grey-500 pe-0"></i>
-                              <input
-                                type="text"
-                                id="skillsAutre"
-                                name="skillsAutre"
-                                value={formData.skillsAutre}
-                                className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-                                  inputErrors["skillsAutre"] ? "is-invalid" : ""
-                                }`}
-                                placeholder="Nomber des joueurs detecter"
-                                onChange={handleInputChange}
-                              />
-                              {inputErrors["skillsAutre"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["skillsAutre"]}
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-map-alt text-grey-500 pe-0"></i>
+                            <select
+                              name="paysscout"
+                              value={formData.paysscout}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["paysscout"] ? "is-invalid" : ""
+                              }`}
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                Select Pays
+                              </option>
+                              {generateOptions("libelle")}
+                            </select>
+                            {inputErrors["paysscout"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["paysscout"]}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-user text-grey-500 pe-0"></i>
+                            <input
+                              type="text"
+                              id="skillsscout"
+                              name="skillsscout"
+                              onChange={handleInputChange}
+                              value={formData.skillsscout}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["skillsscout"] ? "is-invalid" : ""
+                              }`}
+                              placeholder="Skill"
+                            />
+                            {inputErrors["skillsscout"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["skillsscout"]}
+                              </div>
+                            )}
+                          </div>
+
+                          <div
+                            className="form-group mb-1"
+                            style={{ display: "flex" }}
+                          >
+                            <button
+                              type="button"
+                              onClick={handlePrevStep}
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                            >
+                              Previous
+                            </button>
+                            <button
+                              type="submit"
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                            >
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {formData.profil === "other" && (
+                        <div>
+                          <label htmlFor="profession" className="block mb-2">
+                            Profession
+                          </label>
+                          <select
+                            id="profession"
+                            name="profession"
+                            className={`w-full p-2 mb-4 ${
+                              inputErrors["profession"] ? "is-invalid" : ""
+                            }`}
+                            onChange={handleInputChange}
+                            value={formData.profession}
+                            required
+                          >
+                            <option value="">Select Type Responsable</option>
+                            <option value="Fan Football">Fan Football</option>
+                            <option value="Journaliste Sportif">
+                              Journaliste Sportif
+                            </option>
+                            <option value="Arbitre Football">
+                              Arbitre Football
+                            </option>
+                            <option value="Analyste de performance ">
+                              Analyste de performance
+                            </option>
+                            <option value="Nutrtitionniste">
+                              Nutrtitionniste
+                            </option>
+                            <option value="Physiotherpeute">
+                              Physiotherpeute
+                            </option>
+                            <option value="Analyste de football">
+                              Analyste de football
+                            </option>
+                            <option value="Médecin d'équipe">
+                              Médecin d'équipe
+                            </option>
+                            <option value="Prof de fitnesse">
+                              Prof de fitnesse
+                            </option>
+                          </select>
+                          {inputErrors["Profession"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["Profession"]}
+                            </div>
+                          )}
+
+                          {formData.profession && (
+                            <div>
+                              {formData.profession === "Fan Football" && (
+                                <div className="form-group icon-input mb-3">
+                                  {[
+                                    "Engagement emotionnel",
+                                    "Fidelité",
+                                    "Defence",
+                                    "Esprit Sportif",
+                                    "Réseautage Social",
+                                    "Rapidite de la prise de désicion",
+                                    "Adabtabilité",
+                                    "Motivation",
+                                    "Respecter",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${
+                                          formData.skillsAutre
+                                            .split(",")
+                                            .includes(skillsAutre)
+                                            ? "btn-secondary" // Change this to the color you want after selecting
+                                            : "btn-light" // Change this to the color you want before selecting
+                                        }`}
+                                      >
+                                        {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
                                 </div>
                               )}
-                            </div> */}
 
-                            <div
-                              className="form-group mb-1"
-                              style={{ display: "flex" }}
-                            >
-                              <button
-                                type="button"
-                                onClick={handlePrevStep}
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                              >
-                                Retour
-                              </button>
-                              <button
-                                type="submit"
-                                className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
-                              >
-                                Register
-                              </button>
+                              {formData.profession ===
+                                "Journaliste Sportif" && (
+                                <div className="form-group icon-input mb-3">
+                                  {[
+                                    "Rechercher",
+                                    "Rédaction",
+                                    "Communication",
+                                    "Maitrise des Medias sociaux",
+                                    "Rédactivé",
+                                    "Gestion du Temps",
+                                    "Analyse critique",
+                                    "Adaptabilité",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${
+                                          formData.skillsAutre
+                                            .split(",")
+                                            .includes(skillsAutre)
+                                            ? "btn-secondary" // Change this to the color you want after selecting
+                                            : "btn-light" // Change this to the color you want before selecting
+                                        }`}
+                                      >
+                                        {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              {formData.profession === "Arbitre Football" && (
+                                <div className="form-group icon-input mb-3">
+                                  {[
+                                    "Encouragement",
+                                    "Ecoute",
+                                    "Communication",
+                                    "Leadership",
+                                    "motivation",
+                                    "Autorité et respect",
+                                    "Gestion des Conflits",
+                                    "Réactivité",
+                                    "Gestion de stress",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${
+                                          formData.skillsAutre
+                                            .split(",")
+                                            .includes(skillsAutre)
+                                            ? "btn-secondary" // Change this to the color you want after selecting
+                                            : "btn-light" // Change this to the color you want before selecting
+                                        }`}
+                                      >
+                                        {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              {formData.profession ===
+                                "Analyste de performance" && (
+                                <div className="form-group icon-input mb-3">
+                                  {[
+                                    "Esprit Equipe",
+                                    "Adaptabilité",
+                                    "Communication",
+                                    "Collaboration",
+                                    "Analyse vidéo",
+                                    "Gestion du temps",
+                                    "Gestion de stress",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${
+                                          formData.skillsAutre
+                                            .split(",")
+                                            .includes(skillsAutre)
+                                            ? "btn-secondary" // Change this to the color you want after selecting
+                                            : "btn-light" // Change this to the color you want before selecting
+                                        }`}
+                                      >
+                                        {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              {formData.profession === "Nutrtitionniste" && (
+                                <div className="form-group icon-input mb-3">
+                                  {[
+                                    "Evaluation nutrionnelle",
+                                    "Planfication de régimes",
+                                    "Communication",
+                                    "Ecoute",
+                                    "Encouragement",
+                                    "Compréhension des besoin",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${
+                                          formData.skillsAutre
+                                            .split(",")
+                                            .includes(skillsAutre)
+                                            ? "btn-secondary" // Change this to the color you want after selecting
+                                            : "btn-light" // Change this to the color you want before selecting
+                                        }`}
+                                      >
+                                        {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              {formData.profession === "Physiotherpeute" && (
+                                <div className="form-group icon-input mb-3">
+                                  {[
+                                    "Ethique professionnelle",
+                                    "Gestion du temps",
+                                    "Empathy",
+                                    "Compétences Physiothérapeute",
+                                    "Analyse des mouvements sportifs",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${
+                                          formData.skillsAutre
+                                            .split(",")
+                                            .includes(skillsAutre)
+                                            ? "btn-secondary" // Change this to the color you want after selecting
+                                            : "btn-light" // Change this to the color you want before selecting
+                                        }`}
+                                      >
+                                        {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              {formData.profession ===
+                                "Analyste de football" && (
+                                <div className="form-group icon-input mb-3">
+                                  {[
+                                    "Compétences analytiques",
+                                    "Compétences statstiques",
+                                    "Connaissance tactique",
+                                    "Communication Efficace",
+                                    "Adabtabilité",
+                                    "Compréension des adversaires",
+                                    "Rapports détaillés",
+                                    "Collaboration",
+                                    "Gestion du temps",
+                                    "Ethique professionnelle",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${
+                                          formData.skillsAutre
+                                            .split(",")
+                                            .includes(skillsAutre)
+                                            ? "btn-secondary" // Change this to the color you want after selecting
+                                            : "btn-light" // Change this to the color you want before selecting
+                                        }`}
+                                      >
+                                        {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              {formData.profession === "Médecin d'équipe" && (
+                                <div className="form-group icon-input mb-3">
+                                  {[
+                                    "Diagnostic des blessures",
+                                    "Prévention des blessures",
+                                    "Gestion du stress",
+                                    "Technologie médicale",
+                                    "Empathy",
+                                    "Calme",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${
+                                          formData.skillsAutre
+                                            .split(",")
+                                            .includes(skillsAutre)
+                                            ? "btn-secondary" // Change this to the color you want after selecting
+                                            : "btn-light" // Change this to the color you want before selecting
+                                        }`}
+                                      >
+                                        {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {formData.profession === "Prof de fitnesse" && (
+                                <div className="form-group icon-input mb-3">
+                                  {[
+                                    "Adaptabilité",
+                                    "Communication",
+                                    "Motivation",
+                                    "Encadrement en groupe",
+                                    "Ecoute",
+                                    "Encouragement",
+                                    "Leadership",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${
+                                          formData.skillsAutre
+                                            .split(",")
+                                            .includes(skillsAutre)
+                                            ? "btn-secondary" // Change this to the color you want after selecting
+                                            : "btn-light" // Change this to the color you want before selecting
+                                        }`}
+                                      >
+                                        {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
                             </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </form>
-                </div>
+                          )}
 
-                <div className="col-sm-12 p-0 text-left">
-                  {/* <div className="form-group mb-1"><a href="/register" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</a></div> */}
-                  <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
-                    Already have account{" "}
-                    <a href="/login" className="fw-700 ms-1">
-                      Login
-                    </a>
-                  </h6>
-                </div>
+                          {/* <div className="form-group icon-input mb-3">
+                            <i className="font-sm ti-basketball text-grey-500 pe-0"></i>
+                            <input
+                              type="text"
+                              id="skillsAutre"
+                              name="skillsAutre"
+                              value={formData.skillsAutre}
+                              className={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
+                                inputErrors["skillsAutre"] ? "is-invalid" : ""
+                              }`}
+                              placeholder="Nomber des joueurs detecter"
+                              onChange={handleInputChange}
+                            />
+                            {inputErrors["skillsAutre"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["skillsAutre"]}
+                              </div>
+                            )}
+                          </div> */}
+
+                          <div
+                            className="form-group mb-1"
+                            style={{ display: "flex" }}
+                          >
+                            <button
+                              type="button"
+                              onClick={handlePrevStep}
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                            >
+                              Retour
+                            </button>
+                            <button
+                              type="submit"
+                              className="form-control flex items-center justify-between w-28 text-center style2-input text-white fw-600 bg-dark border-0 p-0 me-2"
+                            >
+                              Register
+                            </button>
+
+                          </div>
+                          {emailError && <p className="bg-red-500 rounded-lg text-white font-bold">{emailError}</p>}
+
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </form>
+              </div>
+
+              <div className="col-sm-12 p-0 text-left">
+                {/* <div className="form-group mb-1"><a href="/register" className="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Register</a></div> */}
+                <h6 className="text-grey-500 font-xsss fw-500 mt-0 mb-0 lh-32">
+                  Already have account{" "}
+                  <a href="/login" className="fw-700 ms-1">
+                    Login
+                  </a>
+                </h6>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </Fragment>
+    </div>
+  </Fragment>
   );
 }
 

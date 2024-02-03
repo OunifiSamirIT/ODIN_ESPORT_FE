@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import { Link , NavLink } from 'react-router-dom';
 
 import Darkbutton from '../components/Darkbutton';
-import Logo from '../assets/logo.png'
+import Logo from '../assets/ODIN22.png'
 class Header extends Component {
     state = {
         isOpen: false,
@@ -42,7 +42,7 @@ class Header extends Component {
         return (
             <div className="nav-header bg-white shadow-xs border-0">
                 <div className="nav-top">
-                    <Link to="/"><img src={Logo} className='h-14 w-14 '/><span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">ODIN E-SPORT </span> </Link>
+                    <Link to="/home"><img src={Logo} className='ml-3 h-28 w-28 '/><span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0"> </span> </Link>
                     <Link to="/defaultmessage" className="mob-menu ms-auto me-2 chat-active-btn"><i className="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></Link>
                     <Link to="/defaultvideo" className="mob-menu me-2"><i className="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></Link>
                     <span onClick={this.toggleActive} className="me-2 menu-search-icon mob-menu"><i className="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></span>
@@ -55,11 +55,11 @@ class Header extends Component {
                         <input type="text" placeholder="Start typing to search.." className="bg-grey border-0 lh-32 pt-2 pb-2 ps-5 pe-3 font-xssss fw-500 rounded-xl w350 theme-dark-bg" />
                     </div>
                 </form>
-                <NavLink activeClassName="active" to="/home" className="p-2 text-center ms-3 menu-icon center-menu-icon"><i className="feather-home font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></NavLink>
+                {/* <NavLink activeClassName="active" to="/home" className="p-2 text-center ms-3 menu-icon center-menu-icon"><i className="feather-home font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></NavLink>
                 <NavLink activeClassName="active" to="/defaultstorie" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-zap font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></NavLink>
                 <NavLink activeClassName="active" to="/defaultvideo" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-video font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></NavLink>
                 <NavLink activeClassName="active" to="/defaultgroup" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-user font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></NavLink>
-                <NavLink activeClassName="active" to="/shop2" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></NavLink>
+                <NavLink activeClassName="active" to="/shop2" className="p-2 text-center ms-0 menu-icon center-menu-icon"><i className="feather-shopping-bag font-lg bg-greylight btn-round-lg theme-dark-bg text-grey-500 "></i></NavLink> */}
 
                     
                 <span className={`p-2 pointer text-center ms-auto menu-icon ${notiClass}`} id="dropdownMenu3" data-bs-toggle="dropdown" aria-expanded="false" onClick={this.toggleisNoti}><span className="dot-count bg-warning"></span><i className="feather-bell font-xl text-current"></i></span>
@@ -101,13 +101,17 @@ class Header extends Component {
                                     <li className="logo d-none d-xl-block d-lg-block"></li>
                                     <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>Mon Profile </span></Link></li>                        
 
-                                    <li><Link to="/home" className="nav-content-bttn open-font"><i className="feather-tv btn-round-md bg-blue-gradiant me-3"></i><span>Acceuil</span></Link></li>
-                                    <li><Link to="/defaultbadge" className="nav-content-bttn open-font"><i className="feather-award btn-round-md bg-red-gradiant me-3"></i><span>Badges</span></Link></li>
-                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="feather-globe btn-round-md bg-gold-gradiant me-3"></i><span>Stories</span></Link></li>
-                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-zap btn-round-md bg-mini-gradiant me-3"></i><span> Groupes</span></Link></li>
+                                    <li><Link to="/home" className="nav-content-bttn open-font"><i className="feather-gift btn-round-md bg-blue-gradiant me-3"></i><span>Acceuil</span></Link></li>
+                                    <li><Link to="/defaultbadge" className="nav-content-bttn open-font"><i className="feather-search btn-round-md bg-red-gradiant me-3"></i><span>Joueur Recherche</span></Link></li>
+                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="feather-shield btn-round-md bg-gold-gradiant me-3"></i><span>Challanges</span></Link></li>
+                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-pie-chart btn-round-md bg-cyan me-3"></i><span> Partenaire</span></Link></li>
+                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-server btn-round-md bg-odin2 me-3"></i><span> Offre d'emploi</span></Link></li>
+                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-user-plus btn-round-md bg-odin1 me-3"></i><span> Joueur</span></Link></li>
+                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-tv btn-round-md bg-mini-gradiant me-3"></i><span> Gallerie ODIN</span></Link></li>
+
                                 </ul>
                             </div>
-
+{/* 
                             <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1 mb-2">
                                 <div className="nav-caption fw-600 font-xssss text-grey-500"><span>More </span>Pages</div>
                                 <ul className="mb-3">
@@ -125,7 +129,7 @@ class Header extends Component {
                                     <li><Link to="/defaultanalytics" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-pie-chart me-3 text-grey-500"></i><span>Analytics</span></Link></li>
                                     <li><Link to="/defaultmessage" className="nav-content-bttn open-font h-auto pt-2 pb-2"><i className="font-sm feather-message-square me-3 text-grey-500"></i><span>Chat</span><span className="circle-count bg-warning mt-0">23</span></Link></li>
                                 </ul>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </nav>
