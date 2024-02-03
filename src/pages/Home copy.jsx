@@ -516,12 +516,13 @@ const calculateTimeDifference = (createdAt) => {
                           className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
                         >
                           <input
-                            type="file"
-                            onChange={handleFileChange}
-                            className="hidden"
-                            id="imgUpload"
-                            accept=".jpg, .png, .jpeg"
-                          />
+    type="file"
+    onChange={handleFileChange}
+    className="hidden"
+    id="imgUpload"
+    accept=".jpg, .png, .jpeg"
+    size="5000000" 
+/>
                                     <i className="font-md text-success feather-image me-2"></i><span className="d-none-xs">Photo</span>
 
                         </label>
