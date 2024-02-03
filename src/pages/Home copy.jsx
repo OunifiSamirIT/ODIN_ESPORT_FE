@@ -906,6 +906,13 @@ const calculateTimeDifference = (createdAt) => {
                 {latestItemType !== 'album' && album.map((albums) => (
   <div key={albums.id} className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
     <div className="card-body p-0 d-flex">
+    <figure className="avatar me-3">
+                          <img
+                            src={AdminImg}
+                            className="shadow-sm rounded-circle w-10 h-10"
+                            alt="post"
+                          />{" "}
+                        </figure>
     <h4 className="fw-700 text-grey-900 font-xssss mt-1">
                           ODIN Sport
                           <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">

@@ -47,7 +47,7 @@ function Friendsilder () {
                 {agents.map((value , index) => (
                 <div key={index} className="card w150 d-block border-0 shadow-xss rounded-3 overflow-hidden mb-3 me-3 ">
                     <div className="card-body d-block w-100 ps-3 pe-3 pb-4 text-center">
-                        <figure className="overflow-hidden avatar ms-auto me-auto mb-0 position-relative w65 z-index-1"><img src={`assets/images/${value.imageUrl}`} alt="avater" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
+                        {/* <figure className="overflow-hidden avatar ms-auto me-auto mb-0 position-relative w65 z-index-1"><img src={`assets/images/${value.imageUrl}`} alt="avater" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure> */}
                         <div className="clearfix"></div>
                         <h4 className="fw-700 font-xssss mt-3 mb-1 d-block w-100"> {value.nom} </h4>
                         <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-3 lh-2">{value.email}</p>
@@ -58,7 +58,7 @@ function Friendsilder () {
                           {players.map((player) => (
                 <div key={player.id} className="card w150 d-block border-0 shadow-xss rounded-3 overflow-hidden mb-3 me-3 ">
                     <div key={player?.user?.id} className="card-body d-block w-100 ps-3 pe-3 pb-4 text-center">
-                        <figure className="overflow-hidden avatar ms-auto me-auto mb-0 position-relative w65 z-index-1"><img src={`assets/images/loggin.png`} alt="avater" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure>
+                        {/* <figure className="overflow-hidden avatar ms-auto me-auto mb-0 position-relative w65 z-index-1"><img src={`assets/images/loggin.png`} alt="avater" className="float-right p-0 bg-white rounded-circle w-100 shadow-xss" /></figure> */}
                         <div className="clearfix"></div>
                         <h4 className="fw-700 font-xssss mt-3 mb-1 d-block w-100"> {player?.user?.nom} </h4>
                         <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-3 lh-2">{player?.user?.email}</p>
