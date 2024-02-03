@@ -580,364 +580,7 @@ const calculateTimeDifference = (createdAt) => {
 <div>
 
 
-{latestItemType === 'album' && album.length > 0 && (
-  <div key={album[0].id} className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
-  <div className="card-body p-0 d-flex">
-                        <figure className="avatar me-3">
-                          <img
-                            src={AdminImg}
-                            className="shadow-sm rounded-circle w-10 h-10"
-                            alt="post"
-                          />{" "}
-                        </figure>
 
-                        <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                          ODIN
-                          {/* <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                          {calculateTimeDifference(article.createdAt)}
-                      </span> */}
-                        </h4>
-                        <div className="ms-auto pointer">
-                          <i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
-                        </div>
-                      </div>
-
-    {/* Album content */}
-    <div className="card-body d-block p-0 mb-3">
-      <div className="row ps-2 pe-2">
-        <div className="col-sm-12 p-1">
-        <a href={"/odingallery/view/" + album.id} >  <div className="card-body position-relative h-96 bg-image-cover bg-image-center cover" style={{backgroundImage: `url(${(album[0].ImagesAlbums[0]?.image_url)})`}}></div></a>
-
-        </div>
-      </div>
-    </div>
-
-    {/* Additional album details */}
-    <div className="card-body p-0 me-lg-5">
-      <p className="fw-500 font-thin lh-26 ml-8 rounded-md font-xssss w-100 mb-2 text-dark theme-dark-bg">
-      {album[0].description}
-      </p>
-    </div>
-  </div>
-)}
-{latestItemType === 'article' && articles.map((article) => (
-                    <div
-                      key={article.id}
-                      className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
-                    >
-                      <div className="card-body p-0 d-flex">
-                        <figure className="avatar me-3">
-                          <img
-                            src={article.user.image}
-                            className="shadow-sm rounded-circle w-10 h-10"
-                            alt="post"
-                          />{" "}
-                        </figure>
-
-                        <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                          {article.user.nom}
-                          <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                          {calculateTimeDifference(article.createdAt)}
-                      </span>
-                        </h4>
-                        <div className="ms-auto pointer">
-                          <i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
-                        </div>
-                      </div>
-                      
-                      <div className="card-body d-block p-0 mb-3">
-                        <div className="row ps-2 pe-2">
-                          <div className="col-sm-12 p-1">
-                            {/* <img
-                            src={article.image}
-                            className="rounded-3 w-100"
-                            alt="post"
-                          /> */}
-                            {article.video ? (
-                                              <div className="card-body p-0 mb-3 rounded-3 overflow-hidden uttam-die">
-
-                              <video controls className="float-right w-100">
-                                <source src={article.video} type="video/mp4" />
-                                Your browser does not support the video tag.
-                              </video> </div>
-                            ) : (
-                              <div className="card-body d-block p-0 mb-3">
-                         <div className="row ps-2 pe-2">
-                          <div className="col-sm-12 p-1">
-                              <img
-                                className="rounded-3 h-96 w-100 object-cover"
-                                src={article.image}
-                                alt={article.titre}
-                              />
-                              </div>
-                              </div>
-                              </div>
-                            )}
-                          </div>
-                          <div className="card-body p-0 me-lg-5">
-                         <p className="fw-500 font-thin lh-26 ml-8  rounded-md font-xssss w-100 mb-2 text-dark theme-dark-bg">
-                          {article.description}{" "}
-                         
-                         </p>
-                         </div>
-                         </div>
-                      </div>
-
-
-{/* update */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      <div className="  rounded-lg">
-                        {article.user &&
-                          article.user.id === storedUserData.id && (
-                            <div className="flex items-center justify-end mt-2">
-                              <label
-                                className="flex items-center  gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                onClick={() => handleEditClick(article)}
-                              >
-                                <BiEditAlt  />
-                                <Link to={`/editPost/${article.id}`}>
-                                  <span>Edit</span>
-                                </Link>{" "}
-                              </label>
-                            </div>
-                          )}
-
-                        {selectedArticleId === article.id && (
-                          <div className="  bg-slate-100 rounded-lg ">
-                            {(() => {
-                              if (!articleComments[article.id]) {
-                                fetchComments();
-
-                                fetch(
-                                  `https://odine-sport.com/commentaires/article/${article.id}`
-                                )
-                                  .then((response) => response.json())
-                                  .then((response) => {
-                                    setArticleComments((prevComments) => ({
-                                      ...prevComments,
-                                      [article.id]: response,
-                                    }));
-                                    console.log(
-                                      "------------------",
-                                      articleComments
-                                    );
-                                  })
-
-                                  .catch((error) =>
-                                    console.error(
-                                      "Error fetching comments:",
-                                      error
-                                    )
-                                  );
-
-                                return <p>Loading comments...</p>;
-                              }
-
-                              // Render all comments for the selected article after fetching
-                              return (
-                                <>
-                                  {articleComments[article.id]?.map(
-                                    (commentItem) => (
-                                      <div
-                                        key={commentItem.comm_id}
-                                        className="mb-2"
-                                      >
-                                        {/* Display comment details */}
-                                        <div className="flex flex-col">
-                                          <div className="flex items-center mb-1">
-                                            <div className="bg-white rounded-full text-black w-20 h-10 mr-4 border-2">
-                                              {commentItem?.user_login}
-                                            </div>
-                                            <div className="bg-white w-10 h-10 text-black rounded-sm flex-grow">
-                                              {commentItem?.comm_desc}{" "}
-                                              {commentItem?.description}
-                                            </div>
-                                          </div>
-
-                                          {/* Display Reply button */}
-                                          <label className="flex items-center  gap-14 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer">
-                                            {/* <span className="text-ascent-2 hover:text-ascent-1 cursor-pointer">
-                                            </span> */}
-                                            <span
-                                              onClick={async () => {
-                                                setCommentReply("");
-                                                setSelectedCommentId(
-                                                  selectedCommentId ===
-                                                    commentItem.comm_id
-                                                    ? null
-                                                    : commentItem.comm_id
-                                                );
-
-                                                // Fetch replies for the selected comment
-                                                if (
-                                                  !articleComments[
-                                                    commentItem.comm_id
-                                                  ]
-                                                ) {
-                                                  try {
-                                                    const response =
-                                                      await fetch(
-                                                        `https://odine-sport.com/api/replies/${commentItem.comm_id}`
-                                                      );
-                                                    const replies =
-                                                      await response.json();
-
-                                                    // Update the state with the fetched replies
-                                                    setArticleComments(
-                                                      (prevComments) => ({
-                                                        ...prevComments,
-                                                        [commentItem.comm_id]:
-                                                          replies,
-                                                      })
-                                                    );
-                                                  } catch (error) {
-                                                    console.error(
-                                                      "Error fetching replies:",
-                                                      error
-                                                    );
-                                                  }
-                                                }
-                                              }}
-                                            >
-                                              {selectedCommentId ===
-                                              commentItem.comm_id
-                                                ? "Cancel Reply"
-                                                : "Reply"}
-                                            </span>
-                                          </label>
-                                        </div>
-
-                                        {/* Display replies for the comment */}
-                                        {articleComments[
-                                          commentItem.comm_id
-                                        ]?.map((reply) => (
-                                          <div
-                                            key={reply.id}
-                                            className="ml-8 mb-2"
-                                          >
-                                            {/* <div className="bg-white w-10 h-10 rounded-sm float-left mr-4 border-2">
-                                              {reply.nom}
-                                            
-                                            </div> */}
-                                            <div className="bg-white rounded-sm ml-20 ">
-                                              {reply.description}
-                                            </div>
-                                          </div>
-                                        ))}
-
-                                        {/* Display reply input */}
-                                        {selectedCommentId ===
-                                          commentItem.comm_id && (
-                                          <div className="bg-gray-200 p-4 rounded-lg mt-4">
-                                            <textarea
-                                              value={commentReply}
-                                              onChange={(e) =>
-                                                setCommentReply(e.target.value)
-                                              }
-                                              placeholder="Type your reply here..."
-                                              className="w-full h-16 p-2 border rounded"
-                                            />
-
-                                            <button
-                                              type="button"
-                                              onClick={() => {
-                                                addReply(
-                                                  commentItem.comm_id,
-                                                  commentReply
-                                                );
-                                                setCommentReply("");
-                                              }}
-                                              className="bg-[#0444a4] text-white py-1 px-6 rounded-full font-semibold text-sm mt-2"
-                                            >
-                                              Add Reply
-                                            </button>
-                                          </div>
-                                        )}
-                                      </div>
-                                    )
-                                  )}
-
-                                  {/* Comment input */}
-                                  <textarea
-                                    value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
-                                    placeholder="Type your comment here..."
-                                    className="w-full h-16 p-2 border rounded"
-                                  />
-
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      addComment(article.id);
-                                      // Reset the comment input after adding a comment
-                                      setComment("");
-                                      fetchComments();
-                                    }}
-                                    className="bg-[#0444a4] text-white py-1 px-6 rounded-full font-semibold text-sm mt-2"
-                                  >
-                                    Add Comment
-                                  </button>
-                                </>
-                              );
-                            })()}
-                          </div>
-                        )}
-
-                        {/* Button to select the article for comments */}
-                        <label className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer">
-                          <BiSolidCommentCheck />
-                          <span
-                            onClick={() =>
-                              setSelectedArticleId(
-                                selectedArticleId === article.id
-                                  ? null
-                                  : article.id
-                              )
-                            }
-                          >
-                            <div
-                              style={{ display: "flex", alignItems: "center" }}
-                            >
-                              <div className="mr-4">
-                                {" "}
-                                {articleCommentsCounts[article.id]
-                                  ? `${
-                                      articleCommentsCounts[article.id].length
-                                    } `
-                                  : "Loading comments..."}
-                              </div>
-                              <div className="">
-                                {selectedArticleId === article.id
-                                  ? "Close Comments"
-                                  : "Comment"}
-                              </div>
-                            </div>
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                  ))}
                 
          
 
@@ -1051,7 +694,7 @@ const calculateTimeDifference = (createdAt) => {
                                 fetchComments();
 
                                 fetch(
-                                  `https://odine-sport.com/commentaires/article/${article.id}`
+                                  `http://localhost:5000/commentaires/article/${article.id}`
                                 )
                                   .then((response) => response.json())
                                   .then((response) => {
@@ -1119,7 +762,7 @@ const calculateTimeDifference = (createdAt) => {
                                                   try {
                                                     const response =
                                                       await fetch(
-                                                        `https://odine-sport.com/api/replies/${commentItem.comm_id}`
+                                                        `http://localhost:5000/api/replies/${commentItem.comm_id}`
                                                       );
                                                     const replies =
                                                       await response.json();
@@ -1263,12 +906,16 @@ const calculateTimeDifference = (createdAt) => {
                 {latestItemType !== 'album' && album.map((albums) => (
   <div key={albums.id} className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
     <div className="card-body p-0 d-flex">
-      
+    <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+                          ODIN Sport
+                          <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                          {calculateTimeDifference(albums.createdAt)}
+                      </span>
+                        </h4> 
       
      
     </div>
 
-    {/* Album content */}
     <div className="card-body d-block p-0 mb-3">
       <div className="row ps-2 pe-2">
         <div className="col-sm-12 p-1">
@@ -1278,7 +925,6 @@ const calculateTimeDifference = (createdAt) => {
       </div>
     </div>
 
-    {/* Additional album details */}
     <div className="card-body p-0 me-lg-5">
       <p className="fw-500 font-thin lh-26 ml-8 rounded-md font-xssss w-100 mb-2 text-dark theme-dark-bg">
         {album.description}
@@ -1309,26 +955,10 @@ const calculateTimeDifference = (createdAt) => {
                 ))} */}
 {/* <GallerieOdin /> */}
                 <Memberslider />
-                <Postview
-                  id="35"
-                  postvideo=""
-                  postimage="post.png"
-                  avater="user.png"
-                  user="Victor Exrixon"
-                  time="3 hour ago"
-                  des="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus."
-                />
+                
                 <Friendsilder />
-                <Postview
-                  id="36"
-                  postvideo=""
-                  postimage="post.png"
-                  avater="user.png"
-                  user="Victor Exrixon"
-                  time="12 hour ago"
-                  des="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus."
-                />
-                <Load />
+               
+                {/* <Load /> */}
               </div>
               <div className="col-xl-4 col-xxl-3 col-lg-4 ps-lg-0">
                 <Friends />

@@ -38,7 +38,7 @@ function Group () {
         return (
             <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3">
                 <div className="card-body d-flex align-items-center p-4">
-                    <h4 className="fw-700 mb-0 font-xssss text-grey-900">Gallerie Albums</h4>
+                    <h4 className="fw-700 mb-0 font-xssss text-grey-900">Gallerie ODIN</h4>
                     <a href="/odin/album" className="fw-600 ms-auto font-xssss text-primary">Voir Tous</a>
                 </div>
                 {/* {groupList.map((value , index) => (
