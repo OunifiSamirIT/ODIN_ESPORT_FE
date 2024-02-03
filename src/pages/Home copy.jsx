@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Header from "../components/Header";
 import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
-import Appfooter from "../components/Appfooter";
+import Appfooter from "../components/Appfooter"; 
 import Popupchat from "../components/Popupchat";
 
 import Friends from "../components/Friends";
@@ -426,6 +426,13 @@ const calculateTimeDifference = (createdAt) => {
 };
 
 
+  
+  
+  
+  
+  
+  
+  
   return (
     <Fragment>
       <Header />
