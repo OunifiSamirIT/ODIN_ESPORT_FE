@@ -961,7 +961,7 @@ const calculateTimeDifference = (createdAt) => {
                  
                 ))} */}
 {/* <GallerieOdin /> */}
-                <Memberslider />
+                {/* <Memberslider /> */}
                 
                 <Friendsilder />
                
