@@ -83,6 +83,75 @@ function Home() {
   };
   const storedUserData = JSON.parse(localStorage.getItem("user"));
 
+
+
+
+
+
+
+  const fetchArticles = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/articles/");
+      const result = await response.json();
+
+      // Extract userIds from articles
+      // const userIds = result.rows.map((article) => article.userId);
+      const reversedArticles = result.rows.reverse();
+      const userIds = reversedArticles.map((article) => article.userId);
+
+      // Fetch user information for each userId
+      const usersResponse = await Promise.all(
+        userIds.map((userId) =>
+          fetch(`http://localhost:5000/api/user/${userId}`).then((response) =>
+            response.json()
+          )
+        )
+      );
+      const articlesWithUsers = reversedArticles.map((article, index) => ({
+        ...article,
+        user: usersResponse[index],
+      }));
+
+      setArticles(articlesWithUsers);
+
+      // Fetch comments for each article
+      // const commentsPromises = articlesWithUsers.map(async (article) => {
+      //   const response = await fetch(
+      //     `http://localhost:5000/api/commentaires/?articleId=${article.id}`
+      //   );
+      //   const comments = await response.json();
+      //   return { articleId: article.id, comments };
+      // });
+
+      // const commentsResults = await Promise.all(commentsPromises);
+
+      // const articleCommentsData = commentsResults.reduce(
+      //   (acc, { articleId, comments }) => {
+      //     acc[articleId] = comments;
+      //     return acc;
+      //   },
+      //   {}
+      // );
+      // if (album.length > 0 && articlesWithUsers.length > 0) {
+      //   const latestAlbumCreatedAt = new Date(album[0].createdAt);
+      //   const latestArticleCreatedAt = new Date(articlesWithUsers[0].createdAt);
+  
+      //   // Determine which type is the latest based on creation dates
+      //   setLatestItemType(
+      //     latestAlbumCreatedAt > latestArticleCreatedAt ? 'album' : 'article'
+      //   );
+      // }
+      // setArticleCommentsCounts(articleCommentsData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+
+
+
+
+
   const handlePostSubmit = async (data) => {
     try {
       if (!data.description || !storedUserData || !storedUserData.id) {
@@ -101,13 +170,13 @@ function Home() {
       formData.append("fileType", fileType);
 
       // Make a POST request to create a new article
-      await fetch("https://odine-sport.com/api/articles/", {
+      await fetch("http://localhost:5000/api/articles/", {
         method: "POST",
         body: formData,
       });
 
       // After creating the article, fetch the updated list of articles
-      const response = await fetch("https://odine-sport.com/api/articles/");
+      const response = await fetch("http://localhost:5000/api/articles/");
       const updatedPostsData = await response.json();
 
       // Update the list of posts and reset the preview image
@@ -119,7 +188,67 @@ function Home() {
       console.error("Error submitting post:", error);
       setPosting(false);
     }
+
+
+
   };
+  // const fetchArticles = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:5000/api/articles/");
+  //     const result = await response.json();
+
+  //     // Extract userIds from articles
+  //     // const userIds = result.rows.map((article) => article.userId);
+  //     const reversedArticles = result.rows.reverse();
+  //     const userIds = reversedArticles.map((article) => article.userId);
+
+  //     // Fetch user information for each userId
+  //     const usersResponse = await Promise.all(
+  //       userIds.map((userId) =>
+  //         fetch(`http://localhost:5000/api/user/${userId}`).then((response) =>
+  //           response.json()
+  //         )
+  //       )
+  //     );
+  //     const articlesWithUsers = reversedArticles.map((article, index) => ({
+  //       ...article,
+  //       user: usersResponse[index],
+  //     }));
+
+  //     setArticles(articlesWithUsers);
+
+  //     // Fetch comments for each article
+  //     // const commentsPromises = articlesWithUsers.map(async (article) => {
+  //     //   const response = await fetch(
+  //     //     `http://localhost:5000/api/commentaires/?articleId=${article.id}`
+  //     //   );
+  //     //   const comments = await response.json();
+  //     //   return { articleId: article.id, comments };
+  //     // });
+
+  //     // const commentsResults = await Promise.all(commentsPromises);
+
+  //     // const articleCommentsData = commentsResults.reduce(
+  //     //   (acc, { articleId, comments }) => {
+  //     //     acc[articleId] = comments;
+  //     //     return acc;
+  //     //   },
+  //     //   {}
+  //     // );
+  //     // if (album.length > 0 && articlesWithUsers.length > 0) {
+  //     //   const latestAlbumCreatedAt = new Date(album[0].createdAt);
+  //     //   const latestArticleCreatedAt = new Date(articlesWithUsers[0].createdAt);
+  
+  //     //   // Determine which type is the latest based on creation dates
+  //     //   setLatestItemType(
+  //     //     latestAlbumCreatedAt > latestArticleCreatedAt ? 'album' : 'article'
+  //     //   );
+  //     // }
+  //     // setArticleCommentsCounts(articleCommentsData);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
   const handlePhotoVideoClick = () => {
     // Trigger click event on the file input
     fileInputRef.current.click();
@@ -132,7 +261,7 @@ function Home() {
 
     if (id) {
       // Replace the API endpoint with your actual endpoint for fetching user data
-      fetch(`https://odine-sport.com/api/user/${id}`)
+      fetch(`http://localhost:5000/api/user/${id}`)
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -140,85 +269,28 @@ function Home() {
         .catch((error) => console.error("Error fetching user data:", error));
     }
 
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch("https://odine-sport.com/api/articles/");
-        const result = await response.json();
-
-        // Extract userIds from articles
-        // const userIds = result.rows.map((article) => article.userId);
-        const reversedArticles = result.rows.reverse();
-        const userIds = reversedArticles.map((article) => article.userId);
-
-        // Fetch user information for each userId
-        const usersResponse = await Promise.all(
-          userIds.map((userId) =>
-            fetch(`https://odine-sport.com/api/user/${userId}`).then((response) =>
-              response.json()
-            )
-          )
-        );
-        const articlesWithUsers = reversedArticles.map((article, index) => ({
-          ...article,
-          user: usersResponse[index],
-        }));
-
-        setArticles(articlesWithUsers);
-
-        // Fetch comments for each article
-        const commentsPromises = articlesWithUsers.map(async (article) => {
-          const response = await fetch(
-            `https://odine-sport.com/api/commentaires/?articleId=${article.id}`
-          );
-          const comments = await response.json();
-          return { articleId: article.id, comments };
-        });
-
-        const commentsResults = await Promise.all(commentsPromises);
-
-        const articleCommentsData = commentsResults.reduce(
-          (acc, { articleId, comments }) => {
-            acc[articleId] = comments;
-            return acc;
-          },
-          {}
-        );
-        if (album.length > 0 && articlesWithUsers.length > 0) {
-          const latestAlbumCreatedAt = new Date(album[0].createdAt);
-          const latestArticleCreatedAt = new Date(articlesWithUsers[0].createdAt);
-    
-          // Determine which type is the latest based on creation dates
-          setLatestItemType(
-            latestAlbumCreatedAt > latestArticleCreatedAt ? 'album' : 'article'
-          );
-        }
-        setArticleCommentsCounts(articleCommentsData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    const fetchAlbums = async () => {
-      try {
-        const response = await fetch("https://odine-sport.com/api/album");
-        const result = await response.json();
-
-        setAlbum(result.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-      } catch (error) {
-        console.error("Error fetching albums:", error);
-      }
-    };
-    fetchComments();
-    fetchArticles();
+   
+    fetchArticles()
+    // fetchComments();
     fetchAlbums() 
 
-  }, [album]);
+  }, []);
+  const fetchAlbums = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/album");
+      const result = await response.json();
 
+      setAlbum(result.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+    } catch (error) {
+      console.error("Error fetching albums:", error);
+    }
+  };
   // change 02/02
 
 
 //   const fetchAlbums = async () => {
 //     try {
-//         const response = await fetch("https://odine-sport.com/api/album");
+//         const response = await fetch("http://localhost:5000/api/album");
 //         const result = await response.json();
 
 //         setAlbum(result.data);
@@ -230,7 +302,7 @@ function Home() {
 // };
   const fetchComments = async () => {
     try {
-      const response = await fetch("https://odine-sport.com/api/commentaires/");
+      const response = await fetch("http://localhost:5000/api/commentaires/");
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -248,7 +320,7 @@ function Home() {
         const user = JSON.parse(localStorage.getItem("user"));
 
         const response = await fetch(
-          "https://odine-sport.com/api/commentaires/",
+          "http://localhost:5000/api/commentaires/",
           {
             method: "POST",
             headers: {
@@ -294,7 +366,7 @@ function Home() {
         const user = JSON.parse(localStorage.getItem("user"));
 
         const response = await fetch(
-          `https://odine-sport.com/api/replies`, // Update the endpoint here
+          `http://localhost:5000/api/replies`, // Update the endpoint here
           {
             method: "POST",
             headers: {
@@ -352,6 +424,7 @@ const calculateTimeDifference = (createdAt) => {
     return `${days} ${days === 1 ? 'day' : 'days'} ago`;
   }
 };
+
 
   return (
     <Fragment>
