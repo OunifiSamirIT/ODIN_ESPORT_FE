@@ -38,6 +38,13 @@ class Header extends Component {
         const searchClass = `${this.state.isActive ? " show" : ""}`;
         const notiClass = `${this.state.isNoti ? " show" : ""}`;
         const { user } = this.state;
+        const storedUserData = JSON.parse(localStorage.getItem('user'));
+        const userProfileType = storedUserData ? storedUserData.profil : null;
+
+        const shouldHideForProfiles = ['other', 'player'];
+        const shouldShowAgentItem = ['player', 'other'].includes(userProfileType);
+
+        const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
         return (
             <div className="nav-header bg-white shadow-xs border-0">
@@ -102,12 +109,26 @@ class Header extends Component {
                                     <li><Link to="/userpage" className="nav-content-bttn open-font"><i className="feather-user btn-round-md bg-primary-gradiant me-3"></i><span>Mon Profile </span></Link></li>                        
 
                                     <li><Link to="/home" className="nav-content-bttn open-font"><i className="feather-gift btn-round-md bg-blue-gradiant me-3"></i><span>Acceuil</span></Link></li>
-                                    <li><Link to="/defaultbadge" className="nav-content-bttn open-font"><i className="feather-search btn-round-md bg-red-gradiant me-3"></i><span>Joueur Recherche</span></Link></li>
-                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="feather-shield btn-round-md bg-gold-gradiant me-3"></i><span>Challanges</span></Link></li>
-                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-pie-chart btn-round-md bg-cyan me-3"></i><span> Partenaire</span></Link></li>
-                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-server btn-round-md bg-odin2 me-3"></i><span> Offre d'emploi</span></Link></li>
-                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-user-plus btn-round-md bg-odin1 me-3"></i><span> Joueur</span></Link></li>
+                                                                    <li><Link to="/defaultstorie" className="nav-content-bttn open-font"><i className="feather-shield btn-round-md bg-gold-gradiant me-3"></i><span>Challanges</span></Link></li>
+                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-pie-chart btn-round-md bg-cyan me-3"></i><span> Camps</span></Link></li>
+                                    {shouldShowForProfile && (
+                                    <li>
+                                        <Link to="/defaultbadge" className="nav-content-bttn open-font">
+                                            <i className="feather-search btn-round-md bg-red-gradiant me-3"></i>
+                                            <span>Joueur Recherche</span>
+                                        </Link>
+                                    </li>
+                                )}
+{shouldShowAgentItem && (
+                                    <li>
+                                        <Link to="/defaultgroup" className="nav-content-bttn open-font">
+                                            <i className="feather-user btn-round-md bg-cyan me-3"></i>
+                                            <span> Agent</span>
+                                        </Link>
+                                    </li>
+                                )}                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-server btn-round-md bg-odin2 me-3"></i><span> Offre d'emploi</span></Link></li>
                                     <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-tv btn-round-md bg-mini-gradiant me-3"></i><span> Gallerie ODIN</span></Link></li>
+                                    <li><Link to="/defaultgroup" className="nav-content-bttn open-font"><i className="feather-user-plus btn-round-md bg-odin1 me-3"></i><span> Partenaire</span></Link></li>
 
                                 </ul>
                             </div>
