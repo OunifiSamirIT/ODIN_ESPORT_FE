@@ -90,7 +90,7 @@ function Account() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch(`https://odine-sport.com/api/user/${id}`);
+        const response = await fetch(`http://localhost:5000/api/user/${id}`);
         const data = await response.json();
         setUserInfo(data);
         console.log("eeeeeeeeeeeeeee", userInfo);
@@ -138,7 +138,7 @@ function Account() {
   // });
   // formDataWithImage.append("image", picture);
 
-  //     const userResponse = await fetch(`https://odine-sport.com/api/user/${id}`, {
+  //     const userResponse = await fetch(`http://localhost:5000/api/user/${id}`, {
   //       method: "PUT",
   //       headers: {
   //         "Content-Type": "application/json",
@@ -154,7 +154,7 @@ function Account() {
 
   //     // Update player information
   //     const playerResponse = await fetch(
-  //       `https://odine-sport.com/api/player/${id}`,
+  //       `http://localhost:5000/api/player/${id}`,
   //       {
   //         method: "PUT",
   //         headers: {
@@ -220,7 +220,7 @@ function Account() {
   
       // Make a PUT request to update the user profile
       const response = await fetch(
-        `https://odine-sport.com/api/user/${storedUserData.id}`,
+        `http://localhost:5000/api/user/${storedUserData.id}`,
         {
           method: "PUT",
           body: formDataToUpdate,
@@ -269,9 +269,9 @@ function Account() {
                     <div className="col-lg-4 text-center">
                       <figure className="avatar ms-auto me-auto mb-0 mt-2 w100">
                         <img
-                          src="https://via.placeholder.com/300x300.png"
+                          src={userInfo.image}
                           alt="avater"
-                          className="shadow-sm rounded-3 w-100"
+                          className="shadow-sm rounded-full w-100"
                         />
                       </figure>
                       <h2 className="fw-700 font-sm text-grey-900 mt-3">
@@ -431,7 +431,7 @@ function Account() {
 
                           </div>
 
-                          <div className="col-lg-6 mb-3">
+                          {/* <div className="col-lg-6 mb-3">
                             <div className="form-group">
                               <label className="mont-font fw-600 font-xsss mb-2">
                                 Mot de Passe
@@ -444,7 +444,7 @@ function Account() {
                               placeholder="Enter your password"
                               required className="form-control" />
                             </div>
-                          </div>
+                          </div> */}
 
                           <div className="col-lg-12 mb-3">
                             <div className="card mt-3 border-0">
