@@ -194,29 +194,26 @@ class Demo extends Component {
     return (
       <div>
         <div className="header-wrapper demo-style">
-          <div className="container max-container">
-            <div className="row">
-              <div className="col-lg-3 col-md-6 col-sm-3 col-xs-5">
-                {" "}
-               
-                <a href="/" className="logo">
-                <img src={Hero} alt="Company Logo" className=" w-28 h-28" /> <span className="d-inline-block fredoka-font ls-3 fw-600 text-current  font-xxl logo-text mb-0">
-                    
-                  </span>{" "}
-                </a>
-              </div>
-              <div className="col-lg-6 col-md-6 col-sm-6 d-none d-lg-block"></div>
-              <div className="col-lg-3 col-md-10 col-sm-3 col-xs-8  w-28 text-right ">
-                <a
-                  href="/login"
-                  className="btn btn-lg btn-primary  sm:ml-4 text-uppercase"
-                >
-                  Seconnecter
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div className="container max-container">
+    <div className="row">
+      <div className="col-lg-3 col-md-6 col-sm-3 col-xs-5">
+        <a href="/" className="logo">
+          <img src={Hero} alt="Company Logo" className="w-28 h-28" />
+          <span className="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">
+          </span>
+        </a>
+      </div>
+      <div className="col-lg-3 col-md-10 col-sm-10 col-xs-12 xs:mb-6 sm:mb-6 top-5 lg:flex lg:justify-end">
+        <a
+          href="/login"
+          className="btn btn-lg btn-primary mb-4 sm:ml-4 text-uppercase lg:hidden"
+        >
+          Se connecter
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
         <div
           className="banner-wrapper vh-100 bscover demo-style"
@@ -224,7 +221,7 @@ class Demo extends Component {
             backgroundImage: `url("assets/images/demo/banner-bg-1.jpg")`,
           }}
         >
-          <div className="banner-content mt-6">
+          <div className="banner-content mt-14">
             <div className="container max-container">
               <div className="row">
                 <div className="col-lg-5 col-md-6 col-sm-8">
