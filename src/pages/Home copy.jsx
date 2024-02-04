@@ -411,9 +411,7 @@ const calculateTimeDifference = (createdAt) => {
 
   const timeDifferenceInSeconds = Math.floor((currentDate - createdAtDate) / 1000);
 
-  if (timeDifferenceInSeconds < 60) {
-    return `${timeDifferenceInSeconds} seconds ago`;
-  } else if (timeDifferenceInSeconds < 3600) {
+   if (timeDifferenceInSeconds < 3600) {
     const minutes = Math.floor(timeDifferenceInSeconds / 60);
     return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
   } else if (timeDifferenceInSeconds < 86400) {
@@ -694,7 +692,7 @@ const calculateTimeDifference = (createdAt) => {
                                 fetchComments();
 
                                 fetch(
-                                  `http://localhost:5000/commentaires/article/${article.id}`
+                                  `https://odine-sport.com/commentaires/article/${article.id}`
                                 )
                                   .then((response) => response.json())
                                   .then((response) => {
@@ -762,7 +760,7 @@ const calculateTimeDifference = (createdAt) => {
                                                   try {
                                                     const response =
                                                       await fetch(
-                                                        `http://localhost:5000/api/replies/${commentItem.comm_id}`
+                                                        `https://odine-sport.com/api/replies/${commentItem.comm_id}`
                                                       );
                                                     const replies =
                                                       await response.json();
