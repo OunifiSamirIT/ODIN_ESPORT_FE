@@ -404,24 +404,26 @@ function Home() {
   };
 
 // Define a function to calculate the time difference
-const calculateTimeDifference = (createdAt) => {
-  // Assuming createdAt is in the format of "MM-DD-YYYY HH:mm:ss"
-  const createdAtDate = new Date(createdAt);
+function calculateTimeDifference(createdAt) {
   const currentDate = new Date();
+  const articleDate = new Date(createdAt);
 
-  const timeDifferenceInSeconds = Math.floor((currentDate - createdAtDate) / 1000);
+  const timeDifferenceInSeconds = Math.floor((currentDate - articleDate) / 1000);
 
-   if (timeDifferenceInSeconds < 3600) {
-    const minutes = Math.floor(timeDifferenceInSeconds / 60);
-    return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
-  } else if (timeDifferenceInSeconds < 86400) {
-    const hours = Math.floor(timeDifferenceInSeconds / 3600);
-    return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
-  } else {
-    const days = Math.floor(timeDifferenceInSeconds / 86400);
-    return `${days} ${days === 1 ? 'day' : 'days'} ago`;
-  }
-};
+  const hours = Math.floor(timeDifferenceInSeconds / 3600);
+  const minutes = Math.floor((timeDifferenceInSeconds % 3600) / 60);
+  const seconds = timeDifferenceInSeconds % 60;
+
+  // Format the time as HH:mm:ss
+  const formattedTime = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+
+  return formattedTime;
+}
+
+function padZero(number) {
+  return number < 10 ? `0${number}` : number;
+}
+
 
 
   
