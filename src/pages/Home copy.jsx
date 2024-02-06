@@ -73,6 +73,7 @@ function Home() {
   //02/02
   const [album, setAlbum] = useState([]);
   // const [albums, setAlbums] = useState([]);
+  const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
 
   const toggleActive = () => setIsActive(!isActive);
 
@@ -109,14 +110,32 @@ function Home() {
   //     console.error(`Error fetching replies for comment ${commentId}:`, error);
   //   }
   // };
+  // const handleFileChange = (e, type) => {
+  //   const selectedFile = e.target.files[0];
+  //   setFile(selectedFile);
+  //   setFileType(type);
+
+  //   const previewURL = URL.createObjectURL(selectedFile);
+  //   setPreviewImage(previewURL);
+  // };
   const handleFileChange = (e, type) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
     setFileType(type);
-
-    const previewURL = URL.createObjectURL(selectedFile);
-    setPreviewImage(previewURL);
+  
+    if (type === "video") {
+      const videoPreviewURL = URL.createObjectURL(selectedFile);
+      setVideoPreviewUrl(videoPreviewURL);
+      // Clear the image preview if there was one
+      setPreviewImage(null);
+    } else {
+      const imagePreviewURL = URL.createObjectURL(selectedFile);
+      setPreviewImage(imagePreviewURL);
+      // Clear the video preview if there was one
+      setVideoPreviewUrl(null);
+    }
   };
+  
   const storedUserData = JSON.parse(localStorage.getItem("user"));
 
   const fetchArticles = async () => {
@@ -558,6 +577,16 @@ function Home() {
                           />
                         </div>
                       )}
+                      {videoPreviewUrl && (
+  <div className="mt-3">
+    <video
+      controls
+      src={videoPreviewUrl}
+      className="rounded-xxl"
+      style={{ maxWidth: "100%", maxHeight: "200px" }}
+    ></video>
+  </div>
+)}
                       <form onSubmit={handleSubmit(handlePostSubmit)}>
                         <div className="card-body d-flex p-0 mt-4">
                           {/* <img
