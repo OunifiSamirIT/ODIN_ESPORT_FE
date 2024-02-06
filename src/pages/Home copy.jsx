@@ -79,8 +79,6 @@ function Home() {
   const emojiClass = `${isActive ? "active" : ""}`;
   const toggleOpen = () => setIsOpen(!isOpen);
 
-
-
   const [repliesVisible, setRepliesVisible] = useState({});
 
   const toggleRepliesVisibility = async (commentId) => {
@@ -88,7 +86,7 @@ function Home() {
       ...prevVisibility,
       [commentId]: !prevVisibility[commentId],
     }));
-  
+
     // Fetch replies if not already loaded
     if (!repliesVisible[commentId]) {
       await fetchRepliesForComment(commentId);
@@ -164,7 +162,7 @@ function Home() {
       ...prevVisibility,
       [commentId]: !prevVisibility[commentId],
     }));
-  
+
     // Fetch replies if not already loaded
     if (!repliesVisible[commentId]) {
       await fetchRepliesForComment(commentId);
@@ -308,21 +306,21 @@ function Home() {
         `https://odine-sport.com/api/replies/${commentId}`
       );
       const repliesData = await repliesResponse.json();
-  
+
       const repliesWithUserData = await Promise.all(
         repliesData.map(async (reply) => {
           const userResponse = await fetch(
             `https://odine-sport.com/api/user/${reply.userId}`
           );
           const userData = await userResponse.json();
-          console.log("replyyyyyyyyyyyy" , userData )
+          console.log("replyyyyyyyyyyyy", userData);
           return {
             ...reply,
             user: userData,
           };
         })
       );
-  
+
       setArticleComments((prevComments) => {
         const updatedComments = { ...prevComments };
         updatedComments[commentId] = repliesWithUserData;
@@ -332,7 +330,7 @@ function Home() {
       console.error(`Error fetching replies for comment ${commentId}:`, error);
     }
   };
-  
+
   // if (selectedArticleId !== null) {
   //   fetchCommentsForArticle(selectedArticleId);
   // }
@@ -450,7 +448,7 @@ function Home() {
       if (commentId && replyText) {
         // Retrieve user information from local storage
         const user = JSON.parse(localStorage.getItem("user"));
-  
+
         const response = await fetch(
           `https://odine-sport.com/api/replies`, // Update the endpoint here
           {
@@ -467,9 +465,9 @@ function Home() {
             }),
           }
         );
-  
+
         const data = await response.json();
-        if (response.ok){
+        if (response.ok) {
           await fetchRepliesForComment(commentId);
         }
         console.log("Reply created:", data);
@@ -492,7 +490,6 @@ function Home() {
       console.error("Error adding reply:", error);
     }
   };
-  
 
   // Define a function to calculate the time difference
   const calculateTimeDifference = (createdAt) => {
@@ -743,134 +740,153 @@ function Home() {
                               </div>
                             )}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<button
-  onClick={() => {
-    // If comments are already visible, close them
-    if (selectedArticleId === article.id) {
-      setCommentInputVisible(false);
-      setSelectedArticleId(null); // Reset selectedArticleId
-    } else {
-      // Otherwise, fetch and display comments
-      fetchCommentsForArticle(article.id);
-      setSelectedArticleId(article.id);
-      setCommentInputVisible(true);
-    }
-  }}
->
-  {selectedArticleId === article.id ? <BiMessageRounded className="w-8 h-7 text-cyan-700" />  : <BiMessageRounded className="w-8 h-7 text-cyan-700" />
-}
-</button><button ><BiHeart
-
-className="size-7 mr-5 text-red-600"/></button>
-{selectedArticleId === article.id && (
-  <div className="comments-section">
-    {article.comments &&
-      article.comments.map((comment) => (
-        <div key={comment.id} className="comment">
-          {/* Display comment information */}
-          <figure className="avatar me-3">
-            <img
-              src={comment.user && comment.user.image}
-              className="shadow-sm rounded-circle w-10 h-10"
-              alt="post"
-            />
-          </figure>
-          <div className="flex items-center">
-  <strong className="ml-6 mr-2">{comment.user && comment.user.login}</strong>
-  <span className="mr-6 bg-slate-200 ">{comment.description}</span>
-</div>      <div className="ml-28"><button onClick={() => handleReplyClick(comment.id)} className="w-20 font-semibold ml-4">Répondre</button></div>    
-
-          {/* <button className="ml-20" onClick={() => toggleRepliesVisibility(comment.id)}>
-  {repliesVisible[comment.id] ? "fermer reponses" : "Voir les réponses"}
-</button> */}
-
-
-
-      {replyingToCommentId === comment.id && (
-        <div>
-          <input
-            type="text"
-            value={replyInput}
-            onChange={(e) => setReplyInput(e.target.value)}
-            className="bg-gray-200 rounded-md w-96 pl-3 h-12 mt-3 ml-32 "
-          />
-          <button onClick={() => addReply(comment.id, replyInput)}><BiSolidSend
-  className="size-12 pt-8 text-cyan-600"/></button> 
-  
-  
-  
-        </div>
-      )}
-
-
-{repliesVisible[comment.id] && (
-  <div className="replies-section ml-28 mt-3">
-    {articleComments[comment.id] &&
-      articleComments[comment.id].map((reply) => (
-        <div key={reply.id} className="reply">
-          {/* Display reply information */}
-          <figure className="avatar me-3">
-            <img
-              src={reply.user && reply.user.image}
-              className="shadow-sm rounded-circle w-10 h-10"
-              alt="post"
-            />
-          </figure>{" "}
-          <strong>{reply.user && reply.user.login}</strong>: {reply.description}
-        </div>
-      ))}
-  </div>
-)}
-        </div>
-
-
-
-
-      ))}
-
-
-
-
-     {/* Add Comment Input */}
-     {commentInputVisible && (
-      <div>
-      <div className="flex items-center">
+                          <button
+                            onClick={() => {
+                              // If comments are already visible, close them
+                              if (selectedArticleId === article.id) {
+                                setCommentInputVisible(false);
+                                setSelectedArticleId(null); // Reset selectedArticleId
+                              } else {
+                                // Otherwise, fetch and display comments
+                                fetchCommentsForArticle(article.id);
+                                setSelectedArticleId(article.id);
+                                setCommentInputVisible(true);
+                              }
+                            }}
+                          >
+                            {selectedArticleId === article.id ? (
+                              <BiMessageRounded className="w-8 h-7 text-cyan-700" />
+                            ) : (
+                              <BiMessageRounded className="w-8 h-7 text-cyan-700" />
+                            )}
+                          </button>
+                          <button>
+                            <BiHeart className="size-7 mr-5 text-red-600" />
+                          </button>
+                          {selectedArticleId === article.id && (
+                            <div className="comments-section">
+                              {article.comments &&
+                                article.comments.map((comment) => (
+                                  <div key={comment.id} className="comment">
+                                    {/* Display comment information */}
+                                    <div className="flex items-center ">
   <figure className="avatar me-3">
     <img
-      src={user.image}
+      src={comment.user && comment.user.image}
+      className="shadow-sm rounded-circle w-10 h-10 "
+      alt="post"
+    />
+  </figure>
+  <div className="flex flex-col justify-between ml-2 ">
+    <strong className="mb-2 mt-10">
+      {comment.user && comment.user.login}
+    </strong>
+    <span className="bg-gray-200 p-2 rounded-md  h-9">
+      {comment.description}
+    </span>
+  </div>
+</div>
+
+                                    <div className="ml-12">
+                                      <button
+                                        onClick={() =>
+                                          handleReplyClick(comment.id)
+                                        }
+                                        className="w-20 font-semibold ml-4"
+                                      >
+                                        Répondre
+                                      </button>
+                                    </div>
+                                    {/* <button className="ml-20" onClick={() => toggleRepliesVisibility(comment.id)}>
+  {repliesVisible[comment.id] ? "fermer reponses" : "Voir les réponses"}
+</button> */}
+                                    {replyingToCommentId === comment.id && (
+                                      <div>
+                                        <input
+                                          type="text"
+                                          value={replyInput}
+                                          onChange={(e) =>
+                                            setReplyInput(e.target.value)
+                                          }
+                                          className="bg-gray-200 rounded-md w-96 pl-3 h-12 mt-3 ml-16"
+                                        />
+                                        <button
+                                          onClick={() =>
+                                            addReply(comment.id, replyInput)
+                                          }
+                                        >
+                                          <BiSolidSend className="size-12 pt-8 text-cyan-600" />
+                                        </button>
+                                      </div>
+                                    )}
+                                    {repliesVisible[comment.id] && (
+                                      <div className="replies-section ml-16 mt-3">
+                                        {articleComments[comment.id] &&
+                                          articleComments[comment.id].map(
+                                            (reply) => (
+                                              <div
+                                                key={reply.id}
+                                                className="reply"
+                                              >
+                                                {/* Display reply information */}
+                                                <div className="flex items-center">
+  <figure className="avatar me-3">
+    <img
+      src={reply.user && reply.user.image}
       className="shadow-sm rounded-circle w-10 h-10"
       alt="post"
     />
   </figure>
- 
-  <input
-    type="text"
-    className="bg-gray-200 rounded-md w-96 h-12 mt-3 ml-2"
-    value={comment}
-    onChange={(e) => setComment(e.target.value)}
-  /> <button onClick={() => addComment(article.id)} className="ml-2">  <BiSolidSend
-  className="size-7 text-cyan-600"/>
-  </button>
+  <div className="flex flex-col justify-between ml-2 ">
+    <strong className="mb-2 mt-10">
+    {reply.user && reply.user.login}
+  </strong>
+  <span className="bg-gray-200 p-2 rounded-md  h-9">
+    {reply.description}
+  </span>
 </div>
 
-      </div>
-    )}
-  </div>
-)}
+</div>
+
+                                              </div>
+                                            )
+                                          )}
+                                      </div>
+                                    )}
+                                  </div>
+                                ))}
+
+                              {/* Add Comment Input */}
+                              {commentInputVisible && (
+                                <div>
+                                  <div className="flex items-center">
+                                    <figure className="avatar me-3">
+                                      <img
+                                        src={user.image}
+                                        className="shadow-sm rounded-circle w-10 h-10"
+                                        alt="post"
+                                      />
+                                    </figure>
+                                    <input
+                                      type="text"
+                                      className="bg-gray-200 p-2 rounded-md w-96 h-12 mt-3 ml-2"
+                                      value={comment}
+                                      onChange={(e) =>
+                                        setComment(e.target.value)
+                                      }
+                                    />{" "}
+                                    <button
+                                      onClick={() => addComment(article.id)}
+                                      className="ml-2"
+                                    >
+                                      {" "}
+                                      <BiSolidSend className="size-7 mt-3 text-cyan-600" />
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
 
                           {/* Display comments when selectedArticleId matches the current article's id */}
                           {/* <div className="comments-section">
@@ -895,29 +911,6 @@ className="size-7 mr-5 text-red-600"/></button>
                       </div>
                     ))}
 
-
-
-
-
-
-
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
                     {latestItemType !== "album" &&
                       album.map((albums) => (
                         <div
