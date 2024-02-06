@@ -200,6 +200,8 @@ function Home() {
       setPreviewImage(null);
 
       setPosting(false);
+      fetchArticles();
+
     } catch (error) {
       console.error("Error submitting post:", error);
       setPosting(false);
