@@ -675,11 +675,10 @@ function Home() {
                           </figure>
 
                           <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                            {article.user.nom}
-                            <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                              {calculateTimeDifference(article.createdAt)}
-                            </span>
-                          </h4>
+                          {article.user.nom}
+                          <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+{article.createdAt.slice(11, 19)}                      </span>
+                        </h4>
                           <div className="ms-auto pointer">
                             <i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
                           </div>
