@@ -123,3 +123,26 @@ p {line-height: 30px;  }
 	.vh-100 {height: auto; padding-top: 100px; padding-bottom: 100px; }
 	.banner-content {position: relative; top:0;     -webkit-transform: translateY(0%);-moz-transform: translateY(0%);-ms-transform: translateY(0%);-o-transform: translateY(0%);transform: translateY(0%);}
 }
+
+
+
+/* Mobile menu button style */
+.mobile-menu-button {
+	display: none;
+  }
+  
+  /* Media query to show mobile menu button only on screens up to 767px wide (adjust as needed) */
+  @media (max-width: 767px) {
+	.mobile-menu-button {
+	  display: inline-block;
+	}
+  
+	/* Adjust the position of visible buttons when the mobile menu button is clicked */
+	.flex.relative {
+	  position: relative;
+	}
+  
+	
+  
+	/* Adjust the styles for the other visible buttons as needed */
+  }
