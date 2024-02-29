@@ -244,10 +244,10 @@ function Demo() {
                 Contact
               </div>
               <a href="/signup"><div className="grow justify-center px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
-                Sign Up
+                S'inscrire
               </div></a>
               <a href="/login"> <div className="grow justify-center px-8 py-2 text-base font-medium text-white whitespace-nowrap border-2 border-solid border-[color:var(--White,#FFF)] rounded-[30px] max-md:px-5">
-                Log In
+                Se connecter
               </div></a>
               <div className="flex gap-4 justify-center my-auto max-md:ml-10">
                 <img
@@ -286,15 +286,12 @@ function Demo() {
         <div className="flex z-10 flex-col justify-center items-center self-center px-7 mt-0 w-full text-white max-w-full max-md:px-5 max-md:text-center max-md:mt-0 max-md:max-w-full"
      style={{ background: 'linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)),  center/cover no-repeat' }}>
   <div className="self-stretch mt-28 text-5xl text-center  font-bold max-md:mt-10 max-md:max-w-full max-md:text-2xl">
-    ELEVATE YOUR GAME, SEIZE YOUR FUTURE
-  </div>
+  ÉLEVEZ VOTRE JEU, SAISISSEZ VOTRE AVENIR  </div>
   <div className="mt-2 text-xl text-center w-[924px] max-md:max-w-full">
-    Connect with top football scouts and trainers, showcase your skills,
-    and take the next step in your soccer journey. Your future in football
-    starts here.
+  Connectez-vous avec les meilleurs scouts et entraîneurs de football, mettez en valeur vos compétences et franchissez la prochaine étape de votre parcours dans le football. Votre avenir dans le football commence ici.
   </div>
   <div className="justify-center px-8 py-2 mt-4 mb-64 text-base font-medium whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:mb-10">
-    Start Your Journey Now!
+  Commencez votre aventure ! 
   </div>
 </div>
       </div>
@@ -305,23 +302,22 @@ function Demo() {
             <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col self-stretch my-auto text-white max-md:mt-10 max-md:max-w-full">
                 <div className="text-5xl font-bold max-md:max-w-full">
-                  Unlocking
+                Qui Sommes-Nous?
                   <br />
-                  Football Dreams
+                  Débloquez vos rêves de football
                 </div>
                 <div className="mt-2 text-2xl font-light max-md:max-w-full">
-                  A Comprehensive Experience for All
+                Une Expérience Exceptionnelle Pour Tous
                 </div>
                 <div className="mt-12 text-lg max-md:mt-10 max-md:max-w-full">
-                  ODIN E-SPORT offers a comprehensive experience for all
-                  stakeholders in the football ecosystem, from young talents to
-                  player agents, coaches, and football clubs. Whether you're a
-                  young talent seeking to shine or a football professional
-                  looking for the next star, our platform is the place where
-                  dreams come true and opportunities materialize.
+                
+
+
+ODIN E-SPORT offre une expérience exceptionnelle pour tous les profils de l'écosystème du football, des jeunes talents aux agents de joueurs, aux entraîneurs et aux clubs de football. 
+Que vous soyez un jeune talent cherchant à rayonner ou un professionnel du football à la recherche de la prochaine étoile, notre plateforme est l'endroit où les rêves se réalisent et les opportunités se concrétisent.
                 </div>{" "}
                 <div className="justify-center self-start px-8 py-2 mt-12 text-base font-medium whitespace-nowrap bg-zinc-900 rounded-[30px] max-md:px-5 max-md:mt-10">
-                  Begin Your Adventure !
+                  Commencez Votre Aventure !
                 </div>
               </div>
             </div>{" "}
@@ -341,16 +337,13 @@ function Demo() {
             <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col justify-center self-stretch my-auto text-white max-md:mt-10 max-md:max-w-full">
                 <div className="text-5xl font-bold max-md:max-w-full">
-                  Who is <br />
-                  ODIN E-SPORT For?
+                Pour qui <br />
+                est ODIN E-SPORT ?
                 </div>{" "}
                 <div className="mt-2 text-lg max-md:max-w-full">
-                  ODIN E-SPORT welcomes football enthusiasts of all levels, from
-                  aspiring young talents to seasoned professionals. Whether
-                  you're a player, coach, agent, or club representative, our
-                  platform provides a tailored experience to elevate your
-                  football journey. Join our inclusive community and unlock
-                  endless opportunities in the world of football.
+                
+ODIN E-SPORT accueille les passionnés de football de tous niveaux, des jeunes talents ambitieux aux joueurs professionnels. Que vous soyez joueur, entraîneur, agent ou représentant de club, notre plateforme offre une expérience personnalisée pour sublimer votre parcours de football. 
+Rejoignez notre communauté inclusive et débloquez un nombre infini d'opportunités dans le monde de professionnalisme de  football.
                 </div>
                 <div className="justify-center self-start px-8 py-2 mt-8 text-base font-medium whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
                   Join Us Now!
@@ -398,14 +391,11 @@ function Demo() {
                   className="max-w-full aspect-square w-[161px]"
                 />
                 <div className="mt-8 text-5xl font-bold max-md:max-w-full">
-                  How can we help?
+                Comment on peut vous aider?
                 </div>
                 <div className="mt-4 text-xl max-md:max-w-full">
-                  Feel free to ask questions or share feedback about Odin
-                  Esport, the premier community for football players and
-                  entities. Your input is vital <br />
-                  as we cultivate an inclusive space for football professionals
-                  worldwide.
+                
+N'hésitez pas à poser vos questions ou à partager vos commentaires sur Odin E-sport, la première communauté des joueurs de football et des entités associées. Votre feedback est essentiel alors que nous construisons un espace inclusif pour les professionnels du football du monde entier.
                 </div>
                 <img
                   loading="lazy"
@@ -418,16 +408,16 @@ function Demo() {
               <div className="flex grow justify-center items-center px-16 py-9 w-full text-base bg-white rounded-[30px] text-zinc-900 max-md:px-5 max-md:mt-10 max-md:max-w-full">
                 <div className="flex flex-col max-w-full w-[378px]">
                   <div className="text-5xl font-bold text-black">
-                    Contact Us
+                    Contactez Nous
                   </div>
-                  Full Name
+                  Nom et Prénom
  <input type="text" className="justify-center items-start py-2 pr-16 pl-4 mt-4 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:pr-5"/>
  Email  <input className="justify-center items-start py-2 pr-16 pl-4 mt-4 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:pr-5"/>
                     
  Message...
   <input type="text" className="items-start pt-6 pr-16 pb-20 pl-6 mt-4 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:px-5"/>
                   <button type="submit" className="justify-center items-center px-16 py-2 mt-6 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
-                    Submit
+                    Envoyer
                   </button>
                 </div>
               </div>
@@ -448,10 +438,10 @@ function Demo() {
                 Contact
               </div>
               <div className="grow justify-center px-8 py-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white rounded-[30px] max-md:px-5">
-                Sign Up
+                S'inscrire
               </div>
               <div className="grow justify-center px-8 py-2 text-base font-medium text-white whitespace-nowrap border-2 border-solid border-[color:var(--White,#FFF)] rounded-[30px] max-md:px-5">
-                Log In
+                Se connecter
               </div>
               <div className="flex gap-4 justify-center my-auto">
                 <img
