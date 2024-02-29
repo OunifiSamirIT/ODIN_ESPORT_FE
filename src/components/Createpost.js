@@ -45,13 +45,13 @@ const Createpost = ({ setPostsData, storedUserData }) => {
       formData.append("fileType", fileType);
   
       // Make a POST request to create a new article
-      await fetch("http://localhost:8088/api/articles/", {
+      await fetch("https://odine-sport.com/api/articles/", {
         method: "POST",
         body: formData,
       });
   
       // After creating the article, fetch the updated list of articles
-      const response = await fetch("http://localhost:8088/api/articles/");
+      const response = await fetch("https://odine-sport.com/api/articles/");
       const updatedPostsData = await response.json();
   
       // Update the list of posts and reset the preview image

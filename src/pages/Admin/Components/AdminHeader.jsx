@@ -83,6 +83,7 @@ const  Header  = () => {
                                     <li><Link to="/admin/users" className="nav-content-bttn open-font"><i className="font-xl text-current feather-users me-3"></i><span>Users</span><span className="circle-count bg-warning mt-1">584</span></Link></li>
                                     <li><Link to="/admin/events" className="nav-content-bttn open-font"><i className="font-xl text-current feather-map-pin me-3"></i><span>Events</span></Link></li>
                                     <li><Link to="/admin/album" className="nav-content-bttn open-font"><i className="font-xl text-current feather-image me-3"></i><span>Gallerie</span></Link></li>                    
+                                    <li><Link to="/admin/albumcamps" className="nav-content-bttn open-font"><i className="font-xl text-current feather-image me-3"></i><span>Camps</span></Link></li>                    
                                 </ul>
                             </div>
                             <div className="nav-wrap bg-white bg-transparent-card rounded-xxl shadow-xss pt-3 pb-1">

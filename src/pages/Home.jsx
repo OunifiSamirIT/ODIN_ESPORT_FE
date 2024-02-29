@@ -94,38 +94,38 @@ function Home() {
   };
   const menuClass = `${isOpen ? " show" : ""}`;
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const response = await fetch("https://odine-sport.com/api/articles/");
-        const result = await response.json();
+  // useEffect(() => {
+  //   const fetchArticles = async () => {
+  //     try {
+  //       const response = await fetch("https://odine-sport.com/api/articles/");
+  //       const result = await response.json();
 
-        // Extract userIds from articles
-        const userIds = result.rows.map((article) => article.userId);
+  //       // Extract userIds from articles
+  //       const userIds = result.rows.map((article) => article.userId);
 
-        // Fetch user information for each userId
-        const usersResponse = await Promise.all(
-          userIds.map((userId) =>
-            fetch(`https://odine-sport.com/api/user/${userId}`).then((response) =>
-              response.json()
-            )
-          )
-        );
-        console.log(usersResponse);
+  //       // Fetch user information for each userId
+  //       const usersResponse = await Promise.all(
+  //         userIds.map((userId) =>
+  //           fetch(`https://odine-sport.com/api/user/${userId}`).then((response) =>
+  //             response.json()
+  //           )
+  //         )
+  //       );
+  //       console.log(usersResponse);
 
-        const articlesWithUsers = result.rows.map((article, index) => ({
-          ...article,
-          user: usersResponse[index],
-        }));
+  //       const articlesWithUsers = result.rows.map((article, index) => ({
+  //         ...article,
+  //         user: usersResponse[index],
+  //       }));
 
-        setArticles(articlesWithUsers);
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-      }
-    };
+  //       setArticles(articlesWithUsers);
+  //     } catch (error) {
+  //       console.error("Error fetching articles:", error);
+  //     }
+  //   };
 
-    fetchArticles();
-  }, []);
+  //   fetchArticles();
+  // }, []);
 
   return (
     <Fragment>

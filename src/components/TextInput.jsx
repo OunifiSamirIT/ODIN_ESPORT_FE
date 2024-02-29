@@ -19,7 +19,7 @@ const TextInput = React.forwardRef(
             ref={ref}
             cols="30"
             rows="10"
-            className={` h100 bor-0 w-100 rounded-xxl p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg ${styles}`}
+            className={` h50 bor-0 w-100 rounded-xxl bg-gray-100 p-2 ps-5 font-xssss text-grey-500 fw-500 border-light-md theme-dark-bg ${styles}`}
             {...register}
             aria-invalid={error ? "true" : "false"}
           />

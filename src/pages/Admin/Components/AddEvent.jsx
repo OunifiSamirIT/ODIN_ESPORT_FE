@@ -14,6 +14,9 @@ const AddEvent = () => {
       } = useForm();
 
     const [uploadedFiles, setUploadedFiles] = useState([]);
+
+
+
      const onSubmit = async (data) => {
         const storedUserData = JSON.parse(localStorage.getItem("user"));
         setValue('userId', storedUserData.id)
@@ -47,7 +50,7 @@ const AddEvent = () => {
                                     <h4 className="font-xs text-white fw-600 ms-4 mb-0 mt-2">Create Event</h4>
                                 </div>
                                 <div className="card-body p-lg-5 p-4 w-100 border-0 ">
-                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                    <form onSubmit={handleSubmit(onSubmit)} >
 
                                         <div className="row">
                                             <div className="col-lg-12 mb-3">

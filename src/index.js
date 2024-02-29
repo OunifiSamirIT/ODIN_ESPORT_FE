@@ -5,12 +5,26 @@ import { createRoot } from "react-dom/client"; // Import createRoot from react-d
 
 import "./main.scss";
 
+
+
+import Profile from './pages/Profile/Index'
+import MoreProfile from './pages/Profile/MoreProfile'
+import Information from "./pages/informationProfile";
+import Parametre from "./pages/Parametre"
+import ProfilSocial from "./pages/ProfileSocial";
+
+
+
+
+
+
 import Demo from "./demo/Demo";
 
 import Home from "./pages/Home";
 import Homee from "./pages/Home copy";
 
 import Badge from "./pages/Badge";
+import Badgeagent from "./pages/Badgeagents";
 import Group from "./pages/Group";
 import Storie from "./pages/Storie";
 import Member from "./pages/Member";
@@ -51,12 +65,14 @@ import PostView from "./components/Createpost";
 
 import Grouppage from "./pages/Grouppage";
 import Userpage from "./pages/Userpage";
+import Userpageee from "./pages/Userpageprofile";
 import Authorpage from "./pages/Authorpage";
 import Hotelsingle from "./pages/Hotelsingle";
 import Analytics from "./pages/Analytics";
 import EditPage from "./pages/EditPageArticle";
+import Test from "./pages/Testpage";
 
-
+import ProfileSetting from "./pages/Setting/index"
 
 
 
@@ -64,8 +80,10 @@ import AdminHome from './pages/Admin/Home';
 import Users from './pages/Admin/Users';
 import EventA from './pages/Admin/Event';
 import Album from './pages/Admin/Gallerie'
+import Albumcamps from './pages/Admin/Galleriecamps'
 import AddEvent from './pages/Admin/Components/AddEvent'
 import AddAlbum from './pages/Admin/Components/AddAlbum'
+import AddAlbumcamps from './pages/Admin/Components/AddAlbumCamps'
 import EditUser from './pages/Admin/Components/EditUser'
 import CreateUser from './pages/Admin/Components/CreateUser'
 
@@ -78,10 +96,11 @@ import ViewAlbumodinuser from './pages/ViewAlbumOdin';
 import { BrowserRouter, Switch, Route, Navigate } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import { Routes } from "react-router-dom/dist";
+import { BsTruckFlatbed } from "react-icons/bs";
 const rootElement = document.getElementById("root");
 
 function Root() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
 
     useEffect(() => {
       // Check if there's a valid token in localStorage
@@ -109,7 +128,8 @@ function Root() {
 
     <BrowserRouter basename={"/"}>
       <Routes>
-        <Route exact path="/" element={<Demo />} />
+      <Route exact path="/" element={<Demo />} />
+        <Route exact path="/Test" element={<Test />} />
         <Route exact
           path="/login"
           element={<Login setAuthStatus={setAuthStatus} />}
@@ -118,10 +138,10 @@ function Root() {
         <Route exact path="/postview" element={<PostView />} />
 
 
-
+        
         
         <Route exact path={"/login/:token"} element={<Loginreset />} />
-        {/* <Route exact path={"/api/auth/verify-email"} element={<Loginemail />} /> */}
+        <Route exact path={"/api/auth/verify-email"} element={<Login />} />
         <Route exact path={"/forgot"} element={<Forgot />} />
         <Route exact path={`/password`} element={<Password />} />
         
@@ -142,11 +162,13 @@ function Root() {
                     <Route exact  path={`/events`} element={<UserEvent/>}/>
                     
                     <Route exact  path="/admin/album" element={<Album/>}/>
+                    <Route exact  path="/admin/albumcamps" element={<Albumcamps/>}/>
 
                     {/* 02/02 */}
                     <Route exact  path="/odin/album" element={<Galleryuser/>}/>
                     <Route exact  path="/admin/events/create" element={<AddEvent/>}/>
                     <Route exact  path="/admin/album/create" element={<AddAlbum/>}/>
+                    <Route exact  path="/admin/albumcamps/create" element={<AddAlbumcamps/>}/>
 
 
 
@@ -161,6 +183,7 @@ function Root() {
             <Route exact path="/home" element={<Homee />} />
             <Route exact path={`/defaultsettings`} element={<Settings setAuthStatus={setAuthStatus}/>} />
             <Route exact path={`/defaultbadge`} element={<Badge />} />
+            <Route exact path={`/defaultgroupagent`} element={<Badgeagent />} />
             <Route exact path="/gallery" element={<Gallery />} />
         <Route exact path={`/defaultgroup`} element={<Galleryuser />} />
         <Route exact path={`/defaultstorie`} element={<Storie />} />
@@ -168,6 +191,31 @@ function Root() {
         <Route exact path={`/defaultemailopen`} element={<Emailopen />} />
         <Route exact path={`/defaultvideo`} element={<Videos />} />
         {/* <Route exact path="/edit/:articleId" element={<EditPage />} /> */}
+
+{/* nader */}
+        <Route exact path="/setting/:tab?" element={<ProfileSetting/>} />
+
+
+
+
+  {/* Profile routes */}
+
+  <Route exact path="/profile/:id" element={<Profile />} />
+        <Route exact path="/profile/more" element={<MoreProfile />} />
+        <Route exact path="/informationProfile" element={<Information />} />
+        <Route exact path={`/accountinformation`} element={<Account />} />
+        <Route exact path={`/parametrecompte`} element={<Parametre />} />
+        <Route exact path={`/social`} element={<ProfilSocial />} />
+
+
+
+
+
+
+
+
+
+
 
         <Route exact path="/editPost/:articleId" element={<EditPost />} />
         <Route exact path={`/defaultanalytics`} element={<Analytics />} />
@@ -200,6 +248,7 @@ function Root() {
         <Route exact path={`/defaulthotel`} element={<Hotel />} />
         <Route exact path={`/grouppage`} element={<Grouppage />} />
         <Route exact path="/userpage" element={<Userpage />} />
+        <Route exact path="PlayerInfo/:iduser" element={<Userpageee />} />
         <Route exact path={`/authorpage`} element={<Authorpage />} />
         <Route exact path={`/comingsoon`} element={<Comingsoon />} />
         <Route exact path={`/defaulthoteldetails`} element={<Hotelsingle />} />

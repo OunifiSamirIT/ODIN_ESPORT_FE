@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from "react";
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 function Login({ setAuthStatus }) {
@@ -48,7 +48,7 @@ function Login({ setAuthStatus }) {
 
       if (response.ok) {
         localStorage.setItem("user", JSON.stringify(result));
-        localStorage.setItem('accessToken', result.accessToken);
+        localStorage.setItem("accessToken", result.accessToken);
 
         // Call the setAuthStatus function with the token
         setAuthStatus(true, result.accessToken);
@@ -76,7 +76,6 @@ function Login({ setAuthStatus }) {
           setErrMsg({ status: "failed", message: result.message });
           setLoginError(true); // Set loginError to true for other login errors
         }
-
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -95,8 +94,7 @@ function Login({ setAuthStatus }) {
 
   return (
     <Fragment>
-      <div className="main-wrap">
-        {/* ... Header code ... */}
+      {/* <div className="main-wrap">
 
         <div className="row">
           <div
@@ -154,7 +152,6 @@ function Login({ setAuthStatus }) {
                     </Link>
                   </div>
 
-                  {/* Display verification message if email is not verified */}
                   {!isEmailVerified && verificationMessage}
                   {invalidPassword && (
             <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
@@ -182,32 +179,7 @@ function Login({ setAuthStatus }) {
                     <h6 className="mb-0 d-inline-block bg-white fw-500 font-xsss text-grey-500 mb-3">
                       Ou, Register avec votre compte Google ou Facbook
                     </h6>
-                    {/* <div className="form-group mb-1">
-                      <Link
-                        to="/register"
-                        className="form-control text-left m style2-input text-white fw-400 bg-facebook border-0 p-0 mb-2"
-                      >
-                        <img
-                          src="assets/images/icon-1.png"
-                          alt="icon"
-                          className="ms-1 w-10 pt-2 mb-1 me-5"
-                        />{" "}
-                        Sign in with Google
-                      </Link>
-                    </div>
-                    <div className="form-group mb-1">
-                      <Link
-                        to="/register"
-                        className="form-control text-left style2-input text-white fw-600 bg-twiiter border-0 p-0 "
-                      >
-                        <img
-                          src="assets/images/icon-3.png"
-                          alt="icon"
-                          className="ms-2 w40 mb-1 me-5"
-                        />{" "}
-                        Sign in with Facebook
-                      </Link>
-                    </div> */}
+                    
                    <div className="col-sm-12 p-0 text-center mt-2">
  
   <div className="d-flex flex-column align-items-center">
@@ -231,6 +203,102 @@ function Login({ setAuthStatus }) {
              
                 </div>
               </div>
+          </div>
+        </div>
+      </div> */}
+
+      <div className="flex flex-col justify-center bg-zinc-100">
+        <div className="justify-center w-full rounded-2xl max-md:max-w-full">
+          <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+          <div className="flex flex-col w-[62%] max-md:ml-0 max-md:w-full hidden md:flex">
+        <img
+          loading="lazy"
+          srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"          className="grow w-full aspect-[0.86] max-md:max-w-full"
+        />
+      </div>
+
+            <div className="flex flex-col mb-40 ml-5 w-[38%] max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col grow justify-between px-12  w-full bg-zinc-100 max-md:px-5 max-md:max-w-full">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/a1284a5dcef540714cf1bd78a1d61d4a149cfc66fd6e4422229107187f1c5f60?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                  className="self-center mt-20 max-w-full aspect-[2.78] w-[132px] max-md:mt-10"
+                />
+                <div className="mt-10 text-5xl font-bold text-center text-zinc-900 max-md:max-w-full">
+                  Bienvenue !
+                </div>
+
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="self-center mt-6 text-lg text-zinc-900 max-md:max-w-full">
+                    Se connecter
+                  </div>
+                  <input
+                    type="text"
+                    {...register("login")}
+                    className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 max-md:pr-5 max-md:max-w-full"
+                    placeholder="Votre Nom Utilisateur"
+                  />
+                  <div className="self-center mt-4 text-lg text-zinc-900 max-md:max-w-full">
+                    Mot de Passe
+                  </div>
+
+                  <input
+                    type="password"
+                    {...register("password")}
+                    className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 max-md:pr-5 max-md:max-w-full"
+                    placeholder="Mot de Passe"
+                  />
+                  {loginError && (
+                    <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
+                      Compte n'est pas existe verifier vos infos
+                    </div>
+                  )}
+
+                  <div className="flex gap-4 justify-between mt-5 max-md:flex-wrap max-md:max-w-full">
+                    <div className="flex gap-2 justify-between">
+                      <div className="flex flex-col justify-center aspect-[2]">
+                        <div className="flex flex-col justify-center py-0.5 pr-6 pl-0.5 border-solid aspect-[2] bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[36.5px] max-md:pr-5">
+                          <div className="shrink-0 h-4 bg-white rounded-xl shadow-sm" />
+                        </div>
+                      </div>
+                      <div className="grow text-base whitespace-nowrap text-zinc-900">
+                        Remember me
+                      </div>
+                    </div>
+                    <Link
+                      to="/forgot"
+                      className="grow text-base font-medium text-blue-600 underline whitespace-nowrap"
+                    >
+                      Mot de pass oublier ?
+                    </Link>
+                  </div>
+                  {!isEmailVerified && verificationMessage}
+                  {invalidPassword && (
+                    <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
+                      mot de passe invalide.
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    className="justify-center text-center items-center px-16 py-2 mt-8 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full"
+                  >
+                    Se connecter
+                  </button>
+                </form>
+
+                <div className="flex gap-2 justify-between px-2 py-2 mt-2 text-base max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                  <div className="flex-auto text-zinc-900">
+                    Vous n'avez pas compte ?
+                  </div>
+                  <Link
+                    to="/register"
+                    className="flex-auto font-medium text-blue-600 underline"
+                  >
+                    Creer Compte
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

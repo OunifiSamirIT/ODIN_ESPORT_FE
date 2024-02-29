@@ -1,0 +1,42 @@
+@keyframes animateRect1 {
+    from {
+      width: 0;
+    }
+    to {
+      width: 59.0909;
+    }
+  }
+  
+  @keyframes animateRect2 {
+    from {
+      width: 0;
+      x: 0;
+    }
+    to {
+      width: 43;
+      x: 16.2;
+    }
+  }
+  
+  @keyframes animateRect3 {
+    from {
+      width: 0;
+      x: 0;
+    }
+    to {
+      width: 28.2;
+      x: 31;
+    }
+  }
+  
+  .animate-rect1 {
+    animation: animateRect1 0.5s forwards;
+  }
+  
+  .animate-rect2 {
+    animation: animateRect2 0.5s forwards;
+  }
+  
+  .animate-rect3 {
+    animation: animateRect3 0.5s forwards;
+  }
