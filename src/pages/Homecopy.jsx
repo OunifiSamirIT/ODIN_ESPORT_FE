@@ -451,6 +451,7 @@ function Home() {
       );
 
       setArticles(articlesWithLikesCount);
+      console.log("articles : " ,  articles)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
