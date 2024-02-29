@@ -14,8 +14,7 @@ import ReactFlagsSelect from "react-flags-select";
 import "./flags.css";
 import Select, { components } from "react-select";
 
-import "flag-icon-css/css/flag-icons.min.css";
-import DatePicker from "react-datepicker";
+
 import "react-datepicker/dist/react-datepicker.css";
 import Modal from "react-modal";
 // import "react-modal/styles.css";
@@ -6626,21 +6625,14 @@ const handleCountryCoachEA = (selectedOption) => {
                         </div>{" "}
                         <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                           <div className="flex gap-5 justify-between  py-3.5 rounded-md">
-                            <DatePicker
-                              selected={
-                                formData.date_naissance
-                                  ? new Date(formData.date_naissance)
-                                  : null
-                              }
-                              onChange={(date) =>
-                                handleYearChange(date?.getFullYear())
-                              }
-                              dateFormat="yyyy"
-                              showYearPicker
-                              yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
-                              maxDate={new Date(2012, 0, 1)}
-                              className="bg-zinc-100 ml-4"
-                            />
+                          <input
+  type="date"
+  value={formData.date_naissance || ''}
+  onChange={(e) => handleYearChange(new Date(e.target.value)?.getFullYear())}
+  max="2012-01-01"
+  className="bg-zinc-100 ml-4"
+/>
+
                            
                           </div>
                         </div>{" "}

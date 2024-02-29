@@ -6,8 +6,7 @@ import Pagetitle from "../components/Pagetitle";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+
 import Select, { components } from "react-select";
 
 
@@ -4086,7 +4085,7 @@ function Badge({ userpf }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://odine-sport.com/api/allagents");
+      const response = await fetch("http://localhost:5000/api/allagents");
       const result = await response.json();
       setData(result);
       setFilteredUsers(result);
