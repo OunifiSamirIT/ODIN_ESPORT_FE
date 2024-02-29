@@ -4083,7 +4083,7 @@ const [data, setData] = useState([]);
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/players");
+      const response = await fetch("https://odine-sport.com/api/players");
       const result = await response.json();
       setData(result);
       setFilteredUsers(result); // Initialize filteredUsers with all users by default

@@ -4085,7 +4085,7 @@ function Badge({ userpf }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/allagents");
+      const response = await fetch("https://odine-sport.com/api/allagents");
       const result = await response.json();
       setData(result);
       setFilteredUsers(result);

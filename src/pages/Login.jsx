@@ -269,7 +269,7 @@ function Login({ setAuthStatus }) {
                       to="/forgot"
                       className="grow text-base font-medium text-blue-600 underline whitespace-nowrap"
                     >
-                      Mot de pass oublier ?
+                      Mot de passe oublier ?
                     </Link>
                   </div>
                   {!isEmailVerified && verificationMessage}
