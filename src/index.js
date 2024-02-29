@@ -21,7 +21,7 @@ import ProfilSocial from "./pages/ProfileSocial";
 import Demo from "./demo/Demo";
 
 import Home from "./pages/Home";
-import Homee from "./pages/Home copy";
+import Homee from "./pages/Homecopy";
 
 import Badge from "./pages/Badge";
 import Badgeagent from "./pages/Badgeagents";
