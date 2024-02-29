@@ -6236,7 +6236,7 @@ const handleCountryCoachEA = (selectedOption) => {
                       <div className="flex flex-col ml-0 sm:ml-5 w-full sm:w-[64%] max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col self-stretch my-auto max-md:mt-10">
                           <div className="text-3xl  font-bold text-black">
-                            Photo de profile
+                            Photo de profil
                           </div>
                           <div className="flex gap-4 justify-between mt-4">
                             <div className="flex gap-2 justify-between px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
@@ -6562,13 +6562,13 @@ const handleCountryCoachEA = (selectedOption) => {
                     {/* num tel  */}
                     <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col text-zinc-900 max-md:mt-6">
-                        <div className="flex gap-4 px-4 text-lg">
+                        <div className="flex gap-2 px-4 text-lg">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8b3f9f9ce91abda956cebd8c4890e6a17fde7ecb10f630388688447199195a8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square"
                           />{" "}
-                          <div className="flex-auto">N° </div>{" "}
+                          <div className="flex-auto">N° Telephone </div>{" "}
                           <div className="grow">(Facultative)</div>
                         </div>{" "}
                         <div className="flex gap-4 justify-between mt-2 text-base whitespace-nowrap">
@@ -6669,7 +6669,7 @@ const handleCountryCoachEA = (selectedOption) => {
                           inputErrors["gender"] ? "is-invalid" : ""
                         }`}
                       >
-                        <option value="">Select Sexe</option>
+                        <option value="">Votre Sexe</option>
                         <option value="male">Homme</option>
                         <option value="female">Femme</option>
                       </select>
@@ -6697,7 +6697,7 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className=" flex flex-auto sm:flex-1  ">
                             <Select
                               options={options}
-                              placeholder="Select a country"
+                              placeholder="Votre Nationalité"
                               styles={{
                                 control: (provided, state) => ({
                                   ...provided,
@@ -6744,7 +6744,7 @@ const handleCountryCoachEA = (selectedOption) => {
                             {" "}
                             <Select
                               options={optionsPays}
-                              placeholder="Select a country"
+                              placeholder="Pays de résidence"
                               // onChange={(selectedOption) => console.log(selectedOption)}
                               styles={{
                                 control: (provided, state) => ({
@@ -6810,7 +6810,7 @@ const handleCountryCoachEA = (selectedOption) => {
                 <div className="flex gap-5 justify-between mt-8 mb-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                 <Link to="/"> <div className="flex gap-2 justify-between   px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
                    
-                    <div className="grow text-white">Précédent</div>
+                    <div className="grow text-white">Retour</div>
                   </div>{" "}</Link> 
                   <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                     <button
@@ -6820,11 +6820,11 @@ const handleCountryCoachEA = (selectedOption) => {
                     >
                       Suivant
                     </button>{" "}
-                    <img
+                    {/* <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/009067a802ece7a987067a80c9d2bb609c7928469c28602c59a52ec0bbdb4632?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                       className="w-5 aspect-square"
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
@@ -6916,7 +6916,7 @@ const handleCountryCoachEA = (selectedOption) => {
                 ))}
                 {profileError && (
                   <div className="text-danger mt-2">
-                    Please select a profile before proceeding.
+                    Veuillez choisir un profil s'il vous plait! 
                   </div>
                 )}
               </div>
@@ -6972,7 +6972,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ec3a1cc3b9a3012e6a2edef9cd4e023c9016540e0fc86b9417135ccff83ce39?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Club Actuelle</div>
+                            <div className="grow">Club Actuel</div>
                           </div>
                           <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
                           <input
@@ -6983,7 +6983,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
                                 inputErrors["champsoptionelle"] ? "is-invalid" : ""
                               }`}
-                              placeholder="Club Actuelle"
+                              placeholder="Club Actuel"
                               onChange={handleInputChange}
                             />
                             {inputErrors["champsoptionelle"] && (
@@ -7011,7 +7011,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
                                 inputErrors["height"] ? "is-invalid" : ""
                               }`}
-                              placeholder="Height (cm)"
+                              placeholder="Taille (cm)"
                               onChange={handleInputChange}
                             />
                             
@@ -7039,7 +7039,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
                                 inputErrors["weight"] ? "is-invalid" : ""
                               }`}
-                              placeholder="Weight (kg)"
+                              placeholder="Poids (kg)"
                               onChange={handleInputChange}
                             />
                             {inputErrors["weight"] && (
@@ -7071,7 +7071,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               onChange={handleInputChange}
                             >
                               <option value="" disabled>
-                                Select Pied Forte
+                                 Pied Fort
                               </option>
                               <option value="PiedGauche">Pied Gauche</option>
                               <option value="PiedDroit">Pied Droit</option>
@@ -7104,7 +7104,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               onChange={handleInputChange}
                             >
                               <option value="" disabled>
-                                Select Primary Position
+                                 Position principale
                               </option>
                               <option value="Gardien de but">
                                 Gardien de but
@@ -7167,7 +7167,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               onChange={handleInputChange}
                             >
                               <option value="" disabled>
-                                Select Secondary Position
+                              Position Secondaire
                               </option>
                               <option value="Gardien de but (GK)">
                                 Gardien de but (GK)
@@ -7335,8 +7335,7 @@ const handleCountryCoachEA = (selectedOption) => {
                       </div>
                       {skillsError && (
                         <div className="text-danger mt-2">
-                          Please select at least one skill (up to 10) before
-                          proceeding.
+                         Vous pouvez selectionner au maximum 10 compétences !
                         </div>
                       )}
 
@@ -7385,7 +7384,7 @@ const handleCountryCoachEA = (selectedOption) => {
 
   <div className="mt-4">
     <label className="block mb-2">
-      Partage en dehors de la PL :
+    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
     </label>
     <div className="flex flex-col sm:flex-row">
       <label className="mr-2">
@@ -7436,7 +7435,7 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className="grow text-white">Retour</div>
                         </button>
                         <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-         <button type="submit" className="grow">Confirm</button>
+         <button type="submit" className="grow">Confirmer</button>
          
        </div>
                       </div>
@@ -7483,7 +7482,7 @@ const handleCountryCoachEA = (selectedOption) => {
              src="https://cdn.builder.io/api/v1/image/assets/TEMP/c6759924d092dd539c2a5e31a573201abbd73cb3b21abd2a1c36c03266185a25?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
              className="self-start w-5 aspect-square"
            />
-           <div className="grow">Club Actuelle</div>
+           <div className="grow">Club Actuel</div>
          </div>
          <div className="justify-center items-start py-1.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
         
@@ -7543,7 +7542,7 @@ const handleCountryCoachEA = (selectedOption) => {
                                 className={`flex gap-5 justify-between px-4 py-3 rounded-xl bg-zinc-100 ${
                                   inputErrors["totalTeam"] ? "is-invalid" : ""
                                 }`}
-                                placeholder="Total Team"
+                                placeholder="Total Equipes"
                                 onChange={handleInputChange}
                               />
                               {inputErrors["totalTeam"] && (
@@ -7575,7 +7574,7 @@ const handleCountryCoachEA = (selectedOption) => {
                                 onChange={handleInputChange}
                               >
                                 <option value="" disabled>
-                                  Select Football Tactic
+                                 Tactique préférée
                                 </option>
                                 <option value="4-4-2">4-4-2</option>
                                 <option value="4-3-3">4-3-3</option>
@@ -7740,8 +7739,7 @@ const handleCountryCoachEA = (selectedOption) => {
                       </div>
                       {skillsError && (
                         <div className="text-danger mt-2">
-                          Please select at least one skill (up to 10) before
-                          proceeding.
+                          Vous pouvez selectionner au maximum 10 compétences !
                         </div>
                       )}
      
@@ -7789,7 +7787,7 @@ const handleCountryCoachEA = (selectedOption) => {
 
   <div className="mt-4">
     <label className="block mb-2">
-      Partage en dehors de la PL :
+    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
     </label>
     <div className="flex flex-col sm:flex-row">
       <label className="mr-2">
@@ -7908,7 +7906,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               required
                             >
                               <option value="">
-                                Select Le Type De Responsabilité
+                                Votre Type De Responsabilité
                               </option>
                               <option value="club">Club</option>
                               <option value="players">Players</option>
@@ -7937,7 +7935,7 @@ const handleCountryCoachEA = (selectedOption) => {
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/528f3940d205594823841dbde668c399246e5dc37eb606f331e300f6be94c70e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
         className="self-start w-5 aspect-square"
       />
-      <div className="grow">Club Actuelle</div>
+      <div className="grow">Club Actuel</div>
     </div>
     <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
       <input
@@ -7968,7 +7966,7 @@ const handleCountryCoachEA = (selectedOption) => {
     <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
       <Select
         options={optionsPays}
-        placeholder="Select a country"
+        placeholder="Pays du Club"
         styles={{
           control: (provided, state) => ({
             ...provided,
@@ -8072,8 +8070,7 @@ const handleCountryCoachEA = (selectedOption) => {
                       </div>
                       {skillsError && (
                         <div className="text-danger mt-2">
-                          Please select at least one skill (up to 10) before
-                          proceeding.
+                         Vous pouvez selectionner au maximum 10 compétences !
                         </div>
                       )}
 
@@ -8121,7 +8118,7 @@ const handleCountryCoachEA = (selectedOption) => {
 
   <div className="mt-4">
     <label className="block mb-2">
-      Partage en dehors de la PL :
+    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
     </label>
     <div className="flex flex-col sm:flex-row">
       <label className="mr-2">
@@ -8178,7 +8175,7 @@ const handleCountryCoachEA = (selectedOption) => {
       </div>
       <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
       <button
-                                type="submit" className="grow">Confirm</button>
+                                type="submit" className="grow">Confirmer</button>
         
       </div>
     </div>                   
@@ -8248,7 +8245,7 @@ const handleCountryCoachEA = (selectedOption) => {
                                       }`}
                                       onChange={handleInputChange}
                                       value={formData.totalCareerTransfers}
-                                      placeholder="Enter total career transfers for club"
+                                      placeholder="Nombre des joueurs transferés"
                                     />
                                     {inputErrors.totalCareerTransfers && (
                                       <div className="invalid-feedback">
@@ -8342,8 +8339,7 @@ const handleCountryCoachEA = (selectedOption) => {
                       </div>
                       {skillsError && (
                         <div className="text-danger mt-2">
-                          Please select at least one skill (up to 10) before
-                          proceeding.
+                          Vous pouvez selectionner au maximum 10 compétences !
                         </div>
                       )}
 
@@ -8407,7 +8403,7 @@ const handleCountryCoachEA = (selectedOption) => {
 
   <div className="mt-4">
     <label className="block mb-2">
-      Partage en dehors de la PL :
+    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
     </label>
     <div className="flex flex-col sm:flex-row">
       <label className="mr-2">
@@ -8469,7 +8465,7 @@ const handleCountryCoachEA = (selectedOption) => {
       </div>
       <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
       <button
-                                type="submit" className="grow">Confirm</button>
+                                type="submit" className="grow">Confirmer</button>
        
       </div>
     </div>
@@ -8552,7 +8548,7 @@ const handleCountryCoachEA = (selectedOption) => {
                                 onChange={handleInputChange}
                               >
                                 <option value="" disabled>
-                                  Select Engagement
+                                  Votre Engagement
                                 </option>
                                 <option value="plein-temps">Plein Temps</option>
                                 <option value="mi-temps">Mi-Temps</option>
@@ -8701,8 +8697,7 @@ const handleCountryCoachEA = (selectedOption) => {
 </div>
 {scoutSkillsError && (
   <div className="text-danger mt-2">
-    Please select at least one scout skill (up to 10) before proceeding.
-  </div>
+Vous pouvez selectionner au maximum 10 compétences !  </div>
 )}
 </div>
 
@@ -8751,8 +8746,7 @@ const handleCountryCoachEA = (selectedOption) => {
 
   <div className="mt-4">
     <label className="block mb-2">
-      Partage en dehors de la PL :
-    </label>
+    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
     <div className="flex flex-col sm:flex-row">
       <label className="mr-2">
         <input
@@ -8819,7 +8813,7 @@ const handleCountryCoachEA = (selectedOption) => {
             </div>
             <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
             <button
-                                type="submit" className="grow">Confirm</button>
+                                type="submit" className="grow">Confirmer</button>
              
             </div>
           </div>
@@ -8884,7 +8878,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               value={formData.profession}
                               required
                             >
-                              <option value="">Select Type Responsable</option>
+                              <option value="">Profession</option>
                               <option value="Fan Football">Fan Football</option>
                               <option value="Journaliste Sportif">
                                 Journaliste Sportif
@@ -8908,7 +8902,7 @@ const handleCountryCoachEA = (selectedOption) => {
                                 Médecin d'équipe
                               </option>
                               <option value="Prof de fitnesse">
-                                Prof de fitnesse
+                                Préparateur Physique
                               </option>
                             </select>
                             {inputErrors["Profession"] && (
@@ -9372,8 +9366,7 @@ const handleCountryCoachEA = (selectedOption) => {
 
   <div className="mt-4">
     <label className="block mb-2">
-      Partage en dehors de la PL :
-    </label>
+    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
     <div className="flex flex-col sm:flex-row">
       <label className="mr-2">
         <input
@@ -9443,7 +9436,7 @@ const handleCountryCoachEA = (selectedOption) => {
             </div>
             <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
             <button
-                                type="submit" className="grow">Confirm</button>
+                                type="submit" className="grow">Confirmer</button>
               
             </div>
           </div>

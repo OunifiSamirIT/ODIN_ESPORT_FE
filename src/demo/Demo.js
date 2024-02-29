@@ -243,7 +243,7 @@ function Demo() {
               <div className="grow my-auto text-base font-medium text-white">
                 Contact
               </div>
-              <a href="/signup"><div className="grow justify-center px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
+              <a href="/register"><div className="grow justify-center px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
                 S'inscrire
               </div></a>
               <a href="/login"> <div className="grow justify-center px-8 py-2 text-base font-medium text-white whitespace-nowrap border-2 border-solid border-[color:var(--White,#FFF)] rounded-[30px] max-md:px-5">
@@ -290,9 +290,9 @@ function Demo() {
   <div className="mt-2 text-xl text-center w-[924px] max-md:max-w-full">
   Connectez-vous avec les meilleurs scouts et entraîneurs de football, mettez en valeur vos compétences et franchissez la prochaine étape de votre parcours dans le football. Votre avenir dans le football commence ici.
   </div>
-  <div className="justify-center px-8 py-2 mt-4 mb-64 text-base font-medium whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:mb-10">
+  <a href="/register"> <div className="justify-center px-8 py-2 mt-4 mb-64 text-base font-medium whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:mb-10">
   Commencez votre aventure ! 
-  </div>
+  </div></a>
 </div>
       </div>
      
@@ -316,9 +316,9 @@ function Demo() {
 ODIN E-SPORT offre une expérience exceptionnelle pour tous les profils de l'écosystème du football, des jeunes talents aux agents de joueurs, aux entraîneurs et aux clubs de football. 
 Que vous soyez un jeune talent cherchant à rayonner ou un professionnel du football à la recherche de la prochaine étoile, notre plateforme est l'endroit où les rêves se réalisent et les opportunités se concrétisent.
                 </div>{" "}
-                <div className="justify-center self-start px-8 py-2 mt-12 text-base font-medium whitespace-nowrap bg-zinc-900 rounded-[30px] max-md:px-5 max-md:mt-10">
+                <a href="/register"><div className="justify-center self-start px-8 py-2 mt-12 text-base font-medium whitespace-nowrap bg-zinc-900 rounded-[30px] max-md:px-5 max-md:mt-10">
                   Commencez Votre Aventure !
-                </div>
+                </div></a>
               </div>
             </div>{" "}
             <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
@@ -345,9 +345,9 @@ Que vous soyez un jeune talent cherchant à rayonner ou un professionnel du foot
 ODIN E-SPORT accueille les passionnés de football de tous niveaux, des jeunes talents ambitieux aux joueurs professionnels. Que vous soyez joueur, entraîneur, agent ou représentant de club, notre plateforme offre une expérience personnalisée pour sublimer votre parcours de football. 
 Rejoignez notre communauté inclusive et débloquez un nombre infini d'opportunités dans le monde de professionnalisme de  football.
                 </div>
-                <div className="justify-center self-start px-8 py-2 mt-8 text-base font-medium whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
-                  Join Us Now!
-                </div>
+                <a href="/register"><div className="justify-center self-start px-8 py-2 mt-8 text-base font-medium whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
+                  Rejoignez Nous!
+                </div></a>
               </div>
             </div>
             <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
