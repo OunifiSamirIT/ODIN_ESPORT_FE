@@ -1248,6 +1248,8 @@ function Home() {
                 {/* show post  */}
                 <div>
 
+                {articles && articles.length > 0 ? (
+                                  <> 
                   {articles.map((article) => (
                     <div
                       key={article.id}
@@ -1622,6 +1624,9 @@ function Home() {
                       </div>
                     </div>
                   ))}
+
+                  </>) : (<> <p>Loading ...</p></>)}
+
 
 
 
