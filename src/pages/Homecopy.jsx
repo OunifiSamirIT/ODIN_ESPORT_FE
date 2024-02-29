@@ -415,21 +415,22 @@ function Home() {
         const comtResponse = await fetch(`https://odine-sport.com/api/commentaires/article/${comt}`);
         const commentsData = await comtResponse.json();
   
-        const likesCountResponse = await fetch(`https://odine-sport.com/api/likes/article/allLikes`);
-        const likesCountData = await likesCountResponse.json();
+        // const likesCountResponse = await fetch(`https://odine-sport.com/api/likes/article/allLikes`);
+        // const likesCountData = await likesCountResponse.json();
   
-        const likesCount = likesCountData.find(
-          (count) =>
-            count.articleId === article.articleId ||
-            count.articleId === article.id
-        );
+        // const likesCount = likesCountData.find(
+        //   (count) =>
+        //     count.articleId === article.articleId ||
+        //     count.articleId === article.id
+        // );
   
         const articleWithLikesCount = {
           ...article,
           user: userData,
           comments: commentsData.commentsData,
           commentsCount: commentsData.commentCount,
-          likesCount: likesCount ? likesCount.likesCount : 0,
+          // likesCount: likesCount ? likesCount.likesCount : 0,
+          likesCount:  0,
         };
   
         articlesWithLikesCount.push(articleWithLikesCount);
