@@ -4198,7 +4198,7 @@ const optionsPays = paysAllInfo.map((country) => {
               <div className="flex flex-col justify-center px-11 py-6 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                 <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
                   <div className="flex-auto text-3xl font-bold text-zinc-900">
-                    Chercher un talent
+                  Chercher Votre Agent
                   </div>
                   <div
                 className={`flex gap-2 justify-center self-start px-8 py-2 text-base font-medium ${
