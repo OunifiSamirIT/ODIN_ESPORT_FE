@@ -399,50 +399,63 @@ function Home() {
 
   const fetchArticles = async () => {
     try {
+      // Fetch articles
       const response = await fetch("https://odine-sport.com/api/articles/");
       const result = await response.json();
-  
+
       const reversedArticles = result.rows.reverse();
-      const articlesWithLikesCount = [];
-  
-      for (const article of reversedArticles) {
-        const userId = article.userId;
-        const comt = article.id;
-  
-        const userResponse = await fetch(`https://odine-sport.com/api/user/${userId}`);
-        const userData = await userResponse.json();
-  
-        const comtResponse = await fetch(`https://odine-sport.com/api/commentaires/article/${comt}`);
-        const commentsData = await comtResponse.json();
-  
-        // const likesCountResponse = await fetch(`https://odine-sport.com/api/likes/article/allLikes`);
-        // const likesCountData = await likesCountResponse.json();
-  
-        // const likesCount = likesCountData.find(
-        //   (count) =>
-        //     count.articleId === article.articleId ||
-        //     count.articleId === article.id
-        // );
-  
-        const articleWithLikesCount = {
-          ...article,
-          user: userData,
-          comments: commentsData.commentsData,
-          commentsCount: commentsData.commentCount,
-          // likesCount: likesCount ? likesCount.likesCount : 0,
-          likesCount:  0,
-        };
-  
-        articlesWithLikesCount.push(articleWithLikesCount);
-      }
-  
+      const userIds = reversedArticles.map((article) => article.userId);
+      const comt = reversedArticles.map((article) => article.id);
+
+      // Fetch user data
+      const usersResponse = await Promise.all(
+        userIds.map((userId) =>
+          fetch(`https://odine-sport.com/api/user/${userId}`).then((response) =>
+            response.json()
+          )
+        )
+      );
+
+      // Fetch comment data for each article
+      const comtResponse = await Promise.all(
+        comt.map((articleId) =>
+          fetch(
+            `https://odine-sport.com/api/commentaires/article/${articleId}`
+          ).then((response) => response.json())
+        )
+      );
+
+      const articlesWithLikesCount = await Promise.all(
+        reversedArticles.map(async (article, index) => {
+          // const commentsData = await commentsResponse.json();
+
+          const likesCountResponse = await fetch(
+            `https://odine-sport.com/api/likes/allLikes`
+          );
+          const likesCountData = await likesCountResponse.json();
+
+          const likesCount = likesCountData.find(
+            (count) =>
+              count.articleId === article.articleId ||
+              count.articleId === article.id
+          );
+
+          return {
+            ...article,
+            user: usersResponse[index],
+            comments: comtResponse[index].commentsData,
+            commentsCount: comtResponse[index].commentCount,
+            likesCount: likesCount ? likesCount.likesCount : 0,
+          };
+        })
+      );
+
       setArticles(articlesWithLikesCount);
-      console.log("articles : ", articlesWithLikesCount);
+      console.log("articles : " ,  articles)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  
 
   const handleReplyClick = async (commentId) => {
     setReplyInput(""); // Clear the reply input
