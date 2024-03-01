@@ -381,7 +381,7 @@ const Index = () => {
           // const commentsData = await commentsResponse.json();
 
           const likesCountResponse = await fetch(
-            `https://odine-sport.com/api/likes/article/allLikes`
+            `https://odine-sport.com/api/likes/allLikes`
           );
           const likesCountData = await likesCountResponse.json();
 
