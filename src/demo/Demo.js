@@ -354,27 +354,10 @@ Rejoignez notre communauté inclusive et débloquez un nombre infini d'opportuni
               <div className="flex flex-col flex-wrap grow content-start py-px max-md:mt-10 max-md:max-w-full">
                 <img
                   loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/2b62ede3bac7974b182424eabb5de98a761aca162764cd0bde70f45c7c4c0358?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                  src={Hero}
                   className="w-full aspect-[1.45] max-md:max-w-full"
                 />
-                <div className="flex gap-5 justify-between p-4 mt-8 w-full max-md:flex-wrap max-md:max-w-full">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/035fa9bb65e80eacce77d30b7fc58aaf474672630056281ef89d31e16cb9dcfd?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                    className="aspect-[0.51] fill-white w-[30px]"
-                  />
-                  <div className="flex gap-5 justify-between items-center my-auto">
-                    <div className="self-stretch my-auto w-4 h-4 bg-white rounded-full" />
-                    <div className="self-stretch w-6 h-6 bg-white rounded-full" />
-                    <div className="self-stretch my-auto w-4 h-4 bg-white rounded-full" />
-                    <div className="self-stretch my-auto w-4 h-4 bg-white rounded-full" />
-                  </div>
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/0b6a5a483da43ce6d4f579321137d537488b149a47b96e818fd3561001a45ab0?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                    className="aspect-[0.51] fill-white w-[30px]"
-                  />
-                </div>
+               
               </div>
             </div>
           </div>
