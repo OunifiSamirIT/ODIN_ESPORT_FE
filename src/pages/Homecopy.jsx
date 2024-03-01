@@ -170,7 +170,7 @@ function Home() {
 
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
-          "https://odine-sport.com/api/likes/article/allLikes"
+          "https://odine-sport.com/api/likes/allLikes"
         );
         const allLikesData = await allLikesResponse.json();
 
