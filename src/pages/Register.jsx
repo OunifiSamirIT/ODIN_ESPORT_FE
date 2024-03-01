@@ -6515,8 +6515,8 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className="flex-auto">N° Telephone </div>{" "}
                           <div className="grow">(Facultative)</div>
                         </div>{" "}
-                        <div className="flex gap-4 justify-between mt-2 text-base whitespace-nowrap">
-  <div className="flex gap-4 justify-between mt-3 text-base">
+                        <div className="flex gap-2 justify-between mt-2 text-base whitespace-nowrap">
+  <div className="flex gap-1 justify-between mt-3 text-base">
     <Select
       styles={{
         control: (provided, state) => ({
@@ -6525,7 +6525,7 @@ const handleCountryCoachEA = (selectedOption) => {
           display: "flex",
           justifyContent: "center",
           borderRadius: "30px",
-          width: "135px",
+          width: "120px",
           fontSize: "1rem",
           backgroundColor: "#f5f5f5",
           borderWidth: "none",
