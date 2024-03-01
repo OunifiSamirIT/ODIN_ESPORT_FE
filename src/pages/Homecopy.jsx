@@ -1205,7 +1205,7 @@ function Home() {
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
             className="aspect-square w-[25px]"
-          />                            <span className="d-none-xsml-2 ml-2"> Video</span>
+          />                            <span className="d-none-xs ml-2"> Video</span>
                         </label>
 
                         <label

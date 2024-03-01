@@ -6218,50 +6218,38 @@ const handleCountryCoachEA = (selectedOption) => {
                     <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
                   </div>
                 </div>
-                <div className="flex justify-center items-center px-8 max-md:px-5 max-md:max-w-full">
-                  <div className="max-w-full w-full sm:w-[539px]">
-                    <div className="flex gap-5 flex-col sm:flex-row max-md:flex-col max-md:gap-0">
-                      <div className="flex flex-col w-full sm:items-center sm:w-[36%] max-md:ml-0 max-md:w-full">
-                        <label className="rounded-full border-2  aspect-square w-full max-w-[178px] max-md:mt-10">
-                          <img
-                            loading="lazy"
-                            srcSet={
-                              imagePreview ? imagePreview : defaultImageSrcSet
-                            }
-                            className="rounded-full border-2 aspect-square w-full max-w-[178px]"
-                          />
-                        </label>
-                      </div>
+                <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
+  <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+    <img
+      loading="lazy"
+      srcSet={imagePreview ? imagePreview : defaultImageSrcSet}
+      className="self-center max-w-full rounded-full aspect-square w-[178px]"
+    />
+    
+    <div className="self-center mt-4 text-3xl font-bold text-black whitespace-nowrap">
+      Photo de profile
+    </div>
 
-                      <div className="flex flex-col ml-0 sm:ml-5 w-full sm:w-[64%] max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col self-stretch my-auto max-md:mt-10">
-                          <div className="text-3xl  font-bold text-black">
-                            Photo de profil
-                          </div>
-                          <div className="flex gap-4 justify-between mt-4">
-                            <div className="flex gap-2 justify-between px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                className="w-6 aspect-square fill-white"
-                              />
-                              <label>
-                                {" "}
-                                <input
-                                  type="file"
-                                  name="image"
-                                  onChange={handleFileChange}
-                                  className="grow my-auto w-2 inset-0 opacity-0"
-                                />
-                                Importer une photo
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    <label className="flex flex-col items-center"> {/* Center the label section */}
+      <div className="flex gap-2 justify-center self-center px-8 py-2 mt-4 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
+        {" "}<img
+          loading="lazy"
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+          className="w-6 aspect-square fill-white"
+        />
+        <input
+          type="file"
+          name="image"
+          onChange={handleFileChange}
+          className="grow my-auto opacity-0"
+        />
+        Importer une photo
+      </div>
+    </label>
+    
+    
+  </div>
+</div>
                 {/* nom */}
                 <div className="mt-8 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
@@ -6452,7 +6440,7 @@ const handleCountryCoachEA = (selectedOption) => {
                 <div className="mt-8 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
+                    <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
                           <img
                             loading="lazy"
@@ -6461,52 +6449,8 @@ const handleCountryCoachEA = (selectedOption) => {
                           />{" "}
                           <div className="grow">N° Whatsapp</div>
                         </div>{" "}
-                        {/* <div className="flex gap-6 justify-between mt-2 text-base">
-                          <Select
-                            styles={{
-                              control: (provided, state) => ({
-                                ...provided,
-                                borderRadius: "0.375rem", // You can adjust the radius as needed
-                                display: "flex",
-                                justifyContent: "center",
-                                borderRadius: "30px",
-
-                                width: "135px",
-                                fontSize: "1rem", // Set the desired font size
-                                backgroundColor: "#f5f5f5", // Set the background color
-                                borderWidth: "none",
-                              }),
-                            }}
-                            className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
-                            options={optionsphoneWS}
-                            value={selectedCountryphoneWS}
-                            onChange={handleChangephoneWS}
-                          />{" "}
-                          {selectedCountryphoneWS ? (
-      <div style={{ position: "relative", marginTop: "5px" }}>
-        <input
-          type="number"
-          max={selectedCountryphoneWS.phoneLength}
-          onChange={handleChangePhoneNumberWS}
-          placeholder={`Entrer numero `}
-          value={phoneNumberWS}
-          className={`grow justify-center gap-2 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
-            inputErrors["numWSup"] ? "border-red-500" : ""
-          }`}
-        />
-        {inputErrors["numWSup"] && (
-          <div className="text-red-500 text-sm mt-1">
-            {inputErrors["numWSup"]}
-          </div>
-        )}
-      </div>
-    ) : (
-      <div className="text-red-500 text-sm mt-1">
-        {"Please select a country"}
-      </div>
-    )}
-                        </div> */}
-                        <div className="flex gap-6 justify-between mt-2 text-base">
+                     
+                        <div className="flex gap-2 justify-between mt-2 text-base">
   <Select
     styles={{
       control: (provided, state) => ({
@@ -6515,7 +6459,7 @@ const handleCountryCoachEA = (selectedOption) => {
         display: "flex",
         justifyContent: "center",
         borderRadius: "30px",
-        width: "135px",
+        width: "120px",
         fontSize: "1rem",
         backgroundColor: "#f5f5f5",
         borderWidth: "none",
@@ -6528,16 +6472,15 @@ const handleCountryCoachEA = (selectedOption) => {
     value={selectedCountryphoneWS}
     onChange={handleChangephoneWS}
   />
-  {selectedCountryphoneWS ? (
     <div style={{ position: "relative", marginTop: "5px" }}>
-     <input
+    
+<input
   type="number"
-  // min={selectedCountryphoneWS.phoneLength}
-  max={selectedCountryphoneWS.phoneLength}
+  max={selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0}
   onChange={handleChangePhoneNumberWS}
   placeholder={`Enter number`}
-  value={phoneNumberWS.slice(0, selectedCountryphoneWS.phoneLength)}
-  className={`grow justify-center gap-2 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
+  value={phoneNumberWS.slice(0, selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0)}
+  className={`grow justify-center w-full gap-2 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
     inputErrors["numWSup"] ? "border-red-500" : ""
   }`}
 />
@@ -6548,13 +6491,14 @@ const handleCountryCoachEA = (selectedOption) => {
         </div>
       )}
     </div>
-  ) : (
-    <div className="text-red-500 text-sm mt-1">
+ 
+
+
+<div className="text-red-500 text-sm mt-1">
     {buttonClicked && !selectedCountryphoneWS && (
       "Veuillez sélectionner un pays"
     )}
   </div>
-  )}
 </div>
 
                       </div>
