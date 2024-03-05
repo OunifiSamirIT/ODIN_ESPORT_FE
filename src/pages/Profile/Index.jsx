@@ -1,7 +1,7 @@
 import React, { Component, Fragment, useState, useRef, useEffect } from "react";
 import Header from '../../components/Header';
 import Terrain from "../../components/Terrain";
-import ProfileLayout from "./Layout/ProfileLayout";
+import ProfileLayout from "../../Layout/ProfileLayout";
 import UserProfile from "../../assets/Profile_Picture.png"
 
 import { useForm } from "react-hook-form";
@@ -821,20 +821,6 @@ const Index = () => {
 
   return (
     <>
-      <div className="nav-header bg-white shadow-xs border-0">
-
-<div className=" flex justify-between items-center w-full">
-             <Link to="/home"><img src={Logo} className='ml-3 h-28 w-28 '/><span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0"> </span> </Link>
-
-         </div>
-         <SlideMenu setIsActive={setIsActive}/>
-
-
-
-
-
-
-</div>
       <ProfileLayout onChange={handleProfileFeed} user={storedUserData}>
         {profileFeed === 'pubs' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8">
           <div>
@@ -894,9 +880,6 @@ const Index = () => {
                       )}
                     </div>
                   </div>
-
-
-
                   <div className="card-body p-0 me-lg-5">
                     <p className="fw-500 font-thin lh-26 ml-8  rounded-md font-xssss w-100 mb-2 text-dark theme-dark-bg">
                       {article.description}{" "}

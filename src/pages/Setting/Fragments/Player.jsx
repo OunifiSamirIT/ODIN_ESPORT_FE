@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import SettingsLayout from "./Layout/SettingsLayout";
 
-const Player = () => {
+
+const Player = ({ userInfo }) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [imagePreviewlic, setImagePreviewlic] = useState(null);
     const [formData, setFormData] = useState({
@@ -14,65 +14,13 @@ const Player = () => {
         positionSecond: "",
         skillsInProfile: "",
     });
+
     const [errMsg, setErrMsg] = useState("");
-    const [userInfo, setUserInfo] = useState(null);
     const [CurrentUser, setCurrentUser] = useState([]);
     const [PlayerData, setPlyerData] = useState([]);
     const [profile, setUserProfile] = useState([]);
     const [skills, setSkills] = useState([]);
     const [file, setFile] = useState(null);
-    useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const response = await fetch(`https://odine-sport.com/api/player/${storedUserData.id}`);
-                const data = await response.json();
-                setUserInfo(data);
-                console.log("eeeeeeeeeeeeeee", userInfo);
-                setFormData({
-                    height: data.height,
-                    weight: data.weight,
-                    club: data.champsoptionelle,
-                    strongSkill: data.strongSkill,
-                    positionPlay: data.positionPlay,
-                    positionSecond: data.positionSecond,
-                    skillsInProfile: data.skillsInProfile,
-                });
-            } catch (error) {
-                console.error("Error fetching user information:", error);
-            }
-        };
-
-        fetchUserInfo();
-        console.log('this form data', formData)
-    }, [storedUserData.id]);
-    useEffect(() => {
-        fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setCurrentUser(data);
-                fetch(`https://odine-sport.com/api/player/${storedUserData.id}`).then(
-                    (resp) => resp.json()
-                ).then((resp) => {
-                    setFormData({
-                        height: resp.height,
-                        weight: resp.weight,
-                        club: resp.champsoptionelle,
-                        licence: resp.Licence,
-                        strongSkill: resp.strongSkill,
-                        positionPlay: resp.positionPlay,
-                        positionSecond: resp.positionSecond,
-                        skillsInProfile: resp.skillsInProfile,
-                    });
-                    setSkills(resp.skillsInProfile.split(',').filter((items) => {
-                        return items !== ''
-                    }))
-                })
-                setUserProfile(data.profil)
-
-
-            })
-            .catch((error) => console.error(error));
-    }, [])
     const handleInputChange = (e) => {
         setFormData({
             ...formData,
@@ -82,14 +30,14 @@ const Player = () => {
     const handleFileChangeLicense = (event) => {
         const file = event.target.files[0];
         if (file) {
-          // Convert the selected image to a data URL
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setImagePreviewlic(reader.result);
-          };
-          reader.readAsDataURL(file);
+            // Convert the selected image to a data URL
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreviewlic(reader.result);
+            };
+            reader.readAsDataURL(file);
         }
-      };
+    };
     const handleUserUpdate = async (e) => {
         e.preventDefault(); // Prevent the default form submission
 
@@ -106,7 +54,7 @@ const Player = () => {
             formDataToUpdate.append("file", file);
             // Make a PUT request to update the user profile
             const response = await fetch(
-                `https://odine-sport.com/api/player/${storedUserData.id}`,
+                `http://localhost:5000/api/player/${storedUserData.id}`,
                 {
                     method: "PUT",
                     body: formDataToUpdate,
@@ -129,9 +77,45 @@ const Player = () => {
             setErrMsg({ status: "failed", message: "Error updating user profile" });
         }
     };
+
+
+
+    const [selectedSkills , setSelectedSkills] = useState('Négociation,Connaissance approfondie du sport,Réseautage'.split(','))
+    // const [selectedSkills, setSelectedSkills] = useState(['Négociation']);
+
+    const toggleSkill = (skill) => {
+        const skillExists = selectedSkills.includes(skill);
+        if (!skillExists) {
+          const updatedSkills = [...selectedSkills, skill];
+          setSelectedSkills(updatedSkills);
+        } else {
+          const updatedSkills = selectedSkills.filter((selectedSkill) => selectedSkill !== skill);
+          setSelectedSkills(updatedSkills);
+        }
+        console.log(selectedSkills)
+      };
+   
+      const skillsList = [
+        "Rapidité",
+        "Tacle",
+        "Défense",
+        "Tir de loin",
+        "Jeu en une touche",
+        "Rapidité de la prise de décision",
+        "Frappe puissante",
+        "Agilité",
+        "Contrôle du ballon",
+        "Dribble",
+        "Exploitation de l'espace",
+        "Évaluation des risques sur le terrain",
+        "Endurance",
+        "Équilibre et coordination",
+        "Auto-Motivation"
+      ];
+
     return (
         <>
-            <div className="flex flex-col flex-wrap grow gap-y-2 justify-between content-start py-8 pr-4 pl-8 w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+            <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start py-8 pr-4 pl-8 w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
                 <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
                     <div className="lg:flex-1 w-full">
                         <div className="flex gap-4 justify-between px-4">
@@ -181,7 +165,7 @@ const Player = () => {
                         <input name="positionSecond" value={formData.positionSecond} onChange={handleInputChange} className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5" />
                     </div>
                 </div>
-                <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
+                <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-end">
                     <div className="lg:flex-1 w-full">
                         <div className="flex gap-4 justify-between px-4 mt-4">
                             <img
@@ -192,9 +176,8 @@ const Player = () => {
                             <div className="grow">Avez-vous une licence ?</div>
                         </div>
                         <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-
                             <select onChange={handleInputChange} className="flex gap-5 justify-between px-4 py-2 rounded-md" name="licence" id="licence" defaultChecked={formData.licence}>
-                            <option>Select a value</option>
+                                <option>Select a value</option>
                                 <option value="oui">OUI</option>
                                 <option value="non">Non</option>
                             </select>
@@ -203,14 +186,6 @@ const Player = () => {
                     <div className="lg:flex-1 w-full">
                         {formData.licence === 'oui' &&
                             <div>
-                                <div className="flex gap-4 justify-between px-4 mt-4 opacity-0">
-                                    <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/a7a97c9bcd4cc04810a57119703304622116c26ca19187ab06a1368043f945f4?"
-                                        className="my-auto w-5 aspect-square"
-                                    />
-                                    <div className="grow">Avez-vous une licence ?</div>
-                                </div>
                                 <div className="flex gap-4 justify-between mt-4">
                                     <div className="flex gap-2 justify-between px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
                                         <img
@@ -236,14 +211,6 @@ const Player = () => {
                         }
                         {formData.licence === 'non' &&
                             <div>
-                                <div className="flex gap-4 justify-between px-4 mt-4 opacity-0">
-                                    <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/a7a97c9bcd4cc04810a57119703304622116c26ca19187ab06a1368043f945f4?"
-                                        className="my-auto w-5 aspect-square"
-                                    />
-                                    <div className="grow">Avez-vous une licence ?</div>
-                                </div>
                                 <div className="flex gap-4 justify-between mt-4">
                                     <div className="flex gap-2 justify-between px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-gray-300 rounded-[30px] max-md:px-5">
                                         <img
@@ -265,7 +232,6 @@ const Player = () => {
                                 </div>
 
                             </div>
-
                         }
 
 
@@ -283,17 +249,27 @@ const Player = () => {
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
-                    {skills.map((item) => {
-                        return (<div className="flex gap-4 justify-center px-4 py-2 text-lg text-white whitespace-nowrap bg-blue-600 rounded-[30px]">
-                            <div>{item}</div>
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/09ece0a1e3dd80cc0549e668dcc68aa01e293da5831d687f01ce521851e6e78c?"
-                                className="my-auto w-5 aspect-[20]"
-                            />
-                        </div>)
-                    })
-                    }
+                    <div className="form-group icon-input  mb-3">
+                        {skillsList.map((skill,index) => (
+                            <div key={skill} className="form-check rounded-[30px] form-check-inline me-2 mb-2">
+                                <input
+                                    type="checkbox"
+                                    id={'skill' + index}
+                                    name="coachSkillsInProfile"
+                                    checked={selectedSkills.includes(skill)}
+                                    className="form-check-input d-none rounded-[30px] "
+                                    onChange={() => toggleSkill(skill)}
+                                />
+                                <label
+                                    htmlFor={'skill' + index}
+                                    className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : "flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]"
+                                        }`}
+                                >
+                                   <div className="text-[18px] font-light"> {selectedSkills.includes(skill) ? "-" : "+"} {skill} </div> 
+                                </label>
+                            </div>
+                        ))}
+                    </div>
                 </div>
                 <div className="flex gap-5 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
                     <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
