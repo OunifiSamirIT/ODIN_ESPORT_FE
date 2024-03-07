@@ -1001,7 +1001,7 @@ const pays = [
     libelle: "Zimbabwe",
   },
 ];
-const paysAllInfo =[
+const paysAllInfo = [
   {
     name: "Andorre",
     nationalite: "Andorrane",
@@ -1056,7 +1056,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Antigua et Barbuda",
     nationalite: "Antiguayenne",
@@ -1147,7 +1147,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AO.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Argentine",
     nationalite: "Argentine",
@@ -1695,7 +1695,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CA.svg",
     phoneLength: 10,
   },
-  
+
   {
     name: "République démocratique du Congo",
     nationalite: "Congolaise (RDC)",
@@ -1787,7 +1787,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CI.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Chili",
     nationalite: "Chilienne",
@@ -2250,7 +2250,7 @@ const paysAllInfo =[
   },
   {
     name: "îles Malouines",
-    nationalite:"Malouine",
+    nationalite: "Malouine",
     region: "Amérique",
     timezones: {
       "Atlantic/Stanley": "-03:00",
@@ -3088,7 +3088,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KW.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Kazakhstan",
     nationalite: "Kazakhstanais",
@@ -3384,7 +3384,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ME.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Madagascar",
     nationalite: "malgache",
@@ -3495,7 +3495,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MN.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Martinique",
     nationalite: "Martiniquaise",
@@ -3532,7 +3532,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MR.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Malta",
     nationalite: "maltaise",
@@ -3689,7 +3689,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NA.svg",
     phoneLength: 7,
   },
-  
+
   {
     name: "Niger",
     nationalite: "Nigérienne",
@@ -3708,7 +3708,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NE.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Nigéria",
     nationalite: "Nigériane",
@@ -3817,7 +3817,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NR.svg",
     phoneLength: 7,
   },
-  
+
   {
     name: "Nouvelle-Zélande",
     nationalite: "néo-zélandaise",
@@ -3891,7 +3891,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PE.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Papouasie-Nouvelle-Guinée",
     nationalite: "papouasienne",
@@ -3965,8 +3965,8 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PL.svg",
     phoneLength: 9,
   },
-  
-  
+
+
   {
     name: "Poto Rico",
     nationalite: "Américaine",
@@ -4078,7 +4078,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/QA.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Roumanie",
     nationalite: "roumaine",
@@ -4284,7 +4284,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SG.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Slovénie",
     nationalite: "slovène",
@@ -4303,7 +4303,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SI.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Slovaquie",
     nationalite: "slovaque",
@@ -4412,7 +4412,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SR.svg",
     phoneLength: [6, 7],
   },
-  
+
   {
     name: "Sao Tomé-et-Principe",
     nationalite: "santoméenne",
@@ -4449,7 +4449,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SV.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Syrie",
     nationalite: "syrienne",
@@ -4575,7 +4575,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TJ.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Timor oriental",
     nationalite: "timoraise",
@@ -4859,7 +4859,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UZ.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Saint-Vincent-et-les Grenadines",
     nationalite: "vincentaise",
@@ -4896,7 +4896,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VE.svg",
     phoneLength: 7,
   },
-  
+
   {
     name: "Viêt Nam",
     nationalite: "vietnamienne",
@@ -4990,7 +4990,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/YE.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Afrique du Sud",
     nationalite: "Sudafricaine",
@@ -5068,10 +5068,10 @@ function Register() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isUploadEnabled, setUploadEnabled] = useState(false);
-// list pays
-const [selectedCountries, setSelectedCountries] = useState([]);
+  // list pays
+  const [selectedCountries, setSelectedCountries] = useState([]);
 
-  
+
   //modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -5082,15 +5082,15 @@ const [selectedCountries, setSelectedCountries] = useState([]);
   const closeModal = () => {
     setIsModalOpen(false);
   };
- const handleSelection = (selectedValue) => {
-  setFormData({
-    ...formData,
-    Licence: selectedValue,
-  });
-  setUploadEnabled(selectedValue === "Oui");
-  // Clear the image preview when the selection changes
-  setImagePreviewlic(null);
-};
+  const handleSelection = (selectedValue) => {
+    setFormData({
+      ...formData,
+      Licence: selectedValue,
+    });
+    setUploadEnabled(selectedValue === "Oui");
+    // Clear the image preview when the selection changes
+    setImagePreviewlic(null);
+  };
 
   const onSelect = (code) => setSelect(code);
   console.log("SELECT", select);
@@ -5436,59 +5436,59 @@ const [selectedCountries, setSelectedCountries] = useState([]);
       : null;
     console.log("Selected pays club:", selectedValue);
   };
-/////////coach*******************/
-const handleCountryPaysEntrainement = (selectedOptions) => {
-  setSelectedCountries(selectedOptions);
+  /////////coach*******************/
+  const handleCountryPaysEntrainement = (selectedOptions) => {
+    setSelectedCountries(selectedOptions);
 
-  // Update the formData state with the selected countries
-  const selectedCountryLabels = selectedOptions.map(
-    (option) => option.label.props.children[1]
-  );
-  setFormData({
-    ...formData,
-    countryCoachedIn: selectedCountryLabels.join(", "), // Join selected countries as a string
-  });
-};
+    // Update the formData state with the selected countries
+    const selectedCountryLabels = selectedOptions.map(
+      (option) => option.label.props.children[1]
+    );
+    setFormData({
+      ...formData,
+      countryCoachedIn: selectedCountryLabels.join(", "), // Join selected countries as a string
+    });
+  };
 
 
-const MultiValueContainer = ({ children, ...props }) => {
-  return (
-    <components.MultiValueContainer {...props}>
-      {children}
-      {selectedCountries.length > 1 && (
-        <span
-          onClick={() =>
-            setSelectedCountries(
-              selectedCountries.slice(0, selectedCountries.length - 1)
-            )
-          }
-          style={{ cursor: "pointer", marginLeft: "5px" }}
-        >
-         
-        </span>
-      )}
-    </components.MultiValueContainer>
-  );
-};
+  const MultiValueContainer = ({ children, ...props }) => {
+    return (
+      <components.MultiValueContainer {...props}>
+        {children}
+        {selectedCountries.length > 1 && (
+          <span
+            onClick={() =>
+              setSelectedCountries(
+                selectedCountries.slice(0, selectedCountries.length - 1)
+              )
+            }
+            style={{ cursor: "pointer", marginLeft: "5px" }}
+          >
 
-const handleCountryCoachEA = (selectedOption) => {
-  // Update the formData state with the selected nationality
-  setFormData({
-    ...formData,
-    ClubActuelCoach: selectedOption
+          </span>
+        )}
+      </components.MultiValueContainer>
+    );
+  };
+
+  const handleCountryCoachEA = (selectedOption) => {
+    // Update the formData state with the selected nationality
+    setFormData({
+      ...formData,
+      ClubActuelCoach: selectedOption
+        ? selectedOption.label.props.children[1]
+        : "",
+    });
+
+    // Access the nationalite value from the selected option (if needed)
+    const selectedValue = selectedOption
       ? selectedOption.label.props.children[1]
-      : "",
-  });
-
-  // Access the nationalite value from the selected option (if needed)
-  const selectedValue = selectedOption
-    ? selectedOption.label.props.children[1]
-    : null;
-  console.log("Selected Club Actuel :", selectedValue);
-};
+      : null;
+    console.log("Selected Club Actuel :", selectedValue);
+  };
 
 
-////////////////**************** */
+  ////////////////**************** */
   const [selectedCountryphone, setSelectedCountryphone] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -5497,7 +5497,7 @@ const handleCountryCoachEA = (selectedOption) => {
   };
   const handleChangePhoneNumber = (e) => {
     const inputValue = e.target.value;
-  
+
     // Check if the entered value does not exceed the maximum length
     if (inputValue.length <= selectedCountryphone.phoneLength) {
       setPhoneNumber(inputValue);
@@ -5514,7 +5514,7 @@ const handleCountryCoachEA = (selectedOption) => {
       }));
     }
   };
-  
+
 
   const optionsphone = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
@@ -5546,13 +5546,13 @@ const handleCountryCoachEA = (selectedOption) => {
   };
   const handleChangePhoneNumberWS = (e) => {
     const inputValueWS = e.target.value;
-  
+
     setPhoneNumberWS(inputValueWS);
     setFormData((prevFormData) => ({
       ...prevFormData,
       numWSup: inputValueWS,
     }));
-  
+
     // Check if the entered value does not match the expected length
     if (inputValueWS.length !== selectedCountryphoneWS.phoneLength) {
       setInputErrors((prevErrors) => ({
@@ -5566,7 +5566,7 @@ const handleCountryCoachEA = (selectedOption) => {
       }));
     }
   };
-  
+
 
   const optionsphoneWS = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
@@ -5701,7 +5701,7 @@ const handleCountryCoachEA = (selectedOption) => {
 
   const handleagentSkillToggle = (agentSkill) => {
     let updatedSkills = formData.skillsagent.split(",");
-  
+
     if (updatedSkills.includes(agentSkill)) {
       updatedSkills = updatedSkills.filter((s) => s !== agentSkill);
     } else {
@@ -5709,20 +5709,20 @@ const handleCountryCoachEA = (selectedOption) => {
         updatedSkills.push(agentSkill);
       }
     }
-  
+
     setFormData({
       ...formData,
       skillsagent: updatedSkills.join(","), // Correct the property name here
     });
     setagentSkillsError(updatedSkills.length >= 10);
   };
-  
+
 
 
 
   const handleScoutSkillToggle = (scoutSkill) => {
     let updatedSkills = formData.skillsscout.split(",");
-  
+
     if (updatedSkills.includes(scoutSkill)) {
       updatedSkills = updatedSkills.filter((s) => s !== scoutSkill);
     } else {
@@ -5730,14 +5730,14 @@ const handleCountryCoachEA = (selectedOption) => {
         updatedSkills.push(scoutSkill);
       }
     }
-  
+
     setFormData({
       ...formData,
       skillsscout: updatedSkills.join(","), // Correct the property name here
     });
     setScoutSkillsError(updatedSkills.length >= 10);
   };
-  
+
   const isPasswordValid = () => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/;
     return passwordRegex.test(formData.password);
@@ -5882,10 +5882,10 @@ const handleCountryCoachEA = (selectedOption) => {
   const handleNextStep1 = () => {
     // Set initial errors object
     const errors = {};
-  
+
     // Password validation
-    
-  
+
+
     // Required fields for step 1, including password
     const requiredFields = [
       "nom",
@@ -5899,9 +5899,9 @@ const handleCountryCoachEA = (selectedOption) => {
       "numWSup",
       "password",
     ];
-  
+
     let errorFound = false;
-   
+
     // Check if all required fields are filled in
     requiredFields.forEach((field) => {
       if (formData[field] === "") {
@@ -5918,7 +5918,7 @@ const handleCountryCoachEA = (selectedOption) => {
       );
       return;
     }
-  
+
     // Password matching validation
     if (formData.password !== formData.confirmPassword) {
       setValidationError("Les mots de passe ne sont pas identiques !");
@@ -5930,15 +5930,15 @@ const handleCountryCoachEA = (selectedOption) => {
       setButtonClicked(true);
       return;
     }
-  
+
     // Your existing code for setting formData
-  
+
     // Example: Navigate to the next step
     setStep(step + 1);
   };
-  
-  
- 
+
+
+
   const handleNextStep = () => {
     if (!isPasswordValid()) {
       setValidationError(
@@ -5973,11 +5973,11 @@ const handleCountryCoachEA = (selectedOption) => {
       "login",
       "profil",
       "password",
-      
-    ]; 
+
+    ];
 
     const isProfileSelected = selectedProfile !== "";
-    setProfileError(!isProfileSelected); 
+    setProfileError(!isProfileSelected);
 
     const areAllFieldsFilled = requiredFields.every(
       (field) => formData[field] !== ""
@@ -6138,10 +6138,10 @@ const handleCountryCoachEA = (selectedOption) => {
         console.log("Server Response Data:", responseData);
         navigate("/login");
         console.log("User registered successfully!");
-      }   else {
+      } else {
         const errorData = await response.json();
         console.error("Server Error Message:", errorData.message);
-    
+
         // Check for specific error messages related to email or login
         if (errorData.message.includes("Email")) {
           setEmailError("Email is already registered.");
@@ -6159,7 +6159,7 @@ const handleCountryCoachEA = (selectedOption) => {
       }
     } catch (error) {
       console.error("An error occurred:", error);
-    
+
       // Handle generic registration failure
       setEmailError("Registration failed.");
       setLoginError("");
@@ -6168,46 +6168,46 @@ const handleCountryCoachEA = (selectedOption) => {
 
   return (
     <Fragment>
-     <div className="flex flex-col items-center pb-12 bg-slate-200" style={{ margin: 0, padding: 0 }}>
-     <div className="bg-white w-full " >
-            <div className="flex gap-5 justify-between ml-2 py-2 w-full text-base font-medium text-white whitespace-nowrap max-w-[1184px] max-md:flex-wrap max-md:max-w-full">
-           <Link to="/"> <svg width="190" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_983_61844)">
-<path d="M66.8102 14.0668V52.3118H40.5283L38.1046 47.5324L35.7149 42.7481L33.3204 37.9687L30.9307 33.1893L33.3204 28.4099L35.7149 23.6256L38.1046 18.8656L40.5283 14.0668H66.8102ZM42.9034 18.8656L40.5283 23.6256L38.1046 28.4099L35.7149 33.1893L38.1046 37.9687L40.4943 42.7481L42.884 47.5324H62.0066V18.8656H42.9034Z" fill="#2E71EB"/>
-<path d="M26.2965 14.0668L28.6862 18.8462L31.0759 23.6256L33.4656 28.4099L35.8601 33.1893L33.4656 37.9687L31.0759 42.7481L28.6862 47.5324L26.2965 52.3118H0V14.0668H26.2965ZM4.78426 18.8656V47.5518H23.9068L26.2965 42.7675L28.6862 37.9881L31.0759 33.2087L28.6862 28.4292L26.2965 23.645L23.9068 18.8656H4.78426Z" fill="#2E71EB"/>
-<path d="M73.1696 0H68.3369V4.60491H73.1696V0Z" fill="#FF7F00"/>
-<path d="M80.5764 29.1129C79.5627 29.1388 78.5564 28.9332 77.6341 28.5118C76.8426 28.1445 76.1399 27.6104 75.574 26.9461C75.0476 26.3249 74.6342 25.6162 74.3525 24.8521C74.0952 24.1566 73.9591 23.4221 73.9502 22.6805V22.3024C73.9549 21.5218 74.0943 20.7478 74.3622 20.0145C74.6438 19.2285 75.0825 18.508 75.6517 17.8972C76.2209 17.2863 76.9087 16.7978 77.6729 16.4615C79.5284 15.716 81.6002 15.716 83.4557 16.4615C84.2212 16.7958 84.9099 17.2837 85.4794 17.8948C86.0488 18.5059 86.4869 19.2274 86.7664 20.0145C87.0369 20.7471 87.1764 21.5215 87.1784 22.3024V22.6805C87.1719 23.4223 87.0357 24.1572 86.7761 24.8521C86.4981 25.6169 86.0861 26.3259 85.5594 26.9461C84.9926 27.6094 84.2901 28.1433 83.4993 28.5118C82.5834 28.9318 81.5837 29.1374 80.5764 29.1129ZM80.5764 26.8492C81.1679 26.858 81.7546 26.7407 82.2972 26.505C82.7973 26.2807 83.2423 25.9499 83.6011 25.5356C83.9632 25.1296 84.2431 24.6571 84.4252 24.1444C84.6168 23.6145 84.7136 23.055 84.7112 22.4915C84.7169 21.9009 84.6201 21.3137 84.4252 20.7562C84.2474 20.2472 83.9669 19.7803 83.6011 19.3844C83.235 18.9906 82.7887 18.6798 82.2923 18.4731C81.1827 18.0399 79.9507 18.0399 78.8411 18.4731C78.344 18.6811 77.8964 18.9916 77.5275 19.3844C77.1633 19.7815 76.883 20.2481 76.7034 20.7562C76.5102 21.314 76.415 21.9011 76.4223 22.4915C76.4182 23.0547 76.5134 23.6142 76.7034 24.1444C76.8874 24.6562 77.167 25.1283 77.5275 25.5356C77.8898 25.9502 78.3381 26.281 78.8411 26.505C79.3888 26.7407 79.9802 26.858 80.5764 26.8492Z" fill="#2E71EB"/>
-<path d="M89.5293 28.8558V16.1753H91.9529V28.8558H89.5293ZM91.6233 28.8558V26.5921H94.2118C94.8071 26.6017 95.3989 26.4998 95.9568 26.2916C96.4443 26.1054 96.8858 25.816 97.251 25.4433C97.6071 25.0713 97.8841 24.6311 98.0653 24.1491C98.2607 23.6185 98.3576 23.0567 98.3513 22.4913C98.3596 21.9147 98.2627 21.3414 98.0653 20.7996C97.8873 20.3217 97.6098 19.8872 97.251 19.5248C96.8849 19.1624 96.4428 18.8859 95.9568 18.7153C95.3947 18.5266 94.8046 18.4348 94.2118 18.4438H91.6233V16.1753H94.0469C95.0573 16.1518 96.0632 16.3162 97.0135 16.66C97.8063 16.9568 98.5255 17.4215 99.122 18.0221C99.6753 18.5873 100.106 19.2606 100.387 19.9998C100.663 20.7309 100.805 21.5061 100.804 22.2877V22.6658C100.802 23.4282 100.661 24.1839 100.387 24.8955C100.086 25.6646 99.6294 26.363 99.0455 26.9469C98.4615 27.5309 97.7631 27.9877 96.9941 28.2886C96.051 28.6634 95.0421 28.8447 94.0276 28.8218L91.6233 28.8558Z" fill="#2E71EB"/>
-<path d="M103.058 28.7879V16.2626H105.482V28.7879H103.058Z" fill="#2E71EB"/>
-<path d="M108.593 28.7879V16.2626H112.587L117.856 26.7618H118.424L118.079 27.072V16.2626H120.377V28.7879H116.363L111.094 18.2887H110.513L110.857 17.9785V28.7879H108.593Z" fill="#2E71EB"/>
-<path d="M74.687 49.4034V36.8538H77.0767V49.4034H74.687ZM76.7326 38.9332V36.878H82.273V38.9332H76.7326ZM76.7326 44.0665V42.0064H81.9628V44.0665H76.7326ZM76.7326 49.3985V47.319H82.4087V49.4034L76.7326 49.3985Z" fill="#2E71EB"/>
-<path d="M89.0832 49.704C88.1201 49.7321 87.1624 49.5502 86.2767 49.1708C85.5699 48.8618 84.9661 48.3573 84.5365 47.7166C84.1341 47.0841 83.9252 46.3479 83.9354 45.5984H86.3203C86.3229 45.9406 86.4184 46.2756 86.5966 46.5678C86.8049 46.9077 87.113 47.1752 87.4788 47.3337C87.9858 47.5471 88.5336 47.6464 89.0832 47.6245C89.593 47.6394 90.1007 47.5521 90.5762 47.3676C90.9316 47.2302 91.2409 46.9949 91.4681 46.689C91.6655 46.4049 91.7674 46.0654 91.7589 45.7195C91.7625 45.5075 91.7129 45.2979 91.6147 45.11C91.5165 44.922 91.3728 44.7616 91.1967 44.6434C90.6638 44.3363 90.0617 44.1695 89.4468 44.1587L88.3465 44.0715C87.2896 44.0281 86.2777 43.6322 85.472 42.9469C85.1172 42.6235 84.8375 42.2264 84.6525 41.7834C84.4674 41.3405 84.3815 40.8624 84.4008 40.3827C84.3758 39.6661 84.568 38.9587 84.952 38.3533C85.3361 37.7478 85.8941 37.2725 86.553 36.9896C87.3205 36.668 88.1444 36.5024 88.9766 36.5024C89.8088 36.5024 90.6327 36.668 91.4002 36.9896C92.0543 37.2929 92.6078 37.7774 92.995 38.3856C93.3835 39.0244 93.5804 39.7613 93.5621 40.5087H91.1772C91.1825 40.1693 91.0971 39.8347 90.93 39.5393C90.7539 39.2415 90.499 38.9983 90.1933 38.8364C89.8068 38.6448 89.3785 38.5531 88.9475 38.5698C88.5335 38.5566 88.122 38.6396 87.7454 38.8122C87.4463 38.9534 87.1952 39.1793 87.0231 39.4617C86.8653 39.7323 86.7833 40.0404 86.7856 40.3536C86.7843 40.544 86.8213 40.7327 86.8946 40.9085C86.9679 41.0842 87.0759 41.2434 87.2122 41.3764C87.5913 41.6965 88.0733 41.8687 88.5694 41.8611L89.6698 41.9629C90.4786 42.0154 91.2723 42.2072 92.0158 42.53C92.6435 42.7983 93.1865 43.2323 93.5864 43.7855C93.9697 44.3452 94.165 45.0124 94.1438 45.6905C94.1581 46.4321 93.9431 47.16 93.5282 47.7748C93.0875 48.399 92.4767 48.8836 91.7686 49.1708C90.9204 49.5337 90.0057 49.7153 89.0832 49.704Z" fill="#2E71EB"/>
-<path d="M96.3784 49.4035V36.8005H98.8021V49.4035H96.3784ZM98.4676 45.5596V43.4462H100.891C101.325 43.4597 101.754 43.3595 102.137 43.1553C102.467 42.9683 102.735 42.6885 102.908 42.3507C103.083 41.9802 103.174 41.5754 103.174 41.1655C103.174 40.7556 103.083 40.3508 102.908 39.9804C102.735 39.6449 102.467 39.3682 102.137 39.1854C101.753 38.985 101.324 38.8866 100.891 38.8994H98.4676V36.7908H100.702C101.623 36.7642 102.537 36.9396 103.383 37.3047C104.08 37.6085 104.669 38.1152 105.074 38.7588C105.475 39.4412 105.676 40.2219 105.656 41.0128V41.2891C105.676 42.08 105.475 42.8607 105.074 43.5431C104.671 44.1938 104.082 44.7087 103.383 45.0215C102.539 45.3925 101.623 45.5713 100.702 45.545L98.4676 45.5596Z" fill="#2E71EB"/>
-<path d="M113.552 49.7039C112.539 49.7274 111.533 49.522 110.61 49.1028C109.819 48.7321 109.117 48.1967 108.55 47.5323C108.021 46.9125 107.608 46.2034 107.328 45.4383C107.07 44.7429 106.934 44.0083 106.926 43.2667V42.8935C106.93 42.1112 107.069 41.3355 107.338 40.6007C107.614 39.8374 108.037 39.1358 108.584 38.5358C109.159 37.8995 109.863 37.3923 110.648 37.0477C112.504 36.3021 114.576 36.3021 116.431 37.0477C117.196 37.3837 117.884 37.8721 118.453 38.483C119.022 39.094 119.461 39.8145 119.742 40.6007C120.013 41.3348 120.152 42.111 120.154 42.8935V43.2667C120.148 44.0085 120.012 44.7435 119.752 45.4383C119.476 46.2041 119.064 46.9135 118.535 47.5323C117.967 48.1956 117.265 48.7309 116.475 49.1028C115.558 49.5206 114.559 49.726 113.552 49.7039ZM113.552 47.4402C114.144 47.449 114.73 47.3317 115.273 47.0961C115.773 46.8715 116.218 46.5407 116.577 46.1266C116.939 45.7224 117.219 45.2515 117.401 44.7403C117.592 44.2086 117.689 43.6476 117.687 43.0825C117.693 42.4934 117.596 41.9078 117.401 41.352C117.223 40.8416 116.943 40.3731 116.577 39.9754C116.21 39.5831 115.764 39.274 115.268 39.069C114.158 38.6358 112.926 38.6358 111.817 39.069C111.32 39.2751 110.872 39.584 110.503 39.9754C110.139 40.3743 109.858 40.8425 109.679 41.352C109.485 41.9081 109.39 42.4937 109.398 43.0825C109.394 43.6473 109.489 44.2083 109.679 44.7403C109.863 45.2506 110.143 45.7212 110.503 46.1266C110.866 46.5409 111.314 46.8716 111.817 47.0961C112.363 47.3401 112.954 47.4656 113.552 47.4645V47.4402Z" fill="#2E71EB"/>
-<path d="M122.505 49.4035V36.8005H124.929V49.4035H122.505ZM124.221 45.2154V43.2426H127.411C127.815 43.2537 128.214 43.1584 128.569 42.9663C128.893 42.7876 129.159 42.5202 129.335 42.1956C129.523 41.8476 129.619 41.4569 129.611 41.0613C129.619 40.661 129.524 40.2655 129.335 39.9125C129.159 39.5879 128.893 39.3204 128.569 39.1418C128.214 38.9497 127.815 38.8544 127.411 38.8655H124.221V36.7909H127.154C128.047 36.7714 128.935 36.9227 129.771 37.2368C130.468 37.5004 131.064 37.9749 131.478 38.594C131.9 39.2768 132.109 40.07 132.079 40.8723V41.1486C132.111 41.9532 131.9 42.749 131.473 43.4316C131.049 44.0382 130.453 44.504 129.762 44.7695C128.929 45.0839 128.044 45.2353 127.154 45.2154H124.221ZM130.159 49.4035L126.325 43.9212H129.054L133.005 49.4035H130.159Z" fill="#2E71EB"/>
-<path d="M133.382 38.9963V36.8538H143.077V38.9963H133.382ZM136.989 49.4034V38.6521H139.412V49.4034H136.989Z" fill="#2E71EB"/>
-<rect x="148.288" y="33.7975" width="60.3486" height="18.1507" rx="4.48373" stroke="#0D055B" stroke-width="0.727092"/>
-<path d="M169.267 46.5707C168.724 46.5707 168.247 46.4505 167.836 46.2101C167.433 45.9696 167.115 45.6323 166.882 45.1979C166.657 44.7636 166.537 44.2634 166.521 43.6972H166.789V46.3729H166.091V37.8805H166.963V42.1267L166.626 42.9062C166.641 42.2857 166.766 41.7622 166.998 41.3356C167.239 40.9013 167.557 40.5717 167.952 40.3468C168.355 40.1219 168.813 40.0094 169.325 40.0094C169.775 40.0094 170.182 40.0947 170.546 40.2654C170.911 40.436 171.221 40.6686 171.477 40.9634C171.741 41.2581 171.939 41.5993 172.07 41.9871C172.21 42.3671 172.28 42.7704 172.28 43.197V43.3599C172.28 43.7787 172.21 44.182 172.07 44.5697C171.931 44.9498 171.729 45.291 171.466 45.5935C171.21 45.896 170.895 46.1364 170.523 46.3148C170.151 46.4854 169.732 46.5707 169.267 46.5707ZM169.174 45.8029C169.639 45.8029 170.038 45.6904 170.372 45.4655C170.705 45.2406 170.961 44.9381 171.14 44.5581C171.318 44.1781 171.407 43.7515 171.407 43.2784C171.407 42.7976 171.314 42.371 171.128 41.9987C170.95 41.6187 170.69 41.3201 170.349 41.103C170.015 40.8858 169.624 40.7772 169.174 40.7772C168.755 40.7772 168.375 40.8703 168.034 41.0564C167.692 41.2426 167.421 41.5063 167.219 41.8475C167.025 42.181 166.928 42.5765 166.928 43.0341V43.6042C166.928 44.0385 167.025 44.4224 167.219 44.7559C167.421 45.0816 167.692 45.3375 168.034 45.5237C168.375 45.7098 168.755 45.8029 169.174 45.8029ZM176.614 46.5707C176.087 46.5707 175.629 46.4815 175.242 46.3031C174.854 46.117 174.536 45.8727 174.288 45.5702C174.04 45.26 173.853 44.9149 173.729 44.5348C173.613 44.1548 173.555 43.7632 173.555 43.3599V43.197C173.555 42.8015 173.613 42.4137 173.729 42.0336C173.853 41.6536 174.04 41.3124 174.288 41.0099C174.536 40.7074 174.846 40.467 175.218 40.2886C175.598 40.1025 176.04 40.0094 176.545 40.0094C177.188 40.0094 177.723 40.1529 178.15 40.4399C178.584 40.7268 178.91 41.0952 179.127 41.545C179.344 41.9871 179.453 42.4641 179.453 42.976V43.4297H173.95V42.7549H178.848L178.627 43.0923C178.627 42.6347 178.546 42.2353 178.383 41.894C178.228 41.545 177.995 41.2736 177.685 41.0797C177.382 40.8781 177.002 40.7772 176.545 40.7772C176.064 40.7772 175.664 40.8897 175.346 41.1146C175.028 41.3395 174.788 41.6381 174.625 42.0104C174.47 42.3826 174.392 42.8053 174.392 43.2784C174.392 43.7438 174.47 44.1703 174.625 44.5581C174.788 44.9381 175.032 45.2406 175.358 45.4655C175.691 45.6904 176.11 45.8029 176.614 45.8029C177.15 45.8029 177.584 45.6827 177.917 45.4422C178.251 45.1941 178.456 44.9032 178.534 44.5697H179.348C179.271 44.9808 179.108 45.3375 178.86 45.64C178.611 45.9347 178.297 46.1635 177.917 46.3264C177.537 46.4893 177.103 46.5707 176.614 46.5707ZM183.366 46.4427C182.94 46.4427 182.571 46.3807 182.261 46.2566C181.951 46.1325 181.71 45.9231 181.54 45.6284C181.369 45.3259 181.284 44.9226 181.284 44.4185V38.276H182.121V44.5465C182.121 44.9032 182.218 45.1786 182.412 45.3724C182.606 45.5586 182.881 45.6516 183.238 45.6516H184.343V46.4427H183.366ZM180.179 40.8819V40.2188H184.343V40.8819H180.179ZM189.752 46.3729V44.5232H189.613V42.3361C189.613 41.8785 189.493 41.5295 189.252 41.2891C189.012 41.0409 188.639 40.9168 188.135 40.9168C187.903 40.9168 187.666 40.9207 187.426 40.9285C187.193 40.9362 186.968 40.9479 186.751 40.9634C186.541 40.9711 186.355 40.9828 186.192 40.9983V40.2305C186.363 40.2149 186.538 40.1994 186.716 40.1839C186.894 40.1684 187.077 40.1607 187.263 40.1607C187.457 40.1529 187.643 40.149 187.821 40.149C188.449 40.149 188.953 40.2266 189.334 40.3817C189.721 40.5368 190.004 40.7811 190.183 41.1146C190.361 41.4403 190.45 41.8747 190.45 42.4175V46.3729H189.752ZM187.67 46.5358C187.236 46.5358 186.852 46.4582 186.518 46.3031C186.185 46.148 185.925 45.9231 185.739 45.6284C185.56 45.3337 185.471 44.9769 185.471 44.5581C185.471 44.1471 185.564 43.7981 185.75 43.5111C185.944 43.2241 186.22 43.007 186.576 42.8596C186.941 42.7045 187.379 42.6269 187.891 42.6269H189.694V43.2901H187.833C187.344 43.2901 186.968 43.4103 186.704 43.6507C186.448 43.8834 186.32 44.1897 186.32 44.5697C186.32 44.9575 186.456 45.2677 186.728 45.5004C186.999 45.7253 187.367 45.8378 187.833 45.8378C188.12 45.8378 188.395 45.7874 188.659 45.6866C188.922 45.578 189.143 45.3996 189.322 45.1514C189.5 44.8955 189.597 44.5465 189.613 44.1044L189.869 44.465C189.838 44.9226 189.729 45.3065 189.543 45.6167C189.357 45.9192 189.105 46.148 188.787 46.3031C188.469 46.4582 188.096 46.5358 187.67 46.5358Z" fill="#0D055B"/>
-</g>
-<defs>
-<clipPath id="clip0_983_61844">
-<rect width="209" height="52.3118" fill="white"/>
-</clipPath>
-</defs>
-</svg></Link>
+      <div className="flex flex-col items-center pb-12 bg-slate-200" style={{ margin: 0, padding: 0 }}>
+        <div className="bg-white w-full " >
+          <div className="flex gap-5 justify-between ml-2 py-2 w-full text-base font-medium text-white whitespace-nowrap max-w-[1184px] max-md:flex-wrap max-md:max-w-full">
+            <Link to="/"> <svg width="190" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_983_61844)">
+                <path d="M66.8102 14.0668V52.3118H40.5283L38.1046 47.5324L35.7149 42.7481L33.3204 37.9687L30.9307 33.1893L33.3204 28.4099L35.7149 23.6256L38.1046 18.8656L40.5283 14.0668H66.8102ZM42.9034 18.8656L40.5283 23.6256L38.1046 28.4099L35.7149 33.1893L38.1046 37.9687L40.4943 42.7481L42.884 47.5324H62.0066V18.8656H42.9034Z" fill="#2E71EB" />
+                <path d="M26.2965 14.0668L28.6862 18.8462L31.0759 23.6256L33.4656 28.4099L35.8601 33.1893L33.4656 37.9687L31.0759 42.7481L28.6862 47.5324L26.2965 52.3118H0V14.0668H26.2965ZM4.78426 18.8656V47.5518H23.9068L26.2965 42.7675L28.6862 37.9881L31.0759 33.2087L28.6862 28.4292L26.2965 23.645L23.9068 18.8656H4.78426Z" fill="#2E71EB" />
+                <path d="M73.1696 0H68.3369V4.60491H73.1696V0Z" fill="#FF7F00" />
+                <path d="M80.5764 29.1129C79.5627 29.1388 78.5564 28.9332 77.6341 28.5118C76.8426 28.1445 76.1399 27.6104 75.574 26.9461C75.0476 26.3249 74.6342 25.6162 74.3525 24.8521C74.0952 24.1566 73.9591 23.4221 73.9502 22.6805V22.3024C73.9549 21.5218 74.0943 20.7478 74.3622 20.0145C74.6438 19.2285 75.0825 18.508 75.6517 17.8972C76.2209 17.2863 76.9087 16.7978 77.6729 16.4615C79.5284 15.716 81.6002 15.716 83.4557 16.4615C84.2212 16.7958 84.9099 17.2837 85.4794 17.8948C86.0488 18.5059 86.4869 19.2274 86.7664 20.0145C87.0369 20.7471 87.1764 21.5215 87.1784 22.3024V22.6805C87.1719 23.4223 87.0357 24.1572 86.7761 24.8521C86.4981 25.6169 86.0861 26.3259 85.5594 26.9461C84.9926 27.6094 84.2901 28.1433 83.4993 28.5118C82.5834 28.9318 81.5837 29.1374 80.5764 29.1129ZM80.5764 26.8492C81.1679 26.858 81.7546 26.7407 82.2972 26.505C82.7973 26.2807 83.2423 25.9499 83.6011 25.5356C83.9632 25.1296 84.2431 24.6571 84.4252 24.1444C84.6168 23.6145 84.7136 23.055 84.7112 22.4915C84.7169 21.9009 84.6201 21.3137 84.4252 20.7562C84.2474 20.2472 83.9669 19.7803 83.6011 19.3844C83.235 18.9906 82.7887 18.6798 82.2923 18.4731C81.1827 18.0399 79.9507 18.0399 78.8411 18.4731C78.344 18.6811 77.8964 18.9916 77.5275 19.3844C77.1633 19.7815 76.883 20.2481 76.7034 20.7562C76.5102 21.314 76.415 21.9011 76.4223 22.4915C76.4182 23.0547 76.5134 23.6142 76.7034 24.1444C76.8874 24.6562 77.167 25.1283 77.5275 25.5356C77.8898 25.9502 78.3381 26.281 78.8411 26.505C79.3888 26.7407 79.9802 26.858 80.5764 26.8492Z" fill="#2E71EB" />
+                <path d="M89.5293 28.8558V16.1753H91.9529V28.8558H89.5293ZM91.6233 28.8558V26.5921H94.2118C94.8071 26.6017 95.3989 26.4998 95.9568 26.2916C96.4443 26.1054 96.8858 25.816 97.251 25.4433C97.6071 25.0713 97.8841 24.6311 98.0653 24.1491C98.2607 23.6185 98.3576 23.0567 98.3513 22.4913C98.3596 21.9147 98.2627 21.3414 98.0653 20.7996C97.8873 20.3217 97.6098 19.8872 97.251 19.5248C96.8849 19.1624 96.4428 18.8859 95.9568 18.7153C95.3947 18.5266 94.8046 18.4348 94.2118 18.4438H91.6233V16.1753H94.0469C95.0573 16.1518 96.0632 16.3162 97.0135 16.66C97.8063 16.9568 98.5255 17.4215 99.122 18.0221C99.6753 18.5873 100.106 19.2606 100.387 19.9998C100.663 20.7309 100.805 21.5061 100.804 22.2877V22.6658C100.802 23.4282 100.661 24.1839 100.387 24.8955C100.086 25.6646 99.6294 26.363 99.0455 26.9469C98.4615 27.5309 97.7631 27.9877 96.9941 28.2886C96.051 28.6634 95.0421 28.8447 94.0276 28.8218L91.6233 28.8558Z" fill="#2E71EB" />
+                <path d="M103.058 28.7879V16.2626H105.482V28.7879H103.058Z" fill="#2E71EB" />
+                <path d="M108.593 28.7879V16.2626H112.587L117.856 26.7618H118.424L118.079 27.072V16.2626H120.377V28.7879H116.363L111.094 18.2887H110.513L110.857 17.9785V28.7879H108.593Z" fill="#2E71EB" />
+                <path d="M74.687 49.4034V36.8538H77.0767V49.4034H74.687ZM76.7326 38.9332V36.878H82.273V38.9332H76.7326ZM76.7326 44.0665V42.0064H81.9628V44.0665H76.7326ZM76.7326 49.3985V47.319H82.4087V49.4034L76.7326 49.3985Z" fill="#2E71EB" />
+                <path d="M89.0832 49.704C88.1201 49.7321 87.1624 49.5502 86.2767 49.1708C85.5699 48.8618 84.9661 48.3573 84.5365 47.7166C84.1341 47.0841 83.9252 46.3479 83.9354 45.5984H86.3203C86.3229 45.9406 86.4184 46.2756 86.5966 46.5678C86.8049 46.9077 87.113 47.1752 87.4788 47.3337C87.9858 47.5471 88.5336 47.6464 89.0832 47.6245C89.593 47.6394 90.1007 47.5521 90.5762 47.3676C90.9316 47.2302 91.2409 46.9949 91.4681 46.689C91.6655 46.4049 91.7674 46.0654 91.7589 45.7195C91.7625 45.5075 91.7129 45.2979 91.6147 45.11C91.5165 44.922 91.3728 44.7616 91.1967 44.6434C90.6638 44.3363 90.0617 44.1695 89.4468 44.1587L88.3465 44.0715C87.2896 44.0281 86.2777 43.6322 85.472 42.9469C85.1172 42.6235 84.8375 42.2264 84.6525 41.7834C84.4674 41.3405 84.3815 40.8624 84.4008 40.3827C84.3758 39.6661 84.568 38.9587 84.952 38.3533C85.3361 37.7478 85.8941 37.2725 86.553 36.9896C87.3205 36.668 88.1444 36.5024 88.9766 36.5024C89.8088 36.5024 90.6327 36.668 91.4002 36.9896C92.0543 37.2929 92.6078 37.7774 92.995 38.3856C93.3835 39.0244 93.5804 39.7613 93.5621 40.5087H91.1772C91.1825 40.1693 91.0971 39.8347 90.93 39.5393C90.7539 39.2415 90.499 38.9983 90.1933 38.8364C89.8068 38.6448 89.3785 38.5531 88.9475 38.5698C88.5335 38.5566 88.122 38.6396 87.7454 38.8122C87.4463 38.9534 87.1952 39.1793 87.0231 39.4617C86.8653 39.7323 86.7833 40.0404 86.7856 40.3536C86.7843 40.544 86.8213 40.7327 86.8946 40.9085C86.9679 41.0842 87.0759 41.2434 87.2122 41.3764C87.5913 41.6965 88.0733 41.8687 88.5694 41.8611L89.6698 41.9629C90.4786 42.0154 91.2723 42.2072 92.0158 42.53C92.6435 42.7983 93.1865 43.2323 93.5864 43.7855C93.9697 44.3452 94.165 45.0124 94.1438 45.6905C94.1581 46.4321 93.9431 47.16 93.5282 47.7748C93.0875 48.399 92.4767 48.8836 91.7686 49.1708C90.9204 49.5337 90.0057 49.7153 89.0832 49.704Z" fill="#2E71EB" />
+                <path d="M96.3784 49.4035V36.8005H98.8021V49.4035H96.3784ZM98.4676 45.5596V43.4462H100.891C101.325 43.4597 101.754 43.3595 102.137 43.1553C102.467 42.9683 102.735 42.6885 102.908 42.3507C103.083 41.9802 103.174 41.5754 103.174 41.1655C103.174 40.7556 103.083 40.3508 102.908 39.9804C102.735 39.6449 102.467 39.3682 102.137 39.1854C101.753 38.985 101.324 38.8866 100.891 38.8994H98.4676V36.7908H100.702C101.623 36.7642 102.537 36.9396 103.383 37.3047C104.08 37.6085 104.669 38.1152 105.074 38.7588C105.475 39.4412 105.676 40.2219 105.656 41.0128V41.2891C105.676 42.08 105.475 42.8607 105.074 43.5431C104.671 44.1938 104.082 44.7087 103.383 45.0215C102.539 45.3925 101.623 45.5713 100.702 45.545L98.4676 45.5596Z" fill="#2E71EB" />
+                <path d="M113.552 49.7039C112.539 49.7274 111.533 49.522 110.61 49.1028C109.819 48.7321 109.117 48.1967 108.55 47.5323C108.021 46.9125 107.608 46.2034 107.328 45.4383C107.07 44.7429 106.934 44.0083 106.926 43.2667V42.8935C106.93 42.1112 107.069 41.3355 107.338 40.6007C107.614 39.8374 108.037 39.1358 108.584 38.5358C109.159 37.8995 109.863 37.3923 110.648 37.0477C112.504 36.3021 114.576 36.3021 116.431 37.0477C117.196 37.3837 117.884 37.8721 118.453 38.483C119.022 39.094 119.461 39.8145 119.742 40.6007C120.013 41.3348 120.152 42.111 120.154 42.8935V43.2667C120.148 44.0085 120.012 44.7435 119.752 45.4383C119.476 46.2041 119.064 46.9135 118.535 47.5323C117.967 48.1956 117.265 48.7309 116.475 49.1028C115.558 49.5206 114.559 49.726 113.552 49.7039ZM113.552 47.4402C114.144 47.449 114.73 47.3317 115.273 47.0961C115.773 46.8715 116.218 46.5407 116.577 46.1266C116.939 45.7224 117.219 45.2515 117.401 44.7403C117.592 44.2086 117.689 43.6476 117.687 43.0825C117.693 42.4934 117.596 41.9078 117.401 41.352C117.223 40.8416 116.943 40.3731 116.577 39.9754C116.21 39.5831 115.764 39.274 115.268 39.069C114.158 38.6358 112.926 38.6358 111.817 39.069C111.32 39.2751 110.872 39.584 110.503 39.9754C110.139 40.3743 109.858 40.8425 109.679 41.352C109.485 41.9081 109.39 42.4937 109.398 43.0825C109.394 43.6473 109.489 44.2083 109.679 44.7403C109.863 45.2506 110.143 45.7212 110.503 46.1266C110.866 46.5409 111.314 46.8716 111.817 47.0961C112.363 47.3401 112.954 47.4656 113.552 47.4645V47.4402Z" fill="#2E71EB" />
+                <path d="M122.505 49.4035V36.8005H124.929V49.4035H122.505ZM124.221 45.2154V43.2426H127.411C127.815 43.2537 128.214 43.1584 128.569 42.9663C128.893 42.7876 129.159 42.5202 129.335 42.1956C129.523 41.8476 129.619 41.4569 129.611 41.0613C129.619 40.661 129.524 40.2655 129.335 39.9125C129.159 39.5879 128.893 39.3204 128.569 39.1418C128.214 38.9497 127.815 38.8544 127.411 38.8655H124.221V36.7909H127.154C128.047 36.7714 128.935 36.9227 129.771 37.2368C130.468 37.5004 131.064 37.9749 131.478 38.594C131.9 39.2768 132.109 40.07 132.079 40.8723V41.1486C132.111 41.9532 131.9 42.749 131.473 43.4316C131.049 44.0382 130.453 44.504 129.762 44.7695C128.929 45.0839 128.044 45.2353 127.154 45.2154H124.221ZM130.159 49.4035L126.325 43.9212H129.054L133.005 49.4035H130.159Z" fill="#2E71EB" />
+                <path d="M133.382 38.9963V36.8538H143.077V38.9963H133.382ZM136.989 49.4034V38.6521H139.412V49.4034H136.989Z" fill="#2E71EB" />
+                <rect x="148.288" y="33.7975" width="60.3486" height="18.1507" rx="4.48373" stroke="#0D055B" stroke-width="0.727092" />
+                <path d="M169.267 46.5707C168.724 46.5707 168.247 46.4505 167.836 46.2101C167.433 45.9696 167.115 45.6323 166.882 45.1979C166.657 44.7636 166.537 44.2634 166.521 43.6972H166.789V46.3729H166.091V37.8805H166.963V42.1267L166.626 42.9062C166.641 42.2857 166.766 41.7622 166.998 41.3356C167.239 40.9013 167.557 40.5717 167.952 40.3468C168.355 40.1219 168.813 40.0094 169.325 40.0094C169.775 40.0094 170.182 40.0947 170.546 40.2654C170.911 40.436 171.221 40.6686 171.477 40.9634C171.741 41.2581 171.939 41.5993 172.07 41.9871C172.21 42.3671 172.28 42.7704 172.28 43.197V43.3599C172.28 43.7787 172.21 44.182 172.07 44.5697C171.931 44.9498 171.729 45.291 171.466 45.5935C171.21 45.896 170.895 46.1364 170.523 46.3148C170.151 46.4854 169.732 46.5707 169.267 46.5707ZM169.174 45.8029C169.639 45.8029 170.038 45.6904 170.372 45.4655C170.705 45.2406 170.961 44.9381 171.14 44.5581C171.318 44.1781 171.407 43.7515 171.407 43.2784C171.407 42.7976 171.314 42.371 171.128 41.9987C170.95 41.6187 170.69 41.3201 170.349 41.103C170.015 40.8858 169.624 40.7772 169.174 40.7772C168.755 40.7772 168.375 40.8703 168.034 41.0564C167.692 41.2426 167.421 41.5063 167.219 41.8475C167.025 42.181 166.928 42.5765 166.928 43.0341V43.6042C166.928 44.0385 167.025 44.4224 167.219 44.7559C167.421 45.0816 167.692 45.3375 168.034 45.5237C168.375 45.7098 168.755 45.8029 169.174 45.8029ZM176.614 46.5707C176.087 46.5707 175.629 46.4815 175.242 46.3031C174.854 46.117 174.536 45.8727 174.288 45.5702C174.04 45.26 173.853 44.9149 173.729 44.5348C173.613 44.1548 173.555 43.7632 173.555 43.3599V43.197C173.555 42.8015 173.613 42.4137 173.729 42.0336C173.853 41.6536 174.04 41.3124 174.288 41.0099C174.536 40.7074 174.846 40.467 175.218 40.2886C175.598 40.1025 176.04 40.0094 176.545 40.0094C177.188 40.0094 177.723 40.1529 178.15 40.4399C178.584 40.7268 178.91 41.0952 179.127 41.545C179.344 41.9871 179.453 42.4641 179.453 42.976V43.4297H173.95V42.7549H178.848L178.627 43.0923C178.627 42.6347 178.546 42.2353 178.383 41.894C178.228 41.545 177.995 41.2736 177.685 41.0797C177.382 40.8781 177.002 40.7772 176.545 40.7772C176.064 40.7772 175.664 40.8897 175.346 41.1146C175.028 41.3395 174.788 41.6381 174.625 42.0104C174.47 42.3826 174.392 42.8053 174.392 43.2784C174.392 43.7438 174.47 44.1703 174.625 44.5581C174.788 44.9381 175.032 45.2406 175.358 45.4655C175.691 45.6904 176.11 45.8029 176.614 45.8029C177.15 45.8029 177.584 45.6827 177.917 45.4422C178.251 45.1941 178.456 44.9032 178.534 44.5697H179.348C179.271 44.9808 179.108 45.3375 178.86 45.64C178.611 45.9347 178.297 46.1635 177.917 46.3264C177.537 46.4893 177.103 46.5707 176.614 46.5707ZM183.366 46.4427C182.94 46.4427 182.571 46.3807 182.261 46.2566C181.951 46.1325 181.71 45.9231 181.54 45.6284C181.369 45.3259 181.284 44.9226 181.284 44.4185V38.276H182.121V44.5465C182.121 44.9032 182.218 45.1786 182.412 45.3724C182.606 45.5586 182.881 45.6516 183.238 45.6516H184.343V46.4427H183.366ZM180.179 40.8819V40.2188H184.343V40.8819H180.179ZM189.752 46.3729V44.5232H189.613V42.3361C189.613 41.8785 189.493 41.5295 189.252 41.2891C189.012 41.0409 188.639 40.9168 188.135 40.9168C187.903 40.9168 187.666 40.9207 187.426 40.9285C187.193 40.9362 186.968 40.9479 186.751 40.9634C186.541 40.9711 186.355 40.9828 186.192 40.9983V40.2305C186.363 40.2149 186.538 40.1994 186.716 40.1839C186.894 40.1684 187.077 40.1607 187.263 40.1607C187.457 40.1529 187.643 40.149 187.821 40.149C188.449 40.149 188.953 40.2266 189.334 40.3817C189.721 40.5368 190.004 40.7811 190.183 41.1146C190.361 41.4403 190.45 41.8747 190.45 42.4175V46.3729H189.752ZM187.67 46.5358C187.236 46.5358 186.852 46.4582 186.518 46.3031C186.185 46.148 185.925 45.9231 185.739 45.6284C185.56 45.3337 185.471 44.9769 185.471 44.5581C185.471 44.1471 185.564 43.7981 185.75 43.5111C185.944 43.2241 186.22 43.007 186.576 42.8596C186.941 42.7045 187.379 42.6269 187.891 42.6269H189.694V43.2901H187.833C187.344 43.2901 186.968 43.4103 186.704 43.6507C186.448 43.8834 186.32 44.1897 186.32 44.5697C186.32 44.9575 186.456 45.2677 186.728 45.5004C186.999 45.7253 187.367 45.8378 187.833 45.8378C188.12 45.8378 188.395 45.7874 188.659 45.6866C188.922 45.578 189.143 45.3996 189.322 45.1514C189.5 44.8955 189.597 44.5465 189.613 44.1044L189.869 44.465C189.838 44.9226 189.729 45.3065 189.543 45.6167C189.357 45.9192 189.105 46.148 188.787 46.3031C188.469 46.4582 188.096 46.5358 187.67 46.5358Z" fill="#0D055B" />
+              </g>
+              <defs>
+                <clipPath id="clip0_983_61844">
+                  <rect width="209" height="52.3118" fill="white" />
+                </clipPath>
+              </defs>
+            </svg></Link>
 
-             <Link to="/login"> <div className="mr-4 py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 rounded-[30px] max-md:px-2">
-                Se connecter
-              </div></Link>
-            </div>
+            <Link to="/login"> <div className="mr-4 py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 rounded-[30px] max-md:px-2">
+              Se connecter
+            </div></Link>
           </div>
-  <form className="w-full h-full sm:w-full  " onSubmit={handleSubmit}>
-    {step === 1 && (
-      <div className="flex flex-wrap gap-y-4 justify-center content-start items-center self-stretch px-2 sm:px-16  w-full max-md:px-5 max-md:max-w-full">
-        
-       <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-          {/* image */}
-         
+        </div>
+        <form className="w-full h-full sm:w-full  " onSubmit={handleSubmit}>
+          {step === 1 && (
+            <div className="flex flex-wrap gap-y-4 justify-center content-start items-center self-stretch px-2 sm:px-16  w-full max-md:px-5 max-md:max-w-full">
+
+              <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                {/* image */}
+
                 <div className="mt-6 md:text-5xl text-3xl text-center font-bold text-zinc-900 max-md:max-w-full">
                   Informations Personelles
                 </div>
@@ -6219,37 +6219,37 @@ const handleCountryCoachEA = (selectedOption) => {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
-  <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-    <img
-      loading="lazy"
-      srcSet={imagePreview ? imagePreview : defaultImageSrcSet}
-      className="self-center max-w-full rounded-full aspect-square w-[178px]"
-    />
-    
-    <div className="self-center mt-4 text-3xl font-bold text-black whitespace-nowrap">
-      Photo de profile
-    </div>
+                  <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                    <img
+                      loading="lazy"
+                      srcSet={imagePreview ? imagePreview : defaultImageSrcSet}
+                      className="self-center max-w-full rounded-full aspect-square w-[178px]"
+                    />
 
-    <label className="flex flex-col items-center"> {/* Center the label section */}
-      <div className="flex gap-2 justify-center self-center px-8 py-2 mt-4 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
-        {" "}<img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-          className="w-6 aspect-square fill-white"
-        />
-        <input
-          type="file"
-          name="image"
-          onChange={handleFileChange}
-          className="grow my-auto opacity-0"
-        />
-        Importer une photo
-      </div>
-    </label>
-    
-    
-  </div>
-</div>
+                    <div className="self-center mt-4 text-3xl font-bold text-black whitespace-nowrap">
+                      Photo de profile
+                    </div>
+
+                    <label className="flex flex-col items-center"> {/* Center the label section */}
+                      <div className="flex gap-2 justify-center self-center px-8 py-2 mt-4 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
+                        {" "}<img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                          className="w-6 aspect-square fill-white"
+                        />
+                        <input
+                          type="file"
+                          name="image"
+                          onChange={handleFileChange}
+                          className="grow my-auto opacity-0"
+                        />
+                        Importer une photo
+                      </div>
+                    </label>
+
+
+                  </div>
+                </div>
                 {/* nom */}
                 <div className="mt-8 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
@@ -6269,9 +6269,8 @@ const handleCountryCoachEA = (selectedOption) => {
                           name="nom"
                           value={formData.nom}
                           onChange={handleInputChange}
-                          className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
-                            inputErrors["nom"] ? "is-invalid" : ""
-                          }`}
+                          className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["nom"] ? "is-invalid" : ""
+                            }`}
                           placeholder="Votre Nom"
                         />
                         {inputErrors["nom"] && (
@@ -6294,9 +6293,8 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className="grow">Prénom</div>
                         </div>
                         <input
-                          className={`form-control  justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
-                            inputErrors["prenom"] ? "is-invalid" : ""
-                          }`}
+                          className={`form-control  justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["prenom"] ? "is-invalid" : ""
+                            }`}
                           type="text"
                           value={formData.prenom}
                           id="prenom"
@@ -6322,22 +6320,21 @@ const handleCountryCoachEA = (selectedOption) => {
                           />
                           <div className="grow">Nom d’utilisateur</div>
                         </div>
-                         <input
-            type="text"
-            value={formData.login}
-            id="login"
-            name="login"
-            className={`form-control flex flex-col justify-center items-start py-3.5 pr-16 pl-4 mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
-              inputErrors["login"] ? "border-red-500" : ""  // Apply a red border if there's an error
-            }`}
-            placeholder="Votre nom utlisateur"
-            onChange={handleInputChange}
-          />
-          {inputErrors["login"] && (
-            <div className="text-red-500 text-sm mt-1">
-              {inputErrors["login"]}
-            </div>
-          )}
+                        <input
+                          type="text"
+                          value={formData.login}
+                          id="login"
+                          name="login"
+                          className={`form-control flex flex-col justify-center items-start py-3.5 pr-16 pl-4 mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["login"] ? "border-red-500" : ""  // Apply a red border if there's an error
+                            }`}
+                          placeholder="Votre nom utlisateur"
+                          onChange={handleInputChange}
+                        />
+                        {inputErrors["login"] && (
+                          <div className="text-red-500 text-sm mt-1">
+                            {inputErrors["login"]}
+                          </div>
+                        )}
 
                       </div>
                     </div>
@@ -6357,17 +6354,16 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className="grow">Email</div>
                         </div>{" "}
                         <input
-  type="email"
-  value={formData.email}
-  id="email"
-  name="email"
-  className={`form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
-    inputErrors["email"] ? "is-invalid" : ""
-  }`}
-  placeholder="Email"
-  onChange={handleInputChange}
-  required
-  />
+                          type="email"
+                          value={formData.email}
+                          id="email"
+                          name="email"
+                          className={`form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["email"] ? "is-invalid" : ""
+                            }`}
+                          placeholder="Email"
+                          onChange={handleInputChange}
+                          required
+                        />
 
                         {inputErrors["email"] && (
                           <div className="invalid-feedback">
@@ -6392,9 +6388,8 @@ const handleCountryCoachEA = (selectedOption) => {
                           value={formData.password}
                           id="password"
                           name="password"
-                          className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
-                            validationError ? "is-invalid" : ""
-                          }`}
+                          className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${validationError ? "is-invalid" : ""
+                            }`}
                           placeholder="Votre Mot de passe "
                           onChange={handleInputChange}
                         />
@@ -6421,9 +6416,8 @@ const handleCountryCoachEA = (selectedOption) => {
                           value={formData.confirmPassword}
                           id="confirmPassword"
                           name="confirmPassword"
-                          className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
-                            validationError ? "is-invalid" : ""
-                          }`}
+                          className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${validationError ? "is-invalid" : ""
+                            }`}
                           placeholder="Confirmer votre mot de passe"
                           onChange={handleInputChange}
                         />
@@ -6440,7 +6434,7 @@ const handleCountryCoachEA = (selectedOption) => {
                 <div className="mt-8 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                    <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
+                      <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
                           <img
                             loading="lazy"
@@ -6449,57 +6443,56 @@ const handleCountryCoachEA = (selectedOption) => {
                           />{" "}
                           <div className="grow">N° Whatsapp</div>
                         </div>{" "}
-                     
+
                         <div className="flex gap-2 justify-between mt-2 text-base">
-  <Select
-    styles={{
-      control: (provided, state) => ({
-        ...provided,
-        borderRadius: "0.375rem",
-        display: "flex",
-        justifyContent: "center",
-        borderRadius: "30px",
-        width: "120px",
-        fontSize: "1rem",
-        backgroundColor: "#f5f5f5",
-        borderWidth: "none",
-      }),
-    }}
-    className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
-    placeholder="Préfixe"
+                          <Select
+                            styles={{
+                              control: (provided, state) => ({
+                                ...provided,
+                                borderRadius: "0.375rem",
+                                display: "flex",
+                                justifyContent: "center",
+                                borderRadius: "30px",
+                                width: "120px",
+                                fontSize: "1rem",
+                                backgroundColor: "#f5f5f5",
+                                borderWidth: "none",
+                              }),
+                            }}
+                            className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
+                            placeholder="Préfixe"
 
-    options={optionsphoneWS}
-    value={selectedCountryphoneWS}
-    onChange={handleChangephoneWS}
-  />
-    <div style={{ position: "relative", marginTop: "5px" }}>
-    
-<input
-  type="number"
-  max={selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0}
-  onChange={handleChangePhoneNumberWS}
-  placeholder={`Enter number`}
-  value={phoneNumberWS.slice(0, selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0)}
-  className={`grow justify-center w-full gap-2 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
-    inputErrors["numWSup"] ? "border-red-500" : ""
-  }`}
-/>
+                            options={optionsphoneWS}
+                            value={selectedCountryphoneWS}
+                            onChange={handleChangephoneWS}
+                          />
+                          <div style={{ position: "relative", marginTop: "5px" }}>
 
-      {inputErrors["numWSup"] && (
-        <div className="text-red-500 text-sm mt-1">
-          {inputErrors["numWSup"]}
-        </div>
-      )}
-    </div>
- 
+                            <input
+                              type="number"
+                              max={selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0}
+                              onChange={handleChangePhoneNumberWS}
+                              placeholder={`Enter number`}
+                              value={phoneNumberWS.slice(0, selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0)}
+                              className={`grow justify-center w-full gap-2 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${inputErrors["numWSup"] ? "border-red-500" : ""
+                                }`}
+                            />
+
+                            {inputErrors["numWSup"] && (
+                              <div className="text-red-500 text-sm mt-1">
+                                {inputErrors["numWSup"]}
+                              </div>
+                            )}
+                          </div>
 
 
-<div className="text-red-500 text-sm mt-1">
-    {buttonClicked && !selectedCountryphoneWS && (
-      "Veuillez sélectionner un pays"
-    )}
-  </div>
-</div>
+
+                          <div className="text-red-500 text-sm mt-1">
+                            {buttonClicked && !selectedCountryphoneWS && (
+                              "Veuillez sélectionner un pays"
+                            )}
+                          </div>
+                        </div>
 
                       </div>
                     </div>{" "}
@@ -6516,45 +6509,44 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className="grow">(Facultative)</div>
                         </div>{" "}
                         <div className="flex gap-2 justify-between mt-2 text-base whitespace-nowrap">
-  <div className="flex gap-1 justify-between mt-3 text-base">
-    <Select
-      styles={{
-        control: (provided, state) => ({
-          ...provided,
-          borderRadius: "0.375rem",
-          display: "flex",
-          justifyContent: "center",
-          borderRadius: "30px",
-          width: "120px",
-          fontSize: "1rem",
-          backgroundColor: "#f5f5f5",
-          borderWidth: "none",
-        }),
-      }}
-      options={optionsphone}
-      value={selectedCountryphone}
-      onChange={handleChangephone}
-      placeholder="Préfixe"
-    />
-  </div>{" "}
- 
-  {selectedCountryphone && (
-    <div style={{ position: "relative", marginTop: "5px" }}>
-      <input
-        type="number"
-        max={selectedCountryphone.phoneLength}
-        onChange={handleChangePhoneNumber}
-        placeholder={`Enter phone number for ${selectedCountryphone.label}`}
-        value={phoneNumber.slice(0, selectedCountryphone.phoneLength)}
-        className={`grow justify-center gap-3 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-5 ${
-          inputErrors["tel"] ? "border-red-500" : ""
-        }`}
-      /> {inputErrors["tel"] && (
-        <div className="text-red-500 text-sm mt-1">{inputErrors["tel"]}</div>
-      )}
-    </div>
-  )}
-</div>
+                          <div className="flex gap-1 justify-between mt-3 text-base">
+                            <Select
+                              styles={{
+                                control: (provided, state) => ({
+                                  ...provided,
+                                  borderRadius: "0.375rem",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  borderRadius: "30px",
+                                  width: "120px",
+                                  fontSize: "1rem",
+                                  backgroundColor: "#f5f5f5",
+                                  borderWidth: "none",
+                                }),
+                              }}
+                              options={optionsphone}
+                              value={selectedCountryphone}
+                              onChange={handleChangephone}
+                              placeholder="Préfixe"
+                            />
+                          </div>{" "}
+
+                          {selectedCountryphone && (
+                            <div style={{ position: "relative", marginTop: "5px" }}>
+                              <input
+                                type="number"
+                                max={selectedCountryphone.phoneLength}
+                                onChange={handleChangePhoneNumber}
+                                placeholder={`Enter phone number for ${selectedCountryphone.label}`}
+                                value={phoneNumber.slice(0, selectedCountryphone.phoneLength)}
+                                className={`grow justify-center gap-3 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-5 ${inputErrors["tel"] ? "border-red-500" : ""
+                                  }`}
+                              /> {inputErrors["tel"] && (
+                                <div className="text-red-500 text-sm mt-1">{inputErrors["tel"]}</div>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>{" "}
                     <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
@@ -6569,7 +6561,7 @@ const handleCountryCoachEA = (selectedOption) => {
                         </div>{" "}
                         <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                           <div className="flex gap-5 justify-between  py-3.5 rounded-md">
-                          <DatePicker
+                            <DatePicker
                               selected={
                                 formData.date_naissance
                                   ? new Date(formData.date_naissance)
@@ -6591,13 +6583,13 @@ const handleCountryCoachEA = (selectedOption) => {
                         </div>
                       </div>
                       {inputErrors.date_naissance && (
-                              <span className="text-red-500 text-sm">
-                                {inputErrors.date_naissance}
-                              </span>
-                            )}
-                    </div> 
+                        <span className="text-red-500 text-sm">
+                          {inputErrors.date_naissance}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                 
+
                 </div>{" "}
                 {/* gender */}
                 <div className="flex gap-5 justify-between mt-8 whitespace-nowrap text-zinc-900 max-md:flex-wrap max-md:max-w-full">
@@ -6615,9 +6607,8 @@ const handleCountryCoachEA = (selectedOption) => {
                         name="gender"
                         value={formData.gender}
                         onChange={handleInputChange}
-                        className={`form-control flex flex-col justify-center pl-3 pt-3 px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
-                          inputErrors["gender"] ? "is-invalid" : ""
-                        }`}
+                        className={`form-control flex flex-col justify-center pl-3 pt-3 px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${inputErrors["gender"] ? "is-invalid" : ""
+                          }`}
                       >
                         <option value="">Votre Sexe</option>
                         <option value="male">Homme</option>
@@ -6643,7 +6634,7 @@ const handleCountryCoachEA = (selectedOption) => {
                     <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                       <div className="flex gap-5 justify-between px-4  w-full rounded-md">
                         <div className="flex gap-5 justify-between">
-                          
+
                           <div className=" flex flex-auto sm:flex-1  ">
                             <Select
                               options={options}
@@ -6669,14 +6660,14 @@ const handleCountryCoachEA = (selectedOption) => {
                               )}
                             />
                           </div>
-                          
+
                         </div>
                       </div>
                     </div>{inputErrors["nationality"] && (
-    <div className="text-red-500 text-sm mt-1">
-      {inputErrors["nationality"]}
-    </div>
-  )}
+                      <div className="text-red-500 text-sm mt-1">
+                        {inputErrors["nationality"]}
+                      </div>
+                    )}
                   </div>{" "}
                   <div className="flex flex-col flex-1">
                     <div className="flex gap-4 justify-between px-4 text-lg">
@@ -6720,16 +6711,16 @@ const handleCountryCoachEA = (selectedOption) => {
                                   option.value === formData.countryresidence
                               )} // Set the value from formData
                             />
-                           
+
                           </div>
                         </div>{" "}
                       </div>
                     </div>
                     {inputErrors["countryresidence"] && (
-          <div className="text-red-500 text-sm mt-1">
-            {inputErrors["countryresidence"]}
-          </div>
-        )}
+                      <div className="text-red-500 text-sm mt-1">
+                        {inputErrors["countryresidence"]}
+                      </div>
+                    )}
                   </div>
                 </div>{" "}
                 {/* ville residence  */}
@@ -6746,9 +6737,8 @@ const handleCountryCoachEA = (selectedOption) => {
                   type="text"
                   name="cityresidence"
                   value={formData.cityresidence}
-                  className={` form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px] max-md:pr-5 ${
-                    inputErrors["cityresidence"] ? "is-invalid" : ""
-                  }`}
+                  className={` form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px] max-md:pr-5 ${inputErrors["cityresidence"] ? "is-invalid" : ""
+                    }`}
                   placeholder="Ville"
                   onChange={handleInputChange}
                 />
@@ -6758,10 +6748,10 @@ const handleCountryCoachEA = (selectedOption) => {
                   </div>
                 )}
                 <div className="flex gap-5 justify-between mt-8 mb-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                <Link to="/"> <div className="flex gap-2 justify-between   px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                   
+                  <Link to="/"> <div className="flex gap-2 justify-between   px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+
                     <div className="grow text-white">Retour</div>
-                  </div>{" "}</Link> 
+                  </div>{" "}</Link>
                   <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                     <button
                       type="button"
@@ -6783,7 +6773,7 @@ const handleCountryCoachEA = (selectedOption) => {
 
           {step === 2 && (
             <div className="flex flex-col items-center pb-12 pl-2 pr-5 bg-gray-200">
-              
+
               <div className="mt-6 text-3xl text-center font-bold text-zinc-900 max-md:max-w-full sm:text-3xl sm:text-center xs:text-2xl">
                 Choisissez Le Type de Profil
               </div>
@@ -6866,7 +6856,7 @@ const handleCountryCoachEA = (selectedOption) => {
                 ))}
                 {profileError && (
                   <div className="text-danger mt-2">
-                    Veuillez choisir un profil s'il vous plait! 
+                    Veuillez choisir un profil s'il vous plait!
                   </div>
                 )}
               </div>
@@ -6877,7 +6867,7 @@ const handleCountryCoachEA = (selectedOption) => {
                     onClick={handlePrevStep}
                     className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5"
                   >
-                    
+
                     <div className="grow text-white">Retour</div>
                   </button>
                   <button
@@ -6886,7 +6876,7 @@ const handleCountryCoachEA = (selectedOption) => {
                     className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
                   >
                     <div>suivant</div>
-                    
+
                   </button>
                 </div>
               </div>
@@ -6897,7 +6887,7 @@ const handleCountryCoachEA = (selectedOption) => {
             <div>
               {formData.profil === "player" && (
                 <div className="flex flex-col items-center pb-12 bg-gray-200">
-                 
+
                   <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
                     <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-700 dark:text-zinc-300">
@@ -6925,14 +6915,13 @@ const handleCountryCoachEA = (selectedOption) => {
                             <div className="grow">Club Actuel</div>
                           </div>
                           <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-                          <input
-                              type="text" 
+                            <input
+                              type="text"
                               id="champsoptionelle"
                               name="champsoptionelle"
                               value={formData.champsoptionelle}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
-                                inputErrors["champsoptionelle"] ? "is-invalid" : ""
-                              }`}
+                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["champsoptionelle"] ? "is-invalid" : ""
+                                }`}
                               placeholder="Club Actuel"
                               onChange={handleInputChange}
                             />
@@ -6958,19 +6947,18 @@ const handleCountryCoachEA = (selectedOption) => {
                               id="height"
                               name="height"
                               value={formData.height}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
-                                inputErrors["height"] ? "is-invalid" : ""
-                              }`}
+                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["height"] ? "is-invalid" : ""
+                                }`}
                               placeholder="Taille (cm)"
                               onChange={handleInputChange}
                             />
-                            
+
                           </div>
                           {heightError && (
-      <div className="text-red-500 mt-2">
-        {heightError}
-      </div>
-    )}
+                            <div className="text-red-500 mt-2">
+                              {heightError}
+                            </div>
+                          )}
                         </div>
                         <div className="flex flex-col flex-1">
                           <div className="flex gap-4 justify-between px-4 text-lg">
@@ -6986,9 +6974,8 @@ const handleCountryCoachEA = (selectedOption) => {
                               id="weight"
                               name="weight"
                               value={formData.weight}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
-                                inputErrors["weight"] ? "is-invalid" : ""
-                              }`}
+                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["weight"] ? "is-invalid" : ""
+                                }`}
                               placeholder="Poids (kg)"
                               onChange={handleInputChange}
                             />
@@ -7015,13 +7002,12 @@ const handleCountryCoachEA = (selectedOption) => {
                               id="PiedFort"
                               name="PiedFort"
                               value={formData.PiedFort}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
-                                inputErrors["PiedFort"] ? "is-invalid" : ""
-                              }`}
+                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["PiedFort"] ? "is-invalid" : ""
+                                }`}
                               onChange={handleInputChange}
                             >
                               <option value="" disabled>
-                                 Pied Fort
+                                Pied Fort
                               </option>
                               <option value="PiedGauche">Pied Gauche</option>
                               <option value="PiedDroit">Pied Droit</option>
@@ -7048,13 +7034,12 @@ const handleCountryCoachEA = (selectedOption) => {
                               id="positionPlay"
                               name="positionPlay"
                               value={formData.positionPlay}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
-                                inputErrors["positionPlay"] ? "is-invalid" : ""
-                              }`}
+                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["positionPlay"] ? "is-invalid" : ""
+                                }`}
                               onChange={handleInputChange}
                             >
                               <option value="" disabled>
-                                 Position principale
+                                Position principale
                               </option>
                               <option value="Gardien de but">
                                 Gardien de but
@@ -7105,19 +7090,14 @@ const handleCountryCoachEA = (selectedOption) => {
                             <div className="grow">Position Secondaire</div>
                           </div>
                           <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                            <select
+                          <select
                               id="positionSecond"
                               name="positionSecond"
-                              value={formData.positionSecond}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
-                                inputErrors["positionSecond"]
-                                  ? "is-invalid"
-                                  : ""
-                              }`}
+                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl }`}
                               onChange={handleInputChange}
                             >
                               <option value="" disabled>
-                              Position Secondaire
+                                Position Secondaire
                               </option>
                               <option value="Gardien de but (GK)">
                                 Gardien de but (GK)
@@ -7173,10 +7153,10 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md">
                               <div className="flex gap-5 justify-between px-4 py-2 rounded-md">
-                              <select onChange={(e) => handleSelection(e.target.value)}>
-  <option value="Non">Non</option>
-  <option value="Oui">Oui</option>
-</select>
+                                <select onChange={(e) => handleSelection(e.target.value)}>
+                                  <option value="Non">Non</option>
+                                  <option value="Oui">Oui</option>
+                                </select>
                                 <img
                                   loading="lazy"
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/7944138cb42d36eaa26fe87e36a49c222df0ff56868a3fd098cd500f6b7965c7?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -7231,7 +7211,7 @@ const handleCountryCoachEA = (selectedOption) => {
                         />
                         <div className="flex-auto">Compétences</div>
                       </div>
-                     
+
                       <div className="form-group icon-input mb-3">
                         {[
                           "Rapidite",
@@ -7267,13 +7247,12 @@ const handleCountryCoachEA = (selectedOption) => {
                             />
                             <label
                               htmlFor={skillsInProfile}
-                              className={`form-check-label btn ${
-                                formData.skillsInProfile
+                              className={`form-check-label btn ${formData.skillsInProfile
                                   .split(",")
                                   .includes(skillsInProfile)
                                   ? "bg-blue-600 text-white" // White text when selected
                                   : "btn-light" // Change this to the color you want before selecting
-                              }`}
+                                }`}
                             >
                               {selectedSkills.includes(skillsInProfile)
                                 ? "-"
@@ -7285,98 +7264,98 @@ const handleCountryCoachEA = (selectedOption) => {
                       </div>
                       {skillsError && (
                         <div className="text-danger mt-2">
-                         Vous pouvez selectionner au maximum 10 compétences !
+                          Vous pouvez selectionner au maximum 10 compétences !
                         </div>
                       )}
 
 
-                     <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
+                      <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                          <div className="flex flex-col sm:flex-row">
+                            <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                              J'accepte les{" "}
+                              <span className="text-blue-600 underline">Termes et Conditions</span>
+                              <span className="text-zinc-900">.</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:order-2">
+                              <label className="mr-2">
+                                <input
+                                  type="radio"
+                                  value="Oui"
+                                  checked={formData.termesConditions === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Oui</span>
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="Non"
+                                  checked={formData.termesConditions === "Non"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Non</span>
+                              </label>
+                            </div>
+                          </div>
 
-  </div>
+                        </div>
 
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
+                        <div className="mt-4">
+                          <label className="block mb-2">
+                            J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                          </label>
+                          <div className="flex flex-col sm:flex-row">
+                            <label className="mr-2">
+                              <input
+                                type="radio"
+                                value="Oui"
+                                checked={formData.partagehorsPL === "Oui"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.value,
+                                  })
+                                }
+                              />
+                              <span className="ml-1">Oui</span>
+                            </label>
+                            <label>
+                              <input
+                                type="radio"
+                                value="Non"
+                                checked={formData.partagehorsPL === "Non"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.value,
+                                  })
+                                }
+                              />
+                              <span className="ml-1">Non</span>
+                            </label>
+                          </div>
+                        </div>
 
-  {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
-  )}
-</div>
+                        {errorMessage && (
+                          <div className="error-message">{errorMessage}</div>
+                        )}
+                      </div>
 
                       <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                      <button
-                    type="button"
-                    onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                        <button
+                          type="button"
+                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -7385,9 +7364,9 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className="grow text-white">Retour</div>
                         </button>
                         <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-         <button type="submit" className="grow">Confirmer</button>
-         
-       </div>
+                          <button type="submit" className="grow">Confirmer</button>
+
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -7396,8 +7375,8 @@ const handleCountryCoachEA = (selectedOption) => {
 
 
 
-{formData.profil === "coach" && (
-  <div className="flex flex-col items-center pb-12 bg-gray-200">
+              {formData.profil === "coach" && (
+                <div className="flex flex-col items-center pb-12 bg-gray-200">
                   {/* <div className="flex gap-5 justify-between py-6 w-full text-base font-medium text-white whitespace-nowrap max-w-[1184px] max-md:flex-wrap max-md:max-w-full">
                     <img
                       loading="lazy"
@@ -7422,23 +7401,23 @@ const handleCountryCoachEA = (selectedOption) => {
                       </div>
                     </div>
                   </div>
- <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
-   <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-     <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-       <div className="flex flex-col flex-1 whitespace-nowrap text-zinc-900">
-         <div className="flex gap-4 justify-between px-4 text-lg">
-           <img
-             loading="lazy"
-             src="https://cdn.builder.io/api/v1/image/assets/TEMP/c6759924d092dd539c2a5e31a573201abbd73cb3b21abd2a1c36c03266185a25?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-             className="self-start w-5 aspect-square"
-           />
-           <div className="grow">Club Actuel</div>
-         </div>
-         <div className="justify-center items-start py-1.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-        
-         
-        
-         <Select
+                  <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
+                    <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                      <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex flex-col flex-1 whitespace-nowrap text-zinc-900">
+                          <div className="flex gap-4 justify-between px-4 text-lg">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/c6759924d092dd539c2a5e31a573201abbd73cb3b21abd2a1c36c03266185a25?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="self-start w-5 aspect-square"
+                            />
+                            <div className="grow">Club Actuel</div>
+                          </div>
+                          <div className="justify-center items-start py-1.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+
+
+
+                            <Select
                               options={optionsPays}
                               placeholder="Select a country"
                               // onChange={(selectedOption) => console.log(selectedOption)}
@@ -7471,89 +7450,87 @@ const handleCountryCoachEA = (selectedOption) => {
                                 {inputErrors["ClubActuelCoach"]}
                               </div>
                             )}
-        
-         </div>
-       </div>
-       <div className="flex flex-col flex-1">
-         <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
-           <img
-             loading="lazy"
-             src="https://cdn.builder.io/api/v1/image/assets/TEMP/266bb942964e742c53f6ca48c049053cbf3cb990338dd01906f5558f218c1b7b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-             className="self-start w-5 aspect-square"
-           />
-           <div className="grow">Nombre de clubs entraînées</div>
-         </div>
-         <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-           <input
-                                type="number"
-                                id="totalTeam"
-                                name="totalTeam"
-                                value={formData.totalTeam}
-                                className={`flex gap-5 justify-between px-4 py-3 rounded-xl bg-zinc-100 ${
-                                  inputErrors["totalTeam"] ? "is-invalid" : ""
+
+                          </div>
+                        </div>
+                        <div className="flex flex-col flex-1">
+                          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/266bb942964e742c53f6ca48c049053cbf3cb990338dd01906f5558f218c1b7b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="self-start w-5 aspect-square"
+                            />
+                            <div className="grow">Nombre de clubs entraînées</div>
+                          </div>
+                          <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <input
+                              type="number"
+                              id="totalTeam"
+                              name="totalTeam"
+                              value={formData.totalTeam}
+                              className={`flex gap-5 justify-between px-4 py-3 rounded-xl bg-zinc-100 ${inputErrors["totalTeam"] ? "is-invalid" : ""
                                 }`}
-                                placeholder="Total Equipes"
-                                onChange={handleInputChange}
-                              />
-                              {inputErrors["totalTeam"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["totalTeam"]}
-                                </div>
-                              )}
-           
-         </div>
-       </div>
-       <div className="flex flex-col flex-1 whitespace-nowrap text-zinc-900">
-         <div className="flex gap-4 justify-between px-4 text-lg">
-           <img
-             loading="lazy"
-             src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ef90a0f4cfe5f2905efbdeddd8db64c65b72d6df992e427f3335ecc4b800002?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-             className="self-start w-5 aspect-square"
-           />
-           <div className="grow">Tactiques préférés</div>
-         </div>
-         <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-           <select
-                                name="footballTactic"
-                                value={formData.footballTactic}
-                                className={`flex gap-5 justify-between px-4 py-2 rounded-xl bg-zinc-100 ${
-                                  inputErrors["footballTactic"]
-                                    ? "is-invalid"
-                                    : ""
+                              placeholder="Total Equipes"
+                              onChange={handleInputChange}
+                            />
+                            {inputErrors["totalTeam"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["totalTeam"]}
+                              </div>
+                            )}
+
+                          </div>
+                        </div>
+                        <div className="flex flex-col flex-1 whitespace-nowrap text-zinc-900">
+                          <div className="flex gap-4 justify-between px-4 text-lg">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ef90a0f4cfe5f2905efbdeddd8db64c65b72d6df992e427f3335ecc4b800002?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="self-start w-5 aspect-square"
+                            />
+                            <div className="grow">Tactiques préférés</div>
+                          </div>
+                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <select
+                              name="footballTactic"
+                              value={formData.footballTactic}
+                              className={`flex gap-5 justify-between px-4 py-2 rounded-xl bg-zinc-100 ${inputErrors["footballTactic"]
+                                  ? "is-invalid"
+                                  : ""
                                 }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                 Tactique préférée
-                                </option>
-                                <option value="4-4-2">4-4-2</option>
-                                <option value="4-3-3">4-3-3</option>
-                                <option value="4-2-3-1">4-2-3-1</option>
-                                <option value="5-3-2">5-3-2</option>
-                                <option value="5-4-1">5-4-1</option>
-                                <option value="catenaccio">3-4-3</option>
-                              </select>
-                              {inputErrors["footballTactic"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["footballTactic"]}
-                                </div>
-                              )}
-         </div>
-       </div>
-     </div>
-     <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-       <img
-         loading="lazy"
-         src="https://cdn.builder.io/api/v1/image/assets/TEMP/ece96b5f61d0b17c400b934b07ea1b22e3a96c08930599d41b7fac9d66b1b647?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-         className="self-start w-5 aspect-square"
-       />
-       <div className="grow max-md:max-w-full">Pays d’entraînement</div>
-     </div>
-     <div className="flex flex-col justify-center px-px mt-2 max-w-full text-base text-white whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[379px]">
-       <div className="flex gap-4 justify-between px-4 py-1.5 rounded-md max-md:flex-wrap max-md:max-w-full">
-        
-         
-       {/* <Select
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                Tactique préférée
+                              </option>
+                              <option value="4-4-2">4-4-2</option>
+                              <option value="4-3-3">4-3-3</option>
+                              <option value="4-2-3-1">4-2-3-1</option>
+                              <option value="5-3-2">5-3-2</option>
+                              <option value="5-4-1">5-4-1</option>
+                              <option value="catenaccio">3-4-3</option>
+                            </select>
+                            {inputErrors["footballTactic"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["footballTactic"]}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/ece96b5f61d0b17c400b934b07ea1b22e3a96c08930599d41b7fac9d66b1b647?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                          className="self-start w-5 aspect-square"
+                        />
+                        <div className="grow max-md:max-w-full">Pays d’entraînement</div>
+                      </div>
+                      <div className="flex flex-col justify-center px-px mt-2 max-w-full text-base text-white whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[379px]">
+                        <div className="flex gap-4 justify-between px-4 py-1.5 rounded-md max-md:flex-wrap max-md:max-w-full">
+
+
+                          {/* <Select
         options={optionsPays}
         placeholder="Select one or more countries"
         isMulti // Enable multiple selection
@@ -7578,68 +7555,68 @@ const handleCountryCoachEA = (selectedOption) => {
         onChange={handleCountryPaysEntrainement}
         value={selectedCountries} // Set the value from component state
       /> */}
-     
-     <Select
-        options={optionsPays}
-        placeholder="Select one or more countries"
-        isMulti // Enable multiple selection
-        components={{ MultiValueContainer }}
-        styles={{
-          control: (provided, state) => ({
-            ...provided,
-            borderRadius: "0.375rem",
-            display: "flex",
-            justifyContent: "center",
-            borderRadius: "30px",
-            width: "110%",
-            color: "black", // Set text color to black
 
-          }),
-          menu: (provided, state) => ({
-            ...provided,
-            width: "150%",
-            color: "black",
-          }),
-        }}
-        onChange={handleCountryPaysEntrainement}
-        value={selectedCountries} // Set the value from component state
-      />
+                          <Select
+                            options={optionsPays}
+                            placeholder="Select one or more countries"
+                            isMulti // Enable multiple selection
+                            components={{ MultiValueContainer }}
+                            styles={{
+                              control: (provided, state) => ({
+                                ...provided,
+                                borderRadius: "0.375rem",
+                                display: "flex",
+                                justifyContent: "center",
+                                borderRadius: "30px",
+                                width: "110%",
+                                color: "black", // Set text color to black
 
-
+                              }),
+                              menu: (provided, state) => ({
+                                ...provided,
+                                width: "150%",
+                                color: "black",
+                              }),
+                            }}
+                            onChange={handleCountryPaysEntrainement}
+                            value={selectedCountries} // Set the value from component state
+                          />
 
 
 
 
 
-       </div>
-     </div>
-     <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
-       <img
-         loading="lazy"
-         src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-         className="self-start w-5 aspect-square"
-       />
-       <div className="flex-auto">Compétences</div>
-     </div>
+
+
+                        </div>
+                      </div>
+                      <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                          className="self-start w-5 aspect-square"
+                        />
+                        <div className="flex-auto">Compétences</div>
+                      </div>
 
 
 
 
-     <div className="form-group icon-input  mb-3">
+                      <div className="form-group icon-input  mb-3">
                         {[
-                           "Connaissance Tactique",
-                           "Competence Technique",
-                           "Leadership",
-                           "Communication",
-                           "Gestion de groupe",
-                           "Analyse",
-                           "Planification",
-                           "Adaptabilité",
-                           "Ethique",
-                           "Connaissance des regles",
-                           "Gestion de stress",
-                           "Developpement individuel",
-                           "Empathie",
+                          "Connaissance Tactique",
+                          "Competence Technique",
+                          "Leadership",
+                          "Communication",
+                          "Gestion de groupe",
+                          "Analyse",
+                          "Planification",
+                          "Adaptabilité",
+                          "Ethique",
+                          "Connaissance des regles",
+                          "Gestion de stress",
+                          "Developpement individuel",
+                          "Empathie",
                           // Add other skills...
                         ].map((coachSkill) => (
                           <div
@@ -7658,30 +7635,28 @@ const handleCountryCoachEA = (selectedOption) => {
                               }
                               className="form-check-input d-none rounded-[30px]"
                             />
-                        <label
-  htmlFor={coachSkill}
-  className={`form-check-label btn ${
-    formData.skills
-      .split(",")
-      .includes(coachSkill) 
-      ? "bg-blue-600 text-white"
-      : "btn-light"
-  } ${
-    !formData.skills
-      .split(",")
-      .includes(coachSkill) &&
-    coachSkillsError
-      ? "border-danger"
-      : ""
-  }`}
->
-  {!formData.skills
-    .split(",")
-    .includes(coachSkill)
-    ? "+" // Display "+" when not selected
-    : "-"}{" "}
-  {coachSkill}
-</label>
+                            <label
+                              htmlFor={coachSkill}
+                              className={`form-check-label btn ${formData.skills
+                                  .split(",")
+                                  .includes(coachSkill)
+                                  ? "bg-blue-600 text-white"
+                                  : "btn-light"
+                                } ${!formData.skills
+                                  .split(",")
+                                  .includes(coachSkill) &&
+                                  coachSkillsError
+                                  ? "border-danger"
+                                  : ""
+                                }`}
+                            >
+                              {!formData.skills
+                                .split(",")
+                                .includes(coachSkill)
+                                ? "+" // Display "+" when not selected
+                                : "-"}{" "}
+                              {coachSkill}
+                            </label>
 
 
                           </div>
@@ -7692,98 +7667,98 @@ const handleCountryCoachEA = (selectedOption) => {
                           Vous pouvez selectionner au maximum 10 compétences !
                         </div>
                       )}
-     
-     <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
 
-  </div>
+                      <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                          <div className="flex flex-col sm:flex-row">
+                            <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                              J'accepte les{" "}
+                              <span className="text-blue-600 underline">Termes et Conditions</span>
+                              <span className="text-zinc-900">.</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:order-2">
+                              <label className="mr-2">
+                                <input
+                                  type="radio"
+                                  value="Oui"
+                                  checked={formData.termesConditions === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Oui</span>
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="Non"
+                                  checked={formData.termesConditions === "Non"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Non</span>
+                              </label>
+                            </div>
+                          </div>
 
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
+                        </div>
 
-  {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
-  )}
-</div>
-     
-     
-     {errorMessage && (
-    <div className="error-message align-center">{errorMessage}</div>
-  )}
-     <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-     <button
-                    type="button"
-                    onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                        <div className="mt-4">
+                          <label className="block mb-2">
+                            J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                          </label>
+                          <div className="flex flex-col sm:flex-row">
+                            <label className="mr-2">
+                              <input
+                                type="radio"
+                                value="Oui"
+                                checked={formData.partagehorsPL === "Oui"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.value,
+                                  })
+                                }
+                              />
+                              <span className="ml-1">Oui</span>
+                            </label>
+                            <label>
+                              <input
+                                type="radio"
+                                value="Non"
+                                checked={formData.partagehorsPL === "Non"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.value,
+                                  })
+                                }
+                              />
+                              <span className="ml-1">Non</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        {errorMessage && (
+                          <div className="error-message">{errorMessage}</div>
+                        )}
+                      </div>
+
+
+                      {errorMessage && (
+                        <div className="error-message align-center">{errorMessage}</div>
+                      )}
+                      <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                        <button
+                          type="button"
+                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -7791,505 +7766,637 @@ const handleCountryCoachEA = (selectedOption) => {
                           />
                           <div className="grow text-white">Retour</div>
                         </button>
-       <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-         <button type="submit" className="grow">Confirm</button>
-         
-       </div>
-     </div>
-   </div>
- </div>
-</div>
+                        <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button type="submit" className="grow">Confirm</button>
 
-)}
-
-
-
-
-{formData.profil === "agent" && (
-
-
-<div className="flex flex-col items-center pb-12 h-[1400px] bg-gray-200">
-
-<div className="text-center max-w-xl mx-auto mt-8">
-                      <p className="text-3xl text-zinc-700 dark:text-zinc-300">
-                        Informations du Profil
-                      </p>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                </div>
 
-<div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-  <div className="flex gap-5 justify-between">
-    <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-    <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-    <div className="h-2 bg-blue-600 rounded-md w-[110px]" />
-  </div>
-</div>
-<div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
-  <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-    <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-      <div className="flex flex-col flex-1 text-zinc-900">
-        <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/c24f47cfa257b3f53d051885328d947d57043bd4fe7c525389b014b09dd5e753?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-            className="self-start w-5 aspect-square"
-          />
-          <div className="grow">Type de responsabilité</div>
-          
-                            
-        </div>
-
-
-
-        
-        <div className="flex flex-col justify-center mt-2 mb-6 w-[300px] text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-          <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
-          <select
-                              id="typeresponsable"
-                              name="typeresponsable"
-                              className={`w-full bg-zinc-100 w-[270px]${
-                                inputErrors["typeresponsable"]
-                                  ? "is-invalid"
-                                  : ""
-                              }`}
-                              onChange={handleInputChange}
-                              value={formData.typeresponsable}
-                              required
-                            >
-                              <option value="">
-                                Votre Type De Responsabilité
-                              </option>
-                              <option value="club">Club</option>
-                              <option value="players">Players</option>
-                            </select>
-                            {inputErrors["typeresponsable"] && (
-                              <div className="invalid-feedback">
-                                {inputErrors["typeresponsable"]}
-                              </div>
-                            )}
-          </div>
-        </div>
-      </div>
-
-
-</div>
-{formData.typeresponsable && (
-                              <div>
-                                {formData.typeresponsable === "club" && (
-                               <>  
-                               <div className="flex flex-wrap gap-4">
-  {/* First Block */}
-  <div className="flex flex-col flex-1 whitespace-nowrap">
-    <div className="flex gap-4 justify-between px-4 text-lg">
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/528f3940d205594823841dbde668c399246e5dc37eb606f331e300f6be94c70e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-        className="self-start w-5 aspect-square"
-      />
-      <div className="grow">Club Actuel</div>
-    </div>
-    <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-      <input
-        type="text"
-        id="clubCovered"
-        name="clubCovered"
-        className={`bg-zinc-100${inputErrors["clubCovered"] ? " is-invalid" : ""}`}
-        onChange={handleInputChange}
-        value={formData.clubCovered}
-        placeholder="Enter club covered"
-      />
-      {inputErrors["clubCovered"] && (
-        <div className="invalid-feedback">{inputErrors["clubCovered"]}</div>
-      )}
-    </div>
-  </div>
-
-  {/* Second Block */}
-  <div className="flex flex-col flex-1 whitespace-nowrap">
-    <div className="flex gap-4 justify-between px-4 text-lg">
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d35929db3da0f679cb37c2aa46e37529472e2286df1cbb9c382a5ca5cd3dee8b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-        className="self-start w-5 aspect-square"
-      />
-      <div className="grow">Pays du Club</div>
-    </div>
-    <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-      <Select
-        options={optionsPays}
-        placeholder="Pays du Club"
-        styles={{
-          control: (provided, state) => ({
-            ...provided,
-            borderRadius: "0.375rem",
-            display: "flex",
-            justifyContent: "center",
-            borderRadius: "30px",
-            width: "180px",
-            fontSize: "1rem",
-            backgroundColor: "#f5f5f5",
-            borderWidth: "none",
-          }),
-          menu: (provided, state) => ({
-            ...provided,
-            width: "150%",
-          }),
-        }}
-        onChange={handleCountryChangePaysAgentclub}
-        value={optionsPays.find((option) => option.value === formData.paysclub)}
-      />
-      {inputErrors["paysclub"] && (
-        <div className="invalid-feedback">{inputErrors["paysclub"]}</div>
-      )}
-    </div>
-  </div>
-</div>
-
-
-<div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
-       <img
-         loading="lazy"
-         src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-         className="self-start w-5 aspect-square"
-       />
-       <div className="flex-auto">Compétences</div>
-     </div>
+              )}
 
 
 
 
-     <div className="form-group icon-input  mb-3">
-                        {[
-                           "Négociation",
-                           "Connaissance approfondie du sport",
-                           "Réseautage",
-                           "Compétences juridiques",
-                           "Gestion des carrières",
-                           "Compétence en communication",
-                           "Conseil financier",
-                           "Gestion du stress",
-                           "Éthique professionnelle",
-                           "Gestion de conflits",
-                           "Analyse du marché",
-                           "Adaptabilité",
-                          // Add other skills...
-                        ].map((agentSkill) => (
-                          <div
-                            key={agentSkill}
-                            className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
-                          >
-                            <input
-                              type="checkbox"
-                              id={agentSkill}
-                              name="coachSkillsInProfile"
-                              checked={formData.skillsagent
-                                .split(",")
-                                .includes(agentSkill)}
-                              onChange={() =>
-                                handleagentSkillToggle(agentSkill)
-                              }
-                              className="form-check-input d-none rounded-[30px]"
+              {formData.profil === "agent" && (
+
+
+                <div className="flex flex-col items-center pb-12 h-[1400px] bg-gray-200">
+
+                  <div className="text-center max-w-xl mx-auto mt-8">
+                    <p className="text-3xl text-zinc-700 dark:text-zinc-300">
+                      Informations du Profil
+                    </p>
+                  </div>
+
+                  <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                    <div className="flex gap-5 justify-between">
+                      <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                      <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                      <div className="h-2 bg-blue-600 rounded-md w-[110px]" />
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
+                    <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                      <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex flex-col flex-1 text-zinc-900">
+                          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/c24f47cfa257b3f53d051885328d947d57043bd4fe7c525389b014b09dd5e753?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="self-start w-5 aspect-square"
                             />
-                        <label
-  htmlFor={agentSkill}
-  className={`form-check-label btn ${
-    formData.skillsagent
-      .split(",")
-      .includes(agentSkill) 
-      ? "bg-blue-600 text-white"
-      : "btn-light"
-  } ${
-    !formData.skillsagent
-      .split(",")
-      .includes(agentSkill) &&
-      agentSkillsError
-      ? "border-danger"
-      : ""
-  }`}
->
-  {!formData.skillsagent
-    .split(",")
-    .includes(agentSkill)
-    ? "+" // Display "+" when not selected
-    : "-"}{" "}
-  {agentSkill}
-</label>
+                            <div className="grow">Type de responsabilité</div>
 
 
                           </div>
-                        ))}
-                      </div>
-                      {skillsError && (
-                        <div className="text-danger mt-2">
-                         Vous pouvez selectionner au maximum 10 compétences !
+
+
+
+
+                          <div className="flex flex-col justify-center mt-2 mb-6 w-[300px] text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
+                              <select
+                                id="typeresponsable"
+                                name="typeresponsable"
+                                className={`w-full bg-zinc-100 w-[270px]${inputErrors["typeresponsable"]
+                                    ? "is-invalid"
+                                    : ""
+                                  }`}
+                                onChange={handleInputChange}
+                                value={formData.typeresponsable}
+                                required
+                              >
+                                <option value="">
+                                  Votre Type De Responsabilité
+                                </option>
+                                <option value="club">Club</option>
+                                <option value="players">Players</option>
+                              </select>
+                              {inputErrors["typeresponsable"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["typeresponsable"]}
+                                </div>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                      )}
-
-<div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
-
-  </div>
-
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
-
-  {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
-  )}
-</div>
-     
-     {errorMessage && (
-    <div className="error-message align-center">{errorMessage}</div>
-  )}
-             {(emailError || loginError) && (
-      <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-        {emailError && <p>{emailError}</p>}
-        {loginError && <p>{loginError}</p>}
-      </div>
-    )}
 
 
-    <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-      <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-        
-        <button type="button"  onClick={handlePrevStep} className="grow text-white">Retour</button>
-      </div>
-      <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-      <button
-                                type="submit" className="grow">Confirmer</button>
-        
-      </div>
-    </div>                   
-                                  
-                                </> 
+                      </div>
+                      {formData.typeresponsable && (
+                        <div>
+                          {formData.typeresponsable === "club" && (
+                            <>
+                              <div className="flex flex-wrap gap-4">
+                                {/* First Block */}
+                                <div className="flex flex-col flex-1 whitespace-nowrap">
+                                  <div className="flex gap-4 justify-between px-4 text-lg">
+                                    <img
+                                      loading="lazy"
+                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/528f3940d205594823841dbde668c399246e5dc37eb606f331e300f6be94c70e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                      className="self-start w-5 aspect-square"
+                                    />
+                                    <div className="grow">Club Actuel</div>
+                                  </div>
+                                  <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+                                    <input
+                                      type="text"
+                                      id="clubCovered"
+                                      name="clubCovered"
+                                      className={`bg-zinc-100${inputErrors["clubCovered"] ? " is-invalid" : ""}`}
+                                      onChange={handleInputChange}
+                                      value={formData.clubCovered}
+                                      placeholder="Enter club covered"
+                                    />
+                                    {inputErrors["clubCovered"] && (
+                                      <div className="invalid-feedback">{inputErrors["clubCovered"]}</div>
+                                    )}
+                                  </div>
+                                </div>
+
+                                {/* Second Block */}
+                                <div className="flex flex-col flex-1 whitespace-nowrap">
+                                  <div className="flex gap-4 justify-between px-4 text-lg">
+                                    <img
+                                      loading="lazy"
+                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/d35929db3da0f679cb37c2aa46e37529472e2286df1cbb9c382a5ca5cd3dee8b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                      className="self-start w-5 aspect-square"
+                                    />
+                                    <div className="grow">Pays du Club</div>
+                                  </div>
+                                  <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+                                    <Select
+                                      options={optionsPays}
+                                      placeholder="Pays du Club"
+                                      styles={{
+                                        control: (provided, state) => ({
+                                          ...provided,
+                                          borderRadius: "0.375rem",
+                                          display: "flex",
+                                          justifyContent: "center",
+                                          borderRadius: "30px",
+                                          width: "180px",
+                                          fontSize: "1rem",
+                                          backgroundColor: "#f5f5f5",
+                                          borderWidth: "none",
+                                        }),
+                                        menu: (provided, state) => ({
+                                          ...provided,
+                                          width: "150%",
+                                        }),
+                                      }}
+                                      onChange={handleCountryChangePaysAgentclub}
+                                      value={optionsPays.find((option) => option.value === formData.paysclub)}
+                                    />
+                                    {inputErrors["paysclub"] && (
+                                      <div className="invalid-feedback">{inputErrors["paysclub"]}</div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+
+
+                              <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="self-start w-5 aspect-square"
+                                />
+                                <div className="flex-auto">Compétences</div>
+                              </div>
+
+
+
+
+                              <div className="form-group icon-input  mb-3">
+                                {[
+                                  "Négociation",
+                                  "Connaissance approfondie du sport",
+                                  "Réseautage",
+                                  "Compétences juridiques",
+                                  "Gestion des carrières",
+                                  "Compétence en communication",
+                                  "Conseil financier",
+                                  "Gestion du stress",
+                                  "Éthique professionnelle",
+                                  "Gestion de conflits",
+                                  "Analyse du marché",
+                                  "Adaptabilité",
+                                  // Add other skills...
+                                ].map((agentSkill) => (
+                                  <div
+                                    key={agentSkill}
+                                    className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      id={agentSkill}
+                                      name="coachSkillsInProfile"
+                                      checked={formData.skillsagent
+                                        .split(",")
+                                        .includes(agentSkill)}
+                                      onChange={() =>
+                                        handleagentSkillToggle(agentSkill)
+                                      }
+                                      className="form-check-input d-none rounded-[30px]"
+                                    />
+                                    <label
+                                      htmlFor={agentSkill}
+                                      className={`form-check-label btn ${formData.skillsagent
+                                          .split(",")
+                                          .includes(agentSkill)
+                                          ? "bg-blue-600 text-white"
+                                          : "btn-light"
+                                        } ${!formData.skillsagent
+                                          .split(",")
+                                          .includes(agentSkill) &&
+                                          agentSkillsError
+                                          ? "border-danger"
+                                          : ""
+                                        }`}
+                                    >
+                                      {!formData.skillsagent
+                                        .split(",")
+                                        .includes(agentSkill)
+                                        ? "+" // Display "+" when not selected
+                                        : "-"}{" "}
+                                      {agentSkill}
+                                    </label>
+
+
+                                  </div>
+                                ))}
+                              </div>
+                              {skillsError && (
+                                <div className="text-danger mt-2">
+                                  Vous pouvez selectionner au maximum 10 compétences !
+                                </div>
+                              )}
+
+                              <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                                  <div className="flex flex-col sm:flex-row">
+                                    <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                      J'accepte les{" "}
+                                      <span className="text-blue-600 underline">Termes et Conditions</span>
+                                      <span className="text-zinc-900">.</span>
+                                    </div>
+                                    <div className="flex flex-col sm:flex-row sm:order-2">
+                                      <label className="mr-2">
+                                        <input
+                                          type="radio"
+                                          value="Oui"
+                                          checked={formData.termesConditions === "Oui"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.value,
+                                            })
+                                          }
+                                        />
+                                        <span className="ml-1">Oui</span>
+                                      </label>
+                                      <label>
+                                        <input
+                                          type="radio"
+                                          value="Non"
+                                          checked={formData.termesConditions === "Non"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.value,
+                                            })
+                                          }
+                                        />
+                                        <span className="ml-1">Non</span>
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                                <div className="mt-4">
+                                  <label className="block mb-2">
+                                    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                                  </label>
+                                  <div className="flex flex-col sm:flex-row">
+                                    <label className="mr-2">
+                                      <input
+                                        type="radio"
+                                        value="Oui"
+                                        checked={formData.partagehorsPL === "Oui"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <span className="ml-1">Oui</span>
+                                    </label>
+                                    <label>
+                                      <input
+                                        type="radio"
+                                        value="Non"
+                                        checked={formData.partagehorsPL === "Non"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <span className="ml-1">Non</span>
+                                    </label>
+                                  </div>
+                                </div>
+
+                                {errorMessage && (
+                                  <div className="error-message">{errorMessage}</div>
                                 )}
+                              </div>
 
-                                {formData.typeresponsable === "players" && (
-                                  <>
-                                  
+                              {errorMessage && (
+                                <div className="error-message align-center">{errorMessage}</div>
+                              )}
+                              {(emailError || loginError) && (
+                                <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                                  {emailError && <p>{emailError}</p>}
+                                  {loginError && <p>{loginError}</p>}
+                                </div>
+                              )}
 
-                                  <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-    <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-                                  
+
+                              <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+
+                                  <button type="button" onClick={handlePrevStep} className="grow text-white">Retour</button>
+                                </div>
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                                  <button
+                                    type="submit" className="grow">Confirmer</button>
+
+                                </div>
+                              </div>
+
+                            </>
+                          )}
+
+                          {formData.typeresponsable === "players" && (
+                            <>
+
+
+                              <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                                <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+
                                   <div className="flex flex-col flex-1">
-        <div className="flex gap-4 justify-between pl-4 text-lg whitespace-nowrap text-zinc-900">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/40ce3f4dbc1ac29eaa66d4104bf3f6dc7733f2c8c57fa093cc6ba3e58fe3361f?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-            className="self-start w-5 aspect-square"
-          />
-          <div className="grow">Nombre de joueurs</div>
-        </div>
-        <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-          <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
-          <input
-                                      type="number"
-                                      id="totalPlayer"
-                                      name="totalPlayer"
-                                      className={`bg-zinc-100 w-full ${
-                                        inputErrors["totalPlayer"]
-                                          ? "is-invalid"
-                                          : ""
-                                      }`}
-                                      onChange={handleInputChange}
-                                      value={formData.totalPlayer}
-                                      placeholder="Entrer la totale des joueurs"
-                                    />
-                                    {inputErrors.totalPlayer && (
-                                      <div className="invalid-feedback">
-                                        {inputErrors.totalPlayer}
+                                    <div className="flex gap-4 justify-between pl-4 text-lg whitespace-nowrap text-zinc-900">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/40ce3f4dbc1ac29eaa66d4104bf3f6dc7733f2c8c57fa093cc6ba3e58fe3361f?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="self-start w-5 aspect-square"
+                                      />
+                                      <div className="grow">Nombre de joueurs</div>
+                                    </div>
+                                    <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                      <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
+                                        <input
+                                          type="number"
+                                          id="totalPlayer"
+                                          name="totalPlayer"
+                                          className={`bg-zinc-100 w-full ${inputErrors["totalPlayer"]
+                                              ? "is-invalid"
+                                              : ""
+                                            }`}
+                                          onChange={handleInputChange}
+                                          value={formData.totalPlayer}
+                                          placeholder="Entrer la totale des joueurs"
+                                        />
+                                        {inputErrors.totalPlayer && (
+                                          <div className="invalid-feedback">
+                                            {inputErrors.totalPlayer}
+                                          </div>
+                                        )}
                                       </div>
-                                    )}
-          </div>
-        </div>
-      </div>
+                                    </div>
+                                  </div>
 
-      <div className="flex flex-col flex-1">
-        <div className="flex gap-4 justify-between pl-2 text-lg whitespace-nowrap text-zinc-900">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/bad4ca2b38add0c4edb31196ef177dc9940dcd65460ae94b7a9f136cb548fb20?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-            className="self-start w-5 aspect-square"
-          />
-          <div className="grow">Nombre de transferts effectués</div>
-        </div>
-        <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-          <div className="flex gap-5 justify-between  py-3 rounded-md">
-          <input
-                                      type="number"
-                                      id="totalCareerTransfers"
-                                      name="totalCareerTransfers"
-                                      className={`bg-zinc-100 w-full ${
-                                        inputErrors["totalCareerTransfers"]
-                                          ? "is-invalid"
-                                          : ""
-                                      }`}
-                                      onChange={handleInputChange}
-                                      value={formData.totalCareerTransfers}
-                                      placeholder="Nombre des joueurs transferés"
-                                    />
-                                    {inputErrors.totalCareerTransfers && (
-                                      <div className="invalid-feedback">
-                                        {inputErrors.totalCareerTransfers}
+                                  <div className="flex flex-col flex-1">
+                                    <div className="flex gap-4 justify-between pl-2 text-lg whitespace-nowrap text-zinc-900">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/bad4ca2b38add0c4edb31196ef177dc9940dcd65460ae94b7a9f136cb548fb20?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="self-start w-5 aspect-square"
+                                      />
+                                      <div className="grow">Nombre de transferts effectués</div>
+                                    </div>
+                                    <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                      <div className="flex gap-5 justify-between  py-3 rounded-md">
+                                        <input
+                                          type="number"
+                                          id="totalCareerTransfers"
+                                          name="totalCareerTransfers"
+                                          className={`bg-zinc-100 w-full ${inputErrors["totalCareerTransfers"]
+                                              ? "is-invalid"
+                                              : ""
+                                            }`}
+                                          onChange={handleInputChange}
+                                          value={formData.totalCareerTransfers}
+                                          placeholder="Nombre des joueurs transferés"
+                                        />
+                                        {inputErrors.totalCareerTransfers && (
+                                          <div className="invalid-feedback">
+                                            {inputErrors.totalCareerTransfers}
+                                          </div>
+                                        )}
+
                                       </div>
-                                    )}
+                                    </div>
+                                  </div>
 
-          </div>
-        </div>
-      </div>
-
-      </div>
-    </div>
-
-
-
-  
-
-    <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
-       <img
-         loading="lazy"
-         src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-         className="self-start w-5 aspect-square"
-       />
-       <div className="flex-auto">Compétences</div>
-     </div>
+                                </div>
+                              </div>
 
 
 
 
-     <div className="form-group icon-input  mb-3">
-                        {[
-                           "Négociation",
-                           "Connaissance approfondie du sport",
-                           "Réseautage",
-                           "Compétences juridiques",
-                           "Gestion des carrières",
-                           "Compétence en communication",
-                           "Conseil financier",
-                           "Gestion du stress",
-                           "Éthique professionnelle",
-                           "Gestion de conflits",
-                           "Analyse du marché",
-                           "Adaptabilité",
-                          // Add other skills...
-                        ].map((agentSkill) => (
-                          <div
-                            key={agentSkill}
-                            className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
-                          >
-                            <input
-                              type="checkbox"
-                              id={agentSkill}
-                              name="coachSkillsInProfile"
-                              checked={formData.skillsagent
-                                .split(",")
-                                .includes(agentSkill)}
-                              onChange={() =>
-                                handleagentSkillToggle(agentSkill)
-                              }
-                              className="form-check-input d-none rounded-[30px]"
-                            />
-                        <label
-  htmlFor={agentSkill}
-  className={`form-check-label btn ${
-    formData.skillsagent
-      .split(",")
-      .includes(agentSkill) 
-      ? "bg-blue-600 text-white"
-      : "btn-light"
-  } ${
-    !formData.skillsagent
-      .split(",")
-      .includes(agentSkill) &&
-      agentSkillsError
-      ? "border-danger"
-      : ""
-  }`}
->
-  {!formData.skillsagent
-    .split(",")
-    .includes(agentSkill)
-    ? "+" // Display "+" when not selected
-    : "-"}{" "}
-  {agentSkill}
-</label>
+
+                              <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="self-start w-5 aspect-square"
+                                />
+                                <div className="flex-auto">Compétences</div>
+                              </div>
 
 
-                          </div>
-                        ))}
-                      </div>
-                      {skillsError && (
-                        <div className="text-danger mt-2">
-                          Vous pouvez selectionner au maximum 10 compétences !
+
+
+                              <div className="form-group icon-input  mb-3">
+                                {[
+                                  "Négociation",
+                                  "Connaissance approfondie du sport",
+                                  "Réseautage",
+                                  "Compétences juridiques",
+                                  "Gestion des carrières",
+                                  "Compétence en communication",
+                                  "Conseil financier",
+                                  "Gestion du stress",
+                                  "Éthique professionnelle",
+                                  "Gestion de conflits",
+                                  "Analyse du marché",
+                                  "Adaptabilité",
+                                  // Add other skills...
+                                ].map((agentSkill) => (
+                                  <div
+                                    key={agentSkill}
+                                    className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      id={agentSkill}
+                                      name="coachSkillsInProfile"
+                                      checked={formData.skillsagent
+                                        .split(",")
+                                        .includes(agentSkill)}
+                                      onChange={() =>
+                                        handleagentSkillToggle(agentSkill)
+                                      }
+                                      className="form-check-input d-none rounded-[30px]"
+                                    />
+                                    <label
+                                      htmlFor={agentSkill}
+                                      className={`form-check-label btn ${formData.skillsagent
+                                          .split(",")
+                                          .includes(agentSkill)
+                                          ? "bg-blue-600 text-white"
+                                          : "btn-light"
+                                        } ${!formData.skillsagent
+                                          .split(",")
+                                          .includes(agentSkill) &&
+                                          agentSkillsError
+                                          ? "border-danger"
+                                          : ""
+                                        }`}
+                                    >
+                                      {!formData.skillsagent
+                                        .split(",")
+                                        .includes(agentSkill)
+                                        ? "+" // Display "+" when not selected
+                                        : "-"}{" "}
+                                      {agentSkill}
+                                    </label>
+
+
+                                  </div>
+                                ))}
+                              </div>
+                              {skillsError && (
+                                <div className="text-danger mt-2">
+                                  Vous pouvez selectionner au maximum 10 compétences !
+                                </div>
+                              )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                                  <div className="flex flex-col sm:flex-row">
+                                    <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                      J'accepte les{" "}
+                                      <span className="text-blue-600 underline">Termes et Conditions</span>
+                                      <span className="text-zinc-900">.</span>
+                                    </div>
+                                    <div className="flex flex-col sm:flex-row sm:order-2">
+                                      <label className="mr-2">
+                                        <input
+                                          type="radio"
+                                          value="Oui"
+                                          checked={formData.termesConditions === "Oui"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.value,
+                                            })
+                                          }
+                                        />
+                                        <span className="ml-1">Oui</span>
+                                      </label>
+                                      <label>
+                                        <input
+                                          type="radio"
+                                          value="Non"
+                                          checked={formData.termesConditions === "Non"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.value,
+                                            })
+                                          }
+                                        />
+                                        <span className="ml-1">Non</span>
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                                <div className="mt-4">
+                                  <label className="block mb-2">
+                                    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                                  </label>
+                                  <div className="flex flex-col sm:flex-row">
+                                    <label className="mr-2">
+                                      <input
+                                        type="radio"
+                                        value="Oui"
+                                        checked={formData.partagehorsPL === "Oui"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <span className="ml-1">Oui</span>
+                                    </label>
+                                    <label>
+                                      <input
+                                        type="radio"
+                                        value="Non"
+                                        checked={formData.partagehorsPL === "Non"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <span className="ml-1">Non</span>
+                                    </label>
+                                  </div>
+                                </div>
+
+                                {errorMessage && (
+                                  <div className="error-message">{errorMessage}</div>
+                                )}
+                              </div>
+
+                              {errorMessage && (
+                                <div className="error-message align-center">{errorMessage}</div>
+                              )}
+
+                              {(emailError || loginError) && (
+                                <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                                  {emailError && <p>{emailError}</p>}
+                                  {loginError && <p>{loginError}</p>}
+                                </div>
+                              )}
+                              <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/f30747cd3a892f61c9061016e39f6935304955789e5ea50228d8da563f399ab5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={handlePrevStep} className="grow text-white">Retour</button>
+                                </div>
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                                  <button
+                                    type="submit" className="grow">Confirmer</button>
+
+                                </div>
+                              </div>
+
+
+
+
+
+                            </>
+
+
+
+                          )}
                         </div>
                       )}
 
@@ -8301,156 +8408,16 @@ const handleCountryCoachEA = (selectedOption) => {
 
 
 
+                    </div>
+                  </div>
+                </div>
 
 
+              )}
 
 
-
-
-
-
-<div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
-
-  </div>
-
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
-
-  {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
-  )}
-</div>
-     
-     {errorMessage && (
-    <div className="error-message align-center">{errorMessage}</div>
-  )}
-
-{(emailError || loginError) && (
-      <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-        {emailError && <p>{emailError}</p>}
-        {loginError && <p>{loginError}</p>}
-      </div>
-    )}
-    <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-      <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/f30747cd3a892f61c9061016e39f6935304955789e5ea50228d8da563f399ab5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-          className="w-5 aspect-square"
-        />
-        <button
-                                type="button"
-                                onClick={handlePrevStep} className="grow text-white">Retour</button>
-      </div>
-      <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-      <button
-                                type="submit" className="grow">Confirmer</button>
-       
-      </div>
-    </div>
-    
-
-                                  
-                                  
-                                  
-                                  </>
-
-
-
-                                )}
-                              </div>
-                            )}
-
-
-
-     
-
-
-
-
-
-  </div>
-</div>
-</div>
-
-
-)}
-
-
-  {formData.profil === "scout" && (
-                          <>
-                            
+              {formData.profil === "scout" && (
+                <>
 
 
 
@@ -8461,40 +8428,40 @@ const handleCountryCoachEA = (selectedOption) => {
 
 
 
-                            <div className="flex flex-col items-center pb-52 -mb-px bg-zinc-100">
-      
-                            <div className="text-center max-w-xl mx-auto mt-8">
+
+                  <div className="flex flex-col items-center pb-52 -mb-px bg-zinc-100">
+
+                    <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-700 dark:text-zinc-300">
                         Informations du Profil
                       </p>
                     </div>
-      <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-        <div className="flex gap-5 justify-between">
-          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-          <div className="h-2 bg-blue-600 rounded-md w-[178px] max-sm:w-[115px]" />
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
-        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-          <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-            <div className="flex flex-col text-zinc-900">
-              <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/61c6155cdb7cedb8428209197c5325af5b02bf7ecb94533f0ee5c2b47c1c2444?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="self-start aspect-[1.15] w-[23px]"
-                />
-                <div className="grow">Type d’engagement</div>
-                
-              </div>
-              <div className="flex flex-col justify-center mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                <select
+                    <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                      <div className="flex gap-5 justify-between">
+                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[178px] max-sm:w-[115px]" />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
+                      <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                        <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex flex-col text-zinc-900">
+                            <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/61c6155cdb7cedb8428209197c5325af5b02bf7ecb94533f0ee5c2b47c1c2444?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="self-start aspect-[1.15] w-[23px]"
+                              />
+                              <div className="grow">Type d’engagement</div>
+
+                            </div>
+                            <div className="flex flex-col justify-center mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                              <select
                                 name="engagement"
                                 value={formData.engagement}
-                                className={`flex gap-5 justify-between px-4 py-3.5 rounded-md bg-zinc-100${
-                                  inputErrors["engagement"] ? "is-invalid" : ""
-                                }`}
+                                className={`flex gap-5 justify-between px-4 py-3.5 rounded-md bg-zinc-100${inputErrors["engagement"] ? "is-invalid" : ""
+                                  }`}
                                 onChange={handleInputChange}
                               >
                                 <option value="" disabled>
@@ -8509,28 +8476,27 @@ const handleCountryCoachEA = (selectedOption) => {
                                   {inputErrors["engagement"]}
                                 </div>
                               )}
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/905ceacb3a78358a7e57864a93688890f119c8869b3ab4c3558735affbc2aa60?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="self-start w-5 aspect-square"
-                />
-                <div className="grow">Nombre de joueurs détectés</div>
-              </div>
-              <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                  <input
+                            </div>
+                          </div>
+                          <div className="flex flex-col">
+                            <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/905ceacb3a78358a7e57864a93688890f119c8869b3ab4c3558735affbc2aa60?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="self-start w-5 aspect-square"
+                              />
+                              <div className="grow">Nombre de joueurs détectés</div>
+                            </div>
+                            <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                              <input
                                 type="number"
                                 id="nb_joueurdetecter"
                                 name="nb_joueurdetecter"
                                 value={formData.nb_joueurdetecter}
-                                className={`flex gap-5 justify-between px-4 py-3 rounded-md bg-zinc-100${
-                                  inputErrors["nb_joueurdetecter"]
+                                className={`flex gap-5 justify-between px-4 py-3 rounded-md bg-zinc-100${inputErrors["nb_joueurdetecter"]
                                     ? "is-invalid"
                                     : ""
-                                }`}
+                                  }`}
                                 placeholder="Nomber des joueurs detecter"
                                 onChange={handleInputChange}
                               />
@@ -8539,485 +8505,476 @@ const handleCountryCoachEA = (selectedOption) => {
                                   {inputErrors["nb_joueurdetecter"]}
                                 </div>
                               )}
-              </div>
-            </div>
-          </div>
-          <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/f48abcee21a3194921563739310f0764132a8c52ff33636c5ffa29d102dc978c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />
-            <div className="grow max-md:max-w-full">Régions d’explorations</div>
-          </div>
-          <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-base text-white whitespace-nowrap w-[781px]">
-            <div className="flex flex-col justify-center px-0.5 border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full">
-              <div className="flex flex-col justify-center py-1.5 pl-4 rounded-md max-md:max-w-full">
-                <div className="flex gap-5 justify-between pr-20 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
-                
-
-
-
-                <Select
-        options={regionOptions}
-        onChange={handleChangeregion}
-        isMulti
-        styles={{
-          option: (provided, state) => ({
-            ...provided,
-            color: state.isSelected ? 'black' : 'black', // Change colors as needed
-          }),
-        }}
-
-      />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/eed879260ca15ccfad0d945395a8221b41159b944d63d78bddd58557acc9c58e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />
-            <div className="flex-auto">Compétences</div>
-          </div>
-          <div className="flex flex-col justify-center content-start items-center mt-4 text-lg text-blue-600 whitespace-nowrap max-md:max-w-full">
-
-<div className="form-group icon-input mb-3 flex flex-wrap justify-between">
-  {[
-    "Analyse tactique",
-    "Connaissance approfondie du sport",
-    "Réseautage",
-    "Observation",
-    "Analyse des données",
-    "Compétence en communication",
-    "Connaissance des marchés",
-    "Rapports détaillés",
-    "Gestion du temps",
-    "Éthique professionnelle",
-    "Compétences informatiques",
-    "Adaptabilité",
-    "Évaluation psychologique",
-
-    // Add other skills...
-  ].map((skillsscout) => (
-    <div
-      key={skillsscout}
-      className="form-check rounded-[30px] mb-2 md:w-1/2 lg:w-1/3 xl:w-1/4"
-    >
-      <input
-        type="checkbox"
-        id={skillsscout}
-        name="skillsscout"
-        checked={formData.skillsscout
-          .split(",")
-          .includes(skillsscout)}
-        onChange={() =>
-          handleScoutSkillToggle(skillsscout)
-        }
-        className="form-check-input d-none rounded-[30px]"
-      />
-      <label
-        htmlFor={skillsscout}
-        className={`form-check-label btn ${
-          formData.skillsscout
-            .split(",")
-            .includes(skillsscout)
-            ? "bg-blue-600 text-white"
-            : "btn-light"
-        } ${
-          !formData.skillsscout
-            .split(",")
-            .includes(skillsscout) &&
-            scoutSkillsError
-            ? "border-danger"
-            : ""
-        }`}
-      >
-        {!formData.skillsscout
-          .split(",")
-          .includes(skillsscout)
-          ? "+" // Display "+" when not selected
-          : "-"}{" "}
-        {skillsscout}
-      </label>
-    </div>
-  ))}
-</div>
-{scoutSkillsError && (
-  <div className="text-danger mt-2">
-Vous pouvez selectionner au maximum 10 compétences !  </div>
-)}
-</div>
-
-         
-<div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
-
-  </div>
-
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
-
-  {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
-  )}
-</div>
-     
-     {errorMessage && (
-    <div className="error-message align-center">{errorMessage}</div>
-  )}
-
-{(emailError || loginError) && (
-      <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-        {emailError && <p>{emailError}</p>}
-        {loginError && <p>{loginError}</p>}
-      </div>
-    )}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/f48abcee21a3194921563739310f0764132a8c52ff33636c5ffa29d102dc978c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />
+                          <div className="grow max-md:max-w-full">Régions d’explorations</div>
+                        </div>
+                        <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-base text-white whitespace-nowrap w-[781px]">
+                          <div className="flex flex-col justify-center px-0.5 border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full">
+                            <div className="flex flex-col justify-center py-1.5 pl-4 rounded-md max-md:max-w-full">
+                              <div className="flex gap-5 justify-between pr-20 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
 
 
 
 
+                                <Select
+                                  options={regionOptions}
+                                  onChange={handleChangeregion}
+                                  isMulti
+                                  styles={{
+                                    option: (provided, state) => ({
+                                      ...provided,
+                                      color: state.isSelected ? 'black' : 'black', // Change colors as needed
+                                    }),
+                                  }}
+
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/eed879260ca15ccfad0d945395a8221b41159b944d63d78bddd58557acc9c58e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />
+                          <div className="flex-auto">Compétences</div>
+                        </div>
+                        <div className="flex flex-col justify-center content-start items-center mt-4 text-lg text-blue-600 whitespace-nowrap max-md:max-w-full">
+
+                          <div className="form-group icon-input mb-3 flex flex-wrap justify-between">
+                            {[
+                              "Analyse tactique",
+                              "Connaissance approfondie du sport",
+                              "Réseautage",
+                              "Observation",
+                              "Analyse des données",
+                              "Compétence en communication",
+                              "Connaissance des marchés",
+                              "Rapports détaillés",
+                              "Gestion du temps",
+                              "Éthique professionnelle",
+                              "Compétences informatiques",
+                              "Adaptabilité",
+                              "Évaluation psychologique",
+
+                              // Add other skills...
+                            ].map((skillsscout) => (
+                              <div
+                                key={skillsscout}
+                                className="form-check rounded-[30px] mb-2 md:w-1/2 lg:w-1/3 xl:w-1/4"
+                              >
+                                <input
+                                  type="checkbox"
+                                  id={skillsscout}
+                                  name="skillsscout"
+                                  checked={formData.skillsscout
+                                    .split(",")
+                                    .includes(skillsscout)}
+                                  onChange={() =>
+                                    handleScoutSkillToggle(skillsscout)
+                                  }
+                                  className="form-check-input d-none rounded-[30px]"
+                                />
+                                <label
+                                  htmlFor={skillsscout}
+                                  className={`form-check-label btn ${formData.skillsscout
+                                      .split(",")
+                                      .includes(skillsscout)
+                                      ? "bg-blue-600 text-white"
+                                      : "btn-light"
+                                    } ${!formData.skillsscout
+                                      .split(",")
+                                      .includes(skillsscout) &&
+                                      scoutSkillsError
+                                      ? "border-danger"
+                                      : ""
+                                    }`}
+                                >
+                                  {!formData.skillsscout
+                                    .split(",")
+                                    .includes(skillsscout)
+                                    ? "+" // Display "+" when not selected
+                                    : "-"}{" "}
+                                  {skillsscout}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                          {scoutSkillsError && (
+                            <div className="text-danger mt-2">
+                              Vous pouvez selectionner au maximum 10 compétences !  </div>
+                          )}
+                        </div>
 
 
-          <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-            <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fb6d773eef30d97d3a89d9f3fae19d7c91dd5e53c1c6ce70d84a312e20fac48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                className="w-5 aspect-square"
-              />
-             <button
-                                type="button"
-                                onClick={handlePrevStep} className="grow text-white">Retour</button>
-            </div>
-            <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-            <button
-                                type="submit" className="grow">Confirmer</button>
-             
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                        <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                            <div className="flex flex-col sm:flex-row">
+                              <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                J'accepte les{" "}
+                                <span className="text-blue-600 underline">Termes et Conditions</span>
+                                <span className="text-zinc-900">.</span>
+                              </div>
+                              <div className="flex flex-col sm:flex-row sm:order-2">
+                                <label className="mr-2">
+                                  <input
+                                    type="radio"
+                                    value="Oui"
+                                    checked={formData.termesConditions === "Oui"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <span className="ml-1">Oui</span>
+                                </label>
+                                <label>
+                                  <input
+                                    type="radio"
+                                    value="Non"
+                                    checked={formData.termesConditions === "Non"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <span className="ml-1">Non</span>
+                                </label>
+                              </div>
+                            </div>
 
+                          </div>
 
+                          <div className="mt-4">
+                            <label className="block mb-2">
+                              J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
+                            <div className="flex flex-col sm:flex-row">
+                              <label className="mr-2">
+                                <input
+                                  type="radio"
+                                  value="Oui"
+                                  checked={formData.partagehorsPL === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Oui</span>
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="Non"
+                                  checked={formData.partagehorsPL === "Non"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Non</span>
+                              </label>
+                            </div>
+                          </div>
 
+                          {errorMessage && (
+                            <div className="error-message">{errorMessage}</div>
+                          )}
+                        </div>
 
+                        {errorMessage && (
+                          <div className="error-message align-center">{errorMessage}</div>
+                        )}
 
-
-
-
-
-
-
-
-
-
-
-
-                          </>
+                        {(emailError || loginError) && (
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                            {emailError && <p>{emailError}</p>}
+                            {loginError && <p>{loginError}</p>}
+                          </div>
                         )}
 
 
-{formData.profil === "other" && (
 
-<>
-<div className="flex flex-col items-center  h-full bg-zinc-100">
-     
-<div className="text-center max-w-xl mx-auto mt-8">
+
+
+
+                        <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fb6d773eef30d97d3a89d9f3fae19d7c91dd5e53c1c6ce70d84a312e20fac48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <button
+                              type="button"
+                              onClick={handlePrevStep} className="grow text-white">Retour</button>
+                          </div>
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                            <button
+                              type="submit" className="grow">Confirmer</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </>
+              )}
+
+
+              {formData.profil === "other" && (
+
+                <>
+                  <div className="flex flex-col items-center  h-full bg-zinc-100">
+
+                    <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-700 dark:text-zinc-300">
                         Informations du Profil
                       </p>
                     </div>
-      <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-        <div className="flex gap-5 justify-between">
-          <div className="h-2 bg-blue-300 rounded-md w-[55px] max-sm:ml-8" />
-          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-          <div className="h-2 bg-blue-600 rounded-md w-[138px] max-sm:mr-12" />
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
-        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-          <div className="flex gap-4 self-start px-4 whitespace-nowrap text-zinc-900">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d9b00671f5c6adfdf6ed3be7a7b9734acc3f6ea0ee7c51e1fe7326d623f7566?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />
-            <div className="grow">Profession</div>
-          </div>
-          <div className="flex flex-col justify-center mt-2 max-w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px]">
-            <select
-                              id="profession"
-                              name="profession"
-                              className={`flex gap-5 justify-between px-4 py-3.5 rounded-md bg-zinc-100 ${
-                                inputErrors["profession"] ? "is-invalid" : ""
+                    <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                      <div className="flex gap-5 justify-between">
+                        <div className="h-2 bg-blue-300 rounded-md w-[55px] max-sm:ml-8" />
+                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[138px] max-sm:mr-12" />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
+                      <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                        <div className="flex gap-4 self-start px-4 whitespace-nowrap text-zinc-900">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d9b00671f5c6adfdf6ed3be7a7b9734acc3f6ea0ee7c51e1fe7326d623f7566?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />
+                          <div className="grow">Profession</div>
+                        </div>
+                        <div className="flex flex-col justify-center mt-2 max-w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px]">
+                          <select
+                            id="profession"
+                            name="profession"
+                            className={`flex gap-5 justify-between px-4 py-3.5 rounded-md bg-zinc-100 ${inputErrors["profession"] ? "is-invalid" : ""
                               }`}
-                              onChange={handleInputChange}
-                              value={formData.profession}
-                              required
-                            >
-                              <option value="">Profession</option>
-                              <option value="Fan Football">Fan Football</option>
-                              <option value="Journaliste Sportif">
-                                Journaliste Sportif
-                              </option>
-                              <option value="Arbitre Football">
-                                Arbitre Football
-                              </option>
-                              <option value="Analyste de performance ">
-                                Analyste de performance
-                              </option>
-                              <option value="Nutrtitionniste">
-                                Nutrtitionniste
-                              </option>
-                              <option value="Physiotherpeute">
-                                Physiotherpeute
-                              </option>
-                              <option value="Analyste de football">
-                                Analyste de football
-                              </option>
-                              <option value="Médecin d'équipe">
-                                Médecin d'équipe
-                              </option>
-                              <option value="Prof de fitnesse">
-                                Préparateur Physique
-                              </option>
-                            </select>
-                            {inputErrors["Profession"] && (
-                              <div className="invalid-feedback">
-                                {inputErrors["Profession"]}
-                              </div>
-                            )}
+                            onChange={handleInputChange}
+                            value={formData.profession}
+                            required
+                          >
+                            <option value="">Profession</option>
+                            <option value="Fan Football">Fan Football</option>
+                            <option value="Journaliste Sportif">
+                              Journaliste Sportif
+                            </option>
+                            <option value="Arbitre Football">
+                              Arbitre Football
+                            </option>
+                            <option value="Analyste de performance ">
+                              Analyste de performance
+                            </option>
+                            <option value="Nutrtitionniste">
+                              Nutrtitionniste
+                            </option>
+                            <option value="Physiotherpeute">
+                              Physiotherpeute
+                            </option>
+                            <option value="Analyste de football">
+                              Analyste de football
+                            </option>
+                            <option value="Médecin d'équipe">
+                              Médecin d'équipe
+                            </option>
+                            <option value="Prof de fitnesse">
+                              Préparateur Physique
+                            </option>
+                          </select>
+                          {inputErrors["Profession"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["Profession"]}
+                            </div>
+                          )}
 
 
 
 
-          </div>
-          <div className="flex gap-4 self-start px-4 mt-8 text-black whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/086c2fa012e3785486cfccd51151394483bfd7732b8e22ba3dbf33beaf66bf59?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />
-            <div className="flex-auto">Compétences</div>
-          </div>
-          <div className="flex flex-col flex-wrap justify-center content-start px-3.5 mt-4 text-blue-600 whitespace-nowrap max-md:max-w-full">
-          {formData.profession && (
-                              <div>
- {formData.profession === "Fan Football" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-    {[
-      "Engagement emotionnel",
-      "Fidelité",
-      "Defence",
-      "Esprit Sportif",
-      "Réseautage Social",
-      "Rapidite de la prise de désicion",
-      "Adabtabilité",
-      "Motivation",
-      "Respecter",
-      // Add other skills...
-    ].map((skillsAutre) => (
-      <div
-        key={skillsAutre}
-        className="form-check form-check-inline me-2 mb-2"
-      >
-        <input
-          type="checkbox"
-          id={skillsAutre}
-          name="skillsAutre"
-          checked={selectedSkills.includes(skillsAutre)}
-          onChange={() => handleSkillToggleAutre(skillsAutre)}
-          className="form-check-input d-none"
-        />
-        <label
-          htmlFor={skillsAutre}
-          className={`form-check-label btn ${
-            formData.skillsAutre.split(',').includes(skillsAutre)
-              ? "bg-blue-600 text-white"
-              : "btn-light"
-          } ${
-            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-              ? "border-danger"
-              : ""
-          }`}
-        >
-          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-        </label>
-      </div>
-    ))}
-  </div>
-)}
-
-
-{formData.profession === "Journaliste Sportif" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-    {[
-      "Rechercher",
-      "Rédaction",
-      "Communication",
-      "Maitrise des Medias sociaux",
-      "Rédactivé",
-      "Gestion du Temps",
-      "Analyse critique",
-      "Adaptabilité",
-      // Add other skills...
-    ].map((skillsAutre) => (
-      <div
-        key={skillsAutre}
-        className="form-check form-check-inline me-2 mb-2"
-      >
-        <input
-          type="checkbox"
-          id={skillsAutre}
-          name="skillsAutre"
-          checked={selectedSkills.includes(skillsAutre)}
-          onChange={() => handleSkillToggleAutre(skillsAutre)}
-          className="form-check-input d-none"
-        />
-        <label
-          htmlFor={skillsAutre}
-          className={`form-check-label btn ${
-            formData.skillsAutre.split(',').includes(skillsAutre)
-              ? "bg-blue-600 text-white"
-              : "btn-light"
-          } ${
-            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-              ? "border-danger"
-              : ""
-          }`}
-        >
-          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-        </label>
-      </div>
-    ))}
-  </div>
-)}
-
-
-                                {formData.profession === "Arbitre Football" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Encouragement",
-                                      "Ecoute",
-                                      "Communication",
-                                      "Leadership",
-                                      "motivation",
-                                      "Autorité et respect",
-                                      "Gestion des Conflits",
-                                      "Réactivité",
-                                      "Gestion de stress",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
+                        </div>
+                        <div className="flex gap-4 self-start px-4 mt-8 text-black whitespace-nowrap">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/086c2fa012e3785486cfccd51151394483bfd7732b8e22ba3dbf33beaf66bf59?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />
+                          <div className="flex-auto">Compétences</div>
+                        </div>
+                        <div className="flex flex-col flex-wrap justify-center content-start px-3.5 mt-4 text-blue-600 whitespace-nowrap max-md:max-w-full">
+                          {formData.profession && (
+                            <div>
+                              {formData.profession === "Fan Football" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Engagement emotionnel",
+                                    "Fidelité",
+                                    "Defence",
+                                    "Esprit Sportif",
+                                    "Réseautage Social",
+                                    "Rapidite de la prise de désicion",
+                                    "Adabtabilité",
+                                    "Motivation",
+                                    "Respecter",
+                                    // Add other skills...
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
                                       >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-          htmlFor={skillsAutre}
-          className={`form-check-label btn ${
-            formData.skillsAutre.split(',').includes(skillsAutre)
-              ? "bg-blue-600 text-white"
-              : "btn-light"
-          } ${
-            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-              ? "border-danger"
-              : ""
-          }`}
-        >
-          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
 
-                                {formData.profession ===
-                                  "Analyste de performance" && (
-                                    <div className="form-group icon-input mb-3 flex flex-wrap">
+
+                              {formData.profession === "Journaliste Sportif" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Rechercher",
+                                    "Rédaction",
+                                    "Communication",
+                                    "Maitrise des Medias sociaux",
+                                    "Rédactivé",
+                                    "Gestion du Temps",
+                                    "Analyse critique",
+                                    "Adaptabilité",
+                                    // Add other skills...
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
+                                      >
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+
+                              {formData.profession === "Arbitre Football" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Encouragement",
+                                    "Ecoute",
+                                    "Communication",
+                                    "Leadership",
+                                    "motivation",
+                                    "Autorité et respect",
+                                    "Gestion des Conflits",
+                                    "Réactivité",
+                                    "Gestion de stress",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
+                                      >
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              {formData.profession ===
+                                "Analyste de performance" && (
+                                  <div className="form-group icon-input mb-3 flex flex-wrap">
                                     {[
                                       "Esprit Equipe",
                                       "Adaptabilité",
@@ -9041,15 +8998,13 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
                                         />
                                         <label
                                           htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
+                                          className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
                                               ? "bg-blue-600 text-white"
                                               : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
-                                          }`}
+                                            }`}
                                         >
                                           {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
                                         </label>
@@ -9058,90 +9013,86 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
                                   </div>
                                 )}
 
-                                {formData.profession === "Nutrtitionniste" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Evaluation nutrionnelle",
-                                      "Planfication de régimes",
-                                      "Communication",
-                                      "Ecoute",
-                                      "Encouragement",
-                                      "Compréhension des besoin",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
+                              {formData.profession === "Nutrtitionniste" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Evaluation nutrionnelle",
+                                    "Planfication de régimes",
+                                    "Communication",
+                                    "Ecoute",
+                                    "Encouragement",
+                                    "Compréhension des besoin",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
                                       >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(skillsAutre)}
-                                          onChange={() => handleSkillToggleAutre(skillsAutre)}
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-                                              ? "border-danger"
-                                              : ""
-                                          }`}
-                                        >
-                                          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
 
-                                {formData.profession === "Physiotherpeute" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Ethique professionnelle",
-                                      "Gestion du temps",
-                                      "Empathy",
-                                      "Compétences Physiothérapeute",
-                                      "Analyse des mouvements sportifs",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
+                              {formData.profession === "Physiotherpeute" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Ethique professionnelle",
+                                    "Gestion du temps",
+                                    "Empathy",
+                                    "Compétences Physiothérapeute",
+                                    "Analyse des mouvements sportifs",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
                                       >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(skillsAutre)}
-                                          onChange={() => handleSkillToggleAutre(skillsAutre)}
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-                                              ? "border-danger"
-                                              : ""
-                                          }`}
-                                        >
-                                          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
 
-                                {formData.profession ===
-                                  "Analyste de football" && (
-                                    <div className="form-group icon-input mb-3 flex flex-wrap">
+                              {formData.profession ===
+                                "Analyste de football" && (
+                                  <div className="form-group icon-input mb-3 flex flex-wrap">
                                     {[
                                       "Compétences analytiques",
                                       "Compétences statstiques",
@@ -9168,15 +9119,13 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
                                         />
                                         <label
                                           htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
+                                          className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
                                               ? "bg-blue-600 text-white"
                                               : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
-                                          }`}
+                                            }`}
                                         >
                                           {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
                                         </label>
@@ -9185,223 +9134,219 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
                                   </div>
                                 )}
 
-                                {formData.profession === "Médecin d'équipe" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Diagnostic des blessures",
-                                      "Prévention des blessures",
-                                      "Gestion du stress",
-                                      "Technologie médicale",
-                                      "Empathy",
-                                      "Calme",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(skillsAutre)}
-                                          onChange={() => handleSkillToggleAutre(skillsAutre)}
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-                                              ? "border-danger"
-                                              : ""
+                              {formData.profession === "Médecin d'équipe" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Diagnostic des blessures",
+                                    "Prévention des blessures",
+                                    "Gestion du stress",
+                                    "Technologie médicale",
+                                    "Empathy",
+                                    "Calme",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
                                           }`}
-                                        >
-                                          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-                                {formData.profession === "Prof de fitnesse" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Adaptabilité",
-                                      "Communication",
-                                      "Motivation",
-                                      "Encadrement en groupe",
-                                      "Ecoute",
-                                      "Encouragement",
-                                      "Leadership",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
                                       >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(skillsAutre)}
-                                          onChange={() => handleSkillToggleAutre(skillsAutre)}
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-                                              ? "border-danger"
-                                              : ""
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {formData.profession === "Prof de fitnesse" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Adaptabilité",
+                                    "Communication",
+                                    "Motivation",
+                                    "Encadrement en groupe",
+                                    "Ecoute",
+                                    "Encouragement",
+                                    "Leadership",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
                                           }`}
-                                        >
-                                          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                      >
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                        </div>
+
+
+                        <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                            <div className="flex flex-col sm:flex-row">
+                              <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                J'accepte les{" "}
+                                <span className="text-blue-600 underline">Termes et Conditions</span>
+                                <span className="text-zinc-900">.</span>
                               </div>
-                            )}
-      
-          </div>
+                              <div className="flex flex-col sm:flex-row sm:order-2">
+                                <label className="mr-2">
+                                  <input
+                                    type="radio"
+                                    value="Oui"
+                                    checked={formData.termesConditions === "Oui"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <span className="ml-1">Oui</span>
+                                </label>
+                                <label>
+                                  <input
+                                    type="radio"
+                                    value="Non"
+                                    checked={formData.termesConditions === "Non"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <span className="ml-1">Non</span>
+                                </label>
+                              </div>
+                            </div>
 
+                          </div>
 
-          <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
+                          <div className="mt-4">
+                            <label className="block mb-2">
+                              J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
+                            <div className="flex flex-col sm:flex-row">
+                              <label className="mr-2">
+                                <input
+                                  type="radio"
+                                  value="Oui"
+                                  checked={formData.partagehorsPL === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Oui</span>
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="Non"
+                                  checked={formData.partagehorsPL === "Non"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Non</span>
+                              </label>
+                            </div>
+                          </div>
 
-  </div>
-
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
-
-  {/* {errorMessage && (
+                          {/* {errorMessage && (
     <div className="error-message">{errorMessage}</div>
   )} */}
-</div>
-     
-     
-     
-     
-     {errorMessage && (
-    <div className="error-message align-center text-orange-500">{errorMessage}</div>
-  )}
-
-{(emailError || loginError) && (
-      <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-        {emailError && <p>{emailError}</p>}
-        {loginError && <p>{loginError}</p>}
-      </div>
-    )}
+                        </div>
 
 
 
 
+                        {errorMessage && (
+                          <div className="error-message align-center text-orange-500">{errorMessage}</div>
+                        )}
 
-
-          <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-            <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fb6d773eef30d97d3a89d9f3fae19d7c91dd5e53c1c6ce70d84a312e20fac48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                className="w-5 aspect-square"
-              />
-             <button
-                                type="button"
-                                onClick={handlePrevStep} className="grow text-white">Retour</button>
-            </div>
-            <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-            <button
-                                type="submit" className="grow">Confirmer</button>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                        {(emailError || loginError) && (
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                            {emailError && <p>{emailError}</p>}
+                            {loginError && <p>{loginError}</p>}
+                          </div>
+                        )}
 
 
 
 
-</>
+
+
+                        <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fb6d773eef30d97d3a89d9f3fae19d7c91dd5e53c1c6ce70d84a312e20fac48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <button
+                              type="button"
+                              onClick={handlePrevStep} className="grow text-white">Retour</button>
+                          </div>
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                            <button
+                              type="submit" className="grow">Confirmer</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
 
 
-)}
+
+                </>
+
+
+
+              )}
 
 
 
@@ -9433,8 +9378,8 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
         >
           {/* Close button (X) */}
           <div className="text-4xl sm:text-2xl absolute top-2 right-6 text-red md:text-3xl cursor-pointer" onClick={closeModal}>
-  &times;
-</div>
+            &times;
+          </div>
 
 
           {/* Your modal content goes here */}

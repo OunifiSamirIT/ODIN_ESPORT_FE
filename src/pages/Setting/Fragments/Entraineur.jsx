@@ -124,7 +124,7 @@ const Entraineur = ({ userInfo }) => {
       }
     return (
         <>
-            <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start py-8 pr-4 pl-8 w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+            <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl w-full">
                 <form onSubmit={handleSubmit(onSubmit)}  className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start py-8 pr-4 pl-8 w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
                     <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
                         <div className="lg:flex-1 w-full">
@@ -180,7 +180,7 @@ const Entraineur = ({ userInfo }) => {
                                     <Select
                                         options={optionsPays}
                                         placeholder="Select one or more countries"
-                                        className={`border border-red-500 rounded-full mt-3 ${errors.footballTactic ? '!border-red-500' : ''}`}
+                                        className={`border rounded-full mt-3 ${errors.footballTactic ? '!border-red-500' : ''}`}
                                         isMulti // Enable multiple selection
                                         components={{ MultiValueContainer }}
                                         // className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"
@@ -192,13 +192,10 @@ const Entraineur = ({ userInfo }) => {
                                                 justifyContent: "center",
                                                 borderRadius: "30px",
                                                 width: "100%",
+                                                borderColor : "transparent",
                                                 minHeight: "53px",
-                                                color: "black", // Set text color to black
+                                            }),
 
-                                            }),
-                                            options : (provided) => ({
-                                                color: "black",
-                                            }),
                                             multiValue: (provided, state) => ({
                                                 backgroundColor: '#2E71EB',
                                                 display: 'flex',
@@ -207,12 +204,14 @@ const Entraineur = ({ userInfo }) => {
                                                 justifyContent: 'center',
                                                 borderRadius: '30px',
                                                 fontSize: '1rem',
-                                                color: '#FFFFFF',
+                                            }),
+                                            option : (provided , state) => ({
+                                                
                                             }),
                                             menu: (provided, state) => ({
                                                 ...provided,
+                                                color : "black",
                                                 width: "100%",
-                                                color: "black",
                                             }),
                                         }}
                                         onChange={handleCountryPaysEntrainement}

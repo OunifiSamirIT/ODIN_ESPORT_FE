@@ -83,7 +83,7 @@ function Header() {
   };
   return (
     <>
-    <div className={`w-full bg-white shadow-xs ${Hamburger ? 'fixed top-0 overflow-hidden z-100' : '' }`}>
+    <div className={`relative w-full bg-white shadow-xs ${Hamburger ? 'fixed top-0 overflow-hidden' : '' }`}>
       <div className="max-sm:px-4 max-w-[1344px] h-[100px] w-full bg-white  border-0 flex items-center justify-between mx-auto py-2 ">
         <Link to="/home">
           <svg width="209" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,7 +123,7 @@ function Header() {
           </div>
         </div>
       </div>
-      {Hamburger && <div className='bg-zinc-100 fixed left-0 z-0 py-4 md:hidden w-screen h-screen overflow-y-scroll'>
+      {Hamburger && <div className='bg-zinc-100 fixed left-0 z-0 py-4 md:hidden w-screen h-screen overflow-y-scroll z-90'>
           <div className="flex flex-col items-center pb-12 mx-auto w-full max-w-[480px]  overflow-hidden ">
             <div className="flex flex-col items-center pb-12 mx-auto w-full max-w-[480px] h-[1000px] ">
               <div className="flex gap-5 justify-between p-6 mt-8 w-full text-base bg-white rounded-xl max-w-[366px] text-zinc-900">
@@ -134,7 +134,7 @@ function Header() {
                 />
                 <div className="flex flex-col flex-1">
                   <div className="text-lg">{user.user.nom + ' ' + user.user.prenom}</div>
-                  <Link to={`/profile/${user.id}`} className="text-sm">Accueil</Link>
+                  <Link to={`/profile/${user?.id}`} className="text-sm">Accueil</Link>
                 </div>
               </div>
 

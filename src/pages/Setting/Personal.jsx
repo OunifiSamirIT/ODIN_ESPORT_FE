@@ -17,7 +17,6 @@ import DatePicker from "react-datepicker";
 const Personal = ({ userInfo }) => {
   const [inputErrors, setInputErrors] = useState({});
   const [buttonClicked, setButtonClicked] = useState(false);
- console.log(userInfo)
   const options = paysAllInfo.map((country, index) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
 
@@ -87,7 +86,7 @@ const Personal = ({ userInfo }) => {
   const [selectedCountryphone, setSelectedCountryphone] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const optionsphone = paysAllInfo.map((country, index) => {
-  const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
 
     return {
       value: countryCode,
@@ -109,24 +108,26 @@ const Personal = ({ userInfo }) => {
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState([]);
+  const [file, setFile] = useState(null);
 
   const schema = yup
     .object({
-      nom: yup.string().required('Ce champ est obligatoire').min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
-      discreptionBio: yup.string().required('Ce champ est obligatoire').max(70, ({ max }) => `Maximum de (${max} characters autorisé)`),
-      prenom: yup.string().required('Ce champ est obligatoire').min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
-      nationality: yup.object().required('Ce champ est obligatoire'),
-      country: yup.object().required('Ce champ est obligatoire'),
-      cityresidence: yup.string().required('Ce champ est obligatoire'),
+      nom: yup.string().min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
+      discreptionBio: yup.string().max(70, ({ max }) => `Maximum de (${max} characters autorisé)`),
+      prenom: yup.string().min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
+      nationality: yup.object().required(),
+      country: yup.object().required(),
+      cityresidence: yup.string(),
       gender: yup.string().oneOf(['male', 'female'], 'Sexe doit etre "Homme" ou "Femme"'),
-      tel: yup.string().required('Ce champ est obligatoire'),
-      date_naissance : yup.string().required('Ce champ est obligatoire'),
-      numWSup: yup.string().required('Ce champ est obligatoire'),
-      phoneLength: yup.object().required('Ce champ est obligatoire'),
-      wats: yup.object().required('Ce champ est obligatoire'),
+      tel: yup.string().max(8),
+      date_naissance: yup.string(),
+      numWSup: yup.string().required('Le numero de whatsapp est obligatoire'),
+      phoneLength: yup.object(),
+      wats: yup.object(),
     })
     .required()
   const {
+    trigger,
     control,
     register,
     handleSubmit,
@@ -139,8 +140,8 @@ const Personal = ({ userInfo }) => {
   })
   const phoneLength = watch('phoneLength');
   const whatsappLength = watch('wats')
-  if (whatsappLength) {
 
+  if (whatsappLength) {
     let maxW = whatsappLength.phoneLength;
     schema.fields.numWSup = yup
       .string()
@@ -155,39 +156,17 @@ const Personal = ({ userInfo }) => {
       .max(maxP, `Le Numéro doit être avec ${maxP} chiffres.`);
   }
 
-  useEffect(() => {
-    // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
-      .then((response) => response.json())
-      .then((userData) => {
-        setUser(userData.user)
-        const defaultValues = {
-          nom: userData.user.nom || '',
-          discreptionBio: userData.user.discreptionBio || '',
-          prenom: userData.user.prenom || '',
-          nationality: userData.user.nationality || '',
-          country: userData.user.country || '',
-          cityresidence: userData.user.cityresidence || '',
-          gender: userData.user.gender || '',
-          tel: userData.user.tel || '',
-          numWSup: userData.user.numWSup || '',
-          phoneLength: userData.user.phoneLength || '',
-          wats: userData.user.wats || '',
-        };
-        // Set default values for the form
-        setValue(defaultValues);
-      })
-      .catch((error) => console.error("Error fetching user data:", error));
-  }, [setValue])
+
 
   const handleFileChange = (event) => {
-    console.log('event' , event.target.files[0])
+    console.log('event', event.target.files[0])
     const file = event.target.files[0];
+    setFile(file);
     if (file) {
       // Convert the selected image to a data URL
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log('cdfksd',reader.result)
+        console.log('cdfksd', reader.result)
         setImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
@@ -200,19 +179,114 @@ const Personal = ({ userInfo }) => {
     }));
   };
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    console.log(data)
+    const formDataToUpdate = new FormData();
+    formDataToUpdate.append("discreptionBio", data.discreptionBio);
+    formDataToUpdate.append("nom", data.nom);
+    formDataToUpdate.append("prenom", data.prenom);
+    formDataToUpdate.append("numWSup", data.numWSup);
+    formDataToUpdate.append("tel", data.tel);
+    formDataToUpdate.append("date_naissance", new Date(data.date_naissance).getFullYear());
+    formDataToUpdate.append("gender", data.gender);
+    formDataToUpdate.append("countryresidence", data.country?.label?.props?.children[1]);
+    // formDataToUpdate.append("tel", data.tel);
+    formDataToUpdate.append("nationality", data.nationality?.label?.props?.children[1]);
+    formDataToUpdate.append("cityresidence", data.cityresidence);
+    formDataToUpdate.append("image", file);
     const response = await fetch(
       `http://localhost:5000/api/user/${storedUserData.id}`,
       {
-          method: "PUT",
-          body: formData,
+        method: "PUT",
+        body: formDataToUpdate,
       }
-  );
+    ).then((r) => {
+      if (r.status === 200) {
+        toast.success('User profile updated successfully', {
+          position: "top-right",
+          autoClose: 5000,
+          type: 'success',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      }
+    }).finally(() => {
 
+      console.log('done')
+    });;
+
+    // if(response.status === 200) {
+    //   // toast("Wow so easy!");
+    //   
+    // }
+  }
+  const resetForm = async () => {
+    setValue('nom', userInfo.user.nom);
+    setValue('discreptionBio', userInfo.user.discreptionBio);
+    setValue('prenom', userInfo.user.prenom);
+    setValue('country', userInfo.user.country);
+    setValue('cityresidence', userInfo.user.cityresidence);
+    setValue('gender', userInfo.user.gender);
+    setValue('tel', userInfo.user.tel);
+    setValue('numWSup', userInfo.user.numWSup);
+    setValue('phoneLength', userInfo.user.phoneLength);
+    setValue('wats', userInfo.user.wats);
+    setValue('date_naissance', new Date(userInfo.user.date_naissance));
   }
   const defaultImageSrcSet =
     "https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&";
+
+  useEffect(() => {
+    // Replace the API endpoint with your actual endpoint for fetching user data
+    const defaultValue = (countryName) => { return options.find(option => option.label.props?.children[1] === countryName) };
+    console.log(defaultValue('Andorrane'))
+    fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
+      .then((response) => response.json())
+      .then((userData) => {
+        setUser(userData.user)
+        setValue('nom', userData.user.nom);
+        setValue('discreptionBio', userData.user.discreptionBio);
+        setValue('prenom', userData.user.prenom);
+        setValue('nationality', defaultValue(userData.user.nationality));
+        setValue('country', defaultValue(userData.user.countryresidence));
+        setValue('cityresidence', userData.user.cityresidence);
+        setValue('gender', userData.user.gender);
+        setValue('tel', userData.user.tel);
+        setValue('numWSup', userData.user.numWSup);
+        setValue('phoneLength', userData.user.phoneLength);
+        setValue('wats', userData.user.wats);
+        setValue('date_naissance', new Date(userData.user.date_naissance));
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
+  }, []);
+
+
+  const [phoneLengthError, setPhoneLengthError] = useState('');
+  const [whatsappLengthError, setWhatsappLengthError] = useState('');
+
+
+  const handleChangePhoneNumberWS = (e) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, whatsappLength?.phoneLength ? whatsappLength.phoneLength : 0);
+    setValue('numWSup', value);
+    const textError = `Le Numéro doit être avec ${whatsappLength?.phoneLength} chiffres.`
+    setWhatsappLengthError(textError);
+
+    schema.fields.numWSup = yup
+      .string()
+      .max(10, `Le Numéro doit être avec 10 chiffres.`);
+
+  };
+
+  const handleChangePhoneNumber = (e) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, phoneLength?.phoneLength ? phoneLength.phoneLength : 0);
+    const textError = `Le Numéro doit être avec ${phoneLength?.phoneLength} chiffres.`
+    setPhoneLengthError(textError);
+   
+    // Check if the length exceeds the limit and set an error message
+    setValue('tel', value);
+  };
 
 
   return (
@@ -220,18 +294,27 @@ const Personal = ({ userInfo }) => {
       <div>
         <ToastContainer />
       </div>
-      <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start py-8 pr-4 pl-8 w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+      <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start  w-full bg-white rounded-xl ">
-          <div className="flex gap-5 flex-col sm:flex-row max-md:flex-col max-md:gap-0">
+          <div className="flex gap-5 flex-col sm:flex-row max-md:flex-col max-md:gap-0 w-full">
             <div className="flex flex-col w-full sm:items-center sm:w-[36%] max-md:ml-0 max-md:w-full justify-center items-center">
               <label className="rounded-full border-2 aspect-square w-full max-w-[178px] max-md:mt-10">
-                <img
-                  loading="lazy"
-                  srcSet={
-                    imagePreview ? imagePreview : PlaceHolder
-                  }
-                  className="rounded-full border-2 aspect-square w-full max-w-[178px]"
-                />
+
+                {user?.image !== null ?
+                  <img
+                    loading="lazy"
+                    alt="logo"
+                    srcSet={imagePreview ? imagePreview : user.image}
+                    className="rounded-full border-2 aspect-square w-full max-w-[178px]"
+                  /> : (<img
+                    loading="lazy"
+                    alt="logo"
+                    srcSet={
+                      imagePreview ? imagePreview : PlaceHolder
+                    }
+                    className="rounded-full border-2 aspect-square w-full max-w-[178px]"
+                  />)}
+
               </label>
             </div>
 
@@ -271,8 +354,8 @@ const Personal = ({ userInfo }) => {
             />
             <div className="grow max-md:max-w-full">A Propos de Moi</div>
           </div>
-          <div className="flex flex-col">
-            <textarea {...register("discreptionBio", { required: true })} name="discreptionBio" onChange={handleInputChange} placeholder="A Propos de Moi" className={`border border-gray-800 border-solid ${errors.discreptionBio ? "!border-red-500" : "border-neutral-200"} justify-center p-4 mt-2 text-base font-light  rounded-[30px] text-zinc-900 max-md:max-w-full `}>
+          <div className="flex flex-col w-full">
+            <textarea {...register("discreptionBio", { required: true })} name="discreptionBio" placeholder="A Propos de Moi" className={`border border-gray-800 border-solid ${errors.discreptionBio ? "!border-red-500" : "border-neutral-200"} justify-center p-4 mt-2 text-base font-light  rounded-[30px] text-zinc-900 max-md:max-w-full `}>
             </textarea>
             {errors.discreptionBio && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
           </div>
@@ -299,11 +382,10 @@ const Personal = ({ userInfo }) => {
                     id="nom"
                     name="nom"
                     placeholder="Votre nom"
-                    onChange={handleInputChange}
                   />
-                  {errors.nom && (
+                  {errors?.nom && (
                     <div className="invalid-feedback block p-2">
-                      {errors.nom.message}
+                      {errors.nom?.message}
                     </div>
                   )}
                 </div>
@@ -329,11 +411,10 @@ const Personal = ({ userInfo }) => {
                     id="prenom"
                     name="prenom"
                     placeholder="Votre Prenom"
-                    onChange={handleInputChange}
                   />
-                  {errors.prenom && (
+                  {errors?.prenom && (
                     <div className="invalid-feedback block p-2">
-                      {errors.nom.message}
+                      {errors?.nom?.message}
                     </div>
                   )}
                 </div>
@@ -380,11 +461,15 @@ const Personal = ({ userInfo }) => {
 
                 <div className={'w-full'} style={{ position: "relative", marginTop: "5px" }}>
                   <input
-                    {...register("numWSup")}
+                    {...register("numWSup", {
+                      pattern: {
+                        value: /^\d{8}$/
+                      }
+                    })}
                     type="number"
+
                     // min={selectedCountryphoneWS.phoneLength}
-                    // max={selectedCountryphoneWS?.phoneLength}
-                    // onChange={handleChangePhoneNumberWS}
+                    onChange={handleChangePhoneNumberWS}
                     placeholder={`Votre numéro`}
                     className={`w-full form-control grow justify-center gap-2 items-start py-3.5 pl-1 border-solid  border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${errors.numWSup ? "is-invalid" : ""
                       }`}
@@ -400,7 +485,13 @@ const Personal = ({ userInfo }) => {
 
               {errors.numWSup && (
                 <div className="text-red-500 text-sm mt-1">
-                  {errors.numWSup.message}
+                  {errors.numWSup?.message}
+                </div>
+              )}
+
+              {whatsappLengthError && (
+                <div className="text-red-500 text-sm mt-1">
+                  {whatsappLengthError}
                 </div>
               )}
             </div>
@@ -446,7 +537,7 @@ const Personal = ({ userInfo }) => {
                     {...register("tel")}
                     type="number"
                     // min={selectedCountryphoneWS.phoneLength}
-                    // onChange={handleChangePhoneNumber}
+                    onChange={handleChangePhoneNumber}
                     placeholder={`Votre numéro`}
                     // value={phoneNumber.slice(0, selectedCountryphone?.phoneLength)}
                     className={`w-full grow justify-center gap-2 items-start form-control py-3.5 pl-1 border-solid  border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${errors.numWSup ? "is-invalid" : ""
@@ -456,7 +547,12 @@ const Personal = ({ userInfo }) => {
               </div>
               {errors.tel && (
                 <div className="text-red-500 text-sm mt-1">
-                  {errors.tel.message}
+                  {errors.tel?.message}
+                </div>
+              )}
+              {phoneLengthError && (
+                <div className="text-red-500 text-sm mt-1">
+                  {phoneLengthError}
                 </div>
               )}
             </div>
@@ -477,24 +573,26 @@ const Personal = ({ userInfo }) => {
                 </div>{" "}
                 <div className={`flex flex-col justify-center py-px mt-2 w-full border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.date_naissance ? '!border-red-500 ' : ''}`}>
                   <div className="flex gap-5 justify-between  py-3.5 rounded-md w-full ">
-                          <Controller
-                          control={control}
+                    <Controller
+                      control={control}
+                      name="date_naissance"
+                      render={({ field }) => (
+                        <DatePicker
                           name="date_naissance"
-                          render={({ field }) => (
-                            <DatePicker
-                            dateFormat="yyyy"
-                            showYearPicker
-                            {...field}
-                            yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
-                            maxDate={new Date(2012, 0, 1)}
-                            className="ml-4 w-full"
-                      /> 
-                          )}
+                          dateFormat="yyyy"
+                          selected={field.value}
+                          showYearPicker
+                          {...field}
+                          yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
+                          maxDate={new Date(2012, 0, 1)}
+                          className="ml-4 w-full text-black"
                         />
+                      )}
+                    />
                   </div>
                 </div>{" "}
               </div>
-              {errors.date_naissance && <span className="invalid-feedback block py-2 px-2">{errors.date_naissance.message}</span>}
+              {errors.date_naissance && <span className="invalid-feedback block py-2 px-2">{errors.date_naissance?.message}</span>}
             </div>
             <div className="lg:flex-1 w-full">
               <div className="flex gap-4 justify-between px-4 text-lg">
@@ -519,7 +617,7 @@ const Personal = ({ userInfo }) => {
                 </select>
                 {errors.gender && (
                   <div className="invalid-feedback">
-                    {errors.gender.message}
+                    {errors.gender?.message}
                   </div>
                 )}
               </div>{" "}
@@ -540,7 +638,8 @@ const Personal = ({ userInfo }) => {
               </div>{" "}
               <div className={`flex flex-col justify-center py-1.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.nationality ? 'border !border-red-500' : ''}`}>
                 <div className="flex gap-5 justify-between px-4  w-full rounded-md">
-                  <div className={`flex gap-5 justify-between`} >
+                  <div className={`flex gap-5 justify-between w-full`} >
+
                     <Controller
                       control={control}
                       name='nationality'
@@ -554,25 +653,27 @@ const Personal = ({ userInfo }) => {
                             control: (provided, state) => ({
                               ...provided,
                               borderRadius: "0.375rem", // You can adjust the radius as needed
-                              display: "flex",
-                              justifyContent: "center",
+
                               width: "100%",
                               fontSize: "1rem", // Set the desired font size
                               backgroundColor: "white", // Set the background color
                               borderWidth: "none",
+                            }),
+                            menu: (provided, state) => ({
+                              ...provided,
+                              width: "185%",
                             }),
                           }}
                         />
 
                       )}
                     />
-
                   </div>
                 </div>
               </div>
               {errors.nationality && (
                 <div className="text-red-500 text-sm mt-1">
-                  {errors.nationality.message}
+                  {errors.nationality?.message}
                 </div>
               )}
             </div>
@@ -609,6 +710,10 @@ const Personal = ({ userInfo }) => {
                                 backgroundColor: "white", // Set the background color
                                 borderWidth: "none",
                               }),
+                              menu: (provided, state) => ({
+                                ...provided,
+                                width: "185%",
+                              })
                             }}
                           />
                         )}
@@ -625,29 +730,29 @@ const Personal = ({ userInfo }) => {
               )}
             </div>
           </div>
-          
+
           <div>
-          <div className="flex gap-4 self-start px-4 mt-6 text-lg text-zinc-900">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/26bf7a353dc8ba12a2c588e612f061c37dd22cdccf246eec44650d1580269c48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />{" "}
-            <div className="flex-auto">Ville de résidence (Facultative)</div>{" "}
-          </div>{" "}
-          <input
-            type="text"
-            name="cityresidence"
-            {...register("cityresidence")}
-            className={` form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px] max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
-              }`}
-            placeholder="Ville"
-          />
-          {errors.cityresidence && (
-            <div className="invalid-feedback">
-              {errors.cityresidence.message}
-            </div>
-          )}
+            <div className="flex gap-4 self-start px-4 mt-6 text-lg text-zinc-900">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/26bf7a353dc8ba12a2c588e612f061c37dd22cdccf246eec44650d1580269c48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                className="self-start w-5 aspect-square"
+              />{" "}
+              <div className="flex-auto">Ville de résidence (Facultative)</div>{" "}
+            </div>{" "}
+            <input
+              type="text"
+              name="cityresidence"
+              {...register("cityresidence")}
+              className={`w-full form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px] max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
+                }`}
+              placeholder="Ville"
+            />
+            {errors.cityresidence && (
+              <div className="invalid-feedback">
+                {errors.cityresidence.message}
+              </div>
+            )}
           </div>
 
           <div className="flex gap-5 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
@@ -657,7 +762,7 @@ const Personal = ({ userInfo }) => {
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
                 className="w-5 aspect-square"
               />
-              <div className="grow">Annuler</div>
+              <button onClick={resetForm} className="grow">Annuler</button>
             </div>
             <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
               <img

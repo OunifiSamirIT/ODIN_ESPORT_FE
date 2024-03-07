@@ -1,8 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+
 const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     // const [currentTab, setCurrentTab] = useState('')
+    const navigate = useNavigate();
+
+    // Logout function
+    const handleLogout = () => {
+      // Clear the authentication token from localStorage
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+  
+      // Update the authentication state to false
+  
+      // Redirect to the login page or another route
+      navigate("/login");
+    };
+
     return (
         <>
             <div className="flex gap-x-5 gap-y-2 max-md:flex-col w-full px-4 max-md:px-2">
@@ -32,7 +47,7 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/cded10bad9b00bba1f301a02f5bfc764d8bff607a7af5b3849d13ad9750d0472?"
                                     className="w-5 aspect-square"
                                 />
-                                <button type="submit" onClick={() => console.log('logout')} className="flex-auto">Déconnexion</button>
+                                <button type="submit" onClick={handleLogout} className="flex-auto">Déconnexion</button>
                             </div>
                         </div>
                     </div>
