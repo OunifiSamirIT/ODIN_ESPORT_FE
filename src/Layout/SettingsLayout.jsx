@@ -20,7 +20,7 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
 
     return (
         <>
-            <div className="flex gap-x-5 gap-y-2 max-md:flex-col w-full px-4 max-md:px-2">
+            <div className="flex gap-x-5 gap-y-2 max-md:flex-col w-full px-4 max-md:px-2 mt-5">
                 <div className="flex flex-col max-md:ml-0">
                     <div className="flex md:w-[345px] flex-col text-base font-medium max-md:mt-6">
                         <div className="flex gap-2 justify-center text-center py-2 text-white whitespace-nowrap bg-orange-500 rounded-[30px] max-md:px-5 w-full">
@@ -31,29 +31,29 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                             />
                             <Link to={`/profile/${storedUserData.id}`} className="hover:text-orange-300">Revenir au Profil</Link>
                         </div>
-                        <div className=" flex-col px-4 py-4 mt-4 w-full bg-white rounded-[10px] text-zinc-900 hidden md:flex items-left">
+                        <div className=" flex-col px-4 py-1 mt-3 w-full bg-white rounded-[10px] text-zinc-900 hidden md:flex items-left">
                             {/* <div className="text-blue-600">Informations Personnelles</div> */}
                             <a href={`/setting/personal`} className={`mt-4 text-left`} >Informations Personnelles</a>
-                            <div className="shrink-0 mt-4 h-px bg-blue-100" />
+                            <div className="shrink-0 mt-3 h-px bg-blue-100" />
                             <a href={`/setting/information`} className="mt-4 text-left">Informations du Profil</a>
-                            <div className="shrink-0 mt-4 h-px bg-blue-100" />
+                            <div className="shrink-0 mt-3 h-px bg-blue-100" />
                             <a href={`/setting/parametre`} className="mt-4 text-left">Paramètres du compte</a>
-                            <div className="shrink-0 mt-4 h-px bg-blue-100" />
-                            <a href={`/setting/social`}className="mt-4 text-left" >Réseaux Sociaux</a>
-                            <div className="shrink-0 mt-4 h-px bg-blue-100" />
-                            <div className="flex justify-between px-3.5 py-4 text-orange-500 whitespace-nowrap">
+                            <div className="shrink-0 mt-3 h-px bg-blue-100" />
+                            <a href={`/setting/social`}className="mt-3 text-left" >Réseaux Sociaux</a>
+                            <div className="shrink-0 mt-3 h-px bg-blue-100" />
+                            <div className="flex items-center gap-4 px-3.5 py-3 text-orange-500 whitespace-nowrap">
                                 <img
                                     loading="lazy"
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/cded10bad9b00bba1f301a02f5bfc764d8bff607a7af5b3849d13ad9750d0472?"
                                     className="w-5 aspect-square"
                                 />
-                                <button type="submit" onClick={handleLogout} className="flex-auto">Déconnexion</button>
+                                <button type="submit" onClick={handleLogout} className="">Déconnexion</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex w-full flex-col flex-wrap gap-y-2 justify-between  py-8 pr-4 pl-8 bg-white rounded-[10px] max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+                <div className="flex w-full flex-col flex-wrap gap-y-2 justify-between  py-8 px-4 bg-white rounded-[10px] max-md:pl-5 max-md:mt-6 max-md:max-w-full">
                     {children}
                 </div>
 

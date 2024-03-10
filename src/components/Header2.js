@@ -83,7 +83,7 @@ function Header() {
   };
   return (
     <>
-    <div className={`relative w-full bg-white shadow-xs ${Hamburger ? 'fixed top-0 overflow-hidden' : '' }`}>
+    <div className={`w-full bg-white shadow-xs ${Hamburger ? 'fixed top-0 h-screen overflow-hidden z-50' : '' }`}>
       <div className="max-sm:px-4 max-w-[1344px] h-[100px] w-full bg-white  border-0 flex items-center justify-between mx-auto py-2 ">
         <Link to="/home">
           <svg width="209" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">

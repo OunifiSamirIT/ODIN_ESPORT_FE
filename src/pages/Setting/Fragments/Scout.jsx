@@ -1,31 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select, { components } from "react-select";
 import { paysAllInfo } from "../../../assets/data/Country";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useForm, Controller } from "react-hook-form"
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 const Scout = ({ userInfo }) => {
     const [selectedCountries, setSelectedCountries] = useState([])
-    const options = paysAllInfo.map((country, index) => {
-        const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
 
-        return {
-            value: countryCode,
-            label: (
-                <div key={country.iso}>
-                    {countryCode && (
-                        <span
-                            className={`flag-icon flag-icon-${countryCode}`}
-                            style={{ marginRight: "8px", width: "40px" }}
-                        ></span>
-                    )}
-                    {country.nationalite}
-                </div>
-            ),
-        };
-    });
 
 
     const MultiValueContainer = ({ children, ...props }) => {
@@ -46,39 +31,34 @@ const Scout = ({ userInfo }) => {
             </components.MultiValueContainer>
         );
     };
-    const optionsPays = paysAllInfo.map((country) => {
-        const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
-
-        return {
-            value: countryCode,
-            label: (
-                <div>
-                    {countryCode && (
-                        <span
-                            className={`flag-icon flag-icon-${countryCode}`}
-                            style={{ marginRight: "2px", width: "40px" }}
-                        ></span>
-                    )}
-                    <span className="text-white">{country.name}</span>
-                </div>
-            ),
-        };
-    });
     const schema = yup
         .object({
-            // club: yup.string().required('Ce champ est obligatoire').min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
-            // totalTeam: yup.string().required('Ce champ est obligatoire').max(70, ({ max }) => `Maximum de (${max} characters autorisé)`),
+            engagement: yup.string().required('Ce champ est obligatoire').min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
+            totalPlayer: yup.string().required('Ce champ est obligatoire').max(70, ({ max }) => `Maximum de (${max} characters autorisé)`),
             // countryCoachedIn: yup.string().required('Ce champ est obligatoire').min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
             // footballTactic: yup.string().required('Ce champ est obligatoire'),
         })
         .required()
 
-    const [selectedSkills, setSelectedSkills] = useState('Négociation,Connaissance approfondie du sport,Réseautage'.split(','))
-    // const [selectedSkills, setSelectedSkills] = useState(['Négociation']);
+    const [selectedSkills, setSelectedSkills] = useState(userInfo.scout.skillsscout.split(',').filter((item) => item !== ''))
+    const [baseSkills, setBaseSkills] = useState(userInfo.scout.skillsscout.split(',').filter((item) => item !== ''))
+    const [selectedSkillsError, setSelectedSkillsError] = useState(false)
 
+
+
+
+    const handleRegionChange = (selectedOptions) => {
+        console.log(selectedOptions)
+        // Update the formData state with the selected countries
+        const selectedCountryLabels = selectedOptions.map(
+            (option) => option.value
+        ).join(',');
+        setValue('countryCoachedIn', selectedCountryLabels)
+    };
     const toggleSkill = (skill) => {
         const skillExists = selectedSkills.includes(skill);
-        if (!skillExists) {
+
+        if (!skillExists && selectedSkills.length < 10) {
             const updatedSkills = [...selectedSkills, skill];
             setSelectedSkills(updatedSkills);
         } else {
@@ -119,14 +99,53 @@ const Scout = ({ userInfo }) => {
         resolver: yupResolver(schema),
         defaultValues: {}
     })
-    console.log(errors)
+
+
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    useEffect(() => {
+        setValue('engagement', userInfo.scout.engagement);
+        setValue('totalPlayer', userInfo.scout.nb_joueurdetecter);
+        setValue('skills', userInfo.scout.skillsscout);
+        setValue('region', userInfo.scout.paysscout);
+    }, [])
+
     const onSubmit = async (data) => {
-        console.log(data)
+        const formDataToUpdate = new FormData();
+        formDataToUpdate.append("engagement", data.engagement);
+        formDataToUpdate.append("totalPlayer", data.totalPlayer);
+        formDataToUpdate.append("skills", selectedSkills);
+        formDataToUpdate.append("region", data.countryCoachedIn);
+        console.log('formdata', formDataToUpdate)
+        const response = await fetch(
+            `http://localhost:5000/api/scouts/${storedUserData.id}`,
+            {
+                method: "PUT",
+                body: formDataToUpdate,
+            }
+        ).then((r) => {
+            console.log(r)
+            if (r.status === 200) {
+                toast.success('Vos modifications ont été enregistrées avec succès.', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    type: 'success',
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+        });
     }
     return (
 
         <>
             <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+                <div>
+                    <ToastContainer />
+                </div>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
                     <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
                         <div className="lg:flex-1 w-full">
@@ -148,7 +167,7 @@ const Scout = ({ userInfo }) => {
                                 <option value="mi-temps">Mi-Temps</option>
                                 <option value="volontaire">Volontaire</option>
                             </select>
-                            {errors.totalTeam && <span className="invalid-feedback block py-2 px-2">{errors.totalTeam.message}</span>}
+                            {errors.engagement && <span className="invalid-feedback block py-2 px-2">{errors.engagement.message}</span>}
 
                         </div>
                         <div className="lg:flex-1 w-full">
@@ -160,9 +179,9 @@ const Scout = ({ userInfo }) => {
                                 />
                                 <div className="grow text-lg">Nombre de joueurs détectés</div>
                             </div>
-                            <input {...register('totalPlayer')} name='totalPlayer' type='number'  className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid !border-red-500' : ''}`} />
+                            <input {...register('totalPlayer')} name='totalPlayer' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalPlayer ? 'is-invalid !border-red-500' : ''}`} />
 
-                            {errors.club && <span className="invalid-feedback block py-2 px-2">{errors.club.message}</span>}
+                            {errors.totalPlayer && <span className="invalid-feedback block py-2 px-2">{errors.totalPlayer.message}</span>}
                         </div>
                     </div>
                     <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
@@ -181,55 +200,49 @@ const Scout = ({ userInfo }) => {
 
                                 <div className="grow text-lg">Régions d’explorations</div>
                             </div>
-                            <Controller
-                                control={control}
-                                name="countryCoachedIn"
-                                render={({ field }) => (
-                                    <Select
-                                        options={regionOptions}
-                                        placeholder="Select one or more countries"
-                                        className={`border border-red-500 rounded-full mt-2 ${errors.footballTactic ? '!border-red-500' : ''}`}
-                                        {...field}
-                                        isMulti // Enable multiple selection
-                                        components={{ MultiValueContainer }}
-                                        // className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"
-                                        styles={{
-                                            control: (provided, state) => ({
-                                                ...provided,
-                                                borderRadius: "0.375rem",
-                                                display: "flex",
-                                                borderColor: "transparent",
-                                                justifyContent: "center",
-                                                borderRadius: "30px",
-                                                width: "100%",
-                                                minHeight: "53px",
-                                                color: "white", // Set text color to black
+                            <Select
+                                options={regionOptions}
+                                name="region"
+                                placeholder="Choisir une region"
+                                onChange={handleRegionChange}
+                                className={`border border-red-500 rounded-full mt-2 ${errors.footballTactic ? '!border-red-500' : ''}`}
+                                isMulti // Enable multiple selection
+                                components={{ MultiValueContainer }}
+                                // className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"
+                                styles={{
+                                    control: (provided, state) => ({
+                                        ...provided,
+                                        borderRadius: "0.375rem",
+                                        display: "flex",
+                                        borderColor: "transparent",
+                                        justifyContent: "center",
+                                        borderRadius: "30px",
+                                        width: "100%",
+                                        minHeight: "53px",
+                                        color: "white", // Set text color to black
 
-                                            }),
-                                            options: (provided) => ({
-                                                color: "white",
-                                            }),
-                                            multiValue: (provided, state) => ({
-                                                backgroundColor: '#2E71EB',
+                                    }),
+                                    options: (provided) => ({
+                                        color: "white",
+                                    }),
+                                    multiValue: (provided, state) => ({
+                                        backgroundColor: '#2E71EB',
+                                        display: 'flex',
+                                        color: 'white',
+                                        padding: '0px 5px',
+                                        border: 'transparent',
+                                        margin: '5px 5px',
+                                        justifyContent: 'center',
+                                        borderRadius: '30px',
+                                        fontSize: '1rem',
 
-                                                display: 'flex',
-                                                color: 'white',
-                                                padding: '0px 5px',
-                                                border: 'transparent',
-                                                margin: '5px 5px',
-                                                justifyContent: 'center',
-                                                borderRadius: '30px',
-                                                fontSize: '1rem',
+                                    }),
+                                    menu: (provided, state) => ({
+                                        ...provided,
+                                        width: "100%",
 
-                                            }),
-                                            menu: (provided, state) => ({
-                                                ...provided,
-                                                width: "100%",
-
-                                            }),
-                                        }}
-                                    />
-                                )}
+                                    }),
+                                }}
                             />
                             {errors.club && <span className="invalid-feedback block py-2 px-2">{errors.club.message}</span>}
                         </div>

@@ -70,6 +70,7 @@ const Agent = ({ userInfo }) => {
     });
     const schema = yup
         .object({
+            club: yup.string().required('Ce champ est obligatoire'),
             totalPlayer: yup.string().required('Ce champ est obligatoire').min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
             totalCareerTransfers: yup.string().required('Ce champ est obligatoire').max(70, ({ max }) => `Maximum de (${max} characters autorisé)`),
         })
@@ -128,7 +129,7 @@ const Agent = ({ userInfo }) => {
         setValue('totalCareerTransfers', userInfo.agent.totalCareerTransfers);
         setValue('totalPlayer', userInfo.agent.totalPlayer);
         setValue('club', userInfo.agent.clubCovered);
-        setValue('paysclub',  defaultValue(userInfo.agent.paysclub));
+        setValue('paysclub', defaultValue(userInfo.agent.paysclub));
         setValue('skills', selectedSkills);
     }, [])
 
@@ -153,51 +154,54 @@ const Agent = ({ userInfo }) => {
         setValue('skills', setSelectedSkills(baseSkills));
 
     }
-
+    const [selectedSkillsError, setSelectedSkillsError] = useState(false)
 
     const onSubmit = async (data) => {
-        const formDataToUpdate = new FormData();
-        formDataToUpdate.append("club", data.club);
-        formDataToUpdate.append("totalPlayer", data.totalPlayer);
-        formDataToUpdate.append("paysclub", data.paysclub?.label?.props?.children[1]);
-        formDataToUpdate.append("totalCareerTransfers", data.totalCareerTransfers);
-        formDataToUpdate.append("skills", selectedSkills);
-        formDataToUpdate.append("totalTeam", data.totalTeam);
-        console.log('formdata', formDataToUpdate)
-        const response = await fetch(
-            `http://localhost:5000/api/agents/${storedUserData.id}`,
-            {
-                method: "PUT",
-                body: formDataToUpdate,
-            }
-        ).then((r) => {
-
-            console.log(r)
-            if (r.status === 200) {
-                toast.success('Information du joueur sont changé', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    type: 'success',
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
-            }
-        });
-
+        console.log(selectedSkills)
+        if (selectedSkills.length > 0) {
+            const formDataToUpdate = new FormData();
+            formDataToUpdate.append("club", data.club);
+            formDataToUpdate.append("totalPlayer", data.totalPlayer);
+            formDataToUpdate.append("paysclub", data.paysclub?.label?.props?.children[1]);
+            formDataToUpdate.append("totalCareerTransfers", data.totalCareerTransfers);
+            formDataToUpdate.append("skills", selectedSkills);
+            formDataToUpdate.append("totalTeam", data.totalTeam);
+            console.log('formdata', formDataToUpdate)
+            const response = await fetch(
+                `http://localhost:5000/api/agents/${storedUserData.id}`,
+                {
+                    method: "PUT",
+                    body: formDataToUpdate,
+                }
+            ).then((r) => {
+                console.log(r)
+                if (r.status === 200) {
+                    toast.success('Vos modifications ont été enregistrées avec succès.', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        type: 'success',
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                }
+            });
+        } else {
+            setSelectedSkillsError(true)
+        }
     }
     return (
         <>
             {userInfo.agent.typeresponsable === 'player' &&
-                <div className="flex flex-col flex-wrap grow gap-y-6 content-start w-full bg-white rounded-xl max-md:max-w-full">
+                <div className="flex flex-col flex-wrap grow  content-start w-full bg-white rounded-xl">
                     <div>
                         <ToastContainer />
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-wrap grow gap-y-6 content-start w-full bg-white rounded-xl w-full">
-                        <div className="mt-6 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
+                        <div className="max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
                             <div className="lg:flex-1 w-full">
                                 <div className="flex gap-4 px-4 whitespace-nowrap">
                                     <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -212,7 +216,7 @@ const Agent = ({ userInfo }) => {
                                     </svg>
                                     <div className="grow text-md md:text-lg">Nombre de joueurs gérés</div>
                                 </div>
-                                <input {...register('totalPlayer')} name='totalPlayer' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid !border-red-500' : ''}`} />
+                                <input {...register('totalPlayer')} name='totalPlayer' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalPlayer ? 'is-invalid !border-red-500' : ''}`} />
                                 {errors.totalPlayer && <span className="invalid-feedback block py-2 px-2">{errors.totalPlayer.message}</span>}
 
                             </div>
@@ -230,13 +234,13 @@ const Agent = ({ userInfo }) => {
                                     </svg>
                                     <div className="grow text-md md:text-lg">Nombre de transferts effectués</div>
                                 </div>
-                                <input {...register('totalCareerTransfers')} name='totalCareerTransfers' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid !border-red-500' : ''}`} />
+                                <input {...register('totalCareerTransfers')} name='totalCareerTransfers' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalCareerTransfers ? 'is-invalid !border-red-500' : ''}`} />
 
                                 {errors.totalCareerTransfers && <span className="invalid-feedback block py-2 px-2">{errors.totalCareerTransfers.message}</span>}
                             </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-2   text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
+                        <div className="flex flex-wrap gap-2  text-blue-600 max-md:flex-wrap">
                             <div className="flex gap-4 self-start  text-lg whitespace-nowrap text-zinc-900">
                                 <div className="flex gap-4 self-start px-4 text-lg text-black whitespace-nowrap">
                                     <img
@@ -255,12 +259,12 @@ const Agent = ({ userInfo }) => {
                                             id={'skill' + index}
                                             name="coachSkillsInProfile"
                                             checked={selectedSkills.includes(skill)}
-                                            className="form-check-input d-none rounded-[30px] text-md md:text-leg "
+                                            className="form-check-input d-none rounded-[30px] text-md md:text-lg "
                                             onChange={() => toggleSkill(skill)}
                                         />
                                         <label
                                             htmlFor={'skill' + index}
-                                            className={`form-check-label text-md md:text-leg btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : "flex gap-4 justify-between md:px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]"
+                                            className={`form-check-label text-md md:text-lg btn ${selectedSkills.includes(skill) ? "text-md md:text-lg  flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : "flex gap-4 justify-between md:px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]"
                                                 }`}
                                         >
                                             <div className="text-[18px] font-light"> {selectedSkills.includes(skill) ? "-" : "+"} {skill} </div>
@@ -268,8 +272,13 @@ const Agent = ({ userInfo }) => {
                                     </div>
                                 ))}
                             </div>
-                            {selectedSkills.length == 10 && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
-
+                            {
+                                (selectedSkills.length === 10 || selectedSkillsError) && (
+                                    <span className="invalid-feedback block py-2 px-2">
+                                        Vous pouvez sélectionner au maximum 10 compétences !
+                                    </span>
+                                )
+                            }
                         </div>
                         <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
                             <div className="flex  justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
@@ -293,7 +302,7 @@ const Agent = ({ userInfo }) => {
 
                 </div>}
             {userInfo.agent.typeresponsable === 'club' &&
-                <div className="flex flex-col flex-wrap grow gap-y-6  content-start w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+                <div className="flex flex-col flex-wrap grow content-start w-full bg-white rounded-xl">
                     <div>
                         <ToastContainer />
                     </div>
@@ -304,7 +313,6 @@ const Agent = ({ userInfo }) => {
                                     <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11.483 9.2711L19.1399 15.6698L13.7165 19.7378C12.3621 20.7541 10.4991 20.7541 9.14466 19.7378L3.30316 15.3564C2.80883 14.9859 2.20687 14.7849 1.58872 14.7849H0.953422C0.426706 14.7849 0 14.3582 0 13.8325V3.29531C0 2.81145 0.360986 2.40856 0.841983 2.35427C2.13448 2.21044 3.2984 1.69135 4.48899 0.997952C6.20153 0.116918 8.4484 0.431232 9.83806 1.73326L10.4257 2.29807L6.60918 6.02318C5.58719 7.04423 5.42431 8.65866 6.2301 9.774C6.72539 10.4626 7.62166 10.9732 8.55794 10.9732C9.31324 10.9732 10.0381 10.676 10.5619 10.1512L11.483 9.27015V9.2711ZM19.0056 0.997952C17.3959 0.193115 15.3881 0.402658 13.9499 1.5199L7.94645 7.3795C7.59309 7.73382 7.51308 8.30053 7.77405 8.66247C7.9455 8.90059 8.19409 9.04346 8.47793 9.06727C8.75891 9.09108 9.03131 8.98917 9.22848 8.79106L12.6745 5.52504C13.5784 4.66686 14.888 6.03651 13.9918 6.90136L12.8669 7.94622L21.0515 14.7859H21.9058C22.4316 14.7859 22.8583 14.3592 22.8583 13.8334V3.26292C22.8583 2.79621 22.5173 2.41046 22.0573 2.3276C20.4438 2.03614 19.0046 0.998904 19.0046 0.998904L19.0056 0.997952Z" fill="#1D1E21" />
                                     </svg>
-
                                     <div className="grow text-lg">Club actuel</div>
                                 </div>
                                 <input {...register('club')} name='club' type='text' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid !border-red-500' : ''}`} />
@@ -312,7 +320,7 @@ const Agent = ({ userInfo }) => {
 
                             </div>
                             <div className="lg:flex-1 w-full">
-                                <div className="flex gap-4 justify-between px-4">
+                                <div className="flex gap-4  md:px-4 whitespace-nowrap w-full">
                                     <img
                                         loading="lazy"
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/d48be6745725217387de9710be0a193a4d08011e72ce73951c9268683bb1b223?"
@@ -339,14 +347,18 @@ const Agent = ({ userInfo }) => {
                                                                     borderRadius: "0.375rem", // You can adjust the radius as needed
                                                                     display: "flex",
                                                                     justifyContent: "center",
-                                                                    width: "185%",
+                                                                    width: "100%",
                                                                     fontSize: "1rem", // Set the desired font size
                                                                     backgroundColor: "white", // Set the background color
                                                                     borderWidth: "none",
                                                                 }),
+                                                                option: (provided , state) => ({
+                                                                    ...provided ,
+                                                                    width : "100%"
+                                                                }),
                                                                 menu: (provided, state) => ({
                                                                     ...provided,
-                                                                    width: "185%",
+                                                                    width: "100%",
                                                                 })
                                                             }}
                                                         />
@@ -356,13 +368,14 @@ const Agent = ({ userInfo }) => {
                                             </div>
                                         </div>{" "}
                                     </div>
-                                </div>                                {errors.club && <span className="invalid-feedback block py-2 px-2">{errors.club.message}</span>}
+                                </div>
+                                {errors.paysclub && <span className="invalid-feedback block py-2 px-2">{errors.paysclub.message}</span>}
                             </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-2   text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
+                        <div className="flex flex-wrap gap-2  text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
                             <div className="flex gap-4 self-start  text-lg whitespace-nowrap text-zinc-900">
-                                <div className="flex gap-4 self-start px-4 text-lg text-black whitespace-nowrap">
+                                <div className="flex gap-4  md:px-4 whitespace-nowrap w-full">
                                     <img
                                         loading="lazy"
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/7a53452f15bd5895da162bb03bb52c137da8fbcc9d687ab358a7d4d0a05729b5?"
@@ -391,9 +404,13 @@ const Agent = ({ userInfo }) => {
                                         </label>
                                     </div>
                                 ))}
-                            </div>
-                            {selectedSkills.length == 10 && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
-
+                            </div>                            {
+                                (selectedSkills.length === 10 || selectedSkillsError) && (
+                                    <span className="invalid-feedback block py-2 px-2">
+                                        Vous pouvez sélectionner au maximum 10 compétences !
+                                    </span>
+                                )
+                            }
                         </div>
                         <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
                             <div className="flex  justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">

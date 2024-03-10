@@ -112,20 +112,27 @@ const Personal = ({ userInfo }) => {
 
   const schema = yup
     .object({
-      nom: yup.string().min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
-      discreptionBio: yup.string().max(70, ({ max }) => `Maximum de (${max} characters autorisé)`),
+      nom: yup.string().required('Ce champ est obligatoire').max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
+      discreptionBio: yup.string().required('Ce champ est obligatoire').max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
       prenom: yup.string().min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
       nationality: yup.object().required(),
       country: yup.object().required(),
       cityresidence: yup.string(),
-      gender: yup.string().oneOf(['male', 'female'], 'Sexe doit etre "Homme" ou "Femme"'),
-      tel: yup.string().max(8),
-      date_naissance: yup.string(),
-      numWSup: yup.string().required('Le numero de whatsapp est obligatoire'),
-      phoneLength: yup.object(),
-      wats: yup.object(),
+      gender: yup.string().oneOf(['male', 'female'], 'Ce champ est obligatoire'),
+      // tel: yup.string().max(8),
+      date_naissance: yup.string('Ce champ est obligatoire').required('Ce champ est obligatoire'),
+      // wats: yup.object().required('Ce champ est obligatoire'),
+      // numWSup: yup.string().required('Le numero de whatsapp est obligatoire'),
+      numWSup: yup.string().when('wats', {
+        is: (wats) => !wats ,
+        then: () => yup.string().required('Le champ prefix est obligtoire'),
+        otherwise: () => yup.string(),
+      }),
+      phoneLength: yup.object().required('Ce champ est obligatoire'),
+
     })
     .required()
+      
   const {
     trigger,
     control,
@@ -138,9 +145,10 @@ const Personal = ({ userInfo }) => {
     resolver: yupResolver(schema),
     defaultValues: {}
   })
+ 
   const phoneLength = watch('phoneLength');
   const whatsappLength = watch('wats')
-
+  console.log(whatsappLength)
   if (whatsappLength) {
     let maxW = whatsappLength.phoneLength;
     schema.fields.numWSup = yup
@@ -149,7 +157,6 @@ const Personal = ({ userInfo }) => {
   }
 
   if (phoneLength) {
-    console.log('wass', phoneLength)
     let maxP = phoneLength.phoneLength;
     schema.fields.tel = yup
       .string()
@@ -157,16 +164,14 @@ const Personal = ({ userInfo }) => {
   }
 
 
-
+  console.log(errors)
   const handleFileChange = (event) => {
-    console.log('event', event.target.files[0])
     const file = event.target.files[0];
     setFile(file);
     if (file) {
       // Convert the selected image to a data URL
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log('cdfksd', reader.result)
         setImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
@@ -213,9 +218,8 @@ const Personal = ({ userInfo }) => {
         })
       }
     }).finally(() => {
-
       console.log('done')
-    });;
+    });
 
     // if(response.status === 200) {
     //   // toast("Wow so easy!");
@@ -235,16 +239,14 @@ const Personal = ({ userInfo }) => {
     setValue('wats', userInfo.user.wats);
     setValue('date_naissance', new Date(userInfo.user.date_naissance));
   }
-  const defaultImageSrcSet =
-    "https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&";
-
+  
   useEffect(() => {
-    // Replace the API endpoint with your actual endpoint for fetching user data
     const defaultValue = (countryName) => { return options.find(option => option.label.props?.children[1] === countryName) };
-    console.log(defaultValue('Andorrane'))
+    
     fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
       .then((response) => response.json())
       .then((userData) => {
+        console.log(defaultValue(userData.user.nationality))
         setUser(userData.user)
         setValue('nom', userData.user.nom);
         setValue('discreptionBio', userData.user.discreptionBio);
@@ -270,7 +272,8 @@ const Personal = ({ userInfo }) => {
   const handleChangePhoneNumberWS = (e) => {
     const value = e.target.value.replace(/\D/g, '').slice(0, whatsappLength?.phoneLength ? whatsappLength.phoneLength : 0);
     setValue('numWSup', value);
-    const textError = `Le Numéro doit être avec ${whatsappLength?.phoneLength} chiffres.`
+    const textError = `Le Numéro doit être avec ${whatsappLength?.phoneLength ? whatsappLength?.phoneLength : 5} chiffres.`
+
     setWhatsappLengthError(textError);
 
     schema.fields.numWSup = yup
@@ -280,10 +283,11 @@ const Personal = ({ userInfo }) => {
   };
 
   const handleChangePhoneNumber = (e) => {
-    const value = e.target.value.replace(/\D/g, '').slice(0, phoneLength?.phoneLength ? phoneLength.phoneLength : 0);
-    const textError = `Le Numéro doit être avec ${phoneLength?.phoneLength} chiffres.`
+    const value = e.target.value.replace(/\D/g, '').slice(0, phoneLength?.phoneLength ? phoneLength.phoneLength : 5);
+    console.log(value)
+    const textError = `Le Numéro doit être avec ${phoneLength?.phoneLength ? phoneLength?.phoneLength : 5} chiffres.`
     setPhoneLengthError(textError);
-   
+
     // Check if the length exceeds the limit and set an error message
     setValue('tel', value);
   };
@@ -294,7 +298,7 @@ const Personal = ({ userInfo }) => {
       <div>
         <ToastContainer />
       </div>
-      <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+      <div className="flex flex-col flex-wrap grow gap-y-6 justify-between w-full bg-white rounded-xl">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start  w-full bg-white rounded-xl ">
           <div className="flex gap-5 flex-col sm:flex-row max-md:flex-col max-md:gap-0 w-full">
             <div className="flex flex-col w-full sm:items-center sm:w-[36%] max-md:ml-0 max-md:w-full justify-center items-center">
@@ -365,7 +369,7 @@ const Personal = ({ userInfo }) => {
           <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
             <div className="lg:flex-1 w-full">
               <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
-                <div className="flex gap-4 justify-between px-4 text-lg">
+                <div className="flex gap-4 items-center text-lg">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/3b682aacddfd9d405027bfc2ee157c55aecce42a1e46ef3db6e893769755f24c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -394,7 +398,7 @@ const Personal = ({ userInfo }) => {
             </div>
             <div className="lg:flex-1 w-full">
               <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
-                <div className="flex gap-4 justify-between px-4 text-lg">
+                <div className="flex gap-4 items-cente px-4 text-lg">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/3b682aacddfd9d405027bfc2ee157c55aecce42a1e46ef3db6e893769755f24c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -425,9 +429,9 @@ const Personal = ({ userInfo }) => {
 
 
           {/* tel et whatsapp */}
-          <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
+          <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-base">
             <div className="lg:flex-1 w-full">
-              <div className="flex gap-4 justify-between px-4 text-lg">
+              <div className="flex gap-4 items-cente px-4 text-lg">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/77e0a9d5a9615e1a8589a669ca89cdae1507fb53a73dae9ebb1ad43aaa156c03?"
@@ -436,7 +440,7 @@ const Personal = ({ userInfo }) => {
                 <div className="grow">N° Whatsapp</div>
               </div>
 
-              <div className="flex gap-2 mt-2 text-base">
+              <div className="flex gap-2 mt-2 text-base h-[52px]">
                 <Controller
                   control={control}
                   name="wats"
@@ -447,11 +451,12 @@ const Personal = ({ userInfo }) => {
                           ...provided,
                           justifyContent: "center",
                           width: "135px",
+                          height:"52px",
                           backgroundColor: "transaprent",
                           borderWidth: "none",
                         }),
                       }}
-                      className={`flex border-solid border-[0.5px] rounded-[30px] ${errors.wats ? 'boreder border-red-500' : ''}`}
+                      className={`px-2 text-sm text-center flex border-solid border-[0.5px] rounded-[30px] ${errors.wats ? 'boreder border-red-500' : ''}`}
                       placeholder="Préfixe"
                       {...field}
                       options={optionsphone}
@@ -459,7 +464,7 @@ const Personal = ({ userInfo }) => {
                   )}
                 />
 
-                <div className={'w-full'} style={{ position: "relative", marginTop: "5px" }}>
+                <div className={'w-full'} style={{ }}>
                   <input
                     {...register("numWSup", {
                       pattern: {
@@ -467,19 +472,16 @@ const Personal = ({ userInfo }) => {
                       }
                     })}
                     type="number"
+                    
 
                     // min={selectedCountryphoneWS.phoneLength}
                     onChange={handleChangePhoneNumberWS}
                     placeholder={`Votre numéro`}
-                    className={`w-full form-control grow justify-center gap-2 items-start py-3.5 pl-1 border-solid  border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${errors.numWSup ? "is-invalid" : ""
+                    className={`h-[52px] px-3 w-full form-control grow justify-center gap-2 items-start py-3.5 pl-1 border-solid  border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${errors.numWSup ? "is-invalid" : ""
                       }`}
                   />
                 </div>
-                <div className="text-red-500 text-sm mt-1">
-                  {buttonClicked && !selectedCountryphoneWS && (
-                    "Veuillez sélectionner un pays"
-                  )}
-                </div>
+
 
               </div>
 
@@ -489,25 +491,31 @@ const Personal = ({ userInfo }) => {
                 </div>
               )}
 
-              {whatsappLengthError && (
+              {(whatsappLengthError && whatsappLength) ? (
                 <div className="text-red-500 text-sm mt-1">
-                  {whatsappLengthError}
+                  Le Numéro doit être avec {whatsappLength.phoneLength} chiffres
                 </div>
-              )}
+              ) : '' }
             </div>
 
             {/* -------------- */}
             <div className="lg:flex-1 w-full">
-              <div className="flex gap-4 justify-between px-4 text-lg">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8b3f9f9ce91abda956cebd8c4890e6a17fde7ecb10f630388688447199195a8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="w-6 aspect-square"
-                />
+              <div className="flex gap-4 items-center px-4 text-lg">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_595_43798)">
+                    <path d="M0.00069809 5.19844C0.00069809 11.5651 8.44236 19.9984 14.8007 19.9984C16.1924 19.9984 17.4924 19.4734 18.4507 18.5151L19.284 17.5568C20.2507 16.5901 20.2507 14.9568 19.2424 13.9484C19.2174 13.9234 17.209 12.3818 17.209 12.3818C16.209 11.4318 14.634 11.4318 13.6424 12.3818L12.4257 13.3568C9.75903 12.2234 7.86736 10.3234 6.6507 7.5651L7.61736 6.34844C8.5757 5.35677 8.5757 3.77344 7.61736 2.78177C7.61736 2.78177 6.0757 0.773438 6.0507 0.748438C5.04237 -0.259896 3.40903 -0.259896 2.4007 0.748438L1.5257 1.50677C0.525698 2.49844 0.00069809 3.79844 0.00069809 5.1901V5.19844Z" fill="#1D1E21" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_595_43798">
+                      <rect width="20" height="20" fill="white" transform="matrix(-1 0 0 1 20 0)" />
+                    </clipPath>
+                  </defs>
+                </svg>
+
                 <div className="grow">N° Tel</div>
               </div>
 
-              <div className="flex gap-2 mt-2 text-base">
+              <div className="flex gap-2 mt-2 text-base h-[52px]">
                 <Controller
                   control={control}
                   name="phoneLength"
@@ -525,34 +533,35 @@ const Personal = ({ userInfo }) => {
                           borderWidth: "none",
                         }),
                       }}
-                      className={`flex border-solid border-[0.5px] rounded-[30px] ${errors.wats ? 'boreder border-red-500' : ''}`}
+                      className={`text-sm text-center flex border-solid border-[0.5px] rounded-[30px] ${errors.wats ? 'boreder border-red-500' : ''}`}
                       placeholder="Préfixe"
                       {...field}
                       options={optionsphone}
                     />
                   )}
                 />
-                <div className={'w-full'} style={{ position: "relative", marginTop: "5px" }}>
+                <div className={'w-full h-[52px] '}>
                   <input
                     {...register("tel")}
                     type="number"
+                    disabled={phoneLength ? false : true}
                     // min={selectedCountryphoneWS.phoneLength}
                     onChange={handleChangePhoneNumber}
                     placeholder={`Votre numéro`}
                     // value={phoneNumber.slice(0, selectedCountryphone?.phoneLength)}
-                    className={`w-full grow justify-center gap-2 items-start form-control py-3.5 pl-1 border-solid  border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${errors.numWSup ? "is-invalid" : ""
+                    className={`px-3 w-full grow justify-center gap-2 items-start form-control py-3.5 pl-1 border-solid  border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${errors.numWSup ? "is-invalid" : ""
                       }`}
                   />
                 </div>
               </div>
               {errors.tel && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="invalid-feedback block py-2 px-2">
                   {errors.tel?.message}
                 </div>
               )}
-              {phoneLengthError && (
-                <div className="text-red-500 text-sm mt-1">
-                  {phoneLengthError}
+              {errors.phoneLength && (
+                <div className="invalid-feedback block py-2 px-2">
+                  {errors.phoneLength?.message}
                 </div>
               )}
             </div>
@@ -560,7 +569,7 @@ const Personal = ({ userInfo }) => {
 
 
           {/* annee de naissance */}
-          <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
+          <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-base">
             <div className="lg:flex-1 w-full">
               <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 max-md:mt-6">
                 <div className="flex gap-4 justify-between px-4 text-lg">
@@ -576,8 +585,10 @@ const Personal = ({ userInfo }) => {
                     <Controller
                       control={control}
                       name="date_naissance"
+                     
                       render={({ field }) => (
                         <DatePicker
+                          PlaceHolder="Année de naissance"
                           name="date_naissance"
                           dateFormat="yyyy"
                           selected={field.value}
@@ -585,7 +596,7 @@ const Personal = ({ userInfo }) => {
                           {...field}
                           yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
                           maxDate={new Date(2012, 0, 1)}
-                          className="ml-4 w-full text-black"
+                          className="ml-4 w-full text-zinc-600"
                         />
                       )}
                     />
@@ -594,8 +605,8 @@ const Personal = ({ userInfo }) => {
               </div>
               {errors.date_naissance && <span className="invalid-feedback block py-2 px-2">{errors.date_naissance?.message}</span>}
             </div>
-            <div className="lg:flex-1 w-full">
-              <div className="flex gap-4 justify-between px-4 text-lg">
+            <div className="lg:flex-1 w-full ">
+              <div className="flex gap-4 justify-between px-4 text-lg items-base">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/f81299e0229e715d9789e71faf61b6931d61c805b7fbce9b340cc4b0fd8493cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -603,20 +614,22 @@ const Personal = ({ userInfo }) => {
                 />{" "}
                 <div className="grow">Sexe</div>
               </div>{" "}
-              <div>
+              <div className="">
                 <select
                   {...register('gender')}
                   name="gender"
+                  placeholder="Sexe"
                   onChange={handleInputChange}
-                  className={`form-control flex flex-col justify-center pl-3.5 pt-2.5 px-px py-1.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.gender ? "is-invalid" : ""
-                    }`}
+                  className={` text-zinc-600 h-[53px] w-full md:w-full form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[379px] ${errors.sexe ? "is-invalid" : ""
+                }`}
+
                 >
                   <option value="">Sexe</option>
                   <option value="male">Homme</option>
                   <option value="female">Femme</option>
                 </select>
                 {errors.gender && (
-                  <div className="invalid-feedback">
+                  <div className="invalid-feedback block py-2 px-2">
                     {errors.gender?.message}
                   </div>
                 )}
@@ -744,7 +757,7 @@ const Personal = ({ userInfo }) => {
               type="text"
               name="cityresidence"
               {...register("cityresidence")}
-              className={`w-full form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px] max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
+              className={` text-zinc-600 w-full md:w-1/2 form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[379px] max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
                 }`}
               placeholder="Ville"
             />

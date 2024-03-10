@@ -15,7 +15,7 @@ const Player = ({ userInfo }) => {
     const [profile, setUserProfile] = useState([]);
     const [skills, setSkills] = useState([]);
     const [file, setFile] = useState(null);
-   const [licenceError, setLicenceError] = useState([])
+    const [licenceError, setLicenceError] = useState([])
 
 
 
@@ -79,8 +79,11 @@ const Player = ({ userInfo }) => {
     };
     const [selectedSkills, setSelectedSkills] = useState(userInfo.player.skillsInProfile.split(',').filter((item) => item !== ''))
     const [baseSkills, setBaseSkills] = useState(userInfo.player.skillsInProfile.split(',').filter((item) => item !== ''))
+    const [selectedSkillsError , setSelectedSkillsError] = useState(false)
+
     const toggleSkill = (skill) => {
         const skillExists = selectedSkills.includes(skill);
+
         if (!skillExists && selectedSkills.length < 10) {
             const updatedSkills = [...selectedSkills, skill];
             setSelectedSkills(updatedSkills);
@@ -108,7 +111,7 @@ const Player = ({ userInfo }) => {
         "Équilibre et coordination",
         "Auto-Motivation"
     ];
-
+   
     const resetForm = async (data) => {
         setValue('club', userInfo.player.champsoptionelle);
         setValue('height', userInfo.player.height);
@@ -120,10 +123,22 @@ const Player = ({ userInfo }) => {
         setValue('competence', setSelectedSkills(baseSkills));
     }
 
+
+    const validate = async () => {
+
+
+    }
+
     const onSubmit = async (data) => {
-        if(data.licence === "oui" && data.file[0]){
-            console.log('this is file',file)
-            const formDataToUpdate = new FormData();
+
+        if(selectedSkills.length <= 0){
+            setSelectedSkillsError(true)
+            console.log('hello')
+        } 
+
+        if(data.licence === "oui" && data.file[0]   ){
+
+        const formDataToUpdate = new FormData();
         console.log(errors)
         formDataToUpdate.append("club", data.club);
         formDataToUpdate.append("height", data.height);
@@ -159,7 +174,7 @@ const Player = ({ userInfo }) => {
           }).finally(()=> {
            
             console.log('done')
-          });;;
+          });
         }
         
         // if (response.status === 200) {
@@ -496,6 +511,7 @@ const Player = ({ userInfo }) => {
                                 </div>
                             ))}
                         </div>
+                        {selectedSkills.length <= 0 && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
                         {selectedSkills.length == 10  && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
                     </div>
                     <div className="flex gap-5 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
