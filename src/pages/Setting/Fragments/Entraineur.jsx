@@ -54,7 +54,7 @@ const Entraineur = ({ userInfo }) => {
             totalTeam: yup.string('Ce champ est obligatoire').required('Ce champ est obligatoire'),
             countryCoachedIn: yup.array()
                 .required('Ce champs est obligatoire')
-                .min(1, 'Vous pouvez selectionner au minimum 1 pays !') ,
+                .min(1, 'Vous pouvez selectionner au minimum 1 pays !'),
             skills: yup.array()
                 .min(1, 'Vous pouvez selectionner au maximum 10 compétences !') // Validate minimum length
                 .required('Vous pouvez selectionner au maximum 10 compétences !'),
@@ -93,7 +93,7 @@ const Entraineur = ({ userInfo }) => {
         resolver: yupResolver(schema),
         defaultValues: {}
     })
-    const handleCountryPaysEntrainement = async(selectedOptions) => {
+    const handleCountryPaysEntrainement = async (selectedOptions) => {
         setSelectedCountriesV(selectedOptions)
         const selectedCountryLabels = selectedOptions.map(
             (option) => option.label.props.children[1]
@@ -111,7 +111,16 @@ const Entraineur = ({ userInfo }) => {
 
         })
     };
-    console.log(errors)
+    const resetForm = async () => {
+        const val = handleDestructureCountries(userInfo.coach.countryCoachedIn)
+        setSelectedCountriesV(val)
+        setValue('ClubActuelCoach', userInfo.coach.ClubActuelCoach);
+        setValue('totalTeam', userInfo.coach.totalTeam);
+        setValue('footballTactic', userInfo.coach.footballTactic);
+        setValue('skills', setSelectedSkills(baseSkills));
+        setValue('countryCoachedIn', selectedCountriesV);
+
+    }
     useEffect(() => {
         console.log(selectedCountriesV);
         setValue('countryCoachedIn', selectedCountriesV);
@@ -121,18 +130,13 @@ const Entraineur = ({ userInfo }) => {
         setValue('skills', selectedSkills);
     }, [selectedSkills]);
     useEffect(() => {
-        console.log(selectedCountriesV)
-        const val = handleDestructureCountries(userInfo.coach.countryCoachedIn) 
-        console.log('fsdfgsdgsfgsf',val)
+        const val = handleDestructureCountries(userInfo.coach.countryCoachedIn)
         setSelectedCountriesV(val)
         setSelectedCountries(userInfo.coach.countryCoachedIn)
         setValue('ClubActuelCoach', userInfo.coach.ClubActuelCoach);
         setValue('totalTeam', userInfo.coach.totalTeam);
         setValue('footballTactic', userInfo.coach.footballTactic);
         // setValue('countryCoachedIn', selectedCountriesV);
-
-        console.log('sdfsdfsdgfsfgssf',selectedCountriesV)
-        console.log(selectedSkills)
     }, [])
     const onSubmit = async (data, errors) => {
         console.log(data)
@@ -338,7 +342,7 @@ const Entraineur = ({ userInfo }) => {
                                     />
                                     <label
                                         htmlFor={'skill' + index}
-                                        className={`form-check-label btn ${selectedSkills.includes(skill)  ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${!selectedSkills.includes(skill)  && selectedSkills.length == 10 ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' :'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
+                                        className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${!selectedSkills.includes(skill) && selectedSkills.length == 10 ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
                                             }`}
                                     >
                                         <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
@@ -349,16 +353,16 @@ const Entraineur = ({ userInfo }) => {
                     </div>
                     {errors.skills && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
                     {selectedSkills.length == 10 && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
-                    <div className="flex gap-5 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
-                        <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+                    <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
+                        <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
                                 className="w-5 aspect-square"
                             />
-                            <div className="grow">Annuler</div>
+                            <a onClick={resetForm} className="grow">Annuler</a>
                         </div>
-                        <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                        <div className="flex gap-2  px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"

@@ -56,14 +56,14 @@ const Agent = ({ userInfo }) => {
         return {
             value: countryCode,
             label: (
-                <div>
+                <div key={country.iso}>
                     {countryCode && (
                         <span
                             className={`flag-icon flag-icon-${countryCode}`}
                             style={{ marginRight: "2px", width: "40px" }}
                         ></span>
                     )}
-                    <span className="text-white">{country.name}</span>
+                    <span className="">{country.name}</span>
                 </div>
             ),
         };
@@ -71,15 +71,19 @@ const Agent = ({ userInfo }) => {
     const schema = yup
         .object({
             club: yup.string().required('Ce champ est obligatoire'),
-            totalPlayer: yup.string().required('Ce champ est obligatoire').min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
-            totalCareerTransfers: yup.string().required('Ce champ est obligatoire').max(70, ({ max }) => `Maximum de (${max} characters autorisé)`),
+            totalPlayer: yup.string().required('Ce champ est obligatoire').min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(255, ({ max }) => `Maximum de (${max} characters autorisé)`),
+            totalCareerTransfers: yup.string().required('Ce champ est obligatoire').max(255, ({ max }) => `Maximum de (${max} characters autorisé)`),
+            skills: yup.array()
+                .min(1, 'Vous pouvez selectionner au minimum 1 compétence !')
+                .max(10, 'Vous pouvez selectionner au maximum 10 compétences !') // Validate minimum length
+                .required('Vous pouvez selectionner au maximum 10 compétences !'),
         })
         .required()
-
+   
     const [selectedSkills, setSelectedSkills] = useState(userInfo.agent.skills.split(',').filter((item) => item !== ''))
     // const [selectedSkills, setSelectedSkills] = useState(['Négociation']);
     const [baseSkills, setBaseSkills] = useState(userInfo.agent.skills.split(',').filter((item) => item !== ''))
-
+    const [selectedSkillsError, setSelectedSkillsError] = useState(false)
     const toggleSkill = (skill) => {
         const skillExists = selectedSkills.includes(skill);
         if (!skillExists && selectedSkills.length < 10) {
@@ -89,7 +93,12 @@ const Agent = ({ userInfo }) => {
             const updatedSkills = selectedSkills.filter((selectedSkill) => selectedSkill !== skill);
             setSelectedSkills(updatedSkills);
         }
-        console.log(selectedSkills)
+        if(selectedSkills.length >= 10){
+            setSelectedSkillsError(true)
+        }
+        if(selectedSkills.length < 10){
+            setSelectedSkillsError(false)
+        }
     };
 
     const skillsListJoueur = [
@@ -122,15 +131,14 @@ const Agent = ({ userInfo }) => {
         "Empathie",
         "Gestion de crise"
     ];
-
     useEffect(() => {
-        const defaultValue = (countryName) => { return options.find(option => option.label.props?.children[1] === countryName) };
+        const defaultValue = (countryName) => { return optionsPays.find(option => option.label.props?.children[1].props.children === countryName) };
         setValue('totalTeam', userInfo.agent.champsoptionelle);
         setValue('totalCareerTransfers', userInfo.agent.totalCareerTransfers);
         setValue('totalPlayer', userInfo.agent.totalPlayer);
         setValue('club', userInfo.agent.clubCovered);
         setValue('paysclub', defaultValue(userInfo.agent.paysclub));
-        setValue('skills', selectedSkills);
+        // setValue('skills', selectedSkills);
     }, [])
 
     const {
@@ -144,25 +152,26 @@ const Agent = ({ userInfo }) => {
         resolver: yupResolver(schema),
         defaultValues: {}
     })
-
     const resetForm = async () => {
-        console.log(userInfo.agent.skills)
+        const defaultValue = (countryName) => { return optionsPays.find(option => option.label.props?.children[1].props.children === countryName) };
         setValue('club', userInfo.agent.clubCovered);
-        setValue('paysclub', userInfo.agent.paysclub);
+        setValue('paysclub', defaultValue(userInfo.agent.paysclub));
         setValue('totalPlayer', userInfo.agent.totalPlayer);
         setValue('totalCareerTransfers', userInfo.agent.totalCareerTransfers);
         setValue('skills', setSelectedSkills(baseSkills));
 
     }
-    const [selectedSkillsError, setSelectedSkillsError] = useState(false)
 
+    useEffect(() => {
+        setValue('skills', selectedSkills);
+    }, [selectedSkills]);
     const onSubmit = async (data) => {
-        console.log(selectedSkills)
+
         if (selectedSkills.length > 0) {
             const formDataToUpdate = new FormData();
             formDataToUpdate.append("club", data.club);
             formDataToUpdate.append("totalPlayer", data.totalPlayer);
-            formDataToUpdate.append("paysclub", data.paysclub?.label?.props?.children[1]);
+            formDataToUpdate.append("paysclub", data.paysclub?.label?.props?.children[1].props.children);
             formDataToUpdate.append("totalCareerTransfers", data.totalCareerTransfers);
             formDataToUpdate.append("skills", selectedSkills);
             formDataToUpdate.append("totalTeam", data.totalTeam);
@@ -264,24 +273,19 @@ const Agent = ({ userInfo }) => {
                                         />
                                         <label
                                             htmlFor={'skill' + index}
-                                            className={`form-check-label text-md md:text-lg btn ${selectedSkills.includes(skill) ? "text-md md:text-lg  flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : "flex gap-4 justify-between md:px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]"
+                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${!selectedSkills.includes(skill) && selectedSkills.length == 10 ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
                                                 }`}
                                         >
-                                            <div className="text-[18px] font-light"> {selectedSkills.includes(skill) ? "-" : "+"} {skill} </div>
+                                            <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
                                         </label>
                                     </div>
                                 ))}
                             </div>
-                            {
-                                (selectedSkills.length === 10 || selectedSkillsError) && (
-                                    <span className="invalid-feedback block py-2 px-2">
-                                        Vous pouvez sélectionner au maximum 10 compétences !
-                                    </span>
-                                )
-                            }
+                            {errors.skills && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
+                            {selectedSkills.length == 10 && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
                         </div>
                         <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
-                            <div className="flex  justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+                            <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
                                 <img
                                     loading="lazy"
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
@@ -330,15 +334,15 @@ const Agent = ({ userInfo }) => {
                                 </div>
                                 <div className={`flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.country ? 'border !border-red-500' : ''}`}>
                                     <div className="flex gap-5 justify-between px-4  w-full rounded-md">
-                                        <div className="flex gap-4 justify-between">
-                                            <div className="flex-auto">
+                                        <div className="flex gap-4 justify-between w-full">
+                                            <div className="flex w-full">
                                                 <Controller
                                                     control={control}
                                                     name='paysclub'
                                                     render={({ field }) => (
                                                         <Select
-                                                            options={options}
-                                                            placeholder="Résidence"
+                                                            options={optionsPays}
+                                                            placeholder="Pays du club"
                                                             className="w-full"
                                                             {...field}
                                                             styles={{
@@ -352,9 +356,9 @@ const Agent = ({ userInfo }) => {
                                                                     backgroundColor: "white", // Set the background color
                                                                     borderWidth: "none",
                                                                 }),
-                                                                option: (provided , state) => ({
-                                                                    ...provided ,
-                                                                    width : "100%"
+                                                                option: (provided, state) => ({
+                                                                    ...provided,
+                                                                    width: "100%"
                                                                 }),
                                                                 menu: (provided, state) => ({
                                                                     ...provided,
@@ -397,23 +401,19 @@ const Agent = ({ userInfo }) => {
                                         />
                                         <label
                                             htmlFor={'skill' + index}
-                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : "flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]"
+                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${(!selectedSkills.includes(skill) && errors.skills) || selectedSkillsError ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
                                                 }`}
                                         >
-                                            <div className="text-[18px] font-light"> {selectedSkills.includes(skill) ? "-" : "+"} {skill} </div>
+                                            <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
                                         </label>
                                     </div>
                                 ))}
-                            </div>                            {
-                                (selectedSkills.length === 10 || selectedSkillsError) && (
-                                    <span className="invalid-feedback block py-2 px-2">
-                                        Vous pouvez sélectionner au maximum 10 compétences !
-                                    </span>
-                                )
-                            }
+                            </div>
+                            {errors.skills && <span className="invalid-feedback block py-2 px-2">{errors.skills?.message}</span>}
+                            {selectedSkillsError && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
                         </div>
                         <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
-                            <div className="flex  justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+                            <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
                                 <img
                                     loading="lazy"
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
