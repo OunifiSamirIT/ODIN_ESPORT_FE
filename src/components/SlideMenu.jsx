@@ -91,7 +91,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/fc3698e77abea2c6c7f4158984e72cc84fccffa79005aaacb0a8148c7fc2d112?"
               className="aspect-[0.75] w-[15px]"
             />
-            <Link className="grow" to={`/profile/${user?.id}`}>Agents</Link>
+            <Link className="grow" to={`/profile/${user?.id}`}>Profil</Link>
           </div>
           <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
@@ -99,7 +99,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/927661d7ec160577838c28e1e039b5d465c8c91f54895e62de4603b16322853d?"
               className="w-5 aspect-square"
             />
-            <Link className="grow" to={'/setting/personal'}>Challenges</Link>
+            <Link className="grow" to={'/setting/personal'}>Paramètres</Link>
           </div>
           <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
