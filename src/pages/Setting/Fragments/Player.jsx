@@ -27,11 +27,15 @@ const Player = ({ userInfo }) => {
     const schema = yup
         .object({
             club: yup.string().required().min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
-            height: yup.string().required().max(70, ({ max }) => `Maximum de (${max} characters autorisé)`),
-            weight: yup.string().required().min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
+            height:yup.number('Ce champ est obligatoire').typeError('Ce champ est obligatoire').required('Ce champ est obligatoire'),
+            weight: yup.number('Ce champ est obligatoire').typeError('Ce champ est obligatoire').required('Ce champ est obligatoire'),
             PiedFort: yup.string().required(),
             positionPlay: yup.string().required(),
-            positionSecond: yup.mixed()
+            positionSecond: yup.mixed(),
+            skills: yup.array()
+            .min(3, 'Vous pouvez selectionner au minimum 3 compétences !')
+            .max(10, 'Vous pouvez selectionner au maximum 10 compétences !') // Validate minimum length
+            .required('Vous pouvez selectionner au maximum 10 compétences !'),
         })
         
     const {
@@ -58,16 +62,13 @@ const Player = ({ userInfo }) => {
         setValue('licence', userInfo.player.Licence !== '' ? "oui" : "non");
         setValue('competence', selectedSkills);
     }, [])
-    const handleInputChange = (e) => {
-        // setFormData({
-        //     ...formData,
-        //     [e.target.name]: e.target.value,
-        // });
-    };
-    const [FileError, setFileError] = useState(false)
-    const handleFileChangeLicense = (event) => {
 
+    const [FileError, setFileError] = useState(false)
+    const [FileName, setFileName] = useState('')
+    const handleFileChangeLicense = (event) => {
         const file = event.target.files[0];
+        setFileName(file.name)
+
         if (file) {
             // Convert the selected image to a data URL
             const reader = new FileReader();
@@ -83,7 +84,6 @@ const Player = ({ userInfo }) => {
 
     const toggleSkill = (skill) => {
         const skillExists = selectedSkills.includes(skill);
-
         if (!skillExists && selectedSkills.length < 10) {
             const updatedSkills = [...selectedSkills, skill];
             setSelectedSkills(updatedSkills);
@@ -91,8 +91,28 @@ const Player = ({ userInfo }) => {
             const updatedSkills = selectedSkills.filter((selectedSkill) => selectedSkill !== skill);
             setSelectedSkills(updatedSkills);
         }
-        console.log(selectedSkills)
+        if(selectedSkills.length >= 10){
+            setSelectedSkillsError(true)
+        }
+        if(selectedSkills.length < 10){
+            setSelectedSkillsError(false)
+        }
     };
+    useEffect(() => {
+        setValue('skills', selectedSkills);
+    }, [selectedSkills]);
+
+    const handleChange = (event) => {
+        console.log(event.target.name)
+        const input = event.target.value;
+        // Ensure the input is a valid number, non-negative, and has at most 3 digits
+        if (/^\d*$/.test(input) && input.length <= 3 && input >= 0) {
+          setValue(event.target.name , input);
+        }else{
+            setValue(event.target.name , 0);
+        }
+      };
+
     const licence = watch('licence');
     const skillsList = [
         "Rapidité",
@@ -122,60 +142,100 @@ const Player = ({ userInfo }) => {
         setValue('licence', userInfo.player.Licence);
         setValue('competence', setSelectedSkills(baseSkills));
     }
-
-
-    const validate = async () => {
-
-
-    }
+    
 
     const onSubmit = async (data) => {
-
-        if(selectedSkills.length <= 0){
-            setSelectedSkillsError(true)
-            console.log('hello')
-        } 
-
-        if(data.licence === "oui" && data.file[0]   ){
-
-        const formDataToUpdate = new FormData();
-        console.log(errors)
-        formDataToUpdate.append("club", data.club);
-        formDataToUpdate.append("height", data.height);
-        formDataToUpdate.append("weight", data.weight);
-        formDataToUpdate.append("PiedFort", data.PiedFort);
-        formDataToUpdate.append("positionPlay", data.positionPlay);
-        formDataToUpdate.append("positionSecond", data.positionSecond);
-        formDataToUpdate.append("skills", selectedSkills);
-        formDataToUpdate.append("licence", data.licence);
-        formDataToUpdate.append("image", data.file[0] || null);
-        const response = await fetch(
-            `http://localhost:5000/api/player/${storedUserData.id}`,
+        setFileError(false)
+        if(data.licence === "oui"){
+            if(data.file.length > 0 || userInfo.player.Licence !== '')
             {
-                method: "PUT",
-                body: formDataToUpdate,
-            }
-
-        ).then((r)=> {
-            console.log('gfjii')
-            if(r.status === 200) {
-              toast.success('Information du joueur sont changé', {
-                position: "top-right",
-                autoClose: 5000,
-                type: 'success',
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                })
-            }
-          }).finally(()=> {
-           
-            console.log('done')
-          });
+            console.log(FileError)
+            const formDataToUpdate = new FormData();
+            console.log(FileError)
+            formDataToUpdate.append("club", data.club);
+            formDataToUpdate.append("height", data.height);
+            formDataToUpdate.append("weight", data.weight);
+            formDataToUpdate.append("PiedFort", data.PiedFort);
+            formDataToUpdate.append("positionPlay", data.positionPlay);
+            formDataToUpdate.append("positionSecond", data.positionSecond);
+            formDataToUpdate.append("skills", selectedSkills);
+            formDataToUpdate.append("licence", data.licence);
+            formDataToUpdate.append("image", data.file[0] || null);
+            const response = await fetch(
+                `http://localhost:5000/api/player/${storedUserData.id}`,
+                {
+                    method: "PUT",
+                    body: formDataToUpdate,
+                }
+            ).then((r)=> {
+                console.log('gfjii')
+                if(r.status === 200) {
+                  toast.success('Information du joueur sont changé', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    type: 'success',
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    })
+                }
+              }).finally(()=> {
+               
+                console.log('done')
+              });
+        }else{
+            setFileError(true)
+            console.log(false)
+        }}
+        else{
+            const formDataToUpdate = new FormData();
+            formDataToUpdate.append("club", data.club);
+            formDataToUpdate.append("height", data.height);
+            formDataToUpdate.append("weight", data.weight);
+            formDataToUpdate.append("PiedFort", data.PiedFort);
+            formDataToUpdate.append("positionPlay", data.positionPlay);
+            formDataToUpdate.append("positionSecond", data.positionSecond);
+            formDataToUpdate.append("skills", selectedSkills);
+            formDataToUpdate.append("licence", data.licence);
+            formDataToUpdate.append("image", null);
+            const response = await fetch(
+                `http://localhost:5000/api/player/${storedUserData.id}`,
+                {
+                    method: "PUT",
+                    body: formDataToUpdate,
+                }
+            ).then((r)=> {
+                console.log('gfjii')
+                if(r.status === 200) {
+                  toast.success('Information du joueur sont changé', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    type: 'success',
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    })
+                }
+              }).finally(()=> {
+               
+                console.log('done')
+              });
         }
+
+        // if(data.licence === "oui" && data.file[0]   ){
+
+        // if(FileError === true){
+        //   console.log('error')
+        // }else{
+            
+        // }
+        // }
         
         // if (response.status === 200) {
         //     window.location.reload();
@@ -189,7 +249,7 @@ const Player = ({ userInfo }) => {
             <div>
                 <ToastContainer />
             </div>
-            <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+            <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl  max-md:max-w-full">
                 <form onSubmit={handleSubmit(onSubmit)} >
                     <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
                         <div className="lg:flex-1 w-full">
@@ -202,7 +262,7 @@ const Player = ({ userInfo }) => {
                                 <div className="grow text-lg">Club Actuel</div>
                             </div>
                             <div className="relative">
-                                <input name='club' {...register('club')} type='text' className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5" />
+                                <input name='club' {...register('club')} type='text' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid !border-red-500' : ''}`} />
                                 {errors.club && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
                             </div>
                         </div>
@@ -216,7 +276,7 @@ const Player = ({ userInfo }) => {
                                 <div className="grow text-lg">Taille</div>
                             </div>
                            
-                            <input name='height' {...register('height')} type='number' className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5" />
+                            <input {...register('height')} onChange={handleChange} name='height'  type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.height ? 'is-invalid !border-red-500' : ''}`} />
                             {errors.height && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
                         </div>
                     </div>
@@ -237,7 +297,7 @@ const Player = ({ userInfo }) => {
                                 <div className="grow text-lg">Poids</div>
                             </div>
                             <div className="relative">
-                                <input name='weight' {...register('weight')} type='number' className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5" />
+                                <input {...register('weight')} onChange={handleChange} name='weight'  type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.weight ? 'is-invalid !border-red-500' : ''}`} />
                                 {errors.weight && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
                             </div>
                         </div>
@@ -266,7 +326,6 @@ const Player = ({ userInfo }) => {
                                 {...register('PiedFort')}
                                 className={`w-full flex justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5
                                     }`}
-                                onChange={handleInputChange}
                             >
                                 <option value="" disabled>
                                     Pied Fort
@@ -294,38 +353,37 @@ const Player = ({ userInfo }) => {
                                 className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 appearence-none"
                             >
                                 <option value="" disabled>
-                                    Position principale
+                                    Position Secondaire
                                 </option>
-                                <option value="Gardien de but">
-                                    Gardien de but
+                                <option value="Gardien de but (GK)">
+                                    Gardien de but (GK)
                                 </option>
-                                <option value="Défenseur central">
-                                    Défenseur central
+                                <option value="Arrière droit (RB)">
+                                    Arrière droit (RB)
                                 </option>
-                                <option value="Arrière droit">
-                                    Arrière droit
+                                <option value="Arrière gauche( LB)">
+                                    Arrière gauche( LB)
                                 </option>
-                                <option value="Arrière gauche">
-                                    Arrière gauche
+                                <option value="Défenseur central (CB)">
+                                    Défenseur central (CB)
                                 </option>
-                                <option value="Milieu défensif">
-                                    Milieu défensif
+                                <option value="Milieu défensif (CDM)">
+                                    Milieu défensif (CDM)
                                 </option>
-                                <option value="Milieu central">
-                                    Milieu central
+                                <option value="Milieu central ( CM)">
+                                    Milieu central ( CM)
                                 </option>
-                                <option value="Milieu offensif">
-                                    Milieu offensif
+                                <option value="Milieu offensif ( CAM)">
+                                    Milieu offensif ( CAM)
                                 </option>
-                                <option value="Ailier droit">Ailier droit</option>
-                                <option value="Ailier gauche">
-                                    Ailier gauche
+                                <option value="Ailier droit (RW)">
+                                    Ailier droit (RW)
                                 </option>
-                                <option value="Attaquant de pointe">
-                                    Attaquant de pointe
+                                <option value="Ailier gauche ( LW)">
+                                    Ailier gauche ( LW)
                                 </option>
-                                <option value="Attaquant polyvalent">
-                                    Attaquant polyvalent
+                                <option value="Avant-centre ">
+                                    Avant-centre ( ST)
                                 </option>
                             </select>
                              {errors.positionPlay && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
@@ -389,7 +447,7 @@ const Player = ({ userInfo }) => {
                             </select>
                         </div>
                     </div>
-                    <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-end">
+                    <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex sm:gap-4 gap-x-4  flex-wrap items-end">
                         <div className="lg:flex-1 w-full">
                             <div className="flex gap-4 justify-between px-4 mt-4">
                                 <img
@@ -401,7 +459,7 @@ const Player = ({ userInfo }) => {
                             </div>
                             <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                                 <select {...register('licence')} className="flex gap-5 justify-between px-4 py-2 rounded-md" name="licence" id="licence" >
-                                    <option>Select a value</option>
+                                    <option disabled>Oui/Non</option>
                                     <option value="oui">OUI</option>
                                     <option value="non">Non</option>
                                 </select>
@@ -411,7 +469,7 @@ const Player = ({ userInfo }) => {
                             {licence === 'oui' &&
                                 <div>
                                     <div className="flex gap-4 justify-center items-center w-full">
-                                        <div className="flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5">
+                                        <div className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 ${FileError ? '!border-red-500 text-red-500 ' : ''}`}>
                                             <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_1342_45742)">
                                                     <path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#2E71EB" />
@@ -430,9 +488,9 @@ const Player = ({ userInfo }) => {
                                                     name="file"
                                                     accept="*"
                                                     onChange={handleFileChangeLicense}
-                                                    className="grow my-auto w-2 inset-0 opacity-0"
+                                                    className={`grow my-auto w-2 inset-0 opacity-0`}
                                                 />
-                                                Importer une Licence
+                                                {FileName ?  FileName : 'Importer une Licence'}
                                             </label>
                                         </div>
                                         
@@ -473,9 +531,10 @@ const Player = ({ userInfo }) => {
 
                                 </div>
                             }
+                            
                         </div>
-                        {licence == 'oui' && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
-                         {imagePreviewlic &&  <span><img src={imagePreviewlic} alt="preview" /></span>}
+                        {FileError && <span className="invalid-feedback block px-2 ">Ce champ est obligatoire</span>}
+                         {/* {imagePreviewlic &&  <span><img src={imagePreviewlic} alt="preview" /></span>} */}
 
                     </div>
 
@@ -490,48 +549,48 @@ const Player = ({ userInfo }) => {
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
-                        <div className="form-group icon-input  mb-3">
-                            {skillsList.map((skill, index) => (
-                                <div key={skill} className="form-check rounded-[30px] form-check-inline pl-0 me-2 mb-2">
-                                    <input
-                                        type="checkbox"
-                                        id={'skill' + index}
-                                        name="coachSkillsInProfile"
-                                        checked={selectedSkills.includes(skill)}
-                                        className="form-check-input d-none rounded-[30px] "
-                                        onChange={() => toggleSkill(skill)}
-                                    />
-                                    <label
-                                        htmlFor={'skill' + index}
-                                        className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : "flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]"
-                                            }`}
-                                    >
-                                        <div className="text-[18px] font-light"> {selectedSkills.includes(skill) ? "-" : "+"} {skill} </div>
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-                        {selectedSkills.length <= 0 && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
-                        {selectedSkills.length == 10  && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
+                    <div className="form-group icon-input  mb-3">
+                                {skillsList.map((skill, index) => (
+                                    <div key={skill} className="form-check rounded-[30px] form-check-inline pl-0 me-2 mb-2">
+                                        <input
+                                            type="checkbox"
+                                            id={'skill' + index}
+                                            name="coachSkillsInProfile"
+                                            checked={selectedSkills.includes(skill)}
+                                            className="form-check-input d-none rounded-[30px] "
+                                            onChange={() => toggleSkill(skill)}
+                                        />
+                                        <label
+                                            htmlFor={'skill' + index}
+                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${(!selectedSkills.includes(skill) && errors.skills) || selectedSkillsError ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
+                                                }`}
+                                        >
+                                            <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
+                                        </label>
+                                    </div>
+                                ))}
+                                 {errors.skills && <span className="invalid-feedback block  px-2">{errors.skills?.message}</span>}
+                                 {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span> : null}
+                            </div>
                     </div>
-                    <div className="flex gap-5 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
-                        <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
-                                className="w-5 aspect-square"
-                            />
-                            <a onClick={resetForm} className="grow cursor-pointer">Annuler</a>
+                    <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
+                            <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+                                <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
+                                    className="w-5 aspect-square"
+                                />
+                                <a onClick={resetForm} className="grow">Annuler</a>
+                            </div>
+                            <div className="flex gap-2  px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                                <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
+                                    className="w-5 aspect-square"
+                                />
+                                <button type='submit' className="grow">Confirmer</button>
+                            </div>
                         </div>
-                        <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
-                                className="w-5 aspect-square"
-                            />
-                            <button type="submit" className="grow">Confirmer</button>
-                        </div>
-                    </div>
                 </form>
             </div>
         </>

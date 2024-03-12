@@ -58,7 +58,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
           loading="lazy"
           onClick={() =>setHumberger(!Hamburger) }
           srcSet={user?.image ? user?.image : UserImage}
-          className="md:hidden  self-stretch aspect-square rounded-full w-[60px] z-10 relative pointer"
+          className="md:hidden  self-stretch aspect-square rounded-full w-[60px] relative pointer"
         />
           <img
             alt="user iamge"
@@ -68,7 +68,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
             className="hidden md:block self-stretch aspect-square rounded-full w-[60px] z-10 relative pointer"
           />
 
-        <div className={`hidden md:flex absolute h-[60px] top-0 z-auto flex  gap-4 items-center pl-4 pr-[65px] bg-blue-600 rounded-[80px] max-md:flex-wrap ${expanded ? 'w-fit expand' : 'hide'}`}>
+        <div className={`hidden md:flex absolute h-[60px] top-0 z-1 flex  gap-4 items-center pl-4 pr-[65px] bg-blue-600 rounded-[80px] max-md:flex-wrap ${expanded ? 'w-fit expand' : 'hide'}`}>
           <div className="flex justify-center items-center self-stretch px-2 my-auto bg-white aspect-square h-[31px] rounded-[50px] w-[31px]">
             <img
               onClick={toggleExpand}

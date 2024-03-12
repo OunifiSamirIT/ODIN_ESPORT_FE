@@ -56,7 +56,8 @@ const Entraineur = ({ userInfo }) => {
                 .required('Ce champs est obligatoire')
                 .min(1, 'Vous pouvez selectionner au minimum 1 pays !'),
             skills: yup.array()
-                .min(1, 'Vous pouvez selectionner au maximum 10 compétences !') // Validate minimum length
+                .min(3, 'Vous pouvez selectionner au minimum 3 compétences !')
+                .max(10, 'Vous pouvez selectionner au maximum 10 compétences !') // Validate minimum length
                 .required('Vous pouvez selectionner au maximum 10 compétences !'),
             footballTactic: yup.string().required('Ce champ est obligatoire'),
         })
@@ -69,13 +70,18 @@ const Entraineur = ({ userInfo }) => {
 
     const toggleSkill = (skill) => {
         const skillExists = selectedSkills.includes(skill);
-
         if (!skillExists && selectedSkills.length < 10) {
             const updatedSkills = [...selectedSkills, skill];
             setSelectedSkills(updatedSkills);
         } else {
             const updatedSkills = selectedSkills.filter((selectedSkill) => selectedSkill !== skill);
             setSelectedSkills(updatedSkills);
+        }
+        if(selectedSkills.length >= 10){
+            setSelectedSkillsError(true)
+        }
+        if(selectedSkills.length < 10){
+            setSelectedSkillsError(false)
         }
     };
 
@@ -121,6 +127,17 @@ const Entraineur = ({ userInfo }) => {
         setValue('countryCoachedIn', selectedCountriesV);
 
     }
+    const handleChange = (event) => {
+        console.log(event.target.name)
+        const input = event.target.value;
+        // Ensure the input is a valid number, non-negative, and has at most 3 digits
+        if (/^\d*$/.test(input) && input.length <= 3 && input >= 0) {
+            setValue(event.target.name, input);
+        } else {
+            setValue(event.target.name, 0);
+        }
+    };
+
     useEffect(() => {
         console.log(selectedCountriesV);
         setValue('countryCoachedIn', selectedCountriesV);
@@ -216,7 +233,7 @@ const Entraineur = ({ userInfo }) => {
 
                                 <div className="grow text-lg">Nombre de clubs entraînées</div>
                             </div>
-                            <input {...register('totalTeam')} name='totalTeam' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalTeam ? 'is-invalid !border-red-500' : ''}`} />
+                            <input {...register('totalTeam')} onChange={handleChange} name='totalTeam' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalTeam ? 'is-invalid !border-red-500' : ''}`} />
                             {errors.totalTeam && <span className="invalid-feedback block py-2 px-2">{errors.totalTeam.message}</span>}
 
                         </div>
@@ -317,42 +334,48 @@ const Entraineur = ({ userInfo }) => {
                             {errors.countryCoachedIn && <span className="invalid-feedback block py-2 px-2">{errors.countryCoachedIn?.message}</span>}
                         </div>
                     </div>
+                    <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
+                        <div className="lg:flex-1 w-full">
+                            <div className="flex gap-2 justify-between px-4 items-center  text-lg">
+                                <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/7a53452f15bd5895da162bb03bb52c137da8fbcc9d687ab358a7d4d0a05729b5?"
+                                    className="my-auto w-5 aspect-square"
+                                />
+                                <div className="flex-auto">Compétences</div>
+                            </div>
+                        </div>
 
-                    <div className="flex gap-4 self-start  md:px-0 text-lg whitespace-nowrap text-zinc-900">
-                        <div className="flex gap-2 items-center self-start px-4 text-lg text-black whitespace-nowrap">
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/7a53452f15bd5895da162bb03bb52c137da8fbcc9d687ab358a7d4d0a05729b5?"
-                                className="my-auto w-5 aspect-square"
-                            />
-                            <div className="flex-auto">Compétences</div>
+                        <div className="flex flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
+                            <div className="form-group icon-input  mb-3">
+                                {skillsList.map((skill, index) => (
+                                    <div key={skill} className="form-check rounded-[30px] form-check-inline pl-0 me-2 mb-2">
+                                        <input
+                                            type="checkbox"
+                                            id={'skill' + index}
+                                            name="coachSkillsInProfile"
+                                            checked={selectedSkills.includes(skill)}
+                                            className="form-check-input d-none rounded-[30px] "
+                                            onChange={() => toggleSkill(skill)}
+                                        />
+                                        <label
+                                            htmlFor={'skill' + index}
+                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${(!selectedSkills.includes(skill) && errors.skills) || selectedSkillsError ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
+                                                }`}
+                                        >
+                                            <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
+                                        </label>
+                                    </div>
+                                ))}
+                                {errors.skills && <span className="invalid-feedback block  px-2">{errors.skills?.message}</span>}
+                                {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span> : null}
+                            </div>
                         </div>
+
                     </div>
-                    <div className="flex flex-wrap gap-2 mr-3 text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
-                        <div className="form-group icon-input  mb-3">
-                            {skillsList.map((skill, index) => (
-                                <div key={skill} className="form-check rounded-[30px] form-check-inline pl-0 mb-2">
-                                    <input
-                                        type="checkbox"
-                                        id={'skill' + index}
-                                        name="coachSkillsInProfile"
-                                        checked={selectedSkills.includes(skill)}
-                                        className="form-check-input d-none rounded-[30px] "
-                                        onChange={() => toggleSkill(skill)}
-                                    />
-                                    <label
-                                        htmlFor={'skill' + index}
-                                        className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${!selectedSkills.includes(skill) && selectedSkills.length == 10 ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
-                                            }`}
-                                    >
-                                        <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    {errors.skills && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
-                    {selectedSkills.length == 10 && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
+
+
+
                     <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
                         <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
                             <img

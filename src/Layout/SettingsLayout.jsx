@@ -20,9 +20,9 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
 
     return (
         <>
-            <div className="flex gap-x-5 gap-y-2 max-md:flex-col w-full px-4 max-md:px-2 mt-5">
+            <div className="flex flex-col md:flex-row gap-x-5 gap-y-2  w-full px-4 max-md:px-2 md:mt-5 mt-4">
                 <div className="flex flex-col max-md:ml-0">
-                    <div className="flex md:w-[345px] flex-col text-base font-medium max-md:mt-6">
+                    <div className="flex md:w-[345px] flex-col text-base font-medium ">
                         <div className="flex gap-2 justify-center text-center py-2 text-white whitespace-nowrap bg-orange-500 rounded-[30px] max-md:px-5 w-full">
                             <img
                                 loading="lazy"
@@ -53,7 +53,7 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                     </div>
                 </div>
 
-                <div className="flex w-full flex-col flex-wrap gap-y-2 justify-between  py-8 px-4 bg-white rounded-[10px] max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+                <div className="flex w-full flex-col flex-wrap gap-y-2 justify-between max-md:mt-3   px-4 bg-white rounded-[10px] max-md:pl-5 max-md:max-w-full">
                     {children}
                 </div>
 

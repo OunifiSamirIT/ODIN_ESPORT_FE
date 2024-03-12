@@ -71,10 +71,10 @@ const Agent = ({ userInfo }) => {
     const schema = yup
         .object({
             club: yup.string().required('Ce champ est obligatoire'),
-            totalPlayer: yup.string().required('Ce champ est obligatoire').min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(255, ({ max }) => `Maximum de (${max} characters autorisé)`),
-            totalCareerTransfers: yup.string().required('Ce champ est obligatoire').max(255, ({ max }) => `Maximum de (${max} characters autorisé)`),
+            totalPlayer: yup.number('Ce champ est obligatoire').typeError('Ce champ est obligatoire').required('Ce champ est obligatoire'),
+            totalCareerTransfers: yup.number('Ce champ est obligatoire').typeError('Ce champ est obligatoire').required('Ce champ est obligatoire'),
             skills: yup.array()
-                .min(1, 'Vous pouvez selectionner au minimum 1 compétence !')
+                .min(3, 'Vous pouvez selectionner au minimum 3 compétences !')
                 .max(10, 'Vous pouvez selectionner au maximum 10 compétences !') // Validate minimum length
                 .required('Vous pouvez selectionner au maximum 10 compétences !'),
         })
@@ -165,6 +165,18 @@ const Agent = ({ userInfo }) => {
     useEffect(() => {
         setValue('skills', selectedSkills);
     }, [selectedSkills]);
+
+    const handleChange = (event) => {
+        console.log(event.target.name)
+        const input = event.target.value;
+        // Ensure the input is a valid number, non-negative, and has at most 3 digits
+        if (/^\d*$/.test(input) && input.length <= 3 && input >= 0) {
+          setValue(event.target.name , input);
+        }else{
+            setValue(event.target.name , 0);
+        }
+      };
+    
     const onSubmit = async (data) => {
 
         if (selectedSkills.length > 0) {
@@ -205,7 +217,7 @@ const Agent = ({ userInfo }) => {
     return (
         <>
             {userInfo.agent.typeresponsable === 'player' &&
-                <div className="flex flex-col flex-wrap grow  content-start w-full bg-white rounded-xl">
+                <div className="flex flex-col flex-wrap grow  content-start w-full bg-white rounded-xl py-4">
                     <div>
                         <ToastContainer />
                     </div>
@@ -225,7 +237,7 @@ const Agent = ({ userInfo }) => {
                                     </svg>
                                     <div className="grow text-md md:text-lg">Nombre de joueurs gérés</div>
                                 </div>
-                                <input {...register('totalPlayer')} name='totalPlayer' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalPlayer ? 'is-invalid !border-red-500' : ''}`} />
+                                <input {...register('totalPlayer')} onChange={handleChange} name='totalPlayer' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalPlayer ? 'is-invalid !border-red-500' : ''}`} />
                                 {errors.totalPlayer && <span className="invalid-feedback block py-2 px-2">{errors.totalPlayer.message}</span>}
 
                             </div>
@@ -243,7 +255,7 @@ const Agent = ({ userInfo }) => {
                                     </svg>
                                     <div className="grow text-md md:text-lg">Nombre de transferts effectués</div>
                                 </div>
-                                <input {...register('totalCareerTransfers')} name='totalCareerTransfers' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalCareerTransfers ? 'is-invalid !border-red-500' : ''}`} />
+                                <input {...register('totalCareerTransfers')} onChange={handleChange} name='totalCareerTransfers' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalCareerTransfers ? 'is-invalid !border-red-500' : ''}`} />
 
                                 {errors.totalCareerTransfers && <span className="invalid-feedback block py-2 px-2">{errors.totalCareerTransfers.message}</span>}
                             </div>
@@ -273,16 +285,16 @@ const Agent = ({ userInfo }) => {
                                         />
                                         <label
                                             htmlFor={'skill' + index}
-                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${!selectedSkills.includes(skill) && selectedSkills.length == 10 ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
+                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${(!selectedSkills.includes(skill) && errors.skills) || selectedSkillsError ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
                                                 }`}
                                         >
                                             <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
                                         </label>
                                     </div>
                                 ))}
-                            </div>
-                            {errors.skills && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
-                            {selectedSkills.length == 10 && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
+                            </div> 
+                            {errors.skills && <span className="invalid-feedback block py-2 px-2">{errors.skills?.message}</span>}
+                            {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span> : null}
                         </div>
                         <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
                             <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
@@ -408,9 +420,10 @@ const Agent = ({ userInfo }) => {
                                         </label>
                                     </div>
                                 ))}
+                                 {errors.skills && <span className="invalid-feedback block  px-2">{errors.skills?.message}</span>}
+                                 {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span> : null}
                             </div>
-                            {errors.skills && <span className="invalid-feedback block py-2 px-2">{errors.skills?.message}</span>}
-                            {selectedSkillsError && <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span>}
+                           
                         </div>
                         <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
                             <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
