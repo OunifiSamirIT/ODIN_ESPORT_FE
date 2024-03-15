@@ -90,7 +90,7 @@ import CreateUser from './pages/Admin/Components/CreateUser'
 import UserEvent from './pages/UserEvent';
 import ViewAlbum from './pages/Admin/Components/ViewAlbum';
 import ViewAlbumodinuser from './pages/ViewAlbumOdin';
-
+import Error from './pages/404';
 
 
 import { BrowserRouter, Switch, Route, Navigate } from "react-router-dom";
@@ -196,16 +196,16 @@ function Root() {
         <Route exact path="/setting/:tab?" element={<ProfileSetting/>} />
 
 
+ 
+        <Route exact path="/404" element={<Error />} />
+       {/* Profile routes */}
 
-
-  {/* Profile routes */}
-
-  <Route exact path="/profile/:id" element={<Profile />} />
+       <Route exact path="/profile/:id" element={<Profile />} />
         <Route exact path="/profile/more" element={<MoreProfile />} />
-        <Route exact path="/informationProfile" element={<Information />} />
+        {/* <Route exact path="/informationProfile" element={<Information />} />
         <Route exact path={`/accountinformation`} element={<Account />} />
         <Route exact path={`/parametrecompte`} element={<Parametre />} />
-        <Route exact path={`/social`} element={<ProfilSocial />} />
+        <Route exact path={`/social`} element={<ProfilSocial />} /> */}
 
 
 

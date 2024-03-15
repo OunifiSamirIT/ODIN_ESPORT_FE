@@ -26,7 +26,6 @@ import CustomButton from "../../components/CustomButton";
 import { BsFiletypeGif, BsPersonFillAdd, BsTypeH1 } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import {
   BiEditAlt,
   BiHeart,
@@ -47,12 +46,11 @@ import SlideMenu from "../../components/SlideMenu";
 import Logo from "../../assets/ODIN22.png";
 
 const Index = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const [profileFeed, SetProfileFeed] = useState('pubs')
   useEffect(() => {
-    console.log('this',id)
     SetProfileFeed('pubs');
-  },[])
+  }, [])
 
 
   const handleProfileFeed = (data) => {
@@ -66,8 +64,8 @@ const Index = () => {
   const [postsData, setPostsData] = useState([]);
   const fileInputRef = useRef(null);
   const [articles, setArticles] = useState([]); // New state for articles
-  const [articlesWithPhoto , setArticleWithPhoto] = useState([])
-  const [articlesWithVideo , setArticleWithVideo] = useState([])
+  const [articlesWithPhoto, setArticleWithPhoto] = useState([])
+  const [articlesWithVideo, setArticleWithVideo] = useState([])
   const [isActive, setIsActive] = useState(false);
   const [comment, setComment] = useState("");
   const [selectedArticleId, setSelectedArticleId] = useState(null);
@@ -104,14 +102,14 @@ const Index = () => {
   };
   useEffect(() => {
     setArticleWithPhoto(articles.filter((item) => {
-     return  item.image !== null
-   }))
+      return item.image !== null && item.userId === LocalStorageID.id
+    }))
 
-   setArticleWithVideo(articles.filter((item) => {
-    return  item.video !== null
-  }))
+    setArticleWithVideo(articles.filter((item) => {
+      return item.video !== null && item.userId === LocalStorageID.id
+    }))
 
-   },[profileFeed,articles])
+  }, [profileFeed, articles])
   const toggleActive = () => setIsActive(!isActive);
 
   const emojiClass = `${isActive ? "active" : ""}`;
@@ -141,7 +139,7 @@ const Index = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: storedUserData.id,
+            userId: LocalStorageID.id,
             articleId: articleId,
             emoji: emoji,
           }),
@@ -153,7 +151,7 @@ const Index = () => {
 
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
-          "http://localhost:5000/api/likes/article/allLikes"
+          "http://localhost:5000/api/likes/allLikes"
         );
         const allLikesData = await allLikesResponse.json();
 
@@ -180,6 +178,7 @@ const Index = () => {
       });
     }
   };
+
 
   const handleLikeComment = async (commentId) => {
     try {
@@ -350,15 +349,13 @@ const Index = () => {
 
   const fetchArticles = async () => {
     try {
-      // Fetch articles
       const response = await fetch("http://localhost:5000/api/articles/");
       const result = await response.json();
 
-      const reversedArticles = result.rows.reverse();
-      const userIds = reversedArticles.map((article) => article.userId);
-      const comt = reversedArticles.map((article) => article.id);
+      // Extract userIds from articles
+      const userIds = result.rows.map((article) => article.userId);
 
-      // Fetch user data
+      // Fetch user information for each userId
       const usersResponse = await Promise.all(
         userIds.map((userId) =>
           fetch(`http://localhost:5000/api/user/${userId}`).then((response) =>
@@ -366,42 +363,36 @@ const Index = () => {
           )
         )
       );
+      console.log('usersResponse', usersResponse)
 
-      // Fetch comment data for each article
-      const comtResponse = await Promise.all(
-        comt.map((articleId) =>
-          fetch(
-            `http://localhost:5000/api/commentaires/article/${articleId}`
-          ).then((response) => response.json())
-        )
+      const articlesWithUsers = result.rows
+        .map((article, index) => ({
+          ...article,
+          user: usersResponse[index],
+        }))
+        .filter((article) => article.userId === LocalStorageID.id); // Filter articles based on userId
+      setArticles(articlesWithUsers);
+
+      // Fetch comments for each article
+      const commentsPromises = articlesWithUsers.map(async (article) => {
+        const response = await fetch(
+          `http://localhost:5000/api/commentaires/?articleId=${article.id}`
+        );
+        const comments = await response.json();
+        return { articleId: article.id, comments };
+      });
+
+      const commentsResults = await Promise.all(commentsPromises);
+
+      const articleCommentsData = commentsResults.reduce(
+        (acc, { articleId, comments }) => {
+          acc[articleId] = comments;
+          return acc;
+        },
+        {}
       );
 
-      const articlesWithLikesCount = await Promise.all(
-        reversedArticles.map(async (article, index) => {
-          // const commentsData = await commentsResponse.json();
-
-          const likesCountResponse = await fetch(
-            `http://localhost:5000/api/likes/allLikes`
-          );
-          const likesCountData = await likesCountResponse.json();
-
-          const likesCount = likesCountData.find(
-            (count) =>
-              count.articleId === article.articleId ||
-              count.articleId === article.id
-          );
-
-          return {
-            ...article,
-            user: usersResponse[index],
-            comments: comtResponse[index].commentsData,
-            commentsCount: comtResponse[index].commentCount,
-            likesCount: likesCount ? likesCount.likesCount : 0,
-          };
-        })
-      );
-
-      setArticles(articlesWithLikesCount);
+      setArticleCommentsCounts(articleCommentsData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -559,12 +550,11 @@ const Index = () => {
   const [galleryItems, setGalleryItems] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageFeed, setImageFeed] = useState([]);
-  const [videoFeed,setVideoFeed] = useState([]);
+  const [videoFeed, setVideoFeed] = useState([]);
 
   useEffect(() => {
-    console.log('articles',articlesWithPhoto)
-    if (storedUserData) {
-      const userId = storedUserData.id;
+    if (id) {
+      const userId = id;
       // Fetch gallery items for the specific user ID
       fetch(`http://localhost:5000/api/articles/gallery/${userId}`)
         .then((response) => response.json())
@@ -828,31 +818,34 @@ const Index = () => {
               {articles.map((article) => (
                 <div
                   key={article.id}
-                  className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
+                  className="card w-100 shadow-xss flex rounded-xxl border-0 p-4 mb-3"
                 >
-                  <div className="card-body p-0 d-flex">
+                  <div className="card-body p-0 d-flex items-center mb-3">
                     <figure className="avatar me-3">
                       <img
-                        src={article.user.image}
+                        src={article.user.user.image}
                         className="shadow-sm rounded-full  w-10 h-10"
                         alt="post"
                       />{" "}
                     </figure>
 
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                      {article.user.nom}
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {article.user.profil}
+                    <h4 className="flex flex-col fw-700 text-grey-900 font-xssss mt-1">
+                      {article.user.user.nom}
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {article.user.user.profil}
                       </span>
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {new Date(article.user.createdAt).toLocaleDateString()}
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {new Date(article.user.user.createdAt).toLocaleDateString()}
                       </span>
                     </h4>
                     <div className="ms-auto relative">
-                      <i
-                        className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss cursor-pointer"
-                        onClick={() => handleMoreClick(article)}
-                      ></i>
+                      <svg onClick={() => handleMoreClick(article)} width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z" fill="#1D1E21" />
+                        <path d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z" fill="#1D1E21" />
+                        <path d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z" fill="#1D1E21" />
+                      </svg>
+
+
                       {showDropdown === article.id && (
                         <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                           {/* Your dropdown menu content */}
@@ -881,19 +874,19 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="card-body p-0 me-lg-5">
-                    <p className="fw-500 font-thin lh-26 ml-8  rounded-md font-xssss w-100 mb-2 text-dark theme-dark-bg">
-                      {article.description}{" "}
+                    <p className="font-light text-base rounded-md  w-full text-dark theme-dark-bg text-pretty">
+                      {article.description}
                     </p>
                   </div>
-                  <div className="card-body d-block p-0 mb-3">
-                    <div className="row ps-2 pe-2">
-                      <div className="col-sm-12 p-1">
-                        {/* <img
-                      src={article.image}
-                      className="rounded-3 w-100"
-                      alt="post"
-                    /> */}
-                        {article.video ? (
+
+
+
+
+
+                  {article.video && (
+                    <div className="card-body d-block p-0 mb-3">
+                      <div className="row ps-2 pe-2">
+                        <div className="col-sm-12 p-1">
                           <div className="card-body p-0 mb-3  overflow-hidden uttam-die">
                             <video controls className="float-right w-100">
                               <source
@@ -903,87 +896,104 @@ const Index = () => {
                               Your browser does not support the video tag.
                             </video>{" "}
                           </div>
-                        ) : (
-                          <div className="card-body d-block p-0 mb-3">
-                            <div className="row ps-2 pe-2">
-                              <div className="col-sm-12 p-1">
-                                <img
-                                  className=" h-96 w-100 object-cover"
-                                  src={article.image}
-                                  alt={article.titre}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
+                        </div>
 
+                      </div>
+                    </div>
+                  )}
+                  {article.image && (
+                    (
+                      <div className="card-body d-block p-0 mb-3">
+                        <div className="row ps-2 pe-2">
+                          <div className="col-sm-12 p-1">
+                            <img
+                              className=" max-w-full w-full"
+                              src={article.image}
+                              alt={article.titre}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  )}
+
+                  <div className="flex justify-between w-full text-xs font-light whitespace-nowrap text-neutral-500">
+                    <div className="flex flex-1 gap-2.5  py-2 my-auto">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/2b62e97f344d313ace329c83a419eb4cd00ae9faef7f9b5750b2d226ef142f4e?"
+                        className="shrink-0 w-4 aspect-[1.06] fill-neutral-500"
+                      />
+                      <span className="mb-3 ml-0 p-0 font-bold mr-4">
+                        {comment.likesCount} {comment.likesCount === 1 ? "" : ""}
+                      </span>
+                    </div>
+                    <div className="flex flex-1 justify-end gap-2.5  py-2.5">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/8e2192e0bbca513f636ff3098ae4b0fdc443b72fa11788238249846ad8fd5a03?"
+                        className="shrink-0 aspect-square fill-neutral-500 w-[15px]"
+                      />
+                      <span className="mb-3 ml-0 p-0 font-bold mr-4">
+                        {comment.likesCount} {comment.likesCount === 1 ? "" : ""}
+                      </span>
                     </div>
                   </div>
-                  <div className="  rounded-lg">
-
-
-
-
-
-
-
-
-                    <span className="mb-3 ml-0 p-0 font-bold mr-4">
-                      <button
-                        onClick={() => {
-                          handleLikeClick(article.id, 1);
-                        }}
-                      >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                          {article.likesCount === 0 ? (
-                            <BiHeart className="size-6 text-black" />
+                  <div className="max-sm:text-xs flex max-sm:gap-2 justify-between w-full text-xs md:text-base whitespace-nowrap text-zinc-900 flex-nowrap">
+                    <div className="flex max-sm:text-xs flex max-sm:gap-2 justify-between">
+                      <div className="flex gap-2 py-2">
+                        <button
+                          onClick={() => {
+                            handleLikeClick(article.id, 1);
+                          }}
+                        >
+                          <span className="font-meduim  gap-2" style={{ display: 'flex', alignItems: 'center' }} >
+                            {article.likesCount === 0 ? (
+                              <BiHeart className="size-6 text-black" />
+                            ) : (
+                              <BiSolidHeart className="size-6 text-black" />
+                            )}
+                            <span style={{ marginLeft: '1px', marginTop: '2px' }}>Jaime</span>
+                          </span>
+                        </button>
+                      </div>
+                      <div className="flex gap-2 py-2">
+                        <button
+                          onClick={() => {
+                            if (selectedArticleId === article.id) {
+                              setCommentInputVisible(false);
+                              setSelectedArticleId(null);
+                            } else {
+                              fetchCommentsForArticle(article.id);
+                              setSelectedArticleId(article.id);
+                              setCommentInputVisible(true);
+                              setSelectedArticleForCopy(article.id);
+                            }
+                          }}
+                        >
+                          {selectedArticleId === article.id ? (
+                            <div className="flex gap-2 justify-between py-2 md:ml-6">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-5 aspect-square fill-zinc-900"
+                              />
+                              <div className="font-meduim text-base gap-2">Commenter</div>
+                            </div>
                           ) : (
-                            <BiSolidHeart className="size-6 text-black" />
+                            <div className="flex gap-2 justify-between py-2 md:ml-6">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-5 aspect-square fill-zinc-900"
+                              />
+                              <div className="grow">Commenter</div>
+                            </div>
                           )}
-                          <span style={{ marginLeft: '1px', marginTop: '2px' }}>Jaime</span>
-                        </span>
-                      </button>{" "}
-                      <span className="mb-3 ml-0 p-0 font-bold mr-2">
-                        {article.likesCount} {article.likesCount === 1 ? "" : ""}{" "}
-                      </span>
-
-                      <button
-                        onClick={() => {
-                          if (selectedArticleId === article.id) {
-                            setCommentInputVisible(false);
-                            setSelectedArticleId(null);
-                          } else {
-                            fetchCommentsForArticle(article.id);
-                            setSelectedArticleId(article.id);
-                            setCommentInputVisible(true);
-                            setSelectedArticleForCopy(article.id);
-                          }
-                        }}
-                      >
-                        {selectedArticleId === article.id ? (
-                          <div className="flex gap-2 justify-between py-2 md:ml-6">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square fill-zinc-900"
-                            />
-                            <div className="grow">Commenter</div>
-                          </div>
-                        ) : (
-                          <div className="flex gap-2 justify-between py-2 md:ml-6">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square fill-zinc-900"
-                            />
-                            <div className="grow">Commenter</div>
-                          </div>
-                        )}
-                      </button>
-
-                      {article.commentsCount} {article.commentsCount === 1 ? "" : ""}
-
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex gap-2 p-2 items-center">
                       <button
                         onClick={() => {
                           copyLinkToClipboard(article.id);
@@ -1000,37 +1010,69 @@ const Index = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="w-5 aspect-square fill-zinc-900"
                           />
-                          <div className="grow"></div>
+                          <div className="grow">
+                            {isCopyLinkPopupVisible ?
+                              <div className="copy-link-popup">
+                                lien copié!
+                              </div> : 'Copier le lien'
+                            }</div>
                         </div>
-                        {isCopyLinkPopupVisible && (
-                          <div className="copy-link-popup">
-                            lien copié!
-                          </div>
-                        )}
-                      </button>
 
-                    </span>
+                      </button>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+                  <div className="  rounded-lg">
                     {selectedArticleId === article.id && (
-                      <div className="comments-section ">
+                      <div className="comments-section  flex gap-y-4 flex-col">
                         {article.comments &&
                           article.comments.map((comment) => (
                             <div key={comment.id} className="comment">
                               {/* Display comment information */}
-                              <div className="flex items-center ">
-                                <figure className="avatar me-3 mb-8">
+                              <div className="flex items-center gap-2 ">
+                                <figure className="avatar">
                                   <img
                                     src={
-                                      comment.user && comment.user.image
+                                      comment.user && comment.user.user.image
                                     }
                                     className="shadow-sm rounded-circle w-12 h-12 "
                                     alt="post"
                                   />
                                 </figure>
-                                <span className="flex flex-col flex-1 mt-5  bg-gray-100 md:w-[580px] rounded-3xl max-md:max-w-full">
+                                <span className="flex flex-col flex-1  bg-gray-100 md:w-[580px] rounded-[20px] max-md:max-w-full">
+                                  <div className="flex gap-5 items-center justify-between px-8 py-2 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                                    <div className="flex flex-col py-1 font-light whitespace-nowrap text-zinc-900">
+                                      <div className="text-base font-semibold">Joey Leblanc</div>
+                                      <div className="mt-1 text-xs">Joueur</div>
+                                      <div className="mt-1 text-xs">21 Septembre 2024</div>
+                                    </div>
+                                    <div className="flex gap-2 py-2">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0e886e2002354d948138d6b64e6d10ed6b3bdcd96e8e20673361191d9e97c8c?"
+                                        className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
+                                      />
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0e886e2002354d948138d6b64e6d10ed6b3bdcd96e8e20673361191d9e97c8c?"
+                                        className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
+                                      />
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0e886e2002354d948138d6b64e6d10ed6b3bdcd96e8e20673361191d9e97c8c?"
+                                        className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
+                                      />
+                                    </div>
+                                  </div>
 
-                                  <strong className="mb-1 ml-2 mt-3">
-                                    {comment.user && comment.user.login}
-                                  </strong>
                                   <h1 className=" text-gray-500 ml-2 mt-1 mb-1">
                                     {comment.user && comment.user.profil}
                                   </h1>
@@ -1040,12 +1082,10 @@ const Index = () => {
                                     </p>
                                   )}
 
-                                  <div className="mx-3 mb-3">{comment.description}</div>
+                                  <div className="px-8 mb-3">{comment.description}</div>
                                 </span>
                               </div>
-
-
-                              <div className="ml-12">
+                              <div className="ml-12 flex items-center gap-4">
                                 <button
                                   onClick={() =>
                                     handleReplyClick(comment.id)
@@ -1063,9 +1103,7 @@ const Index = () => {
                                   )}
                                 </button>
                                 {/* <span>{comment.likesCount} Likes</span> */}
-                                <span className="mb-3 ml-0 p-0 font-bold mr-4">
-                                  {comment.likesCount} {comment.likesCount === 1 ? "" : ""}
-                                </span>
+
 
                               </div>
 
@@ -1181,9 +1219,9 @@ const Index = () => {
             </div>
           </div>
         </div>}
-        {profileFeed === 'photo' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8">
+        {profileFeed === 'photo' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
           <div>
-          {articlesWithPhoto.length <= 0 &&  <div>Aucune Photo pour le moment</div>}
+            {articlesWithPhoto.length <= 0 && <div>Aucune Photo pour le moment</div>}
             <div>
               {articlesWithPhoto.map((article) => (
                 <div
@@ -1193,28 +1231,28 @@ const Index = () => {
                   <div className="card-body p-0 d-flex">
                     <figure className="avatar me-3">
                       <img
-                        src={article.user?.image}
+                        src={article.user?.user.image}
                         className="shadow-sm rounded-full  w-10 h-10"
                         alt="post"
                       />{" "}
                     </figure>
 
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                      {article.user?.nom}
+                      {article.user?.user.nom}
                       <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {article.user?.profil}
+                        {article.user?.user.profil}
                       </span>
                       <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {new Date(article.user?.createdAt).toLocaleDateString()}
+                        {new Date(article.user?.user.createdAt).toLocaleDateString()}
                       </span>
                     </h4>
-                  
+
                   </div>
 
                   <div className="card-body d-block p-0 mb-3">
                     <div className="row ps-2 pe-2">
                       <div className="col-sm-12 p-1">
-                      <div className="card-body d-block p-0 mb-3">
+                        <div className="card-body d-block p-0 mb-3">
                           <div className="row ps-2 pe-2">
                             <div className="col-sm-12 p-1">
                               <img
@@ -1229,26 +1267,15 @@ const Index = () => {
 
                     </div>
                   </div>
-                 
+
                 </div>
               ))}
-
-
-
-
-
-
-
-
-
-
-
             </div>
           </div>
         </div>}
-        {profileFeed === 'video' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8">
+        {profileFeed === 'video' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
           <div>
-          {articlesWithVideo.length <= 0 &&  <div>Aucune Photo pour le moment</div>}
+            {articlesWithVideo.length <= 0 && <div>Aucun Video pour le moment</div>}
             <div>
               {articlesWithVideo.map((article) => (
                 <div
@@ -1273,7 +1300,7 @@ const Index = () => {
                         {new Date(article.user?.createdAt).toLocaleDateString()}
                       </span>
                     </h4>
-                  
+
                   </div>
 
                   <div className="card-body d-block p-0 mb-3">
@@ -1293,7 +1320,7 @@ const Index = () => {
                           <div className="card-body d-block p-0 mb-3">
                             <div className="row ps-2 pe-2">
                               <div className="col-sm-12 p-1">
-                                no video right now
+                                Aucun Video Pour Le Moment
                               </div>
                             </div>
                           </div>
@@ -1302,7 +1329,7 @@ const Index = () => {
 
                     </div>
                   </div>
-                 
+
                 </div>
               ))}
 

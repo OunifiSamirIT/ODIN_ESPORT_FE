@@ -168,7 +168,6 @@ const Player = ({ userInfo }) => {
                     body: formDataToUpdate,
                 }
             ).then((r)=> {
-                console.log('gfjii')
                 if(r.status === 200) {
                   toast.success('Information du joueur sont changé', {
                     position: "top-right",

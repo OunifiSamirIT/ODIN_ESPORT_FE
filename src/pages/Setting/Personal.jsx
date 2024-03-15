@@ -89,7 +89,7 @@ const Personal = ({ userInfo }) => {
   const schema = yup
     .object({
       nom: yup.string().required('Ce champ est obligatoire').max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
-      discreptionBio: yup.string().max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
+      discreptionBio: yup.string().max(255, ({ max }) => `Maximum de (${max} characters autorisé)`),
       prenom: yup.string().min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
       nationality: yup.object().required(),
       country: yup.object().required(),

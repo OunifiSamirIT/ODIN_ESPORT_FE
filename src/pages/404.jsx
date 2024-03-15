@@ -6,8 +6,8 @@ const Error = () => {
 
 return (<>
 
-   <div className="flex flex-col justify-center px-6 py-12 bg-white max-md:px-5">
-      <div className="flex justify-center items-center px-16 py-11 mt-64 bg-white rounded-xl max-md:px-5 max-md:mt-10 max-md:max-w-full">
+   <div className="flex flex-col justify-center px-6 py-12 bg-white h-screen ">
+      <div className="flex justify-center items-center bg-white rounded-xl max-md:px-5 max-md:mt-10 max-md:max-w-full">
         <div className="flex flex-col items-center mb-16 max-w-full w-[749px] max-md:mb-10">
           <img
             loading="lazy"
@@ -24,7 +24,7 @@ return (<>
           </div>
         </div>
       </div>
-    </div>
+   </div>
 
 
 </>)

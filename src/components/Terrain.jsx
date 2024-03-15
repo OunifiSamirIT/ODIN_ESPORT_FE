@@ -4,74 +4,74 @@ import terrain from "../assets/terrain.png";
 const Terrain = ({positionPlay , positionSecond }) => {
     const position = [];
     switch (positionPlay) {
-        case "Gardien de but":
+        case "Gardien de but (GK)":
             position.push('GK')
             break;
-        case "Défenseur central":
+        case "Défenseur central (CB)":
             position.push('CB')
             break;
-        case "Arrière droit":
+        case "Arrière droit (RB)":
             position.push('RB')
             break;
-        case "Arrière gauche":
+        case "Arrière gauche (LB)":
             position.push('LB')
             break;
-        case "Milieu défensif":
+        case "Milieu défensif (CDM)":
             position.push('CDM')
             break;
-        case "Milieu central":
+        case "Milieu central (MC)":
             position.push('MC')
             break;
-        case "Milieu offensif":
+        case "Milieu offensif (MO)":
             position.push('MO')
             break;
-        case "Ailier droit":
+        case "Ailier droit (RW)":
             position.push('RW')
             break;
-        case "Ailier gauche":
+        case "Ailier gauche (LW)":
             position.push('LW')
             break;
-        case "Attaquant de pointe":
+        case "Attaquant de pointe (ST)":
             position.push('ST')
             break;
-        case "Attaquant polyvalent":
+        case "Attaquant polyvalent (ST)":
             position.push('ST')
             break;
         default:
             position.push('NAN')
     }
     switch (positionSecond) {
-        case "Gardien de but":
+        case "Gardien de but (GK)":
             position.push('GK')
             break;
-        case "Défenseur central":
+        case "Défenseur central (CB)":
             position.push('CB')
             break;
-        case "Arrière droit":
+        case "Arrière droit (RB)":
             position.push('RB')
             break;
-        case "Arrière gauche":
+        case "Arrière gauche (LB)":
             position.push('LB')
             break;
-        case "Milieu défensif":
+        case "Milieu défensif (CDM)":
             position.push('CDM')
             break;
-        case "Milieu central":
+        case "Milieu central (MC)":
             position.push('MC')
             break;
-        case "Milieu offensif":
+        case "Milieu offensif (MO)":
             position.push('MO')
             break;
-        case "Ailier droit":
+        case "Ailier droit (RW)":
             position.push('RW')
             break;
-        case "Ailier gauche":
+        case "Ailier gauche (LW)":
             position.push('LW')
             break;
-        case "Attaquant de pointe":
+        case "Attaquant de pointe (ST)":
             position.push('ST')
             break;
-        case "Attaquant polyvalent":
+        case "Attaquant polyvalent (ST)":
             position.push('ST')
             break;
         default:

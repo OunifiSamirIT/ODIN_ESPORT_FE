@@ -74,7 +74,7 @@ const Agent = ({ userInfo }) => {
             totalPlayer: yup.number('Ce champ est obligatoire').typeError('Ce champ est obligatoire').required('Ce champ est obligatoire'),
             totalCareerTransfers: yup.number('Ce champ est obligatoire').typeError('Ce champ est obligatoire').required('Ce champ est obligatoire'),
             skills: yup.array()
-                .min(3, 'Vous pouvez selectionner au minimum 3 compétences !')
+                .min(1, 'Vous pouvez selectionner au minimum 3 compétences !')
                 .max(10, 'Vous pouvez selectionner au maximum 10 compétences !') // Validate minimum length
                 .required('Vous pouvez selectionner au maximum 10 compétences !'),
         })
