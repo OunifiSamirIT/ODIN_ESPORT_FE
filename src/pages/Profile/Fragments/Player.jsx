@@ -1,4 +1,4 @@
-import React , {useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
 import Terrain from "../../../components/Terrain";
 import { useParams } from "react-router-dom";
@@ -23,77 +23,80 @@ const PlayerCard = ({ userInfo }) => {
     const result = await response.json();
     setAcceptedFriend(result.exists)
     console.log('this cidfjk', acceptedFriend)
-}
-const sendFriendRequest = async () => {
-        
-  const response = await fetch(`http://localhost:5000/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
+  }
+  const sendFriendRequest = async () => {
+
+    const response = await fetch(`http://localhost:5000/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
       method: "POST",
-  });
+    });
 
-  const result = await response.json();
-  console.log('friend request sent')
-}
-
-const CheckIfInvitationIsSend = async () => {
-  const response = await fetch(`http://localhost:5000/api/user/${id}/friend-requests`, {
-      method: "GET",
-  });
-  const result = await response.json();
-  console.log(result)
-  setInvitation(result.receiver)
-
-  // const isFriend = result.receiver.filter((item) => {
-  //     console.log(item.id)
-  //     return item.id === LocalStorageID.id
-  // })
-  // setInvitationSend(isFriend)
-}
-const copyLinkToClipboard = (articleId) => {
-  // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
-  const number = userInfo.user.tel;
-
-  // Copy the URL to the clipboard
-  if(acceptedFriend?.status === 'accepted') {
-      navigator.clipboard.writeText(number)
-      .then(() => {
-          console.log('Link copied to clipboard');
-      })
-      .catch((err) => {
-          console.error('Failed to copy link to clipboard', err);
-      });
-  }else{
-      console.log('add as friend to copy number')
+    const result = await response.json();
+    console.log('friend request sent')
   }
 
-};
-useEffect(() => {
-  isFriendAccepted()
-}, [id])
+  const CheckIfInvitationIsSend = async () => {
+    const response = await fetch(`http://localhost:5000/api/user/${id}/friend-requests`, {
+      method: "GET",
+    });
+    const result = await response.json();
+    console.log(result)
+    setInvitation(result.receiver)
+
+    // const isFriend = result.receiver.filter((item) => {
+    //     console.log(item.id)
+    //     return item.id === LocalStorageID.id
+    // })
+    // setInvitationSend(isFriend)
+  }
+  const copyLinkToClipboard = (articleId) => {
+    // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
+    const number = userInfo.user.tel;
+
+    // Copy the URL to the clipboard
+    if (acceptedFriend?.status === 'accepted') {
+      navigator.clipboard.writeText(number)
+        .then(() => {
+          console.log('Link copied to clipboard');
+        })
+        .catch((err) => {
+          console.error('Failed to copy link to clipboard', err);
+        });
+    } else {
+      console.log('add as friend to copy number')
+    }
+
+  };
+  useEffect(() => {
+    isFriendAccepted()
+  }, [id])
   return (
     <>
-      <div className="flex gap-y-4 flex-col items-center px-4 py-6 bg-white rounded-[10px]">
+      <div className="flex gap-y-4 flex-col items-center px-8 py-6 bg-white rounded-[10px] ">
         <div className="self-stretch">
           <div className="flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
-            <div className="flex flex-col w-1/5 max-md:ml-0 ">
-              <img
-                loading="lazy"
-                srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
-                className="shrink-0 max-w-full rounded-full aspect-square w-[120px] max-md:mt-4"
-              />
-            </div>
             <div className="flex flex-col items-center justify-between">
-              <div className="flex flex-col grow self-stretch my-auto max-md:mt-5 max-md:max-w-full">
-                <div className="flex gap-2 justify-between max-sm:justify-center w-full max-md:flex-wrap max-md:max-w-full">
-                  <div className="flex flex-col justify-center max-sm:text-center">
-                    <div className="text-xl font-bold text-zinc-900">
-                      {userInfo?.user.nom}  {userInfo?.user.prenom}
+              <div className="flex flex-col gap-y-4 grow self-stretch my-auto max-md:mt-5 max-md:max-w-full">
+                <div className="flex grow my-auto flex-col gap-2 justify-center max-sm:justify-center w-full max-md:flex-wrap max-md:max-w-full">
+                  <div className="flex items-center h-fit gap-4">
+                    <div className="flex flex-col">
+                      <img
+                        loading="lazy"
+                        srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
+                        className="max-w-full rounded-full aspect-square w-[120px]"
+                      />
                     </div>
-                    <div className="text-base font-medium text-blue-600">
-                      {userInfo?.user.profil}
+                    <div className="flex flex-col">
+                      <div className="text-xl font-bold text-zinc-900">
+                        {userInfo?.user.nom}  {userInfo?.user.prenom}
+                      </div>
+                      <div className="text-base font-medium text-blue-600">
+                        {userInfo?.user.profil}
+                      </div>
                     </div>
                   </div>
+
                   {isOwner ?
-                    <div className="max-sm:w-full flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]">
+                    <div className="w-full flex gap-2 justify-center self-start px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
                       <img
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
@@ -103,7 +106,7 @@ useEffect(() => {
                     </div> :
                     <>
                       <div className="flex items-center gap-3">
-                        <div className="max-sm:w-full items-center flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]">
+                        <div className={`max-sm:w-full items-center flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]`}>
                           <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_17_12)">
                               <path d="M7.99805 10C10.7595 10 12.998 7.76142 12.998 5C12.998 2.23858 10.7595 0 7.99805 0C5.23662 0 2.99805 2.23858 2.99805 5C2.99805 7.76142 5.23662 10 7.99805 10Z" fill="white" />
@@ -116,55 +119,55 @@ useEffect(() => {
                               </clipPath>
                             </defs>
                           </svg>
-                          {acceptedFriend ?  <div className="grow">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
-                          <button  className="flex items-center" onClick={sendFriendRequest}><p>Ajouter ami(e)</p></button>}
+                          {acceptedFriend ? <div className="grow">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
+                            <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter ami(e)</p></button>}
                         </div>
-                        { acceptedFriend?.status === 'accepted' ? <div>
-                                                                <button onClick={() => {
-                                                                    copyLinkToClipboard();
-                                                                    setIsCopyLinkPopupVisible(true);
-                                                                    setTimeout(() => {
-                                                                        setIsCopyLinkPopupVisible(false);
-                                                                    }, 2000); // Hide the popup after 2 seconds
-                                                                }}>
-                                                                    <svg className='fill-white' width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path className={acceptedFriend?.status === 'accepted' ? 'fill-green-500' : 'fill-gray-500'} d="M36.4991 18C36.4991 27.0912 29.7597 34.6069 21.0054 35.8269C20.1865 35.9409 19.349 36 18.4991 36C17.5175 36 16.5546 35.9212 15.6155 35.7699C7.0436 34.3913 0.498047 26.9596 0.498047 18C0.498047 8.05885 8.5569 0 18.498 0C28.4392 0 36.498 8.05885 36.498 18H36.4991Z" fill="#65676B" />
-                                                                        <path className={acceptedFriend?.status === 'accepted' ? 'fill-white' : 'fill-gray-200'} d="M21.8418 23.328C17.1785 23.3269 13.3838 19.5323 13.3828 14.8701C13.3849 13.6884 14.3457 12.7266 15.5263 12.7266C15.6476 12.7266 15.7678 12.7369 15.8818 12.7577C16.1347 12.7991 16.3742 12.8852 16.596 13.0137C16.6281 13.0323 16.6499 13.0634 16.6551 13.0997L17.1474 16.2061C17.1536 16.2424 17.1422 16.2787 17.1184 16.3056C16.8458 16.6073 16.4986 16.8239 16.113 16.9327L15.9274 16.9856L15.9979 17.1659C16.6343 18.7839 17.9279 20.0785 19.5469 20.7149L19.7273 20.7854L19.7791 20.5988C19.8879 20.2122 20.1046 19.865 20.4062 19.5934C20.428 19.5737 20.457 19.5623 20.487 19.5623C20.4933 19.5623 20.5005 19.5623 20.5067 19.5644L23.6121 20.0567C23.6494 20.063 23.6795 20.0837 23.6992 20.1158C23.8267 20.3376 23.9127 20.5781 23.9552 20.83C23.9749 20.943 23.9853 21.0611 23.9853 21.1855C23.9853 22.3661 23.0234 23.3269 21.8418 23.329V23.328Z" fill="#D0D0D0" />
-                                                                        <path className={acceptedFriend?.status === 'accepted' ? 'fill-white' : 'fill-gray-200'} d="M30.1113 16.9777C29.8594 14.1356 28.5575 11.4997 26.4451 9.55626C24.3203 7.60037 21.5622 6.52344 18.6786 6.52344C12.3497 6.52344 7.20029 11.6728 7.20029 18.0017C7.20029 20.1255 7.78592 22.1954 8.89498 23.9979L6.42188 29.4738L14.3429 28.6301C15.7204 29.1939 17.1788 29.48 18.6786 29.48C19.0735 29.48 19.4777 29.4593 19.883 29.4178C20.2406 29.3795 20.6013 29.3235 20.9568 29.252C26.2575 28.1813 30.1268 23.4766 30.1569 18.0629V18.0017C30.1569 17.6566 30.1413 17.3125 30.1102 16.9787L30.1113 16.9777ZM14.6466 26.2264L10.2642 26.6928L11.5733 23.7937L11.3121 23.4424C11.2924 23.4164 11.2738 23.3905 11.252 23.3615C10.116 21.7933 9.51585 19.94 9.51585 18.0007C9.51585 12.9477 13.6266 8.83796 18.6786 8.83796C23.4123 8.83796 27.4236 12.531 27.8102 17.2451C27.831 17.498 27.8413 17.7519 27.8413 18.0017C27.8413 18.0732 27.8403 18.1437 27.8382 18.2184C27.7408 22.4452 24.7878 26.0347 20.6573 26.9489C20.3422 27.0193 20.0188 27.0722 19.6964 27.1074C19.3616 27.1458 19.0186 27.1645 18.6775 27.1645C17.4638 27.1645 16.2843 26.9292 15.169 26.4648C15.0456 26.4151 14.9244 26.3622 14.8103 26.3073L14.6445 26.2275L14.6466 26.2264Z" fill="#D0D0D0" />
-                                                                    </svg>
-                                                                </button>
-                                                                {isCopyLinkPopupVisible && (
-                                                                    <div className="text-black copy-link-popup flex items-center">
-                                                                        lien copié!
-                                                                    </div>
-                                                                )}
-                                                                </div> :
+                        {acceptedFriend?.status === 'accepted' ? <div>
+                          <button onClick={() => {
+                            copyLinkToClipboard();
+                            setIsCopyLinkPopupVisible(true);
+                            setTimeout(() => {
+                              setIsCopyLinkPopupVisible(false);
+                            }, 2000); // Hide the popup after 2 seconds
+                          }}>
+                            <svg className='fill-white' width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path className={acceptedFriend?.status === 'accepted' ? 'fill-green-500' : 'fill-gray-500'} d="M36.4991 18C36.4991 27.0912 29.7597 34.6069 21.0054 35.8269C20.1865 35.9409 19.349 36 18.4991 36C17.5175 36 16.5546 35.9212 15.6155 35.7699C7.0436 34.3913 0.498047 26.9596 0.498047 18C0.498047 8.05885 8.5569 0 18.498 0C28.4392 0 36.498 8.05885 36.498 18H36.4991Z" fill="#65676B" />
+                              <path className={acceptedFriend?.status === 'accepted' ? 'fill-white' : 'fill-gray-200'} d="M21.8418 23.328C17.1785 23.3269 13.3838 19.5323 13.3828 14.8701C13.3849 13.6884 14.3457 12.7266 15.5263 12.7266C15.6476 12.7266 15.7678 12.7369 15.8818 12.7577C16.1347 12.7991 16.3742 12.8852 16.596 13.0137C16.6281 13.0323 16.6499 13.0634 16.6551 13.0997L17.1474 16.2061C17.1536 16.2424 17.1422 16.2787 17.1184 16.3056C16.8458 16.6073 16.4986 16.8239 16.113 16.9327L15.9274 16.9856L15.9979 17.1659C16.6343 18.7839 17.9279 20.0785 19.5469 20.7149L19.7273 20.7854L19.7791 20.5988C19.8879 20.2122 20.1046 19.865 20.4062 19.5934C20.428 19.5737 20.457 19.5623 20.487 19.5623C20.4933 19.5623 20.5005 19.5623 20.5067 19.5644L23.6121 20.0567C23.6494 20.063 23.6795 20.0837 23.6992 20.1158C23.8267 20.3376 23.9127 20.5781 23.9552 20.83C23.9749 20.943 23.9853 21.0611 23.9853 21.1855C23.9853 22.3661 23.0234 23.3269 21.8418 23.329V23.328Z" fill="#D0D0D0" />
+                              <path className={acceptedFriend?.status === 'accepted' ? 'fill-white' : 'fill-gray-200'} d="M30.1113 16.9777C29.8594 14.1356 28.5575 11.4997 26.4451 9.55626C24.3203 7.60037 21.5622 6.52344 18.6786 6.52344C12.3497 6.52344 7.20029 11.6728 7.20029 18.0017C7.20029 20.1255 7.78592 22.1954 8.89498 23.9979L6.42188 29.4738L14.3429 28.6301C15.7204 29.1939 17.1788 29.48 18.6786 29.48C19.0735 29.48 19.4777 29.4593 19.883 29.4178C20.2406 29.3795 20.6013 29.3235 20.9568 29.252C26.2575 28.1813 30.1268 23.4766 30.1569 18.0629V18.0017C30.1569 17.6566 30.1413 17.3125 30.1102 16.9787L30.1113 16.9777ZM14.6466 26.2264L10.2642 26.6928L11.5733 23.7937L11.3121 23.4424C11.2924 23.4164 11.2738 23.3905 11.252 23.3615C10.116 21.7933 9.51585 19.94 9.51585 18.0007C9.51585 12.9477 13.6266 8.83796 18.6786 8.83796C23.4123 8.83796 27.4236 12.531 27.8102 17.2451C27.831 17.498 27.8413 17.7519 27.8413 18.0017C27.8413 18.0732 27.8403 18.1437 27.8382 18.2184C27.7408 22.4452 24.7878 26.0347 20.6573 26.9489C20.3422 27.0193 20.0188 27.0722 19.6964 27.1074C19.3616 27.1458 19.0186 27.1645 18.6775 27.1645C17.4638 27.1645 16.2843 26.9292 15.169 26.4648C15.0456 26.4151 14.9244 26.3622 14.8103 26.3073L14.6445 26.2275L14.6466 26.2264Z" fill="#D0D0D0" />
+                            </svg>
+                          </button>
+                          {isCopyLinkPopupVisible && (
+                            <div className="text-black copy-link-popup flex items-center">
+                              lien copié!
+                            </div>
+                          )}
+                        </div> :
 
-                                                                <div>
-                                                                <button onClick={() => {
-                                                                }}>
-                                                                    <svg className='fill-white' width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path className={acceptedFriend?.status === 'accepted' ? 'fill-green-500' : 'fill-gray-500'} d="M36.4991 18C36.4991 27.0912 29.7597 34.6069 21.0054 35.8269C20.1865 35.9409 19.349 36 18.4991 36C17.5175 36 16.5546 35.9212 15.6155 35.7699C7.0436 34.3913 0.498047 26.9596 0.498047 18C0.498047 8.05885 8.5569 0 18.498 0C28.4392 0 36.498 8.05885 36.498 18H36.4991Z" fill="#65676B" />
-                                                                        <path className={acceptedFriend?.status === 'accepted' ? 'fill-white' : 'fill-gray-200'} d="M21.8418 23.328C17.1785 23.3269 13.3838 19.5323 13.3828 14.8701C13.3849 13.6884 14.3457 12.7266 15.5263 12.7266C15.6476 12.7266 15.7678 12.7369 15.8818 12.7577C16.1347 12.7991 16.3742 12.8852 16.596 13.0137C16.6281 13.0323 16.6499 13.0634 16.6551 13.0997L17.1474 16.2061C17.1536 16.2424 17.1422 16.2787 17.1184 16.3056C16.8458 16.6073 16.4986 16.8239 16.113 16.9327L15.9274 16.9856L15.9979 17.1659C16.6343 18.7839 17.9279 20.0785 19.5469 20.7149L19.7273 20.7854L19.7791 20.5988C19.8879 20.2122 20.1046 19.865 20.4062 19.5934C20.428 19.5737 20.457 19.5623 20.487 19.5623C20.4933 19.5623 20.5005 19.5623 20.5067 19.5644L23.6121 20.0567C23.6494 20.063 23.6795 20.0837 23.6992 20.1158C23.8267 20.3376 23.9127 20.5781 23.9552 20.83C23.9749 20.943 23.9853 21.0611 23.9853 21.1855C23.9853 22.3661 23.0234 23.3269 21.8418 23.329V23.328Z" fill="#D0D0D0" />
-                                                                        <path className={acceptedFriend?.status === 'accepted' ? 'fill-white' : 'fill-gray-200'} d="M30.1113 16.9777C29.8594 14.1356 28.5575 11.4997 26.4451 9.55626C24.3203 7.60037 21.5622 6.52344 18.6786 6.52344C12.3497 6.52344 7.20029 11.6728 7.20029 18.0017C7.20029 20.1255 7.78592 22.1954 8.89498 23.9979L6.42188 29.4738L14.3429 28.6301C15.7204 29.1939 17.1788 29.48 18.6786 29.48C19.0735 29.48 19.4777 29.4593 19.883 29.4178C20.2406 29.3795 20.6013 29.3235 20.9568 29.252C26.2575 28.1813 30.1268 23.4766 30.1569 18.0629V18.0017C30.1569 17.6566 30.1413 17.3125 30.1102 16.9787L30.1113 16.9777ZM14.6466 26.2264L10.2642 26.6928L11.5733 23.7937L11.3121 23.4424C11.2924 23.4164 11.2738 23.3905 11.252 23.3615C10.116 21.7933 9.51585 19.94 9.51585 18.0007C9.51585 12.9477 13.6266 8.83796 18.6786 8.83796C23.4123 8.83796 27.4236 12.531 27.8102 17.2451C27.831 17.498 27.8413 17.7519 27.8413 18.0017C27.8413 18.0732 27.8403 18.1437 27.8382 18.2184C27.7408 22.4452 24.7878 26.0347 20.6573 26.9489C20.3422 27.0193 20.0188 27.0722 19.6964 27.1074C19.3616 27.1458 19.0186 27.1645 18.6775 27.1645C17.4638 27.1645 16.2843 26.9292 15.169 26.4648C15.0456 26.4151 14.9244 26.3622 14.8103 26.3073L14.6445 26.2275L14.6466 26.2264Z" fill="#D0D0D0" />
-                                                                    </svg>
-                                                                </button>
-                                                                {isCopyLinkPopupVisible && (
-                                                                    <div className="text-black copy-link-popup flex items-center">
-                                                                        lien copié!
-                                                                    </div>
-                                                                )}
+                          <div>
+                            <button onClick={() => {
+                            }}>
+                              <svg className='fill-white' width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path className={acceptedFriend?.status === 'accepted' ? 'fill-green-500' : 'fill-gray-500'} d="M36.4991 18C36.4991 27.0912 29.7597 34.6069 21.0054 35.8269C20.1865 35.9409 19.349 36 18.4991 36C17.5175 36 16.5546 35.9212 15.6155 35.7699C7.0436 34.3913 0.498047 26.9596 0.498047 18C0.498047 8.05885 8.5569 0 18.498 0C28.4392 0 36.498 8.05885 36.498 18H36.4991Z" fill="#65676B" />
+                                <path className={acceptedFriend?.status === 'accepted' ? 'fill-white' : 'fill-gray-200'} d="M21.8418 23.328C17.1785 23.3269 13.3838 19.5323 13.3828 14.8701C13.3849 13.6884 14.3457 12.7266 15.5263 12.7266C15.6476 12.7266 15.7678 12.7369 15.8818 12.7577C16.1347 12.7991 16.3742 12.8852 16.596 13.0137C16.6281 13.0323 16.6499 13.0634 16.6551 13.0997L17.1474 16.2061C17.1536 16.2424 17.1422 16.2787 17.1184 16.3056C16.8458 16.6073 16.4986 16.8239 16.113 16.9327L15.9274 16.9856L15.9979 17.1659C16.6343 18.7839 17.9279 20.0785 19.5469 20.7149L19.7273 20.7854L19.7791 20.5988C19.8879 20.2122 20.1046 19.865 20.4062 19.5934C20.428 19.5737 20.457 19.5623 20.487 19.5623C20.4933 19.5623 20.5005 19.5623 20.5067 19.5644L23.6121 20.0567C23.6494 20.063 23.6795 20.0837 23.6992 20.1158C23.8267 20.3376 23.9127 20.5781 23.9552 20.83C23.9749 20.943 23.9853 21.0611 23.9853 21.1855C23.9853 22.3661 23.0234 23.3269 21.8418 23.329V23.328Z" fill="#D0D0D0" />
+                                <path className={acceptedFriend?.status === 'accepted' ? 'fill-white' : 'fill-gray-200'} d="M30.1113 16.9777C29.8594 14.1356 28.5575 11.4997 26.4451 9.55626C24.3203 7.60037 21.5622 6.52344 18.6786 6.52344C12.3497 6.52344 7.20029 11.6728 7.20029 18.0017C7.20029 20.1255 7.78592 22.1954 8.89498 23.9979L6.42188 29.4738L14.3429 28.6301C15.7204 29.1939 17.1788 29.48 18.6786 29.48C19.0735 29.48 19.4777 29.4593 19.883 29.4178C20.2406 29.3795 20.6013 29.3235 20.9568 29.252C26.2575 28.1813 30.1268 23.4766 30.1569 18.0629V18.0017C30.1569 17.6566 30.1413 17.3125 30.1102 16.9787L30.1113 16.9777ZM14.6466 26.2264L10.2642 26.6928L11.5733 23.7937L11.3121 23.4424C11.2924 23.4164 11.2738 23.3905 11.252 23.3615C10.116 21.7933 9.51585 19.94 9.51585 18.0007C9.51585 12.9477 13.6266 8.83796 18.6786 8.83796C23.4123 8.83796 27.4236 12.531 27.8102 17.2451C27.831 17.498 27.8413 17.7519 27.8413 18.0017C27.8413 18.0732 27.8403 18.1437 27.8382 18.2184C27.7408 22.4452 24.7878 26.0347 20.6573 26.9489C20.3422 27.0193 20.0188 27.0722 19.6964 27.1074C19.3616 27.1458 19.0186 27.1645 18.6775 27.1645C17.4638 27.1645 16.2843 26.9292 15.169 26.4648C15.0456 26.4151 14.9244 26.3622 14.8103 26.3073L14.6445 26.2275L14.6466 26.2264Z" fill="#D0D0D0" />
+                              </svg>
+                            </button>
+                            {isCopyLinkPopupVisible && (
+                              <div className="text-black copy-link-popup flex items-center">
+                                lien copié!
+                              </div>
+                            )}
 
-                                                                </div>
+                          </div>
 
-                                                                }
+                        }
                       </div>
 
 
                     </>
                   }
                 </div>
-                <div className="flex gap-3 items-start mt-1 text-xs font-light text-center text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                <div className="flex gap-3 justify-center mt-1 text-xs font-light text-center text-zinc-900 max-md:flex-wrap max-md:max-w-full">
                   <div className="flex gap-2 justify-center items-center self-stretch py-2">
                     <img
                       loading="lazy"
@@ -210,7 +213,7 @@ useEffect(() => {
             </svg>
           </div>
         </div>
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center gap-y-4">
           <div className="flex justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
             <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_878_80013)">

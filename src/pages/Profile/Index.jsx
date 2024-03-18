@@ -2,7 +2,7 @@ import React, { Component, Fragment, useState, useRef, useEffect } from "react";
 import Header from '../../components/Header';
 import Terrain from "../../components/Terrain";
 import ProfileLayout from "../../Layout/ProfileLayout";
-import UserProfile from "../../assets/Profile_Picture.png"
+import PlaceHolder from "../../assets/placeholder.jpg"
 
 import { useForm } from "react-hook-form";
 import Leftnav from "../../components/Leftnav";
@@ -190,7 +190,7 @@ const Index = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: storedUserData.id,
+            userId: id,
             commentId: commentId,
             emoji: 1,
           }),
@@ -241,7 +241,7 @@ const Index = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: storedUserData.id,
+            userId: id,
             replyId: replyId,
             emoji: 1, // Assuming 1 for liking
           }),
@@ -344,17 +344,14 @@ const Index = () => {
     }
   };
 
-  const storedUserData = id;
   const LocalStorageID = JSON.parse(localStorage.getItem("user"));
 
   const fetchArticles = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/articles/");
       const result = await response.json();
-
       // Extract userIds from articles
       const userIds = result.rows.map((article) => article.userId);
-
       // Fetch user information for each userId
       const usersResponse = await Promise.all(
         userIds.map((userId) =>
@@ -363,15 +360,15 @@ const Index = () => {
           )
         )
       );
-      console.log('usersResponse', usersResponse)
 
       const articlesWithUsers = result.rows
         .map((article, index) => ({
           ...article,
           user: usersResponse[index],
         }))
-        .filter((article) => article.userId === LocalStorageID.id); // Filter articles based on userId
+        .filter((article) => article.userId == id); // Filter articles based on userId
       setArticles(articlesWithUsers);
+      console.log(articlesWithUsers)
 
       // Fetch comments for each article
       const commentsPromises = articlesWithUsers.map(async (article) => {
@@ -413,17 +410,12 @@ const Index = () => {
   };
   const handlePostSubmit = async (data) => {
     try {
-      if (!data.description || !storedUserData || !storedUserData.id) {
-        // Handle validation errors or missing user data
-        return;
-      }
-
       setPosting(true);
 
       const formData = new FormData();
       formData.append("titre", "Your default title");
       formData.append("description", data.description);
-      formData.append("userId", storedUserData.id);
+      formData.append("userId", id);
       formData.append("type", "Your default type");
       formData.append("file", file);
       formData.append("fileType", fileType);
@@ -565,18 +557,6 @@ const Index = () => {
 
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
-    const id = storedUserData ? storedUserData.id : null;
-    if (id) {
-      // Replace the API endpoint with your actual endpoint for fetching user data
-      fetch(`http://localhost:5000/api/user/${id}`)
-        .then((response) => response.json())
-        .then((userData) => {
-          setUser(userData);
-        })
-        .catch((error) => console.error("Error fetching user data:", error));
-    }
-
     fetchArticles();
     // fetchComments();
     fetchAlbums();
@@ -768,6 +748,7 @@ const Index = () => {
 
   const handleMoreClick = (article) => {
     console.log('More clicked', article.id);
+    toggleOpen(!isOpen);
     setSelectedArticle(article);
     setShowDropdown(article.id);
   };
@@ -811,11 +792,11 @@ const Index = () => {
 
   return (
     <>
-      <ProfileLayout onChange={handleProfileFeed} user={storedUserData}>
+      <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
         {profileFeed === 'pubs' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8">
           <div>
             <div>
-              {articles.map((article) => (
+              {articles.length > 0  ? articles.map((article) => (
                 <div
                   key={article.id}
                   className="card w-100 shadow-xss flex rounded-xxl border-0 p-4 mb-3"
@@ -823,7 +804,7 @@ const Index = () => {
                   <div className="card-body p-0 d-flex items-center mb-3">
                     <figure className="avatar me-3">
                       <img
-                        src={article.user.user.image}
+                        src={article.user.user.image ? article.user.user.image : PlaceHolder }
                         className="shadow-sm rounded-full  w-10 h-10"
                         alt="post"
                       />{" "}
@@ -846,31 +827,30 @@ const Index = () => {
                       </svg>
 
 
-                      {showDropdown === article.id && (
+                      {showDropdown === article.id && isOpen ? (
                         <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                           {/* Your dropdown menu content */}
                           <button
-                            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                            className="block w-full px-4 py-2 text-gray-800 hover:bg-gray-200"
                             onClick={() => handleEditClick(selectedArticle)}
                           >
                             <label
-                              className="flex items-center  gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                              className="flex items-center w-full gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                               onClick={() => handleEditClick(article)}
                             >
-                              <BiEditAlt />
                               <Link to={`/editPost/${article.id}`}>
-                                <span>Edit</span>
+                                <span>Modifier</span>
                               </Link>{" "}
                             </label>
                           </button>
                           <button
-                            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                            className="flex gap-1 items-center px-4 py-2 w-full text-gray-800 hover:bg-gray-200" 
                             onClick={() => handleDeleteClick(article.id)}
                           >
                             Delete
                           </button>
                         </div>
-                      )}
+                      ) : ''}
                     </div>
                   </div>
                   <div className="card-body p-0 me-lg-5">
@@ -917,28 +897,7 @@ const Index = () => {
                     )
                   )}
 
-                  <div className="flex justify-between w-full text-xs font-light whitespace-nowrap text-neutral-500">
-                    <div className="flex flex-1 gap-2.5  py-2 my-auto">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/2b62e97f344d313ace329c83a419eb4cd00ae9faef7f9b5750b2d226ef142f4e?"
-                        className="shrink-0 w-4 aspect-[1.06] fill-neutral-500"
-                      />
-                      <span className="mb-3 ml-0 p-0 font-bold mr-4">
-                        {comment.likesCount} {comment.likesCount === 1 ? "" : ""}
-                      </span>
-                    </div>
-                    <div className="flex flex-1 justify-end gap-2.5  py-2.5">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/8e2192e0bbca513f636ff3098ae4b0fdc443b72fa11788238249846ad8fd5a03?"
-                        className="shrink-0 aspect-square fill-neutral-500 w-[15px]"
-                      />
-                      <span className="mb-3 ml-0 p-0 font-bold mr-4">
-                        {comment.likesCount} {comment.likesCount === 1 ? "" : ""}
-                      </span>
-                    </div>
-                  </div>
+
                   <div className="max-sm:text-xs flex max-sm:gap-2 justify-between w-full text-xs md:text-base whitespace-nowrap text-zinc-900 flex-nowrap">
                     <div className="flex max-sm:text-xs flex max-sm:gap-2 justify-between">
                       <div className="flex gap-2 py-2">
@@ -1021,14 +980,6 @@ const Index = () => {
                       </button>
                     </div>
                   </div>
-
-
-
-
-
-
-
-
 
                   <div className="  rounded-lg">
                     {selectedArticleId === article.id && (
@@ -1215,15 +1166,14 @@ const Index = () => {
 
                   </div>
                 </div>
-              ))}
+              )) :<div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun publication pour le moment</div>}
             </div>
           </div>
         </div>}
         {profileFeed === 'photo' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
           <div>
-            {articlesWithPhoto.length <= 0 && <div>Aucune Photo pour le moment</div>}
             <div>
-              {articlesWithPhoto.map((article) => (
+              {articles.length > 0 ? articlesWithPhoto.map((article) => (
                 <div
                   key={article.id}
                   className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
@@ -1269,15 +1219,14 @@ const Index = () => {
                   </div>
 
                 </div>
-              ))}
+              )):<div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun Photo pour le moment</div>}
             </div>
           </div>
         </div>}
         {profileFeed === 'video' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
           <div>
-            {articlesWithVideo.length <= 0 && <div>Aucun Video pour le moment</div>}
             <div>
-              {articlesWithVideo.map((article) => (
+              {articles.length > 0 ? articlesWithVideo.map((article) => (
                 <div
                   key={article.id}
                   className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
@@ -1331,7 +1280,7 @@ const Index = () => {
                   </div>
 
                 </div>
-              ))}
+              )):<div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun Video pour le moment</div>}
 
 
 

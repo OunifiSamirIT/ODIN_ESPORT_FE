@@ -7,7 +7,7 @@ const HomeLayout = ({children}) => {
 return(
   <>
 
-   <div className="bg-zinc-100 min-h-screen overflow-hidden font-sans">
+   <div className="bg-gray-200 min-h-screen overflow-hidden font-sans">
     <Header/>
     <div className="max-w-[1344px] mx-auto my-2 md:my-5 ">
       {children}

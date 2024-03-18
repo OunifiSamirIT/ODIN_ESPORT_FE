@@ -7,6 +7,7 @@ import HomeLayout from "./HomeLayout";
 import Player from "../pages/Profile/Fragments/Player"
 import General from "../pages/Profile/Fragments/General"
 import Entraineur from "../pages/Profile/Fragments/Entraineur"
+import PlaceHolder from "../assets/placeholder.jpg"
 const ProfileLayout = ({ children, onChange, user }) => {
     const [CurrentUser, setCurrentUser] = useState(null)
     const { id } = useParams()
@@ -38,10 +39,9 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const userInfo = async () => {
         const response = await fetch(`http://localhost:5000/api/user/${id}`);
         const result = await response.json();
-        console.log('sdfsdf',result)
-        if(result.message)
-        { navigate('/404')}else{
-            setCurrentUser(result) 
+        console.log('sdfsdf', result)
+        if (result.message) { navigate('/404') } else {
+            setCurrentUser(result)
         }
     }
     const isFriendAccepted = async () => {
@@ -53,35 +53,32 @@ const ProfileLayout = ({ children, onChange, user }) => {
 
     useEffect(() => {
         isFriendAccepted()
-        console.log('test', acceptedFriend)
-        if (LocalStorageID.id == user.toString()) {
+        fetchAllFriendRequest()
+        if (LocalStorageID.id == id) {
             setOwner(true)
         }
-    }, [user])
+    }, [id,user])
 
+    const fetchAllFriendRequest = async () => {
+        const response = await fetch(`http://localhost:5000/api/user/${id}/getFriends`, {
+            method: "GET",
+        });
+        const result = await response.json();
+        setInvitation(result)
+    }
     const sendFriendRequest = async () => {
-
-        const response = await fetch(`http://localhost:5000/api/user/${user}/sendFriendRequest/${LocalStorageID.id}`, {
+        const response = await fetch(`http://localhost:5000/api/user/${LocalStorageID.id}/sendFriendRequest/${id}`, {
             method: "POST",
         });
-
-        const result = await response.json();
-        console.log('friend request sent')
     }
     const [showInvitation, setShowInvitation] = useState()
     const CheckIfInvitationIsSend = async () => {
-        const response = await fetch(`http://localhost:5000/api/user/${user}/friend-requests`, {
+        const response = await fetch(`http://localhost:5000/api/user/${id}/friend-requests`, {
             method: "GET",
         });
         const result = await response.json();
         console.log(result)
         setInvitation(result.receiver)
-
-        // const isFriend = result.receiver.filter((item) => {
-        //     console.log(item.id)
-        //     return item.id === LocalStorageID.id
-        // })
-        // setInvitationSend(isFriend)
     }
 
     const copyLinkToClipboard = (articleId) => {
@@ -102,6 +99,14 @@ const ProfileLayout = ({ children, onChange, user }) => {
         }
 
     };
+    const deleteInviation = async (id) => {
+        const response = await fetch(`http://localhost:5000/api/user/${LocalStorageID.id}/delete/${id}`, {
+            method: "DELETE",
+        });
+        console.log(response)
+        if(response.status === 200)
+        {window.location.reload()}
+    }
     useEffect(() => {
         CheckIfInvitationIsSend()
         console.log('curren', Invitation)
@@ -111,38 +116,54 @@ const ProfileLayout = ({ children, onChange, user }) => {
             <HomeLayout>
                 <div className="self-center mt-4 w-full max-w-[1344px]">
                     <div className="flex gap-2 max-md:flex-col max-md:gap-0 max-md:">
-                        <div className="flex flex-col w-full md:w-1/2 ">
+                        <div className="flex flex-col w-full md:w-1/2 max-sm:px-4 ">
                             <div className="flex flex-col">
-                                {CurrentUser?.user.profil === 'player' && <Player userInfo={CurrentUser}/> }
-                                {CurrentUser?.user.profil === 'coach' && <Entraineur userInfo={CurrentUser}/> }
-                                {CurrentUser?.user.profil === 'agent' && <General userInfo={CurrentUser}/> }
-                                {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser}/> }
-                                {CurrentUser?.user.profil === 'scout' && <General userInfo={CurrentUser}/> }
-                                {Invitation &&
-                                    <div className="flex flex-col flex-wrap justify-center content-start px-8 py-6 mt-6 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-                                        {Invitation.map(() => {
-                                            <div className="mt-8 max-md:max-w-full">
-                                                <div className="flex gap-3 max-md:flex-col max-md:gap-0 max-md:">
-                                                    <div className="flex flex-col w-[178px] max-md:ml-0 max-md:w-full">
-                                                        <div className="flex flex-col grow items-center px-3.5 py-4 w-full text-base whitespace-nowrap rounded-xl bg-zinc-100 text-zinc-900 max-md:mt-8">
-                                                            <img
-                                                                loading="lazy"
-                                                                srcSet="..."
-                                                                className="w-20 aspect-square"
-                                                            />
-                                                            <div className="mt-4 font-semibold">hbfd</div>
-                                                            <div className="text-xs font-light">kjjsdf</div>
-                                                            <div className="justify-center self-stretch px-10 py-2 mt-4 font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                                                                Accept invitation
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        })}
+                                {CurrentUser?.user.profil === 'player' && <Player userInfo={CurrentUser} />}
+                                {CurrentUser?.user.profil === 'coach' && <Entraineur userInfo={CurrentUser} />}
+                                {CurrentUser?.user.profil === 'agent' && <General userInfo={CurrentUser} />}
+                                {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} />}
+                                {CurrentUser?.user.profil === 'scout' && <General userInfo={CurrentUser} />}
 
+
+                                {Invitation.length > 0 && <div className="flex flex-col flex-wrap justify-center content-start px-3 py-6 mt-6 mb-6 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
+                                    <div className="flex gap-5 justify-between font-medium whitespace-nowrap w-full">
+                                        <div className="flex flex-auto gap-4 py-2 text-base text-zinc-900">
+                                            <img
+                                                loading="lazy"
+                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/acf026b2812ede237d9ec012ac71ee4afc067d2787b50070a71f03ae3078c0b6?"
+                                                className="shrink-0 w-5 aspect-square"
+                                            />
+                                            <div className="flex-auto max-md:max-w-full">Friends</div>
+                                        </div>
+                                        <div className="my-auto text-sm text-blue-600 underline justify-end">
+                                            Voir Tout
+                                        </div>
                                     </div>
-                                }
+                                    <div className="mt-8 max-md:max-w-full">
+                                        <div className="flex gap-4 md:gap-8 flex-wrap md:justify-between ">
+                                            {Invitation.map((item) => {
+                                                return (<div key={item.id} className="flex flex-col max-sm:flex-1">
+                                                    <div className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">
+                                                        <img
+                                                            loading="lazy"
+                                                            srcSet={item.receiver.image ? item.receiver.image : PlaceHolder}
+                                                            className="w-20 aspect-square rounded-full"
+                                                        />
+                                                        <div className="mt-4 font-semibold">{item.receiver.nom}</div>
+                                                        <div className="text-xs font-light">{item.receiver.profil}</div>
+                                                        <div className="text-center justify-center self-stretch px-10 py-2 mt-4 font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                                                            <Link to={`/profile/${item.receiver.id}`}> Voir Plus</Link>
+                                                        </div>
+                                                        {owner && <div className="text-center justify-center self-stretch px-10 py-2 mt-4 font-medium text-white bg-orange-500 rounded-[30px] max-md:px-5">
+                                                            <button onClick={()=>deleteInviation(item.receiver.id)}>Supprimer</button>
+                                                        </div>}
+                                                    </div>
+                                                </div>)
+                                            })}
+
+                                        </div>
+                                    </div>
+                                </div>}
                             </div>
                         </div>
                         <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">

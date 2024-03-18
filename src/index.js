@@ -201,7 +201,7 @@ function Root() {
        {/* Profile routes */}
 
        <Route exact path="/profile/:id" element={<Profile />} />
-        <Route exact path="/profile/more" element={<MoreProfile />} />
+        <Route exact path="/profile/more/:id" element={<MoreProfile />} />
         {/* <Route exact path="/informationProfile" element={<Information />} />
         <Route exact path={`/accountinformation`} element={<Account />} />
         <Route exact path={`/parametrecompte`} element={<Parametre />} />

@@ -203,11 +203,6 @@ const Personal = ({ userInfo }) => {
     }).finally(() => {
       console.log('done')
     });
-
-    // if(response.status === 200) {
-    //   // toast("Wow so easy!");
-    //   
-    // }
   }
   const resetForm = async () => {
     setValue('nom', userInfo.user.nom);

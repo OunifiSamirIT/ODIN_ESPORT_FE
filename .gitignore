@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+/src/pages/Homecopy.jsx
+/src/pages/Home.jsx
 # testing
 /coverage
 
