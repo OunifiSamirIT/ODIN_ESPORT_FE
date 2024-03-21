@@ -8,11 +8,13 @@ import "./main.scss";
 
 
 import Profile from './pages/Profile/Index'
+import FriendRequest from './pages/Profile/FriendRequest'
+import FriendList from './pages/Profile/FriendList'
 import MoreProfile from './pages/Profile/MoreProfile'
 import Information from "./pages/informationProfile";
 import Parametre from "./pages/Parametre"
 import ProfilSocial from "./pages/ProfileSocial";
-
+import Blog from "./pages/Blog/index"
 
 
 
@@ -202,11 +204,11 @@ function Root() {
 
        <Route exact path="/profile/:id" element={<Profile />} />
         <Route exact path="/profile/more/:id" element={<MoreProfile />} />
-        {/* <Route exact path="/informationProfile" element={<Information />} />
-        <Route exact path={`/accountinformation`} element={<Account />} />
-        <Route exact path={`/parametrecompte`} element={<Parametre />} />
-        <Route exact path={`/social`} element={<ProfilSocial />} /> */}
+        <Route exact path={`/friends`} element={<FriendRequest />} />
+        <Route exact path={`/friendsList`} element={<FriendList />} />
+      {/* blog routes */}
 
+      <Route exact path="/blog" element={<Blog />} />
 
 
 

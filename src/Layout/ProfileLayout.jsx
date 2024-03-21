@@ -124,7 +124,6 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                 {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} />}
                                 {CurrentUser?.user.profil === 'scout' && <General userInfo={CurrentUser} />}
 
-
                                 {Invitation.length > 0 && <div className="flex flex-col flex-wrap justify-center content-start px-3 py-6 mt-6 mb-6 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                                     <div className="flex gap-5 justify-between font-medium whitespace-nowrap w-full">
                                         <div className="flex flex-auto gap-4 py-2 text-base text-zinc-900">
@@ -135,12 +134,12 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                             />
                                             <div className="flex-auto max-md:max-w-full">Friends</div>
                                         </div>
-                                        <div className="my-auto text-sm text-blue-600 underline justify-end">
+                                        <Link to={'/friendsList'} className="my-auto text-sm text-blue-600 underline justify-end">
                                             Voir Tout
-                                        </div>
+                                        </Link>
                                     </div>
                                     <div className="mt-8 max-md:max-w-full">
-                                        <div className="flex gap-4 md:gap-8 flex-wrap md:justify-between ">
+                                        <div className="flex gap-4 md:gap-8 flex-wrap ">
                                             {Invitation.map((item) => {
                                                 return (<div key={item.id} className="flex flex-col max-sm:flex-1">
                                                     <div className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">

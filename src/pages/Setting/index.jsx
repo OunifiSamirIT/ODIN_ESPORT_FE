@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SettingsLayout from "../../Layout/SettingsLayout";
 import Social from "./Social";
 import Parametre from "./Parametre";
+import Experience from "./Experience";
 import Information from "./Information";
 import Personal from "./Personal";
 import { useParams } from "react-router-dom";
@@ -79,6 +80,7 @@ const Index = () => {
                 <SettingsLayout setCurrentTab={setCurrentTab} tab={tab}>
                     {currentTab === 'social' && <Social userInfo={userInfo}/>}
                     {currentTab === 'parametre' && <Parametre userInfo={userInfo} />}
+                    {currentTab === 'experience' && <Experience userInfo={userInfo} />}
                     {currentTab === 'personal' && <Personal userInfo={userInfo} />}
                     {currentTab === 'information' && <Information userInfo={userInfo} />}
                 </SettingsLayout>
