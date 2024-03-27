@@ -859,11 +859,11 @@ function Home() {
     <>   
       
 
-
+<Header/>
 
       <div className="nav-header">
     
-   <Header/>
+   
    
    
    
