@@ -38,11 +38,7 @@ const More = () => {
   const isOwner = storedUserData.id == id
   const sendFriendRequest = async () => {
 
-<<<<<<< HEAD
     const response = await fetch(`http://localhost:5000/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
-=======
-    const response = await fetch(`https://odine-sport.com/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
       method: "POST",
     });
 
@@ -51,11 +47,7 @@ const More = () => {
   }
   const copyLinkToClipboard = (articleId) => {
     // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
-<<<<<<< HEAD
     const articleUrl = `http://localhost:5000/articles/${articleId}`;
-=======
-    const articleUrl = `https://odine-sport.com/articles/${articleId}`;
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
 
     // Copy the URL to the clipboard
     navigator.clipboard.writeText(articleUrl)
@@ -70,11 +62,7 @@ const More = () => {
 
   const navigate = useNavigate()
   const fetchUser = async () => {
-<<<<<<< HEAD
     const response = await fetch(`http://localhost:5000/api/user/${id}`);
-=======
-    const response = await fetch(`https://odine-sport.com/api/user/${id}`);
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
     const result = await response.json();
     console.log('sdfsdf', result)
     if (result.message) { navigate('/404') } else {

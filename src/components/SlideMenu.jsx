@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
-=======
-import React, { useEffect, useState } from "react";
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import UserImage from "../assets/placeholder.jpg"
 
 
 const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const [expanded, setExpanded] = useState(false);
-<<<<<<< HEAD
   const [lang, setLang] = useState('Français')
   const [user, setUser] = useState({})
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -27,11 +22,6 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   }, [])
 
 
-=======
-  const [user, setUser] = useState({});
-
-  const [lang , setLang] = useState('Français')
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
   const toggleLanguage = () => {
     if (lang === 'Français') {
       setLang('English')
@@ -61,45 +51,15 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
     navigate("/login");
   };
 
-
-
-
-
-
-
-
-  useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
-    const id = storedUserData ? storedUserData.id : null;
-
-    
-      // Replace the API endpoint with your actual endpoint for fetching user data
-      fetch(`https://odine-sport.com/api/user/${id}`)
-        .then((response) => response.json())
-        .then((userData) => {
-          setUser(userData);
-          
-        })
-        .catch((error) => console.error("Error fetching user data:", error));
-    
-
-   
-  }, []);
-
   return (
     <>
       <div className="relative flex justify-end">
         <img
           alt="user iamge"
           loading="lazy"
-<<<<<<< HEAD
           onClick={() =>setHumberger(!Hamburger) }
           srcSet={user?.image ? user?.image : UserImage}
           className="md:hidden  self-stretch aspect-square rounded-full w-[60px] relative pointer"
-=======
-          srcSet={user?.user?.image}
-          className="self-stretch aspect-square rounded-full w-[60px] z-10 relative pointer"
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
         />
           <img
             alt="user iamge"

@@ -37,11 +37,8 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
                             <a href={`/setting/information`} className="mt-4 text-left">Informations du Profil</a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
-<<<<<<< HEAD
                             <a href={`/setting/experience`} className="mt-4 text-left">Experiences</a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
-=======
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
                             <a href={`/setting/parametre`} className="mt-4 text-left">Paramètres du compte</a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
                             <a href={`/setting/social`}className="mt-3 text-left" >Réseaux Sociaux</a>

@@ -111,7 +111,6 @@ function Home() {
       await fetchRepliesForComment(commentId);
     }
   };
-<<<<<<< HEAD:src/pages/Homecopy.jsx
   // const handleLikeClick = async (articleId, emoji) => {
   //   try {
   //     const response = await fetch(
@@ -148,9 +147,6 @@ function Home() {
   //     });
   //   }
   // };
-=======
-  
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
   const handleLikeClick = async (articleId, emoji) => {
     try {
       const response = await fetch(
@@ -173,11 +169,7 @@ function Home() {
 
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
-<<<<<<< HEAD:src/pages/Homecopy.jsx
           "http://localhost:5000/api/likes/allLikes"
-=======
-          "https://odine-sport.com/api/likes/article/allLikes"
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
         );
         const allLikesData = await allLikesResponse.json();
 
@@ -406,16 +398,11 @@ function Home() {
 
   const fetchArticles = async () => {
     try {
-<<<<<<< HEAD:src/pages/Homecopy.jsx
       // Fetch articles
       const response = await fetch("http://localhost:5000/api/articles/");
-=======
-      const response = await fetch("https://odine-sport.com/api/articles/");
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
       const result = await response.json();
   
       const reversedArticles = result.rows.reverse();
-<<<<<<< HEAD:src/pages/Homecopy.jsx
       const userIds = reversedArticles.map((article) => article.userId);
       const comt = reversedArticles.map((article) => article.id);
 
@@ -464,42 +451,6 @@ function Home() {
 
       setArticles(articlesWithLikesCount);
       console.log("articles : ", articles)
-=======
-      const articlesWithLikesCount = [];
-  
-      for (const article of reversedArticles) {
-        const userId = article.userId;
-        const comt = article.id;
-  
-        const userResponse = await fetch(`https://odine-sport.com/api/user/${userId}`);
-        const userData = await userResponse.json();
-  
-        const comtResponse = await fetch(`https://odine-sport.com/api/commentaires/article/${comt}`);
-        const commentsData = await comtResponse.json();
-  
-        const likesCountResponse = await fetch(`https://odine-sport.com/api/likes/article/allLikes`);
-        const likesCountData = await likesCountResponse.json();
-  
-        const likesCount = likesCountData.find(
-          (count) =>
-            count.articleId === article.articleId ||
-            count.articleId === article.id
-        );
-  
-        const articleWithLikesCount = {
-          ...article,
-          user: userData,
-          comments: commentsData.commentsData,
-          commentsCount: commentsData.commentCount,
-          likesCount: likesCount ? likesCount.likesCount : 0,
-        };
-  
-        articlesWithLikesCount.push(articleWithLikesCount);
-      }
-  
-      setArticles(articlesWithLikesCount);
-      console.log("articles : ", articlesWithLikesCount);
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -697,12 +648,8 @@ function Home() {
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
-<<<<<<< HEAD:src/pages/Homecopy.jsx
       // Replace the API endpoint with your actual endpoint for fetching user data
       fetch(`http://localhost:5000/api/user/${id}`)
-=======
-      fetch(`https://odine-sport.com/api/user/${id}`)
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData.user);
@@ -961,13 +908,8 @@ function Home() {
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
   return (
-<<<<<<< HEAD:src/pages/Homecopy.jsx
     <>
       <Header />
-=======
-    <>   
-      
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
 
 
 
@@ -1164,19 +1106,8 @@ function Home() {
 
                 {/* update 01/02/2023 */}
 
-<<<<<<< HEAD:src/pages/Homecopy.jsx
 
                 <div>
-=======
-        <div className="main-content right-chat-active bg-zinc-100">
-      <div className="middle-sidebar-bottom">
-        <div className="middle-sidebar-left">
-          <div className="row feed-body">
-            <div className="col-xl-8 col-xxl-9 col-lg-8">
-            
-              
-              <div>
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
 
 
 
@@ -1193,7 +1124,6 @@ function Home() {
 
 
 
-<<<<<<< HEAD:src/pages/Homecopy.jsx
                   {/* creation poste  */}
                   <div className="card w-100 shadow-xss rounded-md   border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
                     <div className="card-body p-0 mt-3 position-relative">
@@ -1211,81 +1141,6 @@ function Home() {
                             alt="Preview"
                             className="rounded-xxl"
                             style={{ maxWidth: "100%", maxHeight: "200px" }}
-=======
-                {/* creation poste  */}
-                <div className="card w-100 shadow-xss rounded-md   border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
-                  <div className="card-body p-0 mt-3 position-relative">
-                 
-                    {previewImage && (
-                      <div className="mt-3">
-                        <img
-                          src={previewImage}
-                          alt="Preview"
-                          className="rounded-xxl"
-                          style={{ maxWidth: "100%", maxHeight: "200px" }}
-                        />
-                      </div>
-                    )}
-                    {videoPreviewUrl && (
-                      <div className="mt-3">
-                        <video
-                          controls
-                          src={videoPreviewUrl}
-                          className="rounded-xxl"
-                          style={{ maxWidth: "100%", maxHeight: "200px" }}
-                        ></video>
-                      </div>
-                    )}
-                    <form onSubmit={handleSubmit(handlePostSubmit)}>
-                      <div className="card-body d-flex p-0 mt-4">
-                      <img
-                        src={user?.user?.image}
-                        alt="icon"
-                        className="shadow-sm rounded-full  w-16 h-14 mr-2"
-                      />
-                        {/* <label>{storedUserData.login}</label> */}
-                        <TextInput
-                          className="grow justify-center p-2 bg-gray-100 rounded-[30px] max-md:pr-5 max-md:max-w-full theme-dark-bg"
-                          
-                          placeholder="What's on your mind?"
-                          // styles="w-full rounded-full py-5 text-bl"
-                          // placeholder="Show your Skills here , your dream begin from here...."
-                          name="description"
-                          register={register("description", {
-                            required: "Write something about post",
-                          })}
-                          error={
-                            errors.description
-                              ? errors.description.message
-                              : ""
-                          }
-                        />
-                      </div>
-
-                      {errMsg?.message && (
-                        <span
-                          role="alert"
-                          className={`text-sm ${
-                            errMsg?.status === "failed"
-                              ? "text-[#f64949fe]"
-                              : "text-[#2ba150fe]"
-                          } mt-0.5`}
-                        >
-                          {errMsg?.message}
-                        </span>
-                      )}
-<div className="d-flex align-items-center justify-content-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
-                        <label
-                          htmlFor="imgUpload"
-                          className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
-                        >
-                          <input
-                            type="file"
-                            onChange={handleFileChange}
-                            className="hidden"
-                            id="imgUpload"
-                            accept=".jpg, .png, .jpeg"
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
                           />
                         </div>
                       )}
@@ -1325,7 +1180,6 @@ function Home() {
                           />
                         </div>
 
-<<<<<<< HEAD:src/pages/Homecopy.jsx
                         {errMsg?.message && (
                           <span
                             role="alert"
@@ -1355,77 +1209,6 @@ function Home() {
                               className="aspect-square w-[25px]"
                             />                          <span className="d-none-xs ml-2">Photo</span>
                           </label>
-=======
-                {/* show post  */}
-                <div>
-                
-
-                {articles && articles.length > 0 ? (
-                                  <> 
-                  {articles.map((article) => (
-                    <div
-                      key={article.id}
-                      className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
-                    >
-                      <div className="card-body p-0 d-flex">
-                      <Link to={`/profile/${article.user.user.id}`}>
-                            <figure className="avatar me-3">
-                              <img
-                                src={article.user.user.image}
-                                className="shadow-sm rounded-full  w-10 h-10"
-                                alt="post"
-                              />{" "}
-                            </figure>
-                          </Link>
-
-                        <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                          {article.user.user.nom}  {'   '}
-                          {article.user.user.prenom} 
-                          <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                          {article.user.user.profil}
-
-                          </span>
-                          <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                          {new Date(article.user.user.createdAt).toLocaleDateString()}                          
-                          </span>
-                        </h4>
-                        <div className="ms-auto relative">
-              <i
-                className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss cursor-pointer"
-                onClick={() => handleMoreClick(article)}
-              ></i>
-             
-
-{showDropdown === article.id && article.user.user && article.user.user.id === storedUserData.id && (
-  <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
-    {/* Your dropdown menu content */}
-    <button
-      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-      onClick={() => handleEditClick(selectedArticle)}
-    >
-      <label
-        className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-        onClick={() => handleEditClick(article)}
-      >
-        <BiEditAlt />
-        <Link to={`/editPost/${article.id}`}>
-          <span>Edit</span>
-        </Link>{" "}
-      </label>
-    </button>
-   
-    <button
-      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-      onClick={() => handleDeleteClick(article.id)}
-    >
-      Delete
-    </button>
-  </div>
-)}
-
-            </div>
-                      </div>
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
 
                           <label
                             className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark pe-4"
@@ -1474,7 +1257,6 @@ function Home() {
                               />
                             )}
                           </div>
-<<<<<<< HEAD:src/pages/Homecopy.jsx
                         </div>
                       </form>
                     </div>
@@ -1583,221 +1365,6 @@ function Home() {
                                           />
                                         </div>
                                       </div>
-=======
-                      <div className="card-body d-block p-0 mb-3">
-                        <div className="row ps-2 pe-2">
-                          <div className="col-sm-12 p-1">
-                           
-                            {article.video ? (
-                              <div className="card-body p-0 mb-3  overflow-hidden uttam-die">
-                                <video controls className="float-right w-100">
-                                  <source
-                                    src={article.video}
-                                    type="video/mp4"
-                                  />
-                                  Your browser does not support the video tag.
-                                </video>{" "}
-                              </div>
-                            ) : (
-                              <div className="card-body d-block p-0 mb-3">
-                                <div className="row ps-2 pe-2">
-                                  <div className="col-sm-12 p-1">
-                                    <img
-                                      className=" h-96 w-100 object-cover"
-                                      src={article.image}
-                                      alt={article.titre}
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                          
-                        </div>
-                      </div>
-                      <div className="  rounded-lg">
-                        
-                        
-                        
-                        
-                        
-                        
-
-
-<span className="mb-3 ml-0 p-0 font-bold mr-4">
-  <button
-    onClick={() => {
-      handleLikeClick(article.id, 1); 
-    }}
-  >
-    <span style={{ display: 'flex', alignItems: 'center' }}>
-      {article.likesCount === 0 ? (
-        <BiHeart className="size-6 text-black" />
-      ) : (
-        <BiSolidHeart className="size-6 text-black" />
-      )}
-      <span style={{ marginLeft: '1px', marginTop: '2px' }}>Jaime</span>
-    </span>
-  </button>{" "}
-  <span className="mb-3 ml-0 p-0 font-bold mr-2">
-    {article.likesCount} {article.likesCount === 1 ? "" : ""}{" "}
-  </span>
-
-  <button
-    onClick={() => {
-      if (selectedArticleId === article.id) {
-        setCommentInputVisible(false);
-        setSelectedArticleId(null); 
-      } else {
-        fetchCommentsForArticle(article.id);
-        setSelectedArticleId(article.id);
-        setCommentInputVisible(true);
-        setSelectedArticleForCopy(article.id);
-      }
-    }}
-  >
-    {selectedArticleId === article.id ? (
-      <div className="flex gap-2 justify-between py-2 md:ml-6">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-          className="w-5 aspect-square fill-zinc-900"
-        />
-        <div className="grow">Commenter</div>
-      </div>
-    ) : (
-      <div className="flex gap-2 justify-between py-2 md:ml-6">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-          className="w-5 aspect-square fill-zinc-900"
-        />
-        <div className="grow">Commenter</div>
-      </div>
-    )}
-  </button>
-
-  {article.commentsCount} {article.commentsCount === 1 ? "" : ""}
-
-  <button
-  onClick={() => {
-    copyLinkToClipboard(article.id);
-    setIsCopyLinkPopupVisible(true);
-    setTimeout(() => {
-      setIsCopyLinkPopupVisible(false);
-    }, 2000); // Hide the popup after 2 seconds
-  }}
-  className="md:ml-44"
->
-  <div className="flex gap-2 justify-between py-2">
-    <img
-      loading="lazy"
-      src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-      className="w-5 aspect-square fill-zinc-900"
-    />
-    <div className="grow"></div>
-  </div>
-  {isCopyLinkPopupVisible && (
-    <div className="copy-link-popup">
-      lien copié!
-    </div>
-  )}
-</button>
-
-</span>
-
-
-                        
-
-
-
-
-
-
-
-
-                        {selectedArticleId === article.id && (
-                          <div className="comments-section ">
-                            {article.comments &&
-                              article.comments.map((comment) => (
-                                <div key={comment.id} className="comment">
-                                  {/* Display comment information */}
-                                  <div className="flex items-center ">
-                                    <figure className="avatar me-3 mb-8">
-                                      <img
-                                        src={
-                                          comment.user && comment.user.user.image
-                                        }
-                                        className="shadow-sm rounded-circle w-12 h-12 "
-                                        alt="post"
-                                      />
-                                    </figure>
-                                    <span className="flex flex-col flex-1 mt-5  bg-gray-100 md:w-[580px] rounded-3xl max-md:max-w-full">
-                               
-                                   <strong className="mb-1 ml-2 mt-3">
-                                        {comment.user && comment.user.user.login}
-                                      </strong>
-                                      <h1 className=" text-gray-500 ml-2 mt-1 mb-1">
-                                      {comment.user && comment.user.user.profil}     
-                                       </h1> 
-                                       {comment.user && comment.user.createdAt && (
-      <p className="text-gray-500 text-sm mt-0 ml-2 mb-4">
-        {new Date(comment.user.createdAt).toLocaleDateString()}
-      </p>
-    )}
-                                      
-                                      <div className="mx-3 mb-3">{comment.description}</div>
-                                      </span>
-                                  </div>
-                                 
-
-                                  <div className="ml-12">
-                                    <button
-                                      onClick={() =>
-                                        handleReplyClick(comment.id)
-                                      }
-                                      className="w-20 font-semibold ml-4"
-                                    >
-                                      Répondre
-                                    </button>
-
-
-
-
-
-                                   <button onClick={() => handleLikeComment(comment.id)}>
-    {comment.likesCount === 0 ? (
-      <BiHeart className="size-7 text-black" />
-    ) : (
-      <BiSolidHeart className="size-7 text-black" />
-    )}
-  </button>
-  {/* <span>{comment.likesCount} Likes</span> */}
-<span className="mb-3 ml-0 p-0 font-bold mr-4">
-{comment.likesCount} {comment.likesCount === 1 ? "" : ""}
-</span>
-
-                                  </div>
-                                 
-                                 
-                                  {replyingToCommentId === comment.id && (
-                                    <div>
-                                      <input
-                                        type="text"
-                                        value={replyInput}
-                                        onChange={(e) =>
-                                          setReplyInput(e.target.value)
-                                        }
-                                        className="bg-gray-200 rounded-md w-96 pl-3 h-12 mt-3 ml-16"
-                                      />
-                                      <button
-                                        onClick={() =>
-                                          addReply(comment.id, replyInput)
-                                        }
-                                      >
-                                        <BiSolidSend className="size-12 pt-8 text-cyan-600" />
-                                      </button>
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
                                     </div>
                                   )}
                                 </div>
@@ -1984,7 +1551,6 @@ function Home() {
                                                 addReply(comment.id, replyInput)
                                               }
                                             >
-<<<<<<< HEAD:src/pages/Homecopy.jsx
                                               <BiSolidSend className="size-12 pt-8 text-cyan-600" />
                                             </button>
                                           </div>
@@ -2025,35 +1591,6 @@ function Home() {
                                                               {new Date(reply.user.createdAt).toLocaleDateString()}
                                                             </p>
                                                           )}                                                      <div className="m-2">{reply.description}</div>
-=======
-                                              {/* Display reply information */}
-                                              <div className="flex items-center">
-                                                <figure className="avatar me-3">
-                                                  <img
-                                                    src={
-                                                      reply.user &&
-                                                      reply.user.user.image
-                                                    }
-                                                    className="shadow-sm rounded-circle w-10 h-10"
-                                                    alt="post"
-                                                  />
-                                                </figure>
-                                                <span className="flex flex-col flex-1 mt-3   bg-gray-100 md:w-[460px]  rounded-3xl max-md:max-w-full">
-
-                                                <div className="flex flex-col justify-between ml-2 ">
-                                                  <strong className="mb-2 mt-10">
-                                                    {reply.user &&
-                                                      reply.user.user.login}
-                                                  </strong>
-                                                  <h1 className=" text-gray-500 ml-2 mt-1 mb-1">
-                                      {reply.user && reply.user.user.profil}     
-                                       </h1> 
-                                       {reply.user && reply.user.user.createdAt && (
-      <p className="text-gray-500 text-sm mt-0 ml-2 mb-4">
-        {new Date(reply.user.user.createdAt).toLocaleDateString()}
-      </p>
-    )}                                                      <div className="m-2">{reply.description}</div>
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
 
                                                         </div>                                      </span>
 
@@ -2104,84 +1641,6 @@ function Home() {
                                 </div>
                               )}
 
-<<<<<<< HEAD:src/pages/Homecopy.jsx
-=======
-                            {/* Add Comment Input */}
-                            {commentInputVisible && (
-                              <div>
-                                <div className="flex items-center">
-                                  <figure className="avatar me-3">
-                                    <img
-                                      src={user.image}
-                                      className="shadow-sm rounded-circle w-10 h-10"
-                                      alt="post"
-                                    />
-                                  </figure>
-                                  <input
-                                    type="text"
-                                    className="bg-gray-200 p-2 rounded-md w-96 h-12 mt-3 ml-2"
-                                    value={comment}
-                                    onChange={(e) =>
-                                      setComment(e.target.value)
-                                    }
-                                  />{" "}
-                                  <button
-                                    onClick={() => addComment(article.id)}
-                                    className="ml-2"
-                                  >
-                                    {" "}
-                                    <BiSolidSend className="size-7 mt-3 text-cyan-600" />
-                                  </button>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                        
-                      </div>
-                    </div>
-                  ))}
-
-                  </>) : (<> <p>Loading ...</p></>)}
-
-
-
-
-
-
-
-                  {latestItemType !== "album" &&
-                    album.map((albums) => (
-                      <div
-                        key={albums.id}
-                        className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
-                      >
-                        <div className="card-body p-0 d-flex">
-                          <figure className="avatar me-3">
-                            <img
-                              src={AdminImg}
-                              className="shadow-sm rounded-circle w-10 h-10"
-                              alt="post"
-                            />{" "}
-                          </figure>
-                          <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                            ODIN Sport
-                            <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                              {calculateTimeDifference(albums.createdAt)}
-                            </span>
-                          </h4>
-                        </div>
-
-                        <div className="card-body d-block p-0 mb-3">
-                          <div className="row ps-2 pe-2">
-                            <div className="col-sm-12 p-1">
-                              <div
-                                className="card-body position-relative h200 bg-image-cover bg-image-center cover"
-                                style={{
-                                  backgroundImage: `url(${albums.ImagesAlbums[0]?.image_url})`,
-                                }}
-                              ></div>
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4:src/pages/Home copy.jsx
                             </div>
                           </div>
                         ))}

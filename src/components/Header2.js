@@ -5,26 +5,9 @@ import Logo from "../assets/ODIN22.png";
 import SlideMenu from "./SlideMenu";
 import '../components/Hamburger.css'
 import BurgerMenuLink from '../components/BurgerMenuLink'
-<<<<<<< HEAD
 
 function Header() {
 
-=======
-import { ReactSearchAutocomplete } from 'react-search-autocomplete'
-
-import Profilesearch from "../assets/Profilesearch.png"
-import Football from "../assets/Football.png";
-import Parametre from "../assets/Parametre.png";
-import Userdefault from "../assets/userdefault.jpg";
-
-function Header() {
-  const iconImages = {
-    Profilesearch,
-    Football,
-    Parametre
-    // Add other icon-image mappings here
-  };
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
   const handleClick = () => {
     // Use setState to update showMenu
     this.setState((prevState) => ({
@@ -36,19 +19,6 @@ function Header() {
   const id = storedUserData.id ? storedUserData.id : 54;
   const [isOpen, setIsOpen] = useState(null)
   const [user, setUser] = useState(null)
-<<<<<<< HEAD
-=======
-  const [users, setUsers] = useState(null)
-  const [search, setSearch] = useState([])
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-
-
-
-
-
-
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
   const [isActive, setIsActive] = useState(null)
   const [isNoti, setisNoti] = useState(null)
   const location = useLocation();
@@ -58,11 +28,7 @@ function Header() {
 
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
-<<<<<<< HEAD
     fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
-=======
-    fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
       .then((response) => response.json())
       .then((userData) => {
         setUser(userData)
@@ -72,86 +38,6 @@ function Header() {
   }, [])
 
 
-<<<<<<< HEAD
-=======
-
-  useEffect(() => {
-    fetch(`https://odine-sport.com/api/AllTarget`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSearch(data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-
-        // Fetch users
-  fetch(`https://odine-sport.com/api/user`)
-  .then((response) => response.json())
-  .then((userData) => {
-    setUsers(userData)
-        console.log(userData);
-  })
-  .catch((error) => console.error("Error fetching users:", error));
-  }, []);
-
-
-
-  const handleSearch = (event) => {
-    const searchString = event.target.value;
-    setSearchTerm(searchString);
-    if (searchString.trim() === '') {
-      setSearchResults([]);
-    } else {
-      const filteredTargets = search.filter((item) =>
-        item.titre.toLowerCase().startsWith(searchString.toLowerCase()) || item.titre.toLowerCase().includes(searchString.toLowerCase())
-      ).map(target => ({...target, origin: 'Page'})); // Adding origin property to filtered targets
-      
-      const filteredUsers = users.filter((user) =>
-        user.nom.toLowerCase().startsWith(searchString.toLowerCase())  ||   user.nom.toLowerCase().includes(searchString.toLowerCase())
-      ).map(user => ({...user, origin: 'Personne'})); // Adding origin property to filtered users
-      
-      setSearchResults([...filteredTargets, ...filteredUsers]);
-    }
-  };
-  
-
-
-  // const handleSearch = (event) => {
-  //   const searchString = event.target.value;
-  //   setSearchTerm(searchString);
-  //   if (searchString.trim() === '') {
-  //     setSearchResults([]);
-  //   } else {
-  //     const filteredResults = search.filter((item) =>
-  //       item.titre.toLowerCase().includes(searchString.toLowerCase())
-  //     );
-  //     setSearchResults(filteredResults);
-  //     console.log("ddddddddd", searchResults
-  //     )
-
-  //   }
-  // };
-
- 
-
-  // const handleSearch = (event) => {
-  //   const searchString = event.target.value;
-  //   setSearchTerm(searchString);
-  //   if (searchString.trim() === '') {
-  //     setSearchResults([]);
-  //   } else {
-  //     const filteredResults = search.filter((item) =>
-  //       item.titre.toLowerCase().includes(searchString.toLowerCase())
-  //     );
-  //     setSearchResults(filteredResults);
-      
-  //   }
-  // };
-
-
-
-
-
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
   const toggleActive = () => setIsOpen(!isActive);
   const toggleisNoti = () => setisNoti(!isNoti);
   const navClass = `${isOpen ? " nav-active" : ""}`;
@@ -186,14 +72,8 @@ function Header() {
   return (
     <>
       <div className={`w-full bg-white shadow-xs ${Hamburger ? 'fixed top-0 h-screen overflow-hidden z-50' : ''}`}>
-<<<<<<< HEAD
         <div className="max-sm:px-4 max-w-[1344px] h-[100px] w-full bg-white  border-0 flex items-center justify-between mx-auto py-2 ">
           <Link to="/home">
-=======
-        <div className="max-sm:px-4 max-w-[1344px] h-[80px] w-full bg-white  border-0 flex items-center justify-between mx-auto py-2 ">
-         <div className="flex flex-row">
-           <Link to="/home" className="mt-3">
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
             <svg width="209" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_983_61844)">
                 <path d="M66.8102 14.0668V52.3118H40.5283L38.1046 47.5324L35.7149 42.7481L33.3204 37.9687L30.9307 33.1893L33.3204 28.4099L35.7149 23.6256L38.1046 18.8656L40.5283 14.0668H66.8102ZM42.9034 18.8656L40.5283 23.6256L38.1046 28.4099L35.7149 33.1893L38.1046 37.9687L40.4943 42.7481L42.884 47.5324H62.0066V18.8656H42.9034Z" fill="#2E71EB" />
@@ -220,74 +100,6 @@ function Header() {
             </svg>
             <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0"> </span>
           </Link>
-<<<<<<< HEAD
-=======
-          
-          <div className="flex pl-7 pt-4 w-full min-w-[250px] ">
-      <div className="flex items-center relative ">
-        <div className="flex items-center whitespace-nowrap bg-gray-100 pr-2 pl-2 h-11 w-[250px] rounded-full mr-4 border border-black absolute top-0">
-          <input
-            type="text"
-            onChange={handleSearch}
-            value={searchTerm}
-            placeholder="Search"
-            className="bg-gray-100 w-[230px]"
-          />
-          <svg
-            width="21"
-            height="20"
-            viewBox="0 0 21 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M20.0787 17.871L16.2077 13.9984C19.1041 10.1278 18.3144 4.64195 14.4437 1.74551C10.5731 -1.15092 5.08726 -0.361157 2.19083 3.50949C-0.705607 7.38013 0.0841559 12.866 3.9548 15.7624C7.06402 18.0891 11.3345 18.0891 14.4437 15.7624L18.3163 19.635C18.803 20.1216 19.592 20.1216 20.0786 19.635C20.5653 19.1483 20.5653 18.3593 20.0786 17.8727L20.0787 17.871ZM9.23154 15.015C5.7915 15.015 3.00282 12.2263 3.00282 8.78623C3.00282 5.34618 5.7915 2.55751 9.23154 2.55751C12.6716 2.55751 15.4603 5.34618 15.4603 8.78623C15.4566 12.2247 12.6701 15.0113 9.23154 15.015Z"
-              fill="#65676B"
-            />
-          </svg>
-        </div>
-        <div className="">
-        {searchResults.length > 0 && (
-  <ul className="bg-white shadow-md rounded-md mt-1 px-4 py-2 max-h-60 absolute top-[40px]  min-w-[350px] overflow-y-scroll ">
-    {searchResults.map((item, index) => (
-      <React.Fragment key={index}>
-        {index === 0 || searchResults[index - 1].origin !== item.origin ? (
-          <li className="text-gray-500 text-sm px-2 py-1">{item.origin === 'Page' ? 'Pages' : 'Personnes'}</li>
-        ) : null}
-        <li key={item.id} className="flex items-center py-1 space-x-4 ">
-          {item.icon ? (
-            <img
-              src={iconImages[item.icon]}
-              alt={item.titre}
-              width="20"
-              height="20"
-              className=""
-            />
-          ) : (
-            <img
-              src={item.image || Userdefault}
-              alt={item.nom}
-              className="rounded-full object-fill w-10 h-10"
-            />
-          )}
-          <a href={`/profile/${item.id}`} className="pr-4">
-            {item.titre || item.nom + " " + item.prenom}
-          </a>
-        </li>
-      </React.Fragment>
-    ))}
-  </ul>
-)}
-        </div>
-      </div>
-    </div>
-
-          </div>
-        
-
-         
-         
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
           <div className="flex items-center">
             <SlideMenu setIsActive={setIsActive} setHumberger={setHumberger} Hamburger={Hamburger} />
           </div>
@@ -307,10 +119,6 @@ function Header() {
                 </div>
               </div>
 
-<<<<<<< HEAD
-=======
-              
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
               <BurgerMenuLink Href={'/home'} Title={'Accueil'} Svg={``}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18.3299 4.77286V1.6701C18.3299 1.21019 17.9575 0.836926 17.4967 0.836926C17.036 0.836926 16.6635 1.21019 16.6635 1.6701V3.6414L12.3285 0.716116C10.913 -0.238705 9.0833 -0.238705 7.66773 0.716116L1.83549 4.65204C0.686538 5.42773 0 6.71832 0 8.10556V15.8341C0 18.1312 1.86882 20 4.16589 20H5.83224C6.29299 20 6.66542 19.6267 6.66542 19.1668V11.6682C6.66542 11.2091 7.03868 10.8351 7.49859 10.8351H12.4977C12.9576 10.8351 13.3308 11.2091 13.3308 11.6682V19.1668C13.3308 19.6267 13.7033 20 14.164 20H15.8304C18.1274 20 19.9963 18.1312 19.9963 15.8341V8.10556C19.9963 6.78831 19.3764 5.55771 18.3299 4.77286Z" fill="#2E71EB" />
@@ -322,11 +130,7 @@ function Header() {
                 <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9.16667 7.5C9.16667 7.27899 9.25446 7.06702 9.41074 6.91074C9.56702 6.75446 9.77899 6.66667 10 6.66667C10.221 6.66667 10.433 6.75446 10.5893 6.91074C10.7455 7.06702 10.8333 7.27899 10.8333 7.5C10.8333 7.72101 10.7455 7.93298 10.5893 8.08926C10.433 8.24554 10.221 8.33333 10 8.33333C9.77899 8.33333 9.56702 8.24554 9.41074 8.08926C9.25446 7.93298 9.16667 7.72101 9.16667 7.5ZM18.3333 4.16667V15.8333C18.332 16.938 17.8926 17.997 17.1115 18.7782C16.3304 19.5593 15.2713 19.9987 14.1667 20H5.83333C5.02353 19.9989 4.23158 19.7619 3.55434 19.3179C2.8771 18.8739 2.34392 18.2422 2.02 17.5H0.833333C0.61232 17.5 0.400358 17.4122 0.244078 17.2559C0.0877973 17.0996 0 16.8877 0 16.6667C0 16.4457 0.0877973 16.2337 0.244078 16.0774C0.400358 15.9211 0.61232 15.8333 0.833333 15.8333H1.66667V14.1667H0.833333C0.61232 14.1667 0.400358 14.0789 0.244078 13.9226C0.0877973 13.7663 0 13.5543 0 13.3333C0 13.1123 0.0877973 12.9004 0.244078 12.7441C0.400358 12.5878 0.61232 12.5 0.833333 12.5H1.66667V10.8333H0.833333C0.61232 10.8333 0.400358 10.7455 0.244078 10.5893C0.0877973 10.433 0 10.221 0 10C0 9.77899 0.0877973 9.56702 0.244078 9.41074C0.400358 9.25446 0.61232 9.16667 0.833333 9.16667H1.66667V7.5H0.833333C0.61232 7.5 0.400358 7.4122 0.244078 7.25592C0.0877973 7.09964 0 6.88768 0 6.66667C0 6.44565 0.0877973 6.23369 0.244078 6.07741C0.400358 5.92113 0.61232 5.83333 0.833333 5.83333H1.66667V4.16667H0.833333C0.61232 4.16667 0.400358 4.07887 0.244078 3.92259C0.0877973 3.76631 0 3.55435 0 3.33333C0 3.11232 0.0877973 2.90036 0.244078 2.74408C0.400358 2.5878 0.61232 2.5 0.833333 2.5H2.02C2.34392 1.7578 2.8771 1.12608 3.55434 0.682083C4.23158 0.238088 5.02353 0.00106531 5.83333 0L14.1667 0C15.2713 0.00132321 16.3304 0.440735 17.1115 1.22185C17.8926 2.00296 18.332 3.062 18.3333 4.16667ZM7.5 7.5C7.5 8.16304 7.76339 8.79893 8.23223 9.26777C8.70107 9.73661 9.33696 10 10 10C10.663 10 11.2989 9.73661 11.7678 9.26777C12.2366 8.79893 12.5 8.16304 12.5 7.5C12.5 6.83696 12.2366 6.20107 11.7678 5.73223C11.2989 5.26339 10.663 5 10 5C9.33696 5 8.70107 5.26339 8.23223 5.73223C7.76339 6.20107 7.5 6.83696 7.5 7.5ZM14.1667 15C13.9908 9.49333 6.0075 9.495 5.83333 15C5.83333 15.221 5.92113 15.433 6.07741 15.5893C6.23369 15.7455 6.44565 15.8333 6.66667 15.8333C6.88768 15.8333 7.09964 15.7455 7.25592 15.5893C7.4122 15.433 7.5 15.221 7.5 15C7.5 14.337 7.76339 13.7011 8.23223 13.2322C8.70107 12.7634 9.33696 12.5 10 12.5C10.663 12.5 11.2989 12.7634 11.7678 13.2322C12.2366 13.7011 12.5 14.337 12.5 15C12.5 15.221 12.5878 15.433 12.7441 15.5893C12.9004 15.7455 13.1123 15.8333 13.3333 15.8333C13.5543 15.8333 13.7663 15.7455 13.9226 15.5893C14.0789 15.433 14.1667 15.221 14.1667 15Z" fill="#2E71EB" />
                 </svg>
-<<<<<<< HEAD
               </BurgerMenuLink>
-=======
-              </BurgerMenuLink> 
->>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
 
               <BurgerMenuLink Href={'/home'} Title={'Challenges'} Svg={``}>
                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
