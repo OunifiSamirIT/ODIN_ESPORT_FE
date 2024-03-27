@@ -16,14 +16,14 @@ const General = ({ userInfo }) => {
   const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
 
   const isFriendAccepted = async () => {
-    const response = await fetch(`https://odine-sport.com/api/user/${id}/checkFriends/${storedUserData.id}`)
+    const response = await fetch(`http://localhost:5000/api/user/${id}/checkFriends/${storedUserData.id}`)
     const result = await response.json();
     setAcceptedFriend(result.exists)
     console.log('this cidfjk', acceptedFriend)
 }
 const sendFriendRequest = async () => {
         
-  const response = await fetch(`https://odine-sport.com/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
+  const response = await fetch(`http://localhost:5000/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
       method: "POST",
   });
 
@@ -32,7 +32,7 @@ const sendFriendRequest = async () => {
 }
 
 const CheckIfInvitationIsSend = async () => {
-  const response = await fetch(`https://odine-sport.com/api/user/${id}/friend-requests`, {
+  const response = await fetch(`http://localhost:5000/api/user/${id}/friend-requests`, {
       method: "GET",
   });
   const result = await response.json();

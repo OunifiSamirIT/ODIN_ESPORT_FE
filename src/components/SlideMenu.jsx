@@ -1,17 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import UserImage from "../assets/User Menu.png"
+import UserImage from "../assets/placeholder.jpg"
 
 
-const SlideMenu = ({ setIsActive }) => {
+const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const [expanded, setExpanded] = useState(false);
-  const [user, setUser] = useState({});
+  const [lang, setLang] = useState('Français')
+  const [user, setUser] = useState({})
+  const storedUserData = JSON.parse(localStorage.getItem("user"));
 
-  const [lang , setLang] = useState('Français')
+  useEffect(() => {
+    // Replace the API endpoint with your actual endpoint for fetching user data
+    fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
+
+      .then((response) => response.json())
+      .then((userData) => {
+        console.log(user)
+        setUser(userData.user)
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
+  }, [])
+
+
   const toggleLanguage = () => {
-    if(lang ==='Français'){
+    if (lang === 'Français') {
       setLang('English')
-    }else{
+    } else {
       setLang('Français')
     }
   }
@@ -19,7 +33,7 @@ const SlideMenu = ({ setIsActive }) => {
     setExpanded(!expanded);
   };
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+
 
 
 
@@ -37,42 +51,25 @@ const SlideMenu = ({ setIsActive }) => {
     navigate("/login");
   };
 
-
-
-
-
-
-
-
-  useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
-    const id = storedUserData ? storedUserData.id : null;
-
-    
-      // Replace the API endpoint with your actual endpoint for fetching user data
-      fetch(`https://odine-sport.com/api/user/${id}`)
-        .then((response) => response.json())
-        .then((userData) => {
-          setUser(userData);
-          
-        })
-        .catch((error) => console.error("Error fetching user data:", error));
-    
-
-   
-  }, []);
-
   return (
     <>
       <div className="relative flex justify-end">
         <img
           alt="user iamge"
-          onClick={toggleExpand}
           loading="lazy"
-          srcSet={user?.user?.image}
-          className="self-stretch aspect-square rounded-full w-[60px] z-10 relative pointer"
+          onClick={() =>setHumberger(!Hamburger) }
+          srcSet={user?.image ? user?.image : UserImage}
+          className="md:hidden  self-stretch aspect-square rounded-full w-[60px] relative pointer"
         />
-        <div className={`hidden md:flex absolute h-[60px] top-0 z-auto flex  gap-4 items-center pl-4 pr-[65px] bg-blue-600 rounded-[80px] max-md:flex-wrap ${expanded ? 'w-fit expand' : 'hide'}`}>
+          <img
+            alt="user iamge"
+            onClick={toggleExpand}
+            loading="lazy"
+            srcSet={user?.image ? user?.image : UserImage}
+            className="hidden md:block self-stretch aspect-square rounded-full w-[60px] z-10 relative pointer"
+          />
+
+        <div className={`hidden md:flex absolute h-[60px] top-0 z-1 flex  gap-4 items-center pl-4 pr-[65px] bg-blue-600 rounded-[80px] max-md:flex-wrap ${expanded ? 'w-fit expand' : 'hide'}`}>
           <div className="flex justify-center items-center self-stretch px-2 my-auto bg-white aspect-square h-[31px] rounded-[50px] w-[31px]">
             <img
               onClick={toggleExpand}
@@ -95,7 +92,7 @@ const SlideMenu = ({ setIsActive }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/fc3698e77abea2c6c7f4158984e72cc84fccffa79005aaacb0a8148c7fc2d112?"
               className="aspect-[0.75] w-[15px]"
             />
-            <Link className="grow" to={`/profile/${storedUserData.id}`}>Profile</Link>
+            <Link className="grow" to={`/profile/${user?.id}`}>Profil</Link>
           </div>
           <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img

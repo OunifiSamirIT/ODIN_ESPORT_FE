@@ -38,7 +38,7 @@ const More = () => {
   const isOwner = storedUserData.id == id
   const sendFriendRequest = async () => {
 
-    const response = await fetch(`https://odine-sport.com/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
+    const response = await fetch(`http://localhost:5000/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
       method: "POST",
     });
 
@@ -47,7 +47,7 @@ const More = () => {
   }
   const copyLinkToClipboard = (articleId) => {
     // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
-    const articleUrl = `https://odine-sport.com/articles/${articleId}`;
+    const articleUrl = `http://localhost:5000/articles/${articleId}`;
 
     // Copy the URL to the clipboard
     navigator.clipboard.writeText(articleUrl)
@@ -62,7 +62,7 @@ const More = () => {
 
   const navigate = useNavigate()
   const fetchUser = async () => {
-    const response = await fetch(`https://odine-sport.com/api/user/${id}`);
+    const response = await fetch(`http://localhost:5000/api/user/${id}`);
     const result = await response.json();
     console.log('sdfsdf', result)
     if (result.message) { navigate('/404') } else {

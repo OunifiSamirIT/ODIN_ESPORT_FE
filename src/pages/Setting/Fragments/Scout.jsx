@@ -163,7 +163,7 @@ const Scout = ({ userInfo }) => {
         formDataToUpdate.append("region", selectedRegionsV);
         console.log('formdata', formDataToUpdate)
         const response = await fetch(
-            `https://odine-sport.com/api/scouts/${storedUserData.id}`,
+            `http://localhost:5000/api/scouts/${storedUserData.id}`,
             {
                 method: "PUT",
                 body: formDataToUpdate,

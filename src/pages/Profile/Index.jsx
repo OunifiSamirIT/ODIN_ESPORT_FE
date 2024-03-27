@@ -132,7 +132,7 @@ const Index = () => {
   const handleLikeClick = async (articleId, emoji) => {
     try {
       const response = await fetch(
-        `https://odine-sport.com/api/likes/article/${articleId}`,
+        `http://localhost:5000/api/likes/article/${articleId}`,
         {
           method: "POST",
           headers: {
@@ -151,7 +151,8 @@ const Index = () => {
 
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
-          "https://odine-sport.com/api/likes/allLikes"
+          "http://localhost:5000/api/likes/allLikes"
+
         );
         const allLikesData = await allLikesResponse.json();
 
@@ -183,7 +184,7 @@ const Index = () => {
   const handleLikeComment = async (commentId) => {
     try {
       const response = await fetch(
-        `https://odine-sport.com/api/likes/comment/${commentId}`,
+        `http://localhost:5000/api/likes/comment/${commentId}`,
         {
           method: "POST",
           headers: {
@@ -200,7 +201,7 @@ const Index = () => {
       if (response.ok) {
         // Fetch updated likes count after liking
         const likesCountResponse = await fetch(
-          `https://odine-sport.com/api/likes/comment/${commentId}/count`
+          `http://localhost:5000/api/likes/comment/${commentId}/count`
         );
         const likesCountData = await likesCountResponse.json();
 
@@ -234,7 +235,7 @@ const Index = () => {
   const handleLikeReply = async (replyId) => {
     try {
       const response = await fetch(
-        `https://odine-sport.com/api/likes/reply/${replyId}`,
+        `http://localhost:5000/api/likes/reply/${replyId}`,
         {
           method: "POST",
           headers: {
@@ -263,7 +264,7 @@ const Index = () => {
   const fetchLikesCountForCommentWithEmoji = async (commentId, emoji) => {
     try {
       const response = await fetch(
-        `https://odine-sport.com/api/likes/comment/${commentId}/count?emoji=${emoji}`
+        `http://localhost:5000/api/likes/comment/${commentId}/count?emoji=${emoji}`
       );
       const likesCountData = await response.json();
 
@@ -285,7 +286,7 @@ const Index = () => {
   const fetchLikesCountForReplyWithEmoji = async (replyId, emoji) => {
     try {
       const response = await fetch(
-        `https://odine-sport.com/api/likes/reply/${replyId}/count?emoji=${emoji}`
+        `http://localhost:5000/api/likes/reply/${replyId}/count?emoji=${emoji}`
       );
       const likesCountData = await response.json();
 
@@ -307,7 +308,7 @@ const Index = () => {
   const fetchLikesCountForArticleWithEmoji = async (articleId, emoji) => {
     try {
       const response = await fetch(
-        `https://odine-sport.com/api/likes/article/${articleId}/count?emoji=${emoji}`
+        `http://localhost:5000/api/likes/article/${articleId}/count?emoji=${emoji}`
       );
       const likesCountData = await response.json();
 
@@ -348,14 +349,15 @@ const Index = () => {
 
   const fetchArticles = async () => {
     try {
-      const response = await fetch("https://odine-sport.com/api/articles/");
+      const response = await fetch("http://localhost:5000/api/articles/");
+
       const result = await response.json();
       // Extract userIds from articles
       const userIds = result.rows.map((article) => article.userId);
       // Fetch user information for each userId
       const usersResponse = await Promise.all(
         userIds.map((userId) =>
-          fetch(`https://odine-sport.com/api/user/${userId}`).then((response) =>
+          fetch(`http://localhost:5000/api/user/${userId}`).then((response) =>
             response.json()
           )
         )
@@ -373,7 +375,7 @@ const Index = () => {
       // Fetch comments for each article
       const commentsPromises = articlesWithUsers.map(async (article) => {
         const response = await fetch(
-          `https://odine-sport.com/api/commentaires/?articleId=${article.id}`
+          `http://localhost:5000/api/commentaires/?articleId=${article.id}`
         );
         const comments = await response.json();
         return { articleId: article.id, comments };
@@ -421,13 +423,13 @@ const Index = () => {
       formData.append("fileType", fileType);
 
       // Make a POST request to create a new article
-      await fetch("https://odine-sport.com/api/articles/", {
+      await fetch("http://localhost:5000/api/articles/", {
         method: "POST",
         body: formData,
       });
 
       // After creating the article, fetch the updated list of articles
-      const response = await fetch("https://odine-sport.com/api/articles/");
+      const response = await fetch("http://localhost:5000/api/articles/");
       const updatedPostsData = await response.json();
 
       // Update the list of posts and reset the preview image
@@ -450,7 +452,7 @@ const Index = () => {
   const fetchCommentsByArticleId = async (articleId) => {
     try {
       const response = await fetch(
-        `https://odine-sport.com/api/commentaires/article/${articleId}`
+        `http://localhost:5000/api/commentaires/article/${articleId}`
       );
       const commentsData = await response.json();
       return commentsData;
@@ -463,7 +465,7 @@ const Index = () => {
   const fetchCommentsForArticle = async (articleId) => {
     try {
       const commentsResponse = await fetch(
-        `https://odine-sport.com/api/commentaires/?articleId=${articleId}`
+        `http://localhost:5000/api/commentaires/?articleId=${articleId}`
       );
       const commentsData = await commentsResponse.json();
 
@@ -471,7 +473,7 @@ const Index = () => {
         commentsData.map(async (comment) => {
           // Fetch likes count for each comment
           const likesCountResponse = await fetch(
-            `https://odine-sport.com/api/likes/comment/${comment.id}/count`
+            `http://localhost:5000/api/likes/comment/${comment.id}/count`
           );
           const likesCountData = await likesCountResponse.json();
 
@@ -485,7 +487,7 @@ const Index = () => {
       const commentsWithUserData = await Promise.all(
         commentsWithLikes.map(async (comment) => {
           const userResponse = await fetch(
-            `https://odine-sport.com/api/user/${comment.userId}`
+            `http://localhost:5000/api/user/${comment.userId}`
           );
           const userData = await userResponse.json();
           return {
@@ -512,14 +514,14 @@ const Index = () => {
   const fetchRepliesForComment = async (commentId) => {
     try {
       const repliesResponse = await fetch(
-        `https://odine-sport.com/api/replies/${commentId}`
+        `http://localhost:5000/api/replies/${commentId}`
       );
       const repliesData = await repliesResponse.json();
 
       const repliesWithUserData = await Promise.all(
         repliesData.map(async (reply) => {
           const userResponse = await fetch(
-            `https://odine-sport.com/api/user/${reply.userId}`
+            `http://localhost:5000/api/user/${reply.userId}`
           );
           const userData = await userResponse.json();
           console.log("replyyyyyyyyyyyy", userData);
@@ -548,7 +550,7 @@ const Index = () => {
     if (id) {
       const userId = id;
       // Fetch gallery items for the specific user ID
-      fetch(`https://odine-sport.com/api/articles/gallery/${userId}`)
+      fetch(`http://localhost:5000/api/articles/gallery/${userId}`)
         .then((response) => response.json())
         .then((data) => setGalleryItems(data.gallery))
         .catch((error) => console.error(error));
@@ -564,7 +566,7 @@ const Index = () => {
 
   const fetchAlbums = async () => {
     try {
-      const response = await fetch("https://odine-sport.com/api/album");
+      const response = await fetch("http://localhost:5000/api/album");
       const result = await response.json();
 
       setAlbum(
@@ -579,7 +581,7 @@ const Index = () => {
 
   const fetchComments = async () => {
     try {
-      const response = await fetch("https://odine-sport.com/api/commentaires/");
+      const response = await fetch("http://localhost:5000/api/commentaires/");
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response?.status}`);
       }
@@ -598,7 +600,7 @@ const Index = () => {
         const user = JSON.parse(localStorage.getItem("user"));
 
         const response = await fetch(
-          "https://odine-sport.com/api/commentaires/",
+          "http://localhost:5000/api/commentaires/",
           {
             method: "POST",
             headers: {
@@ -661,7 +663,7 @@ const Index = () => {
         const user = JSON.parse(localStorage.getItem("user"));
 
         const response = await fetch(
-          `https://odine-sport.com/api/replies`, // Update the endpoint here
+          `http://localhost:5000/api/replies`, // Update the endpoint here
           {
             method: "POST",
             headers: {
@@ -734,7 +736,7 @@ const Index = () => {
 
   const copyLinkToClipboard = (articleId) => {
     // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
-    const articleUrl = `https://odine-sport.com/articles/${articleId}`;
+    const articleUrl = `http://localhost:5000/articles/${articleId}`;
 
     // Copy the URL to the clipboard
     navigator.clipboard.writeText(articleUrl)
@@ -759,7 +761,7 @@ const Index = () => {
     if (confirmDelete) {
       console.log('Deleting article...');
 
-      fetch(`https://odine-sport.com/api/articles/${id}`, {
+      fetch(`http://localhost:5000/api/articles/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

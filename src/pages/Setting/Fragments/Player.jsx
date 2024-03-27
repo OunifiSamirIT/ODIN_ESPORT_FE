@@ -162,7 +162,7 @@ const Player = ({ userInfo }) => {
             formDataToUpdate.append("licence", data.licence);
             formDataToUpdate.append("image", data.file[0] || null);
             const response = await fetch(
-                `https://odine-sport.com/api/player/${storedUserData.id}`,
+                `http://localhost:5000/api/player/${storedUserData.id}`,
                 {
                     method: "PUT",
                     body: formDataToUpdate,
@@ -201,7 +201,7 @@ const Player = ({ userInfo }) => {
             formDataToUpdate.append("licence", data.licence);
             formDataToUpdate.append("image", null);
             const response = await fetch(
-                `https://odine-sport.com/api/player/${storedUserData.id}`,
+                `http://localhost:5000/api/player/${storedUserData.id}`,
                 {
                     method: "PUT",
                     body: formDataToUpdate,
