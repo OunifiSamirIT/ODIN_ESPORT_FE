@@ -166,7 +166,11 @@ const Entraineur = ({ userInfo }) => {
                 formDataToUpdate.append("countryCoachedIn", selectedCountries);
                 formDataToUpdate.append("skills", data.skills.join(','));
                 const response = await fetch(
+<<<<<<< HEAD
                     `http://localhost:5000/api/coachs/${storedUserData.id}`,
+=======
+                    `https://odine-sport.com/api/coachs/${storedUserData.id}`,
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
                     {
                         method: "PUT",
                         body: formDataToUpdate,

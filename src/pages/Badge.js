@@ -6,7 +6,8 @@ import Pagetitle from "../components/Pagetitle";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Select, { components } from "react-select";
 
 
@@ -4423,11 +4424,13 @@ const handleSearch = () => {
               </div>
               <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                 <div className="flex gap-5 justify-between px-4 py-3 text-black rounded-md">
-                <input
-  type="date"
-  value={selectedBirthYear ? `${selectedBirthYear}-01-01` : ''}
-  onChange={(e) => setSelectedBirthYear(new Date(e.target.value)?.getFullYear())}
-  max="2012-01-01"
+                <DatePicker
+  dateFormat="yyyy"
+  showYearPicker
+  yearDropdownItemNumber={10}
+  maxDate={new Date(2012, 0, 1)}
+  selected={selectedBirthYear ? new Date(selectedBirthYear, 0, 1) : null}
+  onChange={(date) => setSelectedBirthYear(date ? new Date(date).getFullYear() : null)}
   className="ml-4 text-black"
 />
 

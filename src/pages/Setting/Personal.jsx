@@ -12,11 +12,19 @@ import "react-datepicker/dist/react-datepicker.css";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { paysAllInfo } from "../../assets/data/Country";
+<<<<<<< HEAD
+=======
+import { Langue } from "../../assets/data/Langue";
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
 import DatePicker from "react-datepicker";
 
 const Personal = ({ userInfo }) => {
   const [inputErrors, setInputErrors] = useState({});
   const [buttonClicked, setButtonClicked] = useState(false);
+<<<<<<< HEAD
+=======
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
   const options = paysAllInfo.map((country, index) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
 
@@ -53,6 +61,7 @@ const Personal = ({ userInfo }) => {
       ),
     };
   });
+<<<<<<< HEAD
 
   const [imagePreview, setImagePreview] = useState(null);
   // const handleInputChange = (e) => {
@@ -252,6 +261,241 @@ const Personal = ({ userInfo }) => {
     setValue('numWSup', value);
     const textError = `Le Numéro doit être avec ${whatsappLength?.phoneLength ? whatsappLength?.phoneLength : 5} chiffres.`
 
+=======
+
+
+
+  
+
+
+
+
+
+
+ 
+
+
+
+
+  const [imagePreview, setImagePreview] = useState(null);
+ 
+  const optionsphone = paysAllInfo.map((country, index) => {
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
+
+    return {
+      value: countryCode,
+      label: (
+        <div key={index} style={{ textAlign: "left" }}>
+          {countryCode && (
+            <span
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{ marginRight: "2px", textAlign: "left" }}
+            ></span>
+          )}
+          ({country.phone})
+        </div>
+      ),
+      countryCode: countryCode,
+      phoneLength: country.phoneLength,
+    };
+  });
+
+  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState([]);
+  const [file, setFile] = useState(null);
+
+  const schema = yup
+    .object({
+      nom: yup.string().required('Ce champ est obligatoire').max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
+      discreptionBio: yup.string().max(255, ({ max }) => `Maximum de (${max} characters autorisé)`),
+      prenom: yup.string().min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
+      nationality: yup.object().required(),
+      country: yup.object().required(),
+      cityresidence: yup.string(),
+      gender: yup.string().oneOf(['male', 'female'], 'Ce champ est obligatoire'),
+      // tel: yup.string().max(8),
+      date_naissance: yup.string('Ce champ est obligatoire').required('Ce champ est obligatoire'),
+      // wats: yup.object().required('Ce champ est obligatoire'),
+      // numWSup: yup.string().required('Le numero de whatsapp est obligatoire'),
+      numWSup: yup.string().when('wats', {
+        is: (wats) => !wats,
+        then: () => yup.string().required('Le champ prefix est obligtoire'),
+        otherwise: () => yup.string(),
+      }),
+      // phoneLength: yup.object().required('Ce champ est obligatoire'),
+
+    })
+    .required()
+
+  const {
+    trigger,
+    control,
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {}
+  })
+
+  const phoneLength = watch('phoneLength');
+  const whatsappLength = watch('wats')
+  console.log(whatsappLength)
+  if (whatsappLength) {
+    let maxW = whatsappLength.phoneLength;
+    schema.fields.numWSup = yup
+      .string()
+      .max(maxW, `Le Numéro doit être avec ${maxW} chiffres.`);
+  }
+
+  if (phoneLength) {
+    let maxP = phoneLength.phoneLength;
+    schema.fields.tel = yup
+      .string()
+      .max(maxP, `Le Numéro doit être avec ${maxP} chiffres.`);
+  }
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+    if (file) {
+      // Convert the selected image to a data URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  // const handleYearChange = (year) => {
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     date_naissance: year ? `${year}-01-01` : null,
+  //   }));
+  // };
+
+  const handleChange = (event) => {
+    const input = event.target.value;
+    // Ensure the input is a valid number, non-negative, and has at most 3 digits
+    if (/^\d*$/.test(input) && input.length <= 3 && input >= 0) {
+      setValue(event.target.name , input);
+    }
+  };
+
+  const onSubmit = async (data) => {
+    const formDataToUpdate = new FormData();
+    formDataToUpdate.append("discreptionBio", data.discreptionBio);
+    formDataToUpdate.append("nom", data.nom);
+    formDataToUpdate.append("prenom", data.prenom);
+    formDataToUpdate.append("numWSup", data.numWSup);
+    formDataToUpdate.append("tel", data.tel);
+    formDataToUpdate.append("date_naissance", new Date(data.date_naissance).getFullYear());
+    formDataToUpdate.append("gender", data.gender);
+    formDataToUpdate.append("countryresidence", data.country?.label?.props?.children[1]);
+    formDataToUpdate.append("nationality", data.nationality?.label?.props?.children[1]);
+    formDataToUpdate.append("cityresidence", data.cityresidence);
+    formDataToUpdate.append("langueparlee", data.langueparlee.map(lang => lang.value).join(','));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    formDataToUpdate.append("image", file);
+    const response = await fetch(
+      `https://odine-sport.com/api/user/${storedUserData.id}`,
+      {
+        method: "PUT",
+        body: formDataToUpdate,
+      }
+    ).then((r) => {
+      if (r.status === 200) {
+        toast.success('User profile updated successfully', {
+          position: "top-right",
+          autoClose: 5000,
+          type: 'success',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      }
+    }).finally(() => {
+      console.log('done')
+    });
+  }
+  const resetForm = async () => {
+    setValue('nom', userInfo.user.nom);
+    setValue('discreptionBio', userInfo.user.discreptionBio);
+    setValue('prenom', userInfo.user.prenom);
+    setValue('country', userInfo.user.country);
+    setValue('cityresidence', userInfo.user.cityresidence);
+    setValue('gender', userInfo.user.gender);
+    setValue('tel', userInfo.user.tel);
+    setValue('numWSup', userInfo.user.numWSup);
+    setValue('phoneLength', userInfo.user.phoneLength);
+    setValue('wats', userInfo.user.wats);
+    setValue('langueparlee', userInfo.user.langueparlee);
+    
+    setValue('date_naissance', new Date(userInfo.user.date_naissance));
+  }
+
+  useEffect(() => {
+    const defaultValue = (countryName) => { return options.find(option => option.label.props?.children[1] === countryName) };
+
+    fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
+      .then((response) => response.json())
+      .then((userData) => {
+        console.log(defaultValue(userData.user.nationality))
+        setUser(userData.user)
+        setValue('nom', userData.user.nom);
+        setValue('discreptionBio', userData.user.discreptionBio);
+        setValue('prenom', userData.user.prenom);
+        setValue('nationality', defaultValue(userData.user.nationality));
+        setValue('country', defaultValue(userData.user.countryresidence));
+        setValue('cityresidence', userData.user.cityresidence);
+        setValue('gender', userData.user.gender);
+        setValue('tel', userData.user.tel);
+        setValue('numWSup', userData.user.numWSup);
+        setValue('phoneLength', userData.user.phoneLength);
+        setValue('wats', userData.user.wats);
+        const selectedOptions = userData.user.langueparlee.split(',').map(lang => ({
+          value: lang,
+          label: lang,
+        }));
+        setValue('langueparlee', selectedOptions);
+        setValue('date_naissance', new Date(userData.user.date_naissance));
+
+
+        
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
+  }, []);
+
+
+  const [phoneLengthError, setPhoneLengthError] = useState('');
+  const [whatsappLengthError, setWhatsappLengthError] = useState('');
+
+
+  const handleChangePhoneNumberWS = (e) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, whatsappLength?.phoneLength ? whatsappLength.phoneLength : 0);
+    setValue('numWSup', value);
+    const textError = `Le Numéro doit être avec ${whatsappLength?.phoneLength ? whatsappLength?.phoneLength : 5} chiffres.`
+
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
     setWhatsappLengthError(textError);
 
     schema.fields.numWSup = yup
@@ -271,6 +515,42 @@ const Personal = ({ userInfo }) => {
   };
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+
+  const optionsLangue = Array.from(new Set(Langue.map(langue => langue.name))).map(name => ({
+    value: name,
+    label: name,
+  }));
+  
+
+  useEffect(() => {
+    setValue('langueparlee', selectedLanguages);
+  }, [selectedLanguages]);
+
+  
+  const handleLanguageChange = (selectedOptions) => {
+    setSelectedLanguages(selectedOptions);
+    const selectedLanguageLabels = selectedOptions.map(option => option.value);
+    console.log('Selected Languages:', selectedLanguageLabels);
+  };
+
+
+
+
+
+
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
   return (
     <>
       <div>
@@ -762,7 +1042,14 @@ const Personal = ({ userInfo }) => {
             </div>
           </div>
 
+<<<<<<< HEAD
           <div >
+=======
+
+          <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-base">
+
+          <div className="lg:flex-1 w-full">
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
             <div className="flex gap-4 items-center px-4 text-lg text-zinc-900">
               <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_608_33866)">
@@ -792,6 +1079,69 @@ const Personal = ({ userInfo }) => {
             )}
           </div>
 
+<<<<<<< HEAD
+=======
+          <div className="lg:flex-1 w-full">
+  <div className="flex gap-4 items-center px-4 text-lg text-zinc-900">
+    <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_608_33866)">
+        <path d="M15 5.5C15 2.7425 12.7575 0.5 10 0.5C7.2425 0.5 5 2.7425 5 5.5C5 7.9725 6.80583 10.0258 9.16667 10.425V20.5H10.8333V10.425C13.1942 10.0267 15 7.97333 15 5.5Z" fill="black" />
+      </g>
+      <defs>
+        <clipPath id="clip0_608_33866">
+          <rect width="20" height="20" fill="white" transform="translate(0 0.5)" />
+        </clipPath>
+      </defs>
+    </svg>
+
+    <div className="flex-auto">Langue</div>
+  </div>{" "}
+ 
+  {/* <Controller
+  control={control}
+  name="langueparlee"
+  render={({ field }) => (
+    <Select
+      options={optionsLangue}
+      isMulti
+      value={selectedLanguages}
+      {...register("langueparlee")}
+      onChange={handleLanguageChange}
+      className="w-full "
+      placeholder="Langue parlée"
+      {...field}
+    />
+  )}
+/> */}
+  <Controller
+    control={control}
+    name="langueparlee"
+    render={({ field }) => (
+      <Select
+        options={optionsLangue}
+        isMulti
+        value={selectedLanguages}
+        onChange={handleLanguageChange}
+        className="w-full"
+        placeholder="Langue parlée"
+        {...field}
+      />
+    )}
+  />
+
+  
+</div>
+
+          </div>
+        
+        
+        
+        
+        
+        
+        
+        
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
           <div className="flex  justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
             <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
               <img

@@ -152,6 +152,7 @@ const Index = () => {
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
           "http://localhost:5000/api/likes/allLikes"
+
         );
         const allLikesData = await allLikesResponse.json();
 
@@ -349,6 +350,7 @@ const Index = () => {
   const fetchArticles = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/articles/");
+
       const result = await response.json();
       // Extract userIds from articles
       const userIds = result.rows.map((article) => article.userId);

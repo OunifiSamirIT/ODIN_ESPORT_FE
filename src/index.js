@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client"; // Import createRoot from react-dom/client
 
 import "./main.scss";
-
+import ScrollToTop from "./components/Scroltop"
 
 
 import Profile from './pages/Profile/Index'
@@ -24,7 +24,7 @@ import EditBlog from "./pages/Admin/Components/editArticle.jsx"
 import Demo from "./demo/Demo";
 
 import Home from "./pages/Home";
-import Homee from "./pages/Homecopy";
+import Homee from "./pages/Home copy";
 
 import Badge from "./pages/Badge";
 import Badgeagent from "./pages/Badgeagents";
@@ -49,6 +49,8 @@ import Forgot from "./pages/Forgot";
 import Notfound from "./pages/Notfound";
 import Gallery from "./pages/Gallerie";
 import Galleryuser from "./pages/Gallerieuserodin";
+import GalleryDetailscamps from "./pages/Gallerieuserodindetails";
+import Thankscamps from "./pages/Gallerieuserthankyou";
 
 import ShopOne from "./pages/ShopOne";
 import ShopTwo from "./pages/ShopTwo";
@@ -79,6 +81,10 @@ import ProfileSetting from "./pages/Setting/index"
 
 
 
+import OffreEmploi from "./pages/emploiOffre/acceuilOffre"
+
+
+
 import AdminHome from './pages/Admin/Home';
 import Users from './pages/Admin/Users';
 import EventA from './pages/Admin/Event';
@@ -89,6 +95,7 @@ import AddAlbum from './pages/Admin/Components/AddAlbum'
 import AddAlbumcamps from './pages/Admin/Components/AddAlbumCamps'
 import EditUser from './pages/Admin/Components/EditUser'
 import CreateUser from './pages/Admin/Components/CreateUser'
+import FormCamps from './pages/GallerieuserForm'
 
 import UserEvent from './pages/UserEvent';
 import ViewAlbum from './pages/Admin/Components/ViewAlbum';
@@ -100,6 +107,7 @@ import { BrowserRouter, Switch, Route, Navigate } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import { Routes } from "react-router-dom/dist";
 import { BsTruckFlatbed } from "react-icons/bs";
+import Error from "./pages/404";
 const rootElement = document.getElementById("root");
 
 function Root() {
@@ -128,6 +136,7 @@ function Root() {
 
   return (
     <React.StrictMode>
+<<<<<<< HEAD
       <BrowserRouter basename={"/"}>
         <Routes>
           <Route exact path="/" element={<Demo />} />
@@ -138,6 +147,20 @@ function Root() {
           />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/postview" element={<PostView />} />
+=======
+
+    <BrowserRouter basename={"/"}>
+      <ScrollToTop/>
+      <Routes>
+      <Route exact path="/" element={<Demo />} />
+        <Route exact path="/Test" element={<Test />} />
+        <Route exact
+          path="/login"
+          element={<Login setAuthStatus={setAuthStatus} />}
+        />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/postview" element={<PostView />} />
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
 
 
 
@@ -219,6 +242,7 @@ function Root() {
 
 
 
+<<<<<<< HEAD
               <Route exact path="/editPost/:articleId" element={<EditPost />} />
               <Route exact path={`/defaultanalytics`} element={<Analytics />} />
 
@@ -230,6 +254,72 @@ function Root() {
               <Route exact path={`/defaultnoti`} element={<Notification />} />
               <Route exact path={`/helpbox`} element={<Helpbox />} />
               {/* <Route exact
+=======
+        {isAuthenticated ? (
+          <>
+            <Route exact path="/home" element={<Homee />} />
+            <Route exact path={`/defaultsettings`} element={<Settings setAuthStatus={setAuthStatus}/>} />
+            <Route exact path={`/defaultbadge`} element={<Badge />} />
+            <Route exact path={`/defaultgroupagent`} element={<Badgeagent />} />
+            <Route exact path="/gallery" element={<Gallery />} />
+            <Route exact path={`/defaultgroup`} element={<Galleryuser />} />
+            <Route exact path={`/defaultgroup/:id`} element={<GalleryDetailscamps />} />
+            <Route exact path={`/thanks/:id`} element={<Thankscamps />} />
+       
+       
+       
+        <Route exact path={`/offreEmploi`} element={<OffreEmploi />} />
+        
+
+        
+        <Route exact path={`/FormCamps/:id`} element={<FormCamps />} />
+        
+        <Route exact path={`/defaultstorie`} element={<Storie />} />
+        <Route exact path={`/defaultemailbox`} element={<Email />} />
+        <Route exact path={`/defaultemailopen`} element={<Emailopen />} />
+        <Route exact path={`/defaultvideo`} element={<Videos />} />
+        {/* <Route exact path="/edit/:articleId" element={<EditPage />} /> */}
+
+{/* nader */}
+        <Route exact path="/setting/:tab?" element={<ProfileSetting/>} />
+
+        <Route exact path="/404" element={<Error />} />
+       {/* Profile routes */}
+        <Route exact path="/profile/:id" element={<Profile />} />
+        <Route exact path="/profile/more/:id" element={<MoreProfile />} />
+
+
+  {/* Profile routes */}
+
+  {/* <Route exact path="/profile/:id" element={<Profile />} />
+        <Route exact path="/profile/more" element={<MoreProfile />} />
+        <Route exact path="/informationProfile" element={<Information />} />
+        <Route exact path={`/accountinformation`} element={<Account />} />
+        <Route exact path={`/parametrecompte`} element={<Parametre />} />
+        <Route exact path={`/social`} element={<ProfilSocial />} /> */}
+
+
+
+
+
+
+
+
+
+
+
+        <Route exact path="/editPost/:articleId" element={<EditPost />} />
+        <Route exact path={`/defaultanalytics`} element={<Analytics />} />
+
+        <Route exact path={"/accountinformation"} element={<Account />} />
+        <Route exact path={`/defaultmember`} element={<Member />} />
+        <Route exact path="/contactinformation" element={<Contactinfo />} />
+        <Route exact path={`/socialaccount`} element={<Socialaccount />} />
+        <Route exact path={`/payment`} element={<Payment />} />
+        <Route exact path={`/defaultnoti`} element={<Notification />} />
+        <Route exact path={`/helpbox`} element={<Helpbox />} />
+        {/* <Route exact
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
           path={"/login"}
           element={<Login setAuthStatus={setAuthStatus} />}
         /> */}

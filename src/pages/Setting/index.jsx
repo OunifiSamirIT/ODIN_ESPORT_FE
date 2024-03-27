@@ -62,11 +62,19 @@ const Index = () => {
         console.log(currentTab)
     }, [currentTab])
     // useEffect(() => {
+<<<<<<< HEAD
     //     fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
     //         .then((response) => response.json())
     //         .then((data) => {
     //             setCurrentUser(data);
     //             fetch(`http://localhost:5000/api/player/${storedUserData.id}`).then(
+=======
+    //     fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setCurrentUser(data);
+    //             fetch(`https://odine-sport.com/api/player/${storedUserData.id}`).then(
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
     //                 (resp) => resp.json()
     //             ).then(setPlyerData)
     //             setUserProfile(data.profil)
@@ -80,7 +88,10 @@ const Index = () => {
                 <SettingsLayout setCurrentTab={setCurrentTab} tab={tab}>
                     {currentTab === 'social' && <Social userInfo={userInfo}/>}
                     {currentTab === 'parametre' && <Parametre userInfo={userInfo} />}
+<<<<<<< HEAD
                     {currentTab === 'experience' && <Experience userInfo={userInfo} />}
+=======
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
                     {currentTab === 'personal' && <Personal userInfo={userInfo} />}
                     {currentTab === 'information' && <Information userInfo={userInfo} />}
                 </SettingsLayout>

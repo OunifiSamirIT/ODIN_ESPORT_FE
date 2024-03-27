@@ -109,6 +109,18 @@ function Header() {
           <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0"> </span> </Link>
       </div>
       <SlideMenu setIsActive={setIsActive} />
+<<<<<<< HEAD
+=======
+   
+   
+   
+   
+   
+   
+   
+   
+   
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
       <nav className={`navigation scroll-bar ${navClass}`}>
         <div className="container ps-0 pe-0">
           <div className="nav-content">
@@ -375,6 +387,13 @@ function Header() {
           </div>
         </div>
       </div>}
+<<<<<<< HEAD
+=======
+
+
+
+      
+>>>>>>> a137c1d2c1a9b134fb024a06a6f838c3723e75b4
     </div>
   );
 }
