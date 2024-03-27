@@ -16,19 +16,17 @@ const FriendRequest = () => {
         const response = await fetch(`http://localhost:5000/api/user/${id}/delete/${storedUserData.id}`, {
             method: "DELETE",
         });
-        if(response.status === 200)
-        {window.location.reload()}
+        if (response.status === 200) { window.location.reload() }
     }
     const acceptInvitation = async (id) => {
         console.log(`http://localhost:5000/api/user/${id}/acceptFriend/${storedUserData.id}`)
         const response = await fetch(`http://localhost:5000/api/user/${storedUserData.id}/acceptFriend/${id}`, {
             method: "PUT",
         });
-        if(response.status === 200)
-        {window.location.reload()}
+        if (response.status === 200) { window.location.reload() }
     }
 
-    
+
     useEffect(() => {
         fetchFriendRequest()
     }, [])
@@ -87,7 +85,7 @@ const FriendRequest = () => {
                                 <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:mt-6">
                                     <img
                                         loading="lazy"
-                                        src={item.sender?.image ? item?.sender.image : Placeholder }
+                                        src={item.sender?.image ? item?.sender.image : Placeholder}
                                         className="self-center max-w-full rounded-full aspect-square w-[120px]"
                                     />
                                     <div className="self-center mt-4 text-xl font-medium text-black">
@@ -114,13 +112,13 @@ const FriendRequest = () => {
                                             <div className="my-auto">Nationnalité</div>
                                         </div>
                                         <div className="flex font-medium">
-                                        <div className="flex font-medium whitespace-nowrap">
-                                            <span
-                                                className={`flag-icon flag-icon-tn size-5 `}
-                                                style={{ marginRight: "8px"}}
-                                            ></span>
-                                            <div>{item.sender?.nationality}</div>
-                                        </div>
+                                            <div className="flex font-medium whitespace-nowrap">
+                                                <span
+                                                    className={`flag-icon flag-icon-tn size-5 `}
+                                                    style={{ marginRight: "8px" }}
+                                                ></span>
+                                                <div>{item.sender?.nationality}</div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="flex gap-4 justify-between mt-4 w-full">
@@ -138,16 +136,16 @@ const FriendRequest = () => {
                                         <div className="flex font-medium whitespace-nowrap">
                                             <span
                                                 className={`flag-icon flag-icon-us size-5 `}
-                                                style={{ marginRight: "8px"}}
+                                                style={{ marginRight: "8px" }}
                                             ></span>
                                             <div>{item.sender?.countryresidence}</div>
                                         </div>
                                     </div>
                                     <div className="flex gap-2 justify-between mt-4 text-base font-medium text-white whitespace-nowrap">
-                                        <button onClick={() => acceptInvitation(item.senderId)}   className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                                        <button onClick={() => acceptInvitation(item.senderId)} className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
                                             Accepter
                                         </button>
-                                        <button  onClick={()=>deleteInviation(item.senderId)} className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                                        <button onClick={() => deleteInviation(item.senderId)} className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
                                             Supprimer
                                         </button>
                                     </div>

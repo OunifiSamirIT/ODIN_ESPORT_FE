@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import image from '../../assets/Image.png'
 
 const Index = () => {
+    const [article, setArticle] = useState([])
+    const fetchBlogArticles = async () => {
+        const response = await fetch('http://localhost:5000/api/blog')
+        const result = await response.json()
+        console.log(result.blog)
+        setArticle(result.blog)
+    }
+    useEffect(() => {
+        fetchBlogArticles()
+    }, [])
 
+    const formatDate = (dateTime) => {
+        const date = new Date(dateTime);
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const month = monthNames[date.getMonth()];
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month} ${day}, ${year}`;
+
+    }
     return (
         <div className="flex flex-col justify-center w-full bg-gray-200 max-h-fit">
             <div className="w-full flex justify-center bg-white shadow-sm">
@@ -73,131 +95,80 @@ const Index = () => {
                         className="object-cover absolute inset-0 size-full"
                     />
                     <div className="flex relative z-10 flex-col p-10 mt-72 -mb-6 max-w-full bg-white rounded-[10px] border border-gray-200 border-solid shadow-lg w-[628px] max-md:px-5 max-md:mt-10 max-md:mb-2.5">
-                        <div className="flex gap-4 justify-between max-md:flex-wrap max-md:max-w-full">
-                            <div className="justify-center px-4 py-1 text-base font-medium text-white bg-blue-600 rounded-2xl">
-                                Women’s Football
-                            </div>
+                        <div className="flex gap-4 justify-between flex-wrap max-w-full">
+
+                            {article[0]?.tags.split(',').map((e) => {
+                                return (<div className="justify-center px-4 py-1 text-base font-medium text-white bg-blue-600 rounded-2xl">
+                                    {e}
+                                </div>)
+                            })}
                             <div className="my-auto text-sm text-blue-600">NEW ARTICLE</div>
                         </div>
                         <div className="mt-4 text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                            Breaking Barriers: The Rise and Evolution of Women's Football
+                            {article[0]?.title}
                         </div>
                         <div className="flex gap-5 self-start mt-6 text-neutral-400">
                             <div className="flex gap-3 text-base">
                                 <img
                                     loading="lazy"
-                                    srcSet="..."
-                                    className="shrink-0 w-9 aspect-square"
+                                    src={article[0]?.imageUrl}
+                                    className="shrink-0 w-9 aspect-square rounded-full"
                                 />
-                                <div className="my-auto">Jason Francisco</div>
+                                <div className="my-auto">Admin</div>
                             </div>
-                            <div className="my-auto text-xs font-light">August 20, 2022</div>
+                            <div className="my-auto text-xs font-light">{formatDate(article[0]?.createdAt)}</div>
                         </div>
                     </div>
                 </div>
-                <div className="justify-between w-full max-w-[1184px] max-md:max-w-full">
+                <div className="justify-between w-full max-w-[1184px] max-md:max-w-full px-4">
                     <div className="flex flex-col gap-y-8 text-3xl font-bold text-zinc-900 max-md:mt-10 max-md:max-w-full">
                         <div className="flex justify-start">Latest Articles</div>
-                        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                            <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                                <div className="flex flex-col grow justify-center px-2 py-4 w-full bg-white rounded-[10px] border border-gray-200 border-solid max-md:mt-6">
-                                    <img
-                                        loading="lazy"
-                                        srcSet="..."
-                                        className="w-full aspect-[1.52]"
-                                    />
-                                    <div className="flex flex-col py-2 mt-4">
-                                        <div className="flex gap-4 justify-between text-sm text-blue-600 max-md:mr-1">
-                                            <div className="justify-center px-4 py-1 rounded-2xl bg-blue-600 bg-opacity-10">
-                                                Junior League
-                                            </div>
-                                            <div className="my-auto">NEW ARTICLE</div>
-                                        </div>
-                                        <div className="mt-4 text-2xl font-semibold text-zinc-900 max-md:mr-1">
-                                            Fun and Fitness: The Benefits of Kids Football Programs
-                                        </div>
-                                        <div className="flex gap-5 mt-6 text-neutral-400">
-                                            <div className="flex gap-3 text-base">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-md:flex-col max-md:gap-0">
+                            {article.map((item) => {
+                                return (
+                                    <a href={`/blog/${item.id}`}>
+                                        <div className="flex col-span-1 flex-col justify-between h-full ">
+                                            <div className="relative flex flex-col grow px-4 py-4 w-full bg-white rounded-[10px] border border-gray-200 border-solid">
                                                 <img
                                                     loading="lazy"
-                                                    srcSet="..."
-                                                    className="shrink-0 w-9 aspect-square"
+                                                    src={item?.imageUrl}
+                                                    className="w-full aspect-[1.5]"
                                                 />
-                                                <div className="my-auto">Tracey Wilson</div>
-                                            </div>
-                                            <div className="my-auto text-xs font-light">July 20, 2020</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                                <div className="flex flex-col grow justify-center px-2 py-4 w-full bg-white rounded-[10px] border border-gray-200 border-solid max-md:mt-6">
-                                    <img
-                                        loading="lazy"
-                                        srcSet="..."
-                                        className="w-full aspect-[1.52]"
-                                    />
-                                    <div className="flex flex-col py-2 mt-4">
-                                        <div className="flex gap-4 justify-between text-sm text-blue-600 max-md:mr-1">
-                                            <div className="justify-center px-4 py-1 rounded-2xl bg-blue-600 bg-opacity-10">
-                                                Junior League
-                                            </div>
-                                            <div className="my-auto">NEW ARTICLE</div>
-                                        </div>
-                                        <div className="mt-4 text-2xl font-semibold text-zinc-900 max-md:mr-1">
-                                            Youth Development in Football: Nurturing the Next Generation of
-                                            Stars
-                                        </div>
-                                        <div className="flex gap-5 mt-6 text-neutral-400">
-                                            <div className="flex gap-3 text-base">
-                                                <img
-                                                    loading="lazy"
-                                                    srcSet="..."
-                                                    className="shrink-0 w-9 aspect-square"
-                                                />
-                                                <div className="my-auto">Jason Francisco</div>
-                                            </div>
-                                            <div className="my-auto text-xs font-light">
-                                                September 16, 2022
+                                                <div className="flex flex-col py-2 mt-4 text-left">
+                                                    <div className="flex gap-4 items-center justify-between text-sm text-blue-600 max-md:mr-1">
+                                                        <div className="flex flex-wrap gap-1 py-2 max-w-[155px]">
+                                                            {item?.tags.split(',').map((e) => {
+                                                                return (<div className="justify-center items-center px-2 py-1 rounded-2xl bg-blue-600 bg-opacity-10">
+                                                                    {e}
+                                                                </div>)
+                                                            })}
+                                                        </div>
+                                                        <div className="py-2">NEW ARTICLE</div>
+                                                    </div>
+                                                    <div className="flex flex-col">
+                                                        <div className="text-2xl font-semibold text-zinc-900 mb-5">
+                                                            {item.title}
+                                                        </div>
+                                                        <div className="absolute bottom-0 my-4 flex items-end gap-5 text-neutral-400">
+                                                            <div className="flex gap-3 text-base">
+                                                                <img
+                                                                    loading="lazy"
+                                                                    src={item.imageUrl}
+                                                                    className="rounded-full shrink-0 w-9 aspect-square"
+                                                                />
+                                                                <div className="my-auto">Admin | odine </div>
+                                                            </div>
+                                                            <div className="my-auto text-xs font-light">{formatDate(item.createdAt)}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                                <div className="flex flex-col grow justify-center px-2 py-4 w-full bg-white rounded-[10px] border border-gray-200 border-solid max-md:mt-6">
-                                    <img
-                                        loading="lazy"
-                                        srcSet="..."
-                                        className="w-full aspect-[1.52]"
-                                    />
-                                    <div className="flex flex-col py-2 mt-4">
-                                        <div className="justify-center self-start px-4 py-1 text-sm text-blue-600 rounded-2xl bg-blue-600 bg-opacity-10">
-                                            Tips and Tricks
-                                        </div>
-                                        <div className="mt-4 text-2xl font-semibold text-zinc-900 max-md:mr-1">
-                                            Pre-Season Preparation: Getting Match Fit for the Football
-                                            Season
-                                        </div>
-                                        <div className="flex gap-5 mt-6 text-neutral-400">
-                                            <div className="flex gap-3 text-base">
-                                                <img
-                                                    loading="lazy"
-                                                    srcSet="..."
-                                                    className="shrink-0 w-9 aspect-square"
-                                                />
-                                                <div className="my-auto">Elizabeth Salvin</div>
-                                            </div>
-                                            <div className="my-auto text-xs font-light">
-                                                January 7, 2023
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    </a>
+                                )
+                            })}
                         </div>
                     </div>
-
                 </div>
             </div>
             <div className="flex mt-8 justify-center items-center self-stretch px-16 py-6 w-full bg-blue-600 max-md:px-5 max-md:mt-10 max-md:max-w-full">
