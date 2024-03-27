@@ -97,13 +97,14 @@ const AddEvent = () => {
                                             <div className="col-lg-12 mb-3">
     <label className="mont-font fw-600 font-xsss mb-2 text-dark">date_debut</label>
     <DatePicker
-        {...register("date_debut")}
-        className="form-control mb-0 p-3 h100 bg-greylight lh-16"
-        placeholderText="Select date_debut"
-        dateFormat="yyyy-MM-dd"
-        selected={new Date(getValues("date_debut")) }
-        onChange={(date) => setValue("date_debut", date ? date.toISOString().split('T')[0] : null)}
-    />
+    {...register("date_debut")}
+    className="form-control mb-0 p-3 h100 bg-greylight lh-16"
+    placeholderText="Select date_debut"
+    dateFormat="yyyy-MM-dd"
+    selected={getValues("date_debut") ? new Date(getValues("date_debut")) : null}
+    onChange={(date) => setValue("date_debut", date ? date.toISOString().split('T')[0] : null)}
+/>
+
 </div>
 
 
