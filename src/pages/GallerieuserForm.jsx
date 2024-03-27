@@ -95,11 +95,11 @@ const handelretourform = () => {
   }, []);
 
   const matchingCountry = paysAllInfo.find(
-    (country) => country.nationalite === users.nationality
+    (country) => country.nationalite === users.user.nationality
   );
 
   const matchingCountryPays = paysAllInfo.find(
-    (country) => country.name === users.countryresidence
+    (country) => country.name === users.user.countryresidence
   );
 
 
@@ -265,7 +265,7 @@ const handelretourform = () => {
                     <div className="grow">Nom</div>
                   </div>
                   <input
-                    value={users.nom}
+                    value={users.user.nom}
                     disabled
                     type="text"
                     className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"
@@ -283,7 +283,7 @@ const handelretourform = () => {
                     <div className="grow">Prénom</div>
                   </div>
                   <input
-                    value={users.prenom}
+                    value={users.user.prenom}
                     disabled
                     type="text"
                     className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"
@@ -301,7 +301,7 @@ const handelretourform = () => {
                     <div className="grow">Année de naissance</div>
                   </div>
                   <input
-                    value={users.date_naissance}
+                    value={users.user.date_naissance}
                     disabled
                     type="text"
                     className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"
@@ -329,7 +329,7 @@ const handelretourform = () => {
                 className="flex flex-col justify-center px-4 py-3.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]"
                 type="text"
                 disabled
-                value={users.gender}
+                value={users.user.gender}
               />
             </div>
             <div className="flex flex-col flex-1">
