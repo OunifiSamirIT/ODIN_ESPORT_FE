@@ -128,17 +128,30 @@ const Album = () => {
   const handleSearch = () => {
 
     const filteredData = album.filter((camps) => {
-      console.log('Camp Data:', camps);
-
-      const formattedDateDB = new Date(camps.date_debut).toISOString().split('T')[0];
-      const formattedDateDF = new Date(camps.date_fin).toISOString().split('T')[0];
-
+      const dateDebut = camps.date_debut ? new Date(camps.date_debut) : null;
+      const dateFin = camps.date_fin ? new Date(camps.date_fin) : null;
+  
+      // Check if Date objects were successfully created
+      if (dateDebut === null || isNaN(dateDebut.getTime())) {
+          console.error('Invalid date_debut:', camps.date_debut);
+          return false; // Skip this camp if date_debut is invalid
+      }
+      if (dateFin === null || isNaN(dateFin.getTime())) {
+          console.error('Invalid date_fin:', camps.date_fin);
+          return false; // Skip this camp if date_fin is invalid
+      }
+  
+      // Format date strings for comparison
+      const formattedDateDB = dateDebut.toISOString().split('T')[0];
+      const formattedDateDF = dateFin.toISOString().split('T')[0];
+  
+      // Add your filtering logic here
       return (
-        camps.Duree.toLowerCase().includes(searchDuree.toLowerCase()) &&
-        (searchPays === "" || camps.payscamps === searchPays) &&
-        (searchTypePrix === "" || camps.prix === searchTypePrix) &&
-        (searchDateDB === "" || formattedDateDB  === searchDateDB) &&
-        (searchDateDF === "" || formattedDateDF === searchDateDF)
+          camps.Duree.toLowerCase().includes(searchDuree.toLowerCase()) &&
+          (searchPays === "" || camps.payscamps === searchPays) &&
+          (searchTypePrix === "" || camps.prix === searchTypePrix) &&
+          (searchDateDB === "" || formattedDateDB === searchDateDB) &&
+          (searchDateDF === "" || formattedDateDF === searchDateDF)
       );
     });
     console.log('Search Criteria:', searchDuree, searchPays, searchTypePrix, searchDateDB, searchDateDF);
