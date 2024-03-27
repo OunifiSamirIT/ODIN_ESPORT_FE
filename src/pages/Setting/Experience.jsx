@@ -416,7 +416,7 @@ const Experience = () => {
                                         <div className="grow text-lg">Date de début</div>
                                     </div>
                                     <div className="w-full">
-                                        <DatePicker showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.startDate ? 'is-invalid border-1 !border-red-500' : '' }`} selected={startDate} dateFormat="MM/yyyy" onChange={(date) => { setValue('startDate', date); setStartDate(date) }} />
+                                        <DatePicker placeholderText="fkgf" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.startDate ? 'is-invalid border-1 !border-red-500' : '' }`} selected={startDate} dateFormat="MM/yyyy" onChange={(date) => { setValue('startDate', date); setStartDate(date) }} />
                                     </div>
                                     {errors.startDate && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
                                 </div>

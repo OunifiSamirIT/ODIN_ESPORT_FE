@@ -72,14 +72,14 @@ const ProfileLayout = ({ children, onChange, user }) => {
         });
     }
     const [showInvitation, setShowInvitation] = useState()
-    const CheckIfInvitationIsSend = async () => {
-        const response = await fetch(`http://localhost:5000/api/user/${id}/friend-requests`, {
-            method: "GET",
-        });
-        const result = await response.json();
-        console.log(result)
-        setInvitation(result.receiver)
-    }
+    // const CheckIfInvitationIsSend = async () => {
+    //     const response = await fetch(`http://localhost:5000/api/user/${id}/friend-requests`, {
+    //         method: "GET",
+    //     });
+    //     const result = await response.json();
+    //     console.log(result)
+    //     setInvitation(result.receiver)
+    // }
 
     const copyLinkToClipboard = (articleId) => {
         // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
@@ -107,10 +107,10 @@ const ProfileLayout = ({ children, onChange, user }) => {
         if(response.status === 200)
         {window.location.reload()}
     }
-    useEffect(() => {
-        CheckIfInvitationIsSend()
-        console.log('curren', Invitation)
-    }, [user])
+    // useEffect(() => {
+    //     CheckIfInvitationIsSend()
+    //     console.log('curren', Invitation)
+    // }, [user])
     return (
         <>
             <HomeLayout>
