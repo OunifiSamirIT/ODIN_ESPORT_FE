@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Login from "../assets/Loggin.png";
+import D from "../assets/userdefault.jpg";
 import Logo from "../assets/logo.png";
 import Logo1 from "../assets/1.png";
 import Logo2 from "../assets/2.png";
@@ -13,994 +13,15 @@ import { v4 as uuidv4 } from "uuid";
 import ReactFlagsSelect from "react-flags-select";
 import "./flags.css";
 import Select, { components } from "react-select";
+import * as yup from "yup"
 
-
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 import Modal from "react-modal";
 // import "react-modal/styles.css";
 
-const pays = [
-  {
-    id: 1,
-    nationalite: "afghane",
-    libelle: "Afghanistan",
-  },
-  {
-    id: 2,
-    nationalite: "sudafricaine",
-    libelle: "Afrique du Sud",
-  },
-  {
-    id: 3,
-    nationalite: "albanaise",
-    libelle: "Albanie",
-  },
-  {
-    id: 4,
-    nationalite: "algérienne",
-    libelle: "Algérie",
-  },
-  {
-    id: 5,
-    nationalite: "allemande",
-    libelle: "Allemagne",
-  },
-  {
-    id: 6,
-    nationalite: "andorrane",
-    libelle: "Andorre",
-  },
-  {
-    id: 7,
-    nationalite: "angolaise",
-    libelle: "Angola",
-  },
-  {
-    id: 8,
-    nationalite: "antiguayenne",
-    libelle: "Antigua-et-Barbuda",
-  },
-  {
-    id: 9,
-    nationalite: "saoudienne",
-    libelle: "Arabie saoudite",
-  },
-  {
-    id: 10,
-    nationalite: "argentine",
-    libelle: "Argentine",
-  },
-  {
-    id: 11,
-    nationalite: "arménienne",
-    libelle: "Arménie",
-  },
-  {
-    id: 12,
-    nationalite: "australienne",
-    libelle: "Australie",
-  },
-  {
-    id: 13,
-    nationalite: "autrichienne",
-    libelle: "Autriche",
-  },
-  {
-    id: 14,
-    nationalite: "azerbaïdjanaise",
-    libelle: "Azerbaïdjan",
-  },
-  {
-    id: 15,
-    nationalite: "bahaméenne",
-    libelle: "Bahamas",
-  },
-  {
-    id: 16,
-    nationalite: "bahreïnienne",
-    libelle: "Bahreïn",
-  },
-  {
-    id: 17,
-    nationalite: "bangladaise",
-    libelle: "Bangladesh",
-  },
-  {
-    id: 18,
-    nationalite: "barbadienne",
-    libelle: "Barbade",
-  },
-  {
-    id: 19,
-    nationalite: "belge",
-    libelle: "Belgique",
-  },
-  {
-    id: 20,
-    nationalite: "bélizienne",
-    libelle: "Belize",
-  },
-  {
-    id: 22,
-    nationalite: "bhoutanaise",
-    libelle: "Bhoutan",
-  },
-  {
-    id: 24,
-    nationalite: "birmane",
-    libelle: "Birmanie",
-  },
-  {
-    id: 23,
-    nationalite: "biélorusse",
-    libelle: "Biélorussie",
-  },
-  {
-    id: 25,
-    nationalite: "bolivienne",
-    libelle: "Bolivie",
-  },
-  {
-    id: 26,
-    nationalite: "bosnienne",
-    libelle: "Bosnie-Herzégovine",
-  },
-  {
-    id: 27,
-    nationalite: "botswanaise",
-    libelle: "Botswana",
-  },
-  {
-    id: 29,
-    nationalite: "brunéienne",
-    libelle: "Brunei",
-  },
-  {
-    id: 28,
-    nationalite: "brésilienne",
-    libelle: "Brésil",
-  },
-  {
-    id: 30,
-    nationalite: "bulgare",
-    libelle: "Bulgarie",
-  },
-  {
-    id: 31,
-    nationalite: "burkinabé",
-    libelle: "Burkina",
-  },
-  {
-    id: 32,
-    nationalite: "burundaise",
-    libelle: "Burundi",
-  },
-  {
-    id: 21,
-    nationalite: "béninoise",
-    libelle: "Bénin",
-  },
-  {
-    id: 33,
-    nationalite: "cambodgienne",
-    libelle: "Cambodge",
-  },
-  {
-    id: 34,
-    nationalite: "camerounaise",
-    libelle: "Cameroun",
-  },
-  {
-    id: 35,
-    nationalite: "canadienne",
-    libelle: "Canada",
-  },
-  {
-    id: 36,
-    nationalite: "cap-verdienne",
-    libelle: "Cap-Vert",
-  },
-  {
-    id: 144,
-    nationalite: "centrafricaine",
-    libelle: "Centrafrique",
-  },
-  {
-    id: 37,
-    nationalite: "chilienne",
-    libelle: "Chili",
-  },
-  {
-    id: 38,
-    nationalite: "chinoise",
-    libelle: "Chine",
-  },
-  {
-    id: 39,
-    nationalite: "chypriote",
-    libelle: "Chypre",
-  },
-  {
-    id: 40,
-    nationalite: "colombienne",
-    libelle: "Colombie",
-  },
-  {
-    id: 41,
-    nationalite: "comorienne",
-    libelle: "Comores",
-  },
-  {
-    id: 42,
-    nationalite: "congolaise",
-    libelle: "Congo",
-  },
-  {
-    id: 43,
-    nationalite: "nord-coréenne",
-    libelle: "Corée du Nord",
-  },
-  {
-    id: 44,
-    nationalite: "sud-coréenne",
-    libelle: "Corée du Sud",
-  },
-  {
-    id: 45,
-    nationalite: "costaricienne",
-    libelle: "Costa Rica",
-  },
-  {
-    id: 47,
-    nationalite: "croate",
-    libelle: "Croatie",
-  },
-  {
-    id: 48,
-    nationalite: "cubaine",
-    libelle: "Cuba",
-  },
-  {
-    id: 46,
-    nationalite: "ivoirienne",
-    libelle: "Côte d'Ivoire",
-  },
-  {
-    id: 49,
-    nationalite: "danoise",
-    libelle: "Danemark",
-  },
-  {
-    id: 50,
-    nationalite: "djiboutienne",
-    libelle: "Djibouti",
-  },
-  {
-    id: 51,
-    nationalite: "dominiquaise",
-    libelle: "Dominique",
-  },
-  {
-    id: 52,
-    nationalite: "egyptienne",
-    libelle: "Egypte",
-  },
-  {
-    id: 53,
-    nationalite: "emirienne",
-    libelle: "Emirats arabes unis",
-  },
-  {
-    id: 54,
-    nationalite: "equatorienne",
-    libelle: "Equateur",
-  },
-  {
-    id: 55,
-    nationalite: "erythréenne",
-    libelle: "Erythrée",
-  },
-  {
-    id: 56,
-    nationalite: "espagnole",
-    libelle: "Espagne",
-  },
-  {
-    id: 57,
-    nationalite: "estonienne",
-    libelle: "Estonie",
-  },
-  {
-    id: 58,
-    nationalite: "américaine",
-    libelle: "Etats-Unis",
-  },
-  {
-    id: 59,
-    nationalite: "ethiopienne",
-    libelle: "Ethiopie",
-  },
-  {
-    id: 60,
-    nationalite: "fidjienne",
-    libelle: "Fidji",
-  },
-  {
-    id: 61,
-    nationalite: "finlandaise",
-    libelle: "Finlande",
-  },
-  {
-    id: 62,
-    nationalite: "française",
-    libelle: "France",
-  },
-  {
-    id: 63,
-    nationalite: "gabonaise",
-    libelle: "Gabon",
-  },
-  {
-    id: 64,
-    nationalite: "gambienne",
-    libelle: "Gambie",
-  },
-  {
-    id: 66,
-    nationalite: "ghanéenne",
-    libelle: "Ghana",
-  },
-  {
-    id: 68,
-    nationalite: "grenadienne",
-    libelle: "Grenade",
-  },
-  {
-    id: 67,
-    nationalite: "grecque",
-    libelle: "Grèce",
-  },
-  {
-    id: 69,
-    nationalite: "guatémaltèque",
-    libelle: "Guatemala",
-  },
-  {
-    id: 70,
-    nationalite: "guinéenne",
-    libelle: "Guinée",
-  },
-  {
-    id: 71,
-    nationalite: "equatoguinéenne",
-    libelle: "Guinée équatoriale",
-  },
-  {
-    id: 72,
-    nationalite: "bissaoguinéenne",
-    libelle: "Guinée-Bissao",
-  },
-  {
-    id: 73,
-    nationalite: "guyanienne",
-    libelle: "Guyana",
-  },
-  {
-    id: 65,
-    nationalite: "géorgienne",
-    libelle: "Géorgie",
-  },
-  {
-    id: 74,
-    nationalite: "haïtienne",
-    libelle: "Haïti",
-  },
-  {
-    id: 75,
-    nationalite: "hondurienne",
-    libelle: "Honduras",
-  },
-  {
-    id: 77,
-    nationalite: "hongroise",
-    libelle: "Hongrie",
-  },
-  {
-    id: 79,
-    nationalite: "indienne",
-    libelle: "Inde",
-  },
-  {
-    id: 80,
-    nationalite: "indonésienne",
-    libelle: "Indonésie",
-  },
-  {
-    id: 81,
-    nationalite: "irakienne",
-    libelle: "Irak",
-  },
-  {
-    id: 82,
-    nationalite: "iranienne",
-    libelle: "Iran",
-  },
-  {
-    id: 83,
-    nationalite: "irlandaise",
-    libelle: "Irlande",
-  },
-  {
-    id: 84,
-    nationalite: "islandaise",
-    libelle: "Islande",
-  },
-  {
-    id: 85,
-    nationalite: "israélienne",
-    libelle: "Israël",
-  },
-  {
-    id: 86,
-    nationalite: "italienne",
-    libelle: "Italie",
-  },
-  {
-    id: 87,
-    nationalite: "jamaïquaine",
-    libelle: "Jamaïque",
-  },
-  {
-    id: 88,
-    nationalite: "japonaise",
-    libelle: "Japon",
-  },
-  {
-    id: 90,
-    nationalite: "jordanienne",
-    libelle: "Jordanie",
-  },
-  {
-    id: 89,
-    nationalite: "palestinienne",
-    libelle: "Jérusalem - Territoires palestiniens",
-  },
-  {
-    id: 91,
-    nationalite: "kazakhstanais",
-    libelle: "Kazakhstan",
-  },
-  {
-    id: 92,
-    nationalite: "kényane",
-    libelle: "Kenya",
-  },
-  {
-    id: 93,
-    nationalite: "kirghize",
-    libelle: "Kirghizstan",
-  },
-  {
-    id: 94,
-    nationalite: "kiribatienne",
-    libelle: "Kiribati",
-  },
-  {
-    id: 198,
-    nationalite: "kosovare",
-    libelle: "Kosovo",
-  },
-  {
-    id: 95,
-    nationalite: "koweïtienne",
-    libelle: "Koweït",
-  },
-  {
-    id: 96,
-    nationalite: "laotienne",
-    libelle: "Laos",
-  },
-  {
-    id: 97,
-    nationalite: "lesothienne",
-    libelle: "Lesotho",
-  },
-  {
-    id: 98,
-    nationalite: "lettone",
-    libelle: "Lettonie",
-  },
-  {
-    id: 99,
-    nationalite: "libanaise",
-    libelle: "Liban",
-  },
-  {
-    id: 100,
-    nationalite: "libérienne",
-    libelle: "Liberia",
-  },
-  {
-    id: 101,
-    nationalite: "libyenne",
-    libelle: "Libye",
-  },
-  {
-    id: 102,
-    nationalite: "liechtensteinoise",
-    libelle: "Liechtenstein",
-  },
-  {
-    id: 103,
-    nationalite: "lituanienne",
-    libelle: "Lituanie",
-  },
-  {
-    id: 104,
-    nationalite: "luxembourgeoise",
-    libelle: "Luxembourg",
-  },
-  {
-    id: 105,
-    nationalite: "macédonienne",
-    libelle: "Macédoine",
-  },
-  {
-    id: 106,
-    nationalite: "malgache",
-    libelle: "Madagascar",
-  },
-  {
-    id: 107,
-    nationalite: "malaisienne",
-    libelle: "Malaisie",
-  },
-  {
-    id: 108,
-    nationalite: "malawienne",
-    libelle: "Malawi",
-  },
-  {
-    id: 109,
-    nationalite: "maldivienne",
-    libelle: "Maldives",
-  },
-  {
-    id: 110,
-    nationalite: "malienne",
-    libelle: "Mali",
-  },
-  {
-    id: 111,
-    nationalite: "maltaise",
-    libelle: "Malte",
-  },
-  {
-    id: 112,
-    nationalite: "marocaine",
-    libelle: "Maroc",
-  },
-  {
-    id: 113,
-    nationalite: "marshallaise",
-    libelle: "Marshall",
-  },
-  {
-    id: 114,
-    nationalite: "mauricienne",
-    libelle: "Maurice",
-  },
-  {
-    id: 115,
-    nationalite: "mauritanienne",
-    libelle: "Mauritanie",
-  },
-  {
-    id: 116,
-    nationalite: "mexicaine",
-    libelle: "Mexique",
-  },
-  {
-    id: 117,
-    nationalite: "micronésienne",
-    libelle: "Micronésie",
-  },
-  {
-    id: 118,
-    nationalite: "moldave",
-    libelle: "Moldavie",
-  },
-  {
-    id: 119,
-    nationalite: "monégasque",
-    libelle: "Monaco",
-  },
-  {
-    id: 120,
-    nationalite: "mongole",
-    libelle: "Mongolie",
-  },
-  {
-    id: 197,
-    nationalite: "monténégrine",
-    libelle: "Monténégro",
-  },
-  {
-    id: 121,
-    nationalite: "mozambicaine",
-    libelle: "Mozambique",
-  },
-  {
-    id: 122,
-    nationalite: "namibienne",
-    libelle: "Namibie",
-  },
-  {
-    id: 123,
-    nationalite: "nauruane",
-    libelle: "Nauru",
-  },
-  {
-    id: 125,
-    nationalite: "nicaraguayenne",
-    libelle: "Nicaragua",
-  },
-  {
-    id: 126,
-    nationalite: "nigérienne",
-    libelle: "Niger",
-  },
-  {
-    id: 127,
-    nationalite: "nigériane",
-    libelle: "Nigeria",
-  },
-  {
-    id: 128,
-    nationalite: "norvégienne",
-    libelle: "Norvège",
-  },
-  {
-    id: 129,
-    nationalite: "néo-zélandaise",
-    libelle: "Nouvelle-Zélande",
-  },
-  {
-    id: 124,
-    nationalite: "népalaise",
-    libelle: "Népal",
-  },
-  {
-    id: 130,
-    nationalite: "omanaise",
-    libelle: "Oman",
-  },
-  {
-    id: 131,
-    nationalite: "ougandaise",
-    libelle: "Ouganda",
-  },
-  {
-    id: 132,
-    nationalite: "ouzbèke",
-    libelle: "Ouzbékistan",
-  },
-  {
-    id: 133,
-    nationalite: "pakistanaise",
-    libelle: "Pakistan",
-  },
-  {
-    id: 134,
-    nationalite: "palaoise",
-    libelle: "Palaos",
-  },
-  {
-    id: 135,
-    nationalite: "panaméenne",
-    libelle: "Panama",
-  },
-  {
-    id: 136,
-    nationalite: "papouasienne",
-    libelle: "Papouasie-Nouvelle-Guinée",
-  },
-  {
-    id: 137,
-    nationalite: "paraguayenne",
-    libelle: "Paraguay",
-  },
-  {
-    id: 138,
-    nationalite: "néerlandaise",
-    libelle: "Pays-Bas",
-  },
-  {
-    id: 140,
-    nationalite: "philippine",
-    libelle: "Philippines",
-  },
-  {
-    id: 141,
-    nationalite: "polonaise",
-    libelle: "Pologne",
-  },
-  {
-    id: 142,
-    nationalite: "portugaise",
-    libelle: "Portugal",
-  },
-  {
-    id: 139,
-    nationalite: "péruvienne",
-    libelle: "Pérou",
-  },
-  {
-    id: 143,
-    nationalite: "qatarienne",
-    libelle: "Qatar",
-  },
-  {
-    id: 148,
-    nationalite: "roumaine",
-    libelle: "Roumanie",
-  },
-  {
-    id: 149,
-    nationalite: "britannique",
-    libelle: "Royaume-Uni",
-  },
-  {
-    id: 150,
-    nationalite: "russe",
-    libelle: "Russie",
-  },
-  {
-    id: 151,
-    nationalite: "rwandaise",
-    libelle: "Rwanda",
-  },
-  {
-    id: 146,
-    nationalite: "dominicaine",
-    libelle: "République dominicaine",
-  },
-  {
-    id: 145,
-    nationalite: "congolaise (RDC)",
-    libelle: "République démocratique du Congo",
-  },
-  {
-    id: 147,
-    nationalite: "tchèque",
-    libelle: "République tchèque",
-  },
-  {
-    id: 152,
-    nationalite: "christophienne",
-    libelle: "Saint-Christophe-et-Niévès",
-  },
-  {
-    id: 154,
-    nationalite: "marinaise",
-    libelle: "Saint-Marin",
-  },
-  {
-    id: 155,
-    nationalite: null,
-    libelle: "Saint-Siège",
-  },
-  {
-    id: 156,
-    nationalite: "vincentaise",
-    libelle: "Saint-Vincent-et-les Grenadines",
-  },
-  {
-    id: 153,
-    nationalite: "lucienne",
-    libelle: "Sainte-Lucie",
-  },
-  {
-    id: 157,
-    nationalite: "salomonaise",
-    libelle: "Salomon",
-  },
-  {
-    id: 158,
-    nationalite: "salvadorienne",
-    libelle: "Salvador",
-  },
-  {
-    id: 159,
-    nationalite: "samoene",
-    libelle: "Samoa",
-  },
-  {
-    id: 160,
-    nationalite: "santoméenne",
-    libelle: "Sao Tomé-et-Principe",
-  },
-  {
-    id: 162,
-    nationalite: "serbe",
-    libelle: "Serbie",
-  },
-  {
-    id: 163,
-    nationalite: "seychelloise",
-    libelle: "Seychelles",
-  },
-  {
-    id: 164,
-    nationalite: "sierraléonaise",
-    libelle: "Sierra Leone",
-  },
-  {
-    id: 165,
-    nationalite: "singapourienne",
-    libelle: "Singapour",
-  },
-  {
-    id: 166,
-    nationalite: "slovaque",
-    libelle: "Slovaquie",
-  },
-  {
-    id: 167,
-    nationalite: "slovène",
-    libelle: "Slovénie",
-  },
-  {
-    id: 168,
-    nationalite: "somalienne",
-    libelle: "Somalie",
-  },
-  {
-    id: 169,
-    nationalite: "soudanaise",
-    libelle: "Soudan",
-  },
-  {
-    id: 170,
-    nationalite: "srilankaise",
-    libelle: "Sri Lanka",
-  },
-  {
-    id: 172,
-    nationalite: "suisse",
-    libelle: "Suisse",
-  },
-  {
-    id: 173,
-    nationalite: "surinamaise",
-    libelle: "Suriname",
-  },
-  {
-    id: 171,
-    nationalite: "suédoise",
-    libelle: "Suède",
-  },
-  {
-    id: 174,
-    nationalite: "swazie",
-    libelle: "Swaziland",
-  },
-  {
-    id: 175,
-    nationalite: "syrienne",
-    libelle: "Syrie",
-  },
-  {
-    id: 161,
-    nationalite: "sénégalaise",
-    libelle: "Sénégal",
-  },
-  {
-    id: 176,
-    nationalite: "tadjike",
-    libelle: "Tadjikistan",
-  },
-  {
-    id: 178,
-    nationalite: "tanzanienne",
-    libelle: "Tanzanie",
-  },
-  {
-    id: 177,
-    nationalite: "taïwanaise",
-    libelle: "Taïwan",
-  },
-  {
-    id: 179,
-    nationalite: "tchadienne",
-    libelle: "Tchad",
-  },
-  {
-    id: 180,
-    nationalite: "thaïlandaise",
-    libelle: "Thaïlande",
-  },
-  {
-    id: 181,
-    nationalite: "timoraise",
-    libelle: "Timor oriental",
-  },
-  {
-    id: 182,
-    nationalite: "togolaise",
-    libelle: "Togo",
-  },
-  {
-    id: 183,
-    nationalite: "tongienne",
-    libelle: "Tonga",
-  },
-  {
-    id: 184,
-    nationalite: "trinidadienne",
-    libelle: "Trinité-et-Tobago",
-  },
-  {
-    id: 185,
-    nationalite: "tunisienne",
-    libelle: "Tunisie",
-  },
-  {
-    id: 186,
-    nationalite: "turkmène",
-    libelle: "Turkménistan",
-  },
-  {
-    id: 187,
-    nationalite: "turque",
-    libelle: "Turquie",
-  },
-  {
-    id: 188,
-    nationalite: "tuvaluane",
-    libelle: "Tuvalu",
-  },
-  {
-    id: 189,
-    nationalite: "ukrainienne",
-    libelle: "Ukraine",
-  },
-  {
-    id: 190,
-    nationalite: "uruguayenne",
-    libelle: "Uruguay",
-  },
-  {
-    id: 191,
-    nationalite: "vanuataise",
-    libelle: "Vanuatu",
-  },
-  {
-    id: 192,
-    nationalite: "vénézuélienne",
-    libelle: "Venezuela",
-  },
-  {
-    id: 193,
-    nationalite: "vietnamienne",
-    libelle: "Viêt Nam",
-  },
-  {
-    id: 194,
-    nationalite: "yéménite",
-    libelle: "Yémen",
-  },
-  {
-    id: 195,
-    nationalite: "zambienne",
-    libelle: "Zambie",
-  },
-  {
-    id: 196,
-    nationalite: "zimbabwéenne",
-    libelle: "Zimbabwe",
-  },
-];
+
 const paysAllInfo =[
   {
     name: "Andorre",
@@ -5068,9 +4089,19 @@ function Register() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isUploadEnabled, setUploadEnabled] = useState(false);
+  const [FileName , setFileName] = useState('')
+
 // list pays
 const [selectedCountries, setSelectedCountries] = useState([]);
+const [optionalAttributsValue, setOptionalAttributsValue] = useState("");
+const handleOptionalAttributsChange = (selectedOption) => {
+  setOptionalAttributsValue(selectedOption.value);
 
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    optionalattributs: selectedOption.value,
+  }));
+};
   
   //modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -5471,30 +4502,30 @@ const MultiValueContainer = ({ children, ...props }) => {
   );
 };
 
-const handleCountryCoachEA = (selectedOption) => {
-  // Update the formData state with the selected nationality
-  setFormData({
-    ...formData,
-    ClubActuelCoach: selectedOption
-      ? selectedOption.label.props.children[1]
-      : "",
-  });
-
-  // Access the nationalite value from the selected option (if needed)
-  const selectedValue = selectedOption
-    ? selectedOption.label.props.children[1]
-    : null;
-  console.log("Selected Club Actuel :", selectedValue);
-};
-
 
 ////////////////**************** */
+
+
+const getCombinedPrefix = (whatsAppPrefix, telephonePrefix) => {
+  return `${whatsAppPrefix} , ${telephonePrefix}`;
+};
+
   const [selectedCountryphone, setSelectedCountryphone] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleChangephone = (selectedOption) => {
     setSelectedCountryphone(selectedOption);
+  
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      optionalattributs: getCombinedPrefix(
+        selectedCountryphoneWS ? selectedCountryphoneWS.phone : "", // WhatsApp prefix
+        selectedOption.phone // Telephone prefix
+      ),
+    }));
   };
+
+
   const handleChangePhoneNumber = (e) => {
     const inputValue = e.target.value;
   
@@ -5517,23 +4548,25 @@ const handleCountryCoachEA = (selectedOption) => {
   
 
   const optionsphone = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
-
+    const countryCode = country.iso && country.iso["alpha-2"] ? country.iso["alpha-2"].toLowerCase() : 'unknown';
+    const phonePrefix = country.phone && country.phone[0] !== undefined ? country.phone[0] : 'No prefix';
+  
     return {
       value: countryCode,
       label: (
         <div style={{ textAlign: "left" }}>
-          {countryCode && (
-            <span
+          {countryCode !== 'unknown' && (
+            <div
               className={`flag-icon flag-icon-${countryCode}`}
-              style={{ marginRight: "2px", textAlign: "left" }}
-            ></span>
+              style={{ marginRight: "1px", textAlign: "left", rounded: "30px" }}
+            ></div>
           )}
-          ({country.phone})
+          ({phonePrefix})
         </div>
       ),
       countryCode: countryCode,
       phoneLength: country.phoneLength,
+      phone: phonePrefix
     };
   });
 
@@ -5543,7 +4576,16 @@ const handleCountryCoachEA = (selectedOption) => {
 
   const handleChangephoneWS = (selectedOptionWS) => {
     setSelectedCountryphoneWS(selectedOptionWS);
+  
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      optionalattributs: getCombinedPrefix(
+        selectedOptionWS.phone, // WhatsApp prefix
+        selectedCountryphone ? selectedCountryphone.phone : "" // Telephone prefix
+      ),
+    }));
   };
+  
   const handleChangePhoneNumberWS = (e) => {
     const inputValueWS = e.target.value;
   
@@ -5567,27 +4609,29 @@ const handleCountryCoachEA = (selectedOption) => {
     }
   };
   
-
   const optionsphoneWS = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
-
+    const countryCode = country.iso && country.iso["alpha-2"] ? country.iso["alpha-2"].toLowerCase() : 'unknown';
+    const phonePrefix = country.phone && country.phone[0] !== undefined ? country.phone[0] : 'No prefix';
+  
     return {
       value: countryCode,
       label: (
         <div style={{ textAlign: "left" }}>
-          {countryCode && (
+          {countryCode !== 'unknown' && (
             <div
               className={`flag-icon flag-icon-${countryCode}`}
               style={{ marginRight: "1px", textAlign: "left", rounded: "30px" }}
             ></div>
           )}
-          ({country.phone})
+          ({phonePrefix})
         </div>
       ),
       countryCode: countryCode,
       phoneLength: country.phoneLength,
+      phone: phonePrefix
     };
   });
+
 
   const profilesData = [
     {
@@ -5621,13 +4665,11 @@ const handleCountryCoachEA = (selectedOption) => {
     let updatedSkills = formData.skillsInProfile.split(","); // Convert string to array
 
     if (updatedSkills.includes(skill)) {
-      // Skill is already selected, remove it
       const index = updatedSkills.indexOf(skill);
       updatedSkills.splice(index, 1);
     } else {
-      // Skill is not selected, add it
-      // Add skill if not selected and the limit is not reached
-      if (updatedSkills.length < 10) {
+     
+      if (updatedSkills.length <= 10) {
         updatedSkills.push(skill);
       }
     }
@@ -5637,9 +4679,10 @@ const handleCountryCoachEA = (selectedOption) => {
       ...formData,
       skillsInProfile: updatedSkills.join(","), // Convert back to string
     });
-    setSkillsError(updatedSkills.length >= 10);
+    setSkillsError(updatedSkills.length >= 11);
   };
 
+  
   const [skillsAutreError, setSkillsAutreError] = useState(false);
 
   const handleSkillToggleAutre = (skillsAutre) => {
@@ -5648,7 +4691,7 @@ const handleCountryCoachEA = (selectedOption) => {
     if (updatedSkills.includes(skillsAutre)) {
       updatedSkills = updatedSkills.filter((s) => s !== skillsAutre);
     } else {
-      if (updatedSkills.length < 10) {
+      if (updatedSkills.length <= 10) {
         updatedSkills.push(skillsAutre);
       }
     }
@@ -5659,25 +4702,7 @@ const handleCountryCoachEA = (selectedOption) => {
     });
     setSkillsAutreError(updatedSkills.length >= 10);
   };
-  // const handleSkillToggleAutre = (skill) => {
-  //   let updatedSkills = formData.skillsAutre.split(","); // Convert string to array
-
-  //   if (updatedSkills.includes(skill)) {
-  //     // Remove skill if already selected
-  //     updatedSkills = updatedSkills.filter((s) => s !== skill);
-  //   } else {
-  //     // Add skill if not selected and the limit is not reached
-  //     if (updatedSkills.length < 10) {
-  //       updatedSkills.push(skill);
-  //     }
-  //   }
-
-  //   setFormData({
-  //     ...formData,
-  //     skillsAutre: updatedSkills.join(","), // Convert back to string
-  //   });
-  //   setSkillsError(updatedSkills.length >= 10);
-  // };
+  
 
   const handleCoachSkillToggle = (coachSkill) => {
     let updatedCoachSkills = formData.skills.split(",");
@@ -5685,16 +4710,20 @@ const handleCountryCoachEA = (selectedOption) => {
     if (updatedCoachSkills.includes(coachSkill)) {
       updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
     } else {
-      if (updatedCoachSkills.length < 10) {
+      if (updatedCoachSkills.length <= 10) {
         updatedCoachSkills.push(coachSkill);
       }
     }
+
+    const isSkillsError = updatedCoachSkills.length >= 11;
 
     setFormData({
       ...formData,
       skills: updatedCoachSkills.join(","),
     });
-    setCoachSkillsError(updatedCoachSkills.length >= 10);
+    setSkillsError(isSkillsError);
+
+    console.log('isSkillsError:', isSkillsError);
   };
 
 
@@ -5705,7 +4734,7 @@ const handleCountryCoachEA = (selectedOption) => {
     if (updatedSkills.includes(agentSkill)) {
       updatedSkills = updatedSkills.filter((s) => s !== agentSkill);
     } else {
-      if (updatedSkills.length < 10) {
+      if (updatedSkills.length <= 10) {
         updatedSkills.push(agentSkill);
       }
     }
@@ -5714,7 +4743,7 @@ const handleCountryCoachEA = (selectedOption) => {
       ...formData,
       skillsagent: updatedSkills.join(","), // Correct the property name here
     });
-    setagentSkillsError(updatedSkills.length >= 10);
+    setagentSkillsError(updatedSkills.length >= 11);
   };
   
 
@@ -5726,7 +4755,7 @@ const handleCountryCoachEA = (selectedOption) => {
     if (updatedSkills.includes(scoutSkill)) {
       updatedSkills = updatedSkills.filter((s) => s !== scoutSkill);
     } else {
-      if (updatedSkills.length < 10) {
+      if (updatedSkills.length <= 10) {
         updatedSkills.push(scoutSkill);
       }
     }
@@ -5735,7 +4764,7 @@ const handleCountryCoachEA = (selectedOption) => {
       ...formData,
       skillsscout: updatedSkills.join(","), // Correct the property name here
     });
-    setScoutSkillsError(updatedSkills.length >= 10);
+    setScoutSkillsError(updatedSkills.length >= 11);
   };
   
   const isPasswordValid = () => {
@@ -5759,31 +4788,72 @@ const handleCountryCoachEA = (selectedOption) => {
       reader.readAsDataURL(file);
     }
   };
+
   const handleFileChangeLicense = (event) => {
     const file = event.target.files[0];
-
+    setFileName(file.name)
     if (file) {
-      // Convert the selected image to a data URL
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        // setFormData({
-        //   ...formData,
-        //   Licence: file,
-        // });
-        setImagePreviewlic(reader.result);
-      };
-      reader.readAsDataURL(file);
+        // Convert the selected image to a data URL
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagePreviewlic(reader.result);
+        };
+        reader.readAsDataURL(file);
     }
-  };
+};
+
+  // const handleInputChange = (e) => {
+  //   setValidationError("");
+
+  //   // Check if the input being changed is the profile field
+  //   if (e.target.name === "profil") {
+  //     // Get the selected profile value
+  //     const selectedProfileValue = e.target.value;
+
+  //     // Map the selected profile value to the corresponding role
+  //     const profileRoleMap = {
+  //       player: "player",
+  //       coach: "coach",
+  //       agent: "agent",
+  //       scout: "scout",
+  //       other: "other",
+  //     };
+  //     const selectedRole = profileRoleMap[selectedProfileValue];
+
+  //     // Update the form data with the selected role
+  //     setFormData({
+  //       ...formData,
+  //       [e.target.name]: selectedProfileValue,
+  //       roles: [selectedRole], // Set the roles field to the selected role
+  //     });
+
+  //     // Reset any profile error state since a profile has been selected
+  //     setProfileError(false);
+  //   } else {
+  //     // For other input fields, update the form data as usual
+  //     setFormData({
+  //       ...formData,
+  //       [e.target.name]: e.target.value,
+  //     });
+
+  //     // Reset any input errors for the changed field
+  //     setInputErrors({
+  //       ...inputErrors,
+  //       [e.target.name]: undefined,
+  //     });
+  //   }
+    
+  // };
+
 
   const handleInputChange = (e) => {
     setValidationError("");
-
+  
     // Check if the input being changed is the profile field
     if (e.target.name === "profil") {
       // Get the selected profile value
       const selectedProfileValue = e.target.value;
-
+  
       // Map the selected profile value to the corresponding role
       const profileRoleMap = {
         player: "player",
@@ -5793,30 +4863,63 @@ const handleCountryCoachEA = (selectedOption) => {
         other: "other",
       };
       const selectedRole = profileRoleMap[selectedProfileValue];
-
+  
       // Update the form data with the selected role
       setFormData({
         ...formData,
         [e.target.name]: selectedProfileValue,
         roles: [selectedRole], // Set the roles field to the selected role
       });
-
+  
       // Reset any profile error state since a profile has been selected
       setProfileError(false);
     } else {
       // For other input fields, update the form data as usual
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
-
-      // Reset any input errors for the changed field
-      setInputErrors({
-        ...inputErrors,
-        [e.target.name]: undefined,
-      });
+      const inputValue = e.target.value;
+  
+      // Check if the input is a number and apply additional validation
+      if (e.target.type === 'number') {
+        // Ensure the input is a valid number, non-negative, and has at most 3 digits
+        if (/^\d*$/.test(inputValue) && inputValue.length <= 3) {
+          // If the input is a valid number, update the form data
+          setFormData({
+            ...formData,
+            [e.target.name]: inputValue,
+          });
+  
+          // Reset any input errors for the changed field
+          setInputErrors({
+            ...inputErrors,
+            [e.target.name]: undefined,
+          });
+        } else {
+          // If the input is not valid, set the value to 0 and show an error message
+          setFormData({
+            ...formData,
+            [e.target.name]: '0',
+          });
+  
+          setInputErrors({
+            ...inputErrors,
+            [e.target.name]: "",
+          });
+        }
+      } else {
+        // For non-numeric fields, update the form data as usual
+        setFormData({
+          ...formData,
+          [e.target.name]: inputValue,
+        });
+  
+        // Reset any input errors for the changed field
+        setInputErrors({
+          ...inputErrors,
+          [e.target.name]: undefined,
+        });
+      }
     }
   };
+  
   const handleYearChange = (year) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -5838,7 +4941,8 @@ const handleCountryCoachEA = (selectedOption) => {
     profil: "",
     image: null,
     numWSup: "",
-    termesConditions: "Non",
+    optionalattributs: "",
+    termesConditions: "",
     partagehorsPL: "",
     password: "",
     // Additional fields for player
@@ -5862,7 +4966,7 @@ const handleCountryCoachEA = (selectedOption) => {
     totalCareerTransfers: "",
     clubCovered: "",
     totalPlayer: "",
-    typeresponsable: "",
+    typeresponsable: "club",
     skillsagent: "",
     pays: "",
     paysclub: "",
@@ -5937,6 +5041,7 @@ const handleCountryCoachEA = (selectedOption) => {
     setStep(step + 1);
   };
   
+
   
  
   const handleNextStep = () => {
@@ -6022,6 +5127,7 @@ const handleCountryCoachEA = (selectedOption) => {
       console.log("Please fill in all required fields.");
     }
   };
+
   const handlePrevStep = () => {
     setStep(step - 1);
   };
@@ -6091,21 +5197,145 @@ const handleCountryCoachEA = (selectedOption) => {
     return [];
   };
 
+  const step3ValidationSchema = yup.object().shape({
+    champsoptionelle: yup.string().when('profil', {
+      is: 'player',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+    
+    
+    
+    height: yup.string().when('profil', {
+      is: 'player',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+    weight: yup.string().when('profil', {
+      is: 'player',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+    PiedFort: yup.string().when('profil', {
+      is: 'player',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+    positionPlay: yup.string().when('profil', {
+      is: 'player',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+    Licence: yup.string().when('profil', {
+      is: 'player',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+    skillsInProfile: yup.string().when('profil', {
+      is: 'player',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+    termesConditions: yup.string().when('profil', {
+      is: 'player',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
 
+    // coach
+
+    ClubActuelCoach: yup.string().when('profil', {
+      is: 'coach',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+    totalTeam: yup.string().when('profil', {
+      is: 'coach',
+      then:() =>  yup.string().required("Ce champ est obligatoire !").min(0, 'La valeur doit être supérieure ou égale à 0'),
+    }),
+    footballTactic: yup.string().when('profil', {
+      is: 'coach',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+    countryCoachedIn: yup.string().when('profil', {
+      is: 'coach',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+
+    coachSkill: yup.string().when('profil', {
+      is: 'coach',
+      then:() =>  yup.string().required("Ce champ est obligatoire !"),
+    }),
+ ///agent club 
+
+ clubCovered: yup.string().when(['profil', 'typeresponsable'], {
+  is: (profil, typeresponsable) => profil === 'agent' && typeresponsable === 'club',
+  then:() =>  yup.string().required("Ce champ est obligatoire !"),
+}),
+
+
+paysclub: yup.string().when(['profil', 'typeresponsable'], {
+  is: (profil, typeresponsable) => profil === 'agent' && typeresponsable === 'club',
+  then:() =>  yup.string().required("Ce champ est obligatoire !"),
+}),
+
+
+skillsagent: yup.string().when(['profil', 'typeresponsable'], {
+  is: (profil, typeresponsable) => profil === 'agent' && typeresponsable === 'club',
+  then:() =>  yup.string().required(" Vous pouvez selectionner au minmum 1 compétence et  au maximum 10 compétences !"),
+}),
+
+///player
+
+totalPlayer: yup.string().when(['profil', 'typeresponsable'], {
+  is: (profil, typeresponsable) => profil === 'agent' && typeresponsable === 'players',
+  then:() =>  yup.string().required("Ce champ est obligatoire !"),
+}),
+
+
+totalCareerTransfers: yup.string().when(['profil', 'typeresponsable'], {
+  is: (profil, typeresponsable) => profil === 'agent' && typeresponsable === 'players',
+  then:() =>  yup.string().required("Ce champ est obligatoire !"),
+}),
+
+
+skillsagent: yup.string().when(['profil', 'typeresponsable'], {
+  is: (profil, typeresponsable) => profil === 'agent' && typeresponsable === 'players',
+  then:() =>  yup.string().required(" Vous pouvez selectionner au minmum 1 compétence et  au maximum 10 compétences !"),
+}),
+
+
+
+
+
+
+///scout 
+engagement: yup.string().when('profil', {
+  is: 'scout',
+  then:() =>  yup.string().required("Ce champ est obligatoire !"),
+}),
+nb_joueurdetecter: yup.string().when('profil', {
+  is: 'scout',
+  then:() =>  yup.string().required("Ce champ est obligatoire !"),
+}),
+paysscout: yup.string().when('profil', {
+  is: 'scout',
+  then:() =>  yup.string().required("Ce champ est obligatoire !"),
+}),
+skillsscout: yup.string().when('profil', {
+  is: 'scout',
+  then:() =>  yup.string().required("Ce champ est obligatoire !"),
+}),
+
+  });
 
 
   const [heightError, setHeightError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("Submit button clicked!");
-    // if (!formData.height) {
-    //   // If empty, display an error or prevent form submission
-    //   setHeightError("Ce champ est obligatoire.");
-    //   // You can also set an error state or display a message to the user
-    //   return;
-    // }
-    // setHeightError("");
+    try {
+      await step3ValidationSchema.validate(formData, { abortEarly: false });
+    } catch (validationError) {
+      // Handle validation errors and update the inputErrors state
+      const errors = {};
+      validationError.inner.forEach((error) => {
+        errors[error.path] = error.message;
+      });
+      setInputErrors(errors);
+      return;
+    }
 
     if (formData.termesConditions !== "Oui") {
       // If not, display an error or prevent form submission
@@ -6168,9 +5398,9 @@ const handleCountryCoachEA = (selectedOption) => {
 
   return (
     <Fragment>
-     <div className="flex flex-col items-center pb-12 bg-slate-200" style={{ margin: 0, padding: 0 }}>
+     <div className="flex flex-col items-center pb-12 bg-gray-200" style={{ margin: 0, padding: 0 }}>
      <div className="bg-white w-full " >
-            <div className="flex gap-5 justify-between ml-2 py-2 w-full text-base font-medium text-white whitespace-nowrap max-w-[1184px] max-md:flex-wrap max-md:max-w-full">
+            <div className="flex gap-4 justify-between ml-3 md:ml-10 py-2 w-full text-base font-medium text-white whitespace-nowrap max-w-[1200px] max-md:flex-wrap max-md:max-w-full">
            <Link to="/"> <svg width="190" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_983_61844)">
 <path d="M66.8102 14.0668V52.3118H40.5283L38.1046 47.5324L35.7149 42.7481L33.3204 37.9687L30.9307 33.1893L33.3204 28.4099L35.7149 23.6256L38.1046 18.8656L40.5283 14.0668H66.8102ZM42.9034 18.8656L40.5283 23.6256L38.1046 28.4099L35.7149 33.1893L38.1046 37.9687L40.4943 42.7481L42.884 47.5324H62.0066V18.8656H42.9034Z" fill="#2E71EB"/>
@@ -6196,7 +5426,7 @@ const handleCountryCoachEA = (selectedOption) => {
 </defs>
 </svg></Link>
 
-             <Link to="/login"> <div className="mr-4 py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 rounded-[30px] max-md:px-2">
+             <Link to="/login"> <div className="mr-5 px-2 mt-2 py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 rounded-[30px] ">
                 Se connecter
               </div></Link>
             </div>
@@ -6222,7 +5452,7 @@ const handleCountryCoachEA = (selectedOption) => {
   <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
     <img
       loading="lazy"
-      srcSet={imagePreview ? imagePreview : defaultImageSrcSet}
+      srcSet={imagePreview ? imagePreview : D}
       className="self-center max-w-full rounded-full aspect-square w-[178px]"
     />
     
@@ -6320,7 +5550,7 @@ const handleCountryCoachEA = (selectedOption) => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/b9ff538eb3525a962642dcaaa2fd0b0e9242f70955c91034cc60b37fd70611a6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start aspect-[0.75] w-[15px]"
                           />
-                          <div className="grow">Nom d’utilisateur</div>
+                          <div className=" grow">Nom d’utilisateur</div>
                         </div>
                          <input
             type="text"
@@ -6328,7 +5558,7 @@ const handleCountryCoachEA = (selectedOption) => {
             id="login"
             name="login"
             className={`form-control flex flex-col justify-center items-start py-3.5 pr-16 pl-4 mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
-              inputErrors["login"] ? "border-red-500" : ""  // Apply a red border if there's an error
+              inputErrors["login"] ? "is-invalid" : ""  // Apply a red border if there's an error
             }`}
             placeholder="Votre nom utlisateur"
             onChange={handleInputChange}
@@ -6439,6 +5669,7 @@ const handleCountryCoachEA = (selectedOption) => {
                 {/* whtsup */}
                 <div className="mt-8 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                    
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                     <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
@@ -6450,7 +5681,7 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className="grow">N° Whatsapp</div>
                         </div>{" "}
                      
-                        <div className="flex gap-2 justify-between mt-2 text-base">
+                        <div className="flex gap-4 justify-between mt-2 text-base">
   <Select
     styles={{
       control: (provided, state) => ({
@@ -6459,7 +5690,7 @@ const handleCountryCoachEA = (selectedOption) => {
         display: "flex",
         justifyContent: "center",
         borderRadius: "30px",
-        width: "120px",
+        width: "125px",
         fontSize: "1rem",
         backgroundColor: "#f5f5f5",
         borderWidth: "none",
@@ -6471,26 +5702,22 @@ const handleCountryCoachEA = (selectedOption) => {
     options={optionsphoneWS}
     value={selectedCountryphoneWS}
     onChange={handleChangephoneWS}
-  />
-    <div style={{ position: "relative", marginTop: "5px" }}>
-    
-<input
-  type="number"
-  max={selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0}
-  onChange={handleChangePhoneNumberWS}
-  placeholder={`Enter number`}
-  value={phoneNumberWS.slice(0, selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0)}
-  className={`grow justify-center w-full gap-2 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
-    inputErrors["numWSup"] ? "border-red-500" : ""
-  }`}
-/>
 
-      {inputErrors["numWSup"] && (
-        <div className="text-red-500 text-sm mt-1">
-          {inputErrors["numWSup"]}
-        </div>
-      )}
-    </div>
+  />
+  <div style={{ position: "relative", marginTop: "5px" }}>
+  <input
+    type="number"
+    max={selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0}
+    onChange={handleChangePhoneNumberWS}
+    placeholder={`Enter number`}
+    value={phoneNumberWS.slice(0, selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0)}
+    className={`form-control grow justify-center w-full gap-2 items-start py-2.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
+      inputErrors["numWSup"] ? "is-invalid" : ""
+    }`}
+    disabled={!selectedCountryphoneWS}
+  />
+</div>
+
  
 
 
@@ -6501,7 +5728,11 @@ const handleCountryCoachEA = (selectedOption) => {
   </div>
 </div>
 
-                      </div>
+                      </div>  {inputErrors["numWSup"] && (
+        <div className="text-red-500 text-sm mt-1">
+          {inputErrors["numWSup"]}
+        </div>
+      )}
                     </div>{" "}
                     {/* num tel  */}
                     <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
@@ -6515,8 +5746,8 @@ const handleCountryCoachEA = (selectedOption) => {
                           <div className="flex-auto">N° Telephone </div>{" "}
                           <div className="grow">(Facultative)</div>
                         </div>{" "}
-                        <div className="flex gap-2 justify-between mt-2 text-base whitespace-nowrap">
-  <div className="flex gap-1 justify-between mt-3 text-base">
+                      
+                        <div className="flex gap-4  mt-2 text-base ">
     <Select
       styles={{
         control: (provided, state) => ({
@@ -6525,37 +5756,39 @@ const handleCountryCoachEA = (selectedOption) => {
           display: "flex",
           justifyContent: "center",
           borderRadius: "30px",
-          width: "120px",
+          width: "125px",
           fontSize: "1rem",
           backgroundColor: "#f5f5f5",
           borderWidth: "none",
         }),
       }}
+      className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
+
       options={optionsphone}
       value={selectedCountryphone}
       onChange={handleChangephone}
       placeholder="Préfixe"
     />
-  </div>{" "}
  
-  {selectedCountryphone && (
     <div style={{ position: "relative", marginTop: "5px" }}>
       <input
         type="number"
-        max={selectedCountryphone.phoneLength}
+        max={selectedCountryphone ? selectedCountryphone.phoneLength : 0}
+
         onChange={handleChangePhoneNumber}
-        placeholder={`Enter phone number for ${selectedCountryphone.label}`}
-        value={phoneNumber.slice(0, selectedCountryphone.phoneLength)}
-        className={`grow justify-center gap-3 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-5 ${
-          inputErrors["tel"] ? "border-red-500" : ""
+        placeholder={`Entrer Numero`}
+        value={phoneNumber.slice(0, phoneNumber ? selectedCountryphone.phoneLength : 0)}
+
+        className={` form-control grow justify-center w-full gap-2 items-start py-2.5 pl-1 ml-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
+          inputErrors["tel"] ? "is-invalid" : ""
         }`}
-      /> {inputErrors["tel"] && (
-        <div className="text-red-500 text-sm mt-1">{inputErrors["tel"]}</div>
-      )}
+      /> 
     </div>
-  )}
 </div>
                       </div>
+                      {inputErrors["tel"] && (
+        <div className="text-red-500 text-sm mt-1">{inputErrors["tel"]}</div>
+      )}
                     </div>{" "}
                     <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 max-md:mt-6">
@@ -6569,13 +5802,22 @@ const handleCountryCoachEA = (selectedOption) => {
                         </div>{" "}
                         <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                           <div className="flex gap-5 justify-between  py-3.5 rounded-md">
-                          <input
-  type="date"
-  value={formData.date_naissance || ''}
-  onChange={(e) => handleYearChange(new Date(e.target.value)?.getFullYear())}
-  max="2012-01-01"
-  className="bg-zinc-100 ml-4"
-/>
+                          <DatePicker
+                              selected={
+                                formData.date_naissance
+                                  ? new Date(formData.date_naissance)
+                                  : null
+                              }
+                              onChange={(date) =>
+                                handleYearChange(date?.getFullYear())
+                              }
+                              dateFormat="yyyy"
+                              showYearPicker
+                              yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
+                              maxDate={new Date(2012, 0, 1)}
+                              className=" bg-zinc-100 ml-4"
+                            />
+
 
                            
                           </div>
@@ -6634,11 +5876,7 @@ const handleCountryCoachEA = (selectedOption) => {
                       />{" "}
                       <div className="grow">Nationalité</div>
                     </div>{" "}
-                    <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                      <div className="flex gap-5 justify-between px-4  w-full rounded-md">
-                        <div className="flex gap-5 justify-between">
                           
-                          <div className=" flex flex-auto sm:flex-1  ">
                             <Select
                               options={options}
                               placeholder="Votre Nationalité"
@@ -6650,10 +5888,19 @@ const handleCountryCoachEA = (selectedOption) => {
                                   justifyContent: "center",
                                   borderRadius: "30px",
 
-                                  width: "100%",
+                                  // width: "230px",
                                   fontSize: "1rem", // Set the desired font size
                                   backgroundColor: "#f5f5f5", // Set the background color
                                   borderWidth: "none",
+
+
+
+                                  paddingTop: "8px",
+                                  paddingBottom: "8px",
+                                  marginTop: "8px",
+                                  width: "100%",
+                                 
+                                  border: "0.5px solid #E5E5E5",
                                 }),
                               }}
                               onChange={handleCountryChange}
@@ -6662,11 +5909,9 @@ const handleCountryCoachEA = (selectedOption) => {
                                   option.value === formData.nationality
                               )}
                             />
-                          </div>
                           
-                        </div>
-                      </div>
-                    </div>{inputErrors["nationality"] && (
+                    
+                    {inputErrors["nationality"] && (
     <div className="text-red-500 text-sm mt-1">
       {inputErrors["nationality"]}
     </div>
@@ -6681,10 +5926,7 @@ const handleCountryCoachEA = (selectedOption) => {
                       />{" "}
                       <div className="grow">Pays de résidence</div>
                     </div>{" "}
-                    <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                      <div className="flex gap-5 justify-between px-4  w-full rounded-md">
-                        <div className="flex gap-4 justify-between">
-                          <div className="flex-auto">
+                   
                             {" "}
                             <Select
                               options={optionsPays}
@@ -6698,16 +5940,27 @@ const handleCountryCoachEA = (selectedOption) => {
                                   justifyContent: "center",
                                   borderRadius: "30px",
 
-                                  width: "140%",
+                                  // width: "230px",
                                   fontSize: "1rem", // Set the desired font size
                                   backgroundColor: "#f5f5f5", // Set the background color
                                   borderWidth: "none",
-                                }),
-                                menu: (provided, state) => ({
+
+
+
+                                  paddingTop: "8px",
+                                  paddingBottom: "8px",
+                                  marginTop: "8px",
+                                  width: "100%",
+                                 
+                                  border: "0.5px solid #E5E5E5",
+                                }), 
+                                 menu: (provided, state) => ({
                                   ...provided,
-                                  width: "150%", // Adjust the width as needed
+                                  width: "100%", // Adjust the width as needed
                                 }),
                               }}
+                              
+                             
                               onChange={handleCountryChangePaysResidence}
                               value={optionsPays.find(
                                 (option) =>
@@ -6715,10 +5968,7 @@ const handleCountryCoachEA = (selectedOption) => {
                               )} // Set the value from formData
                             />
                            
-                          </div>
-                        </div>{" "}
-                      </div>
-                    </div>
+                         
                     {inputErrors["countryresidence"] && (
           <div className="text-red-500 text-sm mt-1">
             {inputErrors["countryresidence"]}
@@ -6894,7 +6144,7 @@ const handleCountryCoachEA = (selectedOption) => {
                  
                   <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
                     <div className="text-center max-w-xl mx-auto mt-8">
-                      <p className="text-3xl text-zinc-700 dark:text-zinc-300">
+                      <p className="text-3xl text-zinc-900 dark:text-zinc-300">
                         Informations du Profil
                       </p>
                     </div>
@@ -6918,24 +6168,21 @@ const handleCountryCoachEA = (selectedOption) => {
                             />
                             <div className="grow">Club Actuel</div>
                           </div>
-                          <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
                           <input
                               type="text" 
                               id="champsoptionelle"
                               name="champsoptionelle"
                               value={formData.champsoptionelle}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
+                              className={`form-control mt-2 flex gap-5 justify-between border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] px-4 py-3.5 rounded-xl ${
                                 inputErrors["champsoptionelle"] ? "is-invalid" : ""
                               }`}
                               placeholder="Club Actuel"
                               onChange={handleInputChange}
                             />
-                            {inputErrors["champsoptionelle"] && (
-                              <div className="invalid-feedback">
-                                {inputErrors["champsoptionelle"]}
-                              </div>
-                            )}
-                          </div>
+                               
+                          {inputErrors['champsoptionelle'] && (
+                          <div className="error-message text-red-600">{inputErrors['champsoptionelle']}</div>
+          )}
                         </div>
                         <div className="flex flex-col flex-1">
                           <div className="flex gap-4 justify-between px-4 text-lg">
@@ -6946,26 +6193,24 @@ const handleCountryCoachEA = (selectedOption) => {
                             />
                             <div className="grow">Taille</div>
                           </div>
-                          <div className="flex flex-col justify-center mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                          <div className=" flex flex-col justify-center mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <input
                               type="number" // Use type "number" for height input
                               id="height"
                               name="height"
                               value={formData.height}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
+                              className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${
                                 inputErrors["height"] ? "is-invalid" : ""
                               }`}
                               placeholder="Taille (cm)"
                               onChange={handleInputChange}
                             />
-                            
+                          
                           </div>
-                          {heightError && (
-      <div className="text-red-500 mt-2">
-        {heightError}
-      </div>
-    )}
-                        </div>
+                          {inputErrors['height'] && (
+            <div className="error-message text-red-600">{inputErrors['height']}</div>
+          )}
+                        </div> 
                         <div className="flex flex-col flex-1">
                           <div className="flex gap-4 justify-between px-4 text-lg">
                             <img
@@ -6980,19 +6225,19 @@ const handleCountryCoachEA = (selectedOption) => {
                               id="weight"
                               name="weight"
                               value={formData.weight}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
+                              className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${
                                 inputErrors["weight"] ? "is-invalid" : ""
                               }`}
                               placeholder="Poids (kg)"
                               onChange={handleInputChange}
                             />
-                            {inputErrors["weight"] && (
-                              <div className="invalid-feedback">
+                            
+                        </div>{inputErrors["weight"] && (
+                              <div className="error-message text-red-600">
                                 {inputErrors["weight"]}
                               </div>
                             )}
                           </div>
-                        </div>
                       </div>
                       <div className="flex gap-5 justify-between mt-8 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
                         <div className="flex flex-col flex-1">
@@ -7021,12 +6266,13 @@ const handleCountryCoachEA = (selectedOption) => {
                               <option value="PiedDroit">Pied Droit</option>
                               <option value="DeuxPieds">Les deux pieds</option>
                             </select>
-                            {inputErrors["PiedFort"] && (
-                              <div className="invalid-feedback">
+                            
+                          </div>
+                          {inputErrors["PiedFort"] && (
+                              <div className="error-message text-red-600">
                                 {inputErrors["PiedFort"]}
                               </div>
                             )}
-                          </div>
                         </div>
                         <div className="flex flex-col flex-1 whitespace-nowrap">
                           <div className="flex gap-4 justify-between px-4 text-lg">
@@ -7037,7 +6283,7 @@ const handleCountryCoachEA = (selectedOption) => {
                             />
                             <div className="grow">Position Principale</div>
                           </div>
-                          <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                          <div className="flex flex-col justify-center  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <select
                               id="positionPlay"
                               name="positionPlay"
@@ -7082,12 +6328,13 @@ const handleCountryCoachEA = (selectedOption) => {
                                 Attaquant polyvalent
                               </option>
                             </select>
-                            {inputErrors["positionPlay"] && (
-                              <div className="invalid-feedback">
+                           
+                          </div>
+                          {inputErrors["positionPlay"] && (
+                              <div className="error-message text-red-600">
                                 {inputErrors["positionPlay"]}
                               </div>
                             )}
-                          </div>
                         </div>
                         <div className="flex flex-col flex-1">
                           <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
@@ -7098,7 +6345,7 @@ const handleCountryCoachEA = (selectedOption) => {
                             />
                             <div className="grow">Position Secondaire</div>
                           </div>
-                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                          <div className="flex flex-col justify-center px-px  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <select
                               id="positionSecond"
                               name="positionSecond"
@@ -7144,11 +6391,7 @@ const handleCountryCoachEA = (selectedOption) => {
                                 Avant-centre ( ST)
                               </option>
                             </select>
-                            {inputErrors["positionSecond"] && (
-                              <div className="invalid-feedback">
-                                {inputErrors["positionSecond"]}
-                              </div>
-                            )}
+                           
                           </div>
                         </div>
                       </div>
@@ -7164,22 +6407,24 @@ const handleCountryCoachEA = (selectedOption) => {
                             />
                             <div className="grow">Avez-vous une licence ?</div>
                           </div>
-                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                            <div className="flex gap-5 justify-between px-4 py-2 rounded-md">
-                              <div className="flex gap-5 justify-between px-4 py-2 rounded-md">
-                              <select onChange={(e) => handleSelection(e.target.value)}>
-  <option value="Non">Non</option>
+                        
+                                 
+                              
+                              <select className="flex flex-col justify-center px-px py-3.5  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]" onChange={(e) => handleSelection(e.target.value)}>
+  <option className=" w-full" value="Non">Non</option>
   <option value="Oui">Oui</option>
 </select>
-                                <img
+                                {/* <img
                                   loading="lazy"
-                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/7944138cb42d36eaa26fe87e36a49c222df0ff56868a3fd098cd500f6b7965c7?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="w-5 aspect-square"
                                   onClick={() => handleSelection("Oui")}
-                                />
+                                /> */}
+                            
+                          {inputErrors["Licence"] && (
+                              <div className="error-message text-red-600">
+                                {inputErrors["Licence"]}
                               </div>
-                            </div>
-                          </div>
+                            )}
                         </div>
 
                         <div className="flex flex-col self-start">
@@ -7191,28 +6436,34 @@ const handleCountryCoachEA = (selectedOption) => {
                             />
                             <div className="grow">Licence</div>
                           </div>
-                          <div className="flex justify-center items-center px-2 py-2 mt-2 w-full text-base font-medium bg-zinc-400 rounded-[30px] text-zinc-600 max-md:px-5">
-                            {isUploadEnabled && (
-                              <div className="flex gap-2">
-                                <label>
-                                  {" "}
-                                  <input
-                                    type="file"
-                                    onChange={handleFileChangeLicense}
-                                    className="grow my-auto w-20 inset-0 "
-                                  />
-                                </label>
-                              </div>
-                            )}
-                          </div>
+                       {isUploadEnabled && (     <div>
+                                    <div className="flex gap-4 justify-center items-center w-full">
+                                        <div className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
+                                            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_1342_45742)">
+                                                    <path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#2E71EB" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_1342_45742">
+                                                        <rect width="20" height="20" fill="white" transform="translate(0.5)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                            <label>
+                                                <input
+                                                    type="file"
+                                                    name="file"
+                                                    accept="*"
+                                                    onChange={handleFileChangeLicense}
+                                                    className={`grow my-auto w-2 inset-0 opacity-0`}
+                                                />
+                                                {FileName ?  FileName : 'Importer une Licence'}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>)}
                           <div className="w-full max-w-sm mx-auto">
-                            {imagePreviewlic && (
-                              <img
-                                src={imagePreviewlic}
-                                alt="Preview"
-                                className="object-cover w-full h-64 rounded-t-lg"
-                              />
-                            )}
+                           
                           </div>
                         </div>
                       </div>
@@ -7259,21 +6510,30 @@ const handleCountryCoachEA = (selectedOption) => {
                               }
                               className="form-check-input d-none"
                             />
+                            
+
+
                             <label
-                              htmlFor={skillsInProfile}
-                              className={`form-check-label btn ${
-                                formData.skillsInProfile
-                                  .split(",")
-                                  .includes(skillsInProfile)
-                                  ? "bg-blue-600 text-white" // White text when selected
-                                  : "btn-light" // Change this to the color you want before selecting
-                              }`}
-                            >
-                              {selectedSkills.includes(skillsInProfile)
+  htmlFor={skillsInProfile}
+  className={`form-check-label btn ${ formData.skillsInProfile.split(",").includes(skillsInProfile)? "bg-blue-600 text-white" : "btn-light" } 
+                                   ${!formData.skillsInProfile.split(",").includes(skillsInProfile) &&  skillsError ? "border-danger" : ""  }`}
+                        >
+
+
+{selectedSkills.includes(skillsInProfile)
                                 ? "-"
                                 : "+"}{" "}
                               {skillsInProfile}
-                            </label>
+</label>
+
+
+
+
+
+
+
+
+
                           </div>
                         ))}
                       </div>
@@ -7282,17 +6542,21 @@ const handleCountryCoachEA = (selectedOption) => {
                          Vous pouvez selectionner au maximum 10 compétences !
                         </div>
                       )}
-
+ {inputErrors["skillsInProfile"] && (
+                              <div className="error-message text-red-600">
+                                {inputErrors["skillsInProfile"]}
+                              </div>
+                            )}
 
                      <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
   <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
   <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+  <div className="grow gap-3 mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
     J'accepte les{" "}
     <span className="text-blue-600 underline">Termes et Conditions</span>
     <span className="text-zinc-900">.</span>
   </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
+  <div className="flex flex-col gap-2 sm:flex-row sm:order-2">
     <label className="mr-2">
       <input
         type="radio"
@@ -7322,9 +6586,15 @@ const handleCountryCoachEA = (selectedOption) => {
       <span className="ml-1">Non</span>
     </label>
   </div>
+  
 </div>
 
   </div>
+  {inputErrors["termesConditions"] && (
+                              <div className="error-message text-base text-red-600">
+                                {inputErrors["termesConditions"]}
+                              </div>
+                            )}
 
   <div className="mt-4">
     <label className="block mb-2">
@@ -7362,9 +6632,7 @@ const handleCountryCoachEA = (selectedOption) => {
     </div>
   </div>
 
-  {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
-  )}
+  
 </div>
 
                       <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
@@ -7392,19 +6660,10 @@ const handleCountryCoachEA = (selectedOption) => {
 
 {formData.profil === "coach" && (
   <div className="flex flex-col items-center pb-12 bg-gray-200">
-                  {/* <div className="flex gap-5 justify-between py-6 w-full text-base font-medium text-white whitespace-nowrap max-w-[1184px] max-md:flex-wrap max-md:max-w-full">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/e1298817a52e7bbd5d1fb13fc49d12c739109502f8753927ad67c6959cb3ee2b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="w-36 max-w-full ml-2 aspect-[2.7]"
-                    />
-                    <div className="justify-center mr-3 px-8 py-2 my-auto bg-zinc-900 rounded-[30px] max-md:px-5">
-                      Log In
-                    </div>
-                  </div> */}
+                 
                   <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
                     <div className="text-center max-w-xl mx-auto mt-8">
-                      <p className="text-3xl text-zinc-700 dark:text-zinc-300">
+                      <p className="text-3xl text-zinc-900 dark:text-zinc-300">
                         Informations du Profil
                       </p>
                     </div>
@@ -7428,45 +6687,20 @@ const handleCountryCoachEA = (selectedOption) => {
            />
            <div className="grow">Club Actuel</div>
          </div>
-         <div className="justify-center items-start py-1.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-        
-         
-        
-         <Select
-                              options={optionsPays}
-                              placeholder="Select a country"
-                              // onChange={(selectedOption) => console.log(selectedOption)}
-                              styles={{
-                                control: (provided, state) => ({
-                                  ...provided,
-                                  borderRadius: "0.375rem", // You can adjust the radius as needed
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  borderRadius: "30px",
-
-                                  width: "110%",
-                                  fontSize: "1rem", // Set the desired font size
-                                  backgroundColor: "#f5f5f5", // Set the background color
-                                  borderWidth: "none",
-                                }),
-                                menu: (provided, state) => ({
-                                  ...provided,
-                                  width: "150%", // Adjust the width as needed
-                                }),
-                              }}
-                              onChange={handleCountryCoachEA}
-                              value={optionsPays.find(
-                                (option) =>
-                                  option.value === formData.ClubActuelCoach
-                              )} // Set the value from formData
-                            />
-                            {inputErrors["ClubActuelCoach"] && (
-                              <div className="invalid-feedback">
-                                {inputErrors["ClubActuelCoach"]}
-                              </div>
-                            )}
-        
-         </div>
+  <input
+    type="text"
+    id="ClubActuelCoach"
+    name="ClubActuelCoach"
+    value={formData.ClubActuelCoach}
+    onChange={handleInputChange}
+    className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${
+      inputErrors["ClubActuelCoach"] ? "is-invalid" : ""
+    }`}    placeholder="Equipe Actuel"
+  />
+  
+{inputErrors['ClubActuelCoach'] && (
+            <div className="error-message text-red-600">{inputErrors['ClubActuelCoach']}</div>
+          )}
        </div>
        <div className="flex flex-col flex-1">
          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
@@ -7477,25 +6711,25 @@ const handleCountryCoachEA = (selectedOption) => {
            />
            <div className="grow">Nombre de clubs entraînées</div>
          </div>
-         <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
            <input
                                 type="number"
                                 id="totalTeam"
                                 name="totalTeam"
                                 value={formData.totalTeam}
-                                className={`flex gap-5 justify-between px-4 py-3 rounded-xl bg-zinc-100 ${
+                                className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${
                                   inputErrors["totalTeam"] ? "is-invalid" : ""
                                 }`}
                                 placeholder="Total Equipes"
                                 onChange={handleInputChange}
+                                min="0"
+                                
+                                
                               />
-                              {inputErrors["totalTeam"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["totalTeam"]}
-                                </div>
-                              )}
+                              
            
-         </div>
+         {inputErrors['totalTeam'] && (
+            <div className="error-message text-red-600">{inputErrors['totalTeam']}</div>
+          )}
        </div>
        <div className="flex flex-col flex-1 whitespace-nowrap text-zinc-900">
          <div className="flex gap-4 justify-between px-4 text-lg">
@@ -7506,11 +6740,10 @@ const handleCountryCoachEA = (selectedOption) => {
            />
            <div className="grow">Tactiques préférés</div>
          </div>
-         <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
            <select
                                 name="footballTactic"
                                 value={formData.footballTactic}
-                                className={`flex gap-5 justify-between px-4 py-2 rounded-xl bg-zinc-100 ${
+                                className={`form-control flex gap-5 justify-between  px-4 pb-2 pt-0 border-[0.5px]  mb-2 rounded-xl bg-zinc-100 ${
                                   inputErrors["footballTactic"]
                                     ? "is-invalid"
                                     : ""
@@ -7527,12 +6760,10 @@ const handleCountryCoachEA = (selectedOption) => {
                                 <option value="5-4-1">5-4-1</option>
                                 <option value="catenaccio">3-4-3</option>
                               </select>
-                              {inputErrors["footballTactic"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["footballTactic"]}
-                                </div>
-                              )}
-         </div>
+                             
+         {inputErrors['footballTactic'] && (
+            <div className="error-message text-red-600">{inputErrors['footballTactic']}</div>
+          )}
        </div>
      </div>
      <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
@@ -7543,39 +6774,15 @@ const handleCountryCoachEA = (selectedOption) => {
        />
        <div className="grow max-md:max-w-full">Pays d’entraînement</div>
      </div>
-     <div className="flex flex-col justify-center px-px mt-2 max-w-full text-base text-white whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[379px]">
-       <div className="flex gap-4 justify-between px-4 py-1.5 rounded-md max-md:flex-wrap max-md:max-w-full">
+     <div className="flex flex-col justify-center px-px mt-2 max-w-full text-base text-white whitespace-nowrap rounded-[30px] w-[379px]">
+       {/* <div className="flex gap-4 justify-between px-4 py-1.5 rounded-md max-md:flex-wrap max-md:max-w-full"> */}
         
          
-       {/* <Select
-        options={optionsPays}
-        placeholder="Select one or more countries"
-        isMulti // Enable multiple selection
-        styles={{
-          control: (provided, state) => ({
-            ...provided,
-            borderRadius: "0.375rem",
-            display: "flex",
-            justifyContent: "center",
-            borderRadius: "30px",
-            width: "140%",
-            // text: "black"
-            // fontSize: "1rem",
-            // backgroundColor: "#f5f5f5",
-            // borderWidth: "none",
-          }),
-          menu: (provided, state) => ({
-            ...provided,
-            width: "150%",
-          }),
-        }}
-        onChange={handleCountryPaysEntrainement}
-        value={selectedCountries} // Set the value from component state
-      /> */}
+       
      
      <Select
         options={optionsPays}
-        placeholder="Select one or more countries"
+        placeholder="Choisi pays ou plus"
         isMulti // Enable multiple selection
         components={{ MultiValueContainer }}
         styles={{
@@ -7585,13 +6792,16 @@ const handleCountryCoachEA = (selectedOption) => {
             display: "flex",
             justifyContent: "center",
             borderRadius: "30px",
-            width: "110%",
+            width: "93%",
             color: "black", // Set text color to black
+            paddingTop: "8px",
+            paddingBottom: "8px",
 
-          }),
+            backgroundColor: "#F4F4F5" 
+                   }),
           menu: (provided, state) => ({
             ...provided,
-            width: "150%",
+            width: "100%",
             color: "black",
           }),
         }}
@@ -7605,8 +6815,10 @@ const handleCountryCoachEA = (selectedOption) => {
 
 
 
-       </div>
-     </div>
+     </div>   {inputErrors['countryCoachedIn'] && (
+            <div className="error-message text-red-600">{inputErrors['countryCoachedIn']}</div>
+          )}
+     
      <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
        <img
          loading="lazy"
@@ -7652,23 +6864,15 @@ const handleCountryCoachEA = (selectedOption) => {
                               }
                               className="form-check-input d-none rounded-[30px]"
                             />
+
+
                         <label
   htmlFor={coachSkill}
-  className={`form-check-label btn ${
-    formData.skills
-      .split(",")
-      .includes(coachSkill) 
-      ? "bg-blue-600 text-white"
-      : "btn-light"
-  } ${
-    !formData.skills
-      .split(",")
-      .includes(coachSkill) &&
-    coachSkillsError
-      ? "border-danger"
-      : ""
-  }`}
->
+  className={`form-check-label btn ${ formData.skills.split(",").includes(coachSkill)? "bg-blue-600 text-white" : "btn-light" } 
+                                   ${!formData.skills.split(",").includes(coachSkill) &&  skillsError ? "border-danger" : ""  }`}
+                        >
+
+
   {!formData.skills
     .split(",")
     .includes(coachSkill)
@@ -7680,22 +6884,31 @@ const handleCountryCoachEA = (selectedOption) => {
 
                           </div>
                         ))}
+
+{skillsError && (
+  <div className="text-danger mt-2">
+    Vous pouvez sélectionner au maximum 10 compétences !
+  </div>
+)}
+
                       </div>
-                      {skillsError && (
-                        <div className="text-danger mt-2">
-                          Vous pouvez selectionner au maximum 10 compétences !
-                        </div>
-                      )}
+                      
+{/*                      
+                       {inputErrors['coachSkill'] && (
+            <div className="error-message text-red-600">{inputErrors['coachSkill']}</div>
+          )} 
+          
+          */}
      
      <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
   <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
   <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+  <div className="grow mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
     J'accepte les{" "}
     <span className="text-blue-600 underline">Termes et Conditions</span>
     <span className="text-zinc-900">.</span>
   </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
+  <div className=" gap-2 flex flex-col sm:flex-row sm:order-2">
     <label className="mr-2">
       <input
         type="radio"
@@ -7802,7 +7015,7 @@ const handleCountryCoachEA = (selectedOption) => {
 {formData.profil === "agent" && (
 
 
-<div className="flex flex-col items-center pb-12 h-[1400px] bg-gray-200">
+<div className="flex flex-col items-center pb-12 h-full bg-gray-200">
 
 <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-700 dark:text-zinc-300">
@@ -7852,20 +7065,25 @@ const handleCountryCoachEA = (selectedOption) => {
                               <option value="">
                                 Votre Type De Responsabilité
                               </option>
-                              <option value="club">Club</option>
-                              <option value="players">Players</option>
+                              <option value="club">Manager d'équipe</option>
+                              <option value="players">Manager de Joueur</option>
                             </select>
                             {inputErrors["typeresponsable"] && (
                               <div className="invalid-feedback">
                                 {inputErrors["typeresponsable"]}
                               </div>
                             )}
+                            
           </div>
+          
         </div>
       </div>
 
 
 </div>
+
+
+
 {formData.typeresponsable && (
                               <div>
                                 {formData.typeresponsable === "club" && (
@@ -7881,20 +7099,21 @@ const handleCountryCoachEA = (selectedOption) => {
       />
       <div className="grow">Club Actuel</div>
     </div>
-    <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
       <input
         type="text"
         id="clubCovered"
         name="clubCovered"
-        className={`bg-zinc-100${inputErrors["clubCovered"] ? " is-invalid" : ""}`}
+        className={`form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5${inputErrors["clubCovered"] ? " is-invalid" : ""}`}
         onChange={handleInputChange}
         value={formData.clubCovered}
-        placeholder="Enter club covered"
+        placeholder="Equipe Actuel"
       />
-      {inputErrors["clubCovered"] && (
-        <div className="invalid-feedback">{inputErrors["clubCovered"]}</div>
-      )}
-    </div>
+      
+
+
+{inputErrors['clubCovered'] && (
+            <div className="error-message text-red-600">{inputErrors['clubCovered']}</div>
+          )}
   </div>
 
   {/* Second Block */}
@@ -7907,34 +7126,44 @@ const handleCountryCoachEA = (selectedOption) => {
       />
       <div className="grow">Pays du Club</div>
     </div>
-    <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
       <Select
         options={optionsPays}
         placeholder="Pays du Club"
         styles={{
           control: (provided, state) => ({
             ...provided,
-            borderRadius: "0.375rem",
+            borderRadius: "0.375rem", // You can adjust the radius as needed
             display: "flex",
             justifyContent: "center",
             borderRadius: "30px",
-            width: "180px",
-            fontSize: "1rem",
-            backgroundColor: "#f5f5f5",
+
+            // width: "230px",
+            fontSize: "1rem", // Set the desired font size
+            backgroundColor: "#f5f5f5", // Set the background color
             borderWidth: "none",
-          }),
-          menu: (provided, state) => ({
+
+
+
+            paddingTop: "8px",
+            paddingBottom: "8px",
+            marginTop: "8px",
+            width: "100%",
+           
+            border: "0.5px solid #E5E5E5",
+          }), menu: (provided, state) => ({
             ...provided,
-            width: "150%",
-          }),
+            width: "100%",
+          })
         }}
+         
+      
         onChange={handleCountryChangePaysAgentclub}
         value={optionsPays.find((option) => option.value === formData.paysclub)}
       />
-      {inputErrors["paysclub"] && (
-        <div className="invalid-feedback">{inputErrors["paysclub"]}</div>
-      )}
-    </div>
+     
+    {inputErrors['paysclub'] && (
+            <div className="error-message text-red-600">{inputErrors['paysclub']}</div>
+          )}
   </div>
 </div>
 
@@ -8012,16 +7241,19 @@ const handleCountryCoachEA = (selectedOption) => {
                           </div>
                         ))}
                       </div>
-                      {skillsError && (
+                      {agentSkillsError && (
                         <div className="text-danger mt-2">
                          Vous pouvez selectionner au maximum 10 compétences !
                         </div>
                       )}
+                       {inputErrors['skillsagent'] && (
+            <div className="error-message text-red-600">{inputErrors['skillsagent']}</div>
+          )}
 
 <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
   <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
   <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+  <div className="grow mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
     J'accepte les{" "}
     <span className="text-blue-600 underline">Termes et Conditions</span>
     <span className="text-zinc-900">.</span>
@@ -8097,13 +7329,11 @@ const handleCountryCoachEA = (selectedOption) => {
   </div>
 
   {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
+    <div className="error-message text-red-600">{errorMessage}</div>
   )}
 </div>
      
-     {errorMessage && (
-    <div className="error-message align-center">{errorMessage}</div>
-  )}
+     
              {(emailError || loginError) && (
       <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
         {emailError && <p>{emailError}</p>}
@@ -8158,13 +7388,12 @@ const handleCountryCoachEA = (selectedOption) => {
                                       value={formData.totalPlayer}
                                       placeholder="Entrer la totale des joueurs"
                                     />
-                                    {inputErrors.totalPlayer && (
-                                      <div className="invalid-feedback">
-                                        {inputErrors.totalPlayer}
-                                      </div>
-                                    )}
+                                  
           </div>
-        </div>
+          
+        </div>{inputErrors['totalPlayer'] && (
+            <div className="error-message text-red-600">{inputErrors['totalPlayer']}</div>
+          )}
       </div>
 
       <div className="flex flex-col flex-1">
@@ -8182,7 +7411,7 @@ const handleCountryCoachEA = (selectedOption) => {
                                       type="number"
                                       id="totalCareerTransfers"
                                       name="totalCareerTransfers"
-                                      className={`bg-zinc-100 w-full ${
+                                      className={`bg-zinc-100 mx-4 pl-3 w-[80%] ${
                                         inputErrors["totalCareerTransfers"]
                                           ? "is-invalid"
                                           : ""
@@ -8191,14 +7420,13 @@ const handleCountryCoachEA = (selectedOption) => {
                                       value={formData.totalCareerTransfers}
                                       placeholder="Nombre des joueurs transferés"
                                     />
-                                    {inputErrors.totalCareerTransfers && (
-                                      <div className="invalid-feedback">
-                                        {inputErrors.totalCareerTransfers}
-                                      </div>
-                                    )}
+                                   
 
           </div>
-        </div>
+          
+        </div>{inputErrors['totalCareerTransfers'] && (
+            <div className="error-message text-red-600">{inputErrors['totalCareerTransfers']}</div>
+          )}
       </div>
 
       </div>
@@ -8281,7 +7509,7 @@ const handleCountryCoachEA = (selectedOption) => {
                           </div>
                         ))}
                       </div>
-                      {skillsError && (
+                      {agentSkillsError && (
                         <div className="text-danger mt-2">
                           Vous pouvez selectionner au maximum 10 compétences !
                         </div>
@@ -8382,14 +7610,11 @@ const handleCountryCoachEA = (selectedOption) => {
   </div>
 
   {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
+    <div className="error-message text-red-600">{errorMessage}</div>
   )}
 </div>
      
-     {errorMessage && (
-    <div className="error-message align-center">{errorMessage}</div>
-  )}
-
+    
 {(emailError || loginError) && (
       <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
         {emailError && <p>{emailError}</p>}
@@ -8455,10 +7680,10 @@ const handleCountryCoachEA = (selectedOption) => {
 
 
 
-                            <div className="flex flex-col items-center pb-52 -mb-px bg-zinc-100">
+                            <div className="flex flex-col items-center pb-52 -mb-px bg-gray-200">
       
                             <div className="text-center max-w-xl mx-auto mt-8">
-                      <p className="text-3xl text-zinc-700 dark:text-zinc-300">
+                      <p className="text-3xl text-zinc-900 dark:text-zinc-300">
                         Informations du Profil
                       </p>
                     </div>
@@ -8473,7 +7698,7 @@ const handleCountryCoachEA = (selectedOption) => {
         <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
           <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
             <div className="flex flex-col text-zinc-900">
-              <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
+              <div className="flex gap-4 mb-2 justify-between px-4 text-lg whitespace-nowrap">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/61c6155cdb7cedb8428209197c5325af5b02bf7ecb94533f0ee5c2b47c1c2444?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -8482,11 +7707,17 @@ const handleCountryCoachEA = (selectedOption) => {
                 <div className="grow">Type d’engagement</div>
                 
               </div>
-              <div className="flex flex-col justify-center mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                <select
+
+
+
+              
+             
+             
+             
+              <select
                                 name="engagement"
                                 value={formData.engagement}
-                                className={`flex gap-5 justify-between px-4 py-3.5 rounded-md bg-zinc-100${
+                                className={`form-control flex  justify-between border-[0.5px] px-4 mb-4  bg-zinc-100  rounded-[30px] ${
                                   inputErrors["engagement"] ? "is-invalid" : ""
                                 }`}
                                 onChange={handleInputChange}
@@ -8498,13 +7729,17 @@ const handleCountryCoachEA = (selectedOption) => {
                                 <option value="mi-temps">Mi-Temps</option>
                                 <option value="volontaire">Volontaire</option>
                               </select>
-                              {inputErrors["engagement"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["engagement"]}
-                                </div>
-                              )}
-              </div>
+                             
+         
+        
+                 {inputErrors['engagement'] && (
+            <div className="error-message text-red-600">{inputErrors['engagement']}</div>
+          )}  
             </div>
+          
+
+
+
             <div className="flex flex-col">
               <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
                 <img
@@ -8514,13 +7749,14 @@ const handleCountryCoachEA = (selectedOption) => {
                 />
                 <div className="grow">Nombre de joueurs détectés</div>
               </div>
-              <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                  <input
+                  
+                  
+              <input
                                 type="number"
                                 id="nb_joueurdetecter"
                                 name="nb_joueurdetecter"
                                 value={formData.nb_joueurdetecter}
-                                className={`flex gap-5 justify-between px-4 py-3 rounded-md bg-zinc-100${
+                                className={` form-control flex gap-5 justify-between border-[0.5px] bg-zinc-100 w-full px-4 py-2 rounded-xl ${
                                   inputErrors["nb_joueurdetecter"]
                                     ? "is-invalid"
                                     : ""
@@ -8528,12 +7764,17 @@ const handleCountryCoachEA = (selectedOption) => {
                                 placeholder="Nomber des joueurs detecter"
                                 onChange={handleInputChange}
                               />
-                              {inputErrors["nb_joueurdetecter"] && (
-                                <div className="invalid-feedback">
-                                  {inputErrors["nb_joueurdetecter"]}
-                                </div>
-                              )}
-              </div>
+                              
+          
+                  
+                  
+         
+                  
+                  
+                 
+            {inputErrors['nb_joueurdetecter'] && (
+            <div className="error-message text-red-600">{inputErrors['nb_joueurdetecter']}</div>
+          )}
             </div>
           </div>
           <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
@@ -8566,7 +7807,9 @@ const handleCountryCoachEA = (selectedOption) => {
       />
                 </div>
               </div>
-            </div>
+            </div>{inputErrors['paysscout'] && (
+            <div className="error-message text-red-600 text-base">{inputErrors['paysscout']}</div>
+          )}
           </div>
           <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
             <img
@@ -8612,6 +7855,7 @@ const handleCountryCoachEA = (selectedOption) => {
         }
         className="form-check-input d-none rounded-[30px]"
       />
+    
       <label
         htmlFor={skillsscout}
         className={`form-check-label btn ${
@@ -8639,22 +7883,22 @@ const handleCountryCoachEA = (selectedOption) => {
     </div>
   ))}
 </div>
+
+</div>
 {scoutSkillsError && (
   <div className="text-danger mt-2">
 Vous pouvez selectionner au maximum 10 compétences !  </div>
 )}
-</div>
-
          
 <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
   <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
   <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+  <div className="grow mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
     J'accepte les{" "}
     <span className="text-blue-600 underline">Termes et Conditions</span>
     <span className="text-zinc-900">.</span>
   </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
+  <div className="flex flex-col gap-3 sm:flex-row sm:order-2">
     <label className="mr-2">
       <input
         type="radio"
@@ -8723,13 +7967,12 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
     </div>
   </div>
 
-  {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
-  )}
+
+ 
 </div>
      
-     {errorMessage && (
-    <div className="error-message align-center">{errorMessage}</div>
+{errorMessage && (
+    <div className="error-message text-red-600">{errorMessage}</div>
   )}
 
 {(emailError || loginError) && (
@@ -8787,7 +8030,7 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
 {formData.profil === "other" && (
 
 <>
-<div className="flex flex-col items-center  h-full bg-zinc-100">
+<div className="flex flex-col items-center  h-full bg-gray-200">
      
 <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-700 dark:text-zinc-300">
@@ -9219,6 +8462,7 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
                                     ))}
                                   </div>
                                 )}
+
                                 {formData.profession === "Prof de fitnesse" && (
   <div className="form-group icon-input mb-3 flex flex-wrap">
   {[
@@ -9352,7 +8596,7 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
      
      
      {errorMessage && (
-    <div className="error-message align-center text-orange-500">{errorMessage}</div>
+    <div className="error-message align-center text-red-600">{errorMessage}</div>
   )}
 
 {(emailError || loginError) && (

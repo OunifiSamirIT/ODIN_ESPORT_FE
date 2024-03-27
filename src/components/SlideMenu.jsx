@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import UserImage from "../assets/User Menu.png"
 
 
 const SlideMenu = ({ setIsActive }) => {
   const [expanded, setExpanded] = useState(false);
+  const [user, setUser] = useState({});
+
   const [lang , setLang] = useState('Français')
   const toggleLanguage = () => {
     if(lang ==='Français'){
@@ -34,6 +36,32 @@ const SlideMenu = ({ setIsActive }) => {
     // Redirect to the login page or another route
     navigate("/login");
   };
+
+
+
+
+
+
+
+
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const id = storedUserData ? storedUserData.id : null;
+
+    
+      // Replace the API endpoint with your actual endpoint for fetching user data
+      fetch(`https://odine-sport.com/api/user/${id}`)
+        .then((response) => response.json())
+        .then((userData) => {
+          setUser(userData);
+          
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    
+
+   
+  }, []);
+
   return (
     <>
       <div className="relative flex justify-end">
@@ -41,7 +69,7 @@ const SlideMenu = ({ setIsActive }) => {
           alt="user iamge"
           onClick={toggleExpand}
           loading="lazy"
-          srcSet={storedUserData.image}
+          srcSet={user?.user?.image}
           className="self-stretch aspect-square rounded-full w-[60px] z-10 relative pointer"
         />
         <div className={`hidden md:flex absolute h-[60px] top-0 z-auto flex  gap-4 items-center pl-4 pr-[65px] bg-blue-600 rounded-[80px] max-md:flex-wrap ${expanded ? 'w-fit expand' : 'hide'}`}>

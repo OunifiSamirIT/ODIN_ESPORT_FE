@@ -32,7 +32,7 @@ function Friends () {
         if (userId) {
           fetch(`https://odine-sport.com/api/user/${userId}`)
             .then((response) => {
-              console.log("Response from the server:", response);
+              console.log("Response from the server friendsssss:", response);
               return response.json();
             })
             .then((data) => {
@@ -68,7 +68,7 @@ function Friends () {
         return (
             <div className="card w-100 shadow-xss rounded-md border-0 mb-3">
                 <div className="card-body d-flex align-items-center p-4">
-                    <h4 className="fw-700 mb-0 font-xssss text-grey-900 mr-2">Demandes</h4>
+                    <h4 className=" mb-0 font-bold text-lg text-grey-900 mr-2">Demandes</h4>
                     {/* <span className='ml-2 font-bold text-red-500 bg-slate-300 rounded-full h-8 w-6'><p className='ml-2'>{pendingFriendRequests?.length}</p> </span> */}
 
                     <a href="/defaultmember" className="fw-600 ms-auto font-xssss te text-primary">Voir Tout</a>
@@ -89,8 +89,8 @@ function Friends () {
                </div>
                
                <div className="card-body d-flex align-items-center pt-0 ps-4 mt-2 pe-4 pb-4">
-                   <a href="/defaultmember" className="grow justify-center px-6 py-2 mr-3 text-white text-center bg-blue-600 rounded-[30px] max-md:px-5">Confirm</a>
-                   <a href="/defaultmember" className="grow justify-center px-6 text-white py-2 text-center bg-orange-500 rounded-[30px] max-md:px-5">Delete</a>
+                   <a href="/defaultmember" className="grow justify-center px-6 py-2 mr-3 text-white text-center bg-blue-600 rounded-[30px] max-md:px-5">Accepter</a>
+                   <a href="/defaultmember" className="grow justify-center px-6 text-white py-2 text-center bg-orange-500 rounded-[30px] max-md:px-5">Supprimer</a>
                </div>
            </div>
            

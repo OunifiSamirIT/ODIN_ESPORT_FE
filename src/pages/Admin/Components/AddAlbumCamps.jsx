@@ -5,7 +5,8 @@ import Header from '../Components/AdminHeader';
 import Appfooter from '../../../components/Appfooter';
 import Popupchat from '../../../components/Popupchat';
 import { useForm } from "react-hook-form";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const AddEvent = () => {
 
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ const AddEvent = () => {
         register,
         handleSubmit,
         setValue,
+        getValues, 
       } = useForm(); 
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -93,9 +95,18 @@ const AddEvent = () => {
                                             </div>
 
                                             <div className="col-lg-12 mb-3">
-                                                <label className="mont-font fw-600 font-xsss mb-2 text-dark">date_debut</label>
-                                                <input {...register("date_debut")} className="form-control mb-0 p-3 h100 bg-greylight lh-16" rows="5" placeholder="Write your message... (optional)" />
-                                            </div>
+    <label className="mont-font fw-600 font-xsss mb-2 text-dark">date_debut</label>
+    <DatePicker
+        {...register("date_debut")}
+        className="form-control mb-0 p-3 h100 bg-greylight lh-16"
+        placeholderText="Select date_debut"
+        dateFormat="yyyy-MM-dd"
+        selected={new Date(getValues("date_debut")) }
+        onChange={(date) => setValue("date_debut", date ? date.toISOString().split('T')[0] : null)}
+    />
+</div>
+
+
 
                                             <div className="col-lg-12 mb-3">
                                                 <label className="mont-font fw-600 font-xsss mb-2 text-dark">date_fin</label>

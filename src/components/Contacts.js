@@ -33,7 +33,7 @@ function Contacts () {
           try {
             const userId = storedUserData.id; 
             const response = await fetch(
-              `https://odine-sport.com/api/user/${userId}/suggest/random`
+              `https://odine-sport.com/${userId}/suggest/random`
             );
             const data = await response.json();
             setSuggestedFriends(data);
@@ -47,7 +47,7 @@ function Contacts () {
         // const fetchFriendRequests = async () => {
         //   try {
         //     const response = await fetch(
-        //       `https://odine-sport.com/api/user/${userId}/friend-requests`
+        //       `http://localhost:8088/api/user/${userId}/friend-requests`
         //     );
         //     if (!response.ok) {
         //       throw new Error(`HTTP error! Status: ${response.status}`);
