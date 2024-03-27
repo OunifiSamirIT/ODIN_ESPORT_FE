@@ -189,7 +189,7 @@ const Agent = ({ userInfo }) => {
             formDataToUpdate.append("totalTeam", data.totalTeam);
             console.log('formdata', formDataToUpdate)
             const response = await fetch(
-                `https://odine-sport.com/api/agents/${storedUserData.id}`,
+                `http://localhost:5000/api/agents/${storedUserData.id}`,
                 {
                     method: "PUT",
                     body: formDataToUpdate,

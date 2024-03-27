@@ -175,7 +175,7 @@ const Other = ({ userInfo }) => {
         const formDataToUpdate = new FormData();
         formDataToUpdate.append("skillsAutre", data.skills.join(','));
         const response = await fetch(
-            `https://odine-sport.com/api/other/${storedUserData.id}`,
+            `http://localhost:5000/api/other/${storedUserData.id}`,
             {
                 method: "PUT",
                 body: formDataToUpdate,

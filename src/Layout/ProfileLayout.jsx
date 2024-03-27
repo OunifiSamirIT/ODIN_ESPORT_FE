@@ -37,7 +37,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
     const navigate = useNavigate()
     const userInfo = async () => {
-        const response = await fetch(`https://odine-sport.com/api/user/${id}`);
+        const response = await fetch(`http://localhost:5000/api/user/${id}`);
         const result = await response.json();
         console.log('sdfsdf', result)
         if (result.message) { navigate('/404') } else {
@@ -45,7 +45,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
         }
     }
     const isFriendAccepted = async () => {
-        const response = await fetch(`https://odine-sport.com/api/user/${user}/checkFriends/${LocalStorageID.id}`)
+        const response = await fetch(`http://localhost:5000/api/user/${user}/checkFriends/${LocalStorageID.id}`)
         const result = await response.json();
         setAcceptedFriend(result.exists)
         console.log('this cidfjk', acceptedFriend)
@@ -60,26 +60,26 @@ const ProfileLayout = ({ children, onChange, user }) => {
     }, [id,user])
 
     const fetchAllFriendRequest = async () => {
-        const response = await fetch(`https://odine-sport.com/api/user/${id}/getFriends`, {
+        const response = await fetch(`http://localhost:5000/api/user/${id}/getFriends`, {
             method: "GET",
         });
         const result = await response.json();
         setInvitation(result)
     }
     const sendFriendRequest = async () => {
-        const response = await fetch(`https://odine-sport.com/api/user/${LocalStorageID.id}/sendFriendRequest/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/user/${LocalStorageID.id}/sendFriendRequest/${id}`, {
             method: "POST",
         });
     }
     const [showInvitation, setShowInvitation] = useState()
-    const CheckIfInvitationIsSend = async () => {
-        const response = await fetch(`https://odine-sport.com/api/user/${id}/friend-requests`, {
-            method: "GET",
-        });
-        const result = await response.json();
-        console.log(result)
-        setInvitation(result.receiver)
-    }
+    // const CheckIfInvitationIsSend = async () => {
+    //     const response = await fetch(`http://localhost:5000/api/user/${id}/friend-requests`, {
+    //         method: "GET",
+    //     });
+    //     const result = await response.json();
+    //     console.log(result)
+    //     setInvitation(result.receiver)
+    // }
 
     const copyLinkToClipboard = (articleId) => {
         // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
@@ -100,17 +100,17 @@ const ProfileLayout = ({ children, onChange, user }) => {
 
     };
     const deleteInviation = async (id) => {
-        const response = await fetch(`https://odine-sport.com/api/user/${LocalStorageID.id}/delete/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/user/${LocalStorageID.id}/delete/${id}`, {
             method: "DELETE",
         });
         console.log(response)
         if(response.status === 200)
         {window.location.reload()}
     }
-    useEffect(() => {
-        CheckIfInvitationIsSend()
-        console.log('curren', Invitation)
-    }, [user])
+    // useEffect(() => {
+    //     CheckIfInvitationIsSend()
+    //     console.log('curren', Invitation)
+    // }, [user])
     return (
         <>
             <HomeLayout>
@@ -124,7 +124,6 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                 {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} />}
                                 {CurrentUser?.user.profil === 'scout' && <General userInfo={CurrentUser} />}
 
-
                                 {Invitation.length > 0 && <div className="flex flex-col flex-wrap justify-center content-start px-3 py-6 mt-6 mb-6 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                                     <div className="flex gap-5 justify-between font-medium whitespace-nowrap w-full">
                                         <div className="flex flex-auto gap-4 py-2 text-base text-zinc-900">
@@ -135,22 +134,22 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                             />
                                             <div className="flex-auto max-md:max-w-full">Friends</div>
                                         </div>
-                                        <div className="my-auto text-sm text-blue-600 underline justify-end">
+                                        <Link to={'/friendsList'} className="my-auto text-sm text-blue-600 underline justify-end">
                                             Voir Tout
-                                        </div>
+                                        </Link>
                                     </div>
                                     <div className="mt-8 max-md:max-w-full">
-                                        <div className="flex gap-4 md:gap-8 flex-wrap md:justify-between ">
+                                        <div className="flex gap-4 md:gap-8 flex-wrap ">
                                             {Invitation.map((item) => {
-                                                return (<div key={item?.id} className="flex flex-col max-sm:flex-1">
+                                                return (<div key={item.id} className="flex flex-col max-sm:flex-1">
                                                     <div className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">
                                                         <img
                                                             loading="lazy"
-                                                            srcSet={item?.receiver?.image ? item?.receiver?.image : PlaceHolder}
+                                                            srcSet={item.receiver.image ? item.receiver.image : PlaceHolder}
                                                             className="w-20 aspect-square rounded-full"
                                                         />
-                                                        <div className="mt-4 font-semibold">{item?.receiver?.nom}</div>
-                                                        <div className="text-xs font-light">{item?.receiver?.profil}</div>
+                                                        <div className="mt-4 font-semibold">{item.receiver.nom}</div>
+                                                        <div className="text-xs font-light">{item.receiver.profil}</div>
                                                         <div className="text-center justify-center self-stretch px-10 py-2 mt-4 font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
                                                             <Link to={`/profile/${item.receiver.id}`}> Voir Plus</Link>
                                                         </div>

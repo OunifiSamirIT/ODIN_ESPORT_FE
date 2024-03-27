@@ -97,7 +97,7 @@ const Parametre = ({ userInfo }) => {
     const formDataToUpdate = new FormData();
     formDataToUpdate.append("password", data.newpassword);
     const response = await fetch(
-      `https://odine-sport.com/api/user/${storedUserData.id}`,
+      `http://localhost:5000/api/user/${storedUserData.id}`,
       {
         method: "PUT",
         body: formDataToUpdate,

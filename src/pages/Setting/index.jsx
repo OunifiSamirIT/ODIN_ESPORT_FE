@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SettingsLayout from "../../Layout/SettingsLayout";
 import Social from "./Social";
 import Parametre from "./Parametre";
+import Experience from "./Experience";
 import Information from "./Information";
 import Personal from "./Personal";
 import { useParams } from "react-router-dom";
@@ -47,7 +48,7 @@ const Index = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await fetch(`https://odine-sport.com/api/user/${storedUserData.id}`);
+                const response = await fetch(`http://localhost:5000/api/user/${storedUserData.id}`);
                 const data = await response.json();
                 setUserInfo(data);
             } catch (error) {
@@ -61,11 +62,11 @@ const Index = () => {
         console.log(currentTab)
     }, [currentTab])
     // useEffect(() => {
-    //     fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
+    //     fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
     //         .then((response) => response.json())
     //         .then((data) => {
     //             setCurrentUser(data);
-    //             fetch(`https://odine-sport.com/api/player/${storedUserData.id}`).then(
+    //             fetch(`http://localhost:5000/api/player/${storedUserData.id}`).then(
     //                 (resp) => resp.json()
     //             ).then(setPlyerData)
     //             setUserProfile(data.profil)
@@ -79,6 +80,7 @@ const Index = () => {
                 <SettingsLayout setCurrentTab={setCurrentTab} tab={tab}>
                     {currentTab === 'social' && <Social userInfo={userInfo}/>}
                     {currentTab === 'parametre' && <Parametre userInfo={userInfo} />}
+                    {currentTab === 'experience' && <Experience userInfo={userInfo} />}
                     {currentTab === 'personal' && <Personal userInfo={userInfo} />}
                     {currentTab === 'information' && <Information userInfo={userInfo} />}
                 </SettingsLayout>

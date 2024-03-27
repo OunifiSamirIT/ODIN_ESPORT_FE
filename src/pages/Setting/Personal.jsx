@@ -12,13 +12,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { paysAllInfo } from "../../assets/data/Country";
-import { Langue } from "../../assets/data/Langue";
 import DatePicker from "react-datepicker";
 
 const Personal = ({ userInfo }) => {
   const [inputErrors, setInputErrors] = useState({});
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [selectedLanguages, setSelectedLanguages] = useState([]);
   const options = paysAllInfo.map((country, index) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
 
@@ -56,22 +54,13 @@ const Personal = ({ userInfo }) => {
     };
   });
 
-
-
-  
-
-
-
-
-
-
- 
-
-
-
-
   const [imagePreview, setImagePreview] = useState(null);
- 
+  // const handleInputChange = (e) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
   const optionsphone = paysAllInfo.map((country, index) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
 
@@ -187,27 +176,12 @@ const Personal = ({ userInfo }) => {
     formDataToUpdate.append("date_naissance", new Date(data.date_naissance).getFullYear());
     formDataToUpdate.append("gender", data.gender);
     formDataToUpdate.append("countryresidence", data.country?.label?.props?.children[1]);
+    // formDataToUpdate.append("tel", data.tel);
     formDataToUpdate.append("nationality", data.nationality?.label?.props?.children[1]);
     formDataToUpdate.append("cityresidence", data.cityresidence);
-    formDataToUpdate.append("langueparlee", data.langueparlee.map(lang => lang.value).join(','));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     formDataToUpdate.append("image", file);
     const response = await fetch(
-      `https://odine-sport.com/api/user/${storedUserData.id}`,
+      `http://localhost:5000/api/user/${storedUserData.id}`,
       {
         method: "PUT",
         body: formDataToUpdate,
@@ -241,15 +215,13 @@ const Personal = ({ userInfo }) => {
     setValue('numWSup', userInfo.user.numWSup);
     setValue('phoneLength', userInfo.user.phoneLength);
     setValue('wats', userInfo.user.wats);
-    setValue('langueparlee', userInfo.user.langueparlee);
-    
     setValue('date_naissance', new Date(userInfo.user.date_naissance));
   }
 
   useEffect(() => {
     const defaultValue = (countryName) => { return options.find(option => option.label.props?.children[1] === countryName) };
 
-    fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
+    fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
       .then((response) => response.json())
       .then((userData) => {
         console.log(defaultValue(userData.user.nationality))
@@ -265,15 +237,7 @@ const Personal = ({ userInfo }) => {
         setValue('numWSup', userData.user.numWSup);
         setValue('phoneLength', userData.user.phoneLength);
         setValue('wats', userData.user.wats);
-        const selectedOptions = userData.user.langueparlee.split(',').map(lang => ({
-          value: lang,
-          label: lang,
-        }));
-        setValue('langueparlee', selectedOptions);
         setValue('date_naissance', new Date(userData.user.date_naissance));
-
-
-        
       })
       .catch((error) => console.error("Error fetching user data:", error));
   }, []);
@@ -305,39 +269,6 @@ const Personal = ({ userInfo }) => {
     // Check if the length exceeds the limit and set an error message
     setValue('tel', value);
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const optionsLangue = Array.from(new Set(Langue.map(langue => langue.name))).map(name => ({
-    value: name,
-    label: name,
-  }));
-  
-
-  useEffect(() => {
-    setValue('langueparlee', selectedLanguages);
-  }, [selectedLanguages]);
-
-  
-  const handleLanguageChange = (selectedOptions) => {
-    setSelectedLanguages(selectedOptions);
-    const selectedLanguageLabels = selectedOptions.map(option => option.value);
-    console.log('Selected Languages:', selectedLanguageLabels);
-  };
-
-
-
-
 
 
   return (
@@ -831,10 +762,7 @@ const Personal = ({ userInfo }) => {
             </div>
           </div>
 
-
-          <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-base">
-
-          <div className="lg:flex-1 w-full">
+          <div >
             <div className="flex gap-4 items-center px-4 text-lg text-zinc-900">
               <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_608_33866)">
@@ -864,66 +792,6 @@ const Personal = ({ userInfo }) => {
             )}
           </div>
 
-          <div className="lg:flex-1 w-full">
-  <div className="flex gap-4 items-center px-4 text-lg text-zinc-900">
-    <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_608_33866)">
-        <path d="M15 5.5C15 2.7425 12.7575 0.5 10 0.5C7.2425 0.5 5 2.7425 5 5.5C5 7.9725 6.80583 10.0258 9.16667 10.425V20.5H10.8333V10.425C13.1942 10.0267 15 7.97333 15 5.5Z" fill="black" />
-      </g>
-      <defs>
-        <clipPath id="clip0_608_33866">
-          <rect width="20" height="20" fill="white" transform="translate(0 0.5)" />
-        </clipPath>
-      </defs>
-    </svg>
-
-    <div className="flex-auto">Langue</div>
-  </div>{" "}
- 
-  {/* <Controller
-  control={control}
-  name="langueparlee"
-  render={({ field }) => (
-    <Select
-      options={optionsLangue}
-      isMulti
-      value={selectedLanguages}
-      {...register("langueparlee")}
-      onChange={handleLanguageChange}
-      className="w-full "
-      placeholder="Langue parlée"
-      {...field}
-    />
-  )}
-/> */}
-  <Controller
-    control={control}
-    name="langueparlee"
-    render={({ field }) => (
-      <Select
-        options={optionsLangue}
-        isMulti
-        value={selectedLanguages}
-        onChange={handleLanguageChange}
-        className="w-full"
-        placeholder="Langue parlée"
-        {...field}
-      />
-    )}
-  />
-
-  
-</div>
-
-          </div>
-        
-        
-        
-        
-        
-        
-        
-        
           <div className="flex  justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
             <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
               <img
