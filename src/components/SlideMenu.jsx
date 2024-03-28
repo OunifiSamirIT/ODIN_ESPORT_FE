@@ -2,17 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import UserImage from "../assets/placeholder.jpg"
 import { Config } from "../config";
-
 const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const [expanded, setExpanded] = useState(false);
   const [lang, setLang] = useState('Français')
   const [user, setUser] = useState({})
   const storedUserData = JSON.parse(localStorage.getItem("user"));
-
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
     fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
-
       .then((response) => response.json())
       .then((userData) => {
         console.log(user)
@@ -20,8 +17,6 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
       })
       .catch((error) => console.error("Error fetching user data:", error));
   }, [])
-
-
   const toggleLanguage = () => {
     if (lang === 'Français') {
       setLang('English')
@@ -32,25 +27,16 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
-
-
-
-
-
   const navigate = useNavigate();
-
   // Logout function
   const handleLogout = () => {
     // Clear the authentication token from localStorage
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
-
     // Update the authentication state to false
-
     // Redirect to the login page or another route
     navigate("/login");
   };
-
   return (
     <>
       <div className="relative flex justify-end">
@@ -68,7 +54,6 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
             srcSet={user?.image ? user?.image : UserImage}
             className="hidden md:block self-stretch aspect-square rounded-full w-[60px] z-10 relative pointer"
           />
-
         <div className={`hidden md:flex absolute h-[60px] top-0 z-1 flex  gap-4 items-center pl-4 pr-[65px] bg-blue-600 rounded-[80px] max-md:flex-wrap ${expanded ? 'w-fit expand' : 'hide'}`}>
           <div className="flex justify-center items-center self-stretch px-2 my-auto bg-white aspect-square h-[31px] rounded-[50px] w-[31px]">
             <img
@@ -118,12 +103,9 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
             />
             <div className="grow" onClick={handleLogout} >Déconnexion</div>
           </div>
-
         </div>
       </div>
     </>
-
   )
-
 }
 export default SlideMenu

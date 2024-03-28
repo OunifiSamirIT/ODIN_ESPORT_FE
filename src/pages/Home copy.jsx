@@ -911,10 +911,7 @@ function Home() {
   return (
     <>
       <Header />
-
-
-
-      {/* <div className="nav-header">
+      <div className="nav-header">
       <nav className="navigation scroll-bar" >
         <div className="container ps-0 pe-0">
           <div className="nav-content">
