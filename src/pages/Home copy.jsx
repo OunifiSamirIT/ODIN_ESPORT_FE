@@ -115,7 +115,8 @@ function Home() {
   
   const handleLikeClick = async (articleId, emoji) => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/likes/article/${articleId}`,
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/likes/article/${articleId}`,
         {
           method: "POST",
           headers: {
@@ -134,7 +135,7 @@ function Home() {
 
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
-          "${Config.LOCAL_URL}/api/likes/article/allLikes"
+          `${Config.LOCAL_URL}/api/likes/article/allLikes`
         );
         const allLikesData = await allLikesResponse.json();
 
@@ -363,7 +364,7 @@ function Home() {
 
   const fetchArticles = async () => {
     try {
-      const response = await fetch("${Config.LOCAL_URL}/api/articles/");
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const result = await response.json();
   
       const reversedArticles = result.rows.reverse();
@@ -438,7 +439,7 @@ function Home() {
       formData.append("fileType", fileType);
 
       // Make a POST request to create a new article
-      await fetch("${Config.LOCAL_URL}/api/articles/", {
+      await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
       });
@@ -611,7 +612,7 @@ function Home() {
 
   const fetchAlbums = async () => {
     try {
-      const response = await fetch("${Config.LOCAL_URL}/api/album");
+      const response = await fetch(`${Config.LOCAL_URL}/api/album`);
       const result = await response.json();
 
       setAlbum(
@@ -626,7 +627,7 @@ function Home() {
 
   const fetchComments = async () => {
     try {
-      const response = await fetch("${Config.LOCAL_URL}/api/commentaires/");
+      const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -645,7 +646,7 @@ function Home() {
         const user = JSON.parse(localStorage.getItem("user"));
 
         const response = await fetch(
-          "${Config.LOCAL_URL}/api/commentaires/",
+          `${Config.LOCAL_URL}/api/commentaires/`,
           {
             method: "POST",
             headers: {
