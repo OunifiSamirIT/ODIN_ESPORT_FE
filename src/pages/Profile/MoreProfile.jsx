@@ -16,7 +16,7 @@ import T433 from "../../assets/4-3-3.png"
 import T442 from "../../assets/4-4-2.png"
 import T532 from "../../assets/5-3-2.png"
 import T541 from "../../assets/5-4-1.png"
-
+import { Config } from "../../config";
 const More = () => {
   const { id } = useParams();
   const [player, setPlayer] = useState(null)
@@ -38,7 +38,7 @@ const More = () => {
   const isOwner = storedUserData.id == id
   const sendFriendRequest = async () => {
 
-    const response = await fetch(`http://localhost:5000/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
+    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
       method: "POST",
     });
 
@@ -47,7 +47,7 @@ const More = () => {
   }
   const copyLinkToClipboard = (articleId) => {
     // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
-    const articleUrl = `http://localhost:5000/articles/${articleId}`;
+    const articleUrl = `${Config.LOCAL_URL}/articles/${articleId}`;
 
     // Copy the URL to the clipboard
     navigator.clipboard.writeText(articleUrl)
@@ -62,7 +62,7 @@ const More = () => {
 
   const navigate = useNavigate()
   const fetchUser = async () => {
-    const response = await fetch(`http://localhost:5000/api/user/${id}`);
+    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`);
     const result = await response.json();
     console.log('sdfsdf', result)
     if (result.message) { navigate('/404') } else {

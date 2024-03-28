@@ -13,7 +13,7 @@ import { BiImages, BiSolidVideo } from "react-icons/bi";
 import { BsFiletypeGif } from "react-icons/bs";
 import Loading from "../components/Loading";
 import { useForm } from "react-hook-form";
-
+import { Config } from "../config";
 function EditPost() {
   const { articleId } = useParams();
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function EditPost() {
     const fetchArticle = async () => {
         try {
             const response = await fetch(
-                `https://odine-sport.com/api/articles/${articleId}`
+                `${Config.LOCAL_URL}/api/articles/${articleId}`
             );
             if (response.ok) {
                 const article = await response.json();
@@ -93,7 +93,7 @@ function EditPost() {
       }
 
       const response = await fetch(
-        `https://odine-sport.com/api/articles/${editArticle.id}`,
+        `${Config.LOCAL_URL}/api/articles/${editArticle.id}`,
         {
           method: "PUT",
           body: formData,

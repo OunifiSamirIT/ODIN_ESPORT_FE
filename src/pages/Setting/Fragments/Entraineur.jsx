@@ -6,7 +6,7 @@ import * as yup from "yup"
 import { useForm, Controller } from "react-hook-form"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-
+import { Config } from "../../../config";
 
 const Entraineur = ({ userInfo }) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -166,7 +166,7 @@ const Entraineur = ({ userInfo }) => {
                 formDataToUpdate.append("countryCoachedIn", selectedCountries);
                 formDataToUpdate.append("skills", data.skills.join(','));
                 const response = await fetch(
-                    `http://localhost:5000/api/coachs/${storedUserData.id}`,
+                    `${Config.LOCAL_URL}/api/coachs/${storedUserData.id}`,
                     {
                         method: "PUT",
                         body: formDataToUpdate,

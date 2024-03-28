@@ -5,7 +5,7 @@ import Header from '../Components/AdminHeader';
 import Appfooter from '../../../components/Appfooter';
 import Popupchat from '../../../components/Popupchat';
 import { useForm } from "react-hook-form";
-
+import { Config } from "../../../config";
 const AddEvent = () => {
 
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ const AddEvent = () => {
             formData.append('files', file);
           }); 
           formData.append("userID", storedUserData.id);         
-        await fetch("https://odine-sport.com/api/album/upload", {
+        await fetch(`${Config.LOCAL_URL}/api/album/upload`, {
             method: 'POST',
             body: formData,
           });

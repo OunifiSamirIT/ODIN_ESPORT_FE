@@ -1,7 +1,7 @@
 import React,{Component, useEffect, useState} from 'react';
 import Pagetitle from '../components/Pagetitle';
 import Load from '../components/Load';
-
+import { Config } from '../config';
 const groupList = [
     {
         imageUrl: 'story.png',
@@ -23,7 +23,7 @@ function Group () {
     useEffect(() => {
         const fetchAlbums = async () => {
             try {
-                const response = await fetch("https://odine-sport.com/api/album");
+                const response = await fetch(`${Config.LOCAL_URL}/api/album`);
                 const result = await response.json();
 
                 setAlbum(result.data);

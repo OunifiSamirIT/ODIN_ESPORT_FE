@@ -7,6 +7,7 @@ import Information from "./Information";
 import Personal from "./Personal";
 import { useParams } from "react-router-dom";
 import HomeLayout from "../../Layout/HomeLayout";
+import { Config } from "../../config";
 const Index = () => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [currentTab, setCurrentTab] = useState('personal')
@@ -48,7 +49,7 @@ const Index = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/user/${storedUserData.id}`);
+                const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`);
                 const data = await response.json();
                 setUserInfo(data);
             } catch (error) {

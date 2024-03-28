@@ -3,7 +3,7 @@ import React,{Component, useEffect, useState} from 'react';
 // import 'react-image-lightbox/style.css';
 import { Link } from 'react-router-dom';
 import GalleryOdinForuser from "../pages/Gallerieuserodin"
-
+import { Config } from '../config';
 
 const ImageModal = ({ imageUrl, onClose }) => {
     return (
@@ -30,7 +30,7 @@ function  Profilephoto () {
     if (storedUserData) {
       const userId = storedUserData.id;
       // Fetch gallery items for the specific user ID
-      fetch(`https://odine-sport.com/api/articles/gallery/${userId}`)
+      fetch(`${Config.LOCAL_URL}/api/articles/gallery/${userId}`)
         .then(response => response.json())
         .then(data => setGalleryItems(data.gallery))
         .catch(error => console.error(error));

@@ -13,7 +13,7 @@ import "./flags.css";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { Config } from "../config";
 const Album = () => {
   const [album, setAlbum] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,7 +58,7 @@ const Album = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await fetch("https://odine-sport.com/api/albumc");
+        const response = await fetch(`${Config.LOCAL_URL}/api/album`);
         const result = await response.json();
 
         setAlbum(result.data);

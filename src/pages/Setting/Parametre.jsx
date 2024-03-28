@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
+import { Config } from "../../config";
 
 
 
@@ -97,7 +97,7 @@ const Parametre = ({ userInfo }) => {
     const formDataToUpdate = new FormData();
     formDataToUpdate.append("password", data.newpassword);
     const response = await fetch(
-      `http://localhost:5000/api/user/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/user/${storedUserData.id}`,
       {
         method: "PUT",
         body: formDataToUpdate,

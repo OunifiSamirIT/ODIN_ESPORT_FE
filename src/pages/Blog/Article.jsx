@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, params, useParams } from "react-router-dom";
+import { Link, useNavigate , useParams } from "react-router-dom";
 import NewsLetter from "../../assets/newsletter.png"
 import banner from "../../assets/banner.png"
+import { Config } from "../../config";
 
 const Article = () => {
     const { articleId } = useParams();
@@ -22,14 +23,14 @@ const Article = () => {
         return array;
     }
     const fetchRecommandation = async () => {
-        const response = await fetch('http://localhost:5000/api/blog')
+        const response = await fetch(`${Config.LOCAL_URL}/api/blog`)
         const result = await response.json()
         console.log(result.blog)
         setRecommandation(shuffle(result.blog).slice(0, 3))
     }
 
     const fetchBlogArticles = async () => {
-        const response = await fetch(`http://localhost:5000/api/blog/${articleId}`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/blog/${articleId}`);
         const result = await response.json()
         setArticle(result.blog)
     }

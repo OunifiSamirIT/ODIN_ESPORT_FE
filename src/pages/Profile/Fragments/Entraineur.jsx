@@ -9,6 +9,7 @@ import T433 from "../../../assets/4-3-3.png"
 import T442 from "../../../assets/4-4-2.png"
 import T532 from "../../../assets/5-3-2.png"
 import T541 from "../../../assets/5-4-1.png"
+import { Config } from "../../../config";
 const PlayerCard = ({ userInfo }) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -21,14 +22,14 @@ const PlayerCard = ({ userInfo }) => {
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
   
     const isFriendAccepted = async () => {
-      const response = await fetch(`http://localhost:5000/api/user/${id}/checkFriends/${storedUserData.id}`)
+      const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`)
       const result = await response.json();
       setAcceptedFriend(result.exists)
       console.log('this cidfjk', acceptedFriend)
   }
   const sendFriendRequest = async () => {
           
-    const response = await fetch(`http://localhost:5000/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
+    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
         method: "POST",
     });
   
@@ -37,7 +38,7 @@ const PlayerCard = ({ userInfo }) => {
   }
   
   const CheckIfInvitationIsSend = async () => {
-    const response = await fetch(`http://localhost:5000/api/user/${id}/friend-requests`, {
+    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/friend-requests`, {
         method: "GET",
     });
     const result = await response.json();

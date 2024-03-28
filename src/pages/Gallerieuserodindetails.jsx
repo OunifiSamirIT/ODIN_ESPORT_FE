@@ -8,7 +8,7 @@ import Pagetitle from "../components/Pagetitle";
 import Load from "../components/Load";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
-
+import { Config } from "../config";
 const Album = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -50,7 +50,7 @@ const Album = () => {
   useEffect(() => {
     const fetchAlbumDetails = async () => {
       try {
-        const response = await fetch(`https://odine-sport.com/api/albumc/${campsId}`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc/${campsId}`);
         const result = await response.json();
 
         if (result.message === "done" && result.data) {
