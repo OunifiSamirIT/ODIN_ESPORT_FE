@@ -115,7 +115,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
     return (
         <>
             <HomeLayout>
-                <div className="self-center mt-4 w-full max-w-[1344px]">
+                <div className="self-center mt-[100px] w-full max-w-[1344px]">
                     <div className="flex gap-2 max-md:flex-col max-md:gap-0 max-md:">
                         <div className="flex flex-col w-full md:w-1/2 max-sm:px-4 ">
                             <div className="flex flex-col">
