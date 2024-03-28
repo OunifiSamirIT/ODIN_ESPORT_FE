@@ -12546,6 +12546,7 @@ strong,
     top: env(safe-area-inset-top);
     left: 0;
     right: 0;
+    display: hidden;
     z-index: 999;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.03) !important;
   }
