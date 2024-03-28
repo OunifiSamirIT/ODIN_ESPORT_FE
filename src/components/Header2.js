@@ -6,7 +6,7 @@ import SlideMenu from "./SlideMenu";
 import '../components/Hamburger.css'
 import BurgerMenuLink from '../components/BurgerMenuLink'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
-
+import { Config } from "../config";
 import Profilesearch from "../assets/Profilesearch.png"
 import Football from "../assets/Football.png";
 import Parametre from "../assets/Parametre.png";
