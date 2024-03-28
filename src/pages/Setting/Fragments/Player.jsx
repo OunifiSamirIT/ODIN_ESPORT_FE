@@ -4,7 +4,7 @@ import * as yup from "yup"
 import { useForm, Controller } from "react-hook-form"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-
+import { Config } from "../../../config";
 const Player = ({ userInfo }) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [imagePreviewlic, setImagePreviewlic] = useState(null);
@@ -162,7 +162,7 @@ const Player = ({ userInfo }) => {
             formDataToUpdate.append("licence", data.licence);
             formDataToUpdate.append("image", data.file[0] || null);
             const response = await fetch(
-                `http://localhost:5000/api/player/${storedUserData.id}`,
+                `${Config.LOCAL_URL}/api/player/${storedUserData.id}`,
                 {
                     method: "PUT",
                     body: formDataToUpdate,
@@ -201,7 +201,7 @@ const Player = ({ userInfo }) => {
             formDataToUpdate.append("licence", data.licence);
             formDataToUpdate.append("image", null);
             const response = await fetch(
-                `http://localhost:5000/api/player/${storedUserData.id}`,
+                `${Config.LOCAL_URL}/api/player/${storedUserData.id}`,
                 {
                     method: "PUT",
                     body: formDataToUpdate,

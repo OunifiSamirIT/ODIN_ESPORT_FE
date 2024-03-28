@@ -4,7 +4,7 @@ import AdminHeader from './Components/AdminHeader';
 import Appfooter from '../../components/Appfooter';
 import Popupchat from '../../components/Popupchat';
 import Pagetitle from '../../components/Pagetitle';
-
+import { Config } from "../../config";
 
 const Event = () => {
     const [event, setEvent] = useState([]);
@@ -12,7 +12,7 @@ const Event = () => {
 
     const hanleEventApplication = async (userID , eventID) => {
 
-        const url = "https://odine-sport.com/api/event/apply/" + userID +"/" + eventID
+        const url = `${Config.LOCAL_URL}/api/event/apply/` + userID +"/" + eventID
         const response = await fetch(url , {
             method: 'POST',
           });
@@ -23,7 +23,7 @@ const Event = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await fetch("https://odine-sport.com/api/event");
+                const response = await fetch(`${Config.LOCAL_URL}/api/event`);
                 const result = await response.json();
 
                 setEvent(result.data);

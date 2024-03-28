@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import image from '../../assets/Image.png'
+import {Config} from '../../config'
 
 const Index = () => {
     const [article, setArticle] = useState([])
     const fetchBlogArticles = async () => {
-        const response = await fetch('http://localhost:5000/api/blog')
+        const response = await fetch(`${Config.BASE_URL}/api/blog`)
         const result = await response.json()
         console.log(result.blog)
         setArticle(result.blog)
     }
     useEffect(() => {
         fetchBlogArticles()
+        console.log(Config.BASE_URL)
     }, [])
 
     const formatDate = (dateTime) => {

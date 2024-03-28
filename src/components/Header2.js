@@ -5,7 +5,7 @@ import Logo from "../assets/ODIN22.png";
 import SlideMenu from "./SlideMenu";
 import '../components/Hamburger.css'
 import BurgerMenuLink from '../components/BurgerMenuLink'
-
+import { Config } from "../config";
 function Header() {
 
   const handleClick = () => {
@@ -28,7 +28,7 @@ function Header() {
 
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
+    fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
       .then((response) => response.json())
       .then((userData) => {
         setUser(userData)

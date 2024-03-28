@@ -6,7 +6,7 @@ import Appfooter from '../../../components/Appfooter';
 import Popupchat from '../../../components/Popupchat';
 import { useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
-
+import { Config } from "../../../config";
 const EditUser = () => {
     const {
         register,
@@ -29,7 +29,7 @@ const EditUser = () => {
     }
     useEffect(() => {
         const fetchUserData = async () => {
-            const url = "https://odine-sport.com/api/user/" + id;
+            const url = `${Config.LOCAL_URL}/api/user/` + id;
             try {
                 const response = await fetch(url);
                 const result = await response.json();
@@ -62,7 +62,7 @@ const EditUser = () => {
         formData.append("data", JSON.stringify(values));
         const storedUserData = JSON.parse(localStorage.getItem("user"));
         setValue('userId', storedUserData.id)
-        const url =  "https://odine-sport.com/api/user/edit/" + storedUserData.id
+        const url =   `${Config.LOCAL_URL}/api/user/edit/` + storedUserData.id
 
         await fetch(url , {
             method: 'POST',

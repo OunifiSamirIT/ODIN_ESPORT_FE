@@ -5,7 +5,7 @@ import Rightchat from "../components/Rightchat";
 import Pagetitle from "../components/Pagetitle";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
-
+import { Config } from "../config";
 const ImageModal = ({ imageUrl, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
@@ -36,7 +36,7 @@ function Storie() {
     if (storedUserData) {
       const userId = storedUserData.id;
       // Fetch gallery items for the specific user ID
-      fetch(`https://odine-sport.com/api/articles/gallery/${userId}`)
+      fetch(`${Config.LOCAL_URL}/api/articles/gallery/${userId}`)
         .then((response) => response.json())
         .then((data) => setGalleryItems(data.gallery))
         .catch((error) => console.error(error));

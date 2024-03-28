@@ -9,7 +9,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-
+import { Config } from "../../../config";
 const AddArticle = () => {
     const {
         register,
@@ -35,7 +35,7 @@ const AddArticle = () => {
 
     const onSubmit = async (data) => {
         console.log(data)
-        const response = await fetch("http://localhost:5000/api/blog/create", {
+        const response = await fetch(`${Config.LOCAL_URL}/api/blog/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const AddArticle = () => {
             formData.append('image', file);
             console.log(formData)
             try {
-                const response = await fetch('http://localhost:5000/api/blog/upload', {
+                const response = await fetch(`${Config.LOCAL_URL}/api/blog/upload`, {
                     method: 'POST',
                     body: formData,
                 });

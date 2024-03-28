@@ -6,7 +6,7 @@ import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
-
+import { Config } from "../config";
 function Account() {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -220,7 +220,7 @@ function Account() {
   
       // Make a PUT request to update the user profile
       const response = await fetch(
-        `https://odine-sport.com/api/user/${storedUserData.id}`,
+        `${Config.LOCAL_URL}/api/user/${storedUserData.id}`,
         {
           method: "PUT",
           body: formDataToUpdate,

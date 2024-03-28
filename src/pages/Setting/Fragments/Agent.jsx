@@ -6,7 +6,7 @@ import * as yup from "yup"
 import { useForm, Controller } from "react-hook-form"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-
+import { Config } from "../../../config";
 
 const Agent = ({ userInfo }) => {
     const [selectedCountries, setSelectedCountries] = useState([])
@@ -189,7 +189,7 @@ const Agent = ({ userInfo }) => {
             formDataToUpdate.append("totalTeam", data.totalTeam);
             console.log('formdata', formDataToUpdate)
             const response = await fetch(
-                `http://localhost:5000/api/agents/${storedUserData.id}`,
+                `${Config.LOCAL_URL}/api/agents/${storedUserData.id}`,
                 {
                     method: "PUT",
                     body: formDataToUpdate,

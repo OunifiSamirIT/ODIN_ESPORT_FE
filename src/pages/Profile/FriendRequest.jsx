@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from "react";
 import HomeLayout from "../../Layout/HomeLayout";
 import Placeholder from '../../assets/placeholder.jpg';
-
+import { Config } from "../../config";
 const FriendRequest = () => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [FriendRequest, setFriendRequest] = useState([])
     const fetchFriendRequest = async () => {
-        const response = await fetch(`http://localhost:5000/api/user/${storedUserData.id}/FriendRequest`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/FriendRequest`);
         const result = await response.json()
         setFriendRequest(result)
         console.log(result)
     }
     const deleteInviation = async (id) => {
-        const response = await fetch(`http://localhost:5000/api/user/${id}/delete/${storedUserData.id}`, {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/delete/${storedUserData.id}`, {
             method: "DELETE",
         });
         if (response.status === 200) { window.location.reload() }
     }
     const acceptInvitation = async (id) => {
-        console.log(`http://localhost:5000/api/user/${id}/acceptFriend/${storedUserData.id}`)
-        const response = await fetch(`http://localhost:5000/api/user/${storedUserData.id}/acceptFriend/${id}`, {
+        console.log(`${Config.LOCAL_URL}/api/user/${id}/acceptFriend/${storedUserData.id}`)
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/acceptFriend/${id}`, {
             method: "PUT",
         });
         if (response.status === 200) { window.location.reload() }

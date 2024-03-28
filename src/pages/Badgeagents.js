@@ -6,7 +6,7 @@ import Pagetitle from "../components/Pagetitle";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
+import { Config } from "../config";
 import Select, { components } from "react-select";
 
 
@@ -16,7 +16,7 @@ import Select, { components } from "react-select";
 
 
 
-const paysAllInfo =[
+const paysAllInfo = [
   {
     name: "Andorre",
     nationalite: "Andorrane",
@@ -71,7 +71,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Antigua et Barbuda",
     nationalite: "Antiguayenne",
@@ -162,7 +162,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AO.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Argentine",
     nationalite: "Argentine",
@@ -710,7 +710,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CA.svg",
     phoneLength: 10,
   },
-  
+
   {
     name: "République démocratique du Congo",
     nationalite: "Congolaise (RDC)",
@@ -802,7 +802,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/CI.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Chili",
     nationalite: "Chilienne",
@@ -1265,7 +1265,7 @@ const paysAllInfo =[
   },
   {
     name: "îles Malouines",
-    nationalite:"Malouine",
+    nationalite: "Malouine",
     region: "Amérique",
     timezones: {
       "Atlantic/Stanley": "-03:00",
@@ -2103,7 +2103,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/KW.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Kazakhstan",
     nationalite: "Kazakhstanais",
@@ -2399,7 +2399,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ME.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Madagascar",
     nationalite: "malgache",
@@ -2510,7 +2510,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MN.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Martinique",
     nationalite: "Martiniquaise",
@@ -2547,7 +2547,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/MR.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Malta",
     nationalite: "maltaise",
@@ -2704,7 +2704,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NA.svg",
     phoneLength: 7,
   },
-  
+
   {
     name: "Niger",
     nationalite: "Nigérienne",
@@ -2723,7 +2723,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NE.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Nigéria",
     nationalite: "Nigériane",
@@ -2832,7 +2832,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/NR.svg",
     phoneLength: 7,
   },
-  
+
   {
     name: "Nouvelle-Zélande",
     nationalite: "néo-zélandaise",
@@ -2906,7 +2906,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PE.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Papouasie-Nouvelle-Guinée",
     nationalite: "papouasienne",
@@ -2980,8 +2980,8 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/PL.svg",
     phoneLength: 9,
   },
-  
-  
+
+
   {
     name: "Poto Rico",
     nationalite: "Américaine",
@@ -3093,7 +3093,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/QA.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Roumanie",
     nationalite: "roumaine",
@@ -3299,7 +3299,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SG.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Slovénie",
     nationalite: "slovène",
@@ -3318,7 +3318,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SI.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Slovaquie",
     nationalite: "slovaque",
@@ -3427,7 +3427,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SR.svg",
     phoneLength: [6, 7],
   },
-  
+
   {
     name: "Sao Tomé-et-Principe",
     nationalite: "santoméenne",
@@ -3464,7 +3464,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/SV.svg",
     phoneLength: 8,
   },
-  
+
   {
     name: "Syrie",
     nationalite: "syrienne",
@@ -3590,7 +3590,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/TJ.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Timor oriental",
     nationalite: "timoraise",
@@ -3874,7 +3874,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UZ.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Saint-Vincent-et-les Grenadines",
     nationalite: "vincentaise",
@@ -3911,7 +3911,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/VE.svg",
     phoneLength: 7,
   },
-  
+
   {
     name: "Viêt Nam",
     nationalite: "vietnamienne",
@@ -4005,7 +4005,7 @@ const paysAllInfo =[
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/YE.svg",
     phoneLength: 9,
   },
-  
+
   {
     name: "Afrique du Sud",
     nationalite: "Sudafricaine",
@@ -4062,7 +4062,7 @@ const paysAllInfo =[
   },
 ];
 function Badge({ userpf }) {
-  
+
   const [searchNom, setSearchNom] = useState("");
   const [searchNationality, setSearchNationality] = useState("");
   const [searchTypeProfil, setSearchTypeProfil] = useState("");
@@ -4075,7 +4075,7 @@ function Badge({ userpf }) {
   const handleToggleFilters = () => {
     setShowFilters(!showFilters);
   };
-  
+
 
 
 
@@ -4085,10 +4085,10 @@ function Badge({ userpf }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://odine-sport.com/api/allagents");
+      const response = await fetch(`${Config.LOCAL_URL}/api/allagents`);
       const result = await response.json();
       setData(result);
-      console.log("agentttttttttttt", data )
+      console.log("agentttttttttttt", data)
       setFilteredUsers(result);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -4116,26 +4116,26 @@ function Badge({ userpf }) {
     setFilteredUsers(filteredData);
   };
 
-  
 
-const optionsPays = paysAllInfo.map((country) => {
-  const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
 
-  return {
-    value: countryCode,
-    label: (
-      <div>
-        {countryCode && (
-          <span
-            className={`flag-icon flag-icon-${countryCode}`}
-            style={{ marginRight: "2px", width: "40px" }}
-          ></span>
-        )}
-        {country.name}
-      </div>
-    ),
-  };
-});
+  const optionsPays = paysAllInfo.map((country) => {
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+
+    return {
+      value: countryCode,
+      label: (
+        <div>
+          {countryCode && (
+            <span
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{ marginRight: "2px", width: "40px" }}
+            ></span>
+          )}
+          {country.name}
+        </div>
+      ),
+    };
+  });
 
   const options = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
@@ -4164,14 +4164,13 @@ const optionsPays = paysAllInfo.map((country) => {
           <div className="middle-sidebar-left pe-0">
             <div className="row">
               <div className="col-xl-12">
-               
+
 
 
 
 
 
                 <div className="row  pe-1">
-                
 
 
 
@@ -4194,265 +4193,264 @@ const optionsPays = paysAllInfo.map((country) => {
 
 
 
-                <div className="flex flex-col  w-[100%] max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
-              <div className="flex flex-col justify-center px-11 py-6 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-                <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-                  <div className="flex-auto text-3xl font-bold text-zinc-900">
-                    Chercher Votre Agent
-                  </div>
-                  <div
-                className={`flex gap-2 justify-center self-start px-8 py-2 text-base font-medium ${
-                  showFilters ? 'text-white' : 'text-white'
-                } whitespace-nowrap ${
-                  showFilters ? 'bg-black' : 'bg-blue-600'
-                } rounded-[30px] max-md:px-5`}
-                onClick={handleToggleFilters}
-              >
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/338f69c576a3cd879110110b941d2824abc1d5b093ee17b0c389f0f0c415230e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="w-5 aspect-square"
-                />
-                  {showFilters ? 'Masquer les filtres' : 'Afficher les filtres'}
-              </div>
-                </div>
-              </div>
 
-
-
-                  {showFilters && (
-                  <>
-                              <div className="flex flex-col px-8 pt-8 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-
-                 <div className="flex-wrap gap-y-4 justify-between content-start mt-4 max-md:max-w-full">
-                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
-                    <div className="flex flex-col w-[69%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10 max-md:max-w-full">
-                        <div className="flex gap-4 justify-between px-4 max-md:flex-wrap max-md:max-w-full">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/1744eb7a080221807467d8a93b3f90074802cac02f9933e47a9e4e617ca3cdd9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="aspect-[0.71] w-[15px]"
-                          />
-                          <div className="grow max-md:max-w-full">
-                            Nom et prénom
+                  <div className="flex flex-col  w-[100%] max-md:ml-0 max-md:w-full">
+                    <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
+                      <div className="flex flex-col justify-center px-11 py-6 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+                        <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex-auto text-3xl font-bold text-zinc-900">
+                            Chercher Votre Agent
                           </div>
-                        </div>
-                        <input
-      class="justify-center  w-[70%] items-start py-3  pl-4 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
-      type="text"
-      placeholder=" nom  ou  prenom"
-      value={searchNom}
-      onChange={(e) => setSearchNom(e.target.value)}
-      />                        
-                        <div className="flex gap-4 self-start px-4 mt-4 whitespace-nowrap">
-                          
-                          <div className="grow">Nationalité</div>
-                        </div>
-                        <div className="flex flex-col justify-center py-1.5 mt-2 max-w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[263px]">
-                          <div className="flex flex-col justify-center px-4 py-2 rounded-md max-md:pr-5">
-                            <div className="flex gap-4 justify-between">
-                             
-                              <div className="flex-auto"> <div className="flex gap-4 justify-between">
-                  
-                  <Select
-                                               options={options}
-                                               placeholder="Select a country"
-                                               styles={{
-                                                 control: (provided, state) => ({
-                                                   ...provided,
-                                                   borderRadius: "0.375rem", // You can adjust the radius as needed
-                                                   display: "flex",
-                                                   justifyContent: "center",
-                                                   borderRadius: "30px",
-                 
-                                                   width: "100%",
-                                                   fontSize: "1rem", // Set the desired font size
-                                                   backgroundColor: "#f5f5f5", // Set the background color
-                                                   borderWidth: "none",
-                                                 }),
-                                               }}
-                                               onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
-                                               value={options.find((option) => option.value === searchNationality)}
-                                             />                  </div></div>
-                            </div>
+                          <div
+                            className={`flex gap-2 justify-center self-start px-8 py-2 text-base font-medium ${showFilters ? 'text-white' : 'text-white'
+                              } whitespace-nowrap ${showFilters ? 'bg-black' : 'bg-blue-600'
+                              } rounded-[30px] max-md:px-5`}
+                            onClick={handleToggleFilters}
+                          >
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/338f69c576a3cd879110110b941d2824abc1d5b093ee17b0c389f0f0c415230e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            {showFilters ? 'Masquer les filtres' : 'Afficher les filtres'}
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex flex-col ml-5 w-[31%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10">
-                        <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/706e00f0da2704336a80f4a202ba4e45774fadcb82a16cd4232e130a830ce2cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-3.5 aspect-[0.7]"
-                          />
-                          <div className="grow">Type de profil</div>
-                        </div>
-                        <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                          <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
-                            <div className="flex-auto self-start mt-1">
-                            
-                            <select
-                        className="self-start mt-1"
-                        value={searchTypeProfil}
-                        onChange={(e) => setSearchTypeProfil(e.target.value)}
-                      >
-                        <option value="" disabled>
-                          Type de profil
-                        </option>
-                        <option value="club">club</option>
-                        <option value="players">players</option>
-                      </select>
-                            </div>
-                            
-                          </div>
-                        </div>
-                        <div className="flex gap-4 justify-between px-4 mt-4 whitespace-nowrap">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/f6a58358a69d56964aaea215860418655d19b7498b4ea5e26db448960416d128?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square"
-                          />
-                          <div className="grow">Pays de résidence</div>
-                        </div>
-                        <div className="flex flex-col justify-center py-1.5 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                          <div className="flex flex-col justify-center px-4 py-2 rounded-md max-md:pr-5">
-                            <div className="flex gap-4 justify-between">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/7bfa59ddbe03014ac49893df4e2779307266e8ac8f21c475a7f9f2ef43bd7b71?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                className="aspect-[1.49] w-[30px]"
-                              />
-                              <div className="flex-auto">
 
 
-                              <div className="flex-auto">
-  <Select
-    options={optionsPays}
-    placeholder="Select a country"
-    styles={{
-      control: (provided, state) => ({
-        ...provided,
-        borderRadius: "0.375rem",
-        display: "flex",
-        justifyContent: "center",
-        borderRadius: "30px",
-        width: "100%",
-        fontSize: "1rem",
-        backgroundColor: "#f5f5f5",
-        borderWidth: "none",
-      }),
-    }}
-    onChange={(selectedOption) =>
-      setSearchPaysResidence(selectedOption.label.props.children[1])
-    }
-    value={optionsPays.find((option) => option.value === searchPaysResidence)}
-  />
-</div>
 
+                      {showFilters && (
+                        <>
+                          <div className="flex flex-col px-8 pt-8 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+
+                            <div className="flex-wrap gap-y-4 justify-between content-start mt-4 max-md:max-w-full">
+                              <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                                <div className="flex flex-col w-[69%] max-md:ml-0 max-md:w-full">
+                                  <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10 max-md:max-w-full">
+                                    <div className="flex gap-4 justify-between px-4 max-md:flex-wrap max-md:max-w-full">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/1744eb7a080221807467d8a93b3f90074802cac02f9933e47a9e4e617ca3cdd9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="aspect-[0.71] w-[15px]"
+                                      />
+                                      <div className="grow max-md:max-w-full">
+                                        Nom et prénom
+                                      </div>
+                                    </div>
+                                    <input
+                                      class="justify-center  w-[70%] items-start py-3  pl-4 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
+                                      type="text"
+                                      placeholder=" nom  ou  prenom"
+                                      value={searchNom}
+                                      onChange={(e) => setSearchNom(e.target.value)}
+                                    />
+                                    <div className="flex gap-4 self-start px-4 mt-4 whitespace-nowrap">
+
+                                      <div className="grow">Nationalité</div>
+                                    </div>
+                                    <div className="flex flex-col justify-center py-1.5 mt-2 max-w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[263px]">
+                                      <div className="flex flex-col justify-center px-4 py-2 rounded-md max-md:pr-5">
+                                        <div className="flex gap-4 justify-between">
+
+                                          <div className="flex-auto"> <div className="flex gap-4 justify-between">
+
+                                            <Select
+                                              options={options}
+                                              placeholder="Select a country"
+                                              styles={{
+                                                control: (provided, state) => ({
+                                                  ...provided,
+                                                  borderRadius: "0.375rem", // You can adjust the radius as needed
+                                                  display: "flex",
+                                                  justifyContent: "center",
+                                                  borderRadius: "30px",
+
+                                                  width: "100%",
+                                                  fontSize: "1rem", // Set the desired font size
+                                                  backgroundColor: "#f5f5f5", // Set the background color
+                                                  borderWidth: "none",
+                                                }),
+                                              }}
+                                              onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
+                                              value={options.find((option) => option.value === searchNationality)}
+                                            />                  </div></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex flex-col ml-5 w-[31%] max-md:ml-0 max-md:w-full">
+                                  <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10">
+                                    <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/706e00f0da2704336a80f4a202ba4e45774fadcb82a16cd4232e130a830ce2cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="w-3.5 aspect-[0.7]"
+                                      />
+                                      <div className="grow">Type de profil</div>
+                                    </div>
+                                    <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                      <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
+                                        <div className="flex-auto self-start mt-1">
+
+                                          <select
+                                            className="self-start mt-1"
+                                            value={searchTypeProfil}
+                                            onChange={(e) => setSearchTypeProfil(e.target.value)}
+                                          >
+                                            <option value="" disabled>
+                                              Type de profil
+                                            </option>
+                                            <option value="club">club</option>
+                                            <option value="players">players</option>
+                                          </select>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                    <div className="flex gap-4 justify-between px-4 mt-4 whitespace-nowrap">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f6a58358a69d56964aaea215860418655d19b7498b4ea5e26db448960416d128?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="w-5 aspect-square"
+                                      />
+                                      <div className="grow">Pays de résidence</div>
+                                    </div>
+                                    <div className="flex flex-col justify-center py-1.5 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                      <div className="flex flex-col justify-center px-4 py-2 rounded-md max-md:pr-5">
+                                        <div className="flex gap-4 justify-between">
+                                          <img
+                                            loading="lazy"
+                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/7bfa59ddbe03014ac49893df4e2779307266e8ac8f21c475a7f9f2ef43bd7b71?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                            className="aspect-[1.49] w-[30px]"
+                                          />
+                                          <div className="flex-auto">
+
+
+                                            <div className="flex-auto">
+                                              <Select
+                                                options={optionsPays}
+                                                placeholder="Select a country"
+                                                styles={{
+                                                  control: (provided, state) => ({
+                                                    ...provided,
+                                                    borderRadius: "0.375rem",
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    borderRadius: "30px",
+                                                    width: "100%",
+                                                    fontSize: "1rem",
+                                                    backgroundColor: "#f5f5f5",
+                                                    borderWidth: "none",
+                                                  }),
+                                                }}
+                                                onChange={(selectedOption) =>
+                                                  setSearchPaysResidence(selectedOption.label.props.children[1])
+                                                }
+                                                value={optionsPays.find((option) => option.value === searchPaysResidence)}
+                                              />
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                 </div>
-                
-                 <div className="flex gap-5 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                 <button  onClick={handleReset} className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5">
-          Réinitialiser
-        </button>
-        <div className="flex gap-5 justify-between pl-6">
-          <button  onClick={handleSearch}  className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-            Confirmer
-          </button>
-                  </div>
-                 </div>  </div>
-                  </>)}
-                 
-                 </div>
 
-                 <div className="flex-wrap content-start mt-6 max-md:max-w-full">
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-  {filteredUsers.map((user, index) => (
-      <div key={index} className="flex flex-col w-full">
-        <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
-                      <img
-                        loading="lazy"
-                        src={user.user.image}
-                        className="self-center max-w-full rounded-full aspect-square w-[120px]"
-                      />
-                      <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
-                      {user.user.prenom} {user.user.nom}
-                      </div>
-                     
-                     
-                      
-                      <div className="flex gap-5 justify-between mt-4 w-full">
-        <div className="flex gap-5 justify-between px-1 font-light whitespace-nowrap">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-            className="w-3.5 aspect-[0.74]"
-          />
-          <div className="my-auto">Profil</div>
-        </div>
-        <div className="flex-auto my-auto font-medium">{user.typeresponsable}</div>
-      </div>
-                      <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                        <div className="flex gap-4 justify-between font-light">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square"
-                          />
-                          <div>Nationnalité</div>
-                        </div>
-                        <div className="flex gap-2.5 my-auto font-medium">
-                          {/* <img
+                            <div className="flex gap-5 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                              <button onClick={handleReset} className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5">
+                                Réinitialiser
+                              </button>
+                              <div className="flex gap-5 justify-between pl-6">
+                                <button onClick={handleSearch} className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                                  Confirmer
+                                </button>
+                              </div>
+                            </div>  </div>
+                        </>)}
+
+                    </div>
+
+                    <div className="flex-wrap content-start mt-6 max-md:max-w-full">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+                        {filteredUsers.map((user, index) => (
+                          <div key={index} className="flex flex-col w-full">
+                            <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
+                              <img
+                                loading="lazy"
+                                src={user.user.image}
+                                className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                              />
+                              <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
+                                {user.user.prenom} {user.user.nom}
+                              </div>
+
+
+
+                              <div className="flex gap-5 justify-between mt-4 w-full">
+                                <div className="flex gap-5 justify-between px-1 font-light whitespace-nowrap">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-3.5 aspect-[0.74]"
+                                  />
+                                  <div className="my-auto">Profil</div>
+                                </div>
+                                <div className="flex-auto my-auto font-medium">{user.typeresponsable}</div>
+                              </div>
+                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                                <div className="flex gap-4 justify-between font-light">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <div>Nationnalité</div>
+                                </div>
+                                <div className="flex gap-2.5 my-auto font-medium">
+                                  {/* <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/4c5f54f84c558024f118d5e81ca0de6ba64d47d21dd8ea384226e5d3654ccde5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-[1.43]"
                           /> */}
-                          <div> {user.user.nationality}</div>
-                        </div>
-                      </div>
-                      <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                        <div className="flex gap-4 justify-between font-light">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square"
-                          />
-                          <div>Pays de résidence</div>
-                        </div>
-                        <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
-    <div className="overflow-hidden overflow-ellipsis">
-      {user.user.countryresidence}
-    </div>
-  </div>
+                                  <div> {user.user.nationality}</div>
+                                </div>
+                              </div>
+                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                                <div className="flex gap-4 justify-between font-light">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <div>Pays de résidence</div>
+                                </div>
+                                <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
+                                  <div className="overflow-hidden overflow-ellipsis">
+                                    {user.user.countryresidence}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+
+                        ))}
                       </div>
                     </div>
+
+
+
+
+
+
+
                   </div>
-                 
-                 
-                 
-                 
-                 ))}
-                </div>
-              </div>
-
-
-
-
-
-
-
-          </div>
                 </div>
               </div>
             </div>
