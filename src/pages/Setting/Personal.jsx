@@ -13,7 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { paysAllInfo } from "../../assets/data/Country";
 import DatePicker from "react-datepicker";
-
+import { Config } from "../../config";
 const Personal = ({ userInfo }) => {
   const [inputErrors, setInputErrors] = useState({});
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -181,7 +181,7 @@ const Personal = ({ userInfo }) => {
     formDataToUpdate.append("cityresidence", data.cityresidence);
     formDataToUpdate.append("image", file);
     const response = await fetch(
-      `http://localhost:5000/api/user/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/user/${storedUserData.id}`,
       {
         method: "PUT",
         body: formDataToUpdate,
@@ -221,7 +221,7 @@ const Personal = ({ userInfo }) => {
   useEffect(() => {
     const defaultValue = (countryName) => { return options.find(option => option.label.props?.children[1] === countryName) };
 
-    fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
+    fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
       .then((response) => response.json())
       .then((userData) => {
         console.log(defaultValue(userData.user.nationality))

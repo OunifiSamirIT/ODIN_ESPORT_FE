@@ -5,6 +5,7 @@ import Dropzone from '../Components/Dropzone';
 import Appfooter from '../../../components/Appfooter';
 import Popupchat from '../../../components/Popupchat';
 import { useForm } from "react-hook-form";
+import { Config } from "../../../config";
 
 const AddEvent = () => {
     const {
@@ -26,7 +27,7 @@ const AddEvent = () => {
             formData.append('files', file);
           }); 
         formData.append("userID", storedUserData.id);         
-      await fetch("https://odine-sport.com/api/event/upload", {
+      await fetch(`${Config.LOCAL_URL}/api/event/upload`, {
           method: 'POST',
           body: formData,
         });

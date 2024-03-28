@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Logo from "../assets/ODIN22.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SlideMenu from "../components/SlideMenu";
-
+import { Config } from "../config";
 
 const Album = () => {
   const [isActive, setIsActive] = useState(false);
@@ -26,7 +26,7 @@ const Album = () => {
   
     const fetchAlbums = async () => {
       try {
-        const response = await fetch("https://odine-sport.com/api/albumc");
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
         const result = await response.json();
   
         // Convert id to a number before filtering

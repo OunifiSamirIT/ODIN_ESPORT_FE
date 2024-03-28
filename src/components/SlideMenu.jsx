@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import UserImage from "../assets/placeholder.jpg"
+import { Config } from "../config";
 const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const [expanded, setExpanded] = useState(false);
   const [lang, setLang] = useState('Français')
@@ -8,7 +9,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
+    fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
       .then((response) => response.json())
       .then((userData) => {
         console.log(user)

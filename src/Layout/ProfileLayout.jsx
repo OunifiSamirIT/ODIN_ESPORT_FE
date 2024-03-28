@@ -8,6 +8,7 @@ import Player from "../pages/Profile/Fragments/Player"
 import General from "../pages/Profile/Fragments/General"
 import Entraineur from "../pages/Profile/Fragments/Entraineur"
 import PlaceHolder from "../assets/placeholder.jpg"
+import { Config } from "../config";
 const ProfileLayout = ({ children, onChange, user }) => {
     const [CurrentUser, setCurrentUser] = useState(null)
     const { id } = useParams()
@@ -37,7 +38,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
     const navigate = useNavigate()
     const userInfo = async () => {
-        const response = await fetch(`http://localhost:5000/api/user/${id}`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`);
         const result = await response.json();
         console.log('sdfsdf', result)
         if (result.message) { navigate('/404') } else {
@@ -45,7 +46,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
         }
     }
     const isFriendAccepted = async () => {
-        const response = await fetch(`http://localhost:5000/api/user/${user}/checkFriends/${LocalStorageID.id}`)
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${user}/checkFriends/${LocalStorageID.id}`)
         const result = await response.json();
         setAcceptedFriend(result.exists)
         console.log('this cidfjk', acceptedFriend)
@@ -60,14 +61,14 @@ const ProfileLayout = ({ children, onChange, user }) => {
     }, [id,user])
 
     const fetchAllFriendRequest = async () => {
-        const response = await fetch(`http://localhost:5000/api/user/${id}/getFriends`, {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/getFriends`, {
             method: "GET",
         });
         const result = await response.json();
         setInvitation(result)
     }
     const sendFriendRequest = async () => {
-        const response = await fetch(`http://localhost:5000/api/user/${LocalStorageID.id}/sendFriendRequest/${id}`, {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${LocalStorageID.id}/sendFriendRequest/${id}`, {
             method: "POST",
         });
     }
@@ -100,7 +101,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
 
     };
     const deleteInviation = async (id) => {
-        const response = await fetch(`http://localhost:5000/api/user/${LocalStorageID.id}/delete/${id}`, {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${LocalStorageID.id}/delete/${id}`, {
             method: "DELETE",
         });
         console.log(response)

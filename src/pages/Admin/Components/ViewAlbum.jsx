@@ -1,7 +1,7 @@
 import React, { useEffect , useState } from "react";
 import { useParams } from 'react-router-dom';
 import Header from './AdminHeader';
-
+import { Config } from "../../../config";
 import Pagetitle from '../../../components/Pagetitle';
 import Appfooter from '../../../components/Appfooter';
 
@@ -88,7 +88,7 @@ const ViewAlbum = () => {
    
     const fetchAlbumData = async () => {
         setIsLoading(true);
-        const url = "https://odine-sport.com/api/album/" + id;
+        const url = `${Config.LOCAL_URL}/api/album/` + id;
         try {
           const response = await fetch(url);
           const result = await response.json();

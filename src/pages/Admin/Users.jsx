@@ -5,7 +5,7 @@ import { Dropdown, DropdownItem } from './Components/Dropdown';
 import Appfooter from '../../components/Appfooter';
 import Popupchat from '../../components/Popupchat';
 import Pagetitle from '../../components/Pagetitle';
-
+import { Config } from "../../config";
 const User = () => {
 
     const [users, setUsers] = useState([]);
@@ -14,7 +14,7 @@ const User = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("https://odine-sport.com/api/user");
+                const response = await fetch(`${Config.LOCAL_URL}/api/user`);
                 const result = await response.json();
 
                 setUsers(result.rows);

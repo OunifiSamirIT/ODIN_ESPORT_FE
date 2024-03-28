@@ -1,6 +1,6 @@
 import React, { Component, useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
+import { Config } from "../config";
 import Darkbutton from "../components/Darkbutton";
 import Logo from "../assets/ODIN22.png";
 import SlideMenu from "./SlideMenu";
@@ -24,7 +24,7 @@ function Header() {
 
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`https://odine-sport.com/api/user/${id}`)
+    fetch(`${Config.LOCAL_URL}/api/user/${id}`)
       .then((response) => response.json())
       .then((userData) => {
         setUser(userData)

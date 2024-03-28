@@ -1,5 +1,5 @@
 import React,{Component, useEffect, useState} from 'react';
-
+import { Config } from '../config';
 function ProfilecardThree () {
     const [user, setUser] = useState([]);
 
@@ -10,7 +10,7 @@ function ProfilecardThree () {
     
         if (id) {
           // Replace the API endpoint with your actual endpoint for fetching user data
-          fetch(`https://odine-sport.com/api/user/${id}`)
+          fetch(`${Config.LOCAL_URL}/api/user/${id}`)
             .then((response) => response.json())
             .then((userData) => {
               setUser(userData);

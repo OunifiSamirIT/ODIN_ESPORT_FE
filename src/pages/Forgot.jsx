@@ -2,7 +2,7 @@ import React, { Component, Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import CustomButton from "../components/CustomButton";
-
+import { Config } from "../config";
 function Forgot() {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +27,7 @@ function Forgot() {
 
       // Make an API request to initiate the password reset
       const response = await fetch(
-        "https://odine-sport.com/api/auth/forgotPassword",
+        `${Config.LOCAL_URL}/api/auth/forgotPassword`,
         {
           method: "POST",
           headers: {

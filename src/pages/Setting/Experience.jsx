@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-
+import { Config } from "../../config";
 
 const Experience = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -39,7 +39,7 @@ const Experience = () => {
     }
     const handleDeleteExperience = async (id) => {
       const response =   await fetch(
-            `http://localhost:5000/api/experience/delete/${id}`,
+            `${Config.LOCAL_URL}/api/experience/delete/${id}`,
             {
                 method: 'DELETE',
                 headers: {
@@ -144,7 +144,7 @@ const Experience = () => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const fetchExperience = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/experience/fetch/${storedUserData.id}`, {
+            const response = await fetch(`${Config.LOCAL_URL}/api/experience/fetch/${storedUserData.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json', // Set the content type to JSON
@@ -167,7 +167,7 @@ const Experience = () => {
 
         if (update) {
           const response =  await fetch(
-                `http://localhost:5000/api/experience/update/${expID}`,
+                `${Config.LOCAL_URL}/api/experience/update/${expID}`,
                 {
                     method: 'PUT',
                     headers: {
@@ -217,7 +217,7 @@ const Experience = () => {
         } else {
 
             const response = await fetch(
-                `http://localhost:5000/api/experience/create`,
+                `${Config.LOCAL_URL}/api/experience/create`,
                 {
                     method: 'POST',
                     headers: {

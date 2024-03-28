@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import { Config } from "../config";
 const EditPage = () => {
   const { articleId } = useParams();
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const EditPage = () => {
     const fetchArticle = async () => {
       try {
         const response = await fetch(
-          `https://odine-sport.com/api/articles/${articleId}`
+          `${Config.LOCAL_URL}/api/articles/${articleId}`
         );
         if (response.ok) {
           const article = await response.json();

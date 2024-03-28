@@ -1,5 +1,5 @@
 import React,{Component, useEffect, useState} from 'react';
-
+import { Config } from '../config';
 
 
 function Contacts () {
@@ -16,7 +16,7 @@ function Contacts () {
         console.log("suggestedFriends:", suggestedFriends);
     
         if (userId) {
-          fetch(`https://odine-sport.com/api/user/${userId}`)
+          fetch(`${Config.BASE_URL} /api/user/${userId}`)
             .then((response) => {
               console.log("Response from the server:", response);
               return response.json();
@@ -31,7 +31,7 @@ function Contacts () {
           try {
             const userId = storedUserData.id; 
             const response = await fetch(
-              `https://odine-sport.com/${userId}/suggest/random`
+              `${Config.LOCAL_URL}/${userId}/suggest/random`
             );
             const data = await response.json();
             setSuggestedFriends(data);

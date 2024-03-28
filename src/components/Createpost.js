@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
+import { Config } from '../config';
 const Createpost = ({ setPostsData, storedUserData }) => {
   const {
     register,
@@ -45,13 +45,13 @@ const Createpost = ({ setPostsData, storedUserData }) => {
       formData.append("fileType", fileType);
   
       // Make a POST request to create a new article
-      await fetch("https://odine-sport.com/api/articles/", {
+      await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
       });
   
       // After creating the article, fetch the updated list of articles
-      const response = await fetch("https://odine-sport.com/api/articles/");
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const updatedPostsData = await response.json();
   
       // Update the list of posts and reset the preview image

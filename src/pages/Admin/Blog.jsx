@@ -5,17 +5,17 @@ import Appfooter from '../../components/Appfooter';
 import Popupchat from '../../components/Popupchat';
 import Pagetitle from '../../components/Pagetitle';
 import { Link } from "react-router-dom";
-
+import { Config } from "../../config";
 const Event = () => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [article, setArticle] = useState([])
     const fetchBlogArticles = async () => {
-        const response = await fetch('http://localhost:5000/api/blog')
+        const response = await fetch(`${Config.LOCAL_URL}/api/blog`)
         const result = await response.json()
         setArticle(result.blog)
     }
     const handleDeleteBlog = async (id) => {
-        const response = await fetch(`http://localhost:5000/api/blog/delete/${id}` , {
+        const response = await fetch(`${Config.LOCAL_URL}/api/blog/delete/${id}` , {
             method: 'DELETE',
         })
         fetchBlogArticles()

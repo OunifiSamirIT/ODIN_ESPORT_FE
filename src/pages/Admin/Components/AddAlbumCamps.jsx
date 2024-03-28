@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link, Navigate, redirect, useNavigate } from 'react-router-dom';
 import Dropzone from '../Components/Dropzone';
 import Header from '../Components/AdminHeader';
@@ -7,6 +7,7 @@ import Popupchat from '../../../components/Popupchat';
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Config } from "../../../config";
 const AddEvent = () => {
 
     const navigate = useNavigate();
@@ -15,37 +16,37 @@ const AddEvent = () => {
         register,
         handleSubmit,
         setValue,
-        getValues, 
-      } = useForm(); 
+        getValues,
+    } = useForm();
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const storedUserData = JSON.parse(localStorage.getItem("user"));
 
     const onSubmit = async (data) => {
-          const formData = new FormData();
-          console.log(data.file)
-          formData.append("AlbumName", data.AlbumName);
-          formData.append("Description", data.Description);
-          formData.append("Duree", data.Duree);
-          formData.append("payscamps", data.payscamps);
-          formData.append("prix", data.prix);
-          formData.append("date_debut", data.date_debut);
-          formData.append("date_fin", data.date_fin);
-          data.file.forEach((file) => {
+        const formData = new FormData();
+        console.log(data.file)
+        formData.append("AlbumName", data.AlbumName);
+        formData.append("Description", data.Description);
+        formData.append("Duree", data.Duree);
+        formData.append("payscamps", data.payscamps);
+        formData.append("prix", data.prix);
+        formData.append("date_debut", data.date_debut);
+        formData.append("date_fin", data.date_fin);
+        data.file.forEach((file) => {
             formData.append('files', file);
-          }); 
-          formData.append("userId", storedUserData.id);         
-        await fetch("https://odine-sport.com/api/albumc/upload", {
+        });
+        formData.append("userId", storedUserData.id);
+        await fetch(`${Config.LOCAL_URL}/api/albumc/upload`, {
             method: 'POST',
             body: formData,
-          });
-          navigate("/home");
+        });
+        navigate("/home");
 
-          
+
     }
     const handleFileChange = async () => {
         setValue('file', uploadedFiles)
-        
-      };
+
+    };
     return (
         <>
             <Header />
@@ -71,7 +72,7 @@ const AddEvent = () => {
                                             </div>
                                         </div>
                                         <div>
-                                            <Dropzone onChange={handleFileChange} multiple={true} setUploadedFiles={setUploadedFiles}/>
+                                            <Dropzone onChange={handleFileChange} multiple={true} setUploadedFiles={setUploadedFiles} />
                                             <div className="col-lg-12 mb-3">
                                                 <label className="mont-font fw-600 font-xsss mb-2 text-dark">Description</label>
                                                 <textarea {...register("Description")} className="form-control mb-0 p-3 h100 bg-greylight lh-16" rows="5" placeholder="Write your message... (optional)" ></textarea>
@@ -95,17 +96,17 @@ const AddEvent = () => {
                                             </div>
 
                                             <div className="col-lg-12 mb-3">
-    <label className="mont-font fw-600 font-xsss mb-2 text-dark">date_debut</label>
-    <DatePicker
-    {...register("date_debut")}
-    className="form-control mb-0 p-3 h100 bg-greylight lh-16"
-    placeholderText="Select date_debut"
-    dateFormat="yyyy-MM-dd"
-    selected={getValues("date_debut") ? new Date(getValues("date_debut")) : null}
-    onChange={(date) => setValue("date_debut", date ? date.toISOString().split('T')[0] : null)}
-/>
+                                                <label className="mont-font fw-600 font-xsss mb-2 text-dark">date_debut</label>
+                                                <DatePicker
+                                                    {...register("date_debut")}
+                                                    className="form-control mb-0 p-3 h100 bg-greylight lh-16"
+                                                    placeholderText="Select date_debut"
+                                                    dateFormat="yyyy-MM-dd"
+                                                    selected={getValues("date_debut") ? new Date(getValues("date_debut")) : null}
+                                                    onChange={(date) => setValue("date_debut", date ? date.toISOString().split('T')[0] : null)}
+                                                />
 
-</div>
+                                            </div>
 
 
 
@@ -114,7 +115,7 @@ const AddEvent = () => {
                                                 <input {...register("date_fin")} className="form-control mb-0 p-3 h100 bg-greylight lh-16" rows="5" placeholder="Write your message... (optional)" />
                                             </div>
 
-                                           
+
 
                                             <div className="col-lg-12">
                                                 <button type="submit" className="bg-current text-center text-white font-xsss fw-600 p-3 w175 rounded-3 d-inline-block">Save</button>
