@@ -1,6 +1,6 @@
 import React,{Component, useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-
+import { Config } from '../config';
 const friendList = [
     {
         imageUrl: 'user.png',
@@ -30,7 +30,7 @@ function Friends () {
     
         // Fetch user info using user ID
         if (userId) {
-          fetch(`https://odine-sport.com/api/user/${userId}`)
+          fetch(`${Config.LOCAL_URL}/api/user/${userId}`)
             .then((response) => {
               console.log("Response from the server friendsssss:", response);
               return response.json();
@@ -46,7 +46,7 @@ function Friends () {
         const fetchFriendRequests = async () => {
           try {
             const response = await fetch(
-              `https://odine-sport.com/api/user/${userId}/friend-requests`
+              `${Config.LOCAL_URL}/api/user/${userId}/friend-requests`
             );
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);

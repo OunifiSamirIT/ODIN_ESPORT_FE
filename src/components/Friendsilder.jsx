@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from "react-slick";
-
+import { Config } from '../config';
 function FriendsSlider() {
     const [agents, setAgents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -10,7 +10,7 @@ function FriendsSlider() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("https://odine-sport.com/api/user");
+                const response = await fetch(`${Config.LOCAL_URL}/api/user`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch users');
                 }

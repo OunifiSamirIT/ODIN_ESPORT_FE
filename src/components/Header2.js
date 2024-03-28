@@ -49,7 +49,7 @@ function Header() {
 
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
+    fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
       .then((response) => response.json())
       .then((userData) => {
         setUser(userData)
@@ -61,7 +61,7 @@ function Header() {
 
 
   useEffect(() => {
-    fetch(`https://odine-sport.com/api/AllTarget`)
+    fetch(`http://localhost:5000/api/AllTarget`)
       .then((response) => response.json())
       .then((data) => {
         setSearch(data);
@@ -69,7 +69,7 @@ function Header() {
       .catch((error) => console.error("Error fetching data:", error));
 
         // Fetch users
-  fetch(`https://odine-sport.com/api/user`)
+  fetch(`http://localhost:5000/api/user`)
   .then((response) => response.json())
   .then((userData) => {
     setUsers(userData)
@@ -169,7 +169,7 @@ function Header() {
   };
   return (
     <>
-      <div className={`w-full bg-white shadow-xs ${Hamburger ? 'fixed top-0 h-screen overflow-hidden z-50' : ''}`}>
+      <div className={`w-full bg-white fixed z-50 shadow-xs ${Hamburger ? 'fixed top-0 h-screen overflow-hidden z-50' : ''}`}>
         <div className="max-sm:px-4 max-w-[1344px] h-[80px] w-full bg-white  border-0 flex items-center justify-between mx-auto py-2 ">
          <div className="flex flex-row">
            <Link to="/home" className="mt-3">
@@ -200,7 +200,7 @@ function Header() {
             <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0"> </span>
           </Link>
           
-          <div className="flex pl-7 pt-4 w-full min-w-[250px] ">
+          <div className="hidden md:flex pl-7 pt-4 w-full min-w-[250px]">
       <div className="flex items-center relative ">
         <div className="flex items-center whitespace-nowrap bg-gray-100 pr-2 pl-2 h-11 w-[250px] rounded-full mr-4 border border-black absolute top-0">
           <input
@@ -274,16 +274,29 @@ function Header() {
               <div className="flex gap-5 justify-between p-6  w-full text-base bg-white rounded-[10px] max-w-[366px] text-zinc-900">
                 <img
                   loading="lazy"
-                  srcSet={user.user.image}
+                  srcSet={user?.user?.image}
                   className="my-auto rounded-full aspect-square w-[35px]"
                 />
                 <div className="flex flex-col flex-1">
-                  <div className="text-lg">{user.user.nom + ' ' + user.user.prenom}</div>
-                  <Link to={`/profile/${user.user?.id}`} className="text-sm">Accueil</Link>
+                  <div className="text-lg">{user?.user?.nom + ' ' + user?.user?.prenom}</div>
+                  <Link to={`/profile/${user?.user?.id}`} className="text-sm">Accueil</Link>
                 </div>
               </div>
 
-              
+              <BurgerMenuLink Href={'/home'} Title={'Rechercher'} Svg={``}>
+              <svg
+            width="21"
+            height="20"
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20.0787 17.871L16.2077 13.9984C19.1041 10.1278 18.3144 4.64195 14.4437 1.74551C10.5731 -1.15092 5.08726 -0.361157 2.19083 3.50949C-0.705607 7.38013 0.0841559 12.866 3.9548 15.7624C7.06402 18.0891 11.3345 18.0891 14.4437 15.7624L18.3163 19.635C18.803 20.1216 19.592 20.1216 20.0786 19.635C20.5653 19.1483 20.5653 18.3593 20.0786 17.8727L20.0787 17.871ZM9.23154 15.015C5.7915 15.015 3.00282 12.2263 3.00282 8.78623C3.00282 5.34618 5.7915 2.55751 9.23154 2.55751C12.6716 2.55751 15.4603 5.34618 15.4603 8.78623C15.4566 12.2247 12.6701 15.0113 9.23154 15.015Z"
+              fill="#2E71EB"
+            />
+          </svg>
+              </BurgerMenuLink>
               <BurgerMenuLink Href={'/home'} Title={'Accueil'} Svg={``}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18.3299 4.77286V1.6701C18.3299 1.21019 17.9575 0.836926 17.4967 0.836926C17.036 0.836926 16.6635 1.21019 16.6635 1.6701V3.6414L12.3285 0.716116C10.913 -0.238705 9.0833 -0.238705 7.66773 0.716116L1.83549 4.65204C0.686538 5.42773 0 6.71832 0 8.10556V15.8341C0 18.1312 1.86882 20 4.16589 20H5.83224C6.29299 20 6.66542 19.6267 6.66542 19.1668V11.6682C6.66542 11.2091 7.03868 10.8351 7.49859 10.8351H12.4977C12.9576 10.8351 13.3308 11.2091 13.3308 11.6682V19.1668C13.3308 19.6267 13.7033 20 14.164 20H15.8304C18.1274 20 19.9963 18.1312 19.9963 15.8341V8.10556C19.9963 6.78831 19.3764 5.55771 18.3299 4.77286Z" fill="#2E71EB" />

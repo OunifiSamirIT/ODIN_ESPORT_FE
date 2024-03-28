@@ -1,12 +1,12 @@
 import React, {  useState,  useEffect } from "react";
-
+import { Config } from "../config";
 function Events() {
   const [albums, setAlbums] = useState([]);
 
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await fetch("https://odine-sport.com/api/albumc");
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
         const result = await response.json();
         setAlbums(result.data);
       } catch (error) {

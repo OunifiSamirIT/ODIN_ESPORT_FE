@@ -7,7 +7,7 @@ import Appfooter from '../../components/Appfooter';
 import Popupchat from '../../components/Popupchat';
 import Load from '../../components/Load';
 import { Link } from "react-router-dom";
-
+import { Config } from "../../config";
 
 
 const  Album =  () =>  {
@@ -18,7 +18,7 @@ const  Album =  () =>  {
     useEffect(() => {
         const fetchAlbums = async () => {
             try {
-                const response = await fetch("https://odine-sport.com/api/album");
+                const response = await fetch(`${Config.LOCAL_URL}/api/album`);
                 const result = await response.json();
 
                 setAlbum(result.data);

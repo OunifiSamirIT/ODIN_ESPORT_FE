@@ -19,7 +19,7 @@ import { paysAllInfo } from "../assets/data/Country";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useForm, Controller } from "react-hook-form"
-
+import { Config } from "../config";
 
 
 
@@ -69,7 +69,7 @@ const handelretourform = () => {
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
-      fetch(`https://odine-sport.com/api/user/${id}`)
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
         .then((response) => response.json())
         .then((userData) => {
           setUsers(userData);
@@ -80,7 +80,7 @@ const handelretourform = () => {
 
     const fetchAlbums = async () => {
       try {
-        const response = await fetch("https://odine-sport.com/api/albumc");
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
         const result = await response.json();
 
         setAlbum(result.data);
@@ -168,7 +168,7 @@ const handelretourform = () => {
         const userId = storedUserData ? storedUserData.id : null;
         const campsId = id;
   
-        fetch("http://localhost:5000/api/inscrit/upload", {
+        fetch(`${Config.LOCAL_URL}/api/inscrit/upload`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

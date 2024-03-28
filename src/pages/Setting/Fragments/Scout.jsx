@@ -6,7 +6,7 @@ import * as yup from "yup"
 import { useForm, Controller } from "react-hook-form"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-
+import { Config } from "../../../config";
 
 const Scout = ({ userInfo }) => {
     const [selectedCountries, setSelectedCountries] = useState([])
@@ -163,7 +163,7 @@ const Scout = ({ userInfo }) => {
         formDataToUpdate.append("region", selectedRegionsV);
         console.log('formdata', formDataToUpdate)
         const response = await fetch(
-            `https://odine-sport.com/api/scouts/${storedUserData.id}`,
+            `${Config.LOCAL_URL}/api/scouts/${storedUserData.id}`,
             {
                 method: "PUT",
                 body: formDataToUpdate,

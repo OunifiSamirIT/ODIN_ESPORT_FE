@@ -4,7 +4,7 @@ import * as yup from "yup"
 import { useForm } from "react-hook-form"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-
+import { Config } from "../../../config";
 const Other = ({ userInfo }) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [selectedSkillsError, setSelectedSkillsError] = useState(false)
@@ -175,7 +175,7 @@ const Other = ({ userInfo }) => {
         const formDataToUpdate = new FormData();
         formDataToUpdate.append("skillsAutre", data.skills.join(','));
         const response = await fetch(
-            `https://odine-sport.com/api/other/${storedUserData.id}`,
+            `{${Config.LOCAL_URL}}/api/other/${storedUserData.id}`,
             {
                 method: "PUT",
                 body: formDataToUpdate,

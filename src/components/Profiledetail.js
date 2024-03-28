@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { Config } from "../config";
 function Profiledetail() {
   const [agents, setAgents] = useState([]);
   const [players, setPlayers] = useState([]);
@@ -11,7 +11,7 @@ function Profiledetail() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch(`https://odine-sport.com/api/other/${id}`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/other/${id}`);
         const data = await response.json();
         setUserInfo(data);
         console.log("hhhsksksk", userInfo);

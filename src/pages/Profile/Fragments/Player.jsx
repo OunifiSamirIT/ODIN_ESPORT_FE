@@ -4,6 +4,8 @@ import Terrain from "../../../components/Terrain";
 import { useParams } from "react-router-dom";
 import Placeholder from "../../../assets/placeholder.jpg"
 import { useNavigate } from 'react-router-dom';
+import { Config } from "../../../config";
+
 const PlayerCard = ({ userInfo }) => {
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -19,14 +21,14 @@ const PlayerCard = ({ userInfo }) => {
   const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
 
   const isFriendAccepted = async () => {
-    const response = await fetch(`https://odine-sport.com/api/user/${id}/checkFriends/${storedUserData.id}`)
+    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`)
     const result = await response.json();
     setAcceptedFriend(result.exists)
     console.log('this cidfjk', acceptedFriend)
   }
   const sendFriendRequest = async () => {
 
-    const response = await fetch(`https://odine-sport.com/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
+    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
       method: "POST",
     });
 
@@ -35,7 +37,7 @@ const PlayerCard = ({ userInfo }) => {
   }
 
   const CheckIfInvitationIsSend = async () => {
-    const response = await fetch(`https://odine-sport.com/api/user/${id}/friend-requests`, {
+    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/friend-requests`, {
       method: "GET",
     });
     const result = await response.json();
