@@ -22,7 +22,7 @@
 
 
 */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@300;400;500;700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
@@ -282,7 +282,6 @@
 .bg-lightblue2 {
   background-color: #f7f9fd !important;
 }
-
 .bg-odin1 {
   background-color: rgb(47, 72, 111)  !important;
 }
@@ -1589,7 +1588,7 @@
   background-color: #fff;
 }
 .theme-dark a.text-dark:hover {
-  color: #eee !important;
+  color: #842020 !important;
 }
 
 .theme-dark .header-wrapper .logo .light {
@@ -12531,8 +12530,8 @@ strong,
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  height: 96px;
-  padding: 0 15px 0 0;
+  height: 0px;
+  padding: 0 0px 0 0;
   background: #ffffff;
   border-bottom: 2px #eee solid;
   -webkit-transition: left 0.25s;
@@ -12541,7 +12540,7 @@ strong,
 }
 @media (max-width: 991.98px) {
   .nav-header {
-    padding: 9px 15px 9px 15px;
+    padding: 0px;
     height: auto;
     position: fixed;
     top: env(safe-area-inset-top);
@@ -12708,7 +12707,7 @@ strong,
   -o-transition: width 0.25s;
   transition: width 0.25s;
   padding-top: calc(90px + 6px);
-  z-index: -1;
+  z-index: 90;
 }
 .navigation.menu-active {
   width: 90px;

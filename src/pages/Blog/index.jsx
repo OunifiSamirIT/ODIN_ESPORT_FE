@@ -4,7 +4,7 @@ import image from '../../assets/Image.png'
 const Index = () => {
     const [article, setArticle] = useState([])
     const fetchBlogArticles = async () => {
-        const response = await fetch('http://localhost:5000/api/blog')
+        const response = await fetch('https://odine-sport.com/api/blog')
         const result = await response.json()
         console.log(result.blog)
         setArticle(result.blog)

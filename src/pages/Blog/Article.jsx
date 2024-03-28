@@ -22,14 +22,14 @@ const Article = () => {
         return array;
     }
     const fetchRecommandation = async () => {
-        const response = await fetch('http://localhost:5000/api/blog')
+        const response = await fetch('https://odine-sport.com/api/blog')
         const result = await response.json()
         console.log(result.blog)
         setRecommandation(shuffle(result.blog).slice(0, 3))
     }
 
     const fetchBlogArticles = async () => {
-        const response = await fetch(`http://localhost:5000/api/blog/${articleId}`);
+        const response = await fetch(`https://odine-sport.com/api/blog/${articleId}`);
         const result = await response.json()
         setArticle(result.blog)
     }

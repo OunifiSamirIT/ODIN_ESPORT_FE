@@ -11,12 +11,10 @@ function Contacts () {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        // Get user ID from local storage
         const userId = JSON.parse(localStorage.getItem("user"))?.id;
         console.log("User Profile Data:", userpf);
         console.log("suggestedFriends:", suggestedFriends);
     
-        // Fetch user info using user ID
         if (userId) {
           fetch(`https://odine-sport.com/api/user/${userId}`)
             .then((response) => {
@@ -44,24 +42,7 @@ function Contacts () {
     
         fetchSuggestedFriends();
     
-        // const fetchFriendRequests = async () => {
-        //   try {
-        //     const response = await fetch(
-        //       `http://localhost:8088/api/user/${userId}/friend-requests`
-        //     );
-        //     if (!response.ok) {
-        //       throw new Error(`HTTP error! Status: ${response.status}`);
-        //     }
-    
-        //     const data = await response.json();
-        //     setFriendRequests(data);
-        //   } catch (err) {
-        //     console.error("Error fetching friend requests:", err);
-        //     setError("Error fetching friend requests.");
-        //   }
-        // };
-    
-        // fetchFriendRequests();
+        
       }, []);
         return (
             <div className="card w-100 shadow-xss rounded-xxl border-0 mb-3">
