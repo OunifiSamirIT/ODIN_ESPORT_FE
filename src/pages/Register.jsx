@@ -5460,7 +5460,7 @@ skillsscout: yup.string().when('profil', {
       Photo de profile
     </div>
 
-    <label className="flex flex-col items-center"> {/* Center the label section */}
+    <label className="flex  items-center justify-center self-center w-[266px]"> {/* Center the label section */}
       <div className="flex gap-2 justify-center self-center px-8 py-2 mt-4 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
         {" "}<img
           loading="lazy"
