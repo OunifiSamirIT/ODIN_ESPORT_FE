@@ -5,14 +5,14 @@ import {Config} from '../../config'
 const Index = () => {
     const [article, setArticle] = useState([])
     const fetchBlogArticles = async () => {
-        const response = await fetch(`${Config.BASE_URL}/api/blog`)
+        const response = await fetch(`${Config.LOCAL_URL}/api/blog`)
         const result = await response.json()
         console.log(result.blog)
         setArticle(result.blog)
     }
     useEffect(() => {
         fetchBlogArticles()
-        console.log(Config.BASE_URL)
+        console.log(Config.LOCAL_URL)
     }, [])
 
     const formatDate = (dateTime) => {
