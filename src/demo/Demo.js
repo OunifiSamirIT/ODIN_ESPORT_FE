@@ -478,12 +478,13 @@ function Demo() {
                     />
                   </svg>
                 </div>
-                <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                <Link to="/register">  <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
                   S'inscrire
-                </div>
-                <div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
+                </div></Link>
+                <Link to="login"><div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
                   Se connecter
-                </div>
+                </div></Link>
+
 
                 <div className="flex gap-4 justify-center self-stretch my-auto">
                   <svg
@@ -630,12 +631,12 @@ function Demo() {
                     />
                   </svg>
                 </div>
-                <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+              <Link to="/register">  <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
                   S'inscrire
-                </div>
-                <div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
+                </div></Link>
+                <Link to="login"><div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
                   Se connecter
-                </div>
+                </div></Link>
 
                 <div className="flex gap-4 justify-center self-stretch my-auto">
                   <svg
