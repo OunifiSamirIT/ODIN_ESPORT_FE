@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { toast, ToastContainer } from "react-toastify";
 import "../components/Hamburger.css";
+import { Config } from "../config";
 const newDemoList = [
   {
     imageUrl: "home.jpg",
