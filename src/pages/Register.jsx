@@ -5399,8 +5399,8 @@ skillsscout: yup.string().when('profil', {
   return (
     <Fragment>
      <div className="flex flex-col items-center pb-12 bg-gray-200" style={{ margin: 0, padding: 0 }}>
-     <div className="bg-white w-full " >
-            <div className="flex gap-4 justify-between ml-3 md:ml-10 py-2 w-full text-base font-medium text-white whitespace-nowrap max-w-[1200px] max-md:flex-wrap max-md:max-w-full">
+     <div className="bg-white px-10 flex justify-center items-center w-full " >
+            <div className="flex gap-4 justify-between max-w-[1200px]  py-2 w-full text-base font-medium text-white whitespace-nowrap   ">
            <Link to="/"> <svg width="190" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_983_61844)">
 <path d="M66.8102 14.0668V52.3118H40.5283L38.1046 47.5324L35.7149 42.7481L33.3204 37.9687L30.9307 33.1893L33.3204 28.4099L35.7149 23.6256L38.1046 18.8656L40.5283 14.0668H66.8102ZM42.9034 18.8656L40.5283 23.6256L38.1046 28.4099L35.7149 33.1893L38.1046 37.9687L40.4943 42.7481L42.884 47.5324H62.0066V18.8656H42.9034Z" fill="#2E71EB"/>
@@ -5426,11 +5426,30 @@ skillsscout: yup.string().when('profil', {
 </defs>
 </svg></Link>
 
-             <Link to="/login"> <div className="mr-5 px-2 mt-2 py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 rounded-[30px] ">
+<div className="flex gap-2">
+<div className="flex gap-1 items- px-1 py-0.5 my-auto whitespace-nowrap text-zinc-900">
+      <img
+        loading="lazy"
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/270fe585afd6091a3959de00408d079d350b75c8f3c82273633afd130d0a724c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+        className="shrink-0 self-stretch my-auto aspect-square w-[15px]"
+      />
+      <div className="self-stretch">FR</div>
+      <img
+        loading="lazy"
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/ef2a84ad407627f1c5043c8180cab5baba2acc67e5cd6e1ada5796fb316ab3e9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+        className="shrink-0 self-stretch my-auto aspect-[2.13] fill-zinc-900 w-[15px]"
+      />
+    </div>
+             <Link to="/login">
+               <div className=" px-2 mt-2 py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 rounded-[30px] ">
                 Se connecter
-              </div></Link>
+              </div>
+              </Link></div>
+
+
             </div>
           </div>
+         
   <form className="w-full h-full sm:w-full  " onSubmit={handleSubmit}>
     {step === 1 && (
       <div className="flex flex-wrap gap-y-4 justify-center content-start items-center self-stretch px-2 sm:px-16  w-full max-md:px-5 max-md:max-w-full">
@@ -6041,10 +6060,12 @@ skillsscout: yup.string().when('profil', {
 
               <div className="flex gap-5 justify-between mt-8 w-full max-w-[1184px] max-md:flex-wrap max-md:max-w-full"></div>
 
-              <div>
-                {profilesData.map((data) => (
-                  <div key={data.profile} className="max-w-full">
-                    <div className="justify-center mt-8 mx-2 sm:mx-0 max-w-full md:mx-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 ">
+                {profilesData.map((data , index) => (
+ <div
+ key={data.profile}
+ className={`max-w-full ${index === profilesData.length - 1 ? 'md:col-span-2  md:flex md:justify-center  ' : ''}`}
+>                    <div className="justify-center mt-8 mx-2 sm:mx-0 max-w-full md:mx-6">
                       <div className="flex flex-col sm:flex-row gap-5 max-md:flex-col max-md:gap-0 max-md:">
                         <div className="flex w-full">
                           <div className="flex flex-col max-md:ml-0 max-md:w-full">
@@ -6062,7 +6083,7 @@ skillsscout: yup.string().when('profil', {
                                     ? "#2E71EB"
                                     : "white",
                               }}
-                              className="grow justify-center items-center px-16 pt-16 pb-12 w-full text-2xl text-center rounded-none text-zinc-900 max-md:px-5"
+                              className="grow justify-center items-center px-16 pt-16 pb-12 w-full text-2xl text-center rounded-r-3xl text-zinc-900 max-md:px-5"
                               onClick={() => {
                                 const selectedProfileValue = data.profile;
                                 console.log(
