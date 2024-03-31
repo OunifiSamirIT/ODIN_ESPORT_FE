@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
+import { Config } from "../config";
 function Login({ setAuthStatus }) {
   const [verificationMessage, setVerificationMessage] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(true);
@@ -36,7 +36,7 @@ function Login({ setAuthStatus }) {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch("http://localhost:5000/api/auth/signin", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +56,7 @@ function Login({ setAuthStatus }) {
         setAuthStatus(true, result.accessToken);
 
         const verificationResponse = await fetch(
-          `http://localhost:5000/api/auth/check-verification/${result.id}`
+          `${Config.LOCAL_URL}/api/auth/check-verification/${result.id}`
         );
         const verificationResult = await verificationResponse.json();
 

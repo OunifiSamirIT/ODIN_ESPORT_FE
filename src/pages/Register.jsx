@@ -14,7 +14,7 @@ import ReactFlagsSelect from "react-flags-select";
 import "./flags.css";
 import Select, { components } from "react-select";
 import * as yup from "yup"
-
+import { Config } from "../config";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -5357,7 +5357,7 @@ skillsscout: yup.string().when('profil', {
       }
     });
     try {
-      const response = await fetch("https://odine-sport.com/api/auth/signup", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/auth/signup`, {
         method: "POST",
         body: formDataToSubmit,
       });

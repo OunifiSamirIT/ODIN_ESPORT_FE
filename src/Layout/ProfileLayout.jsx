@@ -40,7 +40,6 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const userInfo = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`);
         const result = await response.json();
-        console.log('sdfsdf', result)
         if (result.message) { navigate('/404') } else {
             setCurrentUser(result)
         }
@@ -49,7 +48,6 @@ const ProfileLayout = ({ children, onChange, user }) => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${user}/checkFriends/${LocalStorageID.id}`)
         const result = await response.json();
         setAcceptedFriend(result.exists)
-        console.log('this cidfjk', acceptedFriend)
     }
 
     useEffect(() => {
@@ -104,7 +102,6 @@ const ProfileLayout = ({ children, onChange, user }) => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${LocalStorageID.id}/delete/${id}`, {
             method: "DELETE",
         });
-        console.log(response)
         if(response.status === 200)
         {window.location.reload()}
     }
@@ -141,8 +138,8 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                     </div>
                                     <div className="mt-8 max-md:max-w-full">
                                         <div className="flex gap-4 md:gap-8 flex-wrap ">
-                                            {Invitation.map((item) => {
-                                                return (<div key={item.id} className="flex flex-col max-sm:flex-1">
+                                            {Invitation.map((item,index) => {
+                                                return (<div key={index} className="flex flex-col max-sm:flex-1">
                                                     <div className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">
                                                         <img
                                                             loading="lazy"

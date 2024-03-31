@@ -24,7 +24,6 @@ const PlayerCard = ({ userInfo }) => {
     const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`)
     const result = await response.json();
     setAcceptedFriend(result.exists)
-    console.log('this cidfjk', acceptedFriend)
   }
   const sendFriendRequest = async () => {
 
@@ -242,8 +241,8 @@ const PlayerCard = ({ userInfo }) => {
         </div>
         <div className="flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
-          {userInfo?.player.skillsInProfile.split(',').map((item) => {
-            return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+          {userInfo?.player.skillsInProfile.split(',').map((item,index) => {
+            return (<div key={index} className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
               {item}
             </div>)
           })}

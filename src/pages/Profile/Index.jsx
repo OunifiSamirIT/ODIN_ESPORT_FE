@@ -371,7 +371,6 @@ const Index = () => {
         }))
         .filter((article) => article.userId == id); // Filter articles based on userId
       setArticles(articlesWithUsers);
-      console.log(articlesWithUsers)
 
       // Fetch comments for each article
       const commentsPromises = articlesWithUsers.map(async (article) => {
@@ -525,7 +524,6 @@ const Index = () => {
             `${Config.LOCAL_URL}/api/user/${reply.userId}`
           );
           const userData = await userResponse.json();
-          console.log("replyyyyyyyyyyyy", userData);
           return {
             ...reply,
             user: userData,
@@ -750,7 +748,6 @@ const Index = () => {
   };
 
   const handleMoreClick = (article) => {
-    console.log('More clicked', article.id);
     toggleOpen(!isOpen);
     setSelectedArticle(article);
     setShowDropdown(article.id);

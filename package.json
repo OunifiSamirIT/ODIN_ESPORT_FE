@@ -31,6 +31,7 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.21.3",
     "react-scripts": "^5.0.1",
+    "react-search-autocomplete": "^8.5.2",
     "react-select": "^5.8.0",
     "react-slick": "^0.29.0",
     "react-toastify": "^10.0.4",
