@@ -36,7 +36,7 @@ function Login({ setAuthStatus }) {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch("http://localhost:5000/api/auth/signin", {
+      const response = await fetch("https://odine-sport.com/api/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +56,7 @@ function Login({ setAuthStatus }) {
         setAuthStatus(true, result.accessToken);
 
         const verificationResponse = await fetch(
-          `http://localhost:5000/api/auth/check-verification/${result.id}`
+          `https://odine-sport.com/api/auth/check-verification/${result.id}`
         );
         const verificationResult = await verificationResponse.json();
 
