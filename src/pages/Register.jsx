@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useEffect, useState } from "react";
+import React, { Component, Fragment, useEffect,useRef , useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import D from "../assets/userdefault.jpg";
 import Logo from "../assets/logo.png";
@@ -19,6 +19,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import Modal from "react-modal";
+import Header from "../components/Header3";
 // import "react-modal/styles.css";
 
 
@@ -5396,11 +5397,18 @@ skillsscout: yup.string().when('profil', {
     }
   };
 
+
+
+   
+
   return (
     <Fragment>
      <div className="flex flex-col items-center pb-12 bg-gray-200" style={{ margin: 0, padding: 0 }}>
-     <div className="bg-white w-full " >
-            <div className="flex gap-4 justify-between ml-3 md:ml-10 py-2 w-full text-base font-medium text-white whitespace-nowrap max-w-[1200px] max-md:flex-wrap max-md:max-w-full">
+    
+    
+    <Header/>
+     <div className="bg-white px-10 flex justify-center items-center w-full " >
+            <div className="flex gap-4 justify-between max-w-[1200px]  py-2 w-full text-base font-medium text-white whitespace-nowrap   ">
            <Link to="/"> <svg width="190" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_983_61844)">
 <path d="M66.8102 14.0668V52.3118H40.5283L38.1046 47.5324L35.7149 42.7481L33.3204 37.9687L30.9307 33.1893L33.3204 28.4099L35.7149 23.6256L38.1046 18.8656L40.5283 14.0668H66.8102ZM42.9034 18.8656L40.5283 23.6256L38.1046 28.4099L35.7149 33.1893L38.1046 37.9687L40.4943 42.7481L42.884 47.5324H62.0066V18.8656H42.9034Z" fill="#2E71EB"/>
@@ -5426,17 +5434,45 @@ skillsscout: yup.string().when('profil', {
 </defs>
 </svg></Link>
 
-             <Link to="/login"> <div className="mr-5 px-2 mt-2 py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 rounded-[30px] ">
+
+
+
+
+
+{/* 
+<div className="flex  gap-2">
+<div className="flex flex-row items-center">
+  <div className="flex items-center gap-2.5 p-1">
+    <svg width={15} height={16} viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.5 0.804688C6.01664 0.804688 4.5666 1.24455 3.33323 2.06867C2.09986 2.89278 1.13856 4.06412 0.570907 5.43456C0.00324965 6.80501 -0.145275 8.31301 0.144114 9.76787C0.433503 11.2227 1.14781 12.5591 2.1967 13.608C3.2456 14.6569 4.58197 15.3712 6.03683 15.6606C7.49168 15.95 8.99968 15.8014 10.3701 15.2338C11.7406 14.6661 12.9119 13.7048 13.736 12.4715C14.5601 11.2381 15 9.78805 15 8.30469C14.9979 6.31622 14.207 4.40982 12.8009 3.00376C11.3949 1.59771 9.48847 0.806838 7.5 0.804688ZM12.9044 5.17969H10.8913C10.4406 4.1353 9.84724 3.15849 9.12813 2.27719C10.7197 2.71027 12.0765 3.75311 12.9044 5.17969ZM10.3125 8.30469C10.3074 8.94102 10.2071 9.57302 10.015 10.1797H4.985C4.79291 9.57302 4.69263 8.94102 4.6875 8.30469C4.69263 7.66835 4.79291 7.03636 4.985 6.42969H10.015C10.2071 7.03636 10.3074 7.66835 10.3125 8.30469ZM5.48625 11.4297H9.51375C8.98328 12.477 8.3051 13.4427 7.5 14.2972C6.69461 13.443 6.0164 12.4772 5.48625 11.4297ZM5.48625 5.17969C6.01673 4.13236 6.69491 3.16666 7.5 2.31219C8.3054 3.16642 8.9836 4.13216 9.51375 5.17969H5.48625ZM5.875 2.27719C5.15479 3.1583 4.56037 4.13512 4.10875 5.17969H2.09563C2.92429 3.75246 4.28229 2.70953 5.875 2.27719ZM1.53813 6.42969H3.6875C3.52548 7.04165 3.44148 7.67165 3.4375 8.30469C3.44148 8.93773 3.52548 9.56772 3.6875 10.1797H1.53813C1.15397 8.9592 1.15397 7.65017 1.53813 6.42969ZM2.09563 11.4297H4.10875C4.56037 12.4743 5.15479 13.4511 5.875 14.3322C4.28229 13.8998 2.92429 12.8569 2.09563 11.4297ZM9.12813 14.3322C9.84724 13.4509 10.4406 12.4741 10.8913 11.4297H12.9044C12.0765 12.8563 10.7197 13.8991 9.12813 14.3322ZM13.4619 10.1797H11.3125C11.4745 9.56772 11.5585 8.93773 11.5625 8.30469C11.5585 7.67165 11.4745 7.04165 11.3125 6.42969H13.4606C13.8448 7.65017 13.8448 8.9592 13.4606 10.1797H13.4619Z" fill="black" />
+    </svg>
+  </div>
+  <div className="text-[#1d1e21] font-['Sora'] font-medium leading-[normal]">FR</div>
+  <div className="scroll_right flex justify-center items-center p-1">
+    <svg width={15} height={8} viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.935867 0.599609C1.18471 0.599828 1.42327 0.698856 1.59912 0.874922L6.39957 5.67537C6.54483 5.82067 6.71729 5.93593 6.90711 6.01457C7.09692 6.09321 7.30037 6.13368 7.50583 6.13368C7.71128 6.13368 7.91473 6.09321 8.10454 6.01457C8.29436 5.93593 8.46682 5.82067 8.61208 5.67537L13.4094 0.881179C13.5864 0.710212 13.8235 0.61561 14.0696 0.617748C14.3157 0.619886 14.5511 0.718594 14.7251 0.892612C14.8991 1.06663 14.9978 1.30203 15 1.54812C15.0021 1.79421 14.9075 2.03129 14.7365 2.20831L9.94297 7.0025C9.29707 7.64713 8.42181 8.00917 7.50927 8.00917C6.59673 8.00917 5.72146 7.64713 5.07557 7.0025L0.275117 2.20205C0.143957 2.07098 0.0545616 1.90399 0.0182114 1.72216C-0.0181389 1.54033 0.000185013 1.35181 0.0708704 1.18039C0.141556 1.00896 0.261436 0.862314 0.415381 0.758952C0.569327 0.655589 0.750441 0.600143 0.935867 0.599609Z" fill="#1D1E21" />
+    </svg>
+  </div>
+</div>
+
+             <Link to="/login">
+               <div className=" px-2 mt-2  py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 rounded-[30px] ">
                 Se connecter
-              </div></Link>
+              </div>
+              </Link></div> */}
+
+
             </div>
+
+
+
           </div>
+         
   <form className="w-full h-full sm:w-full  " onSubmit={handleSubmit}>
     {step === 1 && (
       <div className="flex flex-wrap gap-y-4 justify-center content-start items-center self-stretch px-2 sm:px-16  w-full max-md:px-5 max-md:max-w-full">
         
        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-          {/* image */}
          
                 <div className="mt-6 md:text-5xl text-3xl text-center font-bold text-zinc-900 max-md:max-w-full">
                   Informations Personelles
@@ -5480,7 +5516,6 @@ skillsscout: yup.string().when('profil', {
     
   </div>
 </div>
-                {/* nom */}
                 <div className="mt-8 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
@@ -5512,7 +5547,6 @@ skillsscout: yup.string().when('profil', {
                       </div>
                     </div>
 
-                    {/* prenom */}
                     <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
@@ -6041,10 +6075,12 @@ skillsscout: yup.string().when('profil', {
 
               <div className="flex gap-5 justify-between mt-8 w-full max-w-[1184px] max-md:flex-wrap max-md:max-w-full"></div>
 
-              <div>
-                {profilesData.map((data) => (
-                  <div key={data.profile} className="max-w-full">
-                    <div className="justify-center mt-8 mx-2 sm:mx-0 max-w-full md:mx-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 ">
+                {profilesData.map((data , index) => (
+ <div
+ key={data.profile}
+ className={`max-w-full ${index === profilesData.length - 1 ? 'md:col-span-2  md:flex md:justify-center  ' : ''}`}
+>                    <div className="justify-center mt-8 mx-2 sm:mx-0 max-w-full md:mx-6">
                       <div className="flex flex-col sm:flex-row gap-5 max-md:flex-col max-md:gap-0 max-md:">
                         <div className="flex w-full">
                           <div className="flex flex-col max-md:ml-0 max-md:w-full">
@@ -6062,7 +6098,7 @@ skillsscout: yup.string().when('profil', {
                                     ? "#2E71EB"
                                     : "white",
                               }}
-                              className="grow justify-center items-center px-16 pt-16 pb-12 w-full text-2xl text-center rounded-none text-zinc-900 max-md:px-5"
+                              className="grow justify-center items-center px-16 pt-16 pb-12 w-full text-2xl text-center rounded-r-3xl text-zinc-900 max-md:px-5"
                               onClick={() => {
                                 const selectedProfileValue = data.profile;
                                 console.log(

@@ -35,8 +35,8 @@ function Login({ setAuthStatus }) {
   const onSubmit = async (data) => {
     try {
       setIsSubmitting(true);
-
       const response = await fetch(`${Config.LOCAL_URL}/api/auth/signin`, {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,8 +55,7 @@ function Login({ setAuthStatus }) {
         // Call the setAuthStatus function with the token
         setAuthStatus(true, result.accessToken);
 
-        const verificationResponse = await fetch(
-          `${Config.LOCAL_URL}/api/auth/check-verification/${result.id}`
+        const verificationResponse = await fetch(`${Config.LOCAL_URL}/api/auth/check-verification/${result.id}`
         );
         const verificationResult = await verificationResponse.json();
 
