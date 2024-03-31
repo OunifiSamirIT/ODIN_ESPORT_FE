@@ -35,7 +35,7 @@ const FriendList = () => {
 
 
     return (<HomeLayout>
-        <div className="grid grid-cols-12 gap-4 mt-4">
+        <div className="grid grid-cols-12 gap-4 mt-[100px]">
             <div className="hidden md:col-span-3 md:block">
                 <div className="flex flex-col w-[24%] max-md:ml-0 max-md:w-full">
                     <div className="flex flex-col items-start gap-4 py-4 px-0 w-[19.875rem] rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
@@ -116,7 +116,7 @@ const FriendList = () => {
                     {FriendRequest.map((item) => {
                         return (
                             <div className="col-span-1">
-                                <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:mt-6">
+                                <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5">
                                     <img
                                         loading="lazy"
                                         src={item.receiver?.image ? item?.receiver.image : Placeholder}

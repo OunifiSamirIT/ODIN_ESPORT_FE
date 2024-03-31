@@ -65,39 +65,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
         const result = await response.json();
         setInvitation(result)
     }
-    const sendFriendRequest = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${LocalStorageID.id}/sendFriendRequest/${id}`, {
-            method: "POST",
-        });
-    }
-    const [showInvitation, setShowInvitation] = useState()
-    // const CheckIfInvitationIsSend = async () => {
-    //     const response = await fetch(`http://localhost:5000/api/user/${id}/friend-requests`, {
-    //         method: "GET",
-    //     });
-    //     const result = await response.json();
-    //     console.log(result)
-    //     setInvitation(result.receiver)
-    // }
 
-    const copyLinkToClipboard = (articleId) => {
-        // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
-        const number = CurrentUser.tel;
-
-        // Copy the URL to the clipboard
-        if (acceptedFriend?.status === 'accepted') {
-            navigator.clipboard.writeText(number)
-                .then(() => {
-                    console.log('Link copied to clipboard');
-                })
-                .catch((err) => {
-                    console.error('Failed to copy link to clipboard', err);
-                });
-        } else {
-            console.log('add as friend to copy number')
-        }
-
-    };
     const deleteInviation = async (id) => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${LocalStorageID.id}/delete/${id}`, {
             method: "DELETE",

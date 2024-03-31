@@ -175,7 +175,7 @@ const Other = ({ userInfo }) => {
         const formDataToUpdate = new FormData();
         formDataToUpdate.append("skillsAutre", data.skills.join(','));
         const response = await fetch(
-            `{${Config.LOCAL_URL}}/api/other/${storedUserData.id}`,
+            `${Config.LOCAL_URL}/api/other/${storedUserData.id}`,
             {
                 method: "PUT",
                 body: formDataToUpdate,

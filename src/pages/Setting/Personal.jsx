@@ -19,7 +19,6 @@ const Personal = ({ userInfo }) => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const options = paysAllInfo.map((country, index) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
-
     return {
       value: countryCode,
       label: (
@@ -30,7 +29,7 @@ const Personal = ({ userInfo }) => {
               style={{ marginRight: "8px", width: "40px" }}
             ></span>
           )}
-          {country.nationalite}
+          {country.name}
         </div>
       ),
     };
@@ -124,7 +123,7 @@ const Personal = ({ userInfo }) => {
 
   const phoneLength = watch('phoneLength');
   const whatsappLength = watch('wats')
-  console.log(whatsappLength)
+
   if (whatsappLength) {
     let maxW = whatsappLength.phoneLength;
     schema.fields.numWSup = yup
@@ -167,6 +166,7 @@ const Personal = ({ userInfo }) => {
   };
 
   const onSubmit = async (data) => {
+    console.log(data)
     const formDataToUpdate = new FormData();
     formDataToUpdate.append("discreptionBio", data.discreptionBio);
     formDataToUpdate.append("nom", data.nom);
@@ -180,6 +180,7 @@ const Personal = ({ userInfo }) => {
     formDataToUpdate.append("nationality", data.nationality?.label?.props?.children[1]);
     formDataToUpdate.append("cityresidence", data.cityresidence);
     formDataToUpdate.append("image", file);
+    formDataToUpdate.append("prefix", `${data.wats.label.props.children[2]},${data.phoneLength.label.props.children[2]}`);
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${storedUserData.id}`,
       {
@@ -204,6 +205,7 @@ const Personal = ({ userInfo }) => {
       console.log('done')
     });
   }
+  const selectedObject = (countryName) =>  {return optionsphone.find(item => item.label.props?.children[2]  == countryName ) || ''};
   const resetForm = async () => {
     setValue('nom', userInfo.user.nom);
     setValue('discreptionBio', userInfo.user.discreptionBio);
@@ -213,30 +215,33 @@ const Personal = ({ userInfo }) => {
     setValue('gender', userInfo.user.gender);
     setValue('tel', userInfo.user.tel);
     setValue('numWSup', userInfo.user.numWSup);
-    setValue('phoneLength', userInfo.user.phoneLength);
+    setValue('phoneLength', selectedObject(userInfo.user?.optionalattributs.split(',')[0]) || null);
     setValue('wats', userInfo.user.wats);
     setValue('date_naissance', new Date(userInfo.user.date_naissance));
+    setValue('wats', selectedObject(userInfo.user?.optionalattributs.split(',')[0]) || null);
+    setValue('phoneLength', selectedObject(userInfo.user?.optionalattributs.split(',')[1]) || null);
   }
 
   useEffect(() => {
     const defaultValue = (countryName) => { return options.find(option => option.label.props?.children[1] === countryName) };
+    const defaultValueN = (countryName) => { return optionsCountry.find(option => option.label.props?.children[1] === countryName) };
+    
 
     fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
       .then((response) => response.json())
       .then((userData) => {
-        console.log(defaultValue(userData.user.nationality))
         setUser(userData.user)
         setValue('nom', userData.user.nom);
         setValue('discreptionBio', userData.user.discreptionBio);
         setValue('prenom', userData.user.prenom);
-        setValue('nationality', defaultValue(userData.user.nationality));
+        setValue('nationality', defaultValueN(userData.user.nationality));
         setValue('country', defaultValue(userData.user.countryresidence));
         setValue('cityresidence', userData.user.cityresidence);
         setValue('gender', userData.user.gender);
         setValue('tel', userData.user.tel);
         setValue('numWSup', userData.user.numWSup);
-        setValue('phoneLength', userData.user.phoneLength);
-        setValue('wats', userData.user.wats);
+        setValue('wats', selectedObject(userData.user?.optionalattributs.split(',')[0]) || null);
+        setValue('phoneLength', selectedObject(userData.user?.optionalattributs.split(',')[1]) || null);
         setValue('date_naissance', new Date(userData.user.date_naissance));
       })
       .catch((error) => console.error("Error fetching user data:", error));
@@ -262,7 +267,6 @@ const Personal = ({ userInfo }) => {
 
   const handleChangePhoneNumber = (e) => {
     const value = e.target.value.replace(/\D/g, '').slice(0, phoneLength?.phoneLength ? phoneLength.phoneLength : 5);
-    console.log(value)
     const textError = `Le Numéro doit être avec ${phoneLength?.phoneLength ? phoneLength?.phoneLength : 5} chiffres.`
     setPhoneLengthError(textError);
 
