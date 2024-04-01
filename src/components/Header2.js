@@ -69,14 +69,13 @@ function Header() {
       .catch((error) => console.error("Error fetching data:", error));
 
         // Fetch users
-  fetch(`http://localhost:5000/api/user`)
-  .then((response) => response.json())
-  .then((userData) => {
-    setUsers(userData)
-        console.log(userData);
-  })
-  .catch((error) => console.error("Error fetching users:", error));
-  }, []);
+      fetch(`http://localhost:5000/api/user`)
+      .then((response) => response.json())
+      .then((userData) => {
+        setUsers(userData)
+      })
+      .catch((error) => console.error("Error fetching users:", error));
+      }, []);
 
 
 
