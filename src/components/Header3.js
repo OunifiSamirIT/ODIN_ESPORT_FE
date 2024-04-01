@@ -185,7 +185,7 @@ function Header() {
   return (
     <>
       <div className={`w-full bg-white fixed mb-20 z-50 shadow-xs ${Hamburger ? 'fixed top-0 h-screen overflow-hidden z-50' : ''}`}>
-      <div className="flex ">  <div className="max-sm:px-4 max-w-[1344px] h-[80px] w-full bg-white  border-0 flex items-center justify-between mx-auto py-2 ">
+      <div className="flex ">  <div className="max-sm:px-4 max-w-[1200px] h-[80px] w-full bg-white  border-0 flex items-center justify-between mx-auto py-2 ">
          <div className="flex flex-row">
            <Link to="/home" className="mt-3">
             <svg width="209" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
