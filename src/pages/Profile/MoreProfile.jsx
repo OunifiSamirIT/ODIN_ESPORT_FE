@@ -693,7 +693,7 @@ const More = () => {
             </div>
             <div className="flex gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
               {CurrentUser?.user.profil === 'agent' &&
-                CurrentUser?.agent?.skills.split(',').map((item) => {
+                CurrentUser?.agent?.skillsagent.split(',').map((item) => {
                   return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                     {item}
                   </div>)

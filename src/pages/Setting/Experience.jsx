@@ -202,10 +202,10 @@ const Experience = () => {
                 })
             }
             else {
-                toast.danger('Un erreur', {
+                toast.success('Un erreur', {
                     position: "top-right",
                     autoClose: 5000,
-                    type: 'danger',
+                    type: 'warning',
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -252,10 +252,10 @@ const Experience = () => {
                 })
             }
             else {
-                toast.danger('Un erreur', {
+                toast.success('Un erreur', {
                     position: "top-right",
                     autoClose: 5000,
-                    type: 'danger',
+                    type: 'warning',
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
