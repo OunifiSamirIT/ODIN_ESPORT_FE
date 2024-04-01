@@ -5474,17 +5474,17 @@ skillsscout: yup.string().when('profil', {
         
        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
          
-                <div className="mt-6 md:text-5xl text-3xl text-center font-bold text-zinc-900 max-md:max-w-full">
+                <div className="mt-2 md:text-5xl text-3xl text-center font-bold text-zinc-900 max-md:max-w-full">
                   Informations Personelles
                 </div>
-                <div className="flex justify-center items-center px-8 sm:px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                <div className="flex justify-center items-center px-8 sm:px-16 mt-4 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
                   <div className="flex gap-5 justify-between mr-2 ml-2">
                     <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
                     <div className="h-2 bg-blue-300 rounded-md w-[77px] sm:w-[50px] lg:w-[77px] xl:w-[100px] xxl:w-[120px]" />
                     <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
+                <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-4 w-full max-md:px-5 max-md:max-w-full">
   <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
     <img
       loading="lazy"
@@ -5492,12 +5492,12 @@ skillsscout: yup.string().when('profil', {
       className="self-center max-w-full rounded-full aspect-square w-[178px]"
     />
     
-    <div className="self-center mt-4 text-3xl font-bold text-black whitespace-nowrap">
+    <div className="self-center mt-1 text-3xl font-bold text-black whitespace-nowrap">
       Photo de profile
     </div>
 
     <label className="flex  items-center justify-center self-center w-[266px]"> {/* Center the label section */}
-      <div className="flex gap-2 justify-center self-center px-8 py-2 mt-4 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
+      <div className="flex gap-2 justify-center self-center px-8 py-2 mt-2 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
         {" "}<img
           loading="lazy"
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -5524,9 +5524,9 @@ skillsscout: yup.string().when('profil', {
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/50144aa4c9c958bc6174b7ad65e5d7ec150f9518fc697ad703a581fae6aaa421?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start aspect-[0.75] w-[15px]"
+                            className="self-start aspect-[0.75] w-[15px] mt-1"
                           />
-                          <div className="grow">Nom</div>
+                          <label className="grow">Nom</label>
                         </div>
                         <input
                           type="text"
@@ -5553,7 +5553,7 @@ skillsscout: yup.string().when('profil', {
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/3b682aacddfd9d405027bfc2ee157c55aecce42a1e46ef3db6e893769755f24c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start aspect-[0.75] w-[15px]"
+                            className="self-start aspect-[0.75] w-[15px] mt-1"
                           />
                           <div className="grow">Prénom</div>
                         </div>
@@ -5582,7 +5582,7 @@ skillsscout: yup.string().when('profil', {
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/b9ff538eb3525a962642dcaaa2fd0b0e9242f70955c91034cc60b37fd70611a6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start aspect-[0.75] w-[15px]"
+                            className="self-start aspect-[0.75] w-[15px] mt-1"
                           />
                           <div className=" grow">Nom d’utilisateur</div>
                         </div>
@@ -5616,7 +5616,7 @@ skillsscout: yup.string().when('profil', {
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/09a82f75a3f5ad07251e935f0542b94f6a1090b5b638fd072d492c0015d91f30?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start aspect-[1.1] w-[22px]"
+                            className="self-start aspect-[1.1] w-[22px] mt-1"
                           />{" "}
                           <div className="grow">Email</div>
                         </div>{" "}
@@ -5647,7 +5647,7 @@ skillsscout: yup.string().when('profil', {
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/45acb82395fb4729e918c514329bcfe86fc6ac2c1d1965aacc2ddbb66aa3a508?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start w-5 aspect-square"
+                            className="self-start w-5 aspect-square mt-1"
                           />{" "}
                           <div className="grow">Mot de passe</div>
                         </div>{" "}
@@ -5676,7 +5676,7 @@ skillsscout: yup.string().when('profil', {
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/432367a9ce53fa928e33c05ceeee1bf97c2f47f8c05b710ff90c8532ae4d2aad?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start w-5 aspect-square"
+                            className="self-start w-5 aspect-square mt-1"
                           />{" "}
                           <div className="grow">Confirmer le mot de passe</div>
                         </div>{" "}
@@ -5710,12 +5710,12 @@ skillsscout: yup.string().when('profil', {
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bb22266cd8479023296ff915cc3ee01660f7b93f73a8cf204b02d1f132be75c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-6 aspect-square"
+                            className="w-6 aspect-square "
                           />{" "}
                           <div className="grow">N° Whatsapp</div>
                         </div>{" "}
                      
-                        <div className="flex gap-4 justify-between mt-2 text-base">
+                        <div className="flex gap-4 justify-between  text-base">
   <Select
     styles={{
       control: (provided, state) => ({
@@ -5728,6 +5728,8 @@ skillsscout: yup.string().when('profil', {
         fontSize: "1rem",
         backgroundColor: "#f5f5f5",
         borderWidth: "none",
+        paddingTop: "6px", // Adjust paddingTop to match the desired height
+        paddingBottom: "6px",
       }),
     }}
     className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
@@ -5738,14 +5740,14 @@ skillsscout: yup.string().when('profil', {
     onChange={handleChangephoneWS}
 
   />
-  <div style={{ position: "relative", marginTop: "5px" }}>
+  <div style={{ position: "relative", marginTop: "5px" ,width : "200px" }}>
   <input
     type="number"
     max={selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0}
     onChange={handleChangePhoneNumberWS}
-    placeholder={`Enter number`}
+    placeholder={`Enter numero`}
     value={phoneNumberWS.slice(0, selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0)}
-    className={`form-control grow justify-center w-full gap-2 items-start py-2.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
+    className={`form-control grow justify-center w-full ml-4 md:ml-0 md:w-full gap-2 mt-1 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
       inputErrors["numWSup"] ? "is-invalid" : ""
     }`}
     disabled={!selectedCountryphoneWS}
@@ -5768,20 +5770,21 @@ skillsscout: yup.string().when('profil', {
         </div>
       )}
                     </div>{" "}
+
                     {/* num tel  */}
-                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                    <div className="flex flex-col  w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col text-zinc-900 max-md:mt-6">
                         <div className="flex gap-2 px-4 text-lg">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8b3f9f9ce91abda956cebd8c4890e6a17fde7ecb10f630388688447199195a8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start w-5 aspect-square"
+                            className="self-start w-5 aspect-square mt-1"
                           />{" "}
                           <div className="flex-auto">N° Telephone </div>{" "}
-                          <div className="grow">(Facultative)</div>
+                          <div className="grow ">(Facultative)</div>
                         </div>{" "}
                       
-                        <div className="flex gap-4  mt-2 text-base ">
+                        <div className="flex gap-4  text-base ">
     <Select
       styles={{
         control: (provided, state) => ({
@@ -5794,6 +5797,8 @@ skillsscout: yup.string().when('profil', {
           fontSize: "1rem",
           backgroundColor: "#f5f5f5",
           borderWidth: "none",
+          paddingTop: "6px", // Adjust paddingTop to match the desired height
+          paddingBottom: "6px",
         }),
       }}
       className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
@@ -5804,8 +5809,10 @@ skillsscout: yup.string().when('profil', {
       placeholder="Préfixe"
     />
  
-    <div style={{ position: "relative", marginTop: "5px" }}>
-      <input
+ <div style={{ position: "relative", marginTop: "5px", width: "100%", maxWidth: "200px", marginLeft: "auto", marginRight: "auto", 
+              "@media (min-width: 640px)": { // MD screens and above
+                width: "200px",
+              }}}>      <input
         type="number"
         max={selectedCountryphone ? selectedCountryphone.phoneLength : 0}
 
@@ -5813,7 +5820,7 @@ skillsscout: yup.string().when('profil', {
         placeholder={`Entrer Numero`}
         value={phoneNumber.slice(0, phoneNumber ? selectedCountryphone.phoneLength : 0)}
 
-        className={` form-control grow justify-center w-full gap-2 items-start py-2.5 pl-1 ml-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
+        className={` form-control grow justify-center w-full  gap-2 items-start py-2.5 pl-1 mt-1 ml-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
           inputErrors["tel"] ? "is-invalid" : ""
         }`}
       /> 
@@ -5824,18 +5831,19 @@ skillsscout: yup.string().when('profil', {
         <div className="text-red-500 text-sm mt-1">{inputErrors["tel"]}</div>
       )}
                     </div>{" "}
+
                     <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/424750770a24c4c2e5f786593b06fdc9d9137ae4f454f3cda3580afabec0922e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start w-5 aspect-square"
+                            className="self-start w-5 aspect-square mt-1"
                           />{" "}
                           <div className="grow">Année de naissance</div>
                         </div>{" "}
                         <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                          <div className="flex gap-5 justify-between  py-3.5 rounded-md">
+                          <div className="flex gap-5 justify-between  py-2.5 rounded-md">
                           <DatePicker
                               selected={
                                 formData.date_naissance
@@ -5866,17 +5874,26 @@ skillsscout: yup.string().when('profil', {
                               </span>
                             )}
                     </div> 
+                    
                   </div>
                  
-                </div>{" "}
-                {/* gender */}
-                <div className="flex gap-5 justify-between mt-8 whitespace-nowrap text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-                  <div className="flex flex-col flex-1">
-                    <div className="flex gap-4 justify-between px-4 text-lg">
+                  </div>{" "}
+                 
+                 
+                 
+                 
+                  {/* gender */}
+                  <div className="mt-8 max-md:max-w-full">
+                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:"> 
+
+
+                 <div className="flex flex-col  pr-0 md:pr-6 flex-1">
+                    <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 justify-between px-4 text-lg">
                       <img
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/f81299e0229e715d9789e71faf61b6931d61c805b7fbce9b340cc4b0fd8493cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                        className="self-start w-5 aspect-square"
+                        className="self-start w-5 aspect-square mt-1"
                       />{" "}
                       <div className="grow">Sexe</div>
                     </div>{" "}
@@ -5885,7 +5902,7 @@ skillsscout: yup.string().when('profil', {
                         name="gender"
                         value={formData.gender}
                         onChange={handleInputChange}
-                        className={`form-control flex flex-col justify-center pl-3 pt-3 px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+                        className={`form-control flex flex-col justify-center pl-3 pt-3 pr-2  py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
                           inputErrors["gender"] ? "is-invalid" : ""
                         }`}
                       >
@@ -5900,13 +5917,17 @@ skillsscout: yup.string().when('profil', {
                       )}
                     </div>{" "}
                   </div>{" "}
+                  </div>{" "}
                   {/* nationalité */}
-                  <div className="flex flex-col flex-1">
-                    <div className="flex gap-4 justify-between px-4 text-lg">
+                
+                
+                
+                  <div className="flex flex-col mr-0 md:mr-5 flex-1">
+                    <div className="flex gap-5 justify-between px-4 text-lg">
                       <img
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/dc2223db27c0d33870f85928116ea4a9a4b038fc39e2a16c1efd0448f4f6523d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                        className="self-start w-5 aspect-square"
+                        className="self-start w-5 aspect-square mt-1"
                       />{" "}
                       <div className="grow">Nationalité</div>
                     </div>{" "}
@@ -5951,12 +5972,13 @@ skillsscout: yup.string().when('profil', {
     </div>
   )}
                   </div>{" "}
-                  <div className="flex flex-col flex-1">
+                
+                  <div className="flex flex-col  flex-1">
                     <div className="flex gap-4 justify-between px-4 text-lg">
                       <img
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/a128d306f388b8fe1ee6ab08de9c65c1f7200283d1682fac379e573167086b34?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                        className="self-start w-5 aspect-square"
+                        className="self-start w-5 aspect-square mt-1"
                       />{" "}
                       <div className="grow">Pays de résidence</div>
                     </div>{" "}
@@ -6009,13 +6031,21 @@ skillsscout: yup.string().when('profil', {
           </div>
         )}
                   </div>
-                </div>{" "}
+
+                  
+                  </div>{" "}
+                  </div>{" "}
+
+
+
+
+
                 {/* ville residence  */}
-                <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900">
+                <div className="flex gap-4 self-start mr-0 md:mr-2 w-full md:w-[33%] mt-8 text-lg text-zinc-900">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/26bf7a353dc8ba12a2c588e612f061c37dd22cdccf246eec44650d1580269c48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                    className="self-start w-5 aspect-square"
+                    className="self-start w-5 aspect-square mt-1"
                   />{" "}
                   <div className="flex-auto">Ville de résidence</div>{" "}
                   <div className="grow">(Facultative)</div>
@@ -6024,7 +6054,7 @@ skillsscout: yup.string().when('profil', {
                   type="text"
                   name="cityresidence"
                   value={formData.cityresidence}
-                  className={` form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px] max-md:pr-5 ${
+                  className={` form-control justify-center items-start py-2.5 pr-0 w-full md:pr-2  mt-2 max-w-full text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 md:w-[30%]  ${
                     inputErrors["cityresidence"] ? "is-invalid" : ""
                   }`}
                   placeholder="Ville"
