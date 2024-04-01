@@ -13,27 +13,11 @@ import Parametre from "../assets/Parametre.png";
 import Userdefault from "../assets/userdefault.jpg";
 
 function Header() {
-  const iconImages = {
-    Profilesearch,
-    Football,
-    Parametre
-    // Add other icon-image mappings here
-  };
-  const handleClick = () => {
-    // Use setState to update showMenu
-    this.setState((prevState) => ({
-      showMenu: !prevState.showMenu,
-    }));
-  };
-  // Fetch user information based on the id from localStorage
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
-  const id = storedUserData.id ? storedUserData.id : 54;
+ 
+ 
+  
   const [isOpen, setIsOpen] = useState(null)
-  const [user, setUser] = useState(null)
-  const [users, setUsers] = useState(null)
-  const [search, setSearch] = useState([])
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+
 
 
 
@@ -47,123 +31,25 @@ function Header() {
     setHumberger(false)
   }, [location])
 
-  useEffect(() => {
-    // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`http://localhost:5000/api/user/${storedUserData.id}`)
-      .then((response) => response.json())
-      .then((userData) => {
-        setUser(userData)
-        console.log(user)
-      })
-      .catch((error) => console.error("Error fetching user data:", error));
-  }, [])
-
-
-
-  useEffect(() => {
-    fetch(`http://localhost:5000/api/AllTarget`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSearch(data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-
-        // Fetch users
-  fetch(`http://localhost:5000/api/user`)
-  .then((response) => response.json())
-  .then((userData) => {
-    setUsers(userData)
-        console.log(userData);
-  })
-  .catch((error) => console.error("Error fetching users:", error));
-  }, []);
-
-
-
-  const handleSearch = (event) => {
-    const searchString = event.target.value;
-    setSearchTerm(searchString);
-    if (searchString.trim() === '') {
-      setSearchResults([]);
-    } else {
-      const filteredTargets = search.filter((item) =>
-        item.titre.toLowerCase().startsWith(searchString.toLowerCase()) || item.titre.toLowerCase().includes(searchString.toLowerCase())
-      ).map(target => ({...target, origin: 'Page'})); // Adding origin property to filtered targets
-      
-      const filteredUsers = users.filter((user) =>
-        user.nom.toLowerCase().startsWith(searchString.toLowerCase())  ||   user.nom.toLowerCase().includes(searchString.toLowerCase())
-      ).map(user => ({...user, origin: 'Personne'})); // Adding origin property to filtered users
-      
-      setSearchResults([...filteredTargets, ...filteredUsers]);
-    }
-  };
-  
-
-
-  // const handleSearch = (event) => {
-  //   const searchString = event.target.value;
-  //   setSearchTerm(searchString);
-  //   if (searchString.trim() === '') {
-  //     setSearchResults([]);
-  //   } else {
-  //     const filteredResults = search.filter((item) =>
-  //       item.titre.toLowerCase().includes(searchString.toLowerCase())
-  //     );
-  //     setSearchResults(filteredResults);
-  //     console.log("ddddddddd", searchResults
-  //     )
-
-  //   }
-  // };
-
  
 
-  // const handleSearch = (event) => {
-  //   const searchString = event.target.value;
-  //   setSearchTerm(searchString);
-  //   if (searchString.trim() === '') {
-  //     setSearchResults([]);
-  //   } else {
-  //     const filteredResults = search.filter((item) =>
-  //       item.titre.toLowerCase().includes(searchString.toLowerCase())
-  //     );
-  //     setSearchResults(filteredResults);
-      
-  //   }
-  // };
 
 
 
 
 
-  const toggleActive = () => setIsOpen(!isActive);
-  const toggleisNoti = () => setisNoti(!isNoti);
-  const navClass = `${isOpen ? " nav-active" : ""}`;
-  const buttonClass = `${isOpen ? " active" : ""}`;
-  const searchClass = `${isActive ? " show" : ""}`;
-  const notiClass = `${isNoti ? " show" : ""}`;
-  const userProfileType = storedUserData ? storedUserData.profil : null;
 
 
-  const shouldHideForProfiles = ["other", "player"];
-  const shouldShowAgentItem = ["player", "other"].includes(userProfileType);
 
-  const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
+
+
+  
 
 
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Clear the authentication token from localStorage
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-
-    // Update the authentication state to false
-
-    // Redirect to the login page or another route
-    navigate("/login");
-  };
+  
   const [Hamburger, setHumberger] = useState(false)
 
   const handleClickHamburger = () => {
