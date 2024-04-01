@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
+import { Config } from "../config";
 function Login({ setAuthStatus }) {
   const [verificationMessage, setVerificationMessage] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(true);
@@ -35,8 +35,8 @@ function Login({ setAuthStatus }) {
   const onSubmit = async (data) => {
     try {
       setIsSubmitting(true);
+      const response = await fetch(`${Config.LOCAL_URL}/api/auth/signin`, {
 
-      const response = await fetch("https://odine-sport.com/api/auth/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,8 +55,7 @@ function Login({ setAuthStatus }) {
         // Call the setAuthStatus function with the token
         setAuthStatus(true, result.accessToken);
 
-        const verificationResponse = await fetch(
-          `https://odine-sport.com/api/auth/check-verification/${result.id}`
+        const verificationResponse = await fetch(`${Config.LOCAL_URL}/api/auth/check-verification/${result.id}`
         );
         const verificationResult = await verificationResponse.json();
 
