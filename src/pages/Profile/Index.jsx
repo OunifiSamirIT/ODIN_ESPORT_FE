@@ -101,13 +101,14 @@ const Index = () => {
   const handleClick = () => {
     setShowMenu(!showMenu);
   };
+
   useEffect(() => {
     setArticleWithPhoto(articles.filter((item) => {
-      return item.image !== null && item.userId === LocalStorageID.id
+      return item.image !== null && item.userId === id
     }))
 
     setArticleWithVideo(articles.filter((item) => {
-      return item.video !== null && item.userId === LocalStorageID.id
+      return item.video !== null && item.userId === id
     }))
 
   }, [profileFeed, articles])
@@ -152,7 +153,7 @@ const Index = () => {
 
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/allLikes`
+          `${Config.LOCAL_URL}/api/likes/article/allLikes`
 
         );
         const allLikesData = await allLikesResponse.json();
@@ -796,7 +797,7 @@ const Index = () => {
         {profileFeed === 'pubs' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8">
           <div>
             <div>
-              {articles.length > 0  ? articles.map((article) => (
+              {articles.length > 0 ? articles.map((article) => (
                 <div
                   key={article.id}
                   className="card w-100 shadow-xss flex rounded-xxl border-0 p-4 mb-3"
@@ -804,7 +805,7 @@ const Index = () => {
                   <div className="card-body p-0 d-flex items-center mb-3">
                     <figure className="avatar me-3">
                       <img
-                        src={article.user.user.image ? article.user.user.image : PlaceHolder }
+                        src={article.user.user.image ? article.user.user.image : PlaceHolder}
                         className="shadow-sm rounded-full  w-10 h-10"
                         alt="post"
                       />{" "}
@@ -844,7 +845,7 @@ const Index = () => {
                             </label>
                           </button>
                           <button
-                            className="flex gap-1 items-center px-4 py-2 w-full text-gray-800 hover:bg-gray-200" 
+                            className="flex gap-1 items-center px-4 py-2 w-full text-gray-800 hover:bg-gray-200"
                             onClick={() => handleDeleteClick(article.id)}
                           >
                             Delete
@@ -898,61 +899,63 @@ const Index = () => {
                   )}
 
 
-                  <div className="max-sm:text-xs flex max-sm:gap-2 justify-between w-full text-xs md:text-base whitespace-nowrap text-zinc-900 flex-nowrap">
-                    <div className="flex max-sm:text-xs flex max-sm:gap-2 justify-between">
-                      <div className="flex gap-2 py-2">
-                        <button
-                          onClick={() => {
-                            handleLikeClick(article.id, 1);
-                          }}
-                        >
-                          <span className="font-meduim  gap-2" style={{ display: 'flex', alignItems: 'center' }} >
-                            {article.likesCount === 0 ? (
-                              <BiHeart className="size-6 text-black" />
-                            ) : (
-                              <BiSolidHeart className="size-6 text-black" />
-                            )}
-                            <span style={{ marginLeft: '1px', marginTop: '2px' }}>Jaime</span>
-                          </span>
-                        </button>
-                      </div>
-                      <div className="flex gap-2 py-2">
-                        <button
-                          onClick={() => {
-                            if (selectedArticleId === article.id) {
-                              setCommentInputVisible(false);
-                              setSelectedArticleId(null);
-                            } else {
-                              fetchCommentsForArticle(article.id);
-                              setSelectedArticleId(article.id);
-                              setCommentInputVisible(true);
-                              setSelectedArticleForCopy(article.id);
-                            }
-                          }}
-                        >
-                          {selectedArticleId === article.id ? (
-                            <div className="flex gap-2 justify-between py-2 md:ml-6">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                className="w-5 aspect-square fill-zinc-900"
-                              />
-                              <div className="font-meduim text-base gap-2">Commenter</div>
-                            </div>
+                  <div className="  rounded-lg">
+                    <span className="flex justify-between items-center mb-3 ml-0 p-0 font-bold w-full">
+                      <button
+                        className="flex gap-2"
+                        onClick={() => {
+                          handleLikeClick(article.id, 1);
+                        }}
+                      >
+                        <span style={{ display: 'flex', alignItems: 'center' }}>
+                          {article.likesCount === 0 ? (
+                            <BiHeart className="size-6 text-black" />
                           ) : (
-                            <div className="flex gap-2 justify-between py-2 md:ml-6">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                className="w-5 aspect-square fill-zinc-900"
-                              />
-                              <div className="grow">Commenter</div>
-                            </div>
+                            <BiSolidHeart className="size-6 text-black" />
                           )}
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 p-2 items-center">
+                          <span style={{ marginLeft: '1px', marginTop: '2px' }}>Jaime</span>
+                        </span>
+                      </button>{" "}
+                      <span className="ml-0 p-0 font-bold ml-2 mt-1">
+                        {article.likesCount} {article.likesCount === 1 ? "" : ""}{" "}
+                      </span>
+
+                      <button
+                        onClick={() => {
+                          if (selectedArticleId === article.id) {
+                            setCommentInputVisible(false);
+                            setSelectedArticleId(null);
+                          } else {
+                            fetchCommentsForArticle(article.id);
+                            setSelectedArticleId(article.id);
+                            setCommentInputVisible(true);
+                            setSelectedArticleForCopy(article.id);
+                          }
+                        }}
+                      >
+                        {selectedArticleId === article.id ? (
+                          <div className="flex gap-2 justify-between py-2 md:ml-6">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square fill-zinc-900"
+                            />
+                            <div className="grow">Commenter</div>
+                          </div>
+                        ) : (
+                          <div className="flex gap-2 justify-between py-2 md:ml-6">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square fill-zinc-900"
+                            />
+                            <div className="grow">Commenter</div>
+                          </div>
+                        )}
+                      </button>
+
+                      {article.commentsCount} {article.commentsCount === 1 ? "" : ""}
+
                       <button
                         onClick={() => {
                           copyLinkToClipboard(article.id);
@@ -969,27 +972,35 @@ const Index = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="w-5 aspect-square fill-zinc-900"
                           />
-                          <div className="grow">
-                            {isCopyLinkPopupVisible ?
-                              <div className="copy-link-popup">
-                                lien copié!
-                              </div> : 'Copier le lien'
-                            }</div>
+                          <div className="grow">Copier le lien</div>
                         </div>
-
+                        {isCopyLinkPopupVisible && (
+                          <div className="copy-link-popup">
+                            lien copié!
+                          </div>
+                        )}
                       </button>
-                    </div>
-                  </div>
 
-                  <div className="  rounded-lg">
+                    </span>
+
+
+
+
+
+
+
+
+
+
+
                     {selectedArticleId === article.id && (
-                      <div className="comments-section  flex gap-y-4 flex-col">
+                      <div className="comments-section ">
                         {article.comments &&
                           article.comments.map((comment) => (
                             <div key={comment.id} className="comment">
                               {/* Display comment information */}
-                              <div className="flex items-center gap-2 ">
-                                <figure className="avatar">
+                              <div className="flex items-center ">
+                                <figure className="avatar me-3 mb-8">
                                   <img
                                     src={
                                       comment.user && comment.user.user.image
@@ -998,34 +1009,13 @@ const Index = () => {
                                     alt="post"
                                   />
                                 </figure>
-                                <span className="flex flex-col flex-1  bg-gray-100 md:w-[580px] rounded-[20px] max-md:max-w-full">
-                                  <div className="flex gap-5 items-center justify-between px-8 py-2 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
-                                    <div className="flex flex-col py-1 font-light whitespace-nowrap text-zinc-900">
-                                      <div className="text-base font-semibold">Joey Leblanc</div>
-                                      <div className="mt-1 text-xs">Joueur</div>
-                                      <div className="mt-1 text-xs">21 Septembre 2024</div>
-                                    </div>
-                                    <div className="flex gap-2 py-2">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0e886e2002354d948138d6b64e6d10ed6b3bdcd96e8e20673361191d9e97c8c?"
-                                        className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
-                                      />
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0e886e2002354d948138d6b64e6d10ed6b3bdcd96e8e20673361191d9e97c8c?"
-                                        className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
-                                      />
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0e886e2002354d948138d6b64e6d10ed6b3bdcd96e8e20673361191d9e97c8c?"
-                                        className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
-                                      />
-                                    </div>
-                                  </div>
+                                <span className="flex flex-col flex-1 mt-5  bg-gray-100 md:w-[580px] rounded-3xl max-md:max-w-full">
 
+                                  <strong className="mb-1 ml-2 mt-3">
+                                    {comment.user && comment.user.user.login}
+                                  </strong>
                                   <h1 className=" text-gray-500 ml-2 mt-1 mb-1">
-                                    {comment.user && comment.user.profil}
+                                    {comment.user && comment.user.user.profil}
                                   </h1>
                                   {comment.user && comment.user.createdAt && (
                                     <p className="text-gray-500 text-sm mt-0 ml-2 mb-4">
@@ -1033,10 +1023,12 @@ const Index = () => {
                                     </p>
                                   )}
 
-                                  <div className="px-8 mb-3">{comment.description}</div>
+                                  <div className="mx-3 mb-3">{comment.description}</div>
                                 </span>
                               </div>
-                              <div className="ml-12 flex items-center gap-4">
+
+
+                              <div className="ml-12 flex items-center gap-2">
                                 <button
                                   onClick={() =>
                                     handleReplyClick(comment.id)
@@ -1045,7 +1037,6 @@ const Index = () => {
                                 >
                                   Répondre
                                 </button>
-
                                 <button onClick={() => handleLikeComment(comment.id)}>
                                   {comment.likesCount === 0 ? (
                                     <BiHeart className="size-7 text-black" />
@@ -1054,7 +1045,9 @@ const Index = () => {
                                   )}
                                 </button>
                                 {/* <span>{comment.likesCount} Likes</span> */}
-
+                                <span className="ml-0 p-0 font-bold mr-4">
+                                  {comment.likesCount} {comment.likesCount === 1 ? "" : ""}
+                                </span>
 
                               </div>
 
@@ -1067,7 +1060,7 @@ const Index = () => {
                                     onChange={(e) =>
                                       setReplyInput(e.target.value)
                                     }
-                                    className="bg-gray-200 rounded-md w-96 pl-3 h-12 mt-3 ml-16"
+                                    className="bg-gray-200 rounded-md w-[300px] md:w-full pl-3 h-12 mt-3 ml-16"
                                   />
                                   <button
                                     onClick={() =>
@@ -1093,7 +1086,7 @@ const Index = () => {
                                               <img
                                                 src={
                                                   reply.user &&
-                                                  reply.user.image
+                                                  reply.user.user.image
                                                 }
                                                 className="shadow-sm rounded-circle w-10 h-10"
                                                 alt="post"
@@ -1104,14 +1097,14 @@ const Index = () => {
                                               <div className="flex flex-col justify-between ml-2 ">
                                                 <strong className="mb-2 mt-10">
                                                   {reply.user &&
-                                                    reply.user.login}
+                                                    reply.user.user.login}
                                                 </strong>
                                                 <h1 className=" text-gray-500 ml-2 mt-1 mb-1">
-                                                  {reply.user && reply.user.profil}
+                                                  {reply.user && reply.user.user.profil}
                                                 </h1>
-                                                {reply.user && reply.user.createdAt && (
+                                                {reply.user && reply.user.user.createdAt && (
                                                   <p className="text-gray-500 text-sm mt-0 ml-2 mb-4">
-                                                    {new Date(reply.user.createdAt).toLocaleDateString()}
+                                                    {new Date(reply.user.user.createdAt).toLocaleDateString()}
                                                   </p>
                                                 )}                                                      <div className="m-2">{reply.description}</div>
 
@@ -1122,8 +1115,8 @@ const Index = () => {
                                           </div>
 
                                           {/* <span className="flex flex-col flex-1  bg-gray-100 md:w-[520px] rounded-3xl max-md:max-w-full">
-                                    <div className="m-2">{reply.description}</div>
-                                  </span> */}
+          <div className="m-2">{reply.description}</div>
+        </span> */}
                                         </div>
                                       )
                                     )}
@@ -1138,7 +1131,10 @@ const Index = () => {
                             <div className="flex items-center">
                               <figure className="avatar me-3">
                                 <img
-                                  src={user.image}
+                                  src={
+                                    reply.user &&
+                                    reply.user.user.image
+                                  }
                                   className="shadow-sm rounded-circle w-10 h-10"
                                   alt="post"
                                 />
@@ -1165,8 +1161,9 @@ const Index = () => {
                     )}
 
                   </div>
+
                 </div>
-              )) :<div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun publication pour le moment</div>}
+              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun publication pour le moment</div>}
             </div>
           </div>
         </div>}
@@ -1219,7 +1216,7 @@ const Index = () => {
                   </div>
 
                 </div>
-              )):<div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun Photo pour le moment</div>}
+              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun Photo pour le moment</div>}
             </div>
           </div>
         </div>}
@@ -1280,7 +1277,7 @@ const Index = () => {
                   </div>
 
                 </div>
-              )):<div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun Video pour le moment</div>}
+              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun Video pour le moment</div>}
 
 
 

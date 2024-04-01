@@ -83,8 +83,7 @@ const PlayerCard = ({ userInfo }) => {
                         />
                         <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
                             <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
-                                <p className="max-w-[90px]  break-all">{userInfo?.user.nom}</p>
-                                <p className="max-w-fit  break-all">{userInfo?.user.prenom}</p>
+                                <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
                             </div>
                             <div className="text-base font-medium text-blue-600">
                                 Entraîneur
@@ -117,7 +116,7 @@ const PlayerCard = ({ userInfo }) => {
                                             </svg>
 
                                             {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
-                                                <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter ami(e)</p></button>}
+                                                <button className="flex items-center " onClick={sendFriendRequest}>Ajouter</button>}
                                         </div>
                                         {acceptedFriend?.status === 'accepted' ? <div>
                                             <button onClick={() => {
@@ -318,7 +317,7 @@ const PlayerCard = ({ userInfo }) => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
                             className="shrink-0 self-start w-4 aspect-[0.94]"
                         />
-                        <div>Voir Plus</div>
+                        <a href={`/profile/more/${id}`}>Voir Plus</a>
                     </div>
                 </div>
             </div>

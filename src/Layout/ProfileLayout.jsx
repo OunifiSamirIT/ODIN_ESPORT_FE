@@ -56,7 +56,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
         if (LocalStorageID.id == id) {
             setOwner(true)
         }
-    }, [id,user])
+    }, [id, user])
 
     const fetchAllFriendRequest = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/getFriends`, {
@@ -70,8 +70,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${LocalStorageID.id}/delete/${id}`, {
             method: "DELETE",
         });
-        if(response.status === 200)
-        {window.location.reload()}
+        if (response.status === 200) { window.location.reload() }
     }
     // useEffect(() => {
     //     CheckIfInvitationIsSend()
@@ -100,13 +99,13 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                             />
                                             <div className="flex-auto max-md:max-w-full">Friends</div>
                                         </div>
-                                        <Link to={'/friendsList'} className="my-auto text-sm text-blue-600 underline justify-end">
+                                        {owner && <Link to={'/friendsList'} className="my-auto text-sm text-blue-600 underline justify-end">
                                             Voir Tout
-                                        </Link>
+                                        </Link>}
                                     </div>
                                     <div className="mt-8 max-md:max-w-full">
                                         <div className="flex gap-4 md:gap-8 flex-wrap ">
-                                            {Invitation.map((item,index) => {
+                                            {Invitation.map((item, index) => {
                                                 return (<div key={index} className="flex flex-col max-sm:flex-1">
                                                     <div className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">
                                                         <img
@@ -117,10 +116,10 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                         <div className="mt-4 font-semibold">{item.receiver.nom}</div>
                                                         <div className="text-xs font-light">{item.receiver.profil}</div>
                                                         <div className="text-center justify-center self-stretch px-10 py-2 mt-4 font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                                                            <Link to={`/profile/${item.receiver.id}`}> Voir Plus</Link>
+                                                            <a href={`/profile/${item.receiver.id}`}> Voir Plus</a>
                                                         </div>
                                                         {owner && <div className="text-center justify-center self-stretch px-10 py-2 mt-4 font-medium text-white bg-orange-500 rounded-[30px] max-md:px-5">
-                                                            <button onClick={()=>deleteInviation(item.receiver.id)}>Supprimer</button>
+                                                            <button onClick={() => deleteInviation(item.receiver.id)}>Supprimer</button>
                                                         </div>}
                                                     </div>
                                                 </div>)

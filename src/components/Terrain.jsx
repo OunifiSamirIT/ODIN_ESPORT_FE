@@ -3,6 +3,7 @@ import terrain from "../assets/terrain.png";
 
 const Terrain = ({positionPlay , positionSecond }) => {
     const position = [];
+    const position2 = [];
     switch (positionPlay) {
         case "Gardien de but (GK)":
             position.push('GK')
@@ -42,46 +43,46 @@ const Terrain = ({positionPlay , positionSecond }) => {
     }
     switch (positionSecond) {
         case "Gardien de but (GK)":
-            position.push('GK')
+            position2.push('GK')
             break;
         case "Défenseur central (CB)":
-            position.push('CB')
+            position2.push('CB')
             break;
         case "Arrière droit (RB)":
-            position.push('RB')
+            position2.push('RB')
             break;
         case "Arrière gauche (LB)":
-            position.push('LB')
+            position2.push('LB')
             break;
         case "Milieu défensif (CDM)":
-            position.push('CDM')
+            position2.push('CDM')
             break;
         case "Milieu central (MC)":
-            position.push('MC')
+            position2.push('MC')
             break;
         case "Milieu offensif (MO)":
-            position.push('MO')
+            position2.push('MO')
             break;
         case "Ailier droit (RW)":
-            position.push('RW')
+            position2.push('RW')
             break;
         case "Ailier gauche (LW)":
-            position.push('LW')
+            position2.push('LW')
             break;
         case "Attaquant de pointe (ST)":
-            position.push('ST')
+            position2.push('ST')
             break;
         case "Attaquant polyvalent (ST)":
-            position.push('ST')
+            position2.push('ST')
             break;
         default:
-            position.push('NAN')
+            position2.push('NAN')
     }
 
 
 
-    const existPosition = (pos) => {
-        return position.includes(pos)
+    const existPosition = (pos,pos2) => {
+        return position.includes(pos) || position2.includes(pos)
 
     }
     return (
