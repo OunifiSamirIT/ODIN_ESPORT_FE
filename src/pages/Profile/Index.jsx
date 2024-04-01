@@ -527,7 +527,7 @@ const Index = () => {
           const userData = await userResponse.json();
           return {
             ...reply,
-            user: userData,
+            user: userData.user,
           };
         })
       );
@@ -1023,7 +1023,7 @@ const Index = () => {
                                     </p>
                                   )}
 
-                                  <div className="mx-3 mb-3">{comment.description}</div>
+                                  <div className="mx-2 mb-3">{comment.description}</div>
                                 </span>
                               </div>
 
@@ -1057,10 +1057,11 @@ const Index = () => {
                                   <input
                                     type="text"
                                     value={replyInput}
+                                    placeholder="ecrire une reponse"
                                     onChange={(e) =>
                                       setReplyInput(e.target.value)
                                     }
-                                    className="bg-gray-200 rounded-md w-[300px] md:w-full pl-3 h-12 mt-3 ml-16"
+                                    className="bg-gray-100 rounded-md w-96 h-12 mt-3 ml-2 pl-3 h-12 mt-3 ml-20"
                                   />
                                   <button
                                     onClick={() =>
@@ -1086,7 +1087,7 @@ const Index = () => {
                                               <img
                                                 src={
                                                   reply.user &&
-                                                  reply.user.user.image
+                                                  reply.user.image
                                                 }
                                                 className="shadow-sm rounded-circle w-10 h-10"
                                                 alt="post"
@@ -1097,18 +1098,20 @@ const Index = () => {
                                               <div className="flex flex-col justify-between ml-2 ">
                                                 <strong className="mb-2 mt-10">
                                                   {reply.user &&
-                                                    reply.user.user.login}
+                                                    reply.user.login}
                                                 </strong>
                                                 <h1 className=" text-gray-500 ml-2 mt-1 mb-1">
-                                                  {reply.user && reply.user.user.profil}
+                                                  {reply.user && reply.user.profil}
                                                 </h1>
-                                                {reply.user && reply.user.user.createdAt && (
+                                                {reply.user && reply.user.createdAt && (
                                                   <p className="text-gray-500 text-sm mt-0 ml-2 mb-4">
-                                                    {new Date(reply.user.user.createdAt).toLocaleDateString()}
+                                                    {new Date(reply.user.createdAt).toLocaleDateString()}
                                                   </p>
-                                                )}                                                      <div className="m-2">{reply.description}</div>
+                                                )}
+                                                <div className="m-2">{reply.description}</div>
 
-                                              </div>                                      </span>
+                                              </div>
+                                            </span>
 
 
 
@@ -1131,17 +1134,15 @@ const Index = () => {
                             <div className="flex items-center">
                               <figure className="avatar me-3">
                                 <img
-                                  src={
-                                    reply.user &&
-                                    reply.user.user.image
-                                  }
+                                  src={user.image}
                                   className="shadow-sm rounded-circle w-10 h-10"
                                   alt="post"
                                 />
                               </figure>
                               <input
                                 type="text"
-                                className="bg-gray-200 p-2 rounded-md w-96 h-12 mt-3 ml-2"
+                                placeholder="Ecrire un commentaire"
+                                className="bg-gray-100 p-2 rounded-md w-96 h-12 mt-3 ml-2"
                                 value={comment}
                                 onChange={(e) =>
                                   setComment(e.target.value)
