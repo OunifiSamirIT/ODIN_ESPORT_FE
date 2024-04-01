@@ -30,7 +30,7 @@ const PlayerCard = ({ userInfo }) => {
     const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
       method: "POST",
     });
-
+    isFriendAccepted()
     const result = await response.json();
     console.log('friend request sent')
   }
@@ -82,11 +82,10 @@ const PlayerCard = ({ userInfo }) => {
                         />
                         <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
                             <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
-                                <p className="max-w-[90px]  break-all">{userInfo?.user.nom}</p>
-                                <p className="max-w-fit  break-all">{userInfo?.user.prenom}</p>
+                                <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
                             </div>
                             <div className="text-base font-medium text-blue-600">
-                                Entraîneur
+                                Joueur
                             </div>
                         </div>
                     </div>
@@ -116,7 +115,7 @@ const PlayerCard = ({ userInfo }) => {
                                             </svg>
 
                                             {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
-                                                <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter ami(e)</p></button>}
+                                                <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter</p></button>}
                                         </div>
                                         {acceptedFriend?.status === 'accepted' ? <div>
                                             <button onClick={() => {
@@ -233,7 +232,7 @@ const PlayerCard = ({ userInfo }) => {
 
             <div className="">Positions</div>
           </div>
-          <Terrain positionPlay={userInfo?.player.positionPlay} positionSecond={userInfo?.player.positionSecond} />
+          <Terrain positionPlay={userInfo?.player?.positionPlay} positionSecond={userInfo?.player?.positionSecond} />
         </div>
         <div className="flex gap-4 px-4  text-lg whitespace-nowrap text-zinc-900">
           <img
@@ -286,7 +285,7 @@ const PlayerCard = ({ userInfo }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
               className="shrink-0 w-4 aspect-[0.94]"
             />
-            <div>Voir Plus</div>
+            <a href={`/profile/more/${id}`}>Voir Plus</a>
           </div>
         </div>
       </div>

@@ -5374,7 +5374,7 @@ function Register() {
         const responseData = await response.json();
 
         console.log("Server Response Data:", responseData);
-        // navigate("/login");
+        navigate("/login");
         console.log("User registered successfully!");
       } else {
         const errorData = await response.json();

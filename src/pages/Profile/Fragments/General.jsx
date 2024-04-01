@@ -78,12 +78,11 @@ const General = ({ userInfo }) => {
             />
             <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
               <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
-                <p className="max-w-[90px]  break-all">{userInfo?.user.nom}</p>
-                <p className="max-w-fit  break-all">{userInfo?.user.prenom}</p>
+                <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
               </div>
               <div className="text-base font-medium text-blue-600">
                 {
-                  userInfo.agent && <p>{userInfo.agent.typeresponsable === 'player' ? 'Profil Page (Manager de Joueurs)' : 'Manager de Club'}</p>
+                  userInfo.agent && <p>{userInfo.agent.typeresponsable === 'player' ? 'Manager de Joueurs' : 'Manager de Club'}</p>
                 }
                 {
                   userInfo.other && <p>{userInfo.other.profession}</p>
@@ -117,7 +116,7 @@ const General = ({ userInfo }) => {
                       </svg>
 
                       {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
-                        <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter ami(e)</p></button>}
+                        <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter</p></button>}
                     </div>
                     {acceptedFriend?.status === 'accepted' ? <div>
                       <button onClick={() => {
@@ -216,7 +215,7 @@ const General = ({ userInfo }) => {
         </div>
         <div className="flex gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
           {userInfo?.user.profil === 'agent' &&
-            userInfo?.agent?.skills.split(',').filter(item => item.trim()).map((item) => {
+            userInfo?.agent?.skillsagent.split(',').filter(item => item.trim()).map((item) => {
               return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                 {item}
               </div>)
@@ -264,7 +263,7 @@ const General = ({ userInfo }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
               className="shrink-0 self-start w-4 aspect-[0.94]"
             />
-            <div>Voir Plus</div>
+            <a href={`/profile/more/${id}`}>Voir Plus</a>
           </div>
         </div>
       </div>
