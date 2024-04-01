@@ -4792,16 +4792,16 @@ const getCombinedPrefix = (whatsAppPrefix, telephonePrefix) => {
 
   const handleFileChangeLicense = (event) => {
     const file = event.target.files[0];
-    setFileName(file.name)
+    setFile(file)
     if (file) {
-        // Convert the selected image to a data URL
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setImagePreviewlic(reader.result);
-        };
-        reader.readAsDataURL(file);
+      // Convert the selected image to a data URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviewlic(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
-};
+  };
 
   // const handleInputChange = (e) => {
   //   setValidationError("");
@@ -5344,6 +5344,12 @@ skillsscout: yup.string().when('profil', {
       // You can also set an error state or display a message to the user
       return;
     }
+    if (!File && isUploadEnabled) {
+      // If not, display an error or prevent form submission
+      setInputErrors({ 'Licence': 'ce champs est obligatoire' })
+      // You can also set an error state or display a message to the user
+      return;
+    }
 
     setErrorMessage("");
 
@@ -5357,6 +5363,8 @@ skillsscout: yup.string().when('profil', {
         formDataToSubmit.append(key, formData[key]);
       }
     });
+    formDataToSubmit.append("file", File || null);
+
     try {
       const response = await fetch("https://odine-sport.com/api/auth/signup", {
         method: "POST",
@@ -6476,10 +6484,12 @@ skillsscout: yup.string().when('profil', {
                         
                                  
                               
-                              <select className="flex flex-col justify-center px-px py-3.5  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]" onChange={(e) => handleSelection(e.target.value)}>
-  <option className=" w-full" value="Non">Non</option>
-  <option value="Oui">Oui</option>
-</select>
+                          <select style={{ width: '365px' }} className=" px-2 flex flex-col justify-center px-px py-3.5  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]" onChange={(e) => handleSelection(e.target.value)}>
+                            <option className=" w-full" value="Non">Non</option>
+                            <option value="Oui">Oui</option>
+                          </select>
+
+
                                 {/* <img
                                   loading="lazy"
                                   className="w-5 aspect-square"
@@ -6502,32 +6512,47 @@ skillsscout: yup.string().when('profil', {
                             />
                             <div className="grow">Licence</div>
                           </div>
-                       {isUploadEnabled && (     <div>
-                                    <div className="flex gap-4 justify-center items-center w-full">
-                                        <div className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
-                                            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_1342_45742)">
-                                                    <path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#2E71EB" />
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_1342_45742">
-                                                        <rect width="20" height="20" fill="white" transform="translate(0.5)" />
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                            <label>
-                                                <input
-                                                    type="file"
-                                                    name="file"
-                                                    accept="*"
-                                                    onChange={handleFileChangeLicense}
-                                                    className={`grow my-auto w-2 inset-0 opacity-0`}
-                                                />
-                                                {FileName ?  FileName : 'Importer une Licence'}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>)}
+                          {isUploadEnabled && ( 
+                          
+                          <div  style={{ width: '365px' }} className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
+                              <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_1342_45742)">
+                                  <path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#2E71EB" />
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_1342_45742">
+                                    <rect width="20" height="20" fill="white" transform="translate(0.5)" />
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <label>
+                                <input
+                                  type="file"
+                                  name="file"
+                                  accept="*"
+                                  onChange={handleFileChangeLicense}
+                                  className={`grow my-auto w-2 inset-0 opacity-0`}
+                                />
+                                {File ? File.name : 'Importer une Licence'}
+                              </label>
+                            </div>)}
+                          {!isUploadEnabled && (<div>
+                            <div style={{ width: '365px' }} className="flex gap-4 justify-center items-center w-full">
+                              <div style={{ width: '365px', backgroundColor:'#B3B3B3' , fontFamily :'Sora'}} className={`font-sans w-full flex justify-center gap-2 bg-zinc-100 items-center px-4 py-3.5 rounded-xl `}>
+                              <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1342_20565)"><path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#5A5A5A"></path></g><defs><clipPath id="clip0_1342_20565"><rect width="20" height="20" fill="white" transform="translate(0.5)"></rect></clipPath></defs></svg>
+                                <label>
+                                  <input
+                                    type="file"
+                                    name="file"
+                                    disabled
+                                    onChange={handleFileChangeLicense}
+                                    className={`grow my-auto w-2 inset-0 opacity-0`}
+                                  />
+                                  {'Importer une Licence'}
+                                </label>
+                              </div>
+                            </div>
+                          </div>)}
                           <div className="w-full max-w-sm mx-auto">
                            
                           </div>
