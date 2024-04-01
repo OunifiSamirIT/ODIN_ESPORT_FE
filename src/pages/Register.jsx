@@ -4090,7 +4090,7 @@ function Register() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isUploadEnabled, setUploadEnabled] = useState(false);
-  const [FileName , setFileName] = useState('')
+  const [File, setFile] = useState('')
 
 // list pays
 const [selectedCountries, setSelectedCountries] = useState([]);
