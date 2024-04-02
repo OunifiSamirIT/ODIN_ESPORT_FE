@@ -35,6 +35,7 @@ import {
   BiSolidHeart,
   BiSolidSend,
   BiSolidVideo,
+  BiLogInCircle  ,
   BiUndo,
 } from "react-icons/bi";
 import Loading from "../components/Loading";
@@ -1045,8 +1046,8 @@ function Home() {
 
 
                   {/* creation poste  */}
-                  <div className="card w-100 shadow-xss rounded-md   border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
-                    <div className="card-body p-0 mt-3 position-relative">
+                  <div className="card w-100 shadow-xss rounded-[10px]   border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
+                    <div className="card-body p-0 position-relative">
 
                       {previewImage && (
                         <div className="mt-3">
@@ -1069,113 +1070,118 @@ function Home() {
                         </div>
                       )}
                       <form onSubmit={handleSubmit(handlePostSubmit)}>
-                        <div className="card-body d-flex p-0 mt-4">
-                          <img
-                            src={user?.user?.image}
-                            alt="icon"
-                            className="shadow-sm rounded-full  w-16 h-14 mr-2"
-                          />
-                          {/* <label>{storedUserData.login}</label> */}
-                          <TextInput
-                            className="grow justify-center p-2 bg-gray-100 rounded-[30px] max-md:pr-5 max-md:max-w-full theme-dark-bg"
-
-                            placeholder="What's on your mind?"
-                            // styles="w-full rounded-full py-5 text-bl"
-                            // placeholder="Show your Skills here , your dream begin from here...."
-                            name="description"
-                            register={register("description", {
-                              required: "Write something about post",
-                            })}
-                            error={
-                              errors.description
-                                ? errors.description.message
-                                : ""
-                            }
-                          />
-                        </div>
-
-                        {errMsg?.message && (
-                          <span
-                            role="alert"
-                            className={`text-sm ${errMsg?.status === "failed"
-                                ? "text-[#f64949fe]"
-                                : "text-[#2ba150fe]"
-                              } mt-0.5`}
-                          >
-                            {errMsg?.message}
-                          </span>
-                        )}
-                        <div className="d-flex align-items-center justify-content-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
-                          <label
-                            htmlFor="imgUpload"
-                            className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
-                          >
-                            <input
-                              type="file"
-                              onChange={handleFileChange}
-                              className="hidden"
-                              id="imgUpload"
-                              accept=".jpg, .png, .jpeg"
-                            />
+                        <div className="card-body d-flex p-0">
+                          <div className="flex w-full">
                             <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="aspect-square w-[25px]"
-                            />                          <span className="d-none-xs ml-2">Photo</span>
-                          </label>
-
-                          <label
-                            className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark pe-4"
-                            htmlFor="videoUpload"
-                          >
-                            <input
-                              type="file"
-                              onChange={(e) => handleFileChange(e, "video")}
-                              className="hidden"
-                              id="videoUpload"
-                              accept=".mp4, .wav"
+                              src={user?.user?.image}
+                              alt="icon"
+                              className="shadow-sm rounded-full  w-16 h-14 mr-2"
                             />
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="aspect-square w-[25px]"
-                            />                            <span className="d-none-xs ml-2"> Video</span>
-                          </label>
+                            {/* <label>{storedUserData.login}</label> */}
+                            <div className="flex flex-col w-full gap-y-4">
+                              <TextInput
+                                className="grow justify-center  bg-gray-100 rounded-[30px] theme-dark-bg"
 
-                          <label
-                            className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark pe-4"
-                            htmlFor="vgifUpload"
-                          >
-                            <input
-                              type="file"
-                              onChange={(e) => handleFileChange(e, "gif")}
-                              className="hidden"
-                              id="vgifUpload"
-                              accept=".gif"
-                            />
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="aspect-[1.2] fill-slate-500 w-[30px]"
-                            />                           <span className="d-none-xs ml-2">GIF</span>
-                          </label>
-
-                          <div>
-                            {posting ? (
-                              <Loading />
-                            ) : (
-                              <CustomButton
-                                type="submit"
-                                title="Post"
-                                containerStyles="bg-[#0444a4] text-white mt-1 py-1 px-10 rounded-full font-semibold text-sm"
+                                placeholder="Quoi de neuf ? "
+                                // styles="w-full rounded-full py-5 text-bl"
+                                // placeholder="Show your Skills here , your dream begin from here...."
+                                name="description"
+                                register={register("description", {
+                                  required: "Write something about post",
+                                })}
+                                error={
+                                  errors.description
+                                    ? errors.description.message
+                                    : ""
+                                }
                               />
-                            )}
+                              {errMsg?.message && (
+                                <span
+                                  role="alert"
+                                  className={`text-sm ${errMsg?.status === "failed"
+                                    ? "text-[#f64949fe]"
+                                    : "text-[#2ba150fe]"
+                                    } mt-0.5`}
+                                >
+                                  {errMsg?.message}
+                                </span>
+                              )}
+                              <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
+                                <div className="flex w-full">
+                                  <label
+                                    htmlFor="imgUpload"
+                                    className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+                                  >
+                                    <input
+                                      type="file"
+                                      onChange={handleFileChange}
+                                      className="hidden"
+                                      id="imgUpload"
+                                      accept=".jpg, .png, .jpeg"
+                                    />
+                                    <img
+                                      loading="lazy"
+                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                      className="aspect-square w-[25px]"
+                                    />                          <span className="d-none-xs ml-2">Photo</span>
+                                  </label>
+
+                                  <label
+                                    className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark pe-4"
+                                    htmlFor="videoUpload"
+                                  >
+                                    <input
+                                      type="file"
+                                      onChange={(e) => handleFileChange(e, "video")}
+                                      className="hidden"
+                                      id="videoUpload"
+                                      accept=".mp4, .wav"
+                                    />
+                                    <img
+                                      loading="lazy"
+                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                      className="aspect-square w-[25px]"
+                                    />                            <span className="d-none-xs ml-2"> Video</span>
+                                  </label>
+
+                                  <label
+                                    className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark pe-4"
+                                    htmlFor="vgifUpload"
+                                  >
+                                    <input
+                                      type="file"
+                                      onChange={(e) => handleFileChange(e, "gif")}
+                                      className="hidden"
+                                      id="vgifUpload"
+                                      accept=".gif"
+                                    />
+                                    <img
+                                      loading="lazy"
+                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                      className="aspect-[1.2] fill-slate-500 w-[30px]"
+                                    />                           <span className="d-none-xs ml-2">GIF</span>
+                                  </label>
+                                </div>
+
+                                <div>
+                                  {posting ? (
+                                    <Loading />
+                                  ) : (
+                                    <CustomButton
+                                      type="submit"
+                                      title="Post"
+                                      containerStyles="bg-blue-600 text-white mt-1 py-1 px-10 rounded-full font-semibold text-sm"
+                                    />
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
                           </div>
                         </div>
                       </form>
                     </div>
                   </div>
-
                   {/* update 01/02/2023 */}
 
 
@@ -1212,22 +1218,25 @@ function Home() {
                                   {new Date(article.user.user.createdAt).toLocaleDateString()}
                                 </span>
                               </h4>
-                              <div className="ms-auto relative">
-                                <i
-                                  className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss cursor-pointer"
-                                  onClick={() => handleMoreClick(article)}
-                                ></i>
+                              <div className="ms-auto relative cursor-pointer"  onClick={() => handleMoreClick(article)}>
+                                <svg width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z" fill="#1D1E21" />
+                                  <path d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z" fill="#1D1E21" />
+                                  <path d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z" fill="#1D1E21" />
+                                </svg>
+
+              
 
 
                                 {showDropdown === article.id && article.user.user && article.user.user.id === storedUserData.id && (
                                   <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                     {/* Your dropdown menu content */}
                                     <button
-                                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
                                       onClick={() => handleEditClick(selectedArticle)}
                                     >
                                       <label
-                                        className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                         onClick={() => handleEditClick(article)}
                                       >
                                         <BiEditAlt />
@@ -1238,10 +1247,11 @@ function Home() {
                                     </button>
 
                                     <button
-                                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                                      className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
                                       onClick={() => handleDeleteClick(article.id)}
                                     >
-                                      Delete
+                                      <BiLogInCircle  />
+                                      <span className="text-base">Delete</span>
                                     </button>
                                   </div>
                                 )}
