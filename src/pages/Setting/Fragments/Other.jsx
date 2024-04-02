@@ -182,7 +182,7 @@ const Other = ({ userInfo }) => {
             }
         ).then((r) => {
             if (r.status === 200) {
-                toast.success('Vos modifications ont été enregistrées avec succès.', {
+                toast.success('Vos modifications ont été enregistrées !', {
                     position: "top-right",
                     autoClose: 5000,
                     type: 'success',
