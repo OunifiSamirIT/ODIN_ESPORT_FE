@@ -35,7 +35,7 @@ import {
   BiSolidHeart,
   BiSolidSend,
   BiSolidVideo,
-  BiLogInCircle  ,
+  BiLogInCircle,
   BiUndo,
 } from "react-icons/bi";
 import Loading from "../components/Loading";
@@ -700,6 +700,7 @@ function Home() {
 
   const handleEditClick = (article) => {
     setEditArticle(article);
+    setShowMenu(!showMenu)
   };
 
   const addReply = async (commentId, replyText) => {
@@ -1218,14 +1219,14 @@ function Home() {
                                   {new Date(article.user.user.createdAt).toLocaleDateString()}
                                 </span>
                               </h4>
-                              <div className="ms-auto relative cursor-pointer"  onClick={() => handleMoreClick(article)}>
+                              <div className="ms-auto relative cursor-pointer" onClick={() => handleMoreClick(article)}>
                                 <svg width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z" fill="#1D1E21" />
                                   <path d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z" fill="#1D1E21" />
                                   <path d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z" fill="#1D1E21" />
                                 </svg>
 
-              
+
 
 
                                 {showDropdown === article.id && article.user.user && article.user.user.id === storedUserData.id && (
@@ -1250,7 +1251,7 @@ function Home() {
                                       className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
                                       onClick={() => handleDeleteClick(article.id)}
                                     >
-                                      <BiLogInCircle  />
+                                      <BiLogInCircle />
                                       <span className="text-base">Delete</span>
                                     </button>
                                   </div>
@@ -1306,24 +1307,29 @@ function Home() {
 
 
 
-                              <span className="mb-3 ml-0 p-0 font-bold mr-4">
+                              <span className="flex justify-between items-center mb-3 ml-0 p-0 font-bold w-full">
                                 <button
                                   onClick={() => {
                                     handleLikeClick(article.id, 1);
                                   }}
                                 >
-                                  <span style={{ display: 'flex', alignItems: 'center' }}>
+                                  <span className="flex-col md:flex-row" style={{ display: 'flex', alignItems: 'center' }}>
                                     {article.likesCount === 0 ? (
                                       <BiHeart className="size-6 text-black" />
                                     ) : (
                                       <BiSolidHeart className="size-6 text-black" />
                                     )}
-                                    <span style={{ marginLeft: '1px', marginTop: '2px' }}>Jaime</span>
+                                    <div className="flex items-center gap-2">
+                                      <span style={{ marginLeft: '1px', marginTop: '2px' }}>
+                                        Jaime
+                                      </span>
+                                      <span>
+                                        {article.likesCount} {article.likesCount === 1 ? "" : ""}{" "}
+                                      </span>
+                                    </div>
                                   </span>
+
                                 </button>{" "}
-                                <span className="mb-3 ml-0 p-0 font-bold mr-2">
-                                  {article.likesCount} {article.likesCount === 1 ? "" : ""}{" "}
-                                </span>
 
                                 <button
                                   onClick={() => {
@@ -1348,18 +1354,18 @@ function Home() {
                                       <div className="grow">Commenter</div>
                                     </div>
                                   ) : (
-                                    <div className="flex gap-2 justify-between py-2 md:ml-6">
+                                    <div className="flex gap-2 flex-col md:flex-row items-center">
                                       <img
                                         loading="lazy"
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                         className="w-5 aspect-square fill-zinc-900"
                                       />
-                                      <div className="grow">Commenter</div>
+                                      <div className="flex gap-2"> <span>Commenter</span> <span>{article.commentsCount} {article.commentsCount === 1 ? "" : ""}</span></div>
                                     </div>
                                   )}
                                 </button>
 
-                                {article.commentsCount} {article.commentsCount === 1 ? "" : ""}
+                              
 
                                 <button
                                   onClick={() => {
@@ -1369,15 +1375,15 @@ function Home() {
                                       setIsCopyLinkPopupVisible(false);
                                     }, 2000); // Hide the popup after 2 seconds
                                   }}
-                                  className="md:ml-44"
+                                  className=""
                                 >
-                                  <div className="flex gap-2 justify-between py-2">
+                                  <div className="flex flex-col md:flex-row items-center gap-2 justify-between py-2">
                                     <img
                                       loading="lazy"
                                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                       className="w-5 aspect-square fill-zinc-900"
                                     />
-                                    <div className="grow"></div>
+                                    <div className="grow">Copier le lien</div>
                                   </div>
                                   {isCopyLinkPopupVisible && (
                                     <div className="copy-link-popup">
@@ -1414,7 +1420,7 @@ function Home() {
                                               alt="post"
                                             />
                                           </figure>
-                                          <span className="flex flex-col flex-1 mt-5  bg-gray-100 md:w-[580px] rounded-3xl max-md:max-w-full">
+                                          <span className="flex flex-col flex-1  bg-gray-100 md:w-[580px] rounded-3xl max-md:max-w-full">
 
                                             <strong className="mb-1 ml-2 mt-3">
                                               {comment.user && comment.user.user.login}
@@ -1428,7 +1434,7 @@ function Home() {
                                               </p>
                                             )}
 
-                                            <div className="mx-3 mb-3">{comment.description}</div>
+                                            <div className="ml-2 mb-3">{comment.description}</div>
                                           </span>
                                         </div>
 
