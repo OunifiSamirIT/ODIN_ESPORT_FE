@@ -5366,7 +5366,7 @@ skillsscout: yup.string().when('profil', {
     formDataToSubmit.append("file", File || null);
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
+      const response = await fetch("https://odine-sport.com/api/auth/signup", {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -5477,7 +5477,7 @@ skillsscout: yup.string().when('profil', {
           </div>
          
   <form className="w-full h-full sm:w-full  " onSubmit={handleSubmit}>
-  {step === 1 && (
+    {step === 1 && (
       <div className="flex flex-wrap gap-y-4 justify-center content-start items-center self-stretch px-2 sm:px-16  w-full max-md:px-5 max-md:max-w-full">
         
        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
@@ -5540,11 +5540,9 @@ skillsscout: yup.string().when('profil', {
                           type="text"
                           id="nom"
                           name="nom"
-                          style={{ fontSize: '14px' }} // Set the font size inline
-
                           value={formData.nom}
                           onChange={handleInputChange}
-                          className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-lg border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                          className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
                             inputErrors["nom"] ? "is-invalid" : ""
                           }`}
                           placeholder="Votre Nom"
@@ -5567,9 +5565,8 @@ skillsscout: yup.string().when('profil', {
                           />
                           <div className="grow">Prénom</div>
                         </div>
-                        
                         <input
-                          className={`form-control  justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-lg border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                          className={`form-control  justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
                             inputErrors["prenom"] ? "is-invalid" : ""
                           }`}
                           type="text"
@@ -5578,8 +5575,6 @@ skillsscout: yup.string().when('profil', {
                           name="prenom"
                           placeholder="Votre Prenom"
                           onChange={handleInputChange}
-                          style={{ fontSize: '14px' }} // Set the font size inline
-
                         />
                         {inputErrors["prenom"] && (
                           <div className="invalid-feedback">
@@ -5604,8 +5599,6 @@ skillsscout: yup.string().when('profil', {
             value={formData.login}
             id="login"
             name="login"
-            style={{ fontSize: '14px' }} // Set the font size inline
-           
             className={`form-control flex flex-col justify-center items-start py-3.5 pr-16 pl-4 mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
               inputErrors["login"] ? "is-invalid" : ""  // Apply a red border if there's an error
             }`}
@@ -5742,13 +5735,12 @@ skillsscout: yup.string().when('profil', {
         width: "125px",
         fontSize: "1rem",
         backgroundColor: "#f5f5f5",
-        fontSize: "14px",
         borderWidth: "none",
         paddingTop: "6px", // Adjust paddingTop to match the desired height
         paddingBottom: "6px",
       }),
     }}
-    className="flex  py-2.5 border-solid border-[0.5px] rounded-[30px]"
+    className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
     placeholder="Préfixe"
 
     options={optionsphoneWS}
@@ -5763,8 +5755,6 @@ skillsscout: yup.string().when('profil', {
     onChange={handleChangePhoneNumberWS}
     placeholder={`Enter numero`}
     value={phoneNumberWS.slice(0, selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0)}
-    style={{ fontSize: '14px' }} // Set the font size inline
-
     className={`form-control grow justify-center w-full ml-4 md:ml-0 md:w-full gap-2 mt-1 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
       inputErrors["numWSup"] ? "is-invalid" : ""
     }`}
@@ -5812,7 +5802,7 @@ skillsscout: yup.string().when('profil', {
           justifyContent: "center",
           borderRadius: "30px",
           width: "125px",
-          fontSize: "14px",
+          fontSize: "1rem",
           backgroundColor: "#f5f5f5",
           borderWidth: "none",
           paddingTop: "6px", // Adjust paddingTop to match the desired height
@@ -5861,33 +5851,26 @@ skillsscout: yup.string().when('profil', {
                           <div className="grow">Année de naissance</div>
                         </div>{" "}
                         <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                        <DatePicker
-  selected={
-    formData.date_naissance
-      ? new Date(formData.date_naissance)
-      : null
-  }
-  onChange={(date) => {
-    handleYearChange(date?.getFullYear());
-    // Update border color here
-    setInputErrors({
-      ...inputErrors,
-      date_naissance: "" // Clear any existing error
-    });
-  }}
-  dateFormat="yyyy"
-  showYearPicker
-  yearDropdownItemNumber={10}
-  maxDate={new Date(2012, 0, 1)}
-  placeholderText="Choisi une année "
-  className={`form-control flex flex-col justify-center w-full text-base  border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
-    inputErrors["date_naissance"] ? "is-invalid" : ""
-  }`}
-/>
-
+                          <div className="flex gap-5 justify-between  py-2.5 rounded-md">
+                          <DatePicker
+                              selected={
+                                formData.date_naissance
+                                  ? new Date(formData.date_naissance)
+                                  : null
+                              }
+                              onChange={(date) =>
+                                handleYearChange(date?.getFullYear())
+                              }
+                              dateFormat="yyyy"
+                              showYearPicker
+                              yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
+                              maxDate={new Date(2012, 0, 1)}
+                              className=" bg-zinc-100 ml-4"
+                            />
 
 
                            
+                          </div>
                         </div>{" "}
                         <div className="self-center mt-2 text-zinc-800">
                           Vous devez avoir au moins 13 ans.
@@ -5927,9 +5910,7 @@ skillsscout: yup.string().when('profil', {
                         name="gender"
                         value={formData.gender}
                         onChange={handleInputChange}
-                        style={{ fontSize: '14px' }} // Set the font size inline
-
-                        className={`form-control flex flex-col justify-center pl-3  pr-2  py-2.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+                        className={`form-control flex flex-col justify-center pl-3 pt-3 pr-2  py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
                           inputErrors["gender"] ? "is-invalid" : ""
                         }`}
                       >
@@ -5971,14 +5952,14 @@ skillsscout: yup.string().when('profil', {
                                   borderRadius: "30px",
 
                                   // width: "230px",
-                                  fontSize: "14px", // Set the desired font size
+                                  fontSize: "1rem", // Set the desired font size
                                   backgroundColor: "#f5f5f5", // Set the background color
                                   borderWidth: "none",
 
 
 
-                                  paddingTop: "6px",
-                                  paddingBottom: "6px",
+                                  paddingTop: "8px",
+                                  paddingBottom: "8px",
                                   marginTop: "8px",
                                   width: "100%",
                                  
@@ -6024,14 +6005,14 @@ skillsscout: yup.string().when('profil', {
                                   borderRadius: "30px",
 
                                   // width: "230px",
-                                  fontSize: "14px", // Set the desired font size
+                                  fontSize: "1rem", // Set the desired font size
                                   backgroundColor: "#f5f5f5", // Set the background color
                                   borderWidth: "none",
 
 
 
-                                  paddingTop: "6px",
-                                  paddingBottom: "6px",
+                                  paddingTop: "8px",
+                                  paddingBottom: "8px",
                                   marginTop: "8px",
                                   width: "100%",
                                  
@@ -6230,11 +6211,11 @@ skillsscout: yup.string().when('profil', {
             </div>
           )}
 
-          {step === 3 && (
+{step === 3 && (
             <div>
               {formData.profil === "player" && (
                 <div className="flex flex-col items-center pb-12 bg-gray-200">
-                 
+
                   <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
                     <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-900 dark:text-zinc-300">
@@ -6262,20 +6243,19 @@ skillsscout: yup.string().when('profil', {
                             <div className="grow">Club Actuel</div>
                           </div>
                           <input
-                              type="text" 
-                              id="champsoptionelle"
-                              name="champsoptionelle"
-                              value={formData.champsoptionelle}
-                              className={`form-control mt-2 flex gap-5 justify-between border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] px-4 py-3.5 rounded-xl ${
-                                inputErrors["champsoptionelle"] ? "is-invalid" : ""
+                            type="text"
+                            id="champsoptionelle"
+                            name="champsoptionelle"
+                            value={formData.champsoptionelle}
+                            className={`form-control mt-2 flex gap-5 justify-between border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] px-4 py-3.5 rounded-xl ${inputErrors["champsoptionelle"] ? "is-invalid" : ""
                               }`}
-                              placeholder="Club Actuel"
-                              onChange={handleInputChange}
-                            />
-                               
+                            placeholder="Club Actuel"
+                            onChange={handleInputChange}
+                          />
+
                           {inputErrors['champsoptionelle'] && (
-                          <div className="error-message text-red-600">{inputErrors['champsoptionelle']}</div>
-          )}
+                            <div className="error-message text-red-600">{inputErrors['champsoptionelle']}</div>
+                          )}
                         </div>
                         <div className="flex flex-col flex-1">
                           <div className="flex gap-4 justify-between px-4 text-lg">
@@ -6292,18 +6272,17 @@ skillsscout: yup.string().when('profil', {
                               id="height"
                               name="height"
                               value={formData.height}
-                              className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${
-                                inputErrors["height"] ? "is-invalid" : ""
-                              }`}
+                              className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${inputErrors["height"] ? "is-invalid" : ""
+                                }`}
                               placeholder="Taille (cm)"
                               onChange={handleInputChange}
                             />
-                          
+
                           </div>
                           {inputErrors['height'] && (
-            <div className="error-message text-red-600">{inputErrors['height']}</div>
-          )}
-                        </div> 
+                            <div className="error-message text-red-600">{inputErrors['height']}</div>
+                          )}
+                        </div>
                         <div className="flex flex-col flex-1">
                           <div className="flex gap-4 justify-between px-4 text-lg">
                             <img
@@ -6318,19 +6297,18 @@ skillsscout: yup.string().when('profil', {
                               id="weight"
                               name="weight"
                               value={formData.weight}
-                              className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${
-                                inputErrors["weight"] ? "is-invalid" : ""
-                              }`}
+                              className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${inputErrors["weight"] ? "is-invalid" : ""
+                                }`}
                               placeholder="Poids (kg)"
                               onChange={handleInputChange}
                             />
-                            
-                        </div>{inputErrors["weight"] && (
-                              <div className="error-message text-red-600">
-                                {inputErrors["weight"]}
-                              </div>
-                            )}
-                          </div>
+
+                          </div>{inputErrors["weight"] && (
+                            <div className="error-message text-red-600">
+                              {inputErrors["weight"]}
+                            </div>
+                          )}
+                        </div>
                       </div>
                       <div className="flex gap-5 justify-between mt-8 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
                         <div className="flex flex-col flex-1">
@@ -6347,25 +6325,24 @@ skillsscout: yup.string().when('profil', {
                               id="PiedFort"
                               name="PiedFort"
                               value={formData.PiedFort}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
-                                inputErrors["PiedFort"] ? "is-invalid" : ""
-                              }`}
+                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["PiedFort"] ? "is-invalid" : ""
+                                }`}
                               onChange={handleInputChange}
                             >
                               <option value="" disabled>
-                                 Pied Fort
+                                Pied Fort
                               </option>
                               <option value="PiedGauche">Pied Gauche</option>
                               <option value="PiedDroit">Pied Droit</option>
                               <option value="DeuxPieds">Les deux pieds</option>
                             </select>
-                            
+
                           </div>
                           {inputErrors["PiedFort"] && (
-                              <div className="error-message text-red-600">
-                                {inputErrors["PiedFort"]}
-                              </div>
-                            )}
+                            <div className="error-message text-red-600">
+                              {inputErrors["PiedFort"]}
+                            </div>
+                          )}
                         </div>
                         <div className="flex flex-col flex-1 whitespace-nowrap">
                           <div className="flex gap-4 justify-between px-4 text-lg">
@@ -6381,77 +6358,12 @@ skillsscout: yup.string().when('profil', {
                               id="positionPlay"
                               name="positionPlay"
                               value={formData.positionPlay}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
-                                inputErrors["positionPlay"] ? "is-invalid" : ""
-                              }`}
+                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["positionPlay"] ? "is-invalid" : ""
+                                }`}
                               onChange={handleInputChange}
                             >
-                              <option value="" disabled>
-                                 Position principale
-                              </option>
-                              <option value="Gardien de but">
-                                Gardien de but
-                              </option>
-                              <option value="Défenseur central">
-                                Défenseur central
-                              </option>
-                              <option value="Arrière droit">
-                                Arrière droit
-                              </option>
-                              <option value="Arrière gauche">
-                                Arrière gauche
-                              </option>
-                              <option value="Milieu défensif">
-                                Milieu défensif
-                              </option>
-                              <option value="Milieu central">
-                                Milieu central
-                              </option>
-                              <option value="Milieu offensif">
-                                Milieu offensif
-                              </option>
-                              <option value="Ailier droit">Ailier droit</option>
-                              <option value="Ailier gauche">
-                                Ailier gauche
-                              </option>
-                              <option value="Attaquant de pointe">
-                                Attaquant de pointe
-                              </option>
-                              <option value="Attaquant polyvalent">
-                                Attaquant polyvalent
-                              </option>
-                            </select>
-                           
-                          </div>
-                          {inputErrors["positionPlay"] && (
-                              <div className="error-message text-red-600">
-                                {inputErrors["positionPlay"]}
-                              </div>
-                            )}
-                        </div>
-                        <div className="flex flex-col flex-1">
-                          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/d28253fa6cc8f9ecc5cb75e6cbca192ddf52f545a3fe16fae0bf99d195b10b41?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="self-start w-5 aspect-square"
-                            />
-                            <div className="grow">Position Secondaire</div>
-                          </div>
-                          <div className="flex flex-col justify-center px-px  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                            <select
-                              id="positionSecond"
-                              name="positionSecond"
-                              value={formData.positionSecond}
-                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${
-                                inputErrors["positionSecond"]
-                                  ? "is-invalid"
-                                  : ""
-                              }`}
-                              onChange={handleInputChange}
-                            >
-                              <option value="" disabled>
-                              Position Secondaire
+                            <option value="" disabled>
+                                Position Secondaire
                               </option>
                               <option value="Gardien de but (GK)">
                                 Gardien de but (GK)
@@ -6484,7 +6396,69 @@ skillsscout: yup.string().when('profil', {
                                 Avant-centre ( ST)
                               </option>
                             </select>
-                           
+
+                          </div>
+                          {inputErrors["positionPlay"] && (
+                            <div className="error-message text-red-600">
+                              {inputErrors["positionPlay"]}
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex flex-col flex-1">
+                          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/d28253fa6cc8f9ecc5cb75e6cbca192ddf52f545a3fe16fae0bf99d195b10b41?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="self-start w-5 aspect-square"
+                            />
+                            <div className="grow">Position Secondaire</div>
+                          </div>
+                          <div className="flex flex-col justify-center px-px  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <select
+                              id="positionSecond"
+                              name="positionSecond"
+                              value={formData.positionSecond}
+                              className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["positionSecond"]
+                                  ? "is-invalid"
+                                  : ""
+                                }`}
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                Position Secondaire
+                              </option>
+                              <option value="Gardien de but (GK)">
+                                Gardien de but (GK)
+                              </option>
+                              <option value="Arrière droit (RB)">
+                                Arrière droit (RB)
+                              </option>
+                              <option value="Arrière gauche( LB)">
+                                Arrière gauche( LB)
+                              </option>
+                              <option value="Défenseur central (CB)">
+                                Défenseur central (CB)
+                              </option>
+                              <option value="Milieu défensif (CDM)">
+                                Milieu défensif (CDM)
+                              </option>
+                              <option value="Milieu central ( CM)">
+                                Milieu central ( CM)
+                              </option>
+                              <option value="Milieu offensif ( CAM)">
+                                Milieu offensif ( CAM)
+                              </option>
+                              <option value="Ailier droit (RW)">
+                                Ailier droit (RW)
+                              </option>
+                              <option value="Ailier gauche ( LW)">
+                                Ailier gauche ( LW)
+                              </option>
+                              <option value="Avant-centre ">
+                                Avant-centre ( ST)
+                              </option>
+                            </select>
+
                           </div>
                         </div>
                       </div>
@@ -6500,26 +6474,26 @@ skillsscout: yup.string().when('profil', {
                             />
                             <div className="grow">Avez-vous une licence ?</div>
                           </div>
-                        
-                                 
-                              
+
+
+
                           <select style={{ width: '365px' }} className=" px-2 flex flex-col justify-center px-px py-3.5  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]" onChange={(e) => handleSelection(e.target.value)}>
                             <option className=" w-full" value="Non">Non</option>
                             <option value="Oui">Oui</option>
                           </select>
 
 
-                                {/* <img
+                          {/* <img
                                   loading="lazy"
                                   className="w-5 aspect-square"
                                   onClick={() => handleSelection("Oui")}
                                 /> */}
-                            
+
                           {inputErrors["Licence"] && (
-                              <div className="error-message text-red-600">
-                                {inputErrors["Licence"]}
-                              </div>
-                            )}
+                            <div className="error-message text-red-600">
+                              {inputErrors["Licence"]}
+                            </div>
+                          )}
                         </div>
 
                         <div className="flex flex-col self-start">
@@ -6531,9 +6505,9 @@ skillsscout: yup.string().when('profil', {
                             />
                             <div className="grow">Licence</div>
                           </div>
-                          {isUploadEnabled && ( 
-                          
-                          <div  style={{ width: '365px' }} className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
+                          {isUploadEnabled && (
+
+                            <div style={{ width: '365px' }} className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
                               <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_1342_45742)">
                                   <path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#2E71EB" />
@@ -6557,8 +6531,8 @@ skillsscout: yup.string().when('profil', {
                             </div>)}
                           {!isUploadEnabled && (<div>
                             <div style={{ width: '365px' }} className="flex gap-4 justify-center items-center w-full">
-                              <div style={{ width: '365px', backgroundColor:'#B3B3B3' , fontFamily :'Sora'}} className={`font-sans w-full flex justify-center gap-2 bg-zinc-100 items-center px-4 py-3.5 rounded-xl `}>
-                              <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1342_20565)"><path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#5A5A5A"></path></g><defs><clipPath id="clip0_1342_20565"><rect width="20" height="20" fill="white" transform="translate(0.5)"></rect></clipPath></defs></svg>
+                              <div style={{ width: '365px', backgroundColor: '#B3B3B3', fontFamily: 'Sora' }} className={`font-sans w-full flex justify-center gap-2 bg-zinc-100 items-center px-4 py-3.5 rounded-xl `}>
+                                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1342_20565)"><path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#5A5A5A"></path></g><defs><clipPath id="clip0_1342_20565"><rect width="20" height="20" fill="white" transform="translate(0.5)"></rect></clipPath></defs></svg>
                                 <label>
                                   <input
                                     type="file"
@@ -6573,7 +6547,7 @@ skillsscout: yup.string().when('profil', {
                             </div>
                           </div>)}
                           <div className="w-full max-w-sm mx-auto">
-                           
+
                           </div>
                         </div>
                       </div>
@@ -6586,7 +6560,7 @@ skillsscout: yup.string().when('profil', {
                         />
                         <div className="flex-auto">Compétences</div>
                       </div>
-                     
+
                       <div className="form-group icon-input mb-3">
                         {[
                           "Rapidite",
@@ -6620,21 +6594,21 @@ skillsscout: yup.string().when('profil', {
                               }
                               className="form-check-input d-none"
                             />
-                            
+
 
 
                             <label
-  htmlFor={skillsInProfile}
-  className={`form-check-label btn ${ formData.skillsInProfile.split(",").includes(skillsInProfile)? "bg-blue-600 text-white" : "btn-light" } 
-                                   ${!formData.skillsInProfile.split(",").includes(skillsInProfile) &&  skillsError ? "border-danger" : ""  }`}
-                        >
+                              htmlFor={skillsInProfile}
+                              className={`form-check-label btn ${formData.skillsInProfile.split(",").includes(skillsInProfile) ? "bg-blue-600 text-white" : "btn-light"} 
+                                   ${!formData.skillsInProfile.split(",").includes(skillsInProfile) && skillsError ? "border-danger" : ""}`}
+                            >
 
 
-{selectedSkills.includes(skillsInProfile)
+                              {selectedSkills.includes(skillsInProfile)
                                 ? "-"
                                 : "+"}{" "}
                               {skillsInProfile}
-</label>
+                            </label>
 
 
 
@@ -6649,106 +6623,106 @@ skillsscout: yup.string().when('profil', {
                       </div>
                       {skillsError && (
                         <div className="text-danger mt-2">
-                         Vous pouvez selectionner au maximum 10 compétences !
+                          Vous pouvez selectionner au maximum 10 compétences !
                         </div>
                       )}
- {inputErrors["skillsInProfile"] && (
-                              <div className="error-message text-red-600">
-                                {inputErrors["skillsInProfile"]}
-                              </div>
-                            )}
+                      {inputErrors["skillsInProfile"] && (
+                        <div className="error-message text-red-600">
+                          {inputErrors["skillsInProfile"]}
+                        </div>
+                      )}
 
-                     <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow gap-3 mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col gap-2 sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-  
-</div>
+                      <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                          <div className="flex flex-col sm:flex-row">
+                            <div className="grow gap-3 mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                              J'accepte les{" "}
+                              <span className="text-blue-600 underline">Termes et Conditions</span>
+                              <span className="text-zinc-900">.</span>
+                            </div>
+                            <div className="flex flex-col gap-2 sm:flex-row sm:order-2">
+                              <label className="mr-2">
+                                <input
+                                  type="radio"
+                                  value="Oui"
+                                  checked={formData.termesConditions === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Oui</span>
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="Non"
+                                  checked={formData.termesConditions === "Non"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Non</span>
+                              </label>
+                            </div>
 
-  </div>
-  {inputErrors["termesConditions"] && (
-                              <div className="error-message text-base text-red-600">
-                                {inputErrors["termesConditions"]}
-                              </div>
-                            )}
+                          </div>
 
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
+                        </div>
+                        {inputErrors["termesConditions"] && (
+                          <div className="error-message text-base text-red-600">
+                            {inputErrors["termesConditions"]}
+                          </div>
+                        )}
 
-  
-</div>
+                        <div className="mt-4">
+                          <label className="block mb-2">
+                            J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                          </label>
+                          <div className="flex flex-col sm:flex-row">
+                            <label className="mr-2">
+                              <input
+                                type="radio"
+                                value="Oui"
+                                checked={formData.partagehorsPL === "Oui"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.value,
+                                  })
+                                }
+                              />
+                              <span className="ml-1">Oui</span>
+                            </label>
+                            <label>
+                              <input
+                                type="radio"
+                                value="Non"
+                                checked={formData.partagehorsPL === "Non"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.value,
+                                  })
+                                }
+                              />
+                              <span className="ml-1">Non</span>
+                            </label>
+                          </div>
+                        </div>
+
+
+                      </div>
 
                       <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                      <button
-                    type="button"
-                    onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                        <button
+                          type="button"
+                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -6757,9 +6731,9 @@ skillsscout: yup.string().when('profil', {
                           <div className="grow text-white">Retour</div>
                         </button>
                         <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-         <button type="submit" className="grow">Confirmer</button>
-         
-       </div>
+                          <button type="submit" className="grow">Confirmer</button>
+
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -6768,9 +6742,9 @@ skillsscout: yup.string().when('profil', {
 
 
 
-{formData.profil === "coach" && (
-  <div className="flex flex-col items-center pb-12 bg-gray-200">
-                 
+              {formData.profil === "coach" && (
+                <div className="flex flex-col items-center pb-12 bg-gray-200">
+
                   <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
                     <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-900 dark:text-zinc-300">
@@ -6785,139 +6759,136 @@ skillsscout: yup.string().when('profil', {
                       </div>
                     </div>
                   </div>
- <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
-   <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-     <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-       <div className="flex flex-col flex-1 whitespace-nowrap text-zinc-900">
-         <div className="flex gap-4 justify-between px-4 text-lg">
-           <img
-             loading="lazy"
-             src="https://cdn.builder.io/api/v1/image/assets/TEMP/c6759924d092dd539c2a5e31a573201abbd73cb3b21abd2a1c36c03266185a25?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-             className="self-start w-5 aspect-square"
-           />
-           <div className="grow">Club Actuel</div>
-         </div>
-  <input
-    type="text"
-    id="ClubActuelCoach"
-    name="ClubActuelCoach"
-    value={formData.ClubActuelCoach}
-    onChange={handleInputChange}
-    className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${
-      inputErrors["ClubActuelCoach"] ? "is-invalid" : ""
-    }`}    placeholder="Equipe Actuel"
-  />
-  
-{inputErrors['ClubActuelCoach'] && (
-            <div className="error-message text-red-600">{inputErrors['ClubActuelCoach']}</div>
-          )}
-       </div>
-       <div className="flex flex-col flex-1">
-         <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
-           <img
-             loading="lazy"
-             src="https://cdn.builder.io/api/v1/image/assets/TEMP/266bb942964e742c53f6ca48c049053cbf3cb990338dd01906f5558f218c1b7b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-             className="self-start w-5 aspect-square"
-           />
-           <div className="grow">Nombre de clubs entraînées</div>
-         </div>
-           <input
-                                type="number"
-                                id="totalTeam"
-                                name="totalTeam"
-                                value={formData.totalTeam}
-                                className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${
-                                  inputErrors["totalTeam"] ? "is-invalid" : ""
-                                }`}
-                                placeholder="Total Equipes"
-                                onChange={handleInputChange}
-                                min="0"
-                                
-                                
-                              />
-                              
-           
-         {inputErrors['totalTeam'] && (
-            <div className="error-message text-red-600">{inputErrors['totalTeam']}</div>
-          )}
-       </div>
-       <div className="flex flex-col flex-1 whitespace-nowrap text-zinc-900">
-         <div className="flex gap-4 justify-between px-4 text-lg">
-           <img
-             loading="lazy"
-             src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ef90a0f4cfe5f2905efbdeddd8db64c65b72d6df992e427f3335ecc4b800002?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-             className="self-start w-5 aspect-square"
-           />
-           <div className="grow">Tactiques préférés</div>
-         </div>
-           <select
-                                name="footballTactic"
-                                value={formData.footballTactic}
-                                className={`form-control flex gap-5 justify-between  px-4 pb-2 pt-0 border-[0.5px]  mb-2 rounded-xl bg-zinc-100 ${
-                                  inputErrors["footballTactic"]
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                 Tactique préférée
-                                </option>
-                                <option value="4-4-2">4-4-2</option>
-                                <option value="4-3-3">4-3-3</option>
-                                <option value="4-2-3-1">4-2-3-1</option>
-                                <option value="5-3-2">5-3-2</option>
-                                <option value="5-4-1">5-4-1</option>
-                                <option value="catenaccio">3-4-3</option>
-                              </select>
-                             
-         {inputErrors['footballTactic'] && (
-            <div className="error-message text-red-600">{inputErrors['footballTactic']}</div>
-          )}
-       </div>
-     </div>
-     <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-       <img
-         loading="lazy"
-         src="https://cdn.builder.io/api/v1/image/assets/TEMP/ece96b5f61d0b17c400b934b07ea1b22e3a96c08930599d41b7fac9d66b1b647?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-         className="self-start w-5 aspect-square"
-       />
-       <div className="grow max-md:max-w-full">Pays d’entraînement</div>
-     </div>
-     <div className="flex flex-col justify-center px-px mt-2 max-w-full text-base text-white whitespace-nowrap rounded-[30px] w-[379px]">
-       {/* <div className="flex gap-4 justify-between px-4 py-1.5 rounded-md max-md:flex-wrap max-md:max-w-full"> */}
-        
-         
-       
-     
-     <Select
-        options={optionsPays}
-        placeholder="Choisi pays ou plus"
-        isMulti // Enable multiple selection
-        components={{ MultiValueContainer }}
-        styles={{
-          control: (provided, state) => ({
-            ...provided,
-            borderRadius: "0.375rem",
-            display: "flex",
-            justifyContent: "center",
-            borderRadius: "30px",
-            width: "93%",
-            color: "black", // Set text color to black
-            paddingTop: "8px",
-            paddingBottom: "8px",
+                  <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
+                    <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                      <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex flex-col flex-1 whitespace-nowrap text-zinc-900">
+                          <div className="flex gap-4 justify-between px-4 text-lg">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/c6759924d092dd539c2a5e31a573201abbd73cb3b21abd2a1c36c03266185a25?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="self-start w-5 aspect-square"
+                            />
+                            <div className="grow">Club Actuel</div>
+                          </div>
+                          <input
+                            type="text"
+                            id="ClubActuelCoach"
+                            name="ClubActuelCoach"
+                            value={formData.ClubActuelCoach}
+                            onChange={handleInputChange}
+                            className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${inputErrors["ClubActuelCoach"] ? "is-invalid" : ""
+                              }`} placeholder="Equipe Actuel"
+                          />
 
-            backgroundColor: "#F4F4F5" 
-                   }),
-          menu: (provided, state) => ({
-            ...provided,
-            width: "100%",
-            color: "black",
-          }),
-        }}
-        onChange={handleCountryPaysEntrainement}
-        value={selectedCountries} // Set the value from component state
-      />
+                          {inputErrors['ClubActuelCoach'] && (
+                            <div className="error-message text-red-600">{inputErrors['ClubActuelCoach']}</div>
+                          )}
+                        </div>
+                        <div className="flex flex-col flex-1">
+                          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/266bb942964e742c53f6ca48c049053cbf3cb990338dd01906f5558f218c1b7b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="self-start w-5 aspect-square"
+                            />
+                            <div className="grow">Nombre de clubs entraînées</div>
+                          </div>
+                          <input
+                            type="number"
+                            id="totalTeam"
+                            name="totalTeam"
+                            value={formData.totalTeam}
+                            className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${inputErrors["totalTeam"] ? "is-invalid" : ""
+                              }`}
+                            placeholder="Total Equipes"
+                            onChange={handleInputChange}
+                            min="0"
+
+
+                          />
+
+
+                          {inputErrors['totalTeam'] && (
+                            <div className="error-message text-red-600">{inputErrors['totalTeam']}</div>
+                          )}
+                        </div>
+                        <div className="flex flex-col flex-1 whitespace-nowrap text-zinc-900">
+                          <div className="flex gap-4 justify-between px-4 text-lg">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ef90a0f4cfe5f2905efbdeddd8db64c65b72d6df992e427f3335ecc4b800002?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="self-start w-5 aspect-square"
+                            />
+                            <div className="grow">Tactiques préférés</div>
+                          </div>
+                          <select
+                            name="footballTactic"
+                            value={formData.footballTactic}
+                            className={`form-control flex gap-5 justify-between  px-4 pb-2 pt-0 border-[0.5px]  mb-2 rounded-xl bg-zinc-100 ${inputErrors["footballTactic"]
+                                ? "is-invalid"
+                                : ""
+                              }`}
+                            onChange={handleInputChange}
+                          >
+                            <option value="" disabled>
+                              Tactique préférée
+                            </option>
+                            <option value="4-4-2">4-4-2</option>
+                            <option value="4-3-3">4-3-3</option>
+                            <option value="4-2-3-1">4-2-3-1</option>
+                            <option value="5-3-2">5-3-2</option>
+                            <option value="5-4-1">5-4-1</option>
+                            <option value="catenaccio">3-4-3</option>
+                          </select>
+
+                          {inputErrors['footballTactic'] && (
+                            <div className="error-message text-red-600">{inputErrors['footballTactic']}</div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/ece96b5f61d0b17c400b934b07ea1b22e3a96c08930599d41b7fac9d66b1b647?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                          className="self-start w-5 aspect-square"
+                        />
+                        <div className="grow max-md:max-w-full">Pays d’entraînement</div>
+                      </div>
+                      <div className="flex flex-col justify-center px-px mt-2 max-w-full text-base text-white whitespace-nowrap rounded-[30px] w-[379px]">
+                        {/* <div className="flex gap-4 justify-between px-4 py-1.5 rounded-md max-md:flex-wrap max-md:max-w-full"> */}
+
+
+
+
+                        <Select
+                          options={optionsPays}
+                          placeholder="Choisi pays ou plus"
+                          isMulti // Enable multiple selection
+                          components={{ MultiValueContainer }}
+                          styles={{
+                            control: (provided, state) => ({
+                              ...provided,
+                              borderRadius: "0.375rem",
+                              display: "flex",
+                              justifyContent: "center",
+                              borderRadius: "30px",
+                              width: "93%",
+                              color: "black", // Set text color to black
+                              paddingTop: "8px",
+                              paddingBottom: "8px",
+
+                              backgroundColor: "#F4F4F5"
+                            }),
+                            menu: (provided, state) => ({
+                              ...provided,
+                              width: "100%",
+                              color: "black",
+                            }),
+                          }}
+                          onChange={handleCountryPaysEntrainement}
+                          value={selectedCountries} // Set the value from component state
+                        />
 
 
 
@@ -6925,37 +6896,37 @@ skillsscout: yup.string().when('profil', {
 
 
 
-     </div>   {inputErrors['countryCoachedIn'] && (
-            <div className="error-message text-red-600">{inputErrors['countryCoachedIn']}</div>
-          )}
-     
-     <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
-       <img
-         loading="lazy"
-         src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-         className="self-start w-5 aspect-square"
-       />
-       <div className="flex-auto">Compétences</div>
-     </div>
+                      </div>   {inputErrors['countryCoachedIn'] && (
+                        <div className="error-message text-red-600">{inputErrors['countryCoachedIn']}</div>
+                      )}
+
+                      <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                          className="self-start w-5 aspect-square"
+                        />
+                        <div className="flex-auto">Compétences</div>
+                      </div>
 
 
 
 
-     <div className="form-group icon-input  mb-3">
+                      <div className="form-group icon-input  mb-3">
                         {[
-                           "Connaissance Tactique",
-                           "Competence Technique",
-                           "Leadership",
-                           "Communication",
-                           "Gestion de groupe",
-                           "Analyse",
-                           "Planification",
-                           "Adaptabilité",
-                           "Ethique",
-                           "Connaissance des regles",
-                           "Gestion de stress",
-                           "Developpement individuel",
-                           "Empathie",
+                          "Connaissance Tactique",
+                          "Competence Technique",
+                          "Leadership",
+                          "Communication",
+                          "Gestion de groupe",
+                          "Analyse",
+                          "Planification",
+                          "Adaptabilité",
+                          "Ethique",
+                          "Connaissance des regles",
+                          "Gestion de stress",
+                          "Developpement individuel",
+                          "Empathie",
                           // Add other skills...
                         ].map((coachSkill) => (
                           <div
@@ -6976,131 +6947,131 @@ skillsscout: yup.string().when('profil', {
                             />
 
 
-                        <label
-  htmlFor={coachSkill}
-  className={`form-check-label btn ${ formData.skills.split(",").includes(coachSkill)? "bg-blue-600 text-white" : "btn-light" } 
-                                   ${!formData.skills.split(",").includes(coachSkill) &&  skillsError ? "border-danger" : ""  }`}
-                        >
+                            <label
+                              htmlFor={coachSkill}
+                              className={`form-check-label btn ${formData.skills.split(",").includes(coachSkill) ? "bg-blue-600 text-white" : "btn-light"} 
+                                   ${!formData.skills.split(",").includes(coachSkill) && skillsError ? "border-danger" : ""}`}
+                            >
 
 
-  {!formData.skills
-    .split(",")
-    .includes(coachSkill)
-    ? "+" // Display "+" when not selected
-    : "-"}{" "}
-  {coachSkill}
-</label>
+                              {!formData.skills
+                                .split(",")
+                                .includes(coachSkill)
+                                ? "+" // Display "+" when not selected
+                                : "-"}{" "}
+                              {coachSkill}
+                            </label>
 
 
                           </div>
                         ))}
 
-{skillsError && (
-  <div className="text-danger mt-2">
-    Vous pouvez sélectionner au maximum 10 compétences !
-  </div>
-)}
+                        {skillsError && (
+                          <div className="text-danger mt-2">
+                            Vous pouvez sélectionner au maximum 10 compétences !
+                          </div>
+                        )}
 
                       </div>
-                      
-{/*                      
+
+                      {/*                      
                        {inputErrors['coachSkill'] && (
             <div className="error-message text-red-600">{inputErrors['coachSkill']}</div>
           )} 
           
           */}
-     
-     <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className=" gap-2 flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
 
-  </div>
+                      <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                          <div className="flex flex-col sm:flex-row">
+                            <div className="grow mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                              J'accepte les{" "}
+                              <span className="text-blue-600 underline">Termes et Conditions</span>
+                              <span className="text-zinc-900">.</span>
+                            </div>
+                            <div className=" gap-2 flex flex-col sm:flex-row sm:order-2">
+                              <label className="mr-2">
+                                <input
+                                  type="radio"
+                                  value="Oui"
+                                  checked={formData.termesConditions === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Oui</span>
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="Non"
+                                  checked={formData.termesConditions === "Non"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Non</span>
+                              </label>
+                            </div>
+                          </div>
 
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
+                        </div>
 
-  {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
-  )}
-</div>
-     
-     
-     {errorMessage && (
-    <div className="error-message align-center">{errorMessage}</div>
-  )}
-     <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-     <button
-                    type="button"
-                    onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                        <div className="mt-4">
+                          <label className="block mb-2">
+                            J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                          </label>
+                          <div className="flex flex-col sm:flex-row">
+                            <label className="mr-2">
+                              <input
+                                type="radio"
+                                value="Oui"
+                                checked={formData.partagehorsPL === "Oui"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.value,
+                                  })
+                                }
+                              />
+                              <span className="ml-1">Oui</span>
+                            </label>
+                            <label>
+                              <input
+                                type="radio"
+                                value="Non"
+                                checked={formData.partagehorsPL === "Non"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.value,
+                                  })
+                                }
+                              />
+                              <span className="ml-1">Non</span>
+                            </label>
+                          </div>
+                        </div>
+
+                        {errorMessage && (
+                          <div className="error-message">{errorMessage}</div>
+                        )}
+                      </div>
+
+
+                      {errorMessage && (
+                        <div className="error-message align-center">{errorMessage}</div>
+                      )}
+                      <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                        <button
+                          type="button"
+                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -7108,520 +7079,650 @@ skillsscout: yup.string().when('profil', {
                           />
                           <div className="grow text-white">Retour</div>
                         </button>
-       <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-         <button type="submit" className="grow">Confirm</button>
-         
-       </div>
-     </div>
-   </div>
- </div>
-</div>
+                        <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button type="submit" className="grow">Confirm</button>
 
-)}
-
-
-
-
-{formData.profil === "agent" && (
-
-
-<div className="flex flex-col items-center pb-12 h-full bg-gray-200">
-
-<div className="text-center max-w-xl mx-auto mt-8">
-                      <p className="text-3xl text-zinc-700 dark:text-zinc-300">
-                        Informations du Profil
-                      </p>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                </div>
 
-<div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-  <div className="flex gap-5 justify-between">
-    <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-    <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-    <div className="h-2 bg-blue-600 rounded-md w-[110px]" />
-  </div>
-</div>
-<div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
-  <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-    <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-      <div className="flex flex-col flex-1 text-zinc-900">
-        <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/c24f47cfa257b3f53d051885328d947d57043bd4fe7c525389b014b09dd5e753?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-            className="self-start w-5 aspect-square"
-          />
-          <div className="grow">Type de responsabilité</div>
-          
-                            
-        </div>
-
-
-
-        
-        <div className="flex flex-col justify-center mt-2 mb-6 w-[300px] text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-          <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
-          <select
-                              id="typeresponsable"
-                              name="typeresponsable"
-                              className={`w-full bg-zinc-100 w-[270px]${
-                                inputErrors["typeresponsable"]
-                                  ? "is-invalid"
-                                  : ""
-                              }`}
-                              onChange={handleInputChange}
-                              value={formData.typeresponsable}
-                              required
-                            >
-                              <option value="">
-                                Votre Type De Responsabilité
-                              </option>
-                              <option value="club">Manager d'équipe</option>
-                              <option value="players">Manager de Joueur</option>
-                            </select>
-                            {inputErrors["typeresponsable"] && (
-                              <div className="invalid-feedback">
-                                {inputErrors["typeresponsable"]}
-                              </div>
-                            )}
-                            
-          </div>
-          
-        </div>
-      </div>
-
-
-</div>
-
-
-
-{formData.typeresponsable && (
-                              <div>
-                                {formData.typeresponsable === "club" && (
-                               <>  
-                               <div className="flex flex-wrap gap-4">
-  {/* First Block */}
-  <div className="flex flex-col flex-1 whitespace-nowrap">
-    <div className="flex gap-4 justify-between px-4 text-lg">
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/528f3940d205594823841dbde668c399246e5dc37eb606f331e300f6be94c70e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-        className="self-start w-5 aspect-square"
-      />
-      <div className="grow">Club Actuel</div>
-    </div>
-      <input
-        type="text"
-        id="clubCovered"
-        name="clubCovered"
-        className={`form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5${inputErrors["clubCovered"] ? " is-invalid" : ""}`}
-        onChange={handleInputChange}
-        value={formData.clubCovered}
-        placeholder="Equipe Actuel"
-      />
-      
-
-
-{inputErrors['clubCovered'] && (
-            <div className="error-message text-red-600">{inputErrors['clubCovered']}</div>
-          )}
-  </div>
-
-  {/* Second Block */}
-  <div className="flex flex-col flex-1 whitespace-nowrap">
-    <div className="flex gap-4 justify-between px-4 text-lg">
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d35929db3da0f679cb37c2aa46e37529472e2286df1cbb9c382a5ca5cd3dee8b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-        className="self-start w-5 aspect-square"
-      />
-      <div className="grow">Pays du Club</div>
-    </div>
-      <Select
-        options={optionsPays}
-        placeholder="Pays du Club"
-        styles={{
-          control: (provided, state) => ({
-            ...provided,
-            borderRadius: "0.375rem", // You can adjust the radius as needed
-            display: "flex",
-            justifyContent: "center",
-            borderRadius: "30px",
-
-            // width: "230px",
-            fontSize: "1rem", // Set the desired font size
-            backgroundColor: "#f5f5f5", // Set the background color
-            borderWidth: "none",
-
-
-
-            paddingTop: "8px",
-            paddingBottom: "8px",
-            marginTop: "8px",
-            width: "100%",
-           
-            border: "0.5px solid #E5E5E5",
-          }), menu: (provided, state) => ({
-            ...provided,
-            width: "100%",
-          })
-        }}
-         
-      
-        onChange={handleCountryChangePaysAgentclub}
-        value={optionsPays.find((option) => option.value === formData.paysclub)}
-      />
-     
-    {inputErrors['paysclub'] && (
-            <div className="error-message text-red-600">{inputErrors['paysclub']}</div>
-          )}
-  </div>
-</div>
-
-
-<div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
-       <img
-         loading="lazy"
-         src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-         className="self-start w-5 aspect-square"
-       />
-       <div className="flex-auto">Compétences</div>
-     </div>
+              )}
 
 
 
 
-     <div className="form-group icon-input  mb-3">
-                        {[
-                           "Négociation",
-                           "Connaissance approfondie du sport",
-                           "Réseautage",
-                           "Compétences juridiques",
-                           "Gestion des carrières",
-                           "Compétence en communication",
-                           "Conseil financier",
-                           "Gestion du stress",
-                           "Éthique professionnelle",
-                           "Gestion de conflits",
-                           "Analyse du marché",
-                           "Adaptabilité",
-                          // Add other skills...
-                        ].map((agentSkill) => (
-                          <div
-                            key={agentSkill}
-                            className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
-                          >
-                            <input
-                              type="checkbox"
-                              id={agentSkill}
-                              name="coachSkillsInProfile"
-                              checked={formData.skillsagent
-                                .split(",")
-                                .includes(agentSkill)}
-                              onChange={() =>
-                                handleagentSkillToggle(agentSkill)
-                              }
-                              className="form-check-input d-none rounded-[30px]"
+              {formData.profil === "agent" && (
+
+
+                <div className="flex flex-col items-center pb-12 h-full bg-gray-200">
+
+                  <div className="text-center max-w-xl mx-auto mt-8">
+                    <p className="text-3xl text-zinc-700 dark:text-zinc-300">
+                      Informations du Profil
+                    </p>
+                  </div>
+
+                  <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                    <div className="flex gap-5 justify-between">
+                      <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                      <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                      <div className="h-2 bg-blue-600 rounded-md w-[110px]" />
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
+                    <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                      <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex flex-col flex-1 text-zinc-900">
+                          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/c24f47cfa257b3f53d051885328d947d57043bd4fe7c525389b014b09dd5e753?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="self-start w-5 aspect-square"
                             />
-                        <label
-  htmlFor={agentSkill}
-  className={`form-check-label btn ${
-    formData.skillsagent
-      .split(",")
-      .includes(agentSkill) 
-      ? "bg-blue-600 text-white"
-      : "btn-light"
-  } ${
-    !formData.skillsagent
-      .split(",")
-      .includes(agentSkill) &&
-      agentSkillsError
-      ? "border-danger"
-      : ""
-  }`}
->
-  {!formData.skillsagent
-    .split(",")
-    .includes(agentSkill)
-    ? "+" // Display "+" when not selected
-    : "-"}{" "}
-  {agentSkill}
-</label>
+                            <div className="grow">Type de responsabilité</div>
 
 
                           </div>
-                        ))}
-                      </div>
-                      {agentSkillsError && (
-                        <div className="text-danger mt-2">
-                         Vous pouvez selectionner au maximum 10 compétences !
+
+
+
+
+                          <div className="flex flex-col justify-center mt-2 mb-6 w-[300px] text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
+                              <select
+                                id="typeresponsable"
+                                name="typeresponsable"
+                                className={`w-full bg-zinc-100 w-[270px]${inputErrors["typeresponsable"]
+                                    ? "is-invalid"
+                                    : ""
+                                  }`}
+                                onChange={handleInputChange}
+                                value={formData.typeresponsable}
+                                required
+                              >
+                                <option value="">
+                                  Votre Type De Responsabilité
+                                </option>
+                                <option value="club">Manager d'équipe</option>
+                                <option value="players">Manager de Joueur</option>
+                              </select>
+                              {inputErrors["typeresponsable"] && (
+                                <div className="invalid-feedback">
+                                  {inputErrors["typeresponsable"]}
+                                </div>
+                              )}
+
+                            </div>
+
+                          </div>
                         </div>
-                      )}
-                       {inputErrors['skillsagent'] && (
-            <div className="error-message text-red-600">{inputErrors['skillsagent']}</div>
-          )}
-
-<div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
-
-  </div>
-
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
-
-  {errorMessage && (
-    <div className="error-message text-red-600">{errorMessage}</div>
-  )}
-</div>
-     
-     
-             {(emailError || loginError) && (
-      <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-        {emailError && <p>{emailError}</p>}
-        {loginError && <p>{loginError}</p>}
-      </div>
-    )}
 
 
-    <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-      <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-        
-        <button type="button"  onClick={handlePrevStep} className="grow text-white">Retour</button>
-      </div>
-      <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-      <button
-                                type="submit" className="grow">Confirmer</button>
-        
-      </div>
-    </div>                   
-                                  
-                                </> 
+                      </div>
+
+
+
+                      {formData.typeresponsable && (
+                        <div>
+                          {formData.typeresponsable === "club" && (
+                            <>
+                              <div className="flex flex-wrap gap-4">
+                                {/* First Block */}
+                                <div className="flex flex-col flex-1 whitespace-nowrap">
+                                  <div className="flex gap-4 justify-between px-4 text-lg">
+                                    <img
+                                      loading="lazy"
+                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/528f3940d205594823841dbde668c399246e5dc37eb606f331e300f6be94c70e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                      className="self-start w-5 aspect-square"
+                                    />
+                                    <div className="grow">Club Actuel</div>
+                                  </div>
+                                  <input
+                                    type="text"
+                                    id="clubCovered"
+                                    name="clubCovered"
+                                    className={`form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5${inputErrors["clubCovered"] ? " is-invalid" : ""}`}
+                                    onChange={handleInputChange}
+                                    value={formData.clubCovered}
+                                    placeholder="Equipe Actuel"
+                                  />
+
+
+
+                                  {inputErrors['clubCovered'] && (
+                                    <div className="error-message text-red-600">{inputErrors['clubCovered']}</div>
+                                  )}
+                                </div>
+
+                                {/* Second Block */}
+                                <div className="flex flex-col flex-1 whitespace-nowrap">
+                                  <div className="flex gap-4 justify-between px-4 text-lg">
+                                    <img
+                                      loading="lazy"
+                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/d35929db3da0f679cb37c2aa46e37529472e2286df1cbb9c382a5ca5cd3dee8b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                      className="self-start w-5 aspect-square"
+                                    />
+                                    <div className="grow">Pays du Club</div>
+                                  </div>
+                                  <Select
+                                    options={optionsPays}
+                                    placeholder="Pays du Club"
+                                    styles={{
+                                      control: (provided, state) => ({
+                                        ...provided,
+                                        borderRadius: "0.375rem", // You can adjust the radius as needed
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        borderRadius: "30px",
+
+                                        // width: "230px",
+                                        fontSize: "1rem", // Set the desired font size
+                                        backgroundColor: "#f5f5f5", // Set the background color
+                                        borderWidth: "none",
+
+
+
+                                        paddingTop: "8px",
+                                        paddingBottom: "8px",
+                                        marginTop: "8px",
+                                        width: "100%",
+
+                                        border: "0.5px solid #E5E5E5",
+                                      }), menu: (provided, state) => ({
+                                        ...provided,
+                                        width: "100%",
+                                      })
+                                    }}
+
+
+                                    onChange={handleCountryChangePaysAgentclub}
+                                    value={optionsPays.find((option) => option.value === formData.paysclub)}
+                                  />
+
+                                  {inputErrors['paysclub'] && (
+                                    <div className="error-message text-red-600">{inputErrors['paysclub']}</div>
+                                  )}
+                                </div>
+                              </div>
+
+
+                              <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="self-start w-5 aspect-square"
+                                />
+                                <div className="flex-auto">Compétences</div>
+                              </div>
+
+
+
+
+                              <div className="form-group icon-input  mb-3">
+                                {[
+                                  "Négociation",
+                                  "Connaissance approfondie du sport",
+                                  "Réseautage",
+                                  "Compétences juridiques",
+                                  "Gestion des carrières",
+                                  "Compétence en communication",
+                                  "Conseil financier",
+                                  "Gestion du stress",
+                                  "Éthique professionnelle",
+                                  "Gestion de conflits",
+                                  "Analyse du marché",
+                                  "Adaptabilité",
+                                  // Add other skills...
+                                ].map((agentSkill) => (
+                                  <div
+                                    key={agentSkill}
+                                    className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      id={agentSkill}
+                                      name="coachSkillsInProfile"
+                                      checked={formData.skillsagent
+                                        .split(",")
+                                        .includes(agentSkill)}
+                                      onChange={() =>
+                                        handleagentSkillToggle(agentSkill)
+                                      }
+                                      className="form-check-input d-none rounded-[30px]"
+                                    />
+                                    <label
+                                      htmlFor={agentSkill}
+                                      className={`form-check-label btn ${formData.skillsagent
+                                          .split(",")
+                                          .includes(agentSkill)
+                                          ? "bg-blue-600 text-white"
+                                          : "btn-light"
+                                        } ${!formData.skillsagent
+                                          .split(",")
+                                          .includes(agentSkill) &&
+                                          agentSkillsError
+                                          ? "border-danger"
+                                          : ""
+                                        }`}
+                                    >
+                                      {!formData.skillsagent
+                                        .split(",")
+                                        .includes(agentSkill)
+                                        ? "+" // Display "+" when not selected
+                                        : "-"}{" "}
+                                      {agentSkill}
+                                    </label>
+
+
+                                  </div>
+                                ))}
+                              </div>
+                              {agentSkillsError && (
+                                <div className="text-danger mt-2">
+                                  Vous pouvez selectionner au maximum 10 compétences !
+                                </div>
+                              )}
+                              {inputErrors['skillsagent'] && (
+                                <div className="error-message text-red-600">{inputErrors['skillsagent']}</div>
+                              )}
+
+                              <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                                  <div className="flex flex-col sm:flex-row">
+                                    <div className="grow mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                      J'accepte les{" "}
+                                      <span className="text-blue-600 underline">Termes et Conditions</span>
+                                      <span className="text-zinc-900">.</span>
+                                    </div>
+                                    <div className="flex flex-col sm:flex-row sm:order-2">
+                                      <label className="mr-2">
+                                        <input
+                                          type="radio"
+                                          value="Oui"
+                                          checked={formData.termesConditions === "Oui"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.value,
+                                            })
+                                          }
+                                        />
+                                        <span className="ml-1">Oui</span>
+                                      </label>
+                                      <label>
+                                        <input
+                                          type="radio"
+                                          value="Non"
+                                          checked={formData.termesConditions === "Non"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.value,
+                                            })
+                                          }
+                                        />
+                                        <span className="ml-1">Non</span>
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                                <div className="mt-4">
+                                  <label className="block mb-2">
+                                    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                                  </label>
+                                  <div className="flex flex-col sm:flex-row">
+                                    <label className="mr-2">
+                                      <input
+                                        type="radio"
+                                        value="Oui"
+                                        checked={formData.partagehorsPL === "Oui"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <span className="ml-1">Oui</span>
+                                    </label>
+                                    <label>
+                                      <input
+                                        type="radio"
+                                        value="Non"
+                                        checked={formData.partagehorsPL === "Non"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <span className="ml-1">Non</span>
+                                    </label>
+                                  </div>
+                                </div>
+
+                                {errorMessage && (
+                                  <div className="error-message text-red-600">{errorMessage}</div>
                                 )}
+                              </div>
 
-                                {formData.typeresponsable === "players" && (
-                                  <>
-                                  
 
-                                  <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-    <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-                                  
+                              {(emailError || loginError) && (
+                                <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                                  {emailError && <p>{emailError}</p>}
+                                  {loginError && <p>{loginError}</p>}
+                                </div>
+                              )}
+
+
+                              <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+
+                                  <button type="button" onClick={handlePrevStep} className="grow text-white">Retour</button>
+                                </div>
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                                  <button
+                                    type="submit" className="grow">Confirmer</button>
+
+                                </div>
+                              </div>
+
+                            </>
+                          )}
+
+                          {formData.typeresponsable === "players" && (
+                            <>
+
+
+                              <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                                <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+
                                   <div className="flex flex-col flex-1">
-        <div className="flex gap-4 justify-between pl-4 text-lg whitespace-nowrap text-zinc-900">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/40ce3f4dbc1ac29eaa66d4104bf3f6dc7733f2c8c57fa093cc6ba3e58fe3361f?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-            className="self-start w-5 aspect-square"
-          />
-          <div className="grow">Nombre de joueurs</div>
-        </div>
-        <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-          <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
-          <input
-                                      type="number"
-                                      id="totalPlayer"
-                                      name="totalPlayer"
-                                      className={`bg-zinc-100 w-full ${
-                                        inputErrors["totalPlayer"]
-                                          ? "is-invalid"
-                                          : ""
-                                      }`}
-                                      onChange={handleInputChange}
-                                      value={formData.totalPlayer}
-                                      placeholder="Entrer la totale des joueurs"
+                                    <div className="flex gap-4 justify-between pl-4 text-lg whitespace-nowrap text-zinc-900">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/40ce3f4dbc1ac29eaa66d4104bf3f6dc7733f2c8c57fa093cc6ba3e58fe3361f?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="self-start w-5 aspect-square"
+                                      />
+                                      <div className="grow">Nombre de joueurs</div>
+                                    </div>
+                                    <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                      <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
+                                        <input
+                                          type="number"
+                                          id="totalPlayer"
+                                          name="totalPlayer"
+                                          className={`bg-zinc-100 w-full ${inputErrors["totalPlayer"]
+                                              ? "is-invalid"
+                                              : ""
+                                            }`}
+                                          onChange={handleInputChange}
+                                          value={formData.totalPlayer}
+                                          placeholder="Entrer la totale des joueurs"
+                                        />
+
+                                      </div>
+
+                                    </div>{inputErrors['totalPlayer'] && (
+                                      <div className="error-message text-red-600">{inputErrors['totalPlayer']}</div>
+                                    )}
+                                  </div>
+
+                                  <div className="flex flex-col flex-1">
+                                    <div className="flex gap-4 justify-between pl-2 text-lg whitespace-nowrap text-zinc-900">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/bad4ca2b38add0c4edb31196ef177dc9940dcd65460ae94b7a9f136cb548fb20?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="self-start w-5 aspect-square"
+                                      />
+                                      <div className="grow">Nombre de transferts effectués</div>
+                                    </div>
+                                    <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                      <div className="flex gap-5 justify-between  py-3 rounded-md">
+                                        <input
+                                          type="number"
+                                          id="totalCareerTransfers"
+                                          name="totalCareerTransfers"
+                                          className={`bg-zinc-100 mx-4 pl-3 w-[80%] ${inputErrors["totalCareerTransfers"]
+                                              ? "is-invalid"
+                                              : ""
+                                            }`}
+                                          onChange={handleInputChange}
+                                          value={formData.totalCareerTransfers}
+                                          placeholder="Nombre des joueurs transferés"
+                                        />
+
+
+                                      </div>
+
+                                    </div>{inputErrors['totalCareerTransfers'] && (
+                                      <div className="error-message text-red-600">{inputErrors['totalCareerTransfers']}</div>
+                                    )}
+                                  </div>
+
+                                </div>
+                              </div>
+
+
+
+
+
+                              <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="self-start w-5 aspect-square"
+                                />
+                                <div className="flex-auto">Compétences</div>
+                              </div>
+
+
+
+
+                              <div className="form-group icon-input  mb-3">
+                                {[
+                                  "Négociation",
+                                  "Connaissance approfondie du sport",
+                                  "Empathie",
+                                  "Compétences juridiques",
+                                  "Gestion des carrières",
+                                  "Communication",
+                                  "Conseil financier",
+                                  "Analyse du marché",
+                                  "Gestion du stress",
+                                  "Éthique professionnelle",
+                                  "Gestion de conflits",
+                                  "Adaptabilité",
+                                  "Compétences marketing"
+                                  // Add other skills...
+                                ].map((agentSkill) => (
+                                  <div
+                                    key={agentSkill}
+                                    className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      id={agentSkill}
+                                      name="coachSkillsInProfile"
+                                      checked={formData.skillsagent
+                                        .split(",")
+                                        .includes(agentSkill)}
+                                      onChange={() =>
+                                        handleagentSkillToggle(agentSkill)
+                                      }
+                                      className="form-check-input d-none rounded-[30px]"
                                     />
-                                  
-          </div>
-          
-        </div>{inputErrors['totalPlayer'] && (
-            <div className="error-message text-red-600">{inputErrors['totalPlayer']}</div>
-          )}
-      </div>
-
-      <div className="flex flex-col flex-1">
-        <div className="flex gap-4 justify-between pl-2 text-lg whitespace-nowrap text-zinc-900">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/bad4ca2b38add0c4edb31196ef177dc9940dcd65460ae94b7a9f136cb548fb20?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-            className="self-start w-5 aspect-square"
-          />
-          <div className="grow">Nombre de transferts effectués</div>
-        </div>
-        <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-          <div className="flex gap-5 justify-between  py-3 rounded-md">
-          <input
-                                      type="number"
-                                      id="totalCareerTransfers"
-                                      name="totalCareerTransfers"
-                                      className={`bg-zinc-100 mx-4 pl-3 w-[80%] ${
-                                        inputErrors["totalCareerTransfers"]
-                                          ? "is-invalid"
+                                    <label
+                                      htmlFor={agentSkill}
+                                      className={`form-check-label btn ${formData.skillsagent
+                                          .split(",")
+                                          .includes(agentSkill)
+                                          ? "bg-blue-600 text-white"
+                                          : "btn-light"
+                                        } ${!formData.skillsagent
+                                          .split(",")
+                                          .includes(agentSkill) &&
+                                          agentSkillsError
+                                          ? "border-danger"
                                           : ""
-                                      }`}
-                                      onChange={handleInputChange}
-                                      value={formData.totalCareerTransfers}
-                                      placeholder="Nombre des joueurs transferés"
-                                    />
-                                   
-
-          </div>
-          
-        </div>{inputErrors['totalCareerTransfers'] && (
-            <div className="error-message text-red-600">{inputErrors['totalCareerTransfers']}</div>
-          )}
-      </div>
-
-      </div>
-    </div>
+                                        }`}
+                                    >
+                                      {!formData.skillsagent
+                                        .split(",")
+                                        .includes(agentSkill)
+                                        ? "+" // Display "+" when not selected
+                                        : "-"}{" "}
+                                      {agentSkill}
+                                    </label>
 
 
-
-  
-
-    <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
-       <img
-         loading="lazy"
-         src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-         className="self-start w-5 aspect-square"
-       />
-       <div className="flex-auto">Compétences</div>
-     </div>
+                                  </div>
+                                ))}
+                              </div>
+                              {agentSkillsError && (
+                                <div className="text-danger mt-2">
+                                  Vous pouvez selectionner au maximum 10 compétences !
+                                </div>
+                              )}
 
 
 
 
-     <div className="form-group icon-input  mb-3">
-                        {[
-                           "Négociation",
-                           "Connaissance approfondie du sport",
-                           "Réseautage",
-                           "Compétences juridiques",
-                           "Gestion des carrières",
-                           "Compétence en communication",
-                           "Conseil financier",
-                           "Gestion du stress",
-                           "Éthique professionnelle",
-                           "Gestion de conflits",
-                           "Analyse du marché",
-                           "Adaptabilité",
-                          // Add other skills...
-                        ].map((agentSkill) => (
-                          <div
-                            key={agentSkill}
-                            className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
-                          >
-                            <input
-                              type="checkbox"
-                              id={agentSkill}
-                              name="coachSkillsInProfile"
-                              checked={formData.skillsagent
-                                .split(",")
-                                .includes(agentSkill)}
-                              onChange={() =>
-                                handleagentSkillToggle(agentSkill)
-                              }
-                              className="form-check-input d-none rounded-[30px]"
-                            />
-                        <label
-  htmlFor={agentSkill}
-  className={`form-check-label btn ${
-    formData.skillsagent
-      .split(",")
-      .includes(agentSkill) 
-      ? "bg-blue-600 text-white"
-      : "btn-light"
-  } ${
-    !formData.skillsagent
-      .split(",")
-      .includes(agentSkill) &&
-      agentSkillsError
-      ? "border-danger"
-      : ""
-  }`}
->
-  {!formData.skillsagent
-    .split(",")
-    .includes(agentSkill)
-    ? "+" // Display "+" when not selected
-    : "-"}{" "}
-  {agentSkill}
-</label>
 
 
-                          </div>
-                        ))}
-                      </div>
-                      {agentSkillsError && (
-                        <div className="text-danger mt-2">
-                          Vous pouvez selectionner au maximum 10 compétences !
+
+
+
+
+
+
+
+
+
+
+
+                              <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                                  <div className="flex flex-col sm:flex-row">
+                                    <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                      J'accepte les{" "}
+                                      <span className="text-blue-600 underline">Termes et Conditions</span>
+                                      <span className="text-zinc-900">.</span>
+                                    </div>
+                                    <div className="flex flex-col sm:flex-row sm:order-2">
+                                      <label className="mr-2">
+                                        <input
+                                          type="radio"
+                                          value="Oui"
+                                          checked={formData.termesConditions === "Oui"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.value,
+                                            })
+                                          }
+                                        />
+                                        <span className="ml-1">Oui</span>
+                                      </label>
+                                      <label>
+                                        <input
+                                          type="radio"
+                                          value="Non"
+                                          checked={formData.termesConditions === "Non"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.value,
+                                            })
+                                          }
+                                        />
+                                        <span className="ml-1">Non</span>
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                                <div className="mt-4">
+                                  <label className="block mb-2">
+                                    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                                  </label>
+                                  <div className="flex flex-col sm:flex-row">
+                                    <label className="mr-2">
+                                      <input
+                                        type="radio"
+                                        value="Oui"
+                                        checked={formData.partagehorsPL === "Oui"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <span className="ml-1">Oui</span>
+                                    </label>
+                                    <label>
+                                      <input
+                                        type="radio"
+                                        value="Non"
+                                        checked={formData.partagehorsPL === "Non"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.value,
+                                          })
+                                        }
+                                      />
+                                      <span className="ml-1">Non</span>
+                                    </label>
+                                  </div>
+                                </div>
+
+                                {errorMessage && (
+                                  <div className="error-message text-red-600">{errorMessage}</div>
+                                )}
+                              </div>
+
+
+                              {(emailError || loginError) && (
+                                <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                                  {emailError && <p>{emailError}</p>}
+                                  {loginError && <p>{loginError}</p>}
+                                </div>
+                              )}
+                              <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/f30747cd3a892f61c9061016e39f6935304955789e5ea50228d8da563f399ab5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={handlePrevStep} className="grow text-white">Retour</button>
+                                </div>
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                                  <button
+                                    type="submit" className="grow">Confirmer</button>
+
+                                </div>
+                              </div>
+
+
+
+
+
+                            </>
+
+
+
+                          )}
                         </div>
                       )}
 
@@ -7633,153 +7734,16 @@ skillsscout: yup.string().when('profil', {
 
 
 
+                    </div>
+                  </div>
+                </div>
 
 
+              )}
 
 
-
-
-
-
-<div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
-
-  </div>
-
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
-
-  {errorMessage && (
-    <div className="error-message text-red-600">{errorMessage}</div>
-  )}
-</div>
-     
-    
-{(emailError || loginError) && (
-      <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-        {emailError && <p>{emailError}</p>}
-        {loginError && <p>{loginError}</p>}
-      </div>
-    )}
-    <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-      <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/f30747cd3a892f61c9061016e39f6935304955789e5ea50228d8da563f399ab5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-          className="w-5 aspect-square"
-        />
-        <button
-                                type="button"
-                                onClick={handlePrevStep} className="grow text-white">Retour</button>
-      </div>
-      <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-      <button
-                                type="submit" className="grow">Confirmer</button>
-       
-      </div>
-    </div>
-    
-
-                                  
-                                  
-                                  
-                                  </>
-
-
-
-                                )}
-                              </div>
-                            )}
-
-
-
-     
-
-
-
-
-
-  </div>
-</div>
-</div>
-
-
-)}
-
-
-  {formData.profil === "scout" && (
-                          <>
-                            
+              {formData.profil === "scout" && (
+                <>
 
 
 
@@ -7790,333 +7754,89 @@ skillsscout: yup.string().when('profil', {
 
 
 
-                            <div className="flex flex-col items-center pb-52 -mb-px bg-gray-200">
-      
-                            <div className="text-center max-w-xl mx-auto mt-8">
+
+                  <div className="flex flex-col items-center pb-52 -mb-px bg-gray-200">
+
+                    <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-900 dark:text-zinc-300">
                         Informations du Profil
                       </p>
                     </div>
-      <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-        <div className="flex gap-5 justify-between">
-          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-          <div className="h-2 bg-blue-600 rounded-md w-[178px] max-sm:w-[115px]" />
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
-        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-          <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-            <div className="flex flex-col text-zinc-900">
-              <div className="flex gap-4 mb-2 justify-between px-4 text-lg whitespace-nowrap">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/61c6155cdb7cedb8428209197c5325af5b02bf7ecb94533f0ee5c2b47c1c2444?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="self-start aspect-[1.15] w-[23px]"
-                />
-                <div className="grow">Type d’engagement</div>
-                
-              </div>
-
-
-
-              
-             
-             
-             
-              <select
-                                name="engagement"
-                                value={formData.engagement}
-                                className={`form-control flex  justify-between border-[0.5px] px-4 mb-4  bg-zinc-100  rounded-[30px] ${
-                                  inputErrors["engagement"] ? "is-invalid" : ""
-                                }`}
-                                onChange={handleInputChange}
-                              >
-                                <option value="" disabled>
-                                  Votre Engagement
-                                </option>
-                                <option value="plein-temps">Plein Temps</option>
-                                <option value="mi-temps">Mi-Temps</option>
-                                <option value="volontaire">Volontaire</option>
-                              </select>
-                             
-         
-        
-                 {inputErrors['engagement'] && (
-            <div className="error-message text-red-600">{inputErrors['engagement']}</div>
-          )}  
-            </div>
-          
-
-
-
-            <div className="flex flex-col">
-              <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/905ceacb3a78358a7e57864a93688890f119c8869b3ab4c3558735affbc2aa60?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="self-start w-5 aspect-square"
-                />
-                <div className="grow">Nombre de joueurs détectés</div>
-              </div>
-                  
-                  
-              <input
-                                type="number"
-                                id="nb_joueurdetecter"
-                                name="nb_joueurdetecter"
-                                value={formData.nb_joueurdetecter}
-                                className={` form-control flex gap-5 justify-between border-[0.5px] bg-zinc-100 w-full px-4 py-2 rounded-xl ${
-                                  inputErrors["nb_joueurdetecter"]
-                                    ? "is-invalid"
-                                    : ""
-                                }`}
-                                placeholder="Nomber des joueurs detecter"
-                                onChange={handleInputChange}
+                    <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                      <div className="flex gap-5 justify-between">
+                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[178px] max-sm:w-[115px]" />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
+                      <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                        <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex flex-col text-zinc-900">
+                            <div className="flex gap-4 mb-2 justify-between px-4 text-lg whitespace-nowrap">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/61c6155cdb7cedb8428209197c5325af5b02bf7ecb94533f0ee5c2b47c1c2444?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="self-start aspect-[1.15] w-[23px]"
                               />
-                              
-          
-                  
-                  
-         
-                  
-                  
-                 
-            {inputErrors['nb_joueurdetecter'] && (
-            <div className="error-message text-red-600">{inputErrors['nb_joueurdetecter']}</div>
-          )}
-            </div>
-          </div>
-          <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/f48abcee21a3194921563739310f0764132a8c52ff33636c5ffa29d102dc978c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />
-            <div className="grow max-md:max-w-full">Régions d’explorations</div>
-          </div>
-          <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-base text-white whitespace-nowrap w-[781px]">
-            <div className="flex flex-col justify-center px-0.5 border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full">
-              <div className="flex flex-col justify-center py-1.5 pl-4 rounded-md max-md:max-w-full">
-                <div className="flex gap-5 justify-between pr-20 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
-                
+                              <div className="grow">Type d’engagement</div>
 
-
-
-                <Select
-        options={regionOptions}
-        onChange={handleChangeregion}
-        isMulti
-        styles={{
-          option: (provided, state) => ({
-            ...provided,
-            color: state.isSelected ? 'black' : 'black', // Change colors as needed
-          }),
-        }}
-
-      />
-                </div>
-              </div>
-            </div>{inputErrors['paysscout'] && (
-            <div className="error-message text-red-600 text-base">{inputErrors['paysscout']}</div>
-          )}
-          </div>
-          <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/eed879260ca15ccfad0d945395a8221b41159b944d63d78bddd58557acc9c58e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />
-            <div className="flex-auto">Compétences</div>
-          </div>
-          <div className="flex flex-col justify-center content-start items-center mt-4 text-lg text-blue-600 whitespace-nowrap max-md:max-w-full">
-
-<div className="form-group icon-input mb-3 flex flex-wrap justify-between">
-  {[
-    "Analyse tactique",
-    "Connaissance approfondie du sport",
-    "Réseautage",
-    "Observation",
-    "Analyse des données",
-    "Compétence en communication",
-    "Connaissance des marchés",
-    "Rapports détaillés",
-    "Gestion du temps",
-    "Éthique professionnelle",
-    "Compétences informatiques",
-    "Adaptabilité",
-    "Évaluation psychologique",
-
-    // Add other skills...
-  ].map((skillsscout) => (
-    <div
-      key={skillsscout}
-      className="form-check rounded-[30px] mb-2 md:w-1/2 lg:w-1/3 xl:w-1/4"
-    >
-      <input
-        type="checkbox"
-        id={skillsscout}
-        name="skillsscout"
-        checked={formData.skillsscout
-          .split(",")
-          .includes(skillsscout)}
-        onChange={() =>
-          handleScoutSkillToggle(skillsscout)
-        }
-        className="form-check-input d-none rounded-[30px]"
-      />
-    
-      <label
-        htmlFor={skillsscout}
-        className={`form-check-label btn ${
-          formData.skillsscout
-            .split(",")
-            .includes(skillsscout)
-            ? "bg-blue-600 text-white"
-            : "btn-light"
-        } ${
-          !formData.skillsscout
-            .split(",")
-            .includes(skillsscout) &&
-            scoutSkillsError
-            ? "border-danger"
-            : ""
-        }`}
-      >
-        {!formData.skillsscout
-          .split(",")
-          .includes(skillsscout)
-          ? "+" // Display "+" when not selected
-          : "-"}{" "}
-        {skillsscout}
-      </label>
-    </div>
-  ))}
-</div>
-
-</div>
-{scoutSkillsError && (
-  <div className="text-danger mt-2">
-Vous pouvez selectionner au maximum 10 compétences !  </div>
-)}
-         
-<div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col gap-3 sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
-
-  </div>
-
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
-
-
- 
-</div>
-     
-{errorMessage && (
-    <div className="error-message text-red-600">{errorMessage}</div>
-  )}
-
-{(emailError || loginError) && (
-      <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-        {emailError && <p>{emailError}</p>}
-        {loginError && <p>{loginError}</p>}
-      </div>
-    )}
+                            </div>
 
 
 
 
 
 
-          <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-            <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fb6d773eef30d97d3a89d9f3fae19d7c91dd5e53c1c6ce70d84a312e20fac48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                className="w-5 aspect-square"
-              />
-             <button
-                                type="button"
-                                onClick={handlePrevStep} className="grow text-white">Retour</button>
-            </div>
-            <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-            <button
-                                type="submit" className="grow">Confirmer</button>
-             
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+                            <select
+                              name="engagement"
+                              value={formData.engagement}
+                              className={`form-control flex  justify-between border-[0.5px] px-4 mb-4  bg-zinc-100  rounded-[30px] ${inputErrors["engagement"] ? "is-invalid" : ""
+                                }`}
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                Votre Engagement
+                              </option>
+                              <option value="plein-temps">Plein Temps</option>
+                              <option value="mi-temps">Mi-Temps</option>
+                              <option value="volontaire">Volontaire</option>
+                            </select>
+
+
+
+                            {inputErrors['engagement'] && (
+                              <div className="error-message text-red-600">{inputErrors['engagement']}</div>
+                            )}
+                          </div>
+
+
+
+
+                          <div className="flex flex-col">
+                            <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/905ceacb3a78358a7e57864a93688890f119c8869b3ab4c3558735affbc2aa60?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="self-start w-5 aspect-square"
+                              />
+                              <div className="grow">Nombre de joueurs détectés</div>
+                            </div>
+
+
+                            <input
+                              type="number"
+                              id="nb_joueurdetecter"
+                              name="nb_joueurdetecter"
+                              value={formData.nb_joueurdetecter}
+                              className={` form-control flex gap-5 justify-between border-[0.5px] bg-zinc-100 w-full px-4 py-2 rounded-xl ${inputErrors["nb_joueurdetecter"]
+                                  ? "is-invalid"
+                                  : ""
+                                }`}
+                              placeholder="Nomber des joueurs detecter"
+                              onChange={handleInputChange}
+                            />
 
 
 
@@ -8125,246 +7845,480 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
 
 
 
+                            {inputErrors['nb_joueurdetecter'] && (
+                              <div className="error-message text-red-600">{inputErrors['nb_joueurdetecter']}</div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/f48abcee21a3194921563739310f0764132a8c52ff33636c5ffa29d102dc978c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />
+                          <div className="grow max-md:max-w-full">Régions d’explorations</div>
+                        </div>
+                        <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-base text-white whitespace-nowrap w-[781px]">
+                          <div className="flex flex-col justify-center px-0.5 border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full">
+                            <div className="flex flex-col justify-center py-1.5 pl-4 rounded-md max-md:max-w-full">
+                              <div className="flex gap-5 justify-between pr-20 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
 
 
 
 
+                                <Select
+                                  options={regionOptions}
+                                  onChange={handleChangeregion}
+                                  isMulti
+                                  styles={{
+                                    option: (provided, state) => ({
+                                      ...provided,
+                                      color: state.isSelected ? 'black' : 'black', // Change colors as needed
+                                    }),
+                                  }}
+
+                                />
+                              </div>
+                            </div>
+                          </div>{inputErrors['paysscout'] && (
+                            <div className="error-message text-red-600 text-base">{inputErrors['paysscout']}</div>
+                          )}
+                        </div>
+                        <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/eed879260ca15ccfad0d945395a8221b41159b944d63d78bddd58557acc9c58e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />
+                          <div className="flex-auto">Compétences</div>
+                        </div>
+                        <div className="flex flex-col justify-center content-start items-center mt-4 text-lg text-blue-600 whitespace-nowrap max-md:max-w-full">
+
+                          <div className="form-group icon-input mb-3 flex flex-wrap justify-between">
+                            {[
+                              "Analyse tactique",
+                              "Connaissance approfondie du sport",
+                              "Réseautage",
+                              "Observation",
+                              "Analyse des données",
+                              "Compétence en communication",
+                              "Connaissance des marchés",
+                              "Rapports détaillés",
+                              "Gestion du temps",
+                              "Éthique professionnelle",
+                              "Compétences informatiques",
+                              "Adaptabilité",
+                              "Évaluation psychologique",
+
+                              // Add other skills...
+                            ].map((skillsscout) => (
+                              <div
+                                key={skillsscout}
+                                className="form-check rounded-[30px] mb-2 md:w-1/2 lg:w-1/3 xl:w-1/4"
+                              >
+                                <input
+                                  type="checkbox"
+                                  id={skillsscout}
+                                  name="skillsscout"
+                                  checked={formData.skillsscout
+                                    .split(",")
+                                    .includes(skillsscout)}
+                                  onChange={() =>
+                                    handleScoutSkillToggle(skillsscout)
+                                  }
+                                  className="form-check-input d-none rounded-[30px]"
+                                />
+
+                                <label
+                                  htmlFor={skillsscout}
+                                  className={`form-check-label btn ${formData.skillsscout
+                                      .split(",")
+                                      .includes(skillsscout)
+                                      ? "bg-blue-600 text-white"
+                                      : "btn-light"
+                                    } ${!formData.skillsscout
+                                      .split(",")
+                                      .includes(skillsscout) &&
+                                      scoutSkillsError
+                                      ? "border-danger"
+                                      : ""
+                                    }`}
+                                >
+                                  {!formData.skillsscout
+                                    .split(",")
+                                    .includes(skillsscout)
+                                    ? "+" // Display "+" when not selected
+                                    : "-"}{" "}
+                                  {skillsscout}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+
+                        </div>
+                        {scoutSkillsError && (
+                          <div className="text-danger mt-2">
+                            Vous pouvez selectionner au maximum 10 compétences !  </div>
+                        )}
+
+                        <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                            <div className="flex flex-col sm:flex-row">
+                              <div className="grow mr-2 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                J'accepte les{" "}
+                                <span className="text-blue-600 underline">Termes et Conditions</span>
+                                <span className="text-zinc-900">.</span>
+                              </div>
+                              <div className="flex flex-col gap-3 sm:flex-row sm:order-2">
+                                <label className="mr-2">
+                                  <input
+                                    type="radio"
+                                    value="Oui"
+                                    checked={formData.termesConditions === "Oui"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <span className="ml-1">Oui</span>
+                                </label>
+                                <label>
+                                  <input
+                                    type="radio"
+                                    value="Non"
+                                    checked={formData.termesConditions === "Non"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <span className="ml-1">Non</span>
+                                </label>
+                              </div>
+                            </div>
+
+                          </div>
+
+                          <div className="mt-4">
+                            <label className="block mb-2">
+                              J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
+                            <div className="flex flex-col sm:flex-row">
+                              <label className="mr-2">
+                                <input
+                                  type="radio"
+                                  value="Oui"
+                                  checked={formData.partagehorsPL === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Oui</span>
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="Non"
+                                  checked={formData.partagehorsPL === "Non"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Non</span>
+                              </label>
+                            </div>
+                          </div>
 
 
 
+                        </div>
 
-                          </>
+                        {errorMessage && (
+                          <div className="error-message text-red-600">{errorMessage}</div>
+                        )}
+
+                        {(emailError || loginError) && (
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                            {emailError && <p>{emailError}</p>}
+                            {loginError && <p>{loginError}</p>}
+                          </div>
                         )}
 
 
-{formData.profil === "other" && (
 
-<>
-<div className="flex flex-col items-center  h-full bg-gray-200">
-     
-<div className="text-center max-w-xl mx-auto mt-8">
+
+
+
+                        <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fb6d773eef30d97d3a89d9f3fae19d7c91dd5e53c1c6ce70d84a312e20fac48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <button
+                              type="button"
+                              onClick={handlePrevStep} className="grow text-white">Retour</button>
+                          </div>
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                            <button
+                              type="submit" className="grow">Confirmer</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </>
+              )}
+
+
+              {formData.profil === "other" && (
+
+                <>
+                  <div className="flex flex-col items-center  h-full bg-gray-200">
+
+                    <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-700 dark:text-zinc-300">
                         Informations du Profil
                       </p>
                     </div>
-      <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-        <div className="flex gap-5 justify-between">
-          <div className="h-2 bg-blue-300 rounded-md w-[55px] max-sm:ml-8" />
-          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-          <div className="h-2 bg-blue-600 rounded-md w-[138px] max-sm:mr-12" />
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
-        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-          <div className="flex gap-4 self-start px-4 whitespace-nowrap text-zinc-900">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d9b00671f5c6adfdf6ed3be7a7b9734acc3f6ea0ee7c51e1fe7326d623f7566?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />
-            <div className="grow">Profession</div>
-          </div>
-          <div className="flex flex-col justify-center mt-2 max-w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px]">
-            <select
-                              id="profession"
-                              name="profession"
-                              className={`flex gap-5 justify-between px-4 py-3.5 rounded-md bg-zinc-100 ${
-                                inputErrors["profession"] ? "is-invalid" : ""
+                    <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                      <div className="flex gap-5 justify-between">
+                        <div className="h-2 bg-blue-300 rounded-md w-[55px] max-sm:ml-8" />
+                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[138px] max-sm:mr-12" />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
+                      <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                        <div className="flex gap-4 self-start px-4 whitespace-nowrap text-zinc-900">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d9b00671f5c6adfdf6ed3be7a7b9734acc3f6ea0ee7c51e1fe7326d623f7566?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />
+                          <div className="grow">Profession</div>
+                        </div>
+                        <div className="flex flex-col justify-center mt-2 max-w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px]">
+                          <select
+                            id="profession"
+                            name="profession"
+                            className={`flex gap-5 justify-between px-4 py-3.5 rounded-md bg-zinc-100 ${inputErrors["profession"] ? "is-invalid" : ""
                               }`}
-                              onChange={handleInputChange}
-                              value={formData.profession}
-                              required
-                            >
-                              <option value="">Profession</option>
-                              <option value="Fan Football">Fan Football</option>
-                              <option value="Journaliste Sportif">
-                                Journaliste Sportif
-                              </option>
-                              <option value="Arbitre Football">
-                                Arbitre Football
-                              </option>
-                              <option value="Analyste de performance ">
-                                Analyste de performance
-                              </option>
-                              <option value="Nutrtitionniste">
-                                Nutrtitionniste
-                              </option>
-                              <option value="Physiotherpeute">
-                                Physiotherpeute
-                              </option>
-                              <option value="Analyste de football">
-                                Analyste de football
-                              </option>
-                              <option value="Médecin d'équipe">
-                                Médecin d'équipe
-                              </option>
-                              <option value="Prof de fitnesse">
-                                Préparateur Physique
-                              </option>
-                            </select>
-                            {inputErrors["Profession"] && (
-                              <div className="invalid-feedback">
-                                {inputErrors["Profession"]}
-                              </div>
-                            )}
+                            onChange={handleInputChange}
+                            value={formData.profession}
+                            required
+                          >
+                            <option value="">Profession</option>
+                            <option value="Fan Football">Fan Football</option>
+                            <option value="Journaliste Sportif">
+                              Journaliste Sportif
+                            </option>
+                            <option value="Arbitre Football">
+                              Arbitre Football
+                            </option>
+                            <option value="Analyste de performance ">
+                              Analyste de performance
+                            </option>
+                            <option value="Nutrtitionniste">
+                              Nutrtitionniste
+                            </option>
+                            <option value="Physiotherpeute">
+                              Physiotherpeute
+                            </option>
+                            <option value="Analyste de football">
+                              Analyste de football
+                            </option>
+                            <option value="Médecin d'équipe">
+                              Médecin d'équipe
+                            </option>
+                            <option value="Prof de fitnesse">
+                              Préparateur Physique
+                            </option>
+                          </select>
+                          {inputErrors["Profession"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["Profession"]}
+                            </div>
+                          )}
 
 
 
 
-          </div>
-          <div className="flex gap-4 self-start px-4 mt-8 text-black whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/086c2fa012e3785486cfccd51151394483bfd7732b8e22ba3dbf33beaf66bf59?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />
-            <div className="flex-auto">Compétences</div>
-          </div>
-          <div className="flex flex-col flex-wrap justify-center content-start px-3.5 mt-4 text-blue-600 whitespace-nowrap max-md:max-w-full">
-          {formData.profession && (
-                              <div>
- {formData.profession === "Fan Football" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-    {[
-      "Engagement emotionnel",
-      "Fidelité",
-      "Defence",
-      "Esprit Sportif",
-      "Réseautage Social",
-      "Rapidite de la prise de désicion",
-      "Adabtabilité",
-      "Motivation",
-      "Respecter",
-      // Add other skills...
-    ].map((skillsAutre) => (
-      <div
-        key={skillsAutre}
-        className="form-check form-check-inline me-2 mb-2"
-      >
-        <input
-          type="checkbox"
-          id={skillsAutre}
-          name="skillsAutre"
-          checked={selectedSkills.includes(skillsAutre)}
-          onChange={() => handleSkillToggleAutre(skillsAutre)}
-          className="form-check-input d-none"
-        />
-        <label
-          htmlFor={skillsAutre}
-          className={`form-check-label btn ${
-            formData.skillsAutre.split(',').includes(skillsAutre)
-              ? "bg-blue-600 text-white"
-              : "btn-light"
-          } ${
-            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-              ? "border-danger"
-              : ""
-          }`}
-        >
-          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-        </label>
-      </div>
-    ))}
-  </div>
-)}
-
-
-{formData.profession === "Journaliste Sportif" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-    {[
-      "Rechercher",
-      "Rédaction",
-      "Communication",
-      "Maitrise des Medias sociaux",
-      "Rédactivé",
-      "Gestion du Temps",
-      "Analyse critique",
-      "Adaptabilité",
-      // Add other skills...
-    ].map((skillsAutre) => (
-      <div
-        key={skillsAutre}
-        className="form-check form-check-inline me-2 mb-2"
-      >
-        <input
-          type="checkbox"
-          id={skillsAutre}
-          name="skillsAutre"
-          checked={selectedSkills.includes(skillsAutre)}
-          onChange={() => handleSkillToggleAutre(skillsAutre)}
-          className="form-check-input d-none"
-        />
-        <label
-          htmlFor={skillsAutre}
-          className={`form-check-label btn ${
-            formData.skillsAutre.split(',').includes(skillsAutre)
-              ? "bg-blue-600 text-white"
-              : "btn-light"
-          } ${
-            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-              ? "border-danger"
-              : ""
-          }`}
-        >
-          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-        </label>
-      </div>
-    ))}
-  </div>
-)}
-
-
-                                {formData.profession === "Arbitre Football" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Encouragement",
-                                      "Ecoute",
-                                      "Communication",
-                                      "Leadership",
-                                      "motivation",
-                                      "Autorité et respect",
-                                      "Gestion des Conflits",
-                                      "Réactivité",
-                                      "Gestion de stress",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
+                        </div>
+                        <div className="flex gap-4 self-start px-4 mt-8 text-black whitespace-nowrap">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/086c2fa012e3785486cfccd51151394483bfd7732b8e22ba3dbf33beaf66bf59?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />
+                          <div className="flex-auto">Compétences</div>
+                        </div>
+                        <div className="flex flex-col flex-wrap justify-center content-start px-3.5 mt-4 text-blue-600 whitespace-nowrap max-md:max-w-full">
+                          {formData.profession && (
+                            <div>
+                              {formData.profession === "Fan Football" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Engagement emotionnel",
+                                    "Fidelité",
+                                    "Defence",
+                                    "Esprit Sportif",
+                                    "Réseautage Social",
+                                    "Rapidite de la prise de désicion",
+                                    "Adabtabilité",
+                                    "Motivation",
+                                    "Respecter",
+                                    // Add other skills...
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
                                       >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(
-                                            skillsAutre
-                                          )}
-                                          onChange={() =>
-                                            handleSkillToggleAutre(skillsAutre)
-                                          }
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-          htmlFor={skillsAutre}
-          className={`form-check-label btn ${
-            formData.skillsAutre.split(',').includes(skillsAutre)
-              ? "bg-blue-600 text-white"
-              : "btn-light"
-          } ${
-            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-              ? "border-danger"
-              : ""
-          }`}
-        >
-          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
 
-                                {formData.profession ===
-                                  "Analyste de performance" && (
-                                    <div className="form-group icon-input mb-3 flex flex-wrap">
+
+                              {formData.profession === "Journaliste Sportif" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Rechercher",
+                                    "Rédaction",
+                                    "Communication",
+                                    "Maitrise des Medias sociaux",
+                                    "Rédactivé",
+                                    "Gestion du Temps",
+                                    "Analyse critique",
+                                    "Adaptabilité",
+                                    // Add other skills...
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
+                                      >
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+
+                              {formData.profession === "Arbitre Football" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Encouragement",
+                                    "Ecoute",
+                                    "Communication",
+                                    "Leadership",
+                                    "motivation",
+                                    "Autorité et respect",
+                                    "Gestion des Conflits",
+                                    "Réactivité",
+                                    "Gestion de stress",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(
+                                          skillsAutre
+                                        )}
+                                        onChange={() =>
+                                          handleSkillToggleAutre(skillsAutre)
+                                        }
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
+                                      >
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                              {formData.profession ===
+                                "Analyste de performance" && (
+                                  <div className="form-group icon-input mb-3 flex flex-wrap">
                                     {[
                                       "Esprit Equipe",
                                       "Adaptabilité",
@@ -8388,15 +8342,13 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
                                         />
                                         <label
                                           htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
+                                          className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
                                               ? "bg-blue-600 text-white"
                                               : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
-                                          }`}
+                                            }`}
                                         >
                                           {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
                                         </label>
@@ -8405,90 +8357,86 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
                                   </div>
                                 )}
 
-                                {formData.profession === "Nutrtitionniste" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Evaluation nutrionnelle",
-                                      "Planfication de régimes",
-                                      "Communication",
-                                      "Ecoute",
-                                      "Encouragement",
-                                      "Compréhension des besoin",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
+                              {formData.profession === "Nutrtitionniste" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Evaluation nutrionnelle",
+                                    "Planfication de régimes",
+                                    "Communication",
+                                    "Ecoute",
+                                    "Encouragement",
+                                    "Compréhension des besoin",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
                                       >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(skillsAutre)}
-                                          onChange={() => handleSkillToggleAutre(skillsAutre)}
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-                                              ? "border-danger"
-                                              : ""
-                                          }`}
-                                        >
-                                          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
 
-                                {formData.profession === "Physiotherpeute" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Ethique professionnelle",
-                                      "Gestion du temps",
-                                      "Empathy",
-                                      "Compétences Physiothérapeute",
-                                      "Analyse des mouvements sportifs",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
+                              {formData.profession === "Physiotherpeute" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Ethique professionnelle",
+                                    "Gestion du temps",
+                                    "Empathy",
+                                    "Compétences Physiothérapeute",
+                                    "Analyse des mouvements sportifs",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
+                                          }`}
                                       >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(skillsAutre)}
-                                          onChange={() => handleSkillToggleAutre(skillsAutre)}
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-                                              ? "border-danger"
-                                              : ""
-                                          }`}
-                                        >
-                                          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
 
-                                {formData.profession ===
-                                  "Analyste de football" && (
-                                    <div className="form-group icon-input mb-3 flex flex-wrap">
+                              {formData.profession ===
+                                "Analyste de football" && (
+                                  <div className="form-group icon-input mb-3 flex flex-wrap">
                                     {[
                                       "Compétences analytiques",
                                       "Compétences statstiques",
@@ -8515,15 +8463,13 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
                                         />
                                         <label
                                           htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
+                                          className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
                                               ? "bg-blue-600 text-white"
                                               : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
-                                          }`}
+                                            }`}
                                         >
                                           {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
                                         </label>
@@ -8532,224 +8478,220 @@ Vous pouvez selectionner au maximum 10 compétences !  </div>
                                   </div>
                                 )}
 
-                                {formData.profession === "Médecin d'équipe" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Diagnostic des blessures",
-                                      "Prévention des blessures",
-                                      "Gestion du stress",
-                                      "Technologie médicale",
-                                      "Empathy",
-                                      "Calme",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(skillsAutre)}
-                                          onChange={() => handleSkillToggleAutre(skillsAutre)}
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-                                              ? "border-danger"
-                                              : ""
+                              {formData.profession === "Médecin d'équipe" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Diagnostic des blessures",
+                                    "Prévention des blessures",
+                                    "Gestion du stress",
+                                    "Technologie médicale",
+                                    "Empathy",
+                                    "Calme",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
                                           }`}
-                                        >
-                                          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                      >
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
 
-                                {formData.profession === "Prof de fitnesse" && (
-  <div className="form-group icon-input mb-3 flex flex-wrap">
-  {[
-                                      "Adaptabilité",
-                                      "Communication",
-                                      "Motivation",
-                                      "Encadrement en groupe",
-                                      "Ecoute",
-                                      "Encouragement",
-                                      "Leadership",
-                                    ].map((skillsAutre) => (
-                                      <div
-                                        key={skillsAutre}
-                                        className="form-check form-check-inline me-2 mb-2"
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          id={skillsAutre}
-                                          name="skillsAutre"
-                                          checked={selectedSkills.includes(skillsAutre)}
-                                          onChange={() => handleSkillToggleAutre(skillsAutre)}
-                                          className="form-check-input d-none"
-                                        />
-                                        <label
-                                          htmlFor={skillsAutre}
-                                          className={`form-check-label btn ${
-                                            formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                          } ${
-                                            !formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
-                                              ? "border-danger"
-                                              : ""
+                              {formData.profession === "Prof de fitnesse" && (
+                                <div className="form-group icon-input mb-3 flex flex-wrap">
+                                  {[
+                                    "Adaptabilité",
+                                    "Communication",
+                                    "Motivation",
+                                    "Encadrement en groupe",
+                                    "Ecoute",
+                                    "Encouragement",
+                                    "Leadership",
+                                  ].map((skillsAutre) => (
+                                    <div
+                                      key={skillsAutre}
+                                      className="form-check form-check-inline me-2 mb-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={skillsAutre}
+                                        name="skillsAutre"
+                                        checked={selectedSkills.includes(skillsAutre)}
+                                        onChange={() => handleSkillToggleAutre(skillsAutre)}
+                                        className="form-check-input d-none"
+                                      />
+                                      <label
+                                        htmlFor={skillsAutre}
+                                        className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
+                                            ? "bg-blue-600 text-white"
+                                            : "btn-light"
+                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "border-danger"
+                                            : ""
                                           }`}
-                                        >
-                                          {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
+                                      >
+                                        {!formData.skillsAutre.split(',').includes(skillsAutre) ? "+" : "-"} {skillsAutre}
+                                      </label>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                        </div>
+
+
+                        <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+                            <div className="flex flex-col sm:flex-row">
+                              <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                J'accepte les{" "}
+                                <span className="text-blue-600 underline">Termes et Conditions</span>
+                                <span className="text-zinc-900">.</span>
                               </div>
-                            )}
-      
-          </div>
+                              <div className="flex flex-col sm:flex-row sm:order-2">
+                                <label className="mr-2">
+                                  <input
+                                    type="radio"
+                                    value="Oui"
+                                    checked={formData.termesConditions === "Oui"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <span className="ml-1">Oui</span>
+                                </label>
+                                <label>
+                                  <input
+                                    type="radio"
+                                    value="Non"
+                                    checked={formData.termesConditions === "Non"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.value,
+                                      })
+                                    }
+                                  />
+                                  <span className="ml-1">Non</span>
+                                </label>
+                              </div>
+                            </div>
 
+                          </div>
 
-          <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-  <div className="flex flex-col sm:flex-row">
-  <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-    J'accepte les{" "}
-    <span className="text-blue-600 underline">Termes et Conditions</span>
-    <span className="text-zinc-900">.</span>
-  </div>
-  <div className="flex flex-col sm:flex-row sm:order-2">
-    <label className="mr-2">
-      <input
-        type="radio"
-        value="Oui"
-        checked={formData.termesConditions === "Oui"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Oui</span>
-    </label>
-    <label>
-      <input
-        type="radio"
-        value="Non"
-        checked={formData.termesConditions === "Non"}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            termesConditions: e.target.value,
-          })
-        }
-      />
-      <span className="ml-1">Non</span>
-    </label>
-  </div>
-</div>
+                          <div className="mt-4">
+                            <label className="block mb-2">
+                              J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
+                            <div className="flex flex-col sm:flex-row">
+                              <label className="mr-2">
+                                <input
+                                  type="radio"
+                                  value="Oui"
+                                  checked={formData.partagehorsPL === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Oui</span>
+                              </label>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="Non"
+                                  checked={formData.partagehorsPL === "Non"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.value,
+                                    })
+                                  }
+                                />
+                                <span className="ml-1">Non</span>
+                              </label>
+                            </div>
+                          </div>
 
-  </div>
-
-  <div className="mt-4">
-    <label className="block mb-2">
-    J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
-    <div className="flex flex-col sm:flex-row">
-      <label className="mr-2">
-        <input
-          type="radio"
-          value="Oui"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Oui</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          value="Non"
-          checked={formData.partagehorsPL === "Non"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.value,
-            })
-          }
-        />
-        <span className="ml-1">Non</span>
-      </label>
-    </div>
-  </div>
-
-  {/* {errorMessage && (
+                          {/* {errorMessage && (
     <div className="error-message">{errorMessage}</div>
   )} */}
-</div>
-     
-     
-     
-     
-     {errorMessage && (
-    <div className="error-message align-center text-red-600">{errorMessage}</div>
-  )}
-
-{(emailError || loginError) && (
-      <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-        {emailError && <p>{emailError}</p>}
-        {loginError && <p>{loginError}</p>}
-      </div>
-    )}
+                        </div>
 
 
 
 
+                        {errorMessage && (
+                          <div className="error-message align-center text-red-600">{errorMessage}</div>
+                        )}
 
-
-          <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-            <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fb6d773eef30d97d3a89d9f3fae19d7c91dd5e53c1c6ce70d84a312e20fac48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                className="w-5 aspect-square"
-              />
-             <button
-                                type="button"
-                                onClick={handlePrevStep} className="grow text-white">Retour</button>
-            </div>
-            <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-            <button
-                                type="submit" className="grow">Confirmer</button>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                        {(emailError || loginError) && (
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                            {emailError && <p>{emailError}</p>}
+                            {loginError && <p>{loginError}</p>}
+                          </div>
+                        )}
 
 
 
 
-</>
+
+
+                        <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fb6d773eef30d97d3a89d9f3fae19d7c91dd5e53c1c6ce70d84a312e20fac48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <button
+                              type="button"
+                              onClick={handlePrevStep} className="grow text-white">Retour</button>
+                          </div>
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                            <button
+                              type="submit" className="grow">Confirmer</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
 
 
-)}
+
+                </>
+
+
+
+              )}
 
 
 
