@@ -5845,37 +5845,44 @@ function Register() {
                           <div className="grow">Année de naissance</div>
                         </div>{" "}
                         <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                          <div className="flex gap-5 justify-between  py-2.5 rounded-md">
-                            <DatePicker
-                              selected={
-                                formData.date_naissance
-                                  ? new Date(formData.date_naissance)
-                                  : null
-                              }
-                              onChange={(date) =>
-                                handleYearChange(date?.getFullYear())
-                              }
-                              dateFormat="yyyy"
-                              showYearPicker
-                              yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
-                              maxDate={new Date(2012, 0, 1)}
-                              className=" bg-zinc-100 ml-4"
-                            />
+                        <DatePicker
+  selected={
+    formData.date_naissance
+      ? new Date(formData.date_naissance)
+      : null
+  }
+  onChange={(date) => {
+    handleYearChange(date?.getFullYear());
+    // Update border color here
+    setInputErrors({
+      ...inputErrors,
+      date_naissance: "" // Clear any existing error
+    });
+  }}
+  dateFormat="yyyy"
+  showYearPicker
+  yearDropdownItemNumber={10}
+  maxDate={new Date(2012, 0, 1)}
+  placeholderText="Choisi une année "
+  className={`form-control flex flex-col justify-center w-full text-base  border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+    inputErrors["date_naissance"] ? "is-invalid" : ""
+  }`}
+/>
 
 
 
-                          </div>
+                           
                         </div>{" "}
                         <div className="self-center mt-2 text-zinc-800">
                           Vous devez avoir au moins 13 ans.
                         </div>
                       </div>
                       {inputErrors.date_naissance && (
-                        <span className="text-red-500 text-sm">
-                          {inputErrors.date_naissance}
-                        </span>
-                      )}
-                    </div>
+                              <span className="text-red-500 text-sm">
+                                {inputErrors.date_naissance}
+                              </span>
+                            )}
+                    </div> 
 
                   </div>
 
