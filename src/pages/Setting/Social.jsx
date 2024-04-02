@@ -3,7 +3,7 @@ const Social = () => {
 
     return(
         <div className="flex flex-col px-8 py-9 text-lg bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:max-w-full">
-        <div className="grid gap-16 grid-cols-1 md:grid-cols-2">
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
             <div className="col-span-1 flex flex-col basis-0 text-zinc-900">
                 <div className="flex gap-4 justify-between px-4 text-lg">
                     <img
@@ -13,9 +13,7 @@ const Social = () => {
                     />
                     <div className="grow">Facebook</div>
                 </div>
-                <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-                    www.facebook.com/joeyleblanc
-                </div>
+                <input value="www.facebook.com/joeyleblanc" placeholder="www.facebook.com/joeyleblanc" className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"/>
             </div>
             <div className="col-span-1 flex flex-col basis-0 text-zinc-900">
                 <div className="flex gap-4 justify-between px-4 text-lg">
@@ -26,9 +24,7 @@ const Social = () => {
                     />
                     <div className="grow">Facebook</div>
                 </div>
-                <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-                    www.facebook.com/joeyleblanc
-                </div>
+                <input value="www.facebook.com/joeyleblanc" placeholder="www.facebook.com/joeyleblanc" className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"/>
             </div>
             <div className="col-span-1 flex flex-col basis-0 text-zinc-900">
                 <div className="flex gap-4 justify-between px-4 text-lg">
@@ -39,9 +35,7 @@ const Social = () => {
                     />
                     <div className="grow">Instagram</div>
                 </div>
-                <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-                    www.instagram.com/joeyleblanc
-                </div>
+                <input value="www.facebook.com/joeyleblanc" placeholder="www.facebook.com/joeyleblanc" className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"/>
             </div>
             <div className="col-span-1 flex flex-col basis-0 text-zinc-900">
                 <div className="flex gap-4 justify-between px-4 text-lg">
@@ -52,9 +46,7 @@ const Social = () => {
                     />
                     <div className="grow">Instagram</div>
                 </div>
-                <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-                    www.instagram.com/joeyleblanc
-                </div>
+                <input value="www.facebook.com/joeyleblanc" placeholder="www.facebook.com/joeyleblanc" className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"/>
             </div>
             <div className="col-span-1 flex flex-col basis-0 text-zinc-900">
                 <div className="flex gap-4 justify-between px-4 text-lg">
