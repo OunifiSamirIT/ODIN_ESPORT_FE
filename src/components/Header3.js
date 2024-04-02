@@ -136,9 +136,9 @@ function Header() {
              
             <div className="flex flex-col items-center pb-20 mx-auto w-full bg-zinc-100 max-w-[480px]">
      
-            <div className="justify-center items-center px-8 py-2 mt-10 w-full text-base font-medium text-white bg-blue-600 max-w-[366px] rounded-[30px]">
+          <div className="pl-8 w-full">  <Link to="/login">  <div className="justify-center items-center text-center px-8 py-2 mt-10 w-full text-base font-medium text-white bg-blue-600 max-w-[366px] rounded-[30px]">
         Se connecter
-      </div>
+      </div> </Link> </div>
       <div className="flex gap-2 justify-between px-4 py-2 mt-6 w-full text-base whitespace-nowrap bg-white rounded-xl max-w-[366px] text-zinc-900">
         <div className="flex gap-4">
           <img
@@ -155,14 +155,14 @@ function Header() {
         />
       </div>
       <div className="flex justify-center items-center px-8 py-2 mt-6 w-full text-base font-medium text-white bg-orange-500 max-w-[366px] rounded-[30px]">
-        <div className="flex gap-4 justify-center px-2">
+       <Link to="/register"> <div className="flex gap-4 justify-center px-2">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/782d8b9c4e26c6ae2faa75f1bad14c148b0b27ad2722daea1be1e990d6d99625?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
             className="shrink-0 my-auto aspect-square fill-white w-[15px]"
           />
           <div>Fermer le menu</div>
-        </div>
+        </div></Link>
       </div>
     </div>
             </div>
