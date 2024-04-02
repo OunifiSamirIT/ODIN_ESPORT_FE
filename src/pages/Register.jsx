@@ -4114,15 +4114,13 @@ function Register() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  const handleSelection = (selectedValue) => {
-    setFormData({
-      ...formData,
-      Licence: selectedValue,
-    });
-    setUploadEnabled(selectedValue === "Oui");
-    // Clear the image preview when the selection changes
-    setImagePreviewlic(null);
-  };
+  const handleSelection = (value) => {
+    // Update the form data with the selected value
+    setFormData((prevData) => ({
+        ...prevData,
+        licence: value
+    }));
+}
 
   const onSelect = (code) => setSelect(code);
   console.log("SELECT", select);
@@ -4803,48 +4801,7 @@ function Register() {
     }
   };
 
-  // const handleInputChange = (e) => {
-  //   setValidationError("");
-
-  //   // Check if the input being changed is the profile field
-  //   if (e.target.name === "profil") {
-  //     // Get the selected profile value
-  //     const selectedProfileValue = e.target.value;
-
-  //     // Map the selected profile value to the corresponding role
-  //     const profileRoleMap = {
-  //       player: "player",
-  //       coach: "coach",
-  //       agent: "agent",
-  //       scout: "scout",
-  //       other: "other",
-  //     };
-  //     const selectedRole = profileRoleMap[selectedProfileValue];
-
-  //     // Update the form data with the selected role
-  //     setFormData({
-  //       ...formData,
-  //       [e.target.name]: selectedProfileValue,
-  //       roles: [selectedRole], // Set the roles field to the selected role
-  //     });
-
-  //     // Reset any profile error state since a profile has been selected
-  //     setProfileError(false);
-  //   } else {
-  //     // For other input fields, update the form data as usual
-  //     setFormData({
-  //       ...formData,
-  //       [e.target.name]: e.target.value,
-  //     });
-
-  //     // Reset any input errors for the changed field
-  //     setInputErrors({
-  //       ...inputErrors,
-  //       [e.target.name]: undefined,
-  //     });
-  //   }
-
-  // };
+  
 
 
   const handleInputChange = (e) => {
@@ -4985,13 +4942,10 @@ function Register() {
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const handleNextStep1 = () => {
-    // Set initial errors object
     const errors = {};
 
-    // Password validation
 
 
-    // Required fields for step 1, including password
     const requiredFields = [
       "nom",
       "prenom",
@@ -5007,7 +4961,6 @@ function Register() {
 
     let errorFound = false;
 
-    // Check if all required fields are filled in
     requiredFields.forEach((field) => {
       if (formData[field] === "") {
         errors[field] = "Ce champ est obligatoire ";
@@ -5024,6 +4977,13 @@ function Register() {
       return;
     }
 
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      errors.email = "Veuillez entrer une adresse e-mail valide";
+      setInputErrors({ ...inputErrors, email: errors.email });
+      errorFound = true;
+    }
     // Password matching validation
     if (formData.password !== formData.confirmPassword) {
       setValidationError("Les mots de passe ne sont pas identiques !");
@@ -5036,9 +4996,7 @@ function Register() {
       return;
     }
 
-    // Your existing code for setting formData
-
-    // Example: Navigate to the next step
+  
     setStep(step + 1);
   };
 
@@ -5133,72 +5091,12 @@ function Register() {
     setStep(step - 1);
   };
 
-  const handleRoleChange = (selectedRoles) => {
-    setFormData({
-      ...formData,
-      roles: selectedRoles,
-    });
-  };
-
-  const getRequiredFields = (step) => {
-    if (step === 3) {
-      if (selectedProfile === "player") {
-        return [
-          "height",
-          "weight",
-          "PiedFort",
-          "Licence",
-          "NumeroWhatsup",
-          "positionPlay",
-          "positionSecond",
-          // Add other required fields for player...
-        ];
-      } else if (selectedProfile === "coach") {
-        return [
-          "totalTeam",
-          "countryCoachedIn",
-          "footballTactic",
-          "skills",
-          // Add other required fields for coach...
-        ];
-      } else if (selectedProfile === "agent") {
-        if (formData.typeresponsable === "club") {
-          return [
-            "clubCovered",
-            "paysclub",
-            // Add other required fields for club...
-          ];
-        } else if (formData.typeresponsable === "players") {
-          return [
-            "totalPlayer",
-            "pays",
-            "totalCareerTransfers",
-
-            // Add other required fields for players...
-          ];
-        }
-      } else if (selectedProfile === "scout") {
-        return [
-          "engagement",
-          "nb_joueurdetecter",
-          "paysscout",
-          "skillsscout",
-
-          // Add other required fields for players...
-        ];
-      } else if (selectedProfile === "other") {
-        return [
-          "profession",
-          "skillsAutre",
-
-          // Add other required fields for players...
-        ];
-      }
-    }
-    return [];
-  };
+ 
 
   const step3ValidationSchema = yup.object().shape({
+
+
+    
     champsoptionelle: yup.string().when('profil', {
       is: 'player',
       then: () => yup.string().required("Ce champ est obligatoire !"),
@@ -5224,7 +5122,7 @@ function Register() {
     }),
     Licence: yup.string().when('profil', {
       is: 'player',
-      then: () => yup.string().required("Ce champ est obligatoire !"),
+      then: () => yup.string().required("Ce champ est dddddddddddd obligatoire !"),
     }),
     skillsInProfile: yup.string().when('profil', {
       is: 'player',
@@ -5322,7 +5220,6 @@ function Register() {
   });
 
 
-  const [heightError, setHeightError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -5366,7 +5263,7 @@ function Register() {
     formDataToSubmit.append("file", File || null);
 
     try {
-      const response = await fetch("https://odine-sport.com/api/auth/signup", {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -5447,27 +5344,7 @@ function Register() {
 
 
 
-            {/* 
-<div className="flex  gap-2">
-<div className="flex flex-row items-center">
-  <div className="flex items-center gap-2.5 p-1">
-    <svg width={15} height={16} viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M7.5 0.804688C6.01664 0.804688 4.5666 1.24455 3.33323 2.06867C2.09986 2.89278 1.13856 4.06412 0.570907 5.43456C0.00324965 6.80501 -0.145275 8.31301 0.144114 9.76787C0.433503 11.2227 1.14781 12.5591 2.1967 13.608C3.2456 14.6569 4.58197 15.3712 6.03683 15.6606C7.49168 15.95 8.99968 15.8014 10.3701 15.2338C11.7406 14.6661 12.9119 13.7048 13.736 12.4715C14.5601 11.2381 15 9.78805 15 8.30469C14.9979 6.31622 14.207 4.40982 12.8009 3.00376C11.3949 1.59771 9.48847 0.806838 7.5 0.804688ZM12.9044 5.17969H10.8913C10.4406 4.1353 9.84724 3.15849 9.12813 2.27719C10.7197 2.71027 12.0765 3.75311 12.9044 5.17969ZM10.3125 8.30469C10.3074 8.94102 10.2071 9.57302 10.015 10.1797H4.985C4.79291 9.57302 4.69263 8.94102 4.6875 8.30469C4.69263 7.66835 4.79291 7.03636 4.985 6.42969H10.015C10.2071 7.03636 10.3074 7.66835 10.3125 8.30469ZM5.48625 11.4297H9.51375C8.98328 12.477 8.3051 13.4427 7.5 14.2972C6.69461 13.443 6.0164 12.4772 5.48625 11.4297ZM5.48625 5.17969C6.01673 4.13236 6.69491 3.16666 7.5 2.31219C8.3054 3.16642 8.9836 4.13216 9.51375 5.17969H5.48625ZM5.875 2.27719C5.15479 3.1583 4.56037 4.13512 4.10875 5.17969H2.09563C2.92429 3.75246 4.28229 2.70953 5.875 2.27719ZM1.53813 6.42969H3.6875C3.52548 7.04165 3.44148 7.67165 3.4375 8.30469C3.44148 8.93773 3.52548 9.56772 3.6875 10.1797H1.53813C1.15397 8.9592 1.15397 7.65017 1.53813 6.42969ZM2.09563 11.4297H4.10875C4.56037 12.4743 5.15479 13.4511 5.875 14.3322C4.28229 13.8998 2.92429 12.8569 2.09563 11.4297ZM9.12813 14.3322C9.84724 13.4509 10.4406 12.4741 10.8913 11.4297H12.9044C12.0765 12.8563 10.7197 13.8991 9.12813 14.3322ZM13.4619 10.1797H11.3125C11.4745 9.56772 11.5585 8.93773 11.5625 8.30469C11.5585 7.67165 11.4745 7.04165 11.3125 6.42969H13.4606C13.8448 7.65017 13.8448 8.9592 13.4606 10.1797H13.4619Z" fill="black" />
-    </svg>
-  </div>
-  <div className="text-[#1d1e21] font-['Sora'] font-medium leading-[normal]">FR</div>
-  <div className="scroll_right flex justify-center items-center p-1">
-    <svg width={15} height={8} viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0.935867 0.599609C1.18471 0.599828 1.42327 0.698856 1.59912 0.874922L6.39957 5.67537C6.54483 5.82067 6.71729 5.93593 6.90711 6.01457C7.09692 6.09321 7.30037 6.13368 7.50583 6.13368C7.71128 6.13368 7.91473 6.09321 8.10454 6.01457C8.29436 5.93593 8.46682 5.82067 8.61208 5.67537L13.4094 0.881179C13.5864 0.710212 13.8235 0.61561 14.0696 0.617748C14.3157 0.619886 14.5511 0.718594 14.7251 0.892612C14.8991 1.06663 14.9978 1.30203 15 1.54812C15.0021 1.79421 14.9075 2.03129 14.7365 2.20831L9.94297 7.0025C9.29707 7.64713 8.42181 8.00917 7.50927 8.00917C6.59673 8.00917 5.72146 7.64713 5.07557 7.0025L0.275117 2.20205C0.143957 2.07098 0.0545616 1.90399 0.0182114 1.72216C-0.0181389 1.54033 0.000185013 1.35181 0.0708704 1.18039C0.141556 1.00896 0.261436 0.862314 0.415381 0.758952C0.569327 0.655589 0.750441 0.600143 0.935867 0.599609Z" fill="#1D1E21" />
-    </svg>
-  </div>
-</div>
-
-             <Link to="/login">
-               <div className=" px-2 mt-2  py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 rounded-[30px] ">
-                Se connecter
-              </div>
-              </Link></div> */}
+         
 
 
           </div>
@@ -5480,9 +5357,9 @@ function Register() {
           {step === 1 && (
             <div className="flex flex-wrap gap-y-4 justify-center content-start items-center self-stretch px-2 sm:px-16  w-full max-md:px-5 max-md:max-w-full">
 
-              <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+              <div className="flex flex-col w-full mt-2 max-w-[1184px] max-md:max-w-full">
 
-                <div className="mt-2 md:text-5xl text-3xl text-center font-bold text-zinc-900 max-md:max-w-full">
+                <div className="mt-2 md:text-5xl text-2xl  text-center font-bold text-zinc-900 max-md:max-w-full">
                   Informations Personelles
                 </div>
                 <div className="flex justify-center items-center px-8 sm:px-16 mt-4 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
@@ -5500,7 +5377,7 @@ function Register() {
                       className="self-center max-w-full rounded-full aspect-square w-[178px]"
                     />
 
-                    <div className="self-center mt-1 text-3xl font-bold text-black whitespace-nowrap">
+                    <div className="self-center mt-1 text-2xl font-bold text-black whitespace-nowrap">
                       Photo de profile
                     </div>
 
@@ -5524,9 +5401,13 @@ function Register() {
 
                   </div>
                 </div>
-                <div className="mt-8 max-md:max-w-full">
-                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                <div className="mt-3 md:mt-8 max-md:max-w-full">
+                  <div className="flex gap-2 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                  
+                  
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+                     
+                     
                       <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
                           <img
@@ -5541,6 +5422,7 @@ function Register() {
                           id="nom"
                           name="nom"
                           value={formData.nom}
+                          style={{ fontSize: '14px' }}
                           onChange={handleInputChange}
                           className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["nom"] ? "is-invalid" : ""
                             }`}
@@ -5571,6 +5453,7 @@ function Register() {
                           value={formData.prenom}
                           id="prenom"
                           name="prenom"
+                          style={{ fontSize: '14px' }}
                           placeholder="Votre Prenom"
                           onChange={handleInputChange}
                         />
@@ -5597,6 +5480,7 @@ function Register() {
                           value={formData.login}
                           id="login"
                           name="login"
+                          style={{ fontSize: '14px' }}
                           className={`form-control flex flex-col justify-center items-start py-3.5 pr-16 pl-4 mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["login"] ? "is-invalid" : ""  // Apply a red border if there's an error
                             }`}
                           placeholder="Votre nom utlisateur"
@@ -5614,7 +5498,7 @@ function Register() {
                 </div>{" "}
                 {/* email */}
                 <div className="mt-8 max-md:max-w-full">
-                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                  <div className="flex gap-2 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
@@ -5630,6 +5514,7 @@ function Register() {
                           value={formData.email}
                           id="email"
                           name="email"
+                          style={{ fontSize: '14px' }}
                           className={`form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["email"] ? "is-invalid" : ""
                             }`}
                           placeholder="Email"
@@ -5704,11 +5589,11 @@ function Register() {
                 </div>{" "}
                 {/* whtsup */}
                 <div className="mt-8 max-md:max-w-full">
-                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                  <div className="flex gap-2 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
 
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
-                        <div className="flex gap-4 justify-between px-4 text-lg">
+                        <div className="flex  gap-4 justify-between px-4 text-lg">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bb22266cd8479023296ff915cc3ee01660f7b93f73a8cf204b02d1f132be75c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -5795,7 +5680,7 @@ function Register() {
                                 justifyContent: "center",
                                 borderRadius: "30px",
                                 width: "125px",
-                                fontSize: "1rem",
+                                fontSize: "14px",
                                 backgroundColor: "#f5f5f5",
                                 borderWidth: "none",
                                 paddingTop: "6px", // Adjust paddingTop to match the desired height
@@ -5864,7 +5749,7 @@ function Register() {
   yearDropdownItemNumber={10}
   maxDate={new Date(2012, 0, 1)}
   placeholderText="Choisi une année "
-  className={`form-control flex flex-col justify-center w-full text-base  border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+  className={`form-control flex flex-col justify-center w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
     inputErrors["date_naissance"] ? "is-invalid" : ""
   }`}
 />
@@ -5892,8 +5777,8 @@ function Register() {
 
 
                 {/* gender */}
-                <div className="mt-8 max-md:max-w-full">
-                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                <div className="mt-2 md:mt-8 max-md:max-w-full">
+                  <div className="flex gap-2 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
 
 
                     <div className="flex flex-col  pr-0 md:pr-6 flex-1">
@@ -5911,7 +5796,7 @@ function Register() {
                             name="gender"
                             value={formData.gender}
                             onChange={handleInputChange}
-                            className={`form-control flex flex-col justify-center pl-3 pt-3 pr-2  py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${inputErrors["gender"] ? "is-invalid" : ""
+                            className={`form-control flex flex-col  justify-center pl-3 pt-3 pr-2  py-1.5 mt-2 w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${inputErrors["gender"] ? "is-invalid" : ""
                               }`}
                           >
                             <option value="">Votre Sexe</option>
@@ -5952,10 +5837,10 @@ function Register() {
                             borderRadius: "30px",
 
                             // width: "230px",
-                            fontSize: "1rem", // Set the desired font size
+                            fontSize: "14px", // Set the desired font size
                             backgroundColor: "#f5f5f5", // Set the background color
                             borderWidth: "none",
-
+                         
 
 
                             paddingTop: "8px",
@@ -6004,8 +5889,7 @@ function Register() {
                             justifyContent: "center",
                             borderRadius: "30px",
 
-                            // width: "230px",
-                            fontSize: "1rem", // Set the desired font size
+                            fontSize: "14px", // Set the desired font size
                             backgroundColor: "#f5f5f5", // Set the background color
                             borderWidth: "none",
 
@@ -6049,16 +5933,16 @@ function Register() {
 
 
                 {/* ville residence  */}
-                <div className="flex gap-4 self-start mr-0 md:mr-2 w-full md:w-[33%] mt-8 text-lg text-zinc-900">
+                <div className="flex gap-2 self-start mr-0 md:mr-2 w-full md:w-[33%] mt-8 text-lg text-zinc-900">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/26bf7a353dc8ba12a2c588e612f061c37dd22cdccf246eec44650d1580269c48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                    className="self-start w-5 aspect-square mt-1"
+                    className="self-start w-5 aspect-square mt-1 ml-5"
                   />{" "}
-                  <div className="flex-auto">Ville de résidence</div>{" "}
+                  <div className="flex">Ville de résidence</div>
                   <div className="grow">(Facultative)</div>
-                </div>{" "}
-                <input
+                 </div>{" "}
+                 <input
                   type="text"
                   name="cityresidence"
                   value={formData.cityresidence}
@@ -6476,23 +6360,17 @@ function Register() {
 
 
 
-                          <select style={{ width: '365px' }} className=" px-2 flex flex-col justify-center px-px py-3.5  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]" onChange={(e) => handleSelection(e.target.value)}>
-                            <option className=" w-full" value="Non">Non</option>
-                            <option value="Oui">Oui</option>
-                          </select>
+                          <select
+    style={{ width: '365px' }}
+    className="px-2 flex flex-col justify-center px-px py-3.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]"
+    onChange={(e) => handleSelection(e.target.value)}
+>
+    <option className="w-full" value="Non">Non</option>
+    <option value="Oui">Oui</option>
+</select>
 
 
-                          {/* <img
-                                  loading="lazy"
-                                  className="w-5 aspect-square"
-                                  onClick={() => handleSelection("Oui")}
-                                /> */}
-
-                          {inputErrors["Licence"] && (
-                            <div className="error-message text-red-600">
-                              {inputErrors["Licence"]}
-                            </div>
-                          )}
+                         
                         </div>
 
                         <div className="flex flex-col self-start">
@@ -6528,6 +6406,7 @@ function Register() {
                                 {File ? File.name : 'Importer une Licence'}
                               </label>
                             </div>)}
+
                           {!isUploadEnabled && (<div>
                             <div style={{ width: '365px' }} className="flex gap-4 justify-center items-center w-full">
                               <div style={{ width: '365px', backgroundColor: '#B3B3B3', fontFamily: 'Sora' }} className={`font-sans w-full flex justify-center gap-2 bg-zinc-100 items-center px-4 py-3.5 rounded-xl `}>
@@ -6536,7 +6415,6 @@ function Register() {
                                   <input
                                     type="file"
                                     name="file"
-                                    disabled
                                     onChange={handleFileChangeLicense}
                                     className={`grow my-auto w-2 inset-0 opacity-0`}
                                   />
@@ -6550,7 +6428,11 @@ function Register() {
                           </div>
                         </div>
                       </div>
-
+ {inputErrors["Licence"] && (
+                            <div className="error-message text-red-600">
+                              {inputErrors["Licence"]}
+                            </div>
+                          )}
                       <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
                         <img
                           loading="lazy"
