@@ -5366,7 +5366,7 @@ skillsscout: yup.string().when('profil', {
     formDataToSubmit.append("file", File || null);
 
     try {
-      const response = await fetch("https://odine-sport.com/api/auth/signup", {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -5477,7 +5477,7 @@ skillsscout: yup.string().when('profil', {
           </div>
          
   <form className="w-full h-full sm:w-full  " onSubmit={handleSubmit}>
-    {step === 1 && (
+  {step === 1 && (
       <div className="flex flex-wrap gap-y-4 justify-center content-start items-center self-stretch px-2 sm:px-16  w-full max-md:px-5 max-md:max-w-full">
         
        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
@@ -5540,9 +5540,11 @@ skillsscout: yup.string().when('profil', {
                           type="text"
                           id="nom"
                           name="nom"
+                          style={{ fontSize: '14px' }} // Set the font size inline
+
                           value={formData.nom}
                           onChange={handleInputChange}
-                          className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                          className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-lg border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
                             inputErrors["nom"] ? "is-invalid" : ""
                           }`}
                           placeholder="Votre Nom"
@@ -5565,8 +5567,9 @@ skillsscout: yup.string().when('profil', {
                           />
                           <div className="grow">Prénom</div>
                         </div>
+                        
                         <input
-                          className={`form-control  justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                          className={`form-control  justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-lg border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
                             inputErrors["prenom"] ? "is-invalid" : ""
                           }`}
                           type="text"
@@ -5575,6 +5578,8 @@ skillsscout: yup.string().when('profil', {
                           name="prenom"
                           placeholder="Votre Prenom"
                           onChange={handleInputChange}
+                          style={{ fontSize: '14px' }} // Set the font size inline
+
                         />
                         {inputErrors["prenom"] && (
                           <div className="invalid-feedback">
@@ -5599,6 +5604,8 @@ skillsscout: yup.string().when('profil', {
             value={formData.login}
             id="login"
             name="login"
+            style={{ fontSize: '14px' }} // Set the font size inline
+           
             className={`form-control flex flex-col justify-center items-start py-3.5 pr-16 pl-4 mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
               inputErrors["login"] ? "is-invalid" : ""  // Apply a red border if there's an error
             }`}
@@ -5735,12 +5742,13 @@ skillsscout: yup.string().when('profil', {
         width: "125px",
         fontSize: "1rem",
         backgroundColor: "#f5f5f5",
+        fontSize: "14px",
         borderWidth: "none",
         paddingTop: "6px", // Adjust paddingTop to match the desired height
         paddingBottom: "6px",
       }),
     }}
-    className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
+    className="flex  py-2.5 border-solid border-[0.5px] rounded-[30px]"
     placeholder="Préfixe"
 
     options={optionsphoneWS}
@@ -5755,6 +5763,8 @@ skillsscout: yup.string().when('profil', {
     onChange={handleChangePhoneNumberWS}
     placeholder={`Enter numero`}
     value={phoneNumberWS.slice(0, selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0)}
+    style={{ fontSize: '14px' }} // Set the font size inline
+
     className={`form-control grow justify-center w-full ml-4 md:ml-0 md:w-full gap-2 mt-1 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${
       inputErrors["numWSup"] ? "is-invalid" : ""
     }`}
@@ -5802,7 +5812,7 @@ skillsscout: yup.string().when('profil', {
           justifyContent: "center",
           borderRadius: "30px",
           width: "125px",
-          fontSize: "1rem",
+          fontSize: "14px",
           backgroundColor: "#f5f5f5",
           borderWidth: "none",
           paddingTop: "6px", // Adjust paddingTop to match the desired height
@@ -5851,26 +5861,33 @@ skillsscout: yup.string().when('profil', {
                           <div className="grow">Année de naissance</div>
                         </div>{" "}
                         <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                          <div className="flex gap-5 justify-between  py-2.5 rounded-md">
-                          <DatePicker
-                              selected={
-                                formData.date_naissance
-                                  ? new Date(formData.date_naissance)
-                                  : null
-                              }
-                              onChange={(date) =>
-                                handleYearChange(date?.getFullYear())
-                              }
-                              dateFormat="yyyy"
-                              showYearPicker
-                              yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
-                              maxDate={new Date(2012, 0, 1)}
-                              className=" bg-zinc-100 ml-4"
-                            />
+                        <DatePicker
+  selected={
+    formData.date_naissance
+      ? new Date(formData.date_naissance)
+      : null
+  }
+  onChange={(date) => {
+    handleYearChange(date?.getFullYear());
+    // Update border color here
+    setInputErrors({
+      ...inputErrors,
+      date_naissance: "" // Clear any existing error
+    });
+  }}
+  dateFormat="yyyy"
+  showYearPicker
+  yearDropdownItemNumber={10}
+  maxDate={new Date(2012, 0, 1)}
+  placeholderText="Choisi une année "
+  className={`form-control flex flex-col justify-center w-full text-base  border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+    inputErrors["date_naissance"] ? "is-invalid" : ""
+  }`}
+/>
+
 
 
                            
-                          </div>
                         </div>{" "}
                         <div className="self-center mt-2 text-zinc-800">
                           Vous devez avoir au moins 13 ans.
@@ -5910,7 +5927,9 @@ skillsscout: yup.string().when('profil', {
                         name="gender"
                         value={formData.gender}
                         onChange={handleInputChange}
-                        className={`form-control flex flex-col justify-center pl-3 pt-3 pr-2  py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+                        style={{ fontSize: '14px' }} // Set the font size inline
+
+                        className={`form-control flex flex-col justify-center pl-3  pr-2  py-2.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
                           inputErrors["gender"] ? "is-invalid" : ""
                         }`}
                       >
@@ -5952,14 +5971,14 @@ skillsscout: yup.string().when('profil', {
                                   borderRadius: "30px",
 
                                   // width: "230px",
-                                  fontSize: "1rem", // Set the desired font size
+                                  fontSize: "14px", // Set the desired font size
                                   backgroundColor: "#f5f5f5", // Set the background color
                                   borderWidth: "none",
 
 
 
-                                  paddingTop: "8px",
-                                  paddingBottom: "8px",
+                                  paddingTop: "6px",
+                                  paddingBottom: "6px",
                                   marginTop: "8px",
                                   width: "100%",
                                  
@@ -6005,14 +6024,14 @@ skillsscout: yup.string().when('profil', {
                                   borderRadius: "30px",
 
                                   // width: "230px",
-                                  fontSize: "1rem", // Set the desired font size
+                                  fontSize: "14px", // Set the desired font size
                                   backgroundColor: "#f5f5f5", // Set the background color
                                   borderWidth: "none",
 
 
 
-                                  paddingTop: "8px",
-                                  paddingBottom: "8px",
+                                  paddingTop: "6px",
+                                  paddingBottom: "6px",
                                   marginTop: "8px",
                                   width: "100%",
                                  

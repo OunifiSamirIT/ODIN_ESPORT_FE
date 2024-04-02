@@ -1020,33 +1020,6 @@ function Home() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <div className="main-content right-chat-active bg-zinc-100">
         <div className="middle-sidebar-bottom">
           <div className="middle-sidebar-left">

@@ -962,33 +962,33 @@ function Demo() {
                     <ToastContainer />
                   </div>
                   <form onSubmit={handleSubmit} className="flex flex-col">
-                    <label htmlFor="nomPrenom">Nom et Prénom</label>
+                    <label htmlFor="nomPrenom" className="mt-6">Nom et Prénom</label>
                     <input
                       type="text"
                       id="nomPrenom"
                       name="nomPrenom"
                       value={formData.nomPrenom}
                       onChange={handleChange}
-                      className="justify-center items-start py-2 pr-16 pl-4 mt-4 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:pr-5"
+                      className="justify-center items-start py-2 pr-16 pl-4 mt-2 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:pr-5"
                       required
                     />
-                    <label htmlFor="emailuser">Email</label>
+                    <label htmlFor="emailuser" className="mt-2">Email</label>
                     <input
                       type="email"
                       id="emailuser"
                       name="emailuser"
                       value={formData.emailuser}
                       onChange={handleChange}
-                      className="justify-center items-start py-2 pr-16 pl-4 mt-4 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:pr-5"
+                      className="justify-center items-start py-2 pr-16 pl-4 mt-2 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:pr-5"
                       required
                     />
-                    <label htmlFor="message">Message</label>
+                    <label htmlFor="message" className="mt-2">Message</label>
                     <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      className="items-start pt-6 pr-16 pb-20 pl-6 mt-4 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:px-5"
+                      className="items-start pt-6 pr-16 pb-20 pl-6 mt-2 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:px-5"
                       required
                     />
                     <button
