@@ -8470,7 +8470,7 @@ function Register() {
                                   </div>
                                 )}
 
-                              {formData.profession === "Médecinb d'équipe" && (
+                              {formData.profession === "Médecin d'équipe" && (
                                 <div className="form-group icon-input mb-3 flex flex-wrap">
                                   {[
                                     "Diagnostic des blessures",
