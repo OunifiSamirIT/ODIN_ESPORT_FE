@@ -104,14 +104,15 @@ const Index = () => {
 
   useEffect(() => {
     setArticleWithPhoto(articles.filter((item) => {
-      return item.image !== null && item.userId === id
+      return item.image !== null && item.userId == id
     }))
+    console.log(articles)
 
     setArticleWithVideo(articles.filter((item) => {
       return item.video !== null && item.userId === id
     }))
 
-  }, [profileFeed, articles])
+  }, [profileFeed])
   const toggleActive = () => setIsActive(!isActive);
 
   const emojiClass = `${isActive ? "active" : ""}`;

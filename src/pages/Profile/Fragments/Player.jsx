@@ -244,7 +244,7 @@ const PlayerCard = ({ userInfo }) => {
         </div>
         <div className="flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
-          {userInfo?.player.skillsInProfile.split(',').filter(item => item.trim() !== '').map((item, index) => {
+          {userInfo?.player?.skillsInProfile.split(',').filter(item => item.trim() !== '').map((item, index) => {
             return (<div key={index} className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
               {item}
             </div>)
