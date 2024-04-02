@@ -189,7 +189,7 @@ const Experience = () => {
                 setValue('niveau',)
                 setValue('startDate',)
                 setValue('endDate',)
-                toast.success('Votre Experience a ete modifier', {
+                toast.success('Vos modifications ont été enregistrées !', {
                     position: "top-right",
                     autoClose: 5000,
                     type: 'success',

@@ -104,7 +104,7 @@ const Parametre = ({ userInfo }) => {
       }
     ).then((r) => {
       if (r.status === 200) {
-        toast.success('User profile updated successfully', {
+        toast.success('Vos modifications ont été enregistrées !', {
           position: "top-right",
           autoClose: 5000,
           type: 'success',

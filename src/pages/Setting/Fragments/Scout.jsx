@@ -78,19 +78,20 @@ const Scout = ({ userInfo }) => {
     };
 
     const skillsList = [
-        "Connaissance approfondie du sport",
         "Analyse tactique",
-        "Compétences de communication",
+        "Connaissance approfondie du sport",
         "Réseautage",
         "Observation",
         "Analyse des données",
-        "Éthique professionnelle",
+        "Compétence en communication",
         "Connaissance des marchés",
-        "Adaptabilité",
         "Rapports détaillés",
-        "Évaluation psychologique",
         "Gestion du temps",
-        "Compétences informatiques"
+        "Éthique professionnelle",
+        "Compétences informatiques",
+        "Adaptabilité",
+        "Évaluation psychologique",
+    
     ];
     const regionOptions = Array.from(new Set(paysAllInfo.map(country => country.region))).map(region => ({
         value: region,
