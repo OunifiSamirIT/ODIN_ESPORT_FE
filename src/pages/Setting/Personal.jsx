@@ -666,7 +666,7 @@ const Personal = ({ userInfo }) => {
                 <div className="grow">Nationalité</div>
               </div>{" "}
               <div className={`flex flex-col justify-center py-1.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.nationality ? 'border !border-red-500' : ''}`}>
-                <div className="flex gap-5 justify-between px-4  w-full rounded-md">
+                <div className="flex gap-5 justify-between px-2  w-full rounded-md">
                   <div className={`flex gap-5 justify-between w-full`} >
 
                     <Controller
@@ -722,7 +722,7 @@ const Personal = ({ userInfo }) => {
                 <div className="grow">Pays de résidence</div>
               </div>{" "}
               <div className={`flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.country ? 'border !border-red-500' : ''}`}>
-                <div className="flex gap-5 justify-between px-4  w-full rounded-md">
+                <div className="flex gap-5 justify-between px-2  w-full rounded-md">
                   <div className="flex gap-4 justify-between w-full">
                     <div className="flex-auto">
                       <Controller
