@@ -5649,7 +5649,7 @@ function Register() {
                             onChange={handleChangephoneWS}
 
                           />
-                          <div style={{ position: "relative", marginTop: "5px", width: "200px" }}>
+                          <div style={{ position: "relative", marginTop: "5px", width: "230px" }}>
                             <input
                               type="number"
                               max={selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0}
