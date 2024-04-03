@@ -72,9 +72,9 @@ function Header() {
     <>
       <div className={`w-full bg-white fixed mb-20 z-50 shadow-xs ${Hamburger ? 'fixed top-0 h-screen overflow-hidden z-50' : ''}`}>
       <div className="flex ">  <div className="max-sm:px-4 max-w-[1200px] h-[80px] w-full bg-white  border-0 flex items-center justify-between mx-auto py-2 ">
-         <div className="flex flex-row">
-           <Link to="/home" className="mt-3">
-            <svg width="209" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <div className="flex flex-row ">
+           <Link to="/" className="mt-3  ">
+            <svg width="209" height="53" className="md:w-[100%] w-[80%]" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_983_61844)">
                 <path d="M66.8102 14.0668V52.3118H40.5283L38.1046 47.5324L35.7149 42.7481L33.3204 37.9687L30.9307 33.1893L33.3204 28.4099L35.7149 23.6256L38.1046 18.8656L40.5283 14.0668H66.8102ZM42.9034 18.8656L40.5283 23.6256L38.1046 28.4099L35.7149 33.1893L38.1046 37.9687L40.4943 42.7481L42.884 47.5324H62.0066V18.8656H42.9034Z" fill="#2E71EB" />
                 <path d="M26.2965 14.0668L28.6862 18.8462L31.0759 23.6256L33.4656 28.4099L35.8601 33.1893L33.4656 37.9687L31.0759 42.7481L28.6862 47.5324L26.2965 52.3118H0V14.0668H26.2965ZM4.78426 18.8656V47.5518H23.9068L26.2965 42.7675L28.6862 37.9881L31.0759 33.2087L28.6862 28.4292L26.2965 23.645L23.9068 18.8656H4.78426Z" fill="#2E71EB" />
