@@ -358,7 +358,7 @@ const Index = () => {
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/byUser/${id}`);
       const result = await response.json();
-       
+
       const reversedArticles = result.rows.reverse();
       const articlesWithLikesCount = [];
 
@@ -794,11 +794,10 @@ const Index = () => {
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
-        {owner && <div className="mt-4 card w-100 shadow-xss rounded-[10px]   border-0 ps-4 pt-4 pe-4 pb-3">
-          <div className="card-body p-0 position-relative">
-
+        {owner && <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3">
+          <div className="card-body p-2 position-relative">
             {previewImage && (
-              <div className="mt-3">
+              <div className="mb-3">
                 <img
                   src={previewImage}
                   alt="Preview"
@@ -823,7 +822,7 @@ const Index = () => {
                   <img
                     src={LocalStorageID?.image}
                     alt="icon"
-                    className="shadow-sm rounded-full  w-16 h-14 mr-2"
+                    className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                   />
                   {/* <label>{storedUserData.login}</label> */}
                   <div className="flex flex-col w-full gap-y-4">
@@ -834,9 +833,6 @@ const Index = () => {
                       // styles="w-full rounded-full py-5 text-bl"
                       // placeholder="Show your Skills here , your dream begin from here...."
                       name="description"
-                      register={register("description", {
-                        required: "Write something about post",
-                      })}
                       error={
                         errors.description
                           ? errors.description.message
@@ -871,8 +867,8 @@ const Index = () => {
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="aspect-square w-[25px]"
-                          />                         
-                           <span className="d-none-xs ml-2">Photo</span>
+                          />
+                          <span className="d-none-xs ml-2">Photo</span>
                         </label>
 
                         <label
@@ -939,24 +935,33 @@ const Index = () => {
                   key={article.id}
                   className="card w-100 shadow-xss flex rounded-xxl border-0 p-4 mb-3"
                 >
-                  <div className="card-body p-0 d-flex items-center mb-3">
+                  <div className="card-body p-0 d-flex mb-3">
                     <figure className="avatar me-3">
                       <img
                         src={article.user.user.image ? article.user.user.image : PlaceHolder}
-                        className="shadow-sm rounded-full  w-10 h-10"
+                        className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                         alt="post"
                       />{" "}
                     </figure>
-
-                    <h4 className="flex flex-col fw-700 text-grey-900 font-xssss mt-1">
-                      {article.user.user.nom}
+                    <div className="flex flex-col">
+                      <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
                       <span className="d-block font-xssss fw-500 text-grey-500">
                         {article.user.user.profil}
                       </span>
                       <span className="d-block font-xssss fw-500 text-grey-500">
                         {new Date(article.user.user.createdAt).toLocaleDateString()}
                       </span>
-                    </h4>
+                    </div>
+
+                    {/* <h4 className="">
+                      
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {article.user.user.profil}
+                      </span>
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {new Date(article.user.user.createdAt).toLocaleDateString()}
+                      </span>
+                    </h4> */}
                     <div className="ms-auto relative">
                       <svg onClick={() => handleMoreClick(article)} width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z" fill="#1D1E21" />
@@ -993,7 +998,7 @@ const Index = () => {
                   </div>
                   <div className="card-body p-0 me-lg-5">
                     <p className="font-light text-base rounded-md  w-full text-dark theme-dark-bg text-pretty">
-                      {article.description}
+                      {article.description !== 'undefined' ? article.description : ''}
                     </p>
                   </div>
 
@@ -1002,7 +1007,7 @@ const Index = () => {
 
 
                   {article.video && (
-                    <div className="card-body d-block p-0 mb-3">
+                    <div className="card-body d-block p-0">
                       <div className="row ps-2 pe-2">
                         <div className="col-sm-12 p-1">
                           <div className="card-body p-0 mb-3  overflow-hidden uttam-die">
@@ -1021,7 +1026,7 @@ const Index = () => {
                   )}
                   {article.image && (
                     (
-                      <div className="card-body d-block p-0 mb-3">
+                      <div className="card-body d-block p-0">
                         <div className="row ps-2 pe-2">
                           <div className="col-sm-12 p-1">
                             <img
@@ -1037,7 +1042,27 @@ const Index = () => {
 
 
                   <div className="  rounded-lg">
-                    <span className="flex justify-between text-sm  items-center mb-3 ml-0 p-0 font-bold w-full">
+                    <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
+                      <div className="flex gap-2.5 items-center justify-center py-2.5">
+                        <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11.7267 0C10.9723 0.0117335 10.2344 0.222313 9.58752 0.610472C8.94058 0.998631 8.40753 1.55062 8.04219 2.21071C7.67684 1.55062 7.14379 0.998631 6.49686 0.610472C5.84993 0.222313 5.11203 0.0117335 4.35767 0C3.15514 0.0522469 2.02216 0.578304 1.20626 1.46324C0.390358 2.34818 -0.0421438 3.52007 0.00324311 4.72288C0.00324311 9.26153 7.3428 14.5036 7.65498 14.726L8.04219 15L8.4294 14.726C8.74158 14.5049 16.0811 9.26153 16.0811 4.72288C16.1265 3.52007 15.694 2.34818 14.8781 1.46324C14.0622 0.578304 12.9292 0.0522469 11.7267 0Z" fill="#65676B" />
+                        </svg>
+                        <span className="text-md py-1">
+                          {article.likesCount}
+                        </span>
+                      </div>
+                      <div className="flex gap-2.5 items-center justify-center py-2.5">
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12.2974 1.72552C11.5056 1.06664 10.586 0.578896 9.5964 0.29302C8.6068 0.00714375 7.56872 -0.0706678 6.54756 0.0644883C4.65848 0.309904 2.9336 1.26506 1.72316 2.73601C0.512716 4.20696 -0.0925499 6.08345 0.0302592 7.98444C0.153068 9.88544 0.994746 11.6684 2.38439 12.9714C3.77403 14.2744 5.60748 14.9997 7.51244 15H11.8756C12.704 14.999 13.4982 14.6695 14.0839 14.0837C14.6697 13.498 14.9992 12.7038 15.0002 11.8754V7.06918V7.02981C14.934 6.00835 14.6602 5.01111 14.1955 4.09908C13.7308 3.18706 13.0849 2.3794 12.2974 1.72552ZM5.00152 4.37641H7.50119C7.66693 4.37641 7.82588 4.44225 7.94307 4.55945C8.06026 4.67664 8.1261 4.83559 8.1261 5.00133C8.1261 5.16707 8.06026 5.32602 7.94307 5.44321C7.82588 5.56041 7.66693 5.62625 7.50119 5.62625H5.00152C4.83578 5.62625 4.67683 5.56041 4.55964 5.44321C4.44244 5.32602 4.3766 5.16707 4.3766 5.00133C4.3766 4.83559 4.44244 4.67664 4.55964 4.55945C4.67683 4.44225 4.83578 4.37641 5.00152 4.37641ZM10.0009 10.6256H5.00152C4.83578 10.6256 4.67683 10.5597 4.55964 10.4425C4.44244 10.3254 4.3766 10.1664 4.3766 10.0007C4.3766 9.83493 4.44244 9.67598 4.55964 9.55878C4.67683 9.44159 4.83578 9.37575 5.00152 9.37575H10.0009C10.1666 9.37575 10.3255 9.44159 10.4427 9.55878C10.5599 9.67598 10.6258 9.83493 10.6258 10.0007C10.6258 10.1664 10.5599 10.3254 10.4427 10.4425C10.3255 10.5597 10.1666 10.6256 10.0009 10.6256ZM10.0009 8.12591H5.00152C4.83578 8.12591 4.67683 8.06008 4.55964 7.94288C4.44244 7.82569 4.3766 7.66674 4.3766 7.501C4.3766 7.33526 4.44244 7.17631 4.55964 7.05912C4.67683 6.94192 4.83578 6.87608 5.00152 6.87608H10.0009C10.1666 6.87608 10.3255 6.94192 10.4427 7.05912C10.5599 7.17631 10.6258 7.33526 10.6258 7.501C10.6258 7.66674 10.5599 7.82569 10.4427 7.94288C10.3255 8.06008 10.1666 8.12591 10.0009 8.12591Z" fill="#65676B" />
+                        </svg>
+                        <span className="text-md py-1">
+                        {article.commentsCount}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
+
+                    <span className="flex  justify-between text-sm  items-center  ml-0 p-0 font-bold w-full">
                       <button
                         className="flex gap-2"
                         onClick={() => {
@@ -1053,10 +1078,6 @@ const Index = () => {
                           <span style={{ marginLeft: '1px', marginTop: '2px' }}>Jaime</span>
                         </span>
                       </button>{" "}
-                      <span className="ml-0 p-0 font-bold ml-2 mt-1">
-                        {article.likesCount} {article.likesCount === 1 ? "" : ""}{" "}
-                      </span>
-
                       <button
                         onClick={() => {
                           if (selectedArticleId === article.id) {
@@ -1090,8 +1111,6 @@ const Index = () => {
                           </div>
                         )}
                       </button>
-
-                      {article.commentsCount} {article.commentsCount === 1 ? "" : ""}
 
                       <button
                         onClick={() => {
