@@ -381,7 +381,7 @@ const Parametre = ({ userInfo }) => {
         <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid bg-zinc-100 border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full">
           {userInfo?.user.email}
         </div>
-        <div className="flex gap-4 justify-between px-4 mt-6 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+        {/* <div className="flex gap-4 justify-between px-4 mt-6 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/948c756af05f9aea12c0006315a48a0862850f46651f81448082c23d1eb93da2?"
@@ -391,7 +391,7 @@ const Parametre = ({ userInfo }) => {
         </div>
         <button onClick={() => {setIsEmailOpen(true) ; setStep0(true)}} className="justify-center text-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5 max-md:max-w-full">
           Ajouter un autre email
-        </button>
+        </button> */}
         <div className="flex gap-4 justify-between px-4 mt-6 max-md:flex-wrap max-md:max-w-full">
           <img
             loading="lazy"
@@ -400,7 +400,7 @@ const Parametre = ({ userInfo }) => {
           />
           <div className="grow max-md:max-w-full">Mot de passe</div>
         </div>
-        <button onClick={() => setIsPasswordOpen(true)} className="justify-center text-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5 max-md:max-w-full">
+        <button onClick={() => setIsPasswordOpen(true)} className="justify-center text-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border !border-blue-500  rounded-[30px] max-md:px-5 max-md:max-w-full">
           Changer votre mot de passe
         </button>
       </div>
