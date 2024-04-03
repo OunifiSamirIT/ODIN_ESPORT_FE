@@ -50,7 +50,7 @@ function Home() {
   } = useForm();
 
   const [file, setFile] = useState(null);
-  const [fileType, setFileType] = useState("");
+  const [fileType, setFileType] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [posting, setPosting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
