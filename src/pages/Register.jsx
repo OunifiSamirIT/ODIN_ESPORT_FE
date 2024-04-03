@@ -5946,7 +5946,7 @@ function Register() {
                   type="text"
                   name="cityresidence"
                   value={formData.cityresidence}
-                  className={` form-control justify-center items-start py-2.5 pr-0 w-full md:pr-2  mt-2 max-w-full text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 md:w-[30%]  ${inputErrors["cityresidence"] ? "is-invalid" : ""
+                  className={` form-control justify-center items-start py-2.5 pr-0 w-full md:pr-2  mt-2 max-w-full text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 md:w-[32%]  ${inputErrors["cityresidence"] ? "is-invalid" : ""
                     }`}
                   placeholder="Ville"
                   onChange={handleInputChange}
@@ -5986,7 +5986,7 @@ function Register() {
               <div className="mt-6 text-3xl text-center font-bold text-zinc-900 max-md:max-w-full sm:text-3xl sm:text-center xs:text-2xl">
                 Choisissez Le Type de Profil
               </div>
-              <div className="flex justify-center items-center px-6 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full sm:px-2 xs:px-2">
+              <div className="flex justify-center items-center px-6 mt-3 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full sm:px-2 xs:px-2">
                 <div className="flex gap-2 justify-between">
                   <div className="h-2 bg-blue-300 rounded-md w-[40px] sm:w-[77px]" />
                   <div className="h-2 bg-blue-600 rounded-md w-[90px] sm:w-[178px]" />
@@ -5994,15 +5994,14 @@ function Register() {
                 </div>
               </div>
 
-              <div className="flex gap-5 justify-between mt-8 w-full max-w-[1184px] max-md:flex-wrap max-md:max-w-full"></div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 ">
                 {profilesData.map((data, index) => (
                   <div
                     key={data.profile}
                     className={`max-w-full ${index === profilesData.length - 1 ? 'md:col-span-2  md:flex md:justify-center  ' : ''}`}
-                  >                    <div className="justify-center mt-8 mx-2 sm:mx-0 max-w-full md:mx-6">
-                      <div className="flex flex-col sm:flex-row gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                  >                    <div className="justify-center mt-4 mx-2 sm:mx-0 max-w-full md:mx-6">
+                      <div className="flex flex-col sm:flex-row gap-4 max-md:flex-col max-md:gap-0 max-md:">
                         <div className="flex w-full">
                           <div className="flex flex-col max-md:ml-0 max-md:w-full">
                             <img
@@ -6050,7 +6049,7 @@ function Register() {
                               )}
                               {data.profile === "scout" && (
                                 <React.Fragment>
-                                  Scout<span className="invisible">xxxxx</span>
+                                  Scout<span className="invisible">xxxx</span>
                                 </React.Fragment>
                               )}
                               {data.profile === "other" && (
@@ -6071,6 +6070,7 @@ function Register() {
                   </div>
                 )}
               </div>
+
               <div className="flex flex-wrap justify-center content-start items-center self-stretch px-16 mt-8 w-full text-base font-medium whitespace-nowrap gap-y-[768px] max-md:px-5 max-md:max-w-full">
                 <div className="flex gap-5 justify-between w-full max-w-[1192px] max-md:flex-wrap max-md:max-w-full">
                   <button
