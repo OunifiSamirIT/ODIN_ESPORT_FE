@@ -54,7 +54,7 @@ const PlayerCard = ({ userInfo }) => {
   //   paysAllInfo.map()
   // }
   const getCountryFlagFromCountryName = (countryName) => {
-    const country = paysAllInfo.find(country => country.name.toLowerCase() === countryName.toLowerCase());
+    const country = paysAllInfo.find(country => country.name == countryName);
     return country ? country.iso["alpha-2"].toLowerCase() : null;
   }
 
@@ -175,7 +175,7 @@ const PlayerCard = ({ userInfo }) => {
             </div>
           </div>
         </div>
-        <div className="md:ml-[125px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between flex-wrap text-sm">
+        <div className="md:gap-16 md:ml-[125px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between flex-wrap text-sm">
           <div className="flex gap-2 justify-between items-center py-2">
             <img
               loading="lazy"

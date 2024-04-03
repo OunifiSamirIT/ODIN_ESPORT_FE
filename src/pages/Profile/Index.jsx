@@ -58,7 +58,7 @@ const Index = () => {
     SetProfileFeed(data)
   }
   const [file, setFile] = useState(null);
-  const [fileType, setFileType] = useState("");
+  const [fileType, setFileType] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [posting, setPosting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -356,9 +356,9 @@ const Index = () => {
 
   const fetchArticles = async () => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/byUser/${id}`);
       const result = await response.json();
-
+       
       const reversedArticles = result.rows.reverse();
       const articlesWithLikesCount = [];
 
@@ -391,9 +391,7 @@ const Index = () => {
 
         articlesWithLikesCount.push(articleWithLikesCount);
       }
-
       setArticles(articlesWithLikesCount);
-      console.log("articles : ", articlesWithLikesCount);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -543,9 +541,6 @@ const Index = () => {
     }
   };
   const [galleryItems, setGalleryItems] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [imageFeed, setImageFeed] = useState([]);
-  const [videoFeed, setVideoFeed] = useState([]);
 
   useEffect(() => {
     if (id) {
@@ -876,7 +871,8 @@ const Index = () => {
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="aspect-square w-[25px]"
-                          />                          <span className="d-none-xs ml-2">Photo</span>
+                          />                         
+                           <span className="d-none-xs ml-2">Photo</span>
                         </label>
 
                         <label
@@ -922,7 +918,7 @@ const Index = () => {
                         ) : (
                           <CustomButton
                             type="submit"
-                            title="Post"
+                            title="Publier"
                             containerStyles="bg-blue-600 text-white mt-1 py-1 px-10 rounded-full font-semibold text-sm"
                           />
                         )}
@@ -938,7 +934,7 @@ const Index = () => {
         {profileFeed === 'pubs' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8">
           <div>
             <div>
-              {articles.length > 0 ? articles.map((article) => (
+              {articles ? articles.map((article) => (
                 <div
                   key={article.id}
                   className="card w-100 shadow-xss flex rounded-xxl border-0 p-4 mb-3"
@@ -1041,7 +1037,7 @@ const Index = () => {
 
 
                   <div className="  rounded-lg">
-                    <span className="flex justify-between items-center mb-3 ml-0 p-0 font-bold w-full">
+                    <span className="flex justify-between text-sm  items-center mb-3 ml-0 p-0 font-bold w-full">
                       <button
                         className="flex gap-2"
                         onClick={() => {
@@ -1320,7 +1316,7 @@ const Index = () => {
                   <div className="card-body p-0 d-flex">
                     <figure className="avatar me-3">
                       <img
-                        src={article.user?.user.image}
+                        src={article.user.user.image ? article.user.user.image : PlaceHolder}
                         className="shadow-sm rounded-full  w-10 h-10"
                         alt="post"
                       />{" "}

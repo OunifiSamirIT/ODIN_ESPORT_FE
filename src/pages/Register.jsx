@@ -4523,7 +4523,7 @@ function Register() {
 
 
   const getCombinedPrefix = (whatsAppPrefix, telephonePrefix) => {
-    return `${whatsAppPrefix} , ${telephonePrefix}`;
+    return `${whatsAppPrefix},${telephonePrefix}`;
   };
 
   const [selectedCountryphone, setSelectedCountryphone] = useState(null);
