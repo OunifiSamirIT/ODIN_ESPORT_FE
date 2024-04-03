@@ -115,21 +115,21 @@ const Player = ({ userInfo }) => {
 
     const licence = watch('licence');
     const skillsList = [
-        "Rapidité",
+        "Rapidite",
         "Tacle",
-        "Défense",
-        "Tir de loin",
-        "Jeu en une touche",
-        "Rapidité de la prise de décision",
+        "Defence",
+        "Tirs de loin",
+        "jeu en une touche",
+        "Rapidite de la prise de désicion",
         "Frappe puissante",
         "Agilité",
-        "Contrôle du ballon",
+        "Controller du Ballon",
         "Dribble",
         "Exploitation de l'espace",
-        "Évaluation des risques sur le terrain",
+        "Evaluation des risques sur les terrain",
         "Endurance",
-        "Équilibre et coordination",
-        "Auto-Motivation"
+        "Equilibre et Coordination",
+        "Auto-Motivation",
     ];
    
     const resetForm = async (data) => {
@@ -169,7 +169,7 @@ const Player = ({ userInfo }) => {
                 }
             ).then((r)=> {
                 if(r.status === 200) {
-                  toast.success('Information du joueur sont changé', {
+                  toast.success('Vos modifications ont été enregistrées !', {
                     position: "top-right",
                     autoClose: 5000,
                     type: 'success',
@@ -369,11 +369,11 @@ const Player = ({ userInfo }) => {
                                 <option value="Milieu défensif (CDM)">
                                     Milieu défensif (CDM)
                                 </option>
-                                <option value="Milieu central ( CM)">
-                                    Milieu central ( CM)
+                                <option value="Milieu central (CM)">
+                                Milieu central (CM)
                                 </option>
-                                <option value="Milieu offensif ( CAM)">
-                                    Milieu offensif ( CAM)
+                                <option value="Milieu offensif (MO)">
+                                   Milieu offensif (MO)
                                 </option>
                                 <option value="Ailier droit (RW)">
                                     Ailier droit (RW)
@@ -410,7 +410,7 @@ const Player = ({ userInfo }) => {
                                 name="positionSecond"
                                 className={`w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 }`}
                             >
-                                <option value="" disabled>
+                                                                <option value="" disabled>
                                     Position Secondaire
                                 </option>
                                 <option value="Gardien de but (GK)">
@@ -428,11 +428,11 @@ const Player = ({ userInfo }) => {
                                 <option value="Milieu défensif (CDM)">
                                     Milieu défensif (CDM)
                                 </option>
-                                <option value="Milieu central ( CM)">
-                                    Milieu central ( CM)
+                                <option value="Milieu central (CM)">
+                                Milieu central (CM)
                                 </option>
-                                <option value="Milieu offensif ( CAM)">
-                                    Milieu offensif ( CAM)
+                                <option value="Milieu offensif (MO)">
+                                   Milieu offensif (MO)
                                 </option>
                                 <option value="Ailier droit (RW)">
                                     Ailier droit (RW)

@@ -189,7 +189,7 @@ const Personal = ({ userInfo }) => {
       }
     ).then((r) => {
       if (r.status === 200) {
-        toast.success('User profile updated successfully', {
+        toast.success('Vos modifications ont été enregistrées !', {
           position: "top-right",
           autoClose: 5000,
           type: 'success',
@@ -282,7 +282,7 @@ const Personal = ({ userInfo }) => {
       </div>
       <div className="flex flex-col flex-wrap grow gap-y-6 justify-between w-full bg-white rounded-xl">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start  w-full bg-white rounded-xl ">
-          <div className="flex gap-5 flex-col sm:flex-row max-md:flex-col max-md:gap-0 w-full">
+          <div className="flex gap-2 flex-col sm:flex-row  justify-center max-md:flex-col max-md:gap-0 w-full">
             <div className="flex flex-col w-full sm:items-center sm:w-[36%] max-md:ml-0 max-md:w-full justify-center items-center">
               <label className="rounded-full border-2 aspect-square w-full max-w-[178px] max-md:mt-10">
 
@@ -304,7 +304,7 @@ const Personal = ({ userInfo }) => {
               </label>
             </div>
 
-            <div className="flex flex-col ml-0 sm:ml-5 w-full sm:w-[64%] max-md:ml-0 max-md:w-full justify-center items-center text-center">
+            <div className="flex flex-col ml-0 sm:ml-5 w-fit max-md:ml-0 max-md:w-full justify-center items-center text-center">
               <div className="flex flex-col self-stretch my-auto max-md:mt-10">
                 <div className="text-3xl font-bold text-black">
                   Photo de profile
@@ -666,7 +666,7 @@ const Personal = ({ userInfo }) => {
                 <div className="grow">Nationalité</div>
               </div>{" "}
               <div className={`flex flex-col justify-center py-1.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.nationality ? 'border !border-red-500' : ''}`}>
-                <div className="flex gap-5 justify-between px-4  w-full rounded-md">
+                <div className="flex gap-5 justify-between px-2  w-full rounded-md">
                   <div className={`flex gap-5 justify-between w-full`} >
 
                     <Controller
@@ -722,7 +722,7 @@ const Personal = ({ userInfo }) => {
                 <div className="grow">Pays de résidence</div>
               </div>{" "}
               <div className={`flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.country ? 'border !border-red-500' : ''}`}>
-                <div className="flex gap-5 justify-between px-4  w-full rounded-md">
+                <div className="flex gap-5 justify-between px-2  w-full rounded-md">
                   <div className="flex gap-4 justify-between w-full">
                     <div className="flex-auto">
                       <Controller

@@ -37,7 +37,7 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
                             <a href={`/setting/information`} className="mt-4 text-left">Informations du Profil</a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
-                            <a href={`/setting/experience`} className="mt-4 text-left">Experiences</a>
+                            {storedUserData.profil == 'player' && <a href={`/setting/experience`} className="mt-4 text-left">Experiences</a>}
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
                             <a href={`/setting/parametre`} className="mt-4 text-left">Paramètres du compte</a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
@@ -55,7 +55,7 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                     </div>
                 </div>
 
-                <div className="flex w-full flex-col flex-wrap gap-y-2 justify-between max-md:mt-3   px-4 bg-white rounded-[10px] max-md:pl-5 max-md:max-w-full">
+                <div className="flex w-full flex-col flex-wrap gap-y-2 justify- max-md:mt-3   px-4 bg-white rounded-[10px] max-md:pl-5 max-md:max-w-full">
                     {children}
                 </div>
 

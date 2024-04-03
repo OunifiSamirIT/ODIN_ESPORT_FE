@@ -12,8 +12,8 @@ const Experience = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [update, setUpdate] = useState(false)
     const ref = useRef(null);
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
     const [experience, setExperience] = useState([]);
     const [expID, setExpID] = useState();
     const parseToDate = (dateString) => {
@@ -189,7 +189,7 @@ const Experience = () => {
                 setValue('niveau',)
                 setValue('startDate',)
                 setValue('endDate',)
-                toast.success('Votre Experience a ete modifier', {
+                toast.success('Vos modifications ont été enregistrées !', {
                     position: "top-right",
                     autoClose: 5000,
                     type: 'success',
@@ -363,7 +363,7 @@ const Experience = () => {
                                         <div className="grow text-lg">Club/Académie</div>
                                     </div>
                                     <div className="relative">
-                                        <input {...register('club')} name='club' type='text' placeholder="Espérance Sportive de Tunis" className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid border-1 !border-red-500' : '' }`} />
+                                        <input {...register('club')} name='club' type='text' placeholder="Real Madrid CF" className={`text-grey-900 placeholder-zinc-400 form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid border-1 !border-red-500' : '' }`} />
                                         {errors.club && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
                                     </div>
                                 </div>
@@ -383,7 +383,7 @@ const Experience = () => {
                                         <div className="grow text-lg">Niveau</div>
                                     </div>
                                     <div className="relative">
-                                        <select {...register('niveau')} name='niveau' type='text' placeholder="Senior" className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.niveau ? 'is-invalid border-1 !border-red-500' : '' }`}>
+                                        <select {...register('niveau')} name='niveau' type='text' placeholder="Senior" className={`text-grey-900 placeholder-zinc-400 form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.niveau ? 'is-invalid border-1 !border-red-500' : '' }`}>
                                             <option value="seniors">Seniors</option>
                                             <option value="cadets">Cadets</option>
                                             <option value="minimes">Minimes </option>
@@ -416,7 +416,7 @@ const Experience = () => {
                                         <div className="grow text-lg">Date de début</div>
                                     </div>
                                     <div className="w-full">
-                                        <DatePicker placeholderText="fkgf" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.startDate ? 'is-invalid border-1 !border-red-500' : '' }`} selected={startDate} dateFormat="MM/yyyy" onChange={(date) => { setValue('startDate', date); setStartDate(date) }} />
+                                        <DatePicker placeholderText="Choisir date de début" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.startDate ? 'is-invalid border-1 !border-red-500' : '' }`} selected={startDate} dateFormat="MM/yyyy" onChange={(date) => { setValue('startDate', date); setStartDate(date) }} />
                                     </div>
                                     {errors.startDate && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
                                 </div>
@@ -429,7 +429,7 @@ const Experience = () => {
                                         <div className="grow text-lg">Date de fin</div>
                                     </div>
                                     <div className="w-full">
-                                        <DatePicker showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.endDate ? 'is-invalid border-1 !border-red-500' : '' } `} selected={endDate} dateFormat={'MM/yyyy'} onChange={(date) => { setValue('endDate', date); setEndDate(date) }} />
+                                        <DatePicker placeholderText="Choisir date fin" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.endDate ? 'is-invalid border-1 !border-red-500' : '' } `} selected={endDate} dateFormat={'MM/yyyy'} onChange={(date) => { setValue('endDate', date); setEndDate(date) }} />
                                     </div>
                                     {errors.endDate && <span className="invalid-feedback block py-2 px-2">{errors.endDate?.message}</span>}
                                 </div>

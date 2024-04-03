@@ -33,8 +33,12 @@
     "react-search-autocomplete": "^8.5.2",
     "react-select": "^5.8.0",
     "react-slick": "^0.29.0",
+<<<<<<< HEAD
     "react-toastify": "^10.0.4",
     "sass": "^1.70.0",
+=======
+    "react-toastify": "^10.0.5",
+>>>>>>> a207b53f610b7ae754ebe0188dfccce740503e95
     "slick-carousel": "^1.8.1",
     "uuid": "^9.0.1",
     "web-vitals": "^3.5.1",
