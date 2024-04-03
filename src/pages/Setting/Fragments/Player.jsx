@@ -369,11 +369,11 @@ const Player = ({ userInfo }) => {
                                 <option value="Milieu défensif (CDM)">
                                     Milieu défensif (CDM)
                                 </option>
-                                <option value="Milieu central ( CM)">
-                                    Milieu central ( CM)
+                                <option value="Milieu central (CM)">
+                                Milieu central (CM)
                                 </option>
-                                <option value="Milieu offensif ( CAM)">
-                                    Milieu offensif ( CAM)
+                                <option value="Milieu offensif (MO)">
+                                   Milieu offensif (MO)
                                 </option>
                                 <option value="Ailier droit (RW)">
                                     Ailier droit (RW)
@@ -410,7 +410,7 @@ const Player = ({ userInfo }) => {
                                 name="positionSecond"
                                 className={`w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 }`}
                             >
-                                <option value="" disabled>
+                                                                <option value="" disabled>
                                     Position Secondaire
                                 </option>
                                 <option value="Gardien de but (GK)">
@@ -428,11 +428,11 @@ const Player = ({ userInfo }) => {
                                 <option value="Milieu défensif (CDM)">
                                     Milieu défensif (CDM)
                                 </option>
-                                <option value="Milieu central ( CM)">
-                                    Milieu central ( CM)
+                                <option value="Milieu central (CM)">
+                                Milieu central (CM)
                                 </option>
-                                <option value="Milieu offensif ( CAM)">
-                                    Milieu offensif ( CAM)
+                                <option value="Milieu offensif (MO)">
+                                   Milieu offensif (MO)
                                 </option>
                                 <option value="Ailier droit (RW)">
                                     Ailier droit (RW)

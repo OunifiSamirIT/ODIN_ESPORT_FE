@@ -1037,7 +1037,7 @@ const Index = () => {
 
 
                   <div className="  rounded-lg">
-                    <span className="flex justify-between items-center mb-3 ml-0 p-0 font-bold w-full">
+                    <span className="flex justify-between text-sm  items-center mb-3 ml-0 p-0 font-bold w-full">
                       <button
                         className="flex gap-2"
                         onClick={() => {
@@ -1316,7 +1316,7 @@ const Index = () => {
                   <div className="card-body p-0 d-flex">
                     <figure className="avatar me-3">
                       <img
-                        src={article.user?.user.image}
+                        src={article.user.user.image ? article.user.user.image : PlaceHolder}
                         className="shadow-sm rounded-full  w-10 h-10"
                         alt="post"
                       />{" "}

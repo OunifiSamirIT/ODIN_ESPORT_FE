@@ -54,7 +54,7 @@ const PlayerCard = ({ userInfo }) => {
   //   paysAllInfo.map()
   // }
   const getCountryFlagFromCountryName = (countryName) => {
-    const country = paysAllInfo.find(country => country.name.toLowerCase() === countryName.toLowerCase());
+    const country = paysAllInfo.find(country => country.name == countryName);
     return country ? country.iso["alpha-2"].toLowerCase() : null;
   }
 

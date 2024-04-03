@@ -20,8 +20,8 @@ const Terrain = ({positionPlay , positionSecond }) => {
         case "Milieu défensif (CDM)":
             position.push('CDM')
             break;
-        case "Milieu central (MC)":
-            position.push('MC')
+        case "Milieu central (CM)":
+            position.push('CM')
             break;
         case "Milieu offensif (MO)":
             position.push('MO')
@@ -41,6 +41,8 @@ const Terrain = ({positionPlay , positionSecond }) => {
         default:
             position.push('NAN')
     }
+
+    
     switch (positionSecond) {
         case "Gardien de but (GK)":
             position2.push('GK')
@@ -57,8 +59,8 @@ const Terrain = ({positionPlay , positionSecond }) => {
         case "Milieu défensif (CDM)":
             position2.push('CDM')
             break;
-        case "Milieu central (MC)":
-            position2.push('MC')
+        case "Milieu central (CM)":
+            position2.push('CM')
             break;
         case "Milieu offensif (MO)":
             position2.push('MO')
@@ -83,8 +85,8 @@ const Terrain = ({positionPlay , positionSecond }) => {
 
     const existPosition = (pos,pos2) => {
         return position.includes(pos) || position2.includes(pos)
-
     }
+
     return (
         <>
             <div className="flex flex-col justify-center text-xs text-center text-white whitespace-nowrap w-[355px]">
@@ -110,7 +112,7 @@ const Terrain = ({positionPlay , positionSecond }) => {
                     <div className={`absolute left-[115px] top-[105px] flex justify-center items-center self-start text-center rounded-full aspect-square ${existPosition('CDM') ? 'bg-orange-500' : 'bg-neutral-500'} h-[35px]`}>
                         CDM
                     </div>
-                    <div className={`absolute left-[166px] top-[105px] flex justify-center items-center self-start text-center rounded-full aspect-square ${existPosition('MC') ? 'bg-orange-500' : 'bg-neutral-500'} h-[35px]`}>
+                    <div className={`absolute left-[166px] top-[105px] flex justify-center items-center self-start text-center rounded-full aspect-square ${existPosition('CM') ? 'bg-orange-500' : 'bg-neutral-500'} h-[35px]`}>
                         MC
                     </div>
                     <div className={`absolute left-[220px] top-[105px] flex justify-center items-center self-start text-center rounded-full aspect-square ${existPosition('MO') ? 'bg-orange-500' : 'bg-neutral-500'} h-[35px]`}>
