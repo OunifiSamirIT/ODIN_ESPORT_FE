@@ -17,6 +17,7 @@ import T442 from "../../assets/4-4-2.png"
 import T532 from "../../assets/5-3-2.png"
 import T541 from "../../assets/5-4-1.png"
 import { Config } from "../../config";
+import { paysAllInfo } from "../../assets/data/Country";
 const More = () => {
   const { id } = useParams();
   const [player, setPlayer] = useState(null)
@@ -78,7 +79,10 @@ const More = () => {
       console.log(e)
     }
   }, [user])
-
+  const getCountryFlagFromCountryName = (countryName) => {
+    const country = paysAllInfo.find(country => country?.name == countryName);
+    return country ? country.iso["alpha-2"].toLowerCase() : null;
+  }
 
 
 
@@ -96,12 +100,12 @@ const More = () => {
           </div>
           {CurrentUser?.user.profil === 'player' && <div className="flex mt-8 gap-y-8 flex-col items-center px-4 py-6 bg-white rounded-[10px] jusitfy-center ">
             <div className="flex justify-center ">
-              <div className="flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
-                <div className="flex flex-col w-1/5 max-md:ml-0 ">
+              <div className="max-w-[1110px] flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
+                <div className="flex flex-col  max-md:ml-0 ">
                   <img
                     loading="lazy"
                     srcSet={CurrentUser?.user.image ? CurrentUser?.user.image : Placeholder}
-                    className="shrink-0 max-w-full rounded-full aspect-square w-[120px] max-md:mt-4"
+                    className="max-w-full rounded-full aspect-square w-[227px] max-md:mt-4"
                   />
                 </div>
                 <div className="max-w-[865px] flex flex-col items-center justify-between gap-y-4">
@@ -182,19 +186,16 @@ const More = () => {
 
                             }
                           </div>
-
-
                         </>
                       }
                     </div>
-                    <div className="flex gap-3 justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                    <div className="flex gap-x-4 gap-y-2 justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap max-w-full">
                       <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5578ac17241460884f81bfecaeacebd3031f2ffd1b2203855765a3b934a027?"
-                          className="aspect-[1.49] w-[30px]"
-                        />
-                        <div className="grow self-start mt-1">Tunisie</div>
+                        <span
+                          className={`flag-icon flag-icon-${getCountryFlagFromCountryName(CurrentUser.user.countryresidence)}`}
+                          style={{ marginRight: "8px", width: "25px" }}
+                        ></span>
+                        <div className="grow self-start mt-1">{CurrentUser.user?.countryresidence}</div>
                       </div>
                       <div className="flex gap-2 justify-center items-center self-stretch py-2">
                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -244,23 +245,51 @@ const More = () => {
                           className="w-5 aspect-square"
                         />
                         <div className="grow self-start mt-1">
-                          Espérance Sportive de Tunis
+                          {CurrentUser.player.champsoptionelle}
+                        </div>
+                      </div>
+                      <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
+                        <div className="grow self-start mt-1">
+                          Licence
+                        </div>
+                        <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.70916 15C6.11933 15.0002 5.55366 14.7658 5.13694 14.3484L0.383597 9.59681C-0.127866 9.08518 -0.127866 8.25583 0.383597 7.74421C0.895224 7.23274 1.72457 7.23274 2.2362 7.74421L6.70916 12.2172L18.5427 0.383597C19.0544 -0.127866 19.8837 -0.127866 20.3953 0.383597C20.9068 0.895224 20.9068 1.72457 20.3953 2.2362L8.28138 14.3484C7.86466 14.7658 7.29899 15.0002 6.70916 15Z" fill="#2E71EB" />
+                        </svg>
+
+                      </div>
+
+                      <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
+                        <svg width="33" height="21" viewBox="0 0 33 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_121_15800)">
+                            <path d="M32.8175 17.9516C32.6757 18.4739 32.508 18.9837 32.15 19.4092C31.4993 20.1826 30.6591 20.5005 29.6654 20.4988C26.2985 20.4927 22.9334 20.4927 19.5698 20.4988H3.93179C2.54344 20.4988 1.47215 19.8314 1.00242 18.6633C0.909805 18.4347 0.852231 18.1911 0.778809 17.9549V16.4531C0.893113 16.4581 1.00742 16.4681 1.12172 16.4681H32.4746C32.5889 16.4681 32.7032 16.4581 32.8175 16.4531V17.9516Z" fill="#1D1E21" />
+                            <path d="M0.778809 8.94138C0.862243 8.60764 0.926487 8.27391 1.02911 7.94935C1.34747 6.97697 1.95999 6.12747 2.78203 5.51826C3.60407 4.90905 4.59504 4.57022 5.61799 4.54858C6.26627 4.5394 6.63171 4.88231 6.66926 5.52142C6.75269 6.9398 7.42017 7.97188 8.75011 8.47999C10.0642 8.9806 11.2531 8.67523 12.2543 7.68653C13.1813 6.76876 14.0982 5.84264 15.0218 4.92236C15.464 4.48099 15.8278 4.42759 16.3693 4.72712C17.4072 5.30115 18.4426 5.87768 19.4948 6.46256C19.4113 6.54599 19.3529 6.61941 19.287 6.68449C16.7217 9.25148 14.1539 11.8168 11.5835 14.3805C11.472 14.4937 11.3245 14.5646 11.1664 14.5807C7.75613 14.5913 4.3459 14.5938 0.935665 14.5882C0.883936 14.5882 0.832208 14.579 0.780479 14.574L0.778809 8.94138Z" fill="#1D1E21" />
+                            <path d="M32.8177 14.5731C32.7342 14.5781 32.6508 14.5881 32.5674 14.5881H20.4344C20.3451 14.5881 20.255 14.5781 20.1123 14.5706C20.2049 14.4696 20.2617 14.4037 20.3242 14.3394C21.8933 12.7681 23.4622 11.1965 25.0308 9.62458C25.1726 9.4819 25.2977 9.47189 25.493 9.48441C26.2923 9.53363 27.0941 9.55449 27.8959 9.56784C28.9244 9.57819 29.9245 9.90729 30.7581 10.5098C31.5918 11.1123 32.2181 11.9585 32.5507 12.9319C32.6625 13.2656 32.7301 13.6102 32.8177 13.9506V14.5731Z" fill="#1D1E21" />
+                            <path d="M14.1118 14.5892L21.2596 7.44141L23.373 8.61533C23.2896 8.71127 23.222 8.78803 23.1511 8.85895C21.3094 10.7012 19.4655 12.5412 17.6194 14.379C17.4874 14.5003 17.317 14.5715 17.138 14.58C16.1401 14.6017 15.1414 14.5892 14.1118 14.5892Z" fill="#1D1E21" />
+                            <path d="M10.1708 6.88219C9.44824 5.347 9.36732 3.87856 10.0239 2.4193C10.2843 1.8436 10.6914 1.32548 11.0944 0.825707C11.168 0.732494 11.2603 0.655609 11.3652 0.599935C11.4701 0.544261 11.5855 0.511015 11.704 0.502306C11.8224 0.493597 11.9414 0.509616 12.0534 0.549347C12.1653 0.589078 12.2678 0.651653 12.3543 0.733097C13.096 1.44479 13.8027 2.19236 14.5135 2.91406C13.2261 3.91527 12.1774 5.18097 10.9884 6.29148C10.7548 6.50757 10.4678 6.67444 10.1708 6.88219Z" fill="#1D1E21" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_121_15800">
+                              <rect width="32.0387" height="20" fill="white" transform="translate(0.778809 0.5)" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+
+                        <div className="grow self-start mt-1">
+                          {CurrentUser.player.PiedFort}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="flex text-base font-light max-sm:text-center text-neutral-900">
-                    {CurrentUser?.user.discreptionBio}  💥
+                    {CurrentUser?.user.discreptionBio}
                   </div>
                 </div>
-
               </div>
             </div>
 
-
-            <div className="flex flex-col md-flex-row gap-4">
+            <div className="max-w-[1110px] justify-between w-full flex flex-col md:flex-row gap-4">
               <div className=" max-w-xl flex flex flex-col justify-center">
-                <div className="flex justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
+                <div className="flex md:justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
                   <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_878_80013)">
                       <path d="M20.1242 17.1658C20.1242 19.0042 18.6292 20.4992 16.7909 20.4992H6.66925L8.37341 18.8325H16.7917C17.7109 18.8325 18.4584 18.085 18.4584 17.1658C18.4584 16.2467 17.7109 15.4992 16.7917 15.4992H12.6251C10.7867 15.4992 9.29175 14.0042 9.29175 12.1658C9.29175 10.56 10.4334 9.21667 11.9476 8.9025L13.5801 10.4992H12.6251C11.7059 10.4992 10.9584 11.2467 10.9584 12.1658C10.9584 13.085 11.7059 13.8325 12.6251 13.8325H16.7917C18.6301 13.8325 20.1242 15.3275 20.1242 17.1658ZM18.9034 7.6125L15.9576 10.4942L13.0176 7.61917C11.3867 5.9875 11.3867 3.345 13.0109 1.72C13.7984 0.933333 14.8451 0.5 15.9576 0.5C17.0701 0.5 18.1167 0.933333 18.9034 1.72C20.5284 3.345 20.5284 5.98833 18.9034 7.6125ZM7.23675 11.72C8.86175 13.345 8.86175 15.9883 7.23675 17.6125L4.29091 20.4942L1.35091 17.6192C-0.279921 15.9875 -0.279921 13.345 1.34425 11.72C2.13175 10.9333 3.17841 10.5 4.29091 10.5C5.40341 10.5 6.45008 10.9333 7.23675 11.72Z" fill="#1D1E21" />
@@ -287,7 +316,7 @@ const More = () => {
                 </div>
                 <div className="  max-w-xl flex flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
-                  {CurrentUser?.player.skillsInProfile.split(',').map((item) => {
+                  {CurrentUser?.player.skillsInProfile.split(',').filter((item) => item !== '').map((item) => {
                     return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                       {item}
                     </div>)
@@ -296,8 +325,6 @@ const More = () => {
               </div>
 
             </div>
-
-
             <div className="  max-w-xl flex flex gap-5 justify-between">
               <img
                 loading="lazy"
@@ -329,7 +356,7 @@ const More = () => {
           {CurrentUser?.user.profil === 'coach' && <div className="flex flex-col items-center px-4 py-6 bg-white rounded-[10px]">
             <div className="self-stretch">
               <div className="flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
-                <div className="flex flex-col w-1/5 max-md:ml-0 ">
+                <div className="flex flex-col  max-md:ml-0 ">
                   <img
                     loading="lazy"
                     srcSet={CurrentUser?.user.image ? CurrentUser?.user.image : Placeholder}
@@ -434,12 +461,11 @@ const More = () => {
                         />
                       </div>
                       <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5578ac17241460884f81bfecaeacebd3031f2ffd1b2203855765a3b934a027?"
-                          className="aspect-[1.49] w-[30px]"
-                        />
-                        <div className="grow self-start mt-1">Tunisie</div>
+                      <span
+                          className={`flag-icon flag-icon-${getCountryFlagFromCountryName(CurrentUser.user.countryresidence)}`}
+                          style={{ marginRight: "8px", width: "25px" }}
+                        ></span>
+                        <div className="grow self-start mt-1">{CurrentUser.user.countryresidence}</div>
                       </div>
                       <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                         <img
@@ -534,7 +560,7 @@ const More = () => {
             </div>
             <div className="flex gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
-              {CurrentUser?.coach?.skills.split(',').map((item) => {
+              {CurrentUser?.coach?.skills.split(',').filter((item) => item !== '').map((item) => {
                 return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                   {item}
                 </div>)
@@ -572,11 +598,11 @@ const More = () => {
           {CurrentUser?.user.profil === 'agent' && <div className="flex flex-col items-center px-4 py-6 bg-white rounded-[10px] ">
             <div className="self-stretch">
               <div className="flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
-                <div className="flex flex-col w-1/5 max-md:ml-0 ">
+                <div className="flex flex-col max-md:ml-0 ">
                   <img
                     loading="lazy"
                     srcSet={CurrentUser?.user.image ? CurrentUser?.user.image : Placeholder}
-                    className="shrink-0 max-w-full rounded-full aspect-square w-[120px] max-md:mt-4"
+                    className="shrink-0 max-w-full rounded-full aspect-square w-[227] max-md:mt-4"
                   />
                 </div>
                 <div className="flex flex-col items-center justify-between">
@@ -693,19 +719,19 @@ const More = () => {
             </div>
             <div className="flex gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
               {CurrentUser?.user.profil === 'agent' &&
-                CurrentUser?.agent?.skillsagent.split(',').map((item) => {
+                CurrentUser?.agent?.skillsagent.split(',').filter((item) => item !== '').map((item) => {
                   return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                     {item}
                   </div>)
                 })}
               {CurrentUser?.user.profil === 'scout' &&
-                CurrentUser?.scout?.skillsscout.split(',').map((item) => {
+                CurrentUser?.scout?.skillsscout.split(',').filter((item) => item !== '').map((item) => {
                   return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                     {item}
                   </div>)
                 })}
               {CurrentUser?.user.profil === 'other' &&
-                CurrentUser?.other.skillsAutre.split(',').map((item) => {
+                CurrentUser?.other.skillsAutre.split(',').filter((item) => item !== '').map((item) => {
                   return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                     {item}
                   </div>)
@@ -744,7 +770,7 @@ const More = () => {
           {CurrentUser?.user.profil === 'other' && <div className="flex flex-col items-center px-4 py-6 bg-white rounded-[10px]">
             <div className="self-stretch">
               <div className="flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
-                <div className="flex flex-col w-1/5 max-md:ml-0 ">
+                <div className="flex flex-col max-md:ml-0 ">
                   <img
                     loading="lazy"
                     srcSet={CurrentUser?.user.image ? CurrentUser?.user.image : Placeholder}
@@ -871,13 +897,13 @@ const More = () => {
                   </div>)
                 })}
               {CurrentUser?.user.profil === 'scout' &&
-                CurrentUser?.scout?.skillsscout.split(',').map((item) => {
+                CurrentUser?.scout?.skillsscout.split(',').filter((item) => item !== '').map((item) => {
                   return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                     {item}
                   </div>)
                 })}
               {CurrentUser?.user.profil === 'other' &&
-                CurrentUser?.other.skillsAutre.split(',').map((item) => {
+                CurrentUser?.other.skillsAutre.split(',').filter((item) => item !== '').map((item) => {
                   return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                     {item}
                   </div>)
@@ -916,7 +942,7 @@ const More = () => {
           {CurrentUser?.user.profil === 'scout' && <div className="flex flex-col items-center px-4 py-6 bg-white rounded-[10px]">
             <div className="self-stretch">
               <div className="flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
-                <div className="flex flex-col w-1/5 max-md:ml-0 ">
+                <div className="flex flex-col max-md:ml-0 ">
                   <img
                     loading="lazy"
                     srcSet={CurrentUser?.user.image ? CurrentUser?.user.image : Placeholder}
@@ -1037,19 +1063,19 @@ const More = () => {
             </div>
             <div className="flex gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
               {CurrentUser?.user.profil === 'agent' &&
-                CurrentUser?.agent?.skills.split(',').map((item) => {
+                CurrentUser?.agent?.skills.split(',').filter((item) => item !== '').map((item) => {
                   return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                     {item}
                   </div>)
                 })}
               {CurrentUser?.user.profil === 'scout' &&
-                CurrentUser?.scout?.skillsscout.split(',').map((item) => {
+                CurrentUser?.scout?.skillsscout.split(',').filter((item) => item !== '').map((item) => {
                   return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                     {item}
                   </div>)
                 })}
               {CurrentUser?.user.profil === 'other' &&
-                CurrentUser?.other.skillsAutre.split(',').map((item) => {
+                CurrentUser?.other.skillsAutre.split(',').filter((item) => item !== '').map((item) => {
                   return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                     {item}
                   </div>)

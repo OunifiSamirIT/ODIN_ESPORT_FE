@@ -864,16 +864,6 @@ function Home() {
       <Header />
 
       <div className="nav-header">
-
-
-
-
-
-
-
-
-
-
         <nav className="navigation scroll-bar" >
           <div className="container ps-0 pe-0">
             <div className="nav-content">
@@ -1022,30 +1012,12 @@ function Home() {
 
 
 
-      <div className="main-content right-chat-active bg-zinc-100">
+      <div className="main-content w-full bg-red-500 bg-zinc-100">
         <div className="middle-sidebar-bottom">
           <div className="middle-sidebar-left">
             <div className="row feed-body">
               <div className="col-xl-8 col-xxl-9 col-lg-8">
-
-
                 <div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                   {/* creation poste  */}
                   <div className="card w-100 shadow-xss rounded-[10px]   border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
                     <div className="card-body p-0 position-relative">
@@ -1313,7 +1285,7 @@ function Home() {
                                     handleLikeClick(article.id, 1);
                                   }}
                                 >
-                                  <span className="flex-col md:flex-row" style={{ display: 'flex', alignItems: 'center' }}>
+                                  <span className="flex-col md:flex-row gap-2" style={{ display: 'flex', alignItems: 'center' }}>
                                     {article.likesCount === 0 ? (
                                       <BiHeart className="size-6 text-black" />
                                     ) : (
@@ -1345,7 +1317,7 @@ function Home() {
                                   }}
                                 >
                                   {selectedArticleId === article.id ? (
-                                    <div className="flex gap-2 justify-between py-2 md:ml-6">
+                                    <div className="flex gap-2 justify-between py-2">
                                       <img
                                         loading="lazy"
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -1439,7 +1411,7 @@ function Home() {
                                         </div>
 
 
-                                        <div className="ml-12">
+                                        <div className="ml-12 flex">
                                           <button
                                             onClick={() =>
                                               handleReplyClick(comment.id)
@@ -1461,9 +1433,7 @@ function Home() {
                                             )}
                                           </button>
                                           {/* <span>{comment.likesCount} Likes</span> */}
-                                          <span className="mb-3 ml-0 p-0 font-bold mr-4">
-                                            {comment.likesCount} {comment.likesCount === 1 ? "" : ""}
-                                          </span>
+
 
                                         </div>
 
