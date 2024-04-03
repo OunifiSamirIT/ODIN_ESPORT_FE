@@ -5302,7 +5302,7 @@ function Register() {
 
         // Check for specific error messages related to email or login
         if (errorData.message.includes("Email")) {
-          setEmailError("Email is already registered.");
+          setEmailError("Adresse e-mail déjà utilisée.");
           setLoginError("");
         } else if (errorData.message.includes("Login")) {
           setLoginError("Login is already taken.");
