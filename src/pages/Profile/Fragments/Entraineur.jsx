@@ -277,7 +277,7 @@ const PlayerCard = ({ userInfo }) => {
                 <div className="flex justify-center gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
                     {userInfo?.coach?.skills.split(',').filter(item => item.trim() !== '').map((item) => {
-                        return (<div className="justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+                        return (<div className="text-center justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                             {item}
                         </div>)
                     })}

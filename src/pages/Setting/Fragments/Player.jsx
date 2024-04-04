@@ -61,6 +61,8 @@ const Player = ({ userInfo }) => {
         setValue('PiedFort', userInfo.player.PiedFort);
         setValue('licence', userInfo.player.Licence !== '' ? "oui" : "non");
         setValue('competence', selectedSkills);
+        setSelectedSkills(userInfo.player.skillsInProfile.split(',').filter((item) => item !== ''));
+        setBaseSkills(userInfo.player.skillsInProfile.split(',').filter((item) => item !== ''))
     }, [])
 
     const [FileError, setFileError] = useState(false)
