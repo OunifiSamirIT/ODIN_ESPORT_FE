@@ -4529,39 +4529,83 @@ function Register() {
   const [selectedCountryphone, setSelectedCountryphone] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  // const handleChangephone = (selectedOption) => {
+  //   setSelectedCountryphone(selectedOption);
+
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     optionalattributs: getCombinedPrefix(
+  //       selectedCountryphoneWS ? selectedCountryphoneWS.phone : "", // WhatsApp prefix
+  //       selectedOption.phone // Telephone prefix
+  //     ),
+  //   }));
+  // };
+
   const handleChangephone = (selectedOption) => {
     setSelectedCountryphone(selectedOption);
-
+  
+    const combinedPrefix = getCombinedPrefix(
+      selectedCountryphoneWS ? selectedCountryphoneWS.phone : "", // WhatsApp prefix
+      selectedOption.phone // Telephone prefix
+    );
+  
+    // Check if phone number is provided, if not, set it to null
+    const tel = formData.tel ? formData.tel : null;
+  
     setFormData((prevFormData) => ({
       ...prevFormData,
-      optionalattributs: getCombinedPrefix(
-        selectedCountryphoneWS ? selectedCountryphoneWS.phone : "", // WhatsApp prefix
-        selectedOption.phone // Telephone prefix
-      ),
+      optionalattributs: combinedPrefix,
+      tel: tel // Set tel to null if it's not provided
     }));
   };
+  
+  // const handleChangePhoneNumber = (e) => {
+  //   const inputValue = e.target.value;
 
-
+  //   // Check if the entered value does not exceed the maximum length
+  //   if (inputValue.length <= selectedCountryphone.phoneLength) {
+  //     setPhoneNumber(inputValue);
+  //     setFormData({ ...formData, tel: inputValue });
+  //     setInputErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       tel: "", // Clear any Retour error message
+  //     }));
+  //   } else {
+  //     // If it exceeds the maximum length, set an error message
+  //     setInputErrors((prevErrors) => ({
+  //       ...prevErrors,
+  //       tel: `Le Numéro doit étre avec  ${selectedCountryphone.phoneLength} chiffres .`,
+  //     }));
+  //   }
+  // };
   const handleChangePhoneNumber = (e) => {
     const inputValue = e.target.value;
-
-    // Check if the entered value does not exceed the maximum length
-    if (inputValue.length <= selectedCountryphone.phoneLength) {
+  
+    // Check if the entered value is empty or null
+    if (inputValue === "" || inputValue === null) {
+      setPhoneNumber(""); // Clear the phone number state
+      setFormData({ ...formData, tel: null }); // Set tel field in formData to null
+      setInputErrors((prevErrors) => ({
+        ...prevErrors,
+        tel: "", // Clear any error message
+      }));
+    } else if (inputValue.length <= selectedCountryphone.phoneLength) {
+      // Check if the entered value does not exceed the maximum length
       setPhoneNumber(inputValue);
       setFormData({ ...formData, tel: inputValue });
       setInputErrors((prevErrors) => ({
         ...prevErrors,
-        tel: "", // Clear any Retour error message
+        tel: "", // Clear any error message
       }));
     } else {
       // If it exceeds the maximum length, set an error message
       setInputErrors((prevErrors) => ({
         ...prevErrors,
-        tel: `Le Numéro doit étre avec  ${selectedCountryphone.phoneLength} chiffres .`,
+        tel: `Le Numéro doit être avec ${selectedCountryphone.phoneLength} chiffres.`,
       }));
     }
   };
-
+  
 
   const optionsphone = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"] ? country.iso["alpha-2"].toLowerCase() : 'unknown';
@@ -5256,7 +5300,7 @@ function Register() {
       setInputErrors(errors);
       return;
     }
-
+    
     if (formData.termesConditions !== "Oui") {
       // If not, display an error or prevent form submission
       setErrorMessage("Veuillez accepter les Termes et Conditions .");
@@ -5285,7 +5329,7 @@ function Register() {
     formDataToSubmit.append("file", File || null);
 
     try {
-      const response = await fetch("https://odine-sport.com/api/auth/signup", {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -6649,7 +6693,7 @@ function Register() {
                           </div>
                         )}
 
-                      <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                      <div className="flex gap-2 md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
@@ -8490,7 +8534,7 @@ function Register() {
   </div>
  
   {errorMessage && (
-                          <div className="error-message align-center text-red-600">{errorMessage}</div>
+                          <div className="error-message align-center text-sm text-red-600">{errorMessage}</div>
                         )}
   <div className="mt-2 gap-3    flex flex-row items-center">
      <div className="flex flex-row self-start md:itmes-center pb-2">
