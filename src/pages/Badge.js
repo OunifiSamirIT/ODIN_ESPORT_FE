@@ -4401,7 +4401,7 @@ function Badge({ userpf }) {
 
                           <div className="flex flex-col px-8  bg-white rounded-xl max-md:px-5 max-md:max-w-full">
 
-                            <div className="flex gap-5 justify-between mt-4 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                            <div className="flex md:flex-row flex-col gap-3 md:gap-5 justify-between mt-4 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
 
 
                               <div className="flex flex-col flex-1 max-md:max-w-full">
@@ -4418,7 +4418,7 @@ function Badge({ userpf }) {
                                     Nom et prénom</div>
                                 </div>
                                 <input
-                                  class="justify-center  w-[70%] items-start py-3  pl-4 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
+                                  class="justify-center md:w[80%] w-full items-start py-3  pl-4 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
                                   type="text"
                                   placeholder=" nom  ou  prenom"
                                   value={searchNom}
@@ -4428,7 +4428,7 @@ function Badge({ userpf }) {
 
 
 
-                              <div className="flex flex-col w-[30%]">
+                              <div className="flex flex-col w-full md:w-[30%]">
                                 <div className="flex gap-4 justify-between px-4 text-base whitespace-nowrap">
                                   <img
                                     loading="lazy"
@@ -4441,7 +4441,7 @@ function Badge({ userpf }) {
                                   <div className="flex gap-5 justify-between px-3 py-3.5 rounded-md">
 
                                     <select
-                                      class="self-start mt-1"
+                                      class="w-full   self-start mt-1"
                                       value={searchPosition}
                                       onChange={(e) => setSearchPosition(e.target.value)}
                                     >
@@ -4476,7 +4476,7 @@ function Badge({ userpf }) {
 
 
 
-                            <div className="mt-4 max-md:max-w-full">
+                            <div className="mt-1 max-md:max-w-full">
                               <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
                                 <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                                   <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10">
@@ -4514,18 +4514,21 @@ function Badge({ userpf }) {
 
                                           <Select
                                             options={options}
-                                            placeholder="Select a country"
+                                            placeholder="Nationalité"
                                             styles={{
                                               control: (provided, state) => ({
                                                 ...provided,
                                                 borderRadius: "0.375rem", // You can adjust the radius as needed
                                                 display: "flex",
                                                 justifyContent: "center",
+                                                paddingTop: "6px",
+                                                paddingBottom: "6px", 
                                                 borderRadius: "30px",
-                                               
+                                                border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+
                                                 width: "100%",
-                                                fontSize: "1rem", // Set the desired font size
-                                                backgroundColor: "#f5f5f5", // Set the background color
+                                                fontSize: "12px", // Set the desired font size
+                                                backgroundColor: "#ffffff", // Set the background color
                                                 borderWidth: "none",
                                               }),
                                             }}
@@ -4536,7 +4539,7 @@ function Badge({ userpf }) {
                                   </div>
                                 </div>
                                 <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-10">
+                                  <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
                                     <div className="flex gap-4 justify-between px-4 text-base">
                                       <img
                                         loading="lazy"
@@ -4561,7 +4564,7 @@ function Badge({ userpf }) {
                                   </div>
                                 </div>
                                 <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 max-md:mt-10">
+                                  <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900">
                                     <div className="flex gap-4 justify-between px-4">
                                       <img
                                         loading="lazy"
@@ -4611,12 +4614,12 @@ function Badge({ userpf }) {
                               </div>
                             </div>
 
-                            <div className="flex gap-5 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                              <button onClick={handleReset} className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5">
+                            <div className="flex gap-1 md:gap-5 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap ">
+                              <button onClick={handleReset} className="justify-center px-2 md:px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5">
                                 Réinitialiser
                               </button>
                               <div className="flex gap-5 justify-between pl-6">
-                                <button onClick={handleSearch} className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                                <button onClick={handleSearch} className="justify-center px-2 md:px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                                   Confirmer
                                 </button>
                               </div>
