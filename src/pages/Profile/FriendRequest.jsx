@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react";
 import HomeLayout from "../../Layout/HomeLayout";
 import Placeholder from '../../assets/placeholder.jpg';
 import { Config } from "../../config";
+import { paysAllInfo } from "../../assets/data/Country";
 const FriendRequest = () => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [FriendRequest, setFriendRequest] = useState([])
     const fetchFriendRequest = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/FriendRequest`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/getPendingFriends`);
         const result = await response.json()
-        setFriendRequest(result)
+        setFriendRequest(result.exists)
         console.log(result)
     }
     const deleteInviation = async (id) => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/delete/${storedUserData.id}`, {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/delete/${id}`, {
             method: "DELETE",
         });
         if (response.status === 200) { window.location.reload() }
@@ -26,6 +27,10 @@ const FriendRequest = () => {
         if (response.status === 200) { window.location.reload() }
     }
 
+    const getCountryFlagFromCountryName = (countryName) => {
+        const country = paysAllInfo.find(country => country.name == countryName);
+        return country ? country.iso["alpha-2"].toLowerCase() : null;
+    }
 
     useEffect(() => {
         fetchFriendRequest()
@@ -36,7 +41,7 @@ const FriendRequest = () => {
 
 
     return (<HomeLayout>
-        <div className="grid grid-cols-12 gap-4 mt-4">
+        <div className="grid grid-cols-12 gap-4 mt-[100px]">
             <div className="hidden md:col-span-3 md:block">
                 <div className="flex flex-col gap-y-4 justify-start py-4 mx-auto w-full bg-white rounded-[10px] px-4">
                     <div className="flex items-center gap-4 px-6 py-2 text-xl font-medium text-blue-600 whitespace-nowrap max-md:px-5">
@@ -85,13 +90,13 @@ const FriendRequest = () => {
                                 <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:mt-6">
                                     <img
                                         loading="lazy"
-                                        src={item.sender?.image ? item?.sender.image : Placeholder}
+                                        src={item.receiver?.image ? item?.receiver.image : Placeholder}
                                         className="self-center max-w-full rounded-full aspect-square w-[120px]"
                                     />
                                     <div className="self-center mt-4 text-xl font-medium text-black">
-                                        {item?.sender?.nom}
+                                        {item?.receiver?.nom} {item?.receiver?.prenom}
                                     </div>
-                                    <div className="flex gap-4 justify-between mt-4 w-full">
+                                    <div className="flex gap-2 justify-between mt-4 w-full">
                                         <div className="flex gap-4 justify-between px-1 font-light whitespace-nowrap">
                                             <img
                                                 loading="lazy"
@@ -100,10 +105,10 @@ const FriendRequest = () => {
                                             />
                                             <div className="my-auto">Profil</div>
                                         </div>
-                                        <div className="my-auto font-medium">{item?.sender?.profil}</div>
+                                        <div className="my-auto font-medium">{item?.receiver?.profil}</div>
                                     </div>
-                                    <div className="flex gap-4 justify-between mt-4 w-full whitespace-nowrap">
-                                        <div className="flex gap-4 font-light">
+                                    <div className="flex gap-2 justify-between mt-4 w-full whitespace-nowrap">
+                                        <div className="flex gap-2 font-light">
                                             <img
                                                 loading="lazy"
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5eae7f20e92fe11b1e7f70f0906a949d8f8881426a877620d101145fd278e5?"
@@ -114,19 +119,19 @@ const FriendRequest = () => {
                                         <div className="flex font-medium">
                                             <div className="flex font-medium whitespace-nowrap">
                                                 <span
-                                                    className={`flag-icon flag-icon-tn size-5 `}
+                                                    className={`flag-icon flag-icon-${getCountryFlagFromCountryName(item.receiver?.countryresidence)}`}
                                                     style={{ marginRight: "8px" }}
                                                 ></span>
-                                                <div>{item.sender?.nationality}</div>
+                                                <div>{item.receiver?.nationality}</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex gap-4 justify-between mt-4 w-full">
-                                        <div className="flex gap-4 font-light">
+                                    <div className="flex gap-2 justify-between mt-4 w-full">
+                                        <div className="flex gap-2 font-light">
                                             <img
                                                 loading="lazy"
-                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/21f587236071e7a0f2d23e61c4ab1e76c6f570ba11f92ab8223dcd126ac03865?"
-                                                className="shrink-0 my-auto w-5 aspect-square"
+                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5eae7f20e92fe11b1e7f70f0906a949d8f8881426a877620d101145fd278e5?"
+                                                className="shrink-0 w-5 aspect-square"
                                             />
                                             <div>
                                                 Pays de
@@ -135,17 +140,17 @@ const FriendRequest = () => {
                                         </div>
                                         <div className="flex font-medium whitespace-nowrap">
                                             <span
-                                                className={`flag-icon flag-icon-us size-5 `}
-                                                style={{ marginRight: "8px" }}
+                                                className={`flag-icon flag-icon-${getCountryFlagFromCountryName(item.receiver?.countryresidence)}`}
+                                                style={{ marginRight: "8px"}}
                                             ></span>
-                                            <div>{item.sender?.countryresidence}</div>
+                                            <div>{item.receiver?.countryresidence}</div>
                                         </div>
                                     </div>
                                     <div className="flex gap-2 justify-between mt-4 text-base font-medium text-white whitespace-nowrap">
-                                        <button onClick={() => acceptInvitation(item.senderId)} className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                                        <button onClick={() => acceptInvitation(item.receiver.id)} className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
                                             Accepter
                                         </button>
-                                        <button onClick={() => deleteInviation(item.senderId)} className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                                        <button onClick={() => deleteInviation(item.receiver.id)} className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
                                             Supprimer
                                         </button>
                                     </div>
