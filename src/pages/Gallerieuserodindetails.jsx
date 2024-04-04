@@ -8,6 +8,7 @@ import Pagetitle from "../components/Pagetitle";
 import Load from "../components/Load";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
+import { Config } from "../config";
 
 const Album = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
