@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Header";
 // import Leftnav from '../../components/Leftnav';
 // import Rightchat from '../../components/Rightchat';
 import Pagetitle from "../components/Pagetitle";
@@ -20,6 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useForm, Controller } from "react-hook-form"
 import { Config } from "../config";
+import Header from "../components/Header2";
 
 
 
@@ -235,17 +235,8 @@ const handelretourform = () => {
   
   return (
     <>
-      <div className="nav-header bg-white shadow-xs border-0">
-        <div className=" flex justify-between items-center w-full">
-          <Link to="/home">
-            <img src={Logo} className="ml-3 h-28 w-28 " />
-            <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">
-              {" "}
-            </span>{" "}
-          </Link>
-        </div>
-        <SlideMenu setIsActive={setIsActive} />
-      </div>
+            <Header />
+
 
       <div className="flex flex-col pt-8 mt-14 bg-white rounded-xl  max-md:my-10 max-md:max-w-full">
         <div className=" mt-20 md:text-5xl    w-full text-2xl text-center font-bold text-black max-md:max-w-full">

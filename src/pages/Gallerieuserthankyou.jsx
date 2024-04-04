@@ -4,6 +4,7 @@ import Logo from "../assets/ODIN22.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SlideMenu from "../components/SlideMenu";
 import { Config } from "../config";
+import Header from "../components/Header2";
 
 const Album = () => {
   const [isActive, setIsActive] = useState(false);
@@ -48,17 +49,8 @@ const Album = () => {
   
   return (
     <>
-      <div className="nav-header  bg-white shadow-xs border-0">
-        <div className=" flex justify-between items-center w-full">
-          <Link to="/home">
-            <img src={Logo} className="ml-3 h-28 w-28 " />
-            <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">
-              {" "}
-            </span>{" "}
-          </Link>
-        </div>
-        <SlideMenu setIsActive={setIsActive} />
-      </div>
+                <Header />
+
 
       <div className="flex flex-col items-center pb-9  bg-zinc-100">
    

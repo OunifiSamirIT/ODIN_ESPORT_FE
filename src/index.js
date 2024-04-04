@@ -194,6 +194,11 @@ function Root() {
               <Route exact path={`/defaultsettings`} element={<Settings setAuthStatus={setAuthStatus} />} />
               <Route exact path={`/defaultbadge`} element={<Badge />} />
               <Route exact path={`/defaultgroupagent`} element={<Badgeagent />} />
+              <Route exact path={`/defaultgroup/:id`} element={<GalleryDetailscamps />} />
+              <Route exact path={`/FormCamps/:id`} element={<FormCamps />} />
+              <Route exact path={`/thanks/:id`} element={<Thankscamps />} />
+
+
               <Route exact path="/gallery" element={<Gallery />} />
               <Route exact path={`/defaultgroup`} element={<Galleryuser />} />
               <Route exact path={`/defaultstorie`} element={<Storie />} />

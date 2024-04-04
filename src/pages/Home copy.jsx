@@ -864,7 +864,7 @@ function Home() {
       <Header />
 
       <div className="nav-header">
-        <nav className="navigation scroll-bar max-sm:hidden md:ml-[114px] mt-2">
+        <nav className="navigation scroll-bar max-sm:hidden 2xl:ml-[100px] mt-2">
           <div className="container ps-0 pe-0">
             <div className="nav-content">
               <div className="nav-wrap bg-white bg-transparent-card rounded-xxl  pt-3 pb-1 mb-2 mt-2">
