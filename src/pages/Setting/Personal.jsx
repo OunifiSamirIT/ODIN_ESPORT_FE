@@ -180,7 +180,7 @@ const Personal = ({ userInfo }) => {
     formDataToUpdate.append("nationality", data.nationality?.label?.props?.children[1]);
     formDataToUpdate.append("cityresidence", data.cityresidence);
     formDataToUpdate.append("image", file);
-    formDataToUpdate.append("prefix", `${data.wats.label.props.children[2]},${data.phoneLength.label.props.children[2]}`);
+    formDataToUpdate.append("prefix", `${data.wats?.label?.props?.children[2]},${data.phoneLength?.label?.props?.children[2]}`);
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${storedUserData.id}`,
       {
