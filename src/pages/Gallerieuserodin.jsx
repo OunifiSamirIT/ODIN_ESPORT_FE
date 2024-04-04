@@ -176,7 +176,7 @@ const handleSearch = () => {
     <>
     <Header />
 
-    <div className="nav-header  md:ml-[60px] 2xl:ml-[120px] ">
+    <div className="nav-header  md:ml-[40px] 2xl:ml-[120px] ">
     
   
    
