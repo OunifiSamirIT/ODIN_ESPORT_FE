@@ -827,8 +827,8 @@ const Index = () => {
                   />
                   {/* <label>{storedUserData.login}</label> */}
                   <div className="flex flex-col w-full gap-y-4">
-                    <TextInput
-                      className="grow justify-center  bg-gray-100 rounded-[30px] theme-dark-bg"
+                    <input
+                      className="grow px-2 justify-center  bg-gray-100 rounded-[30px] theme-dark-bg"
                       placeholder="Quoi de neuf ? "
                       // styles="w-full rounded-full py-5 text-bl"
                       // placeholder="Show your Skills here , your dream begin from here...."
