@@ -136,7 +136,7 @@ function Header() {
              
             <div className="flex flex-col items-center pb-20 mx-auto w-full bg-zinc-100 max-w-[480px]">
      
-          <div className="pl-8 w-full">  <Link to="/login">  <div className="justify-center items-center text-center px-8 py-2 mt-10 w-full text-base font-medium text-white bg-blue-600 max-w-[366px] rounded-[30px]">
+          <div className="pl-4 w-full">  <Link to="/login">  <div className="justify-center items-center text-center px-8 py-2 mt-10 w-full text-base font-medium text-white bg-blue-600 max-w-[366px] rounded-[30px]">
         Se connecter
       </div> </Link> </div>
       <div className="flex gap-2 justify-between px-4 py-2 mt-6 w-full text-base whitespace-nowrap bg-white rounded-xl max-w-[366px] text-zinc-900">
