@@ -173,8 +173,8 @@ const General = ({ userInfo }) => {
             </div>
           </div>
         </div>
-        <div className="md:ml-[10px] max:lg-[150px] w-[100px] md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm">
-          <div className="w-[100px] self-end flex gap-2 justify-center p-2 whitespace-nowrap">
+        <div className="md:ml-[10px] max:lg-[150px] md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm">
+          <div className="self-end flex gap-2 justify-center p-2 whitespace-nowrap">
             <span
               className={`flag-icon flag-icon-${getCountryFlagFromCountryName(userInfo.user.countryresidence)}`}
               style={{ marginRight: "8px", width: "25px" }}

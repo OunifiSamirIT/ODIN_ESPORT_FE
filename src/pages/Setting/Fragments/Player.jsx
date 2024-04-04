@@ -549,7 +549,7 @@ const Player = ({ userInfo }) => {
                             <div className="flex-auto text-lg">Compétences</div>
                         </div>
                     </div>
-                    <div className="flex flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
+                    <div className="flex flex-wrap gap-2  mt-4 text-lg text-blue-600 max-md:flex-wrap">
                     <div className="form-group icon-input  mb-3">
                                 {skillsList.map((skill, index) => (
                                     <div key={skill} className="form-check rounded-[30px] form-check-inline pl-0 me-2 mb-2">
@@ -563,7 +563,7 @@ const Player = ({ userInfo }) => {
                                         />
                                         <label
                                             htmlFor={'skill' + index}
-                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${(!selectedSkills.includes(skill) && errors.skills) || selectedSkillsError ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
+                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-2 py-2 bg-blue-600 rounded-[30px]" : `${(!selectedSkills.includes(skill) && errors.skills) || selectedSkillsError ? 'border-1 border-red-500 flex gap-4 justify-between px-2 py-2 text-blue-600 bg-gray-200 rounded-[30px]' : 'flex gap-4 justify-between px-2 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
                                                 }`}
                                         >
                                             <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
@@ -574,7 +574,7 @@ const Player = ({ userInfo }) => {
                                  {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span> : null}
                             </div>
                     </div>
-                    <div className="flex  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
+                    <div className="flex  gap-4  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
                             <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
                                 <img
                                     loading="lazy"

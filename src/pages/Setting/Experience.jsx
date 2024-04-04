@@ -25,7 +25,7 @@ const Experience = () => {
         setIsOpen(!isOpen)
     }
 
-    const handleUpdateExperience = (id,index) => {
+    const handleUpdateExperience = (id, index) => {
         setUpdate(true)
         setExpID(id);
         setIsOpen(!isOpen)
@@ -38,7 +38,7 @@ const Experience = () => {
         setEndDate(parseToDate(experience[index]?.endDate))
     }
     const handleDeleteExperience = async (id) => {
-      const response =   await fetch(
+        const response = await fetch(
             `${Config.LOCAL_URL}/api/experience/delete/${id}`,
             {
                 method: 'DELETE',
@@ -166,7 +166,7 @@ const Experience = () => {
     const onSubmit = async (data) => {
 
         if (update) {
-          const response =  await fetch(
+            const response = await fetch(
                 `${Config.LOCAL_URL}/api/experience/update/${expID}`,
                 {
                     method: 'PUT',
@@ -270,77 +270,79 @@ const Experience = () => {
         <>
 
             {experience.length <= 0 && <div className=" py-4">
-            <div>
-                <ToastContainer />
-            </div>
-                <div className="flex gap-5 justify-between pr-2 text-4xl font-bold whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                <div>
+                    <ToastContainer />
+                </div>
+                <div className="flex gap-5 justify-between pr-2 text-3xl md:text-4xl font-bold whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                     <div className="flex-auto">Expériences</div>
                     <button onClick={handleAddExperience}>
-                        <svg width="46" height="47" viewBox="0 0 46 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="30" height="30" viewBox="0 0 46 47" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M36.125 21.625H24.875V10.375C24.875 9.33947 24.0355 8.5 23 8.5C21.9645 8.5 21.125 9.33947 21.125 10.375V21.625H9.875C8.83947 21.625 8 22.4645 8 23.5C8 24.5355 8.83947 25.375 9.875 25.375H21.125V36.625C21.125 37.6605 21.9645 38.5 23 38.5C24.0355 38.5 24.875 37.6605 24.875 36.625V25.375H36.125C37.1605 25.375 38 24.5355 38 23.5C38 22.4645 37.1605 21.625 36.125 21.625Z" fill="#2E71EB" />
                         </svg>
                     </button>
                 </div>
                 <div className="text-center mt-4">
-                    <p>Ajoutez votre expérience pour valoriser votre profil <br />
+                    <p>Ajoutez votre expérience pour valoriser votre profil
                         et attirer les agents</p>
                 </div>
             </div>}
-            {experience.length > 0 && <div className="py-4">
-            <div>
-                <ToastContainer />
-            </div>
-                <div className="flex gap-5 justify-between pr-2 text-4xl font-bold whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                    <div className="flex-auto">Expériences</div>
-                    <button onClick={handleAddExperience}>
-                        <svg width="46" height="47" viewBox="0 0 46 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M36.125 21.625H24.875V10.375C24.875 9.33947 24.0355 8.5 23 8.5C21.9645 8.5 21.125 9.33947 21.125 10.375V21.625H9.875C8.83947 21.625 8 22.4645 8 23.5C8 24.5355 8.83947 25.375 9.875 25.375H21.125V36.625C21.125 37.6605 21.9645 38.5 23 38.5C24.0355 38.5 24.875 37.6605 24.875 36.625V25.375H36.125C37.1605 25.375 38 24.5355 38 23.5C38 22.4645 37.1605 21.625 36.125 21.625Z" fill="#2E71EB" />
-                        </svg>
-                    </button>
-                </div>
-                {experience.map((item,index) => {
-                    return (<div key={item.id} className="flex gap-4 justify-between p-2 mt-6 w-full max-md:max-w-full">
-                        <div className="flex gap-4 text-zinc-900">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_1745_15519)">
-                                    <path d="M21.975 26.6667H18.025C17.145 26.668 16.2873 26.3901 15.5753 25.8728C14.8634 25.3556 14.334 24.6257 14.0633 23.7883L12.8433 20.0333C12.5676 19.1956 12.5657 18.2918 12.8377 17.4528C13.1098 16.6138 13.6418 15.8832 14.3567 15.3667L17.55 13.0533C18.2608 12.5343 19.1182 12.2546 19.9983 12.2546C20.8785 12.2546 21.7359 12.5343 22.4467 13.0533L25.6417 15.3733C26.3568 15.8897 26.8889 16.6203 27.161 17.4594C27.4331 18.2984 27.431 19.2022 27.155 20.04L25.9367 23.795C25.6635 24.6303 25.1333 25.3578 24.4218 25.8736C23.7102 26.3894 22.8538 26.667 21.975 26.6667ZM40 20C40 23.9556 38.827 27.8224 36.6294 31.1114C34.4318 34.4004 31.3082 36.9638 27.6537 38.4776C23.9992 39.9913 19.9778 40.3874 16.0982 39.6157C12.2186 38.844 8.65492 36.9392 5.85787 34.1421C3.06082 31.3451 1.15601 27.7814 0.384303 23.9018C-0.387401 20.0222 0.00866572 16.0009 1.52242 12.3463C3.03617 8.69181 5.59962 5.56824 8.8886 3.37061C12.1776 1.17298 16.0444 0 20 0C25.3026 0.00573514 30.3863 2.11471 34.1358 5.8642C37.8853 9.61368 39.9943 14.6974 40 20ZM20 35C20.863 34.995 21.7239 34.9158 22.5733 34.7633L23.9867 30.1283C24.3074 29.1212 24.9399 28.2421 25.7927 27.6178C26.6456 26.9935 27.6747 26.6564 28.7317 26.655L33.4267 26.6467C34.1825 25.1301 34.6735 23.4954 34.8783 21.8133L31.1317 19.3133C30.267 18.7065 29.6174 17.8407 29.2766 16.8408C28.9357 15.841 28.9211 14.7587 29.235 13.75L30.6567 9.46167C29.4648 8.26339 28.08 7.27404 26.56 6.535L22.94 9.045C22.0863 9.66784 21.0568 10.0035 20 10.0035C18.9432 10.0035 17.9137 9.66784 17.06 9.045L13.5367 6.485C12.0399 7.20003 10.6715 8.15736 9.48668 9.31833L10.765 13.7467C11.0789 14.7553 11.0643 15.8376 10.7235 16.8375C10.3826 17.8373 9.733 18.7031 8.86834 19.31L5.14501 21.9683C5.35912 23.596 5.84179 25.1769 6.57334 26.6467L11.2667 26.655C12.3237 26.6559 13.3531 26.9927 14.2062 27.6167C15.0594 28.2407 15.6922 29.1196 16.0133 30.1267L17.455 34.7667C18.2951 34.9173 19.1466 34.9953 20 35Z" fill="#1D1E21" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_1745_15519">
-                                        <rect width="40" height="40" fill="white" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
+            {experience.length > 0 &&
 
-                            <div className="flex flex-col">
-                                <div className="text-xl font-bold">{item?.club}</div>
-                                <div className="text-base font-medium">{item?.niveau}</div>
-                                <div className="flex gap-4 mt-1 text-xs font-light text-neutral-500">
-                                    <div>{item?.startDate}</div>
-                                    <div>-</div>
-                                    <div>{item?.endDate}</div>
+                <div className="py-4 w-full">
+                    <div>
+                        <ToastContainer />
+                    </div>
+                    <div className="w-full flex justify-between md:gap-5 text-3xl md:text-4xl font-bold whitespace-nowrap max-md:flex-wrap">
+                        <div className="flex">Expériences</div>
+                        <button onClick={handleAddExperience}>
+                            <svg width="30" height="30" viewBox="0 0 46 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M36.125 21.625H24.875V10.375C24.875 9.33947 24.0355 8.5 23 8.5C21.9645 8.5 21.125 9.33947 21.125 10.375V21.625H9.875C8.83947 21.625 8 22.4645 8 23.5C8 24.5355 8.83947 25.375 9.875 25.375H21.125V36.625C21.125 37.6605 21.9645 38.5 23 38.5C24.0355 38.5 24.875 37.6605 24.875 36.625V25.375H36.125C37.1605 25.375 38 24.5355 38 23.5C38 22.4645 37.1605 21.625 36.125 21.625Z" fill="#2E71EB" />
+                            </svg>
+                        </button>
+                    </div>
+                    {experience.map((item, index) => {
+                        return (<div key={item.id} className="flex gap-4 justify-between p-2 mt-6 w-full max-md:max-w-full">
+                            <div className="flex gap-4 text-zinc-900">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_1745_15519)">
+                                        <path d="M21.975 26.6667H18.025C17.145 26.668 16.2873 26.3901 15.5753 25.8728C14.8634 25.3556 14.334 24.6257 14.0633 23.7883L12.8433 20.0333C12.5676 19.1956 12.5657 18.2918 12.8377 17.4528C13.1098 16.6138 13.6418 15.8832 14.3567 15.3667L17.55 13.0533C18.2608 12.5343 19.1182 12.2546 19.9983 12.2546C20.8785 12.2546 21.7359 12.5343 22.4467 13.0533L25.6417 15.3733C26.3568 15.8897 26.8889 16.6203 27.161 17.4594C27.4331 18.2984 27.431 19.2022 27.155 20.04L25.9367 23.795C25.6635 24.6303 25.1333 25.3578 24.4218 25.8736C23.7102 26.3894 22.8538 26.667 21.975 26.6667ZM40 20C40 23.9556 38.827 27.8224 36.6294 31.1114C34.4318 34.4004 31.3082 36.9638 27.6537 38.4776C23.9992 39.9913 19.9778 40.3874 16.0982 39.6157C12.2186 38.844 8.65492 36.9392 5.85787 34.1421C3.06082 31.3451 1.15601 27.7814 0.384303 23.9018C-0.387401 20.0222 0.00866572 16.0009 1.52242 12.3463C3.03617 8.69181 5.59962 5.56824 8.8886 3.37061C12.1776 1.17298 16.0444 0 20 0C25.3026 0.00573514 30.3863 2.11471 34.1358 5.8642C37.8853 9.61368 39.9943 14.6974 40 20ZM20 35C20.863 34.995 21.7239 34.9158 22.5733 34.7633L23.9867 30.1283C24.3074 29.1212 24.9399 28.2421 25.7927 27.6178C26.6456 26.9935 27.6747 26.6564 28.7317 26.655L33.4267 26.6467C34.1825 25.1301 34.6735 23.4954 34.8783 21.8133L31.1317 19.3133C30.267 18.7065 29.6174 17.8407 29.2766 16.8408C28.9357 15.841 28.9211 14.7587 29.235 13.75L30.6567 9.46167C29.4648 8.26339 28.08 7.27404 26.56 6.535L22.94 9.045C22.0863 9.66784 21.0568 10.0035 20 10.0035C18.9432 10.0035 17.9137 9.66784 17.06 9.045L13.5367 6.485C12.0399 7.20003 10.6715 8.15736 9.48668 9.31833L10.765 13.7467C11.0789 14.7553 11.0643 15.8376 10.7235 16.8375C10.3826 17.8373 9.733 18.7031 8.86834 19.31L5.14501 21.9683C5.35912 23.596 5.84179 25.1769 6.57334 26.6467L11.2667 26.655C12.3237 26.6559 13.3531 26.9927 14.2062 27.6167C15.0594 28.2407 15.6922 29.1196 16.0133 30.1267L17.455 34.7667C18.2951 34.9173 19.1466 34.9953 20 35Z" fill="#1D1E21" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_1745_15519">
+                                            <rect width="40" height="40" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+                                <div className="flex flex-col">
+                                    <div className="text-xl font-bold">{item?.club}</div>
+                                    <div className="text-base font-medium">{item?.niveau}</div>
+                                    <div className="flex gap-4 mt-1 text-xs font-light text-neutral-500">
+                                        <div>{item?.startDate}</div>
+                                        <div>-</div>
+                                        <div>{item?.endDate}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex gap-4 justify-between self-start p-1">
-                            <button onClick={() => handleUpdateExperience(item?.id,index)}>
-                                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0.99786 15.9174C0.370381 16.5447 0.0177676 17.3956 0.0175781 18.2828V20H1.73474C2.622 19.9998 3.47284 19.6472 4.10013 19.0197L15.2605 7.8594L12.1582 4.75713L0.99786 15.9174Z" fill="#1D1E21" />
-                                    <path d="M19.3757 0.643149C19.1721 0.43926 18.9302 0.277514 18.664 0.167158C18.3977 0.0568016 18.1124 0 17.8242 0C17.536 0 17.2506 0.0568016 16.9844 0.167158C16.7182 0.277514 16.4763 0.43926 16.2726 0.643149L13.3401 3.57647L16.4424 6.67874L19.3757 3.74626C19.5796 3.54258 19.7414 3.30072 19.8517 3.03449C19.9621 2.76826 20.0189 2.4829 20.0189 2.1947C20.0189 1.90651 19.9621 1.62114 19.8517 1.35492C19.7414 1.08869 19.5796 0.846826 19.3757 0.643149Z" fill="#1D1E21" />
-                                </svg>
-                            </button>
-                            <button onClick={() => handleDeleteExperience(item?.id)}>
-                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M17.3325 13.9623L23.3224 7.96621C23.7113 7.5242 23.9172 6.95069 23.8985 6.36225C23.8797 5.77382 23.6375 5.21461 23.2212 4.79831C22.8049 4.38201 22.2457 4.13986 21.6573 4.12107C21.0688 4.10228 20.4953 4.30827 20.0533 4.69717L14.0572 10.6871L8.05035 4.67864C7.8352 4.46348 7.57977 4.29281 7.29866 4.17637C7.01754 4.05993 6.71625 4 6.41197 4C6.1077 4 5.8064 4.05993 5.52529 4.17637C5.24417 4.29281 4.98875 4.46348 4.77359 4.67864C4.55843 4.89379 4.38776 5.14922 4.27132 5.43034C4.15488 5.71145 4.09495 6.01275 4.09495 6.31702C4.09495 6.6213 4.15488 6.92259 4.27132 7.20371C4.38776 7.48482 4.55843 7.74025 4.77359 7.9554L10.782 13.9623L4.79212 19.9568C4.55721 20.1668 4.36761 20.4225 4.23492 20.7083C4.10224 20.9941 4.02925 21.304 4.02044 21.6189C4.01162 21.9339 4.06716 22.2473 4.18366 22.5401C4.30015 22.8329 4.47515 23.0988 4.69795 23.3216C4.92075 23.5444 5.18667 23.7194 5.47943 23.8359C5.77219 23.9524 6.08564 24.0079 6.40061 23.9991C6.71557 23.9903 7.02543 23.9173 7.31122 23.7846C7.597 23.6519 7.85272 23.4623 8.06271 23.2274L14.0572 17.2375L20.0456 23.2274C20.4801 23.6619 21.0695 23.906 21.684 23.906C22.2985 23.906 22.8878 23.6619 23.3224 23.2274C23.7569 22.7929 24.001 22.2035 24.001 21.589C24.001 20.9745 23.7569 20.3852 23.3224 19.9506L17.3325 13.9623Z" fill="#1D1E21" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>)
-                })}
-            </div>}
+                            <div className="flex flex-col md:flex-row gap-4 justify-between self-start p-1">
+                                <button onClick={() => handleUpdateExperience(item?.id, index)}>
+                                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0.99786 15.9174C0.370381 16.5447 0.0177676 17.3956 0.0175781 18.2828V20H1.73474C2.622 19.9998 3.47284 19.6472 4.10013 19.0197L15.2605 7.8594L12.1582 4.75713L0.99786 15.9174Z" fill="#1D1E21" />
+                                        <path d="M19.3757 0.643149C19.1721 0.43926 18.9302 0.277514 18.664 0.167158C18.3977 0.0568016 18.1124 0 17.8242 0C17.536 0 17.2506 0.0568016 16.9844 0.167158C16.7182 0.277514 16.4763 0.43926 16.2726 0.643149L13.3401 3.57647L16.4424 6.67874L19.3757 3.74626C19.5796 3.54258 19.7414 3.30072 19.8517 3.03449C19.9621 2.76826 20.0189 2.4829 20.0189 2.1947C20.0189 1.90651 19.9621 1.62114 19.8517 1.35492C19.7414 1.08869 19.5796 0.846826 19.3757 0.643149Z" fill="#1D1E21" />
+                                    </svg>
+                                </button>
+                                <button onClick={() => handleDeleteExperience(item?.id)}>
+                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.3325 13.9623L23.3224 7.96621C23.7113 7.5242 23.9172 6.95069 23.8985 6.36225C23.8797 5.77382 23.6375 5.21461 23.2212 4.79831C22.8049 4.38201 22.2457 4.13986 21.6573 4.12107C21.0688 4.10228 20.4953 4.30827 20.0533 4.69717L14.0572 10.6871L8.05035 4.67864C7.8352 4.46348 7.57977 4.29281 7.29866 4.17637C7.01754 4.05993 6.71625 4 6.41197 4C6.1077 4 5.8064 4.05993 5.52529 4.17637C5.24417 4.29281 4.98875 4.46348 4.77359 4.67864C4.55843 4.89379 4.38776 5.14922 4.27132 5.43034C4.15488 5.71145 4.09495 6.01275 4.09495 6.31702C4.09495 6.6213 4.15488 6.92259 4.27132 7.20371C4.38776 7.48482 4.55843 7.74025 4.77359 7.9554L10.782 13.9623L4.79212 19.9568C4.55721 20.1668 4.36761 20.4225 4.23492 20.7083C4.10224 20.9941 4.02925 21.304 4.02044 21.6189C4.01162 21.9339 4.06716 22.2473 4.18366 22.5401C4.30015 22.8329 4.47515 23.0988 4.69795 23.3216C4.92075 23.5444 5.18667 23.7194 5.47943 23.8359C5.77219 23.9524 6.08564 24.0079 6.40061 23.9991C6.71557 23.9903 7.02543 23.9173 7.31122 23.7846C7.597 23.6519 7.85272 23.4623 8.06271 23.2274L14.0572 17.2375L20.0456 23.2274C20.4801 23.6619 21.0695 23.906 21.684 23.906C22.2985 23.906 22.8878 23.6619 23.3224 23.2274C23.7569 22.7929 24.001 22.2035 24.001 21.589C24.001 20.9745 23.7569 20.3852 23.3224 19.9506L17.3325 13.9623Z" fill="#1D1E21" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>)
+                    })}
+                </div>}
             {isOpen && <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
-                <div ref={ref} className="flex flex-col px-8 py-7  max-w-full bg-white rounded-[10px] w-[1000px]">
-                    <div className="text-4xl font-bold text-zinc-900 max-md:max-w-full">
+                <div ref={ref} className="flex flex-col px-2 md:px-8 py-7  max-w-full bg-white rounded-[10px] w-[1000px]">
+                    <div className="text-xl md:text-4xl font-bold text-zinc-900 max-md:max-w-full">
                         Expérience
                     </div>
 
@@ -363,7 +365,7 @@ const Experience = () => {
                                         <div className="grow text-lg">Club/Académie</div>
                                     </div>
                                     <div className="relative">
-                                        <input {...register('club')} name='club' type='text' placeholder="Real Madrid CF" className={`text-grey-900 placeholder-zinc-400 form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid border-1 !border-red-500' : '' }`} />
+                                        <input {...register('club')} name='club' type='text' placeholder="Real Madrid CF" className={`text-grey-900 placeholder-zinc-400 form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid border-1 !border-red-500' : ''}`} />
                                         {errors.club && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
                                     </div>
                                 </div>
@@ -383,7 +385,7 @@ const Experience = () => {
                                         <div className="grow text-lg">Niveau</div>
                                     </div>
                                     <div className="relative">
-                                        <select {...register('niveau')} name='niveau' type='text' placeholder="Senior" className={`text-grey-900 placeholder-zinc-400 form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.niveau ? 'is-invalid border-1 !border-red-500' : '' }`}>
+                                        <select {...register('niveau')} name='niveau' type='text' placeholder="Senior" className={`text-grey-900 placeholder-zinc-400 form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.niveau ? 'is-invalid border-1 !border-red-500' : ''}`}>
                                             <option value="seniors">Seniors</option>
                                             <option value="cadets">Cadets</option>
                                             <option value="minimes">Minimes </option>
@@ -416,7 +418,7 @@ const Experience = () => {
                                         <div className="grow text-lg">Date de début</div>
                                     </div>
                                     <div className="w-full">
-                                        <DatePicker placeholderText="Choisir date de début" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.startDate ? 'is-invalid border-1 !border-red-500' : '' }`} selected={startDate} dateFormat="MM/yyyy" onChange={(date) => { setValue('startDate', date); setStartDate(date) }} />
+                                        <DatePicker placeholderText="Choisir date de début" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.startDate ? 'is-invalid border-1 !border-red-500' : ''}`} selected={startDate} dateFormat="MM/yyyy" onChange={(date) => { setValue('startDate', date); setStartDate(date) }} />
                                     </div>
                                     {errors.startDate && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
                                 </div>
@@ -429,12 +431,12 @@ const Experience = () => {
                                         <div className="grow text-lg">Date de fin</div>
                                     </div>
                                     <div className="w-full">
-                                        <DatePicker placeholderText="Choisir date fin" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.endDate ? 'is-invalid border-1 !border-red-500' : '' } `} selected={endDate} dateFormat={'MM/yyyy'} onChange={(date) => { setValue('endDate', date); setEndDate(date) }} />
+                                        <DatePicker placeholderText="Choisir date fin" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.endDate ? 'is-invalid border-1 !border-red-500' : ''} `} selected={endDate} dateFormat={'MM/yyyy'} onChange={(date) => { setValue('endDate', date); setEndDate(date) }} />
                                     </div>
                                     {errors.endDate && <span className="invalid-feedback block py-2 px-2">{errors.endDate?.message}</span>}
                                 </div>
                             </div>
-                            <div className="flex gap-5 items-center justify-between py-2 mt-6 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                            <div className="flex gap-2 items-center justify-between py-2 mt-6 w-full text-base font-medium  flex-nowrap">
                                 <div className="flex  max-w-[170px] flex-1 gap-2 justify-center px-8 py-2 text-blue-600 border-2 border-blue-600 border-solid rounded-[30px] max-md:px-5">
                                     <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_1686_73328)">
