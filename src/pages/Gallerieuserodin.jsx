@@ -13,6 +13,7 @@ import "./flags.css";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Config } from "../config";
 
 const Album = () => {
   const [album, setAlbum] = useState([]);
