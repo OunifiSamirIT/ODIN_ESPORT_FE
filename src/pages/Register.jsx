@@ -4464,7 +4464,7 @@ function Register() {
 
   const handleChangeregion = selectedOptions => {
     const selectedRegions = selectedOptions.map(option => option.value);
-    console.log('Selected Region:', selectedRegions);
+    console.log('Choisi Les Regions:', selectedRegions);
   };
 
   //////////////////mangerclubpays
@@ -7301,7 +7301,7 @@ function Register() {
 </div>
 
 {(emailError || loginError) && (
-                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                          <div className="inline-block text-center w-full text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
@@ -7455,9 +7455,8 @@ function Register() {
                                       className={`form-check-label btn ${formData.skillsagent
                                           .split(",")
                                           .includes(agentSkill)
-                                          ? "bg-blue-600 text-white"
-                                          : "btn-light"
-                                        } ${!formData.skillsagent
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
+                                          ${!formData.skillsagent
                                           .split(",")
                                           .includes(agentSkill) &&
                                           agentSkillsError
@@ -7555,7 +7554,7 @@ function Register() {
 </div>
 
 {(emailError || loginError) && (
-                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                          <div className="inline-block text-center w-full text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
@@ -7629,7 +7628,7 @@ function Register() {
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-5 justify-between">
+                      <div className="flex gap-3 justify-between">
                         <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
                         <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
                         <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
@@ -7639,7 +7638,8 @@ function Register() {
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
                       <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
                         <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-                          <div className="flex flex-col text-zinc-900">
+                          
+                          <div className="flex flex-col w-[33%]  text-zinc-900">
                             <div className="flex gap-4 mb-2 justify-between px-4 text-lg whitespace-nowrap">
                               <img
                                 loading="lazy"
@@ -7657,19 +7657,20 @@ function Register() {
 
 
                             <select
-                              name="engagement"
-                              value={formData.engagement}
-                              className={`form-control flex  justify-between border-[0.5px] px-4 mb-4  bg-zinc-100  rounded-[30px] ${inputErrors["engagement"] ? "is-invalid" : ""
-                                }`}
-                              onChange={handleInputChange}
-                            >
-                              <option value="" disabled>
-                                Votre Engagement
-                              </option>
-                              <option value="plein-temps">Plein Temps</option>
-                              <option value="mi-temps">Mi-Temps</option>
-                              <option value="volontaire">Volontaire</option>
-                            </select>
+  name="engagement"
+  value={formData.engagement}
+  className={`form-control flex justify-between border-[0.5px] px-4 pb-3 mb-2 bg-zinc-100 rounded-[30px] ${inputErrors["engagement"] ? "is-invalid" : ""}`}
+  style={{ paddingTop: "1px", paddingBottom: "10px" }} // Adjust padding as needed
+  onChange={handleInputChange}
+>
+  <option value="" disabled>
+    Votre Engagement
+  </option>
+  <option value="plein-temps">Plein Temps</option>
+  <option value="mi-temps">Mi-Temps</option>
+  <option value="volontaire">Volontaire</option>
+</select>
+
 
 
 
@@ -7681,8 +7682,8 @@ function Register() {
 
 
 
-                          <div className="flex flex-col">
-                            <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
+                          <div className="flex flex-col ">
+                            <div className="flex gap-4 justify-between px-4  mb-2 text-lg whitespace-nowrap text-zinc-900">
                               <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/905ceacb3a78358a7e57864a93688890f119c8869b3ab4c3558735affbc2aa60?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -7697,7 +7698,7 @@ function Register() {
                               id="nb_joueurdetecter"
                               name="nb_joueurdetecter"
                               value={formData.nb_joueurdetecter}
-                              className={` form-control flex gap-5 justify-between border-[0.5px] bg-zinc-100 w-full px-4 py-2 rounded-xl ${inputErrors["nb_joueurdetecter"]
+                              className={` form-control flex gap-5 justify-between border-[0.5px] mb-1 bg-zinc-100 w-full px-4 py-2 rounded-xl ${inputErrors["nb_joueurdetecter"]
                                   ? "is-invalid"
                                   : ""
                                 }`}
@@ -7716,6 +7717,9 @@ function Register() {
                               <div className="error-message text-red-600">{inputErrors['nb_joueurdetecter']}</div>
                             )}
                           </div>
+
+
+
                         </div>
                         <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
                           <img
@@ -7725,7 +7729,7 @@ function Register() {
                           />
                           <div className="grow max-md:max-w-full">Régions d’explorations</div>
                         </div>
-                        <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-base text-white whitespace-nowrap w-[781px]">
+                        <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-lg text-white whitespace-nowrap w-[33%]">
                           <div className="flex flex-col justify-center px-0.5 border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full">
                             <div className="flex flex-col justify-center py-1.5 pl-4 rounded-md max-md:max-w-full">
                               <div className="flex gap-5 justify-between pr-20 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
@@ -7733,22 +7737,31 @@ function Register() {
 
 
 
-                                <Select
-                                  options={regionOptions}
-                                  onChange={handleChangeregion}
-                                  isMulti
-                                  styles={{
-                                    option: (provided, state) => ({
-                                      ...provided,
-                                      color: state.isSelected ? 'black' : 'black', // Change colors as needed
-                                    }),
-                                  }}
+                              <Select
+  options={regionOptions}
+  onChange={handleChangeregion}
+  placeholder="Choisi Les regions"
+  isMulti
+  className="w-full bg-zinc-100 border-[0px] text-base"
+  styles={{
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? 'black' : 'black', // Change colors as needed
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: '#F4F4F5', 
+      border: 'none',
+      fontSize: 'sm',
 
-                                />
+    }),
+  }}
+/>
+
                               </div>
                             </div>
                           </div>{inputErrors['paysscout'] && (
-                            <div className="error-message text-red-600 text-base">{inputErrors['paysscout']}</div>
+                            <div className="error-message text-red-600 text-sm mt-2">{inputErrors['paysscout']}</div>
                           )}
                         </div>
                         <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
@@ -7759,7 +7772,7 @@ function Register() {
                           />
                           <div className="flex-auto">Compétences</div>
                         </div>
-                        <div className="flex flex-col justify-center content-start items-center mt-4 text-lg text-blue-600 whitespace-nowrap max-md:max-w-full">
+                        {/* <div className="flex flex-col justify-center content-start items-center mt-4 text-lg text-blue-600 whitespace-nowrap max-md:max-w-full">
 
                           <div className="form-group icon-input mb-3 flex flex-wrap justify-between">
                             {[
@@ -7826,8 +7839,80 @@ function Register() {
                         {scoutSkillsError && (
                           <div className="text-danger mt-2">
                             Vous pouvez selectionner au maximum 10 compétences !  </div>
-                        )}
+                        )} */}
 
+
+
+
+
+<div className="form-group icon-input  mb-3">
+{[
+                              "Analyse tactique",
+                              "Connaissance approfondie du sport",
+                              "Réseautage",
+                              "Observation",
+                              "Analyse des données",
+                              "Compétence en communication",
+                              "Connaissance des marchés",
+                              "Rapports détaillés",
+                              "Gestion du temps",
+                              "Éthique professionnelle",
+                              "Compétences informatiques",
+                              "Adaptabilité",
+                              "Évaluation psychologique",
+
+                              // Add other skills...
+                            ].map((skillsscout) => (
+                                  <div
+                                    key={skillsscout}
+                                    className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
+                                  >
+                                    <input
+                                  type="checkbox"
+                                  id={skillsscout}
+                                  name="skillsscout"
+                                  checked={formData.skillsscout
+                                    .split(",")
+                                    .includes(skillsscout)}
+                                  onChange={() =>
+                                    handleScoutSkillToggle(skillsscout)
+                                  }
+                                      className="form-check-input d-none rounded-[30px]"
+                                    />
+                                     <label
+                                  htmlFor={skillsscout}
+                                 
+
+                                    className={`form-check-label btn ${formData.skillsscout
+                                      .split(",")
+                                      .includes(skillsscout)
+                                      ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
+
+                                     ${!formData.skillsscout
+                                      .split(",")
+                                      .includes(skillsscout) &&
+                                      scoutSkillsError
+                                      ? "border-danger"
+                                      : ""
+                                    }`}
+                                >
+                                  {!formData.skillsscout
+                                    .split(",")
+                                    .includes(skillsscout)
+                                    ? "+" // Display "+" when not selected
+                                    : "-"}{" "}
+                                  {skillsscout}
+                                </label>
+
+
+                                  </div>
+                                ))}
+                              </div>
+                              {scoutSkillsError && (
+                                <div className="text-danger mt-2">
+                                  Vous pouvez selectionner au maximum 10 compétences !
+                                </div>
+                              )}
                   
 <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
   <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
@@ -7854,12 +7939,8 @@ function Register() {
    
     </div>
   </div>
-  {errorMessage && (
-                          <div className="error-message align-center text-red-600">{errorMessage}</div>
-                        )}
- {errorMessage && (
-                          <div className="error-message align-center text-red-600">{errorMessage}</div>
-                        )}
+ 
+ 
   <div className="mt-2 gap-3    flex flex-row items-center">
      <div className="flex flex-row self-start md:itmes-center pb-2">
       <label>
@@ -7884,14 +7965,16 @@ function Register() {
   
   </div>
 </div>
-
+ {errorMessage && (
+                          <div className="error-message align-center text-red-600">{errorMessage}</div>
+                        )}
 {(emailError || loginError) && (
                           <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
-                      <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                         <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
@@ -7944,16 +8027,16 @@ function Register() {
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-5 justify-between">
+                      <div className="flex gap-3 justify-between">
                         <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
                         <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
                         <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
                       </div>
                     </div>
                   </div>
-                    <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
+                    <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch rounded-3xl px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
                       <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-                        <div className="flex gap-4 self-start px-4 whitespace-nowrap text-zinc-900">
+                        <div className="flex gap-4 self-start px-4 whitespace-nowrap  text-zinc-900">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d9b00671f5c6adfdf6ed3be7a7b9734acc3f6ea0ee7c51e1fe7326d623f7566?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -7965,7 +8048,7 @@ function Register() {
                           <select
                             id="profession"
                             name="profession"
-                            className={`flex gap-5 justify-between px-4 py-3.5 rounded-md bg-zinc-100 ${inputErrors["profession"] ? "is-invalid" : ""
+                            className={`flex gap-5 justify-between px-4 py-3.5 rounded-3xl bg-zinc-100 ${inputErrors["profession"] ? "is-invalid" : ""
                               }`}
                             onChange={handleInputChange}
                             value={formData.profession}
@@ -8048,9 +8131,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                            ? "bg-blue-600 text-white"
-                                            : "btn-light"
-                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8091,9 +8172,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                            ? "bg-blue-600 text-white"
-                                            : "btn-light"
-                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8138,9 +8217,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                            ? "bg-blue-600 text-white"
-                                            : "btn-light"
-                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8179,9 +8256,7 @@ function Register() {
                                         <label
                                           htmlFor={skillsAutre}
                                           className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                            } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
                                             }`}
@@ -8218,9 +8293,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                            ? "bg-blue-600 text-white"
-                                            : "btn-light"
-                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8256,9 +8329,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                            ? "bg-blue-600 text-white"
-                                            : "btn-light"
-                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8300,9 +8371,7 @@ function Register() {
                                         <label
                                           htmlFor={skillsAutre}
                                           className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                              ? "bg-blue-600 text-white"
-                                              : "btn-light"
-                                            } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
                                             }`}
@@ -8339,9 +8408,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                            ? "bg-blue-600 text-white"
-                                            : "btn-light"
-                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8379,9 +8446,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                            ? "bg-blue-600 text-white"
-                                            : "btn-light"
-                                          } ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8398,124 +8463,98 @@ function Register() {
                         </div>
 
 
-                        <div className="flex flex-col gap-5 mt-8 text-lg max-md:flex-wrap max-md:max-w-full">
-                          <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-                            <div className="flex flex-col sm:flex-row">
-                              <div className="grow underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-                                J'accepte les{" "}
-                                <span className="text-blue-600 underline">Termes et Conditions</span>
-                                <span className="text-zinc-900">.</span>
-                              </div>
-                              <div className="flex flex-col sm:flex-row sm:order-2">
-                                <label className="mr-2">
-                                  <input
-                                    type="radio"
-                                    value="Oui"
-                                    checked={formData.termesConditions === "Oui"}
-                                    onChange={(e) =>
-                                      setFormData({
-                                        ...formData,
-                                        termesConditions: e.target.value,
-                                      })
-                                    }
-                                  />
-                                  <span className="ml-1">Oui</span>
-                                </label>
-                                <label>
-                                  <input
-                                    type="radio"
-                                    value="Non"
-                                    checked={formData.termesConditions === "Non"}
-                                    onChange={(e) =>
-                                      setFormData({
-                                        ...formData,
-                                        termesConditions: e.target.value,
-                                      })
-                                    }
-                                  />
-                                  <span className="ml-1">Non</span>
-                                </label>
-                              </div>
-                            </div>
-
-                          </div>
-
-                          <div className="mt-4">
-                            <label className="block mb-2">
-                              J'autorise Odin E-Sport à partager mes publications hors de la plateforme.    </label>
-                            <div className="flex flex-col sm:flex-row">
-                              <label className="mr-2">
-                                <input
-                                  type="radio"
-                                  value="Oui"
-                                  checked={formData.partagehorsPL === "Oui"}
-                                  onChange={(e) =>
-                                    setFormData({
-                                      ...formData,
-                                      partagehorsPL: e.target.value,
-                                    })
-                                  }
-                                />
-                                <span className="ml-1">Oui</span>
-                              </label>
-                              <label>
-                                <input
-                                  type="radio"
-                                  value="Non"
-                                  checked={formData.partagehorsPL === "Non"}
-                                  onChange={(e) =>
-                                    setFormData({
-                                      ...formData,
-                                      partagehorsPL: e.target.value,
-                                    })
-                                  }
-                                />
-                                <span className="ml-1">Non</span>
-                              </label>
-                            </div>
-                          </div>
-
-                          {/* {errorMessage && (
-    <div className="error-message">{errorMessage}</div>
-  )} */}
-                        </div>
-
-
-
-
-                        {errorMessage && (
+                        <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-3 flex-row">
+      <div className="flex md:flex-col gap-2 flex-row ">
+        <label className="">
+          <input
+            type="checkbox"
+            checked={formData.termesConditions === "Oui"}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                termesConditions: e.target.checked ? "Oui" : "Non",
+              })
+            }
+          />
+        </label>
+    
+       </div> 
+        <div className="flex flex-row gap-3 mr-8 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+        J'accepte les{" "}
+        <span className="text-blue-600 block">Termes et Conditions</span>
+      </div>
+   
+    </div>
+  </div>
+ 
+  {errorMessage && (
                           <div className="error-message align-center text-red-600">{errorMessage}</div>
                         )}
+  <div className="mt-2 gap-3    flex flex-row items-center">
+     <div className="flex flex-row self-start md:itmes-center pb-2">
+      <label>
+        <input
+          type="checkbox"
+          checked={formData.partagehorsPL === "Oui"}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              partagehorsPL: e.target.checked ? "Oui" : "Non",
+            })
+          }
+        />
+      </label>
+    </div> 
+    
+    <div className="md:w-auto w-[90%]">
+      <label className="block mb-2 mr-6">
+        J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+      </label>
+    </div>
+  
+  </div>
+</div>
 
-                        {(emailError || loginError) && (
+{(emailError || loginError) && (
                           <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
+                      <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                        <button
+                          type="button"
+                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square"
+                          />
+                          <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        </button>
+                        <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+  </svg></button>
 
-
-
-
-
-
-                        <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                          <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fb6d773eef30d97d3a89d9f3fae19d7c91dd5e53c1c6ce70d84a312e20fac48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square"
-                            />
-                            <button
-                              type="button"
-                              onClick={handlePrevStep} className="grow text-white">Retour</button>
-                          </div>
-                          <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                            <button
-                              type="submit" className="grow">Confirmer</button>
-
-                          </div>
                         </div>
+                      </div>
+
+
+
+
+                        
+
+                       
+
+
+
+
+
+
+                       
                       </div>
                     </div>
                   </div>
