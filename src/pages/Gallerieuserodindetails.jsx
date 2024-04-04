@@ -50,7 +50,8 @@ const Album = () => {
   useEffect(() => {
     const fetchAlbumDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/albumc/${campsId}`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc/${campsId}`);
+
         const result = await response.json();
 
         if (result.message === "done" && result.data) {
@@ -65,7 +66,8 @@ const Album = () => {
 
     const fetchInscriptions = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/inscritinfo");
+        const response = await fetch(`${Config.LOCAL_URL}/api/inscritinfo`);
+
         const result = await response.json();
 
         if (Array.isArray(result) && result.length > 0) {
