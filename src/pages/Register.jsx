@@ -6354,39 +6354,39 @@ function Register() {
                                 }`}
                               onChange={handleInputChange}
                             >
-                            <option value="" disabled>
-                                Position Secondaire
-                              </option>
-                              <option value="Gardien de but (GK)">
-                                Gardien de but (GK)
-                              </option>
-                              <option value="Arrière droit (RB)">
-                                Arrière droit (RB)
-                              </option>
-                              <option value="Arrière gauche( LB)">
-                                Arrière gauche( LB)
-                              </option>
-                              <option value="Défenseur central (CB)">
-                                Défenseur central (CB)
-                              </option>
-                              <option value="Milieu défensif (CDM)">
-                                Milieu défensif (CDM)
-                              </option>
-                              <option value="Milieu central ( CM)">
-                                Milieu central ( CM)
-                              </option>
-                              <option value="Milieu offensif ( CAM)">
-                                Milieu offensif ( CAM)
-                              </option>
-                              <option value="Ailier droit (RW)">
-                                Ailier droit (RW)
-                              </option>
-                              <option value="Ailier gauche ( LW)">
-                                Ailier gauche ( LW)
-                              </option>
-                              <option value="Avant-centre ">
-                                Avant-centre ( ST)
-                              </option>
+                           <option value="" disabled>
+                                    Position Principale
+                                </option>
+                                <option value="Gardien de but (GK)">
+                                    Gardien de but (GK)
+                                </option>
+                                <option value="Arrière droit (RB)">
+                                    Arrière droit (RB)
+                                </option>
+                                <option value="Arrière gauche( LB)">
+                                    Arrière gauche( LB)
+                                </option>
+                                <option value="Défenseur central (CB)">
+                                    Défenseur central (CB)
+                                </option>
+                                <option value="Milieu défensif (CDM)">
+                                    Milieu défensif (CDM)
+                                </option>
+                                <option value="Milieu central (CM)">
+                                Milieu central (CM)
+                                </option>
+                                <option value="Milieu offensif (MO)">
+                                   Milieu offensif (MO)
+                                </option>
+                                <option value="Ailier droit (RW)">
+                                    Ailier droit (RW)
+                                </option>
+                                <option value="Ailier gauche ( LW)">
+                                    Ailier gauche ( LW)
+                                </option>
+                                <option value="Avant-centre ">
+                                    Avant-centre ( ST)
+                                </option>
                             </select>
 
                           </div>
