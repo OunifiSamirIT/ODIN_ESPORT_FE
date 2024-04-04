@@ -173,7 +173,7 @@ const General = ({ userInfo }) => {
             </div>
           </div>
         </div>
-        <div className="md:ml-[10px] max:lg-[150px] w-[100px] bg-red-500 md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm">
+        <div className="md:ml-[10px] max:lg-[150px] w-[100px] md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm">
           <div className="w-[100px] self-end flex gap-2 justify-center p-2 whitespace-nowrap">
             <span
               className={`flag-icon flag-icon-${getCountryFlagFromCountryName(userInfo.user.countryresidence)}`}
@@ -207,7 +207,7 @@ const General = ({ userInfo }) => {
         </div>
 
         <div className="self-stretch mt-8 text-base font-light text-center text-neutral-900 max-md:max-w-full">
-          {userInfo?.user.discreptionBio}  💥
+          {userInfo?.user.discreptionBio}
         </div>
 
 

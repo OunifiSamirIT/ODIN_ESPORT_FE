@@ -36,8 +36,10 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                             <a href={`/setting/personal`} className={`mt-4 text-left`} >Informations Personnelles</a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
                             <a href={`/setting/information`} className="mt-4 text-left">Informations du Profil</a>
+                            {storedUserData.profil == 'player' &&
+                            <>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
-                            {storedUserData.profil == 'player' && <a href={`/setting/experience`} className="mt-4 text-left">Experiences</a>}
+                             <a href={`/setting/experience`} className="mt-4 text-left">Experiences</a></>}
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
                             <a href={`/setting/parametre`} className="mt-4 text-left">Paramètres du compte</a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />

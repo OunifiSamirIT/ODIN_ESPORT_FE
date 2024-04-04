@@ -89,7 +89,7 @@ const Terrain = ({positionPlay , positionSecond }) => {
 
     return (
         <>
-            <div className="flex flex-col justify-center text-xs text-center text-white whitespace-nowrap w-[355px]">
+            <div className="flex flex-col justify-center text-xs text-center text-white whitespace-nowrap w-[340px]">
                 <div className="relative flex overflow-hidden relative flex-col py-9 pr-12 pl-4 w-full aspect-[1.45]">
                     <img
                         alt="terrain"

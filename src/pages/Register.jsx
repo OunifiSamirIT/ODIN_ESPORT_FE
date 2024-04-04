@@ -4764,6 +4764,50 @@ function Register() {
   };
 
 
+  // const handleCoachSkillToggle = (coachSkill) => {
+  //   let updatedCoachSkills = formData.skills.split(",");
+
+  //   if (updatedCoachSkills.includes(coachSkill)) {
+  //     updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
+  //   } else {
+  //     if (updatedCoachSkills.length <= 10) {
+  //       updatedCoachSkills.push(coachSkill);
+  //     }
+  //   }
+
+  //   const isSkillsError = updatedCoachSkills.length >= 11;
+
+  //   setFormData({
+  //     ...formData,
+  //     skills: updatedCoachSkills.join(","),
+  //   });
+  //   setSkillsError(isSkillsError);
+
+  //   console.log('isSkillsError:', isSkillsError);
+  // };
+  // const handleCoachSkillToggle = (coachSkill) => {
+  //   let updatedCoachSkills = formData.skills.split(",");
+  
+  //   if (updatedCoachSkills.includes(coachSkill)) {
+  //     updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
+  //   } else {
+  //     if (updatedCoachSkills.length < 10) {
+  //       updatedCoachSkills.push(coachSkill);
+  //     }
+  //   }
+  
+  //   const isSkillsError = updatedCoachSkills.length > 10; // Check if there are more than 10 skills
+  
+  //   setFormData({
+  //     ...formData,
+  //     skills: updatedCoachSkills.join(","),
+  //   });
+  //   setSkillsError(isSkillsError);
+  
+  //   console.log('isSkillsError:', isSkillsError);
+  // };
+  
+
   const handleCoachSkillToggle = (coachSkill) => {
     let updatedCoachSkills = formData.skills.split(",");
 
@@ -4775,16 +4819,22 @@ function Register() {
       }
     }
 
-    const isSkillsError = updatedCoachSkills.length >= 11;
-
     setFormData({
       ...formData,
-      skills: updatedCoachSkills.join(","),
+      skills: updatedCoachSkills.join(","), // Correct the property name here
     });
-    setSkillsError(isSkillsError);
-
-    console.log('isSkillsError:', isSkillsError);
+    setSkillsError(updatedCoachSkills.length >= 11);
   };
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5217,7 +5267,7 @@ function Register() {
       then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
 
-    coachSkill: yup.string().when('profil', {
+    skills: yup.string().when('profil', {
       is: 'coach',
       then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
@@ -5234,12 +5284,15 @@ function Register() {
       is: (profil, typeresponsable) => profil === 'agent' && typeresponsable === 'club',
       then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
-
-
     skillsagent: yup.string().when(['profil', 'typeresponsable'], {
       is: (profil, typeresponsable) => profil === 'agent' && typeresponsable === 'club',
-      then: () => yup.string().required(" Vous pouvez selectionner au minmum 1 compétence et  au maximum 10 compétences !"),
+      then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
+
+    // skillsagent: yup.string().when(['profil', 'typeresponsable'], {
+    //   is: (profil, typeresponsable) => profil === 'agent' && typeresponsable === 'club',
+    //   then: () => yup.string().required(" Vous pouvez selectionner au minmum 1 compétence et  au maximum 10 compétences !"),
+    // }),
 
     ///player
 
@@ -5329,7 +5382,7 @@ function Register() {
     formDataToSubmit.append("file", File || null);
 
     try {
-      const response = await fetch("https://odine-sport.com/api/auth/signup", {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -6354,39 +6407,39 @@ function Register() {
                                 }`}
                               onChange={handleInputChange}
                             >
-                            <option value="" disabled>
-                                Position Secondaire
-                              </option>
-                              <option value="Gardien de but (GK)">
-                                Gardien de but (GK)
-                              </option>
-                              <option value="Arrière droit (RB)">
-                                Arrière droit (RB)
-                              </option>
-                              <option value="Arrière gauche( LB)">
-                                Arrière gauche( LB)
-                              </option>
-                              <option value="Défenseur central (CB)">
-                                Défenseur central (CB)
-                              </option>
-                              <option value="Milieu défensif (CDM)">
-                                Milieu défensif (CDM)
-                              </option>
-                              <option value="Milieu central ( CM)">
-                                Milieu central ( CM)
-                              </option>
-                              <option value="Milieu offensif ( CAM)">
-                                Milieu offensif ( CAM)
-                              </option>
-                              <option value="Ailier droit (RW)">
-                                Ailier droit (RW)
-                              </option>
-                              <option value="Ailier gauche ( LW)">
-                                Ailier gauche ( LW)
-                              </option>
-                              <option value="Avant-centre ">
-                                Avant-centre ( ST)
-                              </option>
+                           <option value="" disabled>
+                                    Position Principale
+                                </option>
+                                <option value="Gardien de but (GK)">
+                                    Gardien de but (GK)
+                                </option>
+                                <option value="Arrière droit (RB)">
+                                    Arrière droit (RB)
+                                </option>
+                                <option value="Arrière gauche( LB)">
+                                    Arrière gauche( LB)
+                                </option>
+                                <option value="Défenseur central (CB)">
+                                    Défenseur central (CB)
+                                </option>
+                                <option value="Milieu défensif (CDM)">
+                                    Milieu défensif (CDM)
+                                </option>
+                                <option value="Milieu central (CM)">
+                                Milieu central (CM)
+                                </option>
+                                <option value="Milieu offensif (MO)">
+                                   Milieu offensif (MO)
+                                </option>
+                                <option value="Ailier droit (RW)">
+                                    Ailier droit (RW)
+                                </option>
+                                <option value="Ailier gauche ( LW)">
+                                    Ailier gauche ( LW)
+                                </option>
+                                <option value="Avant-centre ">
+                                    Avant-centre ( ST)
+                                </option>
                             </select>
 
                           </div>
@@ -6504,16 +6557,20 @@ function Register() {
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <label>
-                                <input
-                                  type="file"
-                                  name="file"
-                                  accept="*"
-                                  onChange={handleFileChangeLicense}
-                                  className={`grow my-auto w-2 inset-0 opacity-0`}
-                                />
-                                {File ? File.name : 'Importer une Licence'}
-                              </label>
+                              <label className="relative block">
+    <input
+        type="file"
+        name="file"
+        accept="*"
+        onChange={handleFileChangeLicense}
+        className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+    />
+    <span className="block -indent-20 !overflow-hidden whitespace-nowrap overflow-ellipsis">
+        {File ? File.name : 'Importer une Licence'}
+    </span>
+</label>
+
+
                             </div>)}
                           {!isUploadEnabled && (<div>
                             <div style={{ width: '365px' }} className="flex gap-4 justify-center items-center w-full">
@@ -6891,19 +6948,7 @@ function Register() {
 
                       <div className="form-group icon-input  mb-3">
                         {[
-                          "Connaissance Tactique",
-                          "Competence Technique",
-                          "Leadership",
-                          "Communication",
-                          "Gestion de groupe",
-                          "Analyse",
-                          "Planification",
-                          "Adaptabilité",
-                          "Ethique",
-                          "Connaissance des regles",
-                          "Gestion de stress",
-                          "Developpement individuel",
-                          "Empathie",
+                          "Connaissance des tactiques", "Compétences techniques", "Leadership", "Communication", "Gestion de groupe", "Analyse", "Planification", "Adaptabilité", "Ethique", "Connaissance des règles du jeu", "Gestion de stress", "Développement individuel", "Empathie"
                           // Add other skills...
                         ].map((coachSkill) => (
                           <div
@@ -6948,9 +6993,9 @@ function Register() {
                             Vous pouvez sélectionner au maximum 10 compétences !
                           </div>
                         )}
- {inputErrors["coachSkill"] && (
+ {inputErrors["skills"] && (
                         <div className="error-message text-red-600">
-                          {inputErrors["coachSkill"]}
+                          {inputErrors["skills"]}
                         </div>
                       )}
 
@@ -7226,18 +7271,24 @@ function Register() {
 
                               <div className="form-group icon-input  mb-3">
                                 {[
+                                  
+
+
+
+
+                                  "Leadership",
+                                  "Gestion financière",
                                   "Négociation",
-                                  "Connaissance approfondie du sport",
-                                  "Réseautage",
-                                  "Compétences juridiques",
-                                  "Gestion des carrières",
-                                  "Compétence en communication",
-                                  "Conseil financier",
-                                  "Gestion du stress",
-                                  "Éthique professionnelle",
-                                  "Gestion de conflits",
-                                  "Analyse du marché",
-                                  "Adaptabilité",
+                                  "Gestion des ressources humaines",
+                                  "Communication",
+                                  "Connaissance du marché du football",
+                                  "Stratégie marketing",
+                                  "Planification stratégique",
+                                  "Gestion des installations",
+                                  "Juridique et conformité",
+                                  "Analyse des performances",
+                                  "Empathie",
+                                  "Gestion de crise"
                                   // Add other skills...
                                 ].map((agentSkill) => (
                                   <div
@@ -7285,9 +7336,11 @@ function Register() {
                                   Vous pouvez selectionner au maximum 10 compétences !
                                 </div>
                               )}
-                              {inputErrors['skillsagent'] && (
-                                <div className="error-message text-red-600">{inputErrors['skillsagent']}</div>
-                              )}
+                              {inputErrors["skillsagent"] && (
+                            <div className="error-message text-red-600">
+                              {inputErrors["skillsagent"]}
+                            </div>
+                          )}
 
                            
                     <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
@@ -7681,9 +7734,9 @@ function Register() {
                   </div>
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
                       <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-                        <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex  gap-3  md:gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
                           
-                          <div className="flex flex-col w-[33%]  text-zinc-900">
+                          <div className="flex flex-col w-full md:w-[33%]  text-zinc-900">
                             <div className="flex gap-4 mb-2 justify-between px-4 text-lg whitespace-nowrap">
                               <img
                                 loading="lazy"
@@ -7765,7 +7818,7 @@ function Register() {
 
 
                         </div>
-                        <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex gap-2 md:gap-4 self-start px-4 mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/f48abcee21a3194921563739310f0764132a8c52ff33636c5ffa29d102dc978c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -7773,7 +7826,7 @@ function Register() {
                           />
                           <div className="grow max-md:max-w-full">Régions d’explorations</div>
                         </div>
-                        <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-lg text-white whitespace-nowrap w-[33%]">
+                        <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-lg text-white whitespace-nowrap w-full md:w-[33%]">
                           <div className="flex flex-col justify-center px-0.5 border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full">
                             <div className="flex flex-col justify-center py-1.5 pl-4 rounded-md max-md:max-w-full">
                               <div className="flex gap-5 justify-between pr-20 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
@@ -7797,7 +7850,7 @@ function Register() {
       backgroundColor: '#F4F4F5', 
       border: 'none',
       fontSize: 'sm',
-
+      width: "full"
     }),
   }}
 />
@@ -8018,7 +8071,7 @@ function Register() {
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
-                         <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                         <div className="flex gap-2 md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">

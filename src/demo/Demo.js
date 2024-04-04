@@ -398,8 +398,8 @@ function Demo() {
         {/* toggel */}
                 <div className="md:hidden">
                   <svg
-                    width="60"
-                    height="50"
+                    width="40"
+                    height="30"
                     viewBox="0 0 60 50"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -445,12 +445,12 @@ function Demo() {
                 >
                   Contact
                 </div>
-                <a href="/blog">
+                {/* <a href="/blog">
                   {" "}
                   <div className="self-stretch my-auto text-base font-medium text-white">
                     Blog
                   </div>
-                </a>
+                </a> */}
                 <div className="flex gap-1 items-center self-stretch px-1 py-0.5 my-auto text-base font-medium whitespace-nowrap text-zinc-900">
                   <svg
                     width="24"
@@ -598,12 +598,12 @@ function Demo() {
                 >
                   Contact
                 </div>
-                <a href="/blog">
+                {/* <a href="/blog">
                   {" "}
                   <div className="self-stretch my-auto text-base font-medium text-white">
                     Blog
                   </div>
-                </a>
+                </a> */}
                 <div className="flex gap-1 items-center self-stretch px-1 py-0.5 my-auto text-base font-medium whitespace-nowrap text-zinc-900">
                   <svg
                     width="24"
@@ -844,7 +844,7 @@ function Demo() {
           <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
             <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col self-stretch my-auto text-white max-md:mt-10">
-                <div className="text-5xl font-bold max-md:max-w-full">
+                <div className="text-3xl md:text-5xl font-bold max-md:max-w-full">
                   Qui Sommes-Nous?
                   <br />
                   Débloquez vos rêves de football
@@ -883,9 +883,9 @@ function Demo() {
           <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
             <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col justify-center self-stretch my-auto text-white max-md:mt-10 max-md:max-w-full">
-                <div className="text-5xl font-bold max-md:max-w-full">
-                  Pour qui <br />
-                  est ODIN E-SPORT?
+                <div className="text-4xl md:text-5xl font-bold max-md:max-w-full">
+                  Pour qui 
+                  est <br/> ODIN E-SPORT? <br/>
                 </div>{" "}
                 <div className="mt-2 text-lg max-md:max-w-full">
                   ODIN E-SPORT accueille les passionnés de football de tous
@@ -935,7 +935,7 @@ function Demo() {
                   srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="max-w-full aspect-square w-[161px]"
                 />
-                <div className="mt-8 text-5xl font-bold max-md:max-w-full">
+                <div className="mt-8 text-4xl md:text-5xl font-bold max-md:max-w-full">
                   Comment on peut vous aider?
                 </div>
                 <div className="mt-4 text-xl max-md:max-w-full">
@@ -955,7 +955,7 @@ function Demo() {
             <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
               <div className="flex grow justify-center items-center px-16 py-9 w-full text-base bg-white rounded-[30px] text-zinc-900 max-md:px-5 max-md:mt-10 max-md:max-w-full">
                 <div className="flex flex-col max-w-full w-[378px]">
-                  <div className="text-5xl font-bold text-black">
+                  <div className="text-4xl md:text-5xl font-bold text-black">
                     Contactez Nous
                   </div>
                   <div>
@@ -1096,12 +1096,12 @@ function Demo() {
               >
                 Contact
               </div>
-              <a href="/blog">
+              {/* <a href="/blog">
                 {" "}
                 <div className="self-stretch my-auto text-base font-medium text-white">
                   Blog
                 </div>
-              </a>
+              </a> */}
               <div className="flex gap-1 items-center self-stretch px-1 py-0.5 my-auto text-base font-medium whitespace-nowrap text-zinc-900">
                 <svg
                   width="24"
@@ -1130,12 +1130,12 @@ function Demo() {
                   />
                 </svg>
               </div>
-              <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+             <a href="/register"> <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
                 S'inscrire
-              </div>
-              <div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
+              </div></a>
+              <a href="/login">   <div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
                 Se connecter
-              </div>
+              </div></a>
 
               <div className="flex gap-1 md:gap-4 justify-center self-stretch my-auto">
                 <svg

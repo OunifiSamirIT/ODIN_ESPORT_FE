@@ -149,7 +149,7 @@ const Parametre = ({ userInfo }) => {
                 Votre mot de passe doit contenir au moins 6 caractères ainsi qu’une
                 combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%).
               </div>
-              <div className="flex gap-4 px-6 mt-6 text-lg text-zinc-900 max-md:flex-wrap max-md:px-5">
+              <div className="flex gap-4 px-6 mt-6 text-lg text-zinc-900  max-md:px-5">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9b83235dcf72c09520e36abb0c835a12fcc97fd51d2b5644ab1be7e8f2d9094?"
@@ -162,7 +162,7 @@ const Parametre = ({ userInfo }) => {
                 {errors.password && <span className="invalid-feedback block py-2 px-2">{errors.password?.message}</span>}
 
               </div>
-              <div className="flex gap-4 px-6 mt-4 text-lg text-zinc-900 max-md:flex-wrap max-md:px-5">
+              <div className="flex gap-4 px-6 mt-4 text-lg text-zinc-900 max-md:px-5">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/e4ef12c3e38e0a77c5f6e8cccfe0418318f174e33bd12b20ae49840d8c06c3ad?"
@@ -174,7 +174,7 @@ const Parametre = ({ userInfo }) => {
                 <input {...register('newpassword')} name='newpassword' className={`form-control flex grow px-5 py-3.5 w-full flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full ${errors.newpassword ? 'is-invalid !border-red-500' : ''}`} type="password" placeholder="*********" />
                 {errors.newpassword && <span className="invalid-feedback block py-2 px-2">{errors.newpassword?.message}</span>}
               </div>
-              <div className="flex gap-4 px-6 mt-4 text-lg text-zinc-900 max-md:flex-wrap max-md:px-5">
+              <div className="flex gap-4 px-6 mt-4 text-lg text-zinc-900max-md:px-5">
                 <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/fe35aa59581d36ea9dce93bcb749cbda2c7b4843c8ff4666dfaaf55be426a279?"
@@ -369,7 +369,7 @@ const Parametre = ({ userInfo }) => {
         </div>
       }
 
-      <div className="flex flex-col px-8 py-9 text-lg bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:max-w-full w-full">
+      <div className="flex flex-col py-4 text-lg bg-white rounded-xl text-zinc-900  max-md:max-w-full w-full">
         <div className="flex gap-4 self-start px-4 whitespace-nowrap">
           <img
             loading="lazy"
@@ -392,7 +392,7 @@ const Parametre = ({ userInfo }) => {
         <button onClick={() => {setIsEmailOpen(true) ; setStep0(true)}} className="justify-center text-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5 max-md:max-w-full">
           Ajouter un autre email
         </button> */}
-        <div className="flex gap-4 justify-between px-4 mt-6 max-md:flex-wrap max-md:max-w-full">
+        <div className="flex gap-4 justify-between px-4 mt-6  max-md:max-w-full">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a85b62b66ecf00095664baf16a200ba7858326683afa2b2f6a03ae7601c2701?"

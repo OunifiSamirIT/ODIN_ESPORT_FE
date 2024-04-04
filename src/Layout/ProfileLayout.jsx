@@ -9,6 +9,7 @@ import General from "../pages/Profile/Fragments/General"
 import Entraineur from "../pages/Profile/Fragments/Entraineur"
 import PlaceHolder from "../assets/placeholder.jpg"
 import { Config } from "../config";
+import Scout from "../pages/Profile/Fragments/Scout";
 const ProfileLayout = ({ children, onChange, user }) => {
     const [CurrentUser, setCurrentUser] = useState(null)
     const { id } = useParams()
@@ -87,7 +88,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                 {CurrentUser?.user.profil === 'coach' && <Entraineur userInfo={CurrentUser} />}
                                 {CurrentUser?.user.profil === 'agent' && <General userInfo={CurrentUser} />}
                                 {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} />}
-                                {CurrentUser?.user.profil === 'scout' && <General userInfo={CurrentUser} />}
+                                {CurrentUser?.user.profil === 'scout' && <Scout userInfo={CurrentUser} />}
 
                                 {Invitation.length > 0 && <div className="flex flex-col flex-wrap justify-center content-start px-3 py-6 mt-6 mb-6 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                                     <div className="flex gap-5 justify-between font-medium whitespace-nowrap w-full">
