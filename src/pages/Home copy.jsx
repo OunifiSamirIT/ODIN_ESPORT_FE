@@ -1354,7 +1354,7 @@ function Home() {
                                           <figure className="avatar me-3 mb-8">
                                             <img
                                               src={
-                                                comment.user.user && comment.user.user.image
+                                                comment.user && comment.user.user.image
                                               }
                                               className="shadow-sm rounded-circle w-12 h-12 "
                                               alt="post"
@@ -1485,7 +1485,7 @@ function Home() {
                                       <div className="flex items-center">
                                         <figure className="avatar me-3">
                                           <img
-                                            src={user.image}
+                                            src={user.user.image}
                                             className="shadow-sm rounded-circle w-10 h-10"
                                             alt="post"
                                           />
