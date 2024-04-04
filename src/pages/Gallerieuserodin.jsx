@@ -127,26 +127,38 @@ const Album = () => {
     setSearchDateDF(formattedDate);
   };
 
-  const handleSearch = () => {
+  const formatDate = (dateString) => {
+    const dateParts = dateString.split('-');
+    if (dateParts.length === 3) {
+        const year = dateParts[0];
+        const month = dateParts[1].padStart(2, '0'); // Ensure two-digit month
+        const day = dateParts[2].padStart(2, '0'); // Ensure two-digit day
+        return `${year}-${month}-${day}`;
+    } else {
+        return null; // Invalid date string
+    }
+};
 
+const handleSearch = () => {
     const filteredData = album.filter((camps) => {
-      console.log('Camp Data:', camps);
+        console.log('Camp Data:', camps);
 
-      const formattedDateDB = new Date(camps.date_debut).toISOString().split('T')[0];
-      const formattedDateDF = new Date(camps.date_fin).toISOString().split('T')[0];
+        // Format date_debut and date_fin
+        const formattedDateDB = formatDate(camps.date_debut);
+        const formattedDateDF = formatDate(camps.date_fin);
 
-      return (
-        camps.Duree.toLowerCase().includes(searchDuree.toLowerCase()) &&
-        (searchPays === "" || camps.payscamps === searchPays) &&
-        (searchTypePrix === "" || camps.prix === searchTypePrix) &&
-        (searchDateDB === "" || formattedDateDB  === searchDateDB) &&
-        (searchDateDF === "" || formattedDateDF === searchDateDF)
-      );
+        return (
+            camps.Duree.toLowerCase().includes(searchDuree.toLowerCase()) &&
+            (searchPays === "" || camps.payscamps === searchPays) &&
+            (searchTypePrix === "" || camps.prix === searchTypePrix) &&
+            (searchDateDB === "" || formattedDateDB === searchDateDB) &&
+            (searchDateDF === "" || formattedDateDF === searchDateDF)
+        );
     });
     console.log('Search Criteria:', searchDuree, searchPays, searchTypePrix, searchDateDB, searchDateDF);
 
     setFilteredCamps(filteredData);
-  };
+};
 
   
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -355,6 +367,7 @@ const Album = () => {
                             <select
                                onChange={handleDureeChange}
                                value={searchDuree}
+                               className="w-full"
                             >
                               {dureeOptions.map((option) => (
                                 <option key={option.value} value={option.value}>
