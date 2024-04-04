@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header2";
 import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
@@ -23,7 +23,6 @@ function EditPost() {
   const [fileType, setFileType] = useState("");
   const [posting, setPosting] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
   const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
   const {
     register,
@@ -124,6 +123,19 @@ function EditPost() {
     return <p>Loading...</p>;
   }
 
+
+
+  const storedUserData = JSON.parse(localStorage.getItem("user"));
+
+  const id = storedUserData.id ? storedUserData.id : null;
+
+  const userProfileType = storedUserData ? storedUserData.profil : null;
+
+
+  const shouldHideForProfiles = ["other", "player"];
+  const shouldShowAgentItem = ["player", "other"].includes(userProfileType);
+
+  const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
   return (
     <Fragment>
       <Header />
