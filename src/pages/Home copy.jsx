@@ -528,39 +528,7 @@ function Home() {
     }
   };
 
-  // const fetchCommentsForArticle = async (articleId) => {
-  //   try {
-  //     const commentsResponse = await fetch(
-  //       `${Config.LOCAL_URL}/api/commentaires/?articleId=${articleId}`
-  //     );
-  //     const commentsData = await commentsResponse.json();
-
-  //     const commentsWithUserData = await Promise.all(
-  //       commentsData.map(async (comment) => {
-  //         const userResponse = await fetch(
-  //           `${Config.LOCAL_URL}/api/user/${comment.userId}`
-  //         );
-  //         const userData = await userResponse.json();
-  //         return {
-  //           ...comment,
-  //           user: userData,
-
-  //         };
-  //       })
-  //     );
-
-  //     setArticles((prevArticles) => {
-  //       return prevArticles.map((prevArticle) =>
-  //         prevArticle.id === articleId
-  //           ? { ...prevArticle, comments: commentsWithUserData }
-  //           : prevArticle
-  //       );
-  //     });
-  //     // handleLikeComment();
-  //   } catch (error) {
-  //     console.error(`Error fetching comments for article ${articleId}:`, error);
-  //   }
-  // };
+ 
   const fetchRepliesForComment = async (commentId) => {
     try {
       const repliesResponse = await fetch(
@@ -1386,7 +1354,7 @@ function Home() {
                                           <figure className="avatar me-3 mb-8">
                                             <img
                                               src={
-                                                comment.user && comment.user.user.image
+                                                comment.user.user &&  comment?.user?.user?.image
                                               }
                                               className="shadow-sm rounded-circle w-12 h-12 "
                                               alt="post"
