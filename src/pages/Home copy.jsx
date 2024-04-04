@@ -1354,7 +1354,7 @@ function Home() {
                                           <figure className="avatar me-3 mb-8">
                                             <img
                                               src={
-                                                comment.user.user &&  comment?.user?.user?.image
+                                                comment.user.user && comment.user.user.image
                                               }
                                               className="shadow-sm rounded-circle w-12 h-12 "
                                               alt="post"
