@@ -994,14 +994,9 @@ const Index = () => {
                   </div>
                   <div className="card-body p-0 me-lg-5">
                     <p className="font-light text-base rounded-md  w-full text-dark theme-dark-bg text-pretty">
-                      {article.description !== 'undefined' ? article.description : ''}
+                      {article.description !== 'null' ? article.description : ''}
                     </p>
                   </div>
-
-
-
-
-
                   {article.video && (
                     <div className="card-body d-block p-0">
                       <div className="row ps-2 pe-2">
