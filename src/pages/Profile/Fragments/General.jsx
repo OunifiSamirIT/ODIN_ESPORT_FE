@@ -4,6 +4,7 @@ import Terrain from "../../../components/Terrain";
 import { useParams } from "react-router-dom";
 import Placeholder from "../../../assets/placeholder.jpg"
 import { Config } from "../../../config";
+import { paysAllInfo } from "../../../assets/data/Country";
 const General = ({ userInfo }) => {
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -20,6 +21,11 @@ const General = ({ userInfo }) => {
     const result = await response.json();
     setAcceptedFriend(result.exists)
   }
+  const getCountryFlagFromCountryName = (countryName) => {
+    const country = paysAllInfo.find(country => country.name == countryName);
+    return country ? country.iso["alpha-2"].toLowerCase() : null;
+  }
+
   const sendFriendRequest = async () => {
 
     const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
@@ -167,37 +173,37 @@ const General = ({ userInfo }) => {
             </div>
           </div>
         </div>
-        <div className="md:ml-[10px] max:lg-[150px] md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm">
-          <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5578ac17241460884f81bfecaeacebd3031f2ffd1b2203855765a3b934a027?"
-              className="aspect-[1.49] w-[30px]"
-            />
-            <div className="grow self-start mt-1">Tunisie</div>
+        <div className="md:ml-[10px] max:lg-[150px] w-[100px] bg-red-500 md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm">
+          <div className="w-[100px] self-end flex gap-2 justify-center p-2 whitespace-nowrap">
+            <span
+              className={`flag-icon flag-icon-${getCountryFlagFromCountryName(userInfo.user.countryresidence)}`}
+              style={{ marginRight: "8px", width: "25px" }}
+            ></span>
+            { }
+            <div className="grow self-start mt-1">{userInfo.user.countryresidence}</div>
           </div>
-
-          <div className="flex gap-2 justify-center p-2 whitespace-nowrap items-center">
-            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_61_20390)">
-                <mask id="mask0_61_20390" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="20">
-                  <path d="M20.5 0H0.5V20H20.5V0Z" fill="white" />
-                </mask>
-                <g mask="url(#mask0_61_20390)">
-                  <path d="M11.4875 13.3333H9.5125C9.0725 13.334 8.64363 13.195 8.28766 12.9364C7.93169 12.6778 7.66699 12.3128 7.53167 11.8942L6.92167 10.0167C6.78382 9.59778 6.78284 9.14589 6.91887 8.7264C7.05491 8.30692 7.32089 7.94161 7.67834 7.68333L9.275 6.52667C9.63041 6.26715 10.0591 6.12729 10.4992 6.12729C10.9392 6.12729 11.3679 6.26715 11.7233 6.52667L13.3208 7.68667C13.6784 7.94485 13.9444 8.31016 14.0805 8.72968C14.2165 9.14919 14.2155 9.60112 14.0775 10.02L13.4683 11.8975C13.3318 12.3151 13.0666 12.6789 12.7109 12.9368C12.3551 13.1947 11.9269 13.3335 11.4875 13.3333ZM20.5 10C20.5 11.9778 19.9135 13.9112 18.8147 15.5557C17.7159 17.2002 16.1541 18.4819 14.3268 19.2388C12.4996 19.9957 10.4889 20.1937 8.5491 19.8079C6.60929 19.422 4.82746 18.4696 3.42894 17.0711C2.03041 15.6725 1.078 13.8907 0.692152 11.9509C0.306299 10.0111 0.504333 8.00043 1.26121 6.17317C2.01809 4.3459 3.29981 2.78412 4.9443 1.6853C6.58879 0.58649 8.52219 0 10.5 0C13.1513 0.00286757 15.6932 1.05736 17.5679 2.9321C19.4426 4.80684 20.4971 7.34872 20.5 10ZM10.5 17.5C10.9315 17.4975 11.362 17.4579 11.7867 17.3817L12.4933 15.0642C12.6537 14.5606 12.9699 14.1211 13.3964 13.8089C13.8228 13.4968 14.3374 13.3282 14.8658 13.3275L17.2133 13.3233C17.5913 12.565 17.8367 11.7477 17.9392 10.9067L16.0658 9.65667C15.6335 9.35323 15.3087 8.92034 15.1383 8.42041C14.9678 7.92047 14.9606 7.37933 15.1175 6.875L15.8283 4.73083C15.2324 4.13169 14.54 3.63702 13.78 3.2675L11.97 4.5225C11.5431 4.83392 11.0284 5.00173 10.5 5.00173C9.97161 5.00173 9.45687 4.83392 9.03 4.5225L7.26834 3.2425C6.51995 3.60002 5.83574 4.07868 5.24334 4.65917L5.8825 6.87333C6.03944 7.37767 6.03217 7.91881 5.86173 8.41874C5.69129 8.91867 5.3665 9.35156 4.93417 9.655L3.0725 10.9842C3.17956 11.798 3.42089 12.5885 3.78667 13.3233L6.13334 13.3275C6.66184 13.328 7.17653 13.4963 7.60311 13.8083C8.0297 14.1203 8.34611 14.5598 8.50667 15.0633L9.2275 17.3833C9.64754 17.4586 10.0733 17.4977 10.5 17.5Z" fill="#1D1E21" />
+          {userInfo.user.profil == 'agent' &&
+            <div className="flex gap-2 justify-center p-2 whitespace-nowrap items-center">
+              <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_61_20390)">
+                  <mask id="mask0_61_20390" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="20">
+                    <path d="M20.5 0H0.5V20H20.5V0Z" fill="white" />
+                  </mask>
+                  <g mask="url(#mask0_61_20390)">
+                    <path d="M11.4875 13.3333H9.5125C9.0725 13.334 8.64363 13.195 8.28766 12.9364C7.93169 12.6778 7.66699 12.3128 7.53167 11.8942L6.92167 10.0167C6.78382 9.59778 6.78284 9.14589 6.91887 8.7264C7.05491 8.30692 7.32089 7.94161 7.67834 7.68333L9.275 6.52667C9.63041 6.26715 10.0591 6.12729 10.4992 6.12729C10.9392 6.12729 11.3679 6.26715 11.7233 6.52667L13.3208 7.68667C13.6784 7.94485 13.9444 8.31016 14.0805 8.72968C14.2165 9.14919 14.2155 9.60112 14.0775 10.02L13.4683 11.8975C13.3318 12.3151 13.0666 12.6789 12.7109 12.9368C12.3551 13.1947 11.9269 13.3335 11.4875 13.3333ZM20.5 10C20.5 11.9778 19.9135 13.9112 18.8147 15.5557C17.7159 17.2002 16.1541 18.4819 14.3268 19.2388C12.4996 19.9957 10.4889 20.1937 8.5491 19.8079C6.60929 19.422 4.82746 18.4696 3.42894 17.0711C2.03041 15.6725 1.078 13.8907 0.692152 11.9509C0.306299 10.0111 0.504333 8.00043 1.26121 6.17317C2.01809 4.3459 3.29981 2.78412 4.9443 1.6853C6.58879 0.58649 8.52219 0 10.5 0C13.1513 0.00286757 15.6932 1.05736 17.5679 2.9321C19.4426 4.80684 20.4971 7.34872 20.5 10ZM10.5 17.5C10.9315 17.4975 11.362 17.4579 11.7867 17.3817L12.4933 15.0642C12.6537 14.5606 12.9699 14.1211 13.3964 13.8089C13.8228 13.4968 14.3374 13.3282 14.8658 13.3275L17.2133 13.3233C17.5913 12.565 17.8367 11.7477 17.9392 10.9067L16.0658 9.65667C15.6335 9.35323 15.3087 8.92034 15.1383 8.42041C14.9678 7.92047 14.9606 7.37933 15.1175 6.875L15.8283 4.73083C15.2324 4.13169 14.54 3.63702 13.78 3.2675L11.97 4.5225C11.5431 4.83392 11.0284 5.00173 10.5 5.00173C9.97161 5.00173 9.45687 4.83392 9.03 4.5225L7.26834 3.2425C6.51995 3.60002 5.83574 4.07868 5.24334 4.65917L5.8825 6.87333C6.03944 7.37767 6.03217 7.91881 5.86173 8.41874C5.69129 8.91867 5.3665 9.35156 4.93417 9.655L3.0725 10.9842C3.17956 11.798 3.42089 12.5885 3.78667 13.3233L6.13334 13.3275C6.66184 13.328 7.17653 13.4963 7.60311 13.8083C8.0297 14.1203 8.34611 14.5598 8.50667 15.0633L9.2275 17.3833C9.64754 17.4586 10.0733 17.4977 10.5 17.5Z" fill="#1D1E21" />
+                  </g>
                 </g>
-              </g>
-              <defs>
-                <clipPath id="clip0_61_20390">
-                  <rect width="20" height="20" fill="white" transform="translate(0.5)" />
-                </clipPath>
-              </defs>
-            </svg>
+                <defs>
+                  <clipPath id="clip0_61_20390">
+                    <rect width="20" height="20" fill="white" transform="translate(0.5)" />
+                  </clipPath>
+                </defs>
+              </svg>
 
-            <div className="grow self-start mt-1">
-              Espérance Sportive de Tunis
-            </div>
-          </div>
+              <div className="grow self-start mt-1">
+                Espérance Sportive de Tunis
+              </div>
+            </div>}
         </div>
 
         <div className="self-stretch mt-8 text-base font-light text-center text-neutral-900 max-md:max-w-full">
@@ -216,13 +222,13 @@ const General = ({ userInfo }) => {
         <div className="flex gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
           {userInfo?.user.profil === 'agent' &&
             userInfo?.agent?.skillsagent.split(',').filter(item => item.trim()).map((item) => {
-              return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+              return (<div className="text-center grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                 {item}
               </div>)
             })}
           {userInfo?.user.profil === 'other' &&
             userInfo?.other?.skillsAutre.split(',').filter(item => item.trim()).map((item) => {
-              return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+              return (<div className="text-center grow justify-center px-2 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                 {item}
               </div>)
             })}
@@ -230,7 +236,7 @@ const General = ({ userInfo }) => {
         </div>
 
         <div className="flex gap-5 justify-between">
-          {userInfo?.user.liensSM  && <a target="_blank" href={`https://www.instagram.com/${userInfo?.user.liensSM}`}>
+          {userInfo?.user.liensSM && <a target="_blank" href={`https://www.instagram.com/${userInfo?.user.liensSM}`}>
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/9f2fa6031aa7cffb21186e5501126b3836a7c414e1752c9e64fdbcac1ce4100c?"
@@ -238,11 +244,11 @@ const General = ({ userInfo }) => {
             />
           </a>}
           {userInfo?.user.tiktok && <a target="_blank" href={`https://www.tiktok.com/${userInfo?.user.tiktok}`}>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ee734d4428028617729c0185044032ddb130279e8139babab8caab0cdf7d6bd4?"
-                className="shrink-0 w-6 aspect-[0.96]"
-              />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/ee734d4428028617729c0185044032ddb130279e8139babab8caab0cdf7d6bd4?"
+              className="shrink-0 w-6 aspect-[0.96]"
+            />
           </a>}
           {userInfo?.user.linkedin && <a target="_blank" href={`https://www.linkedin.com/in/${userInfo?.user.linkedin}`}>
             <img

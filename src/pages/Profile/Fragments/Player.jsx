@@ -76,6 +76,7 @@ const PlayerCard = ({ userInfo }) => {
 
   };
   useEffect(() => {
+    getCountryFlagFromCountryName('Cubaine')
     isFriendAccepted()
   }, [id])
   return (
@@ -86,7 +87,7 @@ const PlayerCard = ({ userInfo }) => {
             <img
               alt="profile"
               loading="lazy"
-              srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
+              srcSet={userInfo.user.image ? userInfo?.user.image : Placeholder}
               className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
             />
             <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
@@ -175,7 +176,7 @@ const PlayerCard = ({ userInfo }) => {
             </div>
           </div>
         </div>
-        <div className="md:gap-16 md:ml-[125px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between flex-wrap text-sm">
+        <div className="md:gap-x-10 md:ml-[125px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between text-sm flex-wrap">
           <div className="flex gap-2 justify-between items-center py-2">
             <img
               loading="lazy"
@@ -196,7 +197,7 @@ const PlayerCard = ({ userInfo }) => {
               style={{ marginRight: "8px", width: "25px" }}
             ></span>
             { }
-            <div className="grow self-start mt-1">Tunisie</div>
+            <div className="grow self-start mt-1">{userInfo.user.countryresidence}</div>
           </div>
 
           <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
@@ -255,7 +256,7 @@ const PlayerCard = ({ userInfo }) => {
         <div className="flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
           {userInfo?.player?.skillsInProfile.split(',').filter(item => item.trim() !== '').map((item, index) => {
-            return (<div key={index} className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+            return (<div key={index} className="grow text-center justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
               {item}
             </div>)
           })}

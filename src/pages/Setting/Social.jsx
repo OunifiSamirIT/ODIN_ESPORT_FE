@@ -72,7 +72,7 @@ const Social = ({ userInfo }) => {
             <div>
                 <ToastContainer />
             </div>
-            <div className="flex flex-col px-8 py-9 text-lg bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:max-w-full">
+            <div className="flex flex-col py-9 text-lg bg-white rounded-xl text-zinc-900 max-md:max-w-full">
                 <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
                     <div className="col-span-1 flex flex-col basis-0 text-zinc-900">
                         <div className="flex gap-4 justify-between px-4 text-lg">
