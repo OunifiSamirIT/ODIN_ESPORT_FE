@@ -58,7 +58,8 @@ const Album = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/albumc");
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
+
         const result = await response.json();
 
         setAlbum(result.data);
