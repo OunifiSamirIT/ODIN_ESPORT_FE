@@ -216,7 +216,7 @@ const Agent = ({ userInfo }) => {
     }
     return (
         <>
-            {userInfo.agent.typeresponsable === 'player' &&
+            {userInfo.agent.typeresponsable == 'players' &&
                 <div className="flex flex-col flex-wrap grow  md:px-2 content-start w-full bg-white rounded-xl py-4">
                     <div>
                         <ToastContainer />
