@@ -429,9 +429,7 @@ function Home() {
         // Handle validation errors or missing user data
         return;
       }
-
       setPosting(true);
-
       const formData = new FormData();
       formData.append("titre", "Your default title");
       formData.append("description", data.description);
@@ -447,7 +445,7 @@ function Home() {
       });
 
       // After creating the article, fetch the updated list of articles
-      const response = await fetch("${Config.LOCAL_URL}/api/articles/");
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const updatedPostsData = await response.json();
 
       // Update the list of posts and reset the preview image
