@@ -1126,7 +1126,7 @@ function Home() {
                               <Link to={`/profile/${article.user.user.id}`}>
                                 <figure className="avatar me-3">
                                   <img
-                                    src={article.user.user.image}
+                                    src={article.user.user?.image}
                                     className="shadow-sm rounded-full  w-10 h-10"
                                     alt="post"
                                   />{" "}
@@ -1193,7 +1193,7 @@ function Home() {
                               </p>
                             </div>
 
-                            {article.video && (
+                            {article?.video && (
                               <div className="card-body d-block p-0 mb-3">
                                 <div className="row ps-2 pe-2">
                                   <div className="col-sm-12 p-1">
@@ -1209,7 +1209,7 @@ function Home() {
                                   </div>
                                 </div>
                               </div>)}
-                            {article.image && (
+                            {article?.image && (
                               <div className="card-body d-block p-0 mb-3">
                                 <div className="row ps-2 pe-2">
                                   <div className="col-sm-12 p-1">
@@ -1347,7 +1347,7 @@ function Home() {
                                           <figure className="avatar me-3 mb-8">
                                             <img
                                               src={
-                                                comment.user && comment.user.user.image
+                                                comment.user && comment.user.user?.image
                                               }
                                               className="shadow-sm rounded-full w-[64px] aspect-square"
                                               alt="post"
@@ -1443,7 +1443,7 @@ function Home() {
                                                         <img
                                                           src={
                                                             user &&
-                                                            user.user.image
+                                                            user.user?.image
                                                           }
                                                           className="shadow-sm rounded-circle w-[52px] h-[52px]"
                                                           alt="post"
@@ -1492,7 +1492,7 @@ function Home() {
                                                 <figure className="avatar">
                                                   <img
                                                     src={
-                                                      comment.user && comment.user.user.image
+                                                      comment.user && comment.user.user?.image
                                                     }
                                                     className="shadow-sm rounded-full w-[52px] aspect-square"
                                                     alt="post"
@@ -1534,7 +1534,7 @@ function Home() {
                                         <figure className="avatar">
                                           <img
                                             src={
-                                              user.user.image ? user.user.image : placeholder
+                                              user.user.image ? user.user?.image : placeholder
                                             }
                                             className="shadow-sm rounded-full w-[52px] aspect-square"
                                             alt="post"
