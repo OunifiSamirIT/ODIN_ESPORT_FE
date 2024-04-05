@@ -76,12 +76,12 @@ const PlayerCard = ({ userInfo }) => {
 
   };
   useEffect(() => {
-    getCountryFlagFromCountryName('Cubaine')
+
     isFriendAccepted()
   }, [id])
   return (
     <>
-      <div className="flex gap-y-4 flex-col items-center px-[30px] py-6 bg-white rounded-[10px] ">
+      <div className="flex gap-y-4 flex-col items-center md:px-[30px] max-sm:px-2 py-6 bg-white rounded-[10px] ">
         <div className="flex flex-col md:flex-row justify-between gap-4 w-full">
           <div className="flex items-center md:w-fit w-full justify-center  md:mx-[0px] ">
             <img
@@ -176,7 +176,7 @@ const PlayerCard = ({ userInfo }) => {
             </div>
           </div>
         </div>
-        <div className="md:gap-x-10 md:ml-[125px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between text-sm flex-wrap md:flex-nowrap">
+        <div className="md:gap-x-2 max-md:gap-x-4 md:ml-[125px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between text-sm flex-wrap md:flex-nowrap">
           <div className="flex gap-2 justify-between items-center py-2">
             <img
               loading="lazy"
@@ -253,10 +253,10 @@ const PlayerCard = ({ userInfo }) => {
           />
           <div className="grow">Compétences</div>
         </div>
-        <div className="flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+        <div className="flex gap-2 justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
           {userInfo?.player?.skillsInProfile.split(',').filter(item => item.trim() !== '').map((item, index) => {
-            return (<div key={index} className="grow text-center justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+            return (<div key={index} className=" text-center justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
               {item}
             </div>)
           })}

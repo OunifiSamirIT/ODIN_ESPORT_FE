@@ -113,7 +113,7 @@ const More = () => {
     <>
       <HomeLayout>
         <div className="flex flex-col mt-[120px] px-2">
-          <div className="md:self-end items-end flex gap-2 justify-center md:w-[224px] text-center py-2 text-white whitespace-nowrap bg-orange-500 rounded-[30px] max-md:px-5 w-full">
+          <div className="md:self-end items-end flex gap-2 justify-center md:w-[224px] text-center py-2 text-white whitespace-nowrap bg-orange-500 rounded-[30px]  w-full">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac20d9bf5dc01e69f2a6e82df157e82794a74dd3d3c80d0437777183828a95ba?"
@@ -121,7 +121,7 @@ const More = () => {
             />
             <Link to={`/profile/${id}`} className="hover:text-orange-300">Revenir au Profil</Link>
           </div>
-          {CurrentUser?.user.profil === 'player' && <div className="flex mt-8 gap-y-8 flex-col items-center px-4 py-6 bg-white rounded-[10px] jusitfy-center ">
+          {CurrentUser?.user.profil === 'player' && <div className="flex mt-8 gap-y-8 flex-col items-center px-1 md:px-4 py-6 bg-white rounded-[10px] jusitfy-center ">
             <div className="flex justify-center ">
               <div className="max-w-[1110px] flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
                 <div className="flex flex-col  max-md:ml-0 ">
@@ -212,7 +212,7 @@ const More = () => {
                         </>
                       }
                     </div>
-                    <div className="flex gap-x-4 gap-y-2 justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap max-w-full">
+                    <div className="mt-3 flex gap-x-4 px gap-y-2 justify-center md:justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap max-w-full">
                       <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                         <span
                           className={`flag-icon flag-icon-${getCountryFlagFromCountryName(CurrentUser.user.countryresidence)}`}
@@ -259,7 +259,7 @@ const More = () => {
                           <path d="M16.3789 6.38645L11.7674 1.77495C10.9098 0.956593 9.76995 0.5 8.58457 0.5C7.39919 0.5 6.25935 0.956593 5.40179 1.77495L0.790291 6.38645C0.428596 6.74832 0.225465 7.23904 0.225586 7.75068C0.225707 8.26231 0.429068 8.75295 0.790934 9.11464C1.1528 9.47634 1.64353 9.67947 2.15516 9.67935C2.6668 9.67923 3.15743 9.47586 3.51912 9.114L6.65561 5.97751V18.571C6.65561 19.0826 6.85884 19.5733 7.22059 19.935C7.58234 20.2968 8.07298 20.5 8.58457 20.5C9.09616 20.5 9.5868 20.2968 9.94855 19.935C10.3103 19.5733 10.5135 19.0826 10.5135 18.571V5.97751L13.65 9.114C13.8291 9.29318 14.0417 9.43532 14.2758 9.53233C14.5098 9.62933 14.7606 9.67929 15.014 9.67935C15.2673 9.67941 15.5182 9.62957 15.7523 9.53268C15.9863 9.43578 16.199 9.29373 16.3782 9.11464C16.5574 8.93555 16.6995 8.72292 16.7965 8.48889C16.8935 8.25486 16.9435 8.00402 16.9436 7.75068C16.9436 7.49734 16.8938 7.24648 16.7969 7.0124C16.7 6.77833 16.5579 6.56563 16.3789 6.38645Z" fill="#1D1E21" />
                         </svg>
 
-                        <div className="grow self-start mt-1">{CurrentUser.player.height}cm</div>
+                        <div className="grow self-start mt-1">{CurrentUser.player?.height}cm</div>
                       </div>
                       <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                         <img
@@ -268,10 +268,26 @@ const More = () => {
                           className="w-5 aspect-square"
                         />
                         <div className="grow self-start mt-1">
-                          {CurrentUser.player.champsoptionelle}
+                          {CurrentUser.player?.champsoptionelle}
                         </div>
                       </div>
                       <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
+                        <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_154_38438)">
+                            <mask id="mask0_154_38438" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="21">
+                              <path d="M20.6113 0.109375H0.611328V20.1094H20.6113V0.109375Z" fill="white" />
+                            </mask>
+                            <g mask="url(#mask0_154_38438)">
+                              <path d="M12.2774 5.94271V0.492708C13.0357 0.784375 13.7357 1.22604 14.3274 1.81771L17.2274 4.72604C17.8191 5.31771 18.2607 6.01771 18.5524 6.77604H13.1024C12.6441 6.77604 12.2691 6.40104 12.2691 5.94271H12.2774ZM15.6107 14.276C15.6107 12.4344 14.1191 10.9427 12.2774 10.9427C10.4357 10.9427 8.94401 12.4344 8.94401 14.276C8.94401 15.5094 9.61068 16.5844 10.6107 17.1594V19.501C10.6107 20.0344 11.2607 20.301 11.6357 19.926L12.2774 19.2844L12.9191 19.926C13.2941 20.301 13.9441 20.0344 13.9441 19.501V17.1594C14.9441 16.5844 15.6107 15.5094 15.6107 14.276ZM18.9274 8.44271H13.1107C11.7357 8.44271 10.6107 7.31771 10.6107 5.94271V0.126042C10.4773 0.117708 10.344 0.109375 10.2023 0.109375H6.44401C4.14401 0.109375 2.27734 1.97604 2.27734 4.27604V15.9427C2.27734 18.2427 4.14401 20.1094 6.44401 20.1094H8.94401V18.001C7.91901 17.0844 7.27734 15.7594 7.27734 14.276C7.27734 11.5177 9.51901 9.27604 12.2774 9.27604C15.0357 9.27604 17.2774 11.5177 17.2774 14.276C17.2774 15.7594 16.6357 17.0844 15.6107 18.001V20.026C17.5107 19.6427 18.9441 17.9594 18.9441 15.9427V8.85104C18.9441 8.71771 18.9357 8.58437 18.9274 8.44271Z" fill="#1D1E21" />
+                            </g>
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_154_38438">
+                              <rect width="20" height="21" fill="white" transform="translate(0.611328)" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+
                         <div className="grow self-start mt-1">
                           Licence
                         </div>
@@ -303,7 +319,7 @@ const More = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex text-left text-base font-light  text-neutral-900">
+                  <div className="flex text-center md:text-left text-left text-base font-light  text-neutral-900">
                     {CurrentUser?.user.discreptionBio}
                   </div>
                 </div>
@@ -313,7 +329,7 @@ const More = () => {
             <span className="h-1 w-full bg-gray-100"></span>
             <div className="max-w-[1110px] gap-8 w-full flex flex-col md:flex-row ">
               <div className=" gap-y-4 max-w-xl flex flex flex-col justify-center">
-                <div className="flex !md:justify-left max-sm:justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
+                <div className="flex items-center justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
                   <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_878_80013)">
                       <path d="M20.1242 17.1658C20.1242 19.0042 18.6292 20.4992 16.7909 20.4992H6.66925L8.37341 18.8325H16.7917C17.7109 18.8325 18.4584 18.085 18.4584 17.1658C18.4584 16.2467 17.7109 15.4992 16.7917 15.4992H12.6251C10.7867 15.4992 9.29175 14.0042 9.29175 12.1658C9.29175 10.56 10.4334 9.21667 11.9476 8.9025L13.5801 10.4992H12.6251C11.7059 10.4992 10.9584 11.2467 10.9584 12.1658C10.9584 13.085 11.7059 13.8325 12.6251 13.8325H16.7917C18.6301 13.8325 20.1242 15.3275 20.1242 17.1658ZM18.9034 7.6125L15.9576 10.4942L13.0176 7.61917C11.3867 5.9875 11.3867 3.345 13.0109 1.72C13.7984 0.933333 14.8451 0.5 15.9576 0.5C17.0701 0.5 18.1167 0.933333 18.9034 1.72C20.5284 3.345 20.5284 5.98833 18.9034 7.6125ZM7.23675 11.72C8.86175 13.345 8.86175 15.9883 7.23675 17.6125L4.29091 20.4942L1.35091 17.6192C-0.279921 15.9875 -0.279921 13.345 1.34425 11.72C2.13175 10.9333 3.17841 10.5 4.29091 10.5C5.40341 10.5 6.45008 10.9333 7.23675 11.72Z" fill="#1D1E21" />
@@ -324,7 +340,6 @@ const More = () => {
                       </clipPath>
                     </defs>
                   </svg>
-
                   <div className="">Les Positions</div>
                 </div>
                 <Terrain positionPlay={CurrentUser?.player.positionPlay} positionSecond={CurrentUser?.player.positionSecond} />
@@ -338,9 +353,9 @@ const More = () => {
                   />
                   <div className="grow">Compétences</div>
                 </div>
-                <div className="  max-w-xl flex flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+                <div className="flex flex gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                   {CurrentUser?.player.skillsInProfile.split(',').filter((item) => item !== '').map((item) => {
-                    return (<div className="grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+                    return (<div className="justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                       {item}
                     </div>)
                   })}
@@ -707,9 +722,9 @@ const More = () => {
               </a>}
             </div>
           </div>}
-          {CurrentUser?.user.profil === 'agent' && <div className="flex mt-8 gap-y-8 flex-col items-center px-4 py-6 bg-white rounded-[10px] jusitfy-center">
-            <div className="flex justify-center ">
-              <div className="max-w-[1110px] flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
+          {CurrentUser?.user.profil === 'agent' && <div className="flex gap-y-4 flex-col items-center md:px-[30px] max-sm:px-2 py-6 bg-white rounded-[10px] mt-3">
+            <div className="flex justify-between w-full max-w-[1110px]">
+              <div className="w-full flex gap-3 justify-center items-start max-md:flex-col max-md:gap-0">
                 <div className="flex flex-col  max-md:ml-0 ">
                   <img
                     loading="lazy"
@@ -717,7 +732,7 @@ const More = () => {
                     className="max-w-full rounded-full aspect-square w-[227px] max-md:mt-4"
                   />
                 </div>
-                <div className="max-w-[865px] flex flex-col items-center justify-between gap-y-4">
+                <div className="w-full flex flex-col items-center justify-between gap-y-4">
                   <div className="flex flex-col w-full ">
                     <div className="flex gap-2 md:justify-between justify-center w-full max-md:flex-wrap max-md:max-w-full">
                       <div className="flex flex-col justify-between max-sm:text-center">
@@ -798,14 +813,7 @@ const More = () => {
                         </>
                       }
                     </div>
-                    <div className="flex gap-x-4 gap-y-2 justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap">
-                      <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
-                        <span
-                          className={`flag-icon flag-icon-${getCountryFlagFromCountryName(CurrentUser.user.countryresidence)}`}
-                          style={{ marginRight: "8px", width: "25px" }}
-                        ></span>
-                        <div className="grow self-start mt-1">{CurrentUser.user?.countryresidence}</div>
-                      </div>
+                    <div className="flex mt-2 gap-x-4 gap-y-2 justify-center md:justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap">
                       <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                         <span
                           className={`flag-icon flag-icon-${getCountryFlagFromCountryName(CurrentUser.user.countryresidence)}`}
@@ -847,10 +855,8 @@ const More = () => {
 
                         <div className="self-stretch my-auto">{CurrentUser.user.countryresidence} ,{CurrentUser?.user?.cityresidence} </div>
                       </div>
+                      {CurrentUser.agent?.typeresponsable == 'club' &&
                       <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
-
-
-                        {CurrentUser.agent?.typeresponsable == 'club' ?
                           <>
                             <svg width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M16.3789 6.38645L11.7674 1.77495C10.9098 0.956593 9.76995 0.5 8.58457 0.5C7.39919 0.5 6.25935 0.956593 5.40179 1.77495L0.790291 6.38645C0.428596 6.74832 0.225465 7.23904 0.225586 7.75068C0.225707 8.26231 0.429068 8.75295 0.790934 9.11464C1.1528 9.47634 1.64353 9.67947 2.15516 9.67935C2.6668 9.67923 3.15743 9.47586 3.51912 9.114L6.65561 5.97751V18.571C6.65561 19.0826 6.85884 19.5733 7.22059 19.935C7.58234 20.2968 8.07298 20.5 8.58457 20.5C9.09616 20.5 9.5868 20.2968 9.94855 19.935C10.3103 19.5733 10.5135 19.0826 10.5135 18.571V5.97751L13.65 9.114C13.8291 9.29318 14.0417 9.43532 14.2758 9.53233C14.5098 9.62933 14.7606 9.67929 15.014 9.67935C15.2673 9.67941 15.5182 9.62957 15.7523 9.53268C15.9863 9.43578 16.199 9.29373 16.3782 9.11464C16.5574 8.93555 16.6995 8.72292 16.7965 8.48889C16.8935 8.25486 16.9435 8.00402 16.9436 7.75068C16.9436 7.49734 16.8938 7.24648 16.7969 7.0124C16.7 6.77833 16.5579 6.56563 16.3789 6.38645Z" fill="#1D1E21" />
@@ -869,9 +875,10 @@ const More = () => {
                             </svg>
 
                             <div className="grow self-start mt-1">{CurrentUser.agent.totalCareerTransfers}  Transferts Effectués</div>
-                          </>}
-
-                        {CurrentUser.agent?.typeresponsable == 'player' && <>
+                          </>
+                      </div>}
+                      {CurrentUser.agent?.typeresponsable == 'player' &&
+                      <div className="flex gap-2 justify-center p-2 whitespace-nowrap"> <>
                           <div className="flex gap-2 justify-center items-center self-stretch py-2">
                             <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <g clip-path="url(#clip0_121_29079)">
@@ -889,10 +896,8 @@ const More = () => {
                               </defs>
                             </svg>
                             <div className="grow self-start mt-1">{CurrentUser.agent.totalPlayer} Joueurs</div>
-                          </div></>}
-
-                      </div>
-
+                          </div></>
+                      </div>}
 
                     </div>
                   </div>
@@ -906,7 +911,7 @@ const More = () => {
             <span className="h-1 w-full bg-gray-100"></span>
             <div className="max-w-[1110px] w-full flex-wrap">
               <div className="flex  flex-1 flex-col gap-y-4">
-                <div className="max-w-xl flex items-center flex gap-4 px-4  text-lg whitespace-nowrap text-zinc-900">
+                <div className="flex items-center  flex gap-4 px-4  text-lg whitespace-nowrap text-zinc-900">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
@@ -914,9 +919,9 @@ const More = () => {
                   />
                   <div className="grow">Compétences</div>
                 </div>
-                <div className="flex-1  w-full flex flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+                <div className="flex-1 max-sm:justify-center  w-full flex flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                   {CurrentUser?.agent.skillsagent.split(',').filter((item) => item !== '').map((item) => {
-                    return (<div className=" text-center justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+                    return (<div className=" text-center justify-center px:1 md:px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                       {item}
                     </div>)
                   })}
@@ -954,7 +959,7 @@ const More = () => {
             </div>
           </div>}
           {CurrentUser?.user.profil === 'other' && <div className="flex mt-8 gap-y-8 flex-col items-center px-4 py-6 bg-white rounded-[10px] jusitfy-center">
-          <div className="flex justify-center ">
+            <div className="flex justify-center ">
               <div className="max-w-[1110px] flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
                 <div className="flex flex-col  max-md:ml-0 ">
                   <img
@@ -1166,7 +1171,7 @@ const More = () => {
           </div>}
           {CurrentUser?.user.profil === 'scout' && <div className="flex mt-8 gap-y-8 flex-col items-center px-4 py-6 bg-white rounded-[10px] jusitfy-center ">
             <div className="flex justify-center ">
-            <div className="max-w-[1110px] flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
+              <div className="max-w-[1110px] flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
                 <div className="flex flex-col  max-md:ml-0 ">
                   <img
                     loading="lazy"
@@ -1306,21 +1311,21 @@ const More = () => {
                       </div>
                       <div className="flex gap-2 justify-center p-2 whitespace-nowrap items-center">
                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_2149_4318)">
-                                <path d="M11.3449 13.8333H9.36993C8.92992 13.834 8.50105 13.695 8.14508 13.4364C7.78911 13.1778 7.52441 12.8128 7.38909 12.3942L6.77909 10.5167C6.64124 10.0978 6.64026 9.64589 6.7763 9.22641C6.91233 8.80692 7.17832 8.44161 7.53576 8.18333L9.13243 7.02667C9.48783 6.76715 9.91652 6.62729 10.3566 6.62729C10.7967 6.62729 11.2254 6.76715 11.5808 7.02667L13.1783 8.18667C13.5358 8.44485 13.8019 8.81016 13.9379 9.22968C14.074 9.64919 14.0729 10.1011 13.9349 10.52L13.3258 12.3975C13.1892 12.8151 12.9241 13.1789 12.5683 13.4368C12.2125 13.6947 11.7843 13.8335 11.3449 13.8333ZM20.3574 10.5C20.3574 12.4778 19.7709 14.4112 18.6721 16.0557C17.5733 17.7002 16.0115 18.9819 14.1843 19.7388C12.357 20.4957 10.3463 20.6937 8.40652 20.3079C6.46671 19.922 4.68488 18.9696 3.28636 17.5711C1.88783 16.1725 0.935426 14.3907 0.549574 12.4509C0.163721 10.5111 0.361755 8.50043 1.11863 6.67317C1.87551 4.8459 3.15723 3.28412 4.80172 2.1853C6.44622 1.08649 8.37961 0.5 10.3574 0.5C13.0087 0.502868 15.5506 1.55736 17.4253 3.4321C19.3001 5.30684 20.3546 7.84872 20.3574 10.5ZM10.3574 18C10.7889 17.9975 11.2194 17.9579 11.6441 17.8817L12.3508 15.5642C12.5111 15.0606 12.8274 14.6211 13.2538 14.3089C13.6802 13.9968 14.1948 13.8282 14.7233 13.8275L17.0708 13.8233C17.4487 13.065 17.6942 12.2477 17.7966 11.4067L15.9233 10.1567C15.4909 9.85323 15.1661 9.42034 14.9957 8.92041C14.8253 8.42048 14.818 7.87933 14.9749 7.375L15.6858 5.23083C15.0898 4.63169 14.3974 4.13702 13.6374 3.7675L11.8274 5.0225C11.4006 5.33392 10.8858 5.50173 10.3574 5.50173C9.82903 5.50173 9.31429 5.33392 8.88743 5.0225L7.12576 3.7425C6.37737 4.10002 5.69316 4.57868 5.10076 5.15917L5.73993 7.37333C5.89687 7.87767 5.88959 8.41881 5.71915 8.91874C5.54872 9.41867 5.22392 9.85156 4.79159 10.155L2.92993 11.4842C3.03698 12.298 3.27832 13.0885 3.64409 13.8233L5.99076 13.8275C6.51926 13.828 7.03395 13.9963 7.46054 14.3083C7.88712 14.6203 8.20353 15.0598 8.36409 15.5633L9.08493 17.8833C9.50496 17.9586 9.9307 17.9977 10.3574 18Z" fill="#1D1E21" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_2149_4318">
-                                    <rect width="20" height="20" fill="white" transform="translate(0.357422 0.5)" />
-                                </clipPath>
-                            </defs>
+                          <g clip-path="url(#clip0_2149_4318)">
+                            <path d="M11.3449 13.8333H9.36993C8.92992 13.834 8.50105 13.695 8.14508 13.4364C7.78911 13.1778 7.52441 12.8128 7.38909 12.3942L6.77909 10.5167C6.64124 10.0978 6.64026 9.64589 6.7763 9.22641C6.91233 8.80692 7.17832 8.44161 7.53576 8.18333L9.13243 7.02667C9.48783 6.76715 9.91652 6.62729 10.3566 6.62729C10.7967 6.62729 11.2254 6.76715 11.5808 7.02667L13.1783 8.18667C13.5358 8.44485 13.8019 8.81016 13.9379 9.22968C14.074 9.64919 14.0729 10.1011 13.9349 10.52L13.3258 12.3975C13.1892 12.8151 12.9241 13.1789 12.5683 13.4368C12.2125 13.6947 11.7843 13.8335 11.3449 13.8333ZM20.3574 10.5C20.3574 12.4778 19.7709 14.4112 18.6721 16.0557C17.5733 17.7002 16.0115 18.9819 14.1843 19.7388C12.357 20.4957 10.3463 20.6937 8.40652 20.3079C6.46671 19.922 4.68488 18.9696 3.28636 17.5711C1.88783 16.1725 0.935426 14.3907 0.549574 12.4509C0.163721 10.5111 0.361755 8.50043 1.11863 6.67317C1.87551 4.8459 3.15723 3.28412 4.80172 2.1853C6.44622 1.08649 8.37961 0.5 10.3574 0.5C13.0087 0.502868 15.5506 1.55736 17.4253 3.4321C19.3001 5.30684 20.3546 7.84872 20.3574 10.5ZM10.3574 18C10.7889 17.9975 11.2194 17.9579 11.6441 17.8817L12.3508 15.5642C12.5111 15.0606 12.8274 14.6211 13.2538 14.3089C13.6802 13.9968 14.1948 13.8282 14.7233 13.8275L17.0708 13.8233C17.4487 13.065 17.6942 12.2477 17.7966 11.4067L15.9233 10.1567C15.4909 9.85323 15.1661 9.42034 14.9957 8.92041C14.8253 8.42048 14.818 7.87933 14.9749 7.375L15.6858 5.23083C15.0898 4.63169 14.3974 4.13702 13.6374 3.7675L11.8274 5.0225C11.4006 5.33392 10.8858 5.50173 10.3574 5.50173C9.82903 5.50173 9.31429 5.33392 8.88743 5.0225L7.12576 3.7425C6.37737 4.10002 5.69316 4.57868 5.10076 5.15917L5.73993 7.37333C5.89687 7.87767 5.88959 8.41881 5.71915 8.91874C5.54872 9.41867 5.22392 9.85156 4.79159 10.155L2.92993 11.4842C3.03698 12.298 3.27832 13.0885 3.64409 13.8233L5.99076 13.8275C6.51926 13.828 7.03395 13.9963 7.46054 14.3083C7.88712 14.6203 8.20353 15.0598 8.36409 15.5633L9.08493 17.8833C9.50496 17.9586 9.9307 17.9977 10.3574 18Z" fill="#1D1E21" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_2149_4318">
+                              <rect width="20" height="20" fill="white" transform="translate(0.357422 0.5)" />
+                            </clipPath>
+                          </defs>
                         </svg>
 
 
                         <div className="grow self-start mt-1">
-                            {CurrentUser?.scout?.nb_joueurdetecter} Joueurs Détectés
+                          {CurrentUser?.scout?.nb_joueurdetecter} Joueurs Détectés
                         </div>
-                    </div>
+                      </div>
                     </div>
                   </div>
                   <div className="flex text-left text-base font-light  text-neutral-900">

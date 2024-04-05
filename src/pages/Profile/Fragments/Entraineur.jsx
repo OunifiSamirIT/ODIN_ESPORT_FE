@@ -200,9 +200,21 @@ const PlayerCard = ({ userInfo }) => {
                     </div>
                 </div>
 
-                <div className="self-stretch mt-8 text-base font-light text-center text-neutral-900 max-md:max-w-full">
-                    {userInfo?.user.discreptionBio}
-                </div>
+                {userInfo.user.discreptionBio && <div className="self-stretch text-base font-light text-center text-neutral-900 max-md:max-w-full">
+                    <div className="flex justify-center mt-2">
+                        <svg width="366" height="1" viewBox="0 0 366 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="0.5" y1="0.5" x2="365.5" y2="0.499968" stroke="#D9E6F7" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div className="py-4">
+                        {userInfo?.user.discreptionBio}
+                    </div>
+                    <div className="flex justify-center mt-2">
+                        <svg width="366" height="1" viewBox="0 0 366 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="0.5" y1="0.5" x2="365.5" y2="0.499968" stroke="#D9E6F7" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>}
                 <div className="flex gap-4 px-4 mt-8 text-lg whitespace-nowrap text-zinc-900">
                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_878_80013)">
