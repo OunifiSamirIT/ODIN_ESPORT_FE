@@ -80,9 +80,9 @@ const Agent = ({ userInfo }) => {
         })
         .required()
    
-    const [selectedSkills, setSelectedSkills] = useState(userInfo.agent.skills.split(',').filter((item) => item !== ''))
+    const [selectedSkills, setSelectedSkills] = useState(userInfo.agent?.skillsagent.split(',').filter((item) => item !== ''))
     // const [selectedSkills, setSelectedSkills] = useState(['Négociation']);
-    const [baseSkills, setBaseSkills] = useState(userInfo.agent.skills.split(',').filter((item) => item !== ''))
+    const [baseSkills, setBaseSkills] = useState(userInfo.agent.skillsagent?.split(',').filter((item) => item !== ''))
     const [selectedSkillsError, setSelectedSkillsError] = useState(false)
     const toggleSkill = (skill) => {
         const skillExists = selectedSkills.includes(skill);
