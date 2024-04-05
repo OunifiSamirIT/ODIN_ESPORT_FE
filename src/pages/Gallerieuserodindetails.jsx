@@ -289,7 +289,7 @@ const Album = () => {
   </div>
 
 
-      <div className="flex flex-col mt-16 pb-12 bg-zinc-100">
+      <div className="flex flex-col md:mt-12 pb-12 bg-zinc-100">
       
       <div className="self-center mt-12 w-full max-w-[1344px] max-md:mt-10 max-md:max-w-full">
         <div className="flex mr-2 max-md:flex-col max-md:gap-0 max-md:">

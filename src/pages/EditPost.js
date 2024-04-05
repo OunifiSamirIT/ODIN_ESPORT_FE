@@ -317,8 +317,7 @@ function EditPost() {
                         <div className="mt-3">
                           <img
                             src={previewImage}
-                            alt="Preview"
-                            className="rounded-xxl"
+                            className="rounded-xxl "
                             style={{ maxWidth: "100%", maxHeight: "200px" }}
                           />
                         </div>
@@ -334,26 +333,29 @@ function EditPost() {
                         </div>
                       )}
                       <form onSubmit={handleUpdateArticle}>
-                        <div className="card-body d-flex p-0 mt-4">
-                          <img
-                            src={storedUserData.image}
-                            alt="icon"
-                            className="shadow-sm rounded-full  w-14 h-14 mr-2"
-                          />
-                          {/* <label>{storedUserData.login}</label> */}
-                          <input
-                               name="description"
-                               className="h50 bor-0 w-100 rounded-xxl bg-gray-100 p-2 ps-5 font-xssss text-black-500 fw-500 border-light-md theme-dark-bg"
-                               type="text"
-                               value={editArticle?.description }
-                               onChange={(e) =>
-                                   setEditArticle((prev) => ({
-                                       ...prev,
-                                       description: e.target.value,
-                                   }))
-                               }
-                          />
-                        </div>
+                      <div className="card-body flex items-center mt-4">
+    <div className="rounded-full overflow-hidden flex-shrink-0">
+        <img
+            src={storedUserData.image}
+            alt="icon"
+            className="shadow-sm w-14 h-14 object-cover object-center"
+        />
+    </div>
+    <input
+        name="description"
+        className="h50 border-0 w-full rounded-xxl bg-gray-100 p-2 ps-1 font-xssss text-black-500 fw-500 border-light-md theme-dark-bg"
+        type="text"
+        value={editArticle?.description}
+        onChange={(e) =>
+            setEditArticle((prev) => ({
+                ...prev,
+                description: e.target.value,
+            }))
+        }
+    />
+</div>
+
+
 
                         {errMsg?.message && (
                           <span
@@ -367,76 +369,81 @@ function EditPost() {
                             {errMsg?.message}
                           </span>
                         )}
-                        <div className="d-flex align-items-center justify-content-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
-                          <label
-                            htmlFor="imgUpload"
-                            className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
-                          >
-                             <input
-                          type="file"
-                          onChange={(e) => handleFileChange(e, "image")}
-                          className="hidden"
-                          id="imgUpload"
-                          accept=".jpg, .png, .jpeg"
-                        />
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="aspect-square w-[25px]"
-                            />{" "}
-                            <span className="d-none-xs ml-2">Photo</span>
-                          </label>
+       <div className="flex flex-wrap justify-between items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark px-4">
+    <div className="flex items-center space-x-4 mb-2 md:mb-0">
+        <label
+            htmlFor="imgUpload"
+            className="flex items-center font-xssss fw-600 ls-1 mt-1 text-grey-700 text-dark"
+        >
+            <input
+                type="file"
+                onChange={(e) => handleFileChange(e, "image")}
+                className="hidden"
+                id="imgUpload"
+                accept=".jpg, .png, .jpeg"
+            />
+            <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                className="aspect-square w-6 md:w-7 mr-2"
+            />{" "}
+            <span className="md:inline-block">Photo</span>
+        </label>
 
-                          <label
-                            className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark pe-4"
-                            htmlFor="videoUpload"
-                          >
-                            <input
-                          type="file"
-                          onChange={(e) => handleFileChange(e, "video")}
-                          className="hidden"
-                          id="videoUpload"
-                          accept=".mp4, .wav"
-                        />
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="aspect-square w-[25px]"
-                            />{" "}
-                            <span className="d-none-xsml-2 ml-2"> Video</span>
-                          </label>
+        <label
+            htmlFor="videoUpload"
+            className="flex items-center font-xssss fw-600 ls-1 text-grey-700 text-dark"
+        >
+            <input
+                type="file"
+                onChange={(e) => handleFileChange(e, "video")}
+                className="hidden"
+                id="videoUpload"
+                accept=".mp4, .wav"
+            />
+            <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                className="aspect-square w-6 md:w-7 mr-2"
+            />{" "}
+            <span className="md:inline-block">Video</span>
+        </label>
 
-                          <label
-                            className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark pe-4"
-                            htmlFor="vgifUpload"
-                          >
-                            <input
-                              type="file"
-                              onChange={(e) => handleFileChange(e, "gif")}
-                              className="hidden"
-                              id="vgifUpload"
-                              accept=".gif"
-                            />
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="aspect-[1.2] fill-slate-500 w-[30px]"
-                            />{" "}
-                            <span className="d-none-xs ml-2">GIF</span>
-                          </label>
+        <label
+            htmlFor="vgifUpload"
+            className="flex items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
+        >
+            <input
+                type="file"
+                onChange={(e) => handleFileChange(e, "gif")}
+                className="hidden"
+                id="vgifUpload"
+                accept=".gif"
+            />
+            <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                className="aspect-square w-7 fill-slate-500 mr-2"
+            />{" "}
+            <span className="md:inline-block">GIF</span>
+        </label>
+    </div>
 
-                          <div>
-                            {posting ? (
-                              <Loading />
-                            ) : (
-                              <CustomButton
-                              type="submit"
-                              title="Update Post"
-                                containerStyles="bg-[#0444a4] text-white mt-1 py-1 px-10 rounded-full font-semibold text-sm"
-                              />
-                            )}
-                          </div>
-                        </div>
+    <div className="w-full flex items-center justify-center md:w-auto md:text-center">
+        {posting ? (
+            <Loading />
+        ) : (
+            <CustomButton
+                type="submit"
+                title="Enregistrer"
+                containerStyles="bg-[#1E88E5] text-white mt-2 md:mt-1 py-1 px-4 md:px-10 rounded-full font-semibold text-sm"
+            />
+        )}
+    </div>
+</div>
+
+
+
                       </form>
                     </div>
                   </div>
@@ -447,8 +454,7 @@ function EditPost() {
         </div>
       </div>
 
-      <Popupchat />
-      <Appfooter />
+      
     </Fragment>
   );
 }
