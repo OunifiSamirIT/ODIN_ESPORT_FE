@@ -1,5 +1,6 @@
 import React, {  useState,  useEffect } from "react";
 import { Config } from "../config";
+import { Link } from "react-router-dom";
 function Events() {
   const [albums, setAlbums] = useState([]);
 
@@ -23,9 +24,9 @@ function Events() {
           <div className="text-xl font-bold text-zinc-900">
             Camps qui pourraient vous intéresser
           </div>
-          <div className="self-end mt-10 text-sm font-medium text-blue-600 underline">
+        <a href="/defaultgroup">  <div className="self-end mt-10 text-sm font-medium text-blue-600 underline">
             Voir Tout
-          </div>
+          </div></a>
         </div>
         <div className="flex flex-col flex-wrap content-start p-6 mt-8 w-full bg-white rounded-xl max-md:px-5">
           {albums.map((album) => (
