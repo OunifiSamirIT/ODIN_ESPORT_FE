@@ -72,6 +72,8 @@ const handelretourform = () => {
       fetch(`${Config.LOCAL_URL}/api/user/${id}`)
         .then((response) => response.json())
         .then((userData) => {
+          userData.user.gender = userData.user.gender === "male" ? "homme" : "femme";
+
           setUsers(userData);
           console.log(users);
         })
@@ -238,13 +240,13 @@ const handelretourform = () => {
             <Header />
 
 
-      <div className="flex flex-col pt-8 mt-14 bg-white rounded-xl  max-md:my-10 max-md:max-w-full">
+      <div className="flex flex-col pt-8 mt-0 md:mt-14 bg-white rounded-xl  max-md:my-10 max-md:max-w-full">
         <div className=" mt-20 md:text-5xl    w-full text-2xl text-center font-bold text-black max-md:max-w-full">
           Pré-inscription
         </div>
-        <div className="flex flex-col flex-wrap gap-y-8 justify-between content-start px-20 py-8 mt-6 max-md:px-5 max-md:max-w-full">
+        <div className="flex flex-col flex-wrap gap-y-2 justify-between content-start px-20 py-8 mt-2 md:mt-6 max-md:px-4 max-md:max-w-full">
           <div className="max-md:max-w-full">
-            <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+            <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0">
               <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                   <div className="flex gap-4 justify-between px-4 text-lg">
@@ -535,7 +537,7 @@ const handelretourform = () => {
 
        
 
-          <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+          <div className="flex gap-2 md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
             <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
               <img
                 loading="lazy"
