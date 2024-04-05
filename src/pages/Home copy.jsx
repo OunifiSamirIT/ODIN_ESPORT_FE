@@ -1436,14 +1436,14 @@ function Home() {
                                                     {/* Display reply information */}
 
 
-                                                    <div className="flex items-center">
-                                                      <figure className="avatar me-3">
+                                                    <div className="flex items-start py-2">
+                                                      <figure className="rounded-full overflow-hidden flex-shrink-0">
                                                         <img
                                                           src={
-                                                            user &&
-                                                            user.user?.image
+                                                            reply &&
+                                                            reply.user?.image
                                                           }
-                                                          className="shadow-sm rounded-circle w-[52px] h-[52px]"
+                                                          className="shadow-sm w-14 h-14 object-cover object-center"
                                                           alt="post"
                                                         />
                                                       </figure>
