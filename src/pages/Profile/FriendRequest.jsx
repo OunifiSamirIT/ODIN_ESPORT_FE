@@ -333,7 +333,7 @@ const FriendRequest = () => {
           </div>
         </nav>
       </div>
-            <div className="col-span-12 md:col-span-9  flex flex-col px-4 md:px-0 ml-[200px] ">
+            <div className="col-span-12 md:col-span-9  flex flex-col px-4 md:px-0 md:ml-[200px] ">
                 <div className="items-start px-8 py-6 text-3xl font-bold whitespace-nowrap bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:max-w-full">
                     Demandes
                 </div>
