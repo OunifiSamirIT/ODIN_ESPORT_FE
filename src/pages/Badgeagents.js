@@ -4331,7 +4331,7 @@ function Badge({ userpf }) {
 
 
 
-      <div className=" flex  bg-zinc-100">
+      <div className="main-content flex  bg-zinc-100">
         <div className="middle-sidebar-bottom">
           <div className="middle-sidebar-left pe-0">
             <div className="row">
@@ -4366,7 +4366,7 @@ function Badge({ userpf }) {
 
 
 
-                  <div className="flex flex-col mt-16 px-6  w-[100%] max-md:ml-0 max-md:w-full">
+                  <div className="flex flex-col md:m-0  px-6  w-[100%] max-md:ml-0 max-md:w-full">
                     <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
                       <div className="flex flex-col justify-center px-11 py-6 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                         <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
