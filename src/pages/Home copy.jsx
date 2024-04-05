@@ -672,6 +672,7 @@ function Home() {
   };
 
   const addReply = async (commentId, replyText) => {
+    console.log(commentId , replyText)
     try {
       if (commentId && replyText) {
         // Retrieve user information from local storage
@@ -1203,7 +1204,7 @@ function Home() {
                               <div className="row ps-2 pe-2">
                                 <div className="col-sm-12 p-1">
 
-                                  {article.video ? (
+                                  {article.video && (
                                     <div className="card-body p-0 mb-3  overflow-hidden uttam-die">
                                       <video controls className="float-right w-100">
                                         <source
@@ -1213,12 +1214,14 @@ function Home() {
                                         Your browser does not support the video tag.
                                       </video>{" "}
                                     </div>
-                                  ) : (
+                                  ) }
+                                  
+                                  { article.image && (
                                     <div className="card-body d-block p-0 mb-3">
                                       <div className="row ps-2 pe-2">
                                         <div className="col-sm-12 p-1">
                                           <img
-                                            className=" h-96 w-100 object-cover"
+                                            className=" h-96 w-100 object-cover aspect-square"
                                             src={article.image}
                                             alt={article.titre}
                                           />
@@ -1395,7 +1398,7 @@ function Home() {
                                             </div>
 
                                             {replyingToCommentId === comment.id && (
-                                              <div className="flex items-center gap-3 mt-3">
+                                              <div className="flex items-center gap-3 mt-1">
                                                 <figure className="avatar">
                                                   <img
                                                     src={

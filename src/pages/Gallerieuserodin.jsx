@@ -333,8 +333,8 @@ const handleSearch = () => {
     
   </div>
 
-    <div className="flex flex-col pb-12 mt-0 lg:mt-14 bg-zinc-100">
-      <div className="self-center mt-12 w-full max-w-[1344px] max-md:mt-10 max-md:max-w-full">
+    <div className="flex flex-col pb-12 mt-0 lg:mt-8 bg-zinc-100">
+      <div className="self-center md:mt-12 w-full max-w-[1344px]  max-md:max-w-full">
         <div className="flex max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[24%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col px-5 pt-4 pb-6 mx-auto w-full  rounded-xl max-md:mt-6"> 
@@ -344,17 +344,17 @@ const handleSearch = () => {
             </div>
           </div>
 
-          <div className="flex flex-col ml-5 mr-7 mt-1 w-[76%] max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
-              <div className="flex flex-col px-9 pt-2 mt-12 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+          <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-1 w-[76%] max-md:ml-0 max-md:w-full">
+            <div className="flex flex-col grow  max-md:max-w-full">
+              <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                 <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
                   Chercher un camp
                 </div>
-                <div className="flex-wrap gap-y-4 justify-between content-start mt-4 max-md:max-w-full">
-                  <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                <div className="flex-wrap gap-y-4 justify-between content-start mt-2 max-md:max-w-full">
+                  <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0">
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10">
-                        <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
+                        <div className="flex gap-2 md:gap-4 justify-between px-4 whitespace-nowrap">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/803e02712b2b4c86f9a16b3c2fd85a1f2520ba9fac821299d322e0a17e04e0df?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -396,8 +396,9 @@ const handleSearch = () => {
                         </div>
                       </div>
                     </div>
+                    
                     <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-10">
+                      <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
                         <div className="flex gap-4 justify-between px-4 text-base">
                           <img
                             loading="lazy"
@@ -436,7 +437,7 @@ const handleSearch = () => {
                       </div>
                     </div>
                     <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 max-md:mt-10">
+                      <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 ">
                         <div className="flex gap-4 justify-between px-4">
                           <img
                             loading="lazy"
@@ -458,7 +459,7 @@ const handleSearch = () => {
                             />
                           </div>
                         </div>
-                        <div className="flex gap-4 justify-between px-4 mt-4">
+                        <div className="flex gap-4 justify-between px-4 md:mt-4">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ebab6160954a2bce21ceaf2e169787de6ab38cfed49192e766553aa8805b259?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -480,7 +481,7 @@ const handleSearch = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-3 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                <div className="flex md:gap-3 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                   <button
                     className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
                     onClick={handleReset}
