@@ -6689,7 +6689,7 @@ function Register() {
 
 <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
   <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-1 flex-row">
+    <div className="flex md:flex-row gap-2 flex-row">
       <div className="flex md:flex-col gap-2 flex-row ">
         <label className="">
           <input
@@ -6705,7 +6705,7 @@ function Register() {
         </label>
     
        </div> 
-        <div className="flex flex-row gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
         J'accepte les{" "}
         <span className="text-blue-600 block">Termes et Conditions</span>
       </div>
@@ -6718,7 +6718,7 @@ function Register() {
 
                        
 
-  <div className="mt-2 gap-3    flex flex-row items-center">
+  <div className="mt-2 gap-2    flex flex-row items-center">
      <div className="flex flex-row self-start md:itmes-center pb-2">
       <label>
         <input
@@ -7010,10 +7010,9 @@ function Register() {
           )} 
           
           */}
-
-                    <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-3 flex-row">
+<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
       <div className="flex md:flex-col gap-2 flex-row ">
         <label className="">
           <input
@@ -7029,7 +7028,7 @@ function Register() {
         </label>
     
        </div> 
-        <div className="flex flex-row gap-3 mr-8 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+        <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
         J'accepte les{" "}
         <span className="text-blue-600 block">Termes et Conditions</span>
       </div>
@@ -7040,7 +7039,9 @@ function Register() {
                           <div className="error-message align-center text-red-600">{errorMessage}</div>
                         )}
 
-  <div className="mt-2 gap-3    flex flex-row items-center">
+                       
+
+  <div className="mt-2 gap-2    flex flex-row items-center">
      <div className="flex flex-row self-start md:itmes-center pb-2">
       <label>
         <input
@@ -7057,7 +7058,7 @@ function Register() {
     </div> 
     
     <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 mr-6">
+      <label className="block mb-2 ">
         J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
       </label>
     </div>
@@ -7071,7 +7072,8 @@ function Register() {
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
-                      <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+
+<div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
@@ -7089,6 +7091,7 @@ function Register() {
 
                         </div>
                       </div>
+
 
 
               
@@ -7343,9 +7346,9 @@ function Register() {
                           )}
 
                            
-                    <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-3 flex-row">
+<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
       <div className="flex md:flex-col gap-2 flex-row ">
         <label className="">
           <input
@@ -7361,7 +7364,7 @@ function Register() {
         </label>
     
        </div> 
-        <div className="flex flex-row gap-3 mr-8 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
         J'accepte les{" "}
         <span className="text-blue-600 block">Termes et Conditions</span>
       </div>
@@ -7372,7 +7375,9 @@ function Register() {
                           <div className="error-message align-center text-red-600">{errorMessage}</div>
                         )}
 
-  <div className="mt-2 gap-3    flex flex-row items-center">
+                       
+
+  <div className="mt-2 gap-2    flex flex-row items-center">
      <div className="flex flex-row self-start md:itmes-center pb-2">
       <label>
         <input
@@ -7389,7 +7394,7 @@ function Register() {
     </div> 
     
     <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 mr-6">
+      <label className="block mb-2 ">
         J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
       </label>
     </div>
@@ -7398,12 +7403,13 @@ function Register() {
 </div>
 
 {(emailError || loginError) && (
-                          <div className="inline-block text-center w-full text-white bg-orange-500 border-0.5 p-2 rounded">
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
-                      <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+
+                      <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
@@ -7421,6 +7427,7 @@ function Register() {
 
                         </div>
                       </div>
+
 
                             </>
                           )}
@@ -7596,9 +7603,9 @@ function Register() {
 
 
                             
-                    <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-3 flex-row">
+<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
       <div className="flex md:flex-col gap-2 flex-row ">
         <label className="">
           <input
@@ -7614,7 +7621,7 @@ function Register() {
         </label>
     
        </div> 
-        <div className="flex flex-row gap-3 mr-8 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
         J'accepte les{" "}
         <span className="text-blue-600 block">Termes et Conditions</span>
       </div>
@@ -7625,7 +7632,9 @@ function Register() {
                           <div className="error-message align-center text-red-600">{errorMessage}</div>
                         )}
 
-  <div className="mt-2 gap-3    flex flex-row items-center">
+                       
+
+  <div className="mt-2 gap-2    flex flex-row items-center">
      <div className="flex flex-row self-start md:itmes-center pb-2">
       <label>
         <input
@@ -7642,7 +7651,7 @@ function Register() {
     </div> 
     
     <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 mr-6">
+      <label className="block mb-2 ">
         J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
       </label>
     </div>
@@ -7651,12 +7660,13 @@ function Register() {
 </div>
 
 {(emailError || loginError) && (
-                          <div className="inline-block text-center w-full text-white bg-orange-500 border-0.5 p-2 rounded">
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
-                      <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+
+                      <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
@@ -7674,6 +7684,7 @@ function Register() {
 
                         </div>
                       </div>
+
 
 
 
@@ -8011,9 +8022,9 @@ function Register() {
                                 </div>
                               )}
                   
-<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-3 flex-row">
+                  <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
       <div className="flex md:flex-col gap-2 flex-row ">
         <label className="">
           <input
@@ -8029,16 +8040,20 @@ function Register() {
         </label>
     
        </div> 
-        <div className="flex flex-row gap-3 mr-8 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
         J'accepte les{" "}
         <span className="text-blue-600 block">Termes et Conditions</span>
       </div>
    
     </div>
   </div>
- 
- 
-  <div className="mt-2 gap-3    flex flex-row items-center">
+  {errorMessage && (
+                          <div className="error-message align-center text-red-600">{errorMessage}</div>
+                        )}
+
+                       
+
+  <div className="mt-2 gap-2    flex flex-row items-center">
      <div className="flex flex-row self-start md:itmes-center pb-2">
       <label>
         <input
@@ -8055,23 +8070,22 @@ function Register() {
     </div> 
     
     <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 mr-6">
+      <label className="block mb-2 ">
         J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
       </label>
     </div>
   
   </div>
 </div>
- {errorMessage && (
-                          <div className="error-message align-center text-red-600">{errorMessage}</div>
-                        )}
+
 {(emailError || loginError) && (
                           <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
-                         <div className="flex gap-2 md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+
+<div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
@@ -8089,6 +8103,7 @@ function Register() {
 
                         </div>
                       </div>
+
                       </div>
                     </div>
                   </div>
@@ -8561,8 +8576,8 @@ function Register() {
 
 
                         <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-5 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-3 flex-row">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
       <div className="flex md:flex-col gap-2 flex-row ">
         <label className="">
           <input
@@ -8578,18 +8593,20 @@ function Register() {
         </label>
     
        </div> 
-        <div className="flex flex-row gap-3 mr-8 underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
         J'accepte les{" "}
         <span className="text-blue-600 block">Termes et Conditions</span>
       </div>
    
     </div>
   </div>
- 
   {errorMessage && (
-                          <div className="error-message align-center text-sm text-red-600">{errorMessage}</div>
+                          <div className="error-message align-center text-red-600">{errorMessage}</div>
                         )}
-  <div className="mt-2 gap-3    flex flex-row items-center">
+
+                       
+
+  <div className="mt-2 gap-2    flex flex-row items-center">
      <div className="flex flex-row self-start md:itmes-center pb-2">
       <label>
         <input
@@ -8606,7 +8623,7 @@ function Register() {
     </div> 
     
     <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 mr-6">
+      <label className="block mb-2 ">
         J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
       </label>
     </div>
@@ -8620,7 +8637,8 @@ function Register() {
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
-                      <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+
+                      <div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
@@ -8638,6 +8656,7 @@ function Register() {
 
                         </div>
                       </div>
+
 
 
 
