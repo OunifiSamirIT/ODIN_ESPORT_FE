@@ -315,6 +315,9 @@ const Album = () => {
                       <div className="mt-4 font-light max-md:max-w-full">
                       {albumDetails.description}
                       </div>
+
+
+
                       <div className="flex gap-3 justify-between p-4 mt-4 whitespace-nowrap rounded-xl border border-solid border-neutral-200 max-md:flex-wrap max-md:max-w-full">
                         <div className="flex flex-col flex-1">
                           <img
@@ -322,7 +325,7 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/28072299919cd6610830b1b847db76fa736c975769fafa1e967a25837aa2c386?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-center w-5 aspect-square"
                           />
-                          <div className="mt-2">{albumDetails.Duree}</div>
+                          <div className="flex items-center justify-center mt-2">{albumDetails.Duree}</div>
                         </div>
                         <img
                           loading="lazy"
@@ -335,7 +338,7 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/e7fe0f54388243cde5eda2567d634e20fcaedc6593a7e131847cf26794a55f35?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-center w-5 aspect-square"
                           />
-                          <div className="mt-2">{albumDetails.payscamps}</div>
+                           <div className="flex items-center justify-center mt-2">{albumDetails.payscamps}</div>
                         </div>
                         <img
                           loading="lazy"
@@ -348,7 +351,7 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/545e939511a47d6db83d17be743c494bcd9b7824f609f0def7b7a0a0da2ac415?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-center w-5 aspect-square"
                           />
-                          <div className="mt-2">{albumDetails.date_debut}</div>
+                           <div className="flex items-center justify-center mt-2">{albumDetails.date_debut}</div>
                         </div>
                         <img
                           loading="lazy"
@@ -361,7 +364,7 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3d803e2aa84cc65dafa06294cf90b747ef51e660e2c45f13da33c1f8a6c4b0e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-center w-5 aspect-square"
                           />
-                          <div className="mt-2">{albumDetails.date_fin}</div>
+                          <div className="flex items-center justify-center mt-2">{albumDetails.date_fin}</div>
                         </div>
                         <img
                           loading="lazy"
@@ -374,7 +377,7 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/dff4dfbc9781a939e5690bf8f047fdfc420dbf36c9e00ec905ac56bf410a2e14?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-center aspect-[0.9] fill-zinc-900 w-[18px] mr-3"
                           />
-                          <div className="mt-2">{albumDetails.prix} €</div>
+                           <div className="flex items-center justify-center mt-2">{albumDetails.prix} €</div>
                         </div>
                       </div>
                       {!isUserPreinscribed && (<div className="flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">

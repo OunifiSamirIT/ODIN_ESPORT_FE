@@ -75,7 +75,7 @@ const handelretourform = () => {
           userData.user.gender = userData.user.gender === "male" ? "homme" : "femme";
 
           setUsers(userData);
-          console.log(users);
+          console.log("users campsssssssssss",users);
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
@@ -450,6 +450,7 @@ const handelretourform = () => {
               </div>
               <div className="flex gap-4 justify-between mt-2 text-base">
                 <div className="grow justify-center items-start py-3.5 pr-16 pl-4 border border-solid border-neutral-200 rounded-[30px] max-md:pr-5">
+                {users?.user?.optionalattributs  ? users?.user?.optionalattributs.split(",")[0] : null} {`  `}
                   {users?.user?.numWSup}
                 </div>
               </div>
