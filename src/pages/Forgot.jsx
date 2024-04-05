@@ -199,8 +199,7 @@ function Forgot() {
   </button>
   {isFormSubmitted && (
           <div className="flex justify-center items-center px-16 py-2 mt-8 text-xl font-medium text-white bg-green-500 rounded-lg">
-            Please check your email to verify your account.
-          </div>
+Veuillez accéder à votre boîte email pour confirmer votre adresse e-mail !          </div>
         )}
   <Link
                     to="/login"
