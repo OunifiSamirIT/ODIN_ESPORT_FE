@@ -238,7 +238,7 @@ const Entraineur = ({ userInfo }) => {
 
                         </div>
                     </div>
-                    <div className=" md:w-1/2 pr-3 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
+                    <div className=" md:w-1/2 pr-3  max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
                         <div className="lg:flex-1 w-full">
                             <div className="flex gap-2 justify-between items-center px-4">
                                 <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -346,7 +346,7 @@ const Entraineur = ({ userInfo }) => {
                             </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
+                        <div className="flex flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600">
                             <div className="form-group icon-input  mb-3">
                                 {skillsList.map((skill, index) => (
                                     <div key={skill} className="form-check rounded-[30px] form-check-inline pl-0 me-2 mb-2">

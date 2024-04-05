@@ -575,24 +575,24 @@ const Player = ({ userInfo }) => {
                                  {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span> : null}
                             </div>
                     </div>
-                    <div className="flex  gap-4  justify-between py-2 mt-6 mr-4 w-full text-base font-medium flex-nowrap">
-                            <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
-                                <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
-                                    className="w-5 aspect-square"
-                                />
-                                <a onClick={resetForm} className="grow">Annuler</a>
-                            </div>
-                            <div className="flex gap-2  px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                                <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
-                                    className="w-5 aspect-square"
-                                />
-                                <button type='submit' className="grow">Confirmer</button>
-                            </div>
+                    <div className="flex gap-2 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap">
+                        <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+                            <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
+                                className="w-5 aspect-square"
+                            />
+                            <div className="grow">Annuler</div>
                         </div>
+                        <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                            <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
+                                className="w-5 aspect-square"
+                            />
+                            <button type='submit' className="grow">Confirmer</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </>

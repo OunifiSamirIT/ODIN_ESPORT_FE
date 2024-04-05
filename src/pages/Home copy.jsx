@@ -1440,8 +1440,7 @@ function Home() {
                                                       <figure className="rounded-full overflow-hidden flex-shrink-0">
                                                         <img
                                                           src={
-                                                            reply &&
-                                                            reply.user.user?.image
+                                                            reply.user?.user?.image
                                                           }
                                                           className="shadow-sm w-14 h-14 object-cover object-center"
                                                           alt="post"
