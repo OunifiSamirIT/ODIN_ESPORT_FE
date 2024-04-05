@@ -4393,15 +4393,15 @@ function Badge({ userpf }) {
 
                       {showFilters && (
                         <>
-                          <div className="flex flex-col px-8 md:pt-8 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+                          <div className="flex flex-col px-8 mt-6 md:mt-0 md:pt-8 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
 
-                            <div className="flex-wrap gap-y-2 justify-between content-start mt-4 max-md:max-w-full">
+                            <div className="flex-wrap gap-y-2 justify-between content-start mt-2 max-md:max-w-full">
                               <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
                                
                                
                                
                                 <div className="flex flex-col w-[69%] max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10 max-md:max-w-full">
+                                  <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-2 max-md:max-w-full">
                                     <div className="flex gap-4 justify-between px-4 max-md:flex-wrap max-md:max-w-full">
                                       <img
                                         loading="lazy"

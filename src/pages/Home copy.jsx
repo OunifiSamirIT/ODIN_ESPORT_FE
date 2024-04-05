@@ -84,7 +84,7 @@ function Home() {
   const [showMenu, setShowMenu] = useState(false);
   const [selectedArticleForCopy, setSelectedArticleForCopy] = useState(null);
   const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(null);
   const [selectedArticle, setSelectedArticle] = useState(null);
 
 
@@ -775,8 +775,10 @@ function Home() {
   const handleMoreClick = (article) => {
     console.log('More clicked', article.id);
     setSelectedArticle(article);
-    setShowDropdown(article.id);
-  };
+    
+    // Toggle the dropdown visibility
+    setShowDropdown(prevState => prevState === article.id ? null : article.id);
+};
 
   const handleDeleteClick = (id) => {
     const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer cette publication ?');

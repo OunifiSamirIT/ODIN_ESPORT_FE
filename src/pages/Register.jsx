@@ -4091,6 +4091,8 @@ function Register() {
   const [loginError, setLoginError] = useState("");
   const [isUploadEnabled, setUploadEnabled] = useState(false);
   const [File, setFile] = useState('')
+  const [errorMessageregion, setErrorMessageregion] = useState('');
+  const [selectedRegions, setSelectedRegions] = useState([]); // Define and initialize selectedRegions state
 
   // list pays
   const [selectedCountries, setSelectedCountries] = useState([]);
@@ -4465,7 +4467,15 @@ function Register() {
   const handleChangeregion = selectedOptions => {
     const selectedRegions = selectedOptions.map(option => option.value);
     console.log('Choisi Les Regions:', selectedRegions);
+    setSelectedRegions(selectedRegions);
+    // Validate if at least one region is selected
+    if (selectedRegions.length === 0) {
+      setErrorMessageregion("Veuillez choisir au moinssssssssss une région.");
+    } else {
+      setErrorMessageregion('');
+    }
   };
+  
 
   //////////////////mangerclubpays
   const handleCountryChangePaysAgentclub = (selectedOption) => {
@@ -5327,10 +5337,10 @@ function Register() {
       is: 'scout',
       then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
-    paysscout: yup.string().when('profil', {
-      is: 'scout',
-      then: () => yup.string().required("Ce champ est obligatoire !"),
-    }),
+    // paysscout: yup.string().when('profil', {
+    //   is: 'scout',
+    //   then: () => yup.string().required("Ce champ est obligatoire !"),
+    // }),
     skillsscout: yup.string().when('profil', {
       is: 'scout',
       then: () => yup.string().required("Ce champ est obligatoire !"),
@@ -5366,7 +5376,14 @@ function Register() {
     //   // You can also set an error state or display a message to the user
     //   return;
     // }
+    if (selectedRegions.length === 0) {
+      // Set error message if no regions are selected
+      setErrorMessageregion("Veuillez choisir au moins une région.");
+      return;
+    }
 
+    // Clear error message if regions are selected
+    setErrorMessageregion("");
      setErrorMessage("");
 
     const formDataToSubmit = new FormData();
@@ -5382,7 +5399,7 @@ function Register() {
     formDataToSubmit.append("file", File || null);
 
     try {
-      const response = await fetch("https://odine-sport.com/api/auth/signup", {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -7868,9 +7885,13 @@ function Register() {
 
                               </div>
                             </div>
-                          </div>{inputErrors['paysscout'] && (
+                          </div>  {errorMessageregion && (
+                <div className="error-message text-red-600 text-sm mt-2">{errorMessageregion}</div>
+              )}
+                          {/* {inputErrors['paysscout'] && (
                             <div className="error-message text-red-600 text-sm mt-2">{inputErrors['paysscout']}</div>
-                          )}
+                          )} */}
+                        
                         </div>
                         <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
                           <img
