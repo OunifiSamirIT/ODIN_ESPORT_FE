@@ -429,9 +429,7 @@ function Home() {
         // Handle validation errors or missing user data
         return;
       }
-
       setPosting(true);
-
       const formData = new FormData();
       formData.append("titre", "Your default title");
       formData.append("description", data.description);
@@ -447,7 +445,7 @@ function Home() {
       });
 
       // After creating the article, fetch the updated list of articles
-      const response = await fetch("${Config.LOCAL_URL}/api/articles/");
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const updatedPostsData = await response.json();
 
       // Update the list of posts and reset the preview image
@@ -1438,14 +1436,14 @@ function Home() {
                                                     {/* Display reply information */}
 
 
-                                                    <div className="flex items-center">
-                                                      <figure className="avatar me-3">
+                                                    <div className="flex items-start py-2">
+                                                      <figure className="rounded-full overflow-hidden flex-shrink-0">
                                                         <img
                                                           src={
-                                                            user &&
-                                                            user.user?.image
+                                                            reply &&
+                                                            reply.user?.image
                                                           }
-                                                          className="shadow-sm rounded-circle w-[52px] h-[52px]"
+                                                          className="shadow-sm w-14 h-14 object-cover object-center"
                                                           alt="post"
                                                         />
                                                       </figure>
