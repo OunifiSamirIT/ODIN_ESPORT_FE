@@ -4331,7 +4331,7 @@ function Badge({ userpf }) {
 
 
 
-      <div className="main-content right-chat-active flex  bg-zinc-100">
+      <div className=" flex  bg-zinc-100">
         <div className="middle-sidebar-bottom">
           <div className="middle-sidebar-left pe-0">
             <div className="row">
@@ -4366,7 +4366,7 @@ function Badge({ userpf }) {
 
 
 
-                  <div className="flex flex-col  w-[100%] max-md:ml-0 max-md:w-full">
+                  <div className="flex flex-col mt-16 px-6  w-[100%] max-md:ml-0 max-md:w-full">
                     <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
                       <div className="flex flex-col justify-center px-11 py-6 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                         <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
@@ -4393,10 +4393,13 @@ function Badge({ userpf }) {
 
                       {showFilters && (
                         <>
-                          <div className="flex flex-col px-8 pt-8 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+                          <div className="flex flex-col px-8 md:pt-8 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
 
-                            <div className="flex-wrap gap-y-4 justify-between content-start mt-4 max-md:max-w-full">
-                              <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                            <div className="flex-wrap gap-y-2 justify-between content-start mt-4 max-md:max-w-full">
+                              <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                               
+                               
+                               
                                 <div className="flex flex-col w-[69%] max-md:ml-0 max-md:w-full">
                                   <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10 max-md:max-w-full">
                                     <div className="flex gap-4 justify-between px-4 max-md:flex-wrap max-md:max-w-full">
@@ -4405,30 +4408,32 @@ function Badge({ userpf }) {
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/1744eb7a080221807467d8a93b3f90074802cac02f9933e47a9e4e617ca3cdd9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                         className="aspect-[0.71] w-[15px]"
                                       />
-                                      <div className="grow max-md:max-w-full">
+                                      <div className="grow  max-md:max-w-full">
                                         Nom et prénom
                                       </div>
                                     </div>
                                     <input
-                                      class="justify-center  w-[70%] items-start py-3  pl-4 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
+                                      class="justify-center  w-full items-start py-3  pl-4 mt-2 text-md font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
                                       type="text"
                                       placeholder=" nom  ou  prenom"
                                       value={searchNom}
                                       onChange={(e) => setSearchNom(e.target.value)}
                                     />
-                                    <div className="flex gap-4 self-start px-4 mt-4 whitespace-nowrap">
-
+                                    <div className="flex gap-4 w-full  self-start px-4 mt-4 whitespace-nowrap">
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d53d36790234944104fc9c6c9ab8bb4e63aa1602f99c43a0ce5a3f3c262180f9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="w-5 aspect-square"
+                                      />
                                       <div className="grow">Nationalité</div>
                                     </div>
-                                    <div className="flex flex-col justify-center py-1.5 mt-2 max-w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[263px]">
-                                      <div className="flex flex-col justify-center px-4 py-2 rounded-md max-md:pr-5">
-                                        <div className="flex gap-4 justify-between">
+                                  
 
-                                          <div className="flex-auto"> <div className="flex gap-4 justify-between">
+                                          <div className=" gap-4 w-full flex-1 ">
 
                                             <Select
                                               options={options}
-                                              placeholder="Select a country"
+                                              placeholder="Nationalité"
                                               styles={{
                                                 control: (provided, state) => ({
                                                   ...provided,
@@ -4439,29 +4444,36 @@ function Badge({ userpf }) {
 
                                                   width: "100%",
                                                   fontSize: "1rem", // Set the desired font size
-                                                  backgroundColor: "#f5f5f5", // Set the background color
+                                                  backgroundColor: "#ffffff", // Set the background color
                                                   borderWidth: "none",
+                                                  marginTop: "4px",
+                                                  border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+                                                  paddingTop: "6px", // Adjust the top padding as needed
+                                                  paddingBottom: "6px", // Adjust the bottom padding as needed
+                                                  paddingLeft: "13px", // Adjust as needed
+                                                    paddingRight: "13px", // Adjust as needed
                                                 }),
                                               }}
                                               onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
                                               value={options.find((option) => option.value === searchNationality)}
-                                            />                  </div></div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                            />                  </div>
+                                       
                                   </div>
                                 </div>
-                                <div className="flex flex-col ml-5 w-[31%] max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10">
+
+
+
+                                <div className="flex flex-col ml-5 w-full max-md:ml-0 max-md:w-full">
+                                  <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-6">
                                     <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
                                       <img
                                         loading="lazy"
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/706e00f0da2704336a80f4a202ba4e45774fadcb82a16cd4232e130a830ce2cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                         className="w-3.5 aspect-[0.7]"
                                       />
-                                      <div className="grow">Type de profil</div>
+                                      <div className="grow ">Type de profil</div>
                                     </div>
-                                    <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                    <div className="flex flex-col justify-center mt-2 w-full text-md font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                                       <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
                                         <div className="flex-auto self-start mt-1">
 
@@ -4488,21 +4500,15 @@ function Badge({ userpf }) {
                                       />
                                       <div className="grow">Pays de résidence</div>
                                     </div>
-                                    <div className="flex flex-col justify-center py-1.5 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                      <div className="flex flex-col justify-center px-4 py-2 rounded-md max-md:pr-5">
-                                        <div className="flex gap-4 justify-between">
-                                          <img
-                                            loading="lazy"
-                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/7bfa59ddbe03014ac49893df4e2779307266e8ac8f21c475a7f9f2ef43bd7b71?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                            className="aspect-[1.49] w-[30px]"
-                                          />
+                                     
+                                         
                                           <div className="flex-auto">
 
 
                                             <div className="flex-auto">
                                               <Select
                                                 options={optionsPays}
-                                                placeholder="Select a country"
+                                                placeholder="Pays de résidence"
                                                 styles={{
                                                   control: (provided, state) => ({
                                                     ...provided,
@@ -4512,8 +4518,14 @@ function Badge({ userpf }) {
                                                     borderRadius: "30px",
                                                     width: "100%",
                                                     fontSize: "1rem",
-                                                    backgroundColor: "#f5f5f5",
+                                                    backgroundColor: "#ffff",
                                                     borderWidth: "none",
+                                                    marginTop: "4px",
+                                                    border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+                                                    paddingTop: "6px", // Adjust the top padding as needed
+                                                    paddingBottom: "6px", // Adjust the bottom padding as needed
+                                                    paddingLeft: "13px", // Adjust as needed
+                                                    paddingRight: "13px", // Adjust as needed
                                                   }),
                                                 }}
                                                 onChange={(selectedOption) =>
@@ -4524,15 +4536,16 @@ function Badge({ userpf }) {
                                             </div>
 
                                           </div>
-                                        </div>
-                                      </div>
-                                    </div>
+
+
+
+                                       
                                   </div>
                                 </div>
                               </div>
                             </div>
 
-                            <div className="flex gap-2 md:gap-5 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                            <div className="flex gap-1 md:gap-5 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap  max-md:max-w-full">
                               <button onClick={handleReset} className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5">
                                 Réinitialiser
                               </button>
