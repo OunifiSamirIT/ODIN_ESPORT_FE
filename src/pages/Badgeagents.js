@@ -4563,12 +4563,13 @@ function Badge({ userpf }) {
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
                         {filteredUsers.map((user, index) => (
                           <div key={index} className="flex flex-col w-full">
+                            <Link to={`/profile/${user.id}`}>  
                             <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
-                              <img
+                             <img
                                 loading="lazy"
                                 src={user.user.image}
                                 className="self-center max-w-full rounded-full aspect-square w-[120px]"
-                              />
+                              /> 
                               <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
                                 {user.user.prenom} {user.user.nom}
                               </div>
@@ -4619,7 +4620,7 @@ function Badge({ userpf }) {
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                            </div></Link>
                           </div>
 
 

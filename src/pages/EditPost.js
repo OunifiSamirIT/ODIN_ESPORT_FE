@@ -305,7 +305,7 @@ function EditPost() {
               
 
                   <div className="card w-100 shadow-xss rounded-md  border-0 ps-4 pt-4 pe-4 pb-3 mb-3">
-                    <div className="card-body p-0 mt-3 position-relative">
+                    <div className="card-body gap-3 p-0 mt-3 position-relative">
                       {/* <figure className="avatar position-absolute ms-2 mt-1 top-5">
                       <img
                         src={user.image}
@@ -343,7 +343,7 @@ function EditPost() {
     </div>
     <input
         name="description"
-        className="h50 border-0 w-full rounded-xxl bg-gray-100 p-2 ps-1 font-xssss text-black-500 fw-500 border-light-md theme-dark-bg"
+        className="h50 border-0 w-full ml-3 rounded-xxl bg-gray-100 p-2 ps-1 font-xssss text-black-500 fw-500 border-light-md theme-dark-bg"
         type="text"
         value={editArticle?.description}
         onChange={(e) =>

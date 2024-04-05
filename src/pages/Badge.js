@@ -4640,6 +4640,7 @@ function Badge({ userpf }) {
 
                           {filteredUsers.map((user, index) => (
                             <div key={index} className="flex flex-col w-full">
+ <Link to={`/profile/${user.id}`}>
                               <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
                                 <img
                                   loading="lazy"
@@ -4723,6 +4724,7 @@ function Badge({ userpf }) {
                                   <div className="font-medium">{new Date(user.user.date_naissance).getFullYear()}</div>
                                 </div>
                               </div>
+</Link>
                             </div>
 
 
