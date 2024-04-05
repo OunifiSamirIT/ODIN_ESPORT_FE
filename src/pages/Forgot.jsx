@@ -194,10 +194,14 @@ function Forgot() {
         {errors.email.message}
       </span>
     )}
-  <button type="submit" className="justify-center items-center px-16 pt-2 mt-12 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
+  <button type="submit" className="justify-center items-center px-16 py-2 pt-2 mt-12 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
     Envoyer le lien
   </button>
-
+  {isFormSubmitted && (
+          <div className="flex justify-center items-center px-16 py-2 mt-8 text-xl font-medium text-white bg-green-500 rounded-lg">
+            Please check your email to verify your account.
+          </div>
+        )}
   <Link
                     to="/login"
                   >
