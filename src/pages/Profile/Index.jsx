@@ -795,7 +795,9 @@ const Index = () => {
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
-        {owner && <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3">
+        {owner && 
+        
+        <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3">
           <div className="card-body p-2 position-relative">
             {previewImage && (
               <div className="mb-3">
@@ -847,10 +849,10 @@ const Index = () => {
                       </span>
                     )}
                     <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
-                      <div className="flex w-full">
+                      <div className="flex w-full justify-between mr-3">
                         <label
                           htmlFor="imgUpload"
-                          className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+                          className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
                         >
                           <input
                             type="file"
@@ -868,7 +870,7 @@ const Index = () => {
                         </label>
 
                         <label
-                          className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark pe-4"
+                          className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
                           htmlFor="videoUpload"
                         >
                           <input
@@ -886,7 +888,7 @@ const Index = () => {
                         </label>
 
                         <label
-                          className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark pe-4"
+                          className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
                           htmlFor="vgifUpload"
                         >
                           <input
@@ -917,12 +919,13 @@ const Index = () => {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </form>
           </div>
-        </div>}
+        </div>
+        
+        }
         {profileFeed === 'pubs' && <div className="w-full mt-4">
           <div>
             <div>
@@ -1053,13 +1056,13 @@ const Index = () => {
                     </div>
                     <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
 
-                    <span className="flex justify-between items-center mb-3 ml-0 p-0 font-bold w-full">
+                    <span className="flex justify-between items-center ml-0 p-0 font-bold w-full">
                                 <button
                                   onClick={() => {
                                     handleLikeClick(article.id, 1);
                                   }}
                                 >
-                                  <span className="flex flex-col md:flex-row gap-2 ">
+                                  <span className="flex items-center flex-col md:flex-row gap-2 ">
                                     {article.likesCount === 0 ? (
                                       <BiHeart className="size-6 text-black" />
                                     ) : (
@@ -1068,9 +1071,6 @@ const Index = () => {
                                     <div className="flex items-center gap-2">
                                       <span style={{ marginLeft: '1px', marginTop: '2px' }}>
                                         Jaime
-                                      </span>
-                                      <span>
-                                        {article.likesCount} {article.likesCount === 1 ? "" : ""}{" "}
                                       </span>
                                     </div>
                                   </span>
@@ -1091,7 +1091,7 @@ const Index = () => {
                                   }}
                                 >
                                   {selectedArticleId === article.id ? (
-                                    <div className="flex gap-2 justify-between py-2">
+                                    <div className="flex flex-col md:flex-row items-center gap-2 md:justify-between py-2">
                                       <img
                                         loading="lazy"
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -1106,7 +1106,7 @@ const Index = () => {
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                         className="w-5 aspect-square fill-zinc-900"
                                       />
-                                      <div className="flex gap-2"> <span>Commenter</span> <span>{article.commentsCount} {article.commentsCount === 1 ? "" : ""}</span></div>
+                                      <div className="flex gap-2"> <span>Commenter</span></div>
                                     </div>
                                   )}
                                 </button>
@@ -1340,7 +1340,7 @@ const Index = () => {
               {articles.length > 0 ? articlesWithPhoto.map((article) => (
                 <div
                   key={article.id}
-                  className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
+                  className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2"
                 >
                   <div className="card-body p-0 d-flex">
                     <figure className="avatar me-3">

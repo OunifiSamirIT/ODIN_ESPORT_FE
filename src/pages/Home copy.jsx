@@ -21,6 +21,7 @@ import Profilephoto from "../components/Profilephoto";
 import TextInput from "../components/TextInput";
 import CustomButton from "../components/CustomButton";
 import { BsFiletypeGif, BsPersonFillAdd, BsTypeH1 } from "react-icons/bs";
+import placeholder from '../assets/placeholder.jpg'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../config";
@@ -672,7 +673,7 @@ function Home() {
   };
 
   const addReply = async (commentId, replyText) => {
-    console.log(commentId , replyText)
+    console.log(commentId, replyText)
     try {
       if (commentId && replyText) {
         // Retrieve user information from local storage
@@ -831,7 +832,6 @@ function Home() {
 
 
       <Header />
-
       <div className="nav-header">
         <nav className="navigation scroll-bar max-sm:hidden 2xl:ml-[100px] mt-2">
           <div className="container ps-0 pe-0">
@@ -972,15 +972,7 @@ function Home() {
             </div>
           </div>
         </nav>
-
-
-
-
-
       </div>
-
-
-
       <div className="main-content w-full bg-red-500 bg-zinc-100">
         <div className="middle-sidebar-bottom">
           <div className="middle-sidebar-left">
@@ -988,7 +980,7 @@ function Home() {
               <div className="col-xl-8 col-xxl-9 col-lg-8">
                 <div>
                   {/* creation poste  */}
-                  <div className="mt-4 card w-100  rounded-[10px]  mb-2  border-0 p-3">
+                  <div className="mt-4 card w-100  rounded-[10px]   border-0 mb-3">
                     <div className="card-body p-2 position-relative">
                       {previewImage && (
                         <div className="mb-3">
@@ -1040,10 +1032,10 @@ function Home() {
                                 </span>
                               )}
                               <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
-                                <div className="flex w-full">
+                                <div className="flex w-full justify-between mr-3">
                                   <label
                                     htmlFor="imgUpload"
-                                    className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+                                    className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
                                   >
                                     <input
                                       type="file"
@@ -1061,7 +1053,7 @@ function Home() {
                                   </label>
 
                                   <label
-                                    className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark pe-4"
+                                    className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
                                     htmlFor="videoUpload"
                                   >
                                     <input
@@ -1075,11 +1067,12 @@ function Home() {
                                       loading="lazy"
                                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                       className="aspect-square w-[25px]"
-                                    />                            <span className="d-none-xs ml-2"> Video</span>
+                                    />
+                                    <span className="d-none-xs ml-2"> Video</span>
                                   </label>
 
                                   <label
-                                    className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark pe-4"
+                                    className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
                                     htmlFor="vgifUpload"
                                   >
                                     <input
@@ -1104,13 +1097,12 @@ function Home() {
                                     <CustomButton
                                       type="submit"
                                       title="Publier"
-                                      containerStyles="bg-blue-600 text-white mt-1 py-1 px-10 rounded-full font-semibold text-sm"
+                                      containerStyles="bg-blue-600 text-white mt-1 py-1 px-8 rounded-full font-semibold text-sm"
                                     />
                                   )}
                                 </div>
                               </div>
                             </div>
-
                           </div>
                         </div>
                       </form>
@@ -1195,16 +1187,16 @@ function Home() {
 
 
 
-                            <div className="card-body p-0 me-lg-5">
-                              <p className="fw-500 font-thin lh-26 ml-8  rounded-md font-xssss w-100 mb-2 text-dark theme-dark-bg">
+                            <div className="card-body p-0 me-lg-5 mt-2">
+                              <p className="rounded-md text-base w-100 mb-2 text-dar">
                                 {article.description}{" "}
                               </p>
                             </div>
-                            <div className="card-body d-block p-0 mb-3">
-                              <div className="row ps-2 pe-2">
-                                <div className="col-sm-12 p-1">
 
-                                  {article.video && (
+                            {article.video && (
+                              <div className="card-body d-block p-0 mb-3">
+                                <div className="row ps-2 pe-2">
+                                  <div className="col-sm-12 p-1">
                                     <div className="card-body p-0 mb-3  overflow-hidden uttam-die">
                                       <video controls className="float-right w-100">
                                         <source
@@ -1214,25 +1206,22 @@ function Home() {
                                         Your browser does not support the video tag.
                                       </video>{" "}
                                     </div>
-                                  ) }
-                                  
-                                  { article.image && (
-                                    <div className="card-body d-block p-0 mb-3">
-                                      <div className="row ps-2 pe-2">
-                                        <div className="col-sm-12 p-1">
-                                          <img
-                                            className=" h-96 w-100 object-cover aspect-square"
-                                            src={article.image}
-                                            alt={article.titre}
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  )}
+                                  </div>
                                 </div>
-
+                              </div>)}
+                            {article.image && (
+                              <div className="card-body d-block p-0 mb-3">
+                                <div className="row ps-2 pe-2">
+                                  <div className="col-sm-12 p-1">
+                                    <img
+                                      className=" h-96 w-100 object-cover aspect-square"
+                                      src={article.image}
+                                      alt={article.titre}
+                                    />
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            )}
                             <div className="  rounded-lg">
                               <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
                                 <div className="flex gap-2.5 items-center justify-center py-2.5">
@@ -1259,14 +1248,14 @@ function Home() {
                                     handleLikeClick(article.id, 1);
                                   }}
                                 >
-                                  <span className="flex-col md:flex-row gap-2" style={{ display: 'flex', alignItems: 'center' }}>
+                                  <span className="flex flex-col md:flex-row gap-2 items-center" style={{ display: 'flex', alignItems: 'center' }}>
                                     {article.likesCount === 0 ? (
                                       <BiHeart className="size-6 text-black" />
                                     ) : (
                                       <BiSolidHeart className="size-6 text-black" />
                                     )}
                                     <div className="flex items-center gap-2">
-                                      <span style={{ marginLeft: '1px', marginTop: '2px' }}>
+                                      <span className='' style={{ marginLeft: '1px', marginTop: '2px' }}>
                                         Jaime
                                       </span>
                                     </div>
@@ -1354,7 +1343,6 @@ function Home() {
                                     article.comments.map((comment) => (
                                       <div key={comment.id} className="comment">
                                         {/* Display comment information */}
-
                                         <div className="flex w-full">
                                           <figure className="avatar me-3 mb-8">
                                             <img
@@ -1369,15 +1357,15 @@ function Home() {
                                             <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
                                               <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                                 <div className="flex flex-col py-1 font-light text-zinc-900">
-                                                  <div className="text-base font-semibold">{comment.user && comment.user.user.nom} {comment.user && comment.user.user.prenom}</div>
+                                                  <div className="fw-700 text-grey-900 font-xssss mt-1">{comment.user && comment.user.user.nom} {comment.user && comment.user.user.prenom}</div>
                                                   <div className="mt-1 text-xs">{comment.user && comment.user.user.profil}</div>
                                                   <div className="mt-1 text-xs">{new Date(comment.createdAt).toLocaleDateString()}</div>
                                                 </div>
                                               </div>
-                                              <div className="mt-4 text-base font-light text-zinc-900 px-4 ">
+                                              <div className="mt-2 text-base font-light text-zinc-900 px-4 ">
                                                 {comment.description}
                                               </div>
-                                              <div className="flex gap-4 px-8 mt-4 text-xs font-light whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:px-5">
+                                              {/* <div className="flex gap-4 px-6 mt-2 text-xs font-light whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:px-5">
                                                 <div className="flex gap-2.5 justify-center py-2 my-auto">
                                                   <img
                                                     loading="lazy"
@@ -1394,71 +1382,30 @@ function Home() {
                                                   />
                                                   <div>12</div>
                                                 </div>
-                                              </div>
+                                              </div> */}
                                             </div>
 
-                                            {replyingToCommentId === comment.id && (
-                                              <div className="flex items-center gap-3 mt-1">
-                                                <figure className="avatar">
-                                                  <img
-                                                    src={
-                                                      comment.user && comment.user.user.image
-                                                    }
-                                                    className="shadow-sm rounded-full w-[52px] aspect-square"
-                                                    alt="post"
-                                                  />
-                                                </figure>
-                                                <div className="flex flex-col w-full">
-                                                  <div className="w-full flex items-center">
-                                                    <input
-                                                      type="text"
-                                                      value={replyInput}
-                                                      placeholder="Ecrire un reponse .."
-                                                      onChange={(e) =>
-                                                        setReplyInput(e.target.value)
-                                                      }
-                                                      className="w-full bg-gray-100 rounded-[30px]  pl-3 h-12"
-                                                    />
-                                                    <button
-                                                      onClick={() =>
-                                                        addReply(comment.id, replyInput)
-                                                      }
-                                                    >
-                                                      <BiSolidSend className="size-7  text-cyan-600" />
-                                                    </button>
-                                                  </div>
-                                                </div>
-                                              </div>)}
+                                            <div className="my-2 flex w-full justify-between">
+                                              <button onClick={() => handleLikeComment(comment.id)}>
+                                                {comment.likesCount === 0 ? (
+                                                  <BiHeart className="size-7 text-black" />
+                                                ) : (
+                                                  <BiSolidHeart className="size-7 text-black" />
+                                                )}
+                                              </button>
+
+                                              <button
+                                                onClick={() =>
+                                                  handleReplyClick(comment.id)
+                                                }
+                                                className="w-20 font-semibold ml-2"
+                                              >
+                                                Répondre
+                                              </button>
+                                              {/* <span>{comment.likesCount} Likes</span> */}
+                                            </div>
                                           </div>
-
                                         </div>
-
-                                        <div className="ml-12 my-2 flex">
-                                          <button
-                                            onClick={() =>
-                                              handleReplyClick(comment.id)
-                                            }
-                                            className="w-20 font-semibold ml-4"
-                                          >
-                                            Répondre
-                                          </button>
-
-
-
-
-
-                                          <button onClick={() => handleLikeComment(comment.id)}>
-                                            {comment.likesCount === 0 ? (
-                                              <BiHeart className="size-7 text-black" />
-                                            ) : (
-                                              <BiSolidHeart className="size-7 text-black" />
-                                            )}
-                                          </button>
-                                          {/* <span>{comment.likesCount} Likes</span> */}
-
-
-                                        </div>
-
 
                                         {/* {replyingToCommentId === comment.id && (
                                           <div>
@@ -1486,40 +1433,52 @@ function Home() {
                                                 (reply) => (
                                                   <div
                                                     key={reply.id}
-                                                    className="reply"
+                                                    className="reply mb-4"
                                                   >
                                                     {/* Display reply information */}
+
 
                                                     <div className="flex items-center">
                                                       <figure className="avatar me-3">
                                                         <img
                                                           src={
-                                                            reply.user &&
-                                                            reply.user.user.image
+                                                            user &&
+                                                            user.user.image
                                                           }
-                                                          className="shadow-sm rounded-circle w-10 h-10"
+                                                          className="shadow-sm rounded-circle w-[52px] h-[52px]"
                                                           alt="post"
                                                         />
                                                       </figure>
-                                                      <span className="flex flex-col flex-1 mt-3   bg-gray-100 md:w-[460px]  rounded-3xl max-md:max-w-full">
-
-                                                        <div className="flex flex-col justify-between ml-2 ">
-                                                          <strong className="mb-2 mt-10">
-                                                            {reply.user &&
-                                                              reply.user.user.login}
-                                                          </strong>
-                                                          <h1 className=" text-gray-500 ml-2 mt-1 mb-1">
-                                                            {reply.user && reply.user.user.profil}
-                                                          </h1>
-                                                          {reply.user && reply.user.user.createdAt && (
-                                                            <p className="text-gray-500 text-sm mt-0 ml-2 mb-4">
-                                                              {new Date(reply.user.user.createdAt).toLocaleDateString()}
-                                                            </p>
-                                                          )}
-                                                          <div className="m-2">{reply.description}</div>
-
+                                                      <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                                        <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                                                          <div className="flex flex-col py-1 font-light text-zinc-900">
+                                                            <div className="fw-700 text-grey-900 font-xssss mt-1">{reply.user && reply.user.user.nom} {reply.user && reply.user.user.prenom}</div>
+                                                            <div className="mt-1 text-xs">{reply.user && reply.user.user.profil}</div>
+                                                            <div className="mt-1 text-xs">{new Date(reply.createdAt).toLocaleDateString()}</div>
+                                                          </div>
                                                         </div>
-                                                      </span>
+                                                        <div className="mt-2 text-base font-light text-zinc-900 px-4 text-break">
+                                                          {reply.description}
+                                                        </div>
+                                                      </div>
+                                                      {/* <span className="flex flex-col flex-1 bg-gray-100 md:w-[460px]  rounded-3xl max-md:max-w-full">
+                                                <div className="flex flex-col justify-between ml-2 ">
+                                                  <strong className="mb-2 mt-10">
+                                                    {reply.user &&
+                                                      reply.user.user.login}
+                                                  </strong>
+                                                  <h1 className=" text-gray-500 ml-2 mt-1 mb-1">
+                                                    {reply.user && reply.user.user.profil}
+                                                  </h1>
+                                                  {reply.user && reply.user.user.createdAt && (
+                                                    <p className="text-gray-500 text-sm mt-0 ml-2 mb-4">
+                                                      {new Date(reply.user.user.createdAt).toLocaleDateString()}
+                                                    </p>
+                                                  )}
+                                                  <div className="m-2">{reply.description}</div>
+
+                                                </div>
+                                              </span> */}
                                                     </div>
 
                                                     {/* <span className="flex flex-col flex-1  bg-gray-100 md:w-[520px] rounded-3xl max-md:max-w-full">
@@ -1528,6 +1487,41 @@ function Home() {
                                                   </div>
                                                 )
                                               )}
+                                            {replyingToCommentId == comment.id && (
+                                              <div className="flex items-center gap-3 mt-1 mb-3">
+                                                <figure className="avatar">
+                                                  <img
+                                                    src={
+                                                      comment.user && comment.user.user.image
+                                                    }
+                                                    className="shadow-sm rounded-full w-[52px] aspect-square"
+                                                    alt="post"
+                                                  />
+                                                </figure>
+                                                <div className="flex flex-col w-full">
+                                                  <div className="w-full flex items-center">
+                                                    <input
+                                                      type="text"
+                                                      value={replyInput}
+                                                      placeholder="Ecrire un reponse .."
+                                                      onChange={(e) =>
+                                                        setReplyInput(e.target.value)
+                                                      }
+                                                      className="w-full px-2 bg-gray-100 rounded-[30px]  mr-3 h-12"
+                                                    />
+                                                    <button
+                                                      onClick={() =>
+                                                        addReply(replyingToCommentId, replyInput)
+                                                      }
+                                                    >
+                                                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z" fill="#2E71EB" />
+                                                      </svg>
+
+                                                    </button>
+                                                  </div>
+                                                </div>
+                                              </div>)}
                                           </div>
                                         )}
                                       </div>
@@ -1540,7 +1534,7 @@ function Home() {
                                         <figure className="avatar">
                                           <img
                                             src={
-                                              user.user.image
+                                              user.user.image ? user.user.image : placeholder
                                             }
                                             className="shadow-sm rounded-full w-[52px] aspect-square"
                                             alt="post"
@@ -1555,15 +1549,18 @@ function Home() {
                                               onChange={(e) =>
                                                 setComment(e.target.value)
                                               }
-                                              className="w-full bg-gray-100 rounded-[30px]  pl-3 h-12"
+                                              className="w-full bg-gray-100 rounded-[30px]  mr-3 h-12"
                                             />
                                             <button
-                                              onClick={() =>
-                                                addReply(comment.id, replyInput)
-                                              }
+                                              onClick={() => addComment(article.id)}
+                                              className="ml-2"
                                             >
-                                              <BiSolidSend className="size-7  text-cyan-600" />
+                                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z" fill="#2E71EB" />
+                                              </svg>
+
                                             </button>
+
                                           </div>
                                         </div>
                                       </div>
