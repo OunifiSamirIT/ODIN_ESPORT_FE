@@ -4639,8 +4639,8 @@ function Badge({ userpf }) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
 
                           {filteredUsers.map((user, index) => (
-                            <div key={index} className="flex flex-col w-full">
- <Link to={`/profile/${user.id}`}>
+             <Link to={`/profile/${user.id}`}>               <div key={index} className="flex flex-col w-full">
+ 
                               <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
                                 <img
                                   loading="lazy"
@@ -4724,8 +4724,8 @@ function Badge({ userpf }) {
                                   <div className="font-medium">{new Date(user.user.date_naissance).getFullYear()}</div>
                                 </div>
                               </div>
-</Link>
-                            </div>
+
+                            </div></Link>
 
 
 
