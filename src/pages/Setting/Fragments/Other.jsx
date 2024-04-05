@@ -202,8 +202,8 @@ const Other = ({ userInfo }) => {
             <div>
                 <ToastContainer />
             </div>
-            <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
+            <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-xl">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start w-full bg-white rounded-[20px]">
                     <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
                         <div className="lg:flex-1 w-full">
                             <div className="flex gap-4 justify-between px-4 whitespace-nowrap items-center">
@@ -225,7 +225,7 @@ const Other = ({ userInfo }) => {
                                 <div className="grow text-lg">Compétences</div>
                             </div>
                            
-                        <div className="flex flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
+                        <div className="flex justify-center flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600">
                             <div className="form-group icon-input  mb-3">
                                 {skillsList.map((skill, index) => (
                                     <div key={skill} className="form-check rounded-[30px] form-check-inline pl-0 me-2 mb-2">
@@ -253,7 +253,7 @@ const Other = ({ userInfo }) => {
 
                         </div>
                     </div>
-                    <div className="flex gap-5 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
+                    <div className="flex gap-2 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap">
                         <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
                             <img
                                 loading="lazy"

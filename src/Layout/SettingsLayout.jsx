@@ -20,10 +20,10 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
 
     return (
         <>
-            <div className="flex flex-col md:flex-row gap-x-5 gap-y-2  w-full    mt-[100px]">
-                <div className="flex flex-col max-md:ml-0">
-                    <div className="flex md:w-[345px] flex-col text-base font-medium ">
-                        <div className="flex gap-2 justify-center text-center py-2 text-white whitespace-nowrap bg-orange-500 rounded-[30px] max-md:px-5 w-full">
+            <div className="flex flex-col md:flex-row gap-x-1 gap-y-2  w-full  mt-[100px]">
+                <div className="flex flex-col justify-center  w-full mt-3  ">
+                    <div className="flex md:w-[330px] flex-col text-base font-medium ">
+                        <div className="flex gap-2  justify-center text-center py-2 text-white whitespace-nowrap bg-orange-500 rounded-[30px] w-full">
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac20d9bf5dc01e69f2a6e82df157e82794a74dd3d3c80d0437777183828a95ba?"
@@ -31,7 +31,7 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                             />
                             <Link to={`/profile/${storedUserData.id}`} className="hover:text-orange-300">Revenir au Profil</Link>
                         </div>
-                        <div className=" flex-col px-4 py-1 mt-3 w-full bg-white rounded-[10px] text-zinc-900 hidden md:flex items-left">
+                        <div className=" flex-col md:px-4 py-1 mt-3 w-full bg-white rounded-[10px] text-zinc-900 hidden md:flex items-left">
                             {/* <div className="text-blue-600">Informations Personnelles</div> */}
                             <a href={`/setting/personal`} className={`mt-4 text-left`} >Informations Personnelles</a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
@@ -57,7 +57,7 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                     </div>
                 </div>
 
-                <div className="flex w-full flex-col flex-wrap gap-y-2 justify- max-md:mt-3   px-4 bg-white rounded-[10px] max-md:pl-5 max-md:max-w-full">
+                <div className="flex w-full flex-col flex-wrap gap-y-2 px-2 bg-white rounded-[10px]">
                     {children}
                 </div>
 
