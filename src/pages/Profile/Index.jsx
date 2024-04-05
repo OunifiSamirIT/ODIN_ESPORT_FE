@@ -1053,82 +1053,92 @@ const Index = () => {
                     </div>
                     <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
 
-                    <span className="flex  justify-between text-sm  items-center  ml-0 p-0 font-bold w-full">
-                      <button
-                        className="flex gap-2"
-                        onClick={() => {
-                          handleLikeClick(article.id, 1);
-                        }}
-                      >
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                          {article.likesCount === 0 ? (
-                            <BiHeart className="size-6 text-black" />
-                          ) : (
-                            <BiSolidHeart className="size-6 text-black" />
-                          )}
-                          <span style={{ marginLeft: '1px', marginTop: '2px' }}>Jaime</span>
-                        </span>
-                      </button>{" "}
-                      <button
-                        onClick={() => {
-                          if (selectedArticleId === article.id) {
-                            setCommentInputVisible(false);
-                            setSelectedArticleId(null);
-                          } else {
-                            fetchCommentsForArticle(article.id);
-                            setSelectedArticleId(article.id);
-                            setCommentInputVisible(true);
-                            setSelectedArticleForCopy(article.id);
-                          }
-                        }}
-                      >
-                        {selectedArticleId === article.id ? (
-                          <div className="flex gap-2 justify-between py-2 md:ml-6">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square fill-zinc-900"
-                            />
-                            <div className="grow">Commenter</div>
-                          </div>
-                        ) : (
-                          <div className="flex gap-2 justify-between py-2 md:ml-6">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square fill-zinc-900"
-                            />
-                            <div className="grow">Commenter</div>
-                          </div>
-                        )}
-                      </button>
+                    <span className="flex justify-between items-center mb-3 ml-0 p-0 font-bold w-full">
+                                <button
+                                  onClick={() => {
+                                    handleLikeClick(article.id, 1);
+                                  }}
+                                >
+                                  <span className="flex flex-col md:flex-row gap-2 ">
+                                    {article.likesCount === 0 ? (
+                                      <BiHeart className="size-6 text-black" />
+                                    ) : (
+                                      <BiSolidHeart className="size-6 text-black" />
+                                    )}
+                                    <div className="flex items-center gap-2">
+                                      <span style={{ marginLeft: '1px', marginTop: '2px' }}>
+                                        Jaime
+                                      </span>
+                                      <span>
+                                        {article.likesCount} {article.likesCount === 1 ? "" : ""}{" "}
+                                      </span>
+                                    </div>
+                                  </span>
 
-                      <button
-                        onClick={() => {
-                          copyLinkToClipboard(article.id);
-                          setIsCopyLinkPopupVisible(true);
-                          setTimeout(() => {
-                            setIsCopyLinkPopupVisible(false);
-                          }, 2000); // Hide the popup after 2 seconds
-                        }}
-                        className="md:ml-44"
-                      >
-                        <div className="flex gap-2 justify-between py-2">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square fill-zinc-900"
-                          />
-                          <div className="grow">Copier le lien</div>
-                        </div>
-                        {isCopyLinkPopupVisible && (
-                          <div className="copy-link-popup">
-                            lien copié!
-                          </div>
-                        )}
-                      </button>
+                                </button>{" "}
 
-                    </span>
+                                <button
+                                  onClick={() => {
+                                    if (selectedArticleId === article.id) {
+                                      setCommentInputVisible(false);
+                                      setSelectedArticleId(null);
+                                    } else {
+                                      fetchCommentsForArticle(article.id);
+                                      setSelectedArticleId(article.id);
+                                      setCommentInputVisible(true);
+                                      setSelectedArticleForCopy(article.id);
+                                    }
+                                  }}
+                                >
+                                  {selectedArticleId === article.id ? (
+                                    <div className="flex gap-2 justify-between py-2">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="w-5 aspect-square fill-zinc-900"
+                                      />
+                                      <div className="grow">Commenter</div>
+                                    </div>
+                                  ) : (
+                                    <div className="flex gap-2 flex-col md:flex-row items-center">
+                                      <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                        className="w-5 aspect-square fill-zinc-900"
+                                      />
+                                      <div className="flex gap-2"> <span>Commenter</span> <span>{article.commentsCount} {article.commentsCount === 1 ? "" : ""}</span></div>
+                                    </div>
+                                  )}
+                                </button>
+
+
+
+                                <button
+                                  onClick={() => {
+                                    copyLinkToClipboard(article.id);
+                                    setIsCopyLinkPopupVisible(true);
+                                    setTimeout(() => {
+                                      setIsCopyLinkPopupVisible(false);
+                                    }, 2000); // Hide the popup after 2 seconds
+                                  }}
+                                  className=""
+                                >
+                                  <div className="flex flex-col md:flex-row items-center gap-2 justify-between py-2">
+                                    <img
+                                      loading="lazy"
+                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                      className="w-5 aspect-square fill-zinc-900"
+                                    />
+                                    <div className="grow">Copier le lien</div>
+                                  </div>
+                                  {isCopyLinkPopupVisible && (
+                                    <div className="copy-link-popup">
+                                      lien copié!
+                                    </div>
+                                  )}
+                                </button>
+
+                              </span>
 
 
 
