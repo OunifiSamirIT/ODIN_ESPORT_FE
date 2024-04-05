@@ -503,30 +503,30 @@ const handleSearch = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-md:flex-col max-md:gap-0">
                   {filteredCamps.map((value, index) => (
                     <div key={index} className="flex flex-col">
-                      <div onClick={() => handleCardClick(value.id)} className="flex flex-col grow items-center pb-4 mx-auto w-full bg-white rounded-xl">
+                      <div onClick={() => handleCardClick(value.id)} className="flex flex-col grow items-start pb-4 mx-auto w-full bg-white rounded-xl">
                         <img
                           loading="lazy"
                           srcSet={value.ImagesAlbumcamps[0]?.image_url}
                           className="self-stretch w-full aspect-square rounded-t-xl object-cover"
                         />
-                        <div className="mt-4 text-base font-semibold text-zinc-900">
+                        <div className="mt-4 px-2 self-start text-base font-semibold text-zinc-900">
                           {value.album_name}
                         </div>
-                        <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-900 w-[282px]">
-                          <div className="flex gap-2">
-                            <div className="grow">{value.date_debut}</div>
+                        <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-400 w-[282px]">
+                          <div className="flex self-start gap-2">
+                            <div className="flex self-start">{value.date_debut}</div>
                             <div>-</div>
                             <div className="grow">{value.date_fin}</div>
                           </div>
-                          <div>{value.payscamps}</div>
+                          <div className=" text-xs font-light">{value.payscamps}</div>
                         </div>
-                        <div className="mt-2 text-xs mx-2 font-light text-zinc-900">
+                        <div className="mt-2 text-xs mx-2 font-light text-black">
                           {value.description}
                         </div>
                         <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
-                          <div className="flex flex-col whitespace-nowrap text-zinc-900">
-                            <div className="text-xs font-light">Prix</div>
-                            <div className="mt-1 text-base font-semibold">
+                          <div className="flex flex-col whitespace-nowrap ">
+                            <div className="text-xs font-light text-zinc-400">Prix</div>
+                            <div className="mt-1 text-base text-zinc-900 font-semibold">
                               {value.prix} €
                             </div>
                           </div>
