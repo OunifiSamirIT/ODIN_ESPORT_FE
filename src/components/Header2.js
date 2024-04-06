@@ -60,7 +60,8 @@ function Header() {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/AllTarget`)
+    fetch(`${Config.LOCAL_URL}/api/AllTarget}`)
+
       .then((response) => response.json())
       .then((data) => {
         setSearch(data);
@@ -68,7 +69,8 @@ function Header() {
       .catch((error) => console.error("Error fetching data:", error));
 
     // Fetch users
-    fetch(`http://localhost:5000/api/user`)
+    fetch(`${Config.LOCAL_URL}/api/user}`)
+
       .then((response) => response.json())
       .then((userData) => {
         setUsers(userData)

@@ -364,52 +364,90 @@ function Home() {
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
 
+  // const fetchArticles = async () => {
+  //   try {
+  //     const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
+  //     const result = await response.json();
+
+  //     const reversedArticles = result.rows.reverse();
+  //     const articlesWithLikesCount = [];
+
+  //     for (const article of reversedArticles) {
+  //       const userId = article.userId;
+  //       const comt = article.id;
+
+  //       const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${userId}`);
+  //       const userData = await userResponse.json();
+
+  //       const comtResponse = await fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`);
+  //       const commentsData = await comtResponse.json();
+
+  //       const likesCountResponse = await fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`);
+  //       const likesCountData = await likesCountResponse.json();
+
+  //       const likesCount = likesCountData.find(
+  //         (count) =>
+  //           count.articleId === article.articleId ||
+  //           count.articleId === article.id
+  //       );
+
+  //       const articleWithLikesCount = {
+  //         ...article,
+  //         user: userData,
+  //         comments: commentsData.commentsData,
+  //         commentsCount: commentsData.commentCount,
+  //         likesCount: likesCount ? likesCount.likesCount : 0,
+  //       };
+
+  //       articlesWithLikesCount.push(articleWithLikesCount);
+  //     }
+
+  //     setArticles(articlesWithLikesCount);
+  //     console.log("articles : ", articlesWithLikesCount);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
   const fetchArticles = async () => {
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const result = await response.json();
-
+  
       const reversedArticles = result.rows.reverse();
-      const articlesWithLikesCount = [];
-
-      for (const article of reversedArticles) {
+      const articlesWithPromises = reversedArticles.map(async (article) => {
         const userId = article.userId;
         const comt = article.id;
-
-        const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${userId}`);
-        const userData = await userResponse.json();
-
-        const comtResponse = await fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`);
-        const commentsData = await comtResponse.json();
-
-        const likesCountResponse = await fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`);
-        const likesCountData = await likesCountResponse.json();
-
-        const likesCount = likesCountData.find(
+  
+        const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
+          fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
+          fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
+          fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
+        ]);
+  
+        const likesCount = likesCountResponse.find(
           (count) =>
             count.articleId === article.articleId ||
             count.articleId === article.id
         );
-
-        const articleWithLikesCount = {
+  
+        return {
           ...article,
-          user: userData,
-          comments: commentsData.commentsData,
-          commentsCount: commentsData.commentCount,
+          user: userDataResponse,
+          comments: commentsResponse.commentsData,
+          commentsCount: commentsResponse.commentCount,
           likesCount: likesCount ? likesCount.likesCount : 0,
         };
-
-        articlesWithLikesCount.push(articleWithLikesCount);
-      }
-
+      });
+  
+      const articlesWithLikesCount = await Promise.all(articlesWithPromises);
       setArticles(articlesWithLikesCount);
       console.log("articles : ", articlesWithLikesCount);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
-
+  
   const handleReplyClick = async (commentId) => {
     setReplyInput(""); // Clear the reply input
     setReplyingToCommentId(commentId);
