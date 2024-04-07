@@ -71,6 +71,7 @@ function Home() {
   const [newComment, setNewComment] = useState(null); // New state for the newly added comment
   const [comments, setComments] = useState([]);
   const [user, setUser] = useState([]);
+  const [userimg, setUserimg] = useState([]);
   const [commentInputVisible, setCommentInputVisible] = useState(false);
   const [reply, setReply] = useState("");
   const [replyingToCommentId, setReplyingToCommentId] = useState(null);
@@ -681,6 +682,7 @@ function Home() {
         .catch((error) => console.error("Error fetching user data:", error));
     }
 
+
     fetchArticles();
     fetchAlbums();
   }, []);
@@ -1113,8 +1115,8 @@ function Home() {
                         <div className="card-body d-flex p-0">
                           <div className="flex w-full">
                             <img
-                              src={storedUserData?.image}
-                              alt="icon"
+                  srcSet={user?.user?.image}
+                  alt="icon"
                               className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                             />
                             {/* <label>{storedUserData.login}</label> */}

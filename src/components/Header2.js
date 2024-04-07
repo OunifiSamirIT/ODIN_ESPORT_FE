@@ -60,7 +60,7 @@ function Header() {
 
 
   useEffect(() => {
-    fetch(`${Config.LOCAL_URL}/api/AllTarget}`)
+    fetch(`${Config.LOCAL_URL}/api/AllTarget`)
 
       .then((response) => response.json())
       .then((data) => {
@@ -69,7 +69,7 @@ function Header() {
       .catch((error) => console.error("Error fetching data:", error));
 
     // Fetch users
-    fetch(`${Config.LOCAL_URL}/api/user}`)
+    fetch(`${Config.LOCAL_URL}/api/user`)
 
       .then((response) => response.json())
       .then((userData) => {
