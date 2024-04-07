@@ -43,6 +43,7 @@ import Loading from "../components/Loading";
 import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
 import GallerieOdin from "./Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";
+import SkeletonArticleCard from './HomeSkeletonPost';
 function Home() {
   const {
     register,
@@ -87,8 +88,12 @@ function Home() {
   const [showDropdown, setShowDropdown] = useState(null);
   const [selectedArticle, setSelectedArticle] = useState(null);
 
-
-
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
 
 
 
@@ -409,13 +414,57 @@ function Home() {
   //   }
   // };
 
+  // const fetchArticles = async (page = 1, size = 10) => {
+  //   try {
+  //     const response = await fetch(`${Config.LOCAL_URL}/api/articles/?page=${page}&size=${size}`);
+  //     const result = await response.json();
+  
+  //     const articlesWithPromises = result.rows.map(async (article) => {
+  //       const userId = article.userId;
+  //       const comt = article.id;
+  
+  //       const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
+  //         fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
+  //         fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
+  //         fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
+  //       ]);
+  
+  //       const likesCount = likesCountResponse.find(
+  //         (count) =>
+  //           count.articleId === article.articleId ||
+  //           count.articleId === article.id
+  //       );
+  
+  //       return {
+  //         ...article,
+  //         user: userDataResponse,
+  //         comments: commentsResponse.commentsData,
+  //         commentsCount: commentsResponse.commentCount,
+  //         likesCount: likesCount ? likesCount.likesCount : 0,
+  //       };
+  //     });
+  
+  //     const reversedArticlesWithPromises = articlesWithPromises.reverse(); // Reverse the order
+  //     const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
+  //       setArticles(articlesWithLikesCount);
+  //     console.log("articles : ", articlesWithLikesCount);
+  
+  //     // Update pagination state
+  //     setTotalItems(result.totalItems);
+  //     setTotalPages(result.totalPages);
+  //     setCurrentPage(page);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+  
   const fetchArticles = async () => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
+      setLoading(true);
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
       const result = await response.json();
   
-      const reversedArticles = result.rows.reverse();
-      const articlesWithPromises = reversedArticles.map(async (article) => {
+      const articlesWithPromises = result.rows.map(async (article) => {
         const userId = article.userId;
         const comt = article.id;
   
@@ -440,14 +489,34 @@ function Home() {
         };
       });
   
-      const articlesWithLikesCount = await Promise.all(articlesWithPromises);
-      setArticles(articlesWithLikesCount);
-      console.log("articles : ", articlesWithLikesCount);
+      let newArticles = await Promise.all(articlesWithPromises);
+      newArticles = newArticles.reverse(); // Reverse the order of all articles
+      const initialArticles = newArticles.slice(0, 10); // Get the first 10 articles
+      setArticles(initialArticles);
+      setTotalItems(result.totalItems);
+      setTotalPages(result.totalPages);
+  
+      // Load the remaining articles after initial set is loaded
+      const remainingArticles = newArticles.slice(10);
+      if (remainingArticles.length > 0) {
+        await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
   
+
+  const loadRemainingArticles = (remainingArticles) => {
+    setArticles(prevArticles => [...prevArticles, ...remainingArticles]);
+  };
+
+
+
+
+
   const handleReplyClick = async (commentId) => {
     setReplyInput(""); // Clear the reply input
     setReplyingToCommentId(commentId);
@@ -1150,6 +1219,16 @@ function Home() {
 
 
                   {/* show post  */}
+
+
+
+
+                  {loading ? (
+        // Render skeleton loading effect while articles are being fetched
+        Array.from({ length: 10 }).map((_, index) => (
+          <SkeletonArticleCard key={index} /> // Render SkeletonArticleCard component
+        ))
+      ) : (
                   <div>
 
 
@@ -1662,6 +1741,10 @@ function Home() {
                       ))}
                   </div>
 
+
+
+
+      )}
 
 
 
