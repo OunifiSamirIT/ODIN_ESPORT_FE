@@ -122,7 +122,7 @@ function acceuilOffre() {
         <div className="flex flex-col flex-1 items-start my-auto max-md:max-w-full">
           <div className="max-md:max-w-full">Linear company</div>
           <div className="mt-1 text-3xl font-bold max-md:max-w-full">
-            Analyste de performance
+            Analyste de performances
           </div>
           <div className="flex gap-4 justify-between self-stretch py-0.5 pr-20 mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
             <div className="flex gap-1.5 justify-between py-px">
