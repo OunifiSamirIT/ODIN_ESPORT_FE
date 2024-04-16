@@ -1,4 +1,4 @@
-import React, { element, useEffect, useState } from "react";
+import React, { element, useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 import { createRoot } from "react-dom/client"; // Import createRoot from react-dom/client
@@ -108,17 +108,58 @@ import * as serviceWorker from "./serviceWorker";
 import { Routes } from "react-router-dom/dist";
 import { BsTruckFlatbed } from "react-icons/bs";
 import Errors from "./pages/404";
+
 const rootElement = document.getElementById("root");
 
-function Root() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+export const Context = React.createContext(null)
 
+function Root() {
+  
+  
+  
+  
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  
+  // start ________________________translation methods and state
+  let [_currentLang, _setLang] = useState("");
+  let getTranslation = (lang1, lang2, lang3, lang4) => {
+    if (_currentLang == "Eng") {
+      return lang1
+    }
+    else if (  _currentLang == "Fr" ) {
+
+      return lang2
+    }
+    else if (  _currentLang == "Tr" ) {
+      return lang3
+    }
+    else {
+     return lang4
+
+    }
+  } 
+
+  // end ________________________translation methods and state
   useEffect(() => {
     // Check if there's a valid token in localStorage
     const token = localStorage.getItem('accessToken');
     if (token) {
       setIsAuthenticated(true);
     }
+
+  // start ________________________initialize translation 
+      console.log("_____", localStorage.getItem("language"));
+      
+      if (!localStorage.getItem("language")) {
+        localStorage.setItem("language", "fr");
+        console.log("moush mawjoud", localStorage.getItem("language"));
+        _setLang("Fr")
+      } else {
+        console.log("mawjoud", localStorage.getItem("language"));
+      }
+      _setLang(localStorage.getItem("language"))
+
+  // end ________________________initialize translation
   }, []);
 
   // Define a function to set authentication status
@@ -135,7 +176,9 @@ function Root() {
   };
 
   return (
+
     <React.StrictMode>
+    <Context.Provider value={ {_currentLang: _currentLang, _setLang:_setLang, getTranslation: getTranslation} } >
       <BrowserRouter basename={"/"}>
         <Routes>
           <Route exact path="/" element={<Demo />} />
@@ -274,6 +317,7 @@ function Root() {
 
         </Routes>
       </BrowserRouter>
+      </Context.Provider>
     </React.StrictMode>
 
   );
