@@ -15,6 +15,7 @@
     "flag-icon-css": "^4.1.7",
     "google-map-react": "^2.2.1",
     "moment": "^2.30.1",
+    "gsap": "^3.12.5",
     "node-sass": "^9.0.0",
     "quill-image-uploader": "^1.3.0",
     "react": "^18.2.0",
@@ -38,6 +39,7 @@
     "react-slick": "^0.29.0",
     "react-toastify": "^10.0.5",
     "slick-carousel": "^1.8.1",
+    "uuid": "^9.0.1",
     "web-vitals": "^3.5.1",
     "yup": "^1.3.3"
   },

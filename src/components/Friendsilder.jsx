@@ -12,7 +12,7 @@ function FriendsSlider() {
             try {
                 const response = await fetch(`${Config.LOCAL_URL}/api/user`);
                 if (!response.ok) {
-                    throw new Error('Failed to fetch users');
+                    throw new Error('Failed to fetch users error');
                 }
                 const data = await response.json();
                 setAgents(data);

@@ -34,7 +34,7 @@ function acceuilOffre() {
   const { id: idoffre } = useParams();
   const [albumDetails, setAlbumDetails] = useState(null);
   
-  
+
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
