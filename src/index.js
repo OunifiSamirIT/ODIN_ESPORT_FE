@@ -81,7 +81,7 @@ import ProfileSetting from "./pages/Setting/index"
 
 
 
-import OffreEmploi from "./pages/emploiOffre/acceuilOffre"
+import OffreEmploi from "./pages/emploiOffre/AcceuilOffre"
 import Entrpriseemploi from "./pages/emploiOffre/entreprise"
 import Homeoffre from "./pages/emploiOffre/homeoffre"
 

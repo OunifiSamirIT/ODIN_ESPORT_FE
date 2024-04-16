@@ -1,7 +1,7 @@
 import React, { Component, Fragment, useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Post from "../components/Post"; 
-import Albumsadmin from "../components/albumsadmin"; 
+import Albumsadmin from "../components/Albumsadmin"; 
 import Header from "../components/Header2";
 import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";

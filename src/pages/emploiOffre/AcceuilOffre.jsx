@@ -8,7 +8,7 @@ import { Config } from "../../config";
 
 
 
-function acceuilOffre() {
+function AcceuilOffre() {
  
   const emailRef = useRef(null);
   const [copied, setCopied] = useState(false);
@@ -440,4 +440,4 @@ function acceuilOffre() {
   )
 }
 
-export default acceuilOffre
+export default AcceuilOffre

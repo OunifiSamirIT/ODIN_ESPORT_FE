@@ -4,7 +4,7 @@ import { Config } from "../config";
 import { useState } from 'react';
 import AdminImg from "../assets/ODIN22.png";
 
-function albumsadmin( {item} ) {
+function Albumsadmin( {item} ) {
     const [album, setAlbum] = useState([]);
 
     useEffect(() => {
@@ -73,4 +73,4 @@ function albumsadmin( {item} ) {
   )
 }
 
-export default albumsadmin
+export default Albumsadmin
