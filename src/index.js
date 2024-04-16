@@ -82,6 +82,8 @@ import ProfileSetting from "./pages/Setting/index"
 
 
 import OffreEmploi from "./pages/emploiOffre/acceuilOffre"
+import Entrpriseemploi from "./pages/emploiOffre/entreprise"
+import Homeoffre from "./pages/emploiOffre/homeoffre"
 
 
 
@@ -93,6 +95,7 @@ import Albumcamps from './pages/Admin/Galleriecamps'
 import AddEvent from './pages/Admin/Components/AddEvent'
 import AddAlbum from './pages/Admin/Components/AddAlbum'
 import AddAlbumcamps from './pages/Admin/Components/AddAlbumCamps'
+import AddOffreemploi from './pages/Admin/offreemploi/addoffre'
 import EditUser from './pages/Admin/Components/EditUser'
 import CreateUser from './pages/Admin/Components/CreateUser'
 import FormCamps from './pages/GallerieuserForm'
@@ -173,6 +176,7 @@ function Root() {
 
           <Route exact path="/admin/album" element={<Album />} />
           <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
+          <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
 
           {/* 02/02 */}
           <Route exact path="/odin/album" element={<Galleryuser />} />
@@ -223,6 +227,13 @@ function Root() {
 
               <Route exact path="/blog" element={<Blog />} />
               <Route exact path="/blog/:articleId" element={<SingleArticle />} />
+              
+              
+              
+              
+              <Route exact path="/offre_emploi/:id" element={<OffreEmploi />} />
+              <Route exact path="/entreprise" element={<Entrpriseemploi />} />
+              <Route exact path="/homeoffre" element={<Homeoffre />} />
 
 
 

@@ -5382,7 +5382,7 @@ function Register() {
     formDataToSubmit.append("file", File || null);
 
     try {
-      const response = await fetch("https://odine-sport.com/api/auth/signup", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/auth/signup`, {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -7730,7 +7730,7 @@ function Register() {
                   <div className="flex flex-col items-center pb-52 -mb-px bg-gray-200">
 
                   <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
-                    <div className="text-center max-w-xl mx-auto mt-8">
+                    <div className="text-center max-w-xl mx-auto mt-8 ">
                       <p className="text-3xl text-zinc-900 ">
                         Informations du Profil
                       </p>
