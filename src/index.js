@@ -108,6 +108,10 @@ import * as serviceWorker from "./serviceWorker";
 import { Routes } from "react-router-dom/dist";
 import { BsTruckFlatbed } from "react-icons/bs";
 import Errors from "./pages/404";
+import Challenges from "./pages/Challenge/index.jsx";
+import AdminChallenges from "./pages/Admin/Challenges.jsx";
+import AddChallenge from "./pages/Admin/Components/AddChallenge.jsx";
+import ChallengeDetais from "./pages/Challenge/Details.jsx";
 const rootElement = document.getElementById("root");
 
 function Root() {
@@ -182,8 +186,10 @@ function Root() {
           <Route exact path="/admin/blog" element={<AdminBlog />} />
           <Route exact path="/admin/blog/create" element={<AddArticle />} />
           <Route exact path="/admin/blog/edit/:articleId" element={<EditBlog />} />
-
-
+ 
+          <Route exact path="/admin/challenge" element={<AdminChallenges />} />
+          <Route exact path="/admin/challenge/create" element={<AddChallenge />} />
+          <Route exact path="/admin/challenge/update/:articleId" element={<EditBlog />} />
 
 
 
@@ -224,8 +230,8 @@ function Root() {
               <Route exact path="/blog" element={<Blog />} />
               <Route exact path="/blog/:articleId" element={<SingleArticle />} />
 
-
-
+              <Route exact path="/challenges" element={<Challenges/>} />
+              <Route exact path="/challenges/details/:challengeId" element={<ChallengeDetais/>} />
 
 
 

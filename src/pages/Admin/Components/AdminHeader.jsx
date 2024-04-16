@@ -85,6 +85,7 @@ const  Header  = () => {
                                     <li><Link to="/admin/album" className="nav-content-bttn open-font"><i className="font-xl text-current feather-image me-3"></i><span>Gallerie</span></Link></li>                    
                                     <li><Link to="/admin/albumcamps" className="nav-content-bttn open-font"><i className="font-xl text-current feather-image me-3"></i><span>Camps</span></Link></li>                    
                                     <li><Link to="/admin/blog" className="nav-content-bttn open-font"><i className="font-xl text-current feather-file-text me-3"></i><span>Blog</span></Link></li>                    
+                                    <li><Link to="/admin/challenge" className="nav-content-bttn open-font"><i className="font-xl text-current feather-file-text me-3"></i><span>Challenges</span></Link></li>                    
 
                                 </ul>
                             </div>

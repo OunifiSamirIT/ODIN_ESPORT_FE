@@ -52,7 +52,7 @@ function Header() {
       .then((response) => response.json())
       .then((userData) => {
         setUser(userData)
-        console.log(user)
+        console.log('user from header3',user)
       })
       .catch((error) => console.error("Error fetching user data:", error));
   }, [])
