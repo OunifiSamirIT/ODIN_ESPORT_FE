@@ -21,6 +21,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Modal from "react-modal";
 import Header from "../components/Header3";
+import {Context} from "../index";
 // import "react-modal/styles.css";
 
 
@@ -4072,6 +4073,7 @@ const paysAllInfo = [
 
 
 function Register() {
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const [inputErrors, setInputErrors] = useState({});
@@ -4132,14 +4134,14 @@ function Register() {
       ...formData,
       Licence: selectedValue === "Oui" ? "Oui" : "Non", // Set to "Oui" if selected value is "Oui", otherwise set to "Non"
     });
-
+  
     // Enable or disable upload based on the selected value
     setUploadEnabled(selectedValue === "Oui");
-
+  
     // Clear the image preview when the selection changes
     setImagePreviewlic(null);
   };
-
+  
   const onSelect = (code) => setSelect(code);
   console.log("SELECT", select);
   const allCountries = [
@@ -4544,22 +4546,22 @@ function Register() {
 
   const handleChangephone = (selectedOption) => {
     setSelectedCountryphone(selectedOption);
-
+  
     const combinedPrefix = getCombinedPrefix(
       selectedCountryphoneWS ? selectedCountryphoneWS.phone : "", // WhatsApp prefix
       selectedOption.phone // Telephone prefix
     );
-
+  
     // Check if phone number is provided, if not, set it to null
     const tel = formData.tel ? formData.tel : null;
-
+  
     setFormData((prevFormData) => ({
       ...prevFormData,
       optionalattributs: combinedPrefix,
       tel: tel // Set tel to null if it's not provided
     }));
   };
-
+  
   // const handleChangePhoneNumber = (e) => {
   //   const inputValue = e.target.value;
 
@@ -4581,7 +4583,7 @@ function Register() {
   // };
   const handleChangePhoneNumber = (e) => {
     const inputValue = e.target.value;
-
+  
     // Check if the entered value is empty or null
     if (inputValue === "" || inputValue === null) {
       setPhoneNumber(""); // Clear the phone number state
@@ -4606,7 +4608,7 @@ function Register() {
       }));
     }
   };
-
+  
 
   const optionsphone = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"] ? country.iso["alpha-2"].toLowerCase() : 'unknown';
@@ -4788,7 +4790,7 @@ function Register() {
   // };
   // const handleCoachSkillToggle = (coachSkill) => {
   //   let updatedCoachSkills = formData.skills.split(",");
-
+  
   //   if (updatedCoachSkills.includes(coachSkill)) {
   //     updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
   //   } else {
@@ -4796,18 +4798,18 @@ function Register() {
   //       updatedCoachSkills.push(coachSkill);
   //     }
   //   }
-
+  
   //   const isSkillsError = updatedCoachSkills.length > 10; // Check if there are more than 10 skills
-
+  
   //   setFormData({
   //     ...formData,
   //     skills: updatedCoachSkills.join(","),
   //   });
   //   setSkillsError(isSkillsError);
-
+  
   //   console.log('isSkillsError:', isSkillsError);
   // };
-
+  
 
   const handleCoachSkillToggle = (coachSkill) => {
     let updatedCoachSkills = formData.skills.split(",");
@@ -4913,7 +4915,7 @@ function Register() {
     }
   };
 
-
+  
 
 
   const handleInputChange = (e) => {
@@ -5108,7 +5110,7 @@ function Register() {
       return;
     }
 
-
+  
     setStep(step + 1);
   };
 
@@ -5205,17 +5207,17 @@ function Register() {
     //   ...prevFormData,
     //   termesConditions: false
     // })
-
+      
     // )
 
-  };
+    };
 
-
+ 
 
   const step3ValidationSchema = yup.object().shape({
 
 
-
+    
     champsoptionelle: yup.string().when('profil', {
       is: 'player',
       then: () => yup.string().required("Ce champ est obligatoire !"),
@@ -5247,7 +5249,7 @@ function Register() {
       is: 'player',
       then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
-
+  
 
     // coach
 
@@ -5272,7 +5274,7 @@ function Register() {
       is: 'coach',
       then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
-
+  
     ///agent club 
 
     clubCovered: yup.string().when(['profil', 'typeresponsable'], {
@@ -5354,7 +5356,7 @@ function Register() {
       setInputErrors(errors);
       return;
     }
-
+    
     if (formData.termesConditions !== "Oui") {
       // If not, display an error or prevent form submission
       setErrorMessage("Veuillez accepter les Termes et Conditions .");
@@ -5368,7 +5370,7 @@ function Register() {
     //   return;
     // }
 
-    setErrorMessage("");
+     setErrorMessage("");
 
     const formDataToSubmit = new FormData();
 
@@ -5383,7 +5385,7 @@ function Register() {
     formDataToSubmit.append("file", File || null);
     //prob
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/auth/signup`, {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -5406,7 +5408,7 @@ function Register() {
           setEmailError("");
         } else {
           // Display a generic error message for any other registration failure
-          setEmailError("");
+           setEmailError("");
           setLoginError(errorData.message); // Set the backend error message
 
           // setLoginError("");
@@ -5463,7 +5465,7 @@ function Register() {
 
 
 
-
+         
 
 
           </div>
@@ -5478,8 +5480,18 @@ function Register() {
 
               <div className="flex flex-col w-full mt-2 max-w-[1184px] max-md:max-w-full">
 
-                <div className="mt-2 md:text-3xl text-3xl  text-center font-bold text-zinc-900 max-md:max-w-full">
-                  Informations Personelles
+                <div className="tal1 mt-2 md:text-3xl text-3xl  text-center font-bold text-zinc-900 max-md:max-w-full">
+                   
+
+                  {
+             getTranslation(
+              `Personal information`,  // -----> Englais
+              `Informations Personelles`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>
                 <div className="flex justify-center items-center px-8 sm:px-16 mt-4 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
                   <div className="flex gap-3 justify-between mr-2 ml-2">
@@ -5496,8 +5508,18 @@ function Register() {
                       className="self-center max-w-full rounded-full aspect-square w-[178px]"
                     />
 
-                    <div className="self-center mt-1 text-2xl font-bold text-black whitespace-nowrap">
-                      Photo de profile
+                    <div className="tal1 self-center mt-1 text-2xl font-bold text-black whitespace-nowrap">
+                       
+
+                      {
+             getTranslation(
+              `Profile picture`,  // -----> Englais
+              `Photo de profile`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                     </div>
 
                     <label className="flex  items-center justify-center self-center w-[266px]"> {/* Center the label section */}
@@ -5511,9 +5533,18 @@ function Register() {
                           type="file"
                           name="image"
                           onChange={handleFileChange}
-                          className="grow my-auto opacity-0"
+                          className="tal2 grow my-auto opacity-0"
                         />
-                        Importer une photo
+                         
+                        {
+             getTranslation(
+              `Import a photo`,  // -----> Englais
+              `Importer une photo`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                       </div>
                     </label>
 
@@ -5522,11 +5553,11 @@ function Register() {
                 </div>
                 <div className="mt-3 md:mt-8 max-md:max-w-full">
                   <div className="flex gap-2 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
-
-
+                  
+                  
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-
-
+                     
+                     
                       <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
                           <img
@@ -5534,7 +5565,17 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/50144aa4c9c958bc6174b7ad65e5d7ec150f9518fc697ad703a581fae6aaa421?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start aspect-[0.75] w-[15px] mt-1"
                           />
-                          <label className="grow">Nom</label>
+                          <label className="tal1 grow">
+                          {
+             getTranslation(
+              `Last name`,  // -----> Englais
+              `Nom`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+            </label>
                         </div>
                         <input
                           type="text"
@@ -5543,9 +5584,17 @@ function Register() {
                           value={formData.nom}
                           style={{ fontSize: '14px' }}
                           onChange={handleInputChange}
-                          className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["nom"] ? "is-invalid" : ""
+                          className={`  tal1 form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["nom"] ? "is-invalid" : ""
                             }`}
-                          placeholder="Votre Nom"
+                          placeholder= {
+                            getTranslation(
+                             `Your last name`,  // -----> Englais
+                             `Votre nom`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           } 
                         />
                         {inputErrors["nom"] && (
                           <div className="invalid-feedback">
@@ -5563,7 +5612,16 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/3b682aacddfd9d405027bfc2ee157c55aecce42a1e46ef3db6e893769755f24c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start aspect-[0.75] w-[15px] mt-1"
                           />
-                          <div className="grow">Prénom</div>
+                          <div className="tal1 grow">
+                          {
+             getTranslation(
+              `First name`,  // -----> Englais
+              `Prénom`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                         </div>
                         <input
                           className={`form-control  justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["prenom"] ? "is-invalid" : ""
@@ -5573,7 +5631,15 @@ function Register() {
                           id="prenom"
                           name="prenom"
                           style={{ fontSize: '14px' }}
-                          placeholder="Votre Prenom"
+                          placeholder= {
+                            getTranslation(
+                             `Your first name`,  // -----> Englais
+                             `Votre prénom`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           } 
                           onChange={handleInputChange}
                         />
                         {inputErrors["prenom"] && (
@@ -5592,7 +5658,16 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/b9ff538eb3525a962642dcaaa2fd0b0e9242f70955c91034cc60b37fd70611a6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start aspect-[0.75] w-[15px] mt-1"
                           />
-                          <div className=" grow">Nom d’utilisateur</div>
+                          <div className=" tal1 grow">
+                          {
+             getTranslation(
+              `Username`,  // -----> Englais
+              `Nom d’utilisateur`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                         </div>
                         <input
                           type="text"
@@ -5602,7 +5677,15 @@ function Register() {
                           style={{ fontSize: '14px' }}
                           className={`form-control flex flex-col justify-center items-start py-3.5 pr-16 pl-4 mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["login"] ? "is-invalid" : ""  // Apply a red border if there's an error
                             }`}
-                          placeholder="Votre nom utlisateur"
+                          placeholder={
+                            getTranslation(
+                             `Your username`,  // -----> Englais
+                             `Votre Nom d’utilisateur`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           }
                           onChange={handleInputChange}
                         />
                         {inputErrors["login"] && (
@@ -5626,7 +5709,17 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/09a82f75a3f5ad07251e935f0542b94f6a1090b5b638fd072d492c0015d91f30?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start aspect-[1.1] w-[22px] mt-1"
                           />{" "}
-                          <div className="grow">Email</div>
+                          <div className="tal1 grow">
+                          {
+             getTranslation(
+              `Email`,  // -----> Englais
+              `Email`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }
+            </div>
                         </div>{" "}
                         <input
                           type="email"
@@ -5636,7 +5729,15 @@ function Register() {
                           style={{ fontSize: '14px' }}
                           className={`form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["email"] ? "is-invalid" : ""
                             }`}
-                          placeholder="Email"
+                          placeholder={
+                            getTranslation(
+                             `Your Email`,  // -----> Englais
+                             `Votre adresse email`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           }
                           onChange={handleInputChange}
                           required
                         />
@@ -5657,7 +5758,17 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/45acb82395fb4729e918c514329bcfe86fc6ac2c1d1965aacc2ddbb66aa3a508?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square mt-1"
                           />{" "}
-                          <div className="grow">Mot de passe</div>
+                          <div className=" tal1 grow">
+                          {
+             getTranslation(
+              `Password`,  // -----> Englais
+              `Mot de passe`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }
+            </div>
                         </div>{" "}
                         <input
                           type="password"
@@ -5666,7 +5777,15 @@ function Register() {
                           name="password"
                           className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${validationError ? "is-invalid" : ""
                             }`}
-                          placeholder="Votre Mot de passe "
+                          placeholder={
+                            getTranslation(
+                             `Your password`,  // -----> Englais
+                             `Votre mot de passe`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           }
                           onChange={handleInputChange}
                         />
                         {validationError && (
@@ -5685,7 +5804,18 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/432367a9ce53fa928e33c05ceeee1bf97c2f47f8c05b710ff90c8532ae4d2aad?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square mt-1"
                           />{" "}
-                          <div className="grow">Confirmer le mot de passe</div>
+                          <div className="tal1 grow">
+                            
+                          {
+                            getTranslation(
+                             `Confirm password`,  // -----> Englais
+                             `Confirmer le mot de passe`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           }
+                           </div>
                         </div>{" "}
                         <input
                           type="password"
@@ -5694,7 +5824,15 @@ function Register() {
                           name="confirmPassword"
                           className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${validationError ? "is-invalid" : ""
                             }`}
-                          placeholder="Confirmer votre mot de passe"
+                          placeholder={
+                            getTranslation(
+                             `Confirm your password`,  // -----> Englais
+                             `Confirmer votre mot de passe`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           }
                           onChange={handleInputChange}
                         />
                         {validationError && (
@@ -5718,7 +5856,17 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bb22266cd8479023296ff915cc3ee01660f7b93f73a8cf204b02d1f132be75c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="w-6 aspect-square "
                           />{" "}
-                          <div className="grow">N° Whatsapp</div>
+                          <div className="tal1 grow">
+                          {
+                            getTranslation(
+                             `N° Whatsapp`,  // -----> Englais
+                             `N° Whatsapp`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           }
+                           </div>
                         </div>{" "}
 
                         <div className="flex gap-4 justify-between  text-base">
@@ -5739,7 +5887,15 @@ function Register() {
                               }),
                             }}
                             className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
-                            placeholder="Préfixe"
+                            placeholder={
+                              getTranslation(
+                               `Prefix`,  // -----> Englais
+                               `Prefix`, //  -----> Francais
+                               ``,  //  -----> Turkey
+                               `` ,  //  -----> Allemagne
+                               ) 
+                 
+                             }
 
                             options={optionsphoneWS}
                             value={selectedCountryphoneWS}
@@ -5751,7 +5907,15 @@ function Register() {
                               type="number"
                               max={selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0}
                               onChange={handleChangePhoneNumberWS}
-                              placeholder={`Enter numero`}
+                              placeholder={
+                                getTranslation(
+                                 `Enter number`,  // -----> Englais
+                                 `Entrer votre numéro`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }
                               value={phoneNumberWS.slice(0, selectedCountryphoneWS ? selectedCountryphoneWS.phoneLength : 0)}
                               className={`form-control grow justify-center w-full ml-4 md:ml-0 md:w-full gap-2 mt-1 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${inputErrors["numWSup"] ? "is-invalid" : ""
                                 }`}
@@ -5785,8 +5949,25 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8b3f9f9ce91abda956cebd8c4890e6a17fde7ecb10f630388688447199195a8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square mt-1"
                           />{" "}
-                          <div className="flex-auto">N° Telephone </div>{" "}
-                          <div className="grow ">(Facultative)</div>
+                          <div className="tal1 flex-auto">
+                          {
+                            getTranslation(
+                             `Phone number`,  // -----> Englais
+                             `N° Téléphone`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           } </div>{" "}
+                          <div className="tal1 grow ">({
+                            getTranslation(
+                             `Optional`,  // -----> Englais
+                             `Facultatif`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           })</div>
                         </div>{" "}
 
                         <div className="flex gap-4  text-base ">
@@ -5811,7 +5992,15 @@ function Register() {
                             options={optionsphone}
                             value={selectedCountryphone}
                             onChange={handleChangephone}
-                            placeholder="Préfixe"
+                            placeholder={
+                              getTranslation(
+                               `Prefix`,  // -----> Englais
+                               `Préfixe`, //  -----> Francais
+                               ``,  //  -----> Turkey
+                               `` ,  //  -----> Allemagne
+                               ) 
+                 
+                             }
                           />
 
                           <div style={{
@@ -5824,7 +6013,15 @@ function Register() {
                               max={selectedCountryphone ? selectedCountryphone.phoneLength : 0}
 
                               onChange={handleChangePhoneNumber}
-                              placeholder={`Entrer Numero`}
+                              placeholder={
+                                getTranslation(
+                                 `Enter number`,  // -----> Englais
+                                 `Entrer votre numéro`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }
                               value={phoneNumber.slice(0, phoneNumber ? selectedCountryphone.phoneLength : 0)}
 
                               className={` form-control grow justify-center w-full  gap-2 items-start py-2.5 pl-1 mt-1 ml-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-2 ${inputErrors["tel"] ? "is-invalid" : ""
@@ -5846,46 +6043,74 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/424750770a24c4c2e5f786593b06fdc9d9137ae4f454f3cda3580afabec0922e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square mt-1"
                           />{" "}
-                          <div className="grow">Année de naissance</div>
+                          <div className="tal1 grow">
+                          {
+                                getTranslation(
+                                 `Year of birth`,  // -----> Englais
+                                 `Année de naissance`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }
+                               </div>
                         </div>{" "}
                         <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                          <DatePicker
-                            selected={
-                              formData.date_naissance
-                                ? new Date(formData.date_naissance)
-                                : null
-                            }
-                            onChange={(date) => {
-                              handleYearChange(date?.getFullYear());
-                              // Update border color here
-                              setInputErrors({
-                                ...inputErrors,
-                                date_naissance: "" // Clear any existing error
-                              });
-                            }}
-                            dateFormat="yyyy"
-                            showYearPicker
-                            yearDropdownItemNumber={10}
-                            maxDate={new Date(2012, 0, 1)}
-                            placeholderText="Choisi une année "
-                            className={`form-control flex flex-col justify-center w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${inputErrors["date_naissance"] ? "is-invalid" : ""
-                              }`}
-                          />
+                        <DatePicker
+  selected={
+    formData.date_naissance
+      ? new Date(formData.date_naissance)
+      : null
+  }
+  onChange={(date) => {
+    handleYearChange(date?.getFullYear());
+    // Update border color here
+    setInputErrors({
+      ...inputErrors,
+      date_naissance: "" // Clear any existing error
+    });
+  }}
+  dateFormat="yyyy"
+  showYearPicker
+  yearDropdownItemNumber={10}
+  maxDate={new Date(2012, 0, 1)}
+  placeholderText={
+    getTranslation(
+     `Your Year of birth`,  // -----> Englais
+     `Votre Année de naissance`, //  -----> Francais
+     ``,  //  -----> Turkey
+     `` ,  //  -----> Allemagne
+     ) 
+
+   }
+  className={`form-control flex flex-col justify-center w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+    inputErrors["date_naissance"] ? "is-invalid" : ""
+  }`}
+/>
 
 
 
-
+                           
                         </div>{" "}
-                        <div className="self-center mt-2 text-zinc-800">
-                          Vous devez avoir au moins 13 ans.
+                        <div className="tal1 self-center mt-2 text-zinc-800">
+                        {
+                                getTranslation(
+                                 `You must be at least 13 years old .`,  // -----> Englais
+                                 `Vous devez avoir au moins 13 ans .`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }
+                          
                         </div>
                       </div>
                       {inputErrors.date_naissance && (
-                        <span className="text-red-500 text-sm">
-                          {inputErrors.date_naissance}
-                        </span>
-                      )}
-                    </div>
+                              <span className="text-red-500 text-sm">
+                                {inputErrors.date_naissance}
+                              </span>
+                            )}
+                    </div> 
 
                   </div>
 
@@ -5907,7 +6132,16 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/f81299e0229e715d9789e71faf61b6931d61c805b7fbce9b340cc4b0fd8493cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square mt-1"
                           />{" "}
-                          <div className="grow">Sexe</div>
+                          <div className="tal1 grow">
+                          {
+                                getTranslation(
+                                 `Gender`,  // -----> Englais
+                                 `Sexe`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }</div>
                         </div>{" "}
                         <div>
                           <select
@@ -5917,9 +6151,36 @@ function Register() {
                             className={`form-control flex flex-col  justify-center pl-3 pt-3 pr-2  py-1.5 mt-2 w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${inputErrors["gender"] ? "is-invalid" : ""
                               }`}
                           >
-                            <option value="">Votre Sexe</option>
-                            <option value="male">Homme</option>
-                            <option value="female">Femme</option>
+                            <option value="">
+                            {
+                                getTranslation(
+                                 `Your gender`,  // -----> Englais
+                                 `Votre sexe`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }</option>
+                            <option value="male">
+                            {
+                                getTranslation(
+                                 `Male`,  // -----> Englais
+                                 `Homme`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }</option>
+                            <option value="female">
+                            {
+                                getTranslation(
+                                 `Female`,  // -----> Englais
+                                 `Femme`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }</option>
                           </select>
                           {inputErrors["gender"] && (
                             <div className="invalid-feedback">
@@ -5940,12 +6201,28 @@ function Register() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/dc2223db27c0d33870f85928116ea4a9a4b038fc39e2a16c1efd0448f4f6523d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="self-start w-5 aspect-square mt-1"
                         />{" "}
-                        <div className="ml-2">Nationalité</div>
+                        <div className="tal1 ml-2">{
+                                getTranslation(
+                                 `Nationality`,  // -----> Englais
+                                 `Nationalité`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }</div>
                       </div>{" "}
 
                       <Select
                         options={options}
-                        placeholder="Votre Nationalité"
+                        placeholder={
+                          getTranslation(
+                           `Your nationality`,  // -----> Englais
+                           `Votre nationalité`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
                         styles={{
                           control: (provided, state) => ({
                             ...provided,
@@ -5958,7 +6235,7 @@ function Register() {
                             fontSize: "14px", // Set the desired font size
                             backgroundColor: "#f5f5f5", // Set the background color
                             borderWidth: "none",
-
+                         
 
 
                             paddingTop: "8px",
@@ -5991,13 +6268,32 @@ function Register() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/a128d306f388b8fe1ee6ab08de9c65c1f7200283d1682fac379e573167086b34?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="self-start w-5 aspect-square mt-1"
                         />{" "}
-                        <div className="grow">Pays de résidence</div>
+                        <div className="grow"> 
+
+                        {
+                          getTranslation(
+                           `Country of residence`,  // -----> Englais
+                           `Pays de résidence`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                        </div>
                       </div>{" "}
 
                       {" "}
                       <Select
                         options={optionsPays}
-                        placeholder="Pays de résidence"
+                        placeholder={
+                          getTranslation(
+                           `Country of residence`,  // -----> Englais
+                           `Pays de résidence`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
                         // onChange={(selectedOption) => console.log(selectedOption)}
                         styles={{
                           control: (provided, state) => ({
@@ -6057,16 +6353,42 @@ function Register() {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/26bf7a353dc8ba12a2c588e612f061c37dd22cdccf246eec44650d1580269c48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                     className="self-start w-5 aspect-square mt-1 ml-5"
                   />{" "}
-                  <div className="flex">Ville de résidence</div>
-                  <div className="grow">(Facultative)</div>
-                </div>{" "}
-                <input
+                  <div className="tal1 flex">
+                  {
+                          getTranslation(
+                           `City of residence`,  // -----> Englais
+                           `Ville de résidence`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                   </div>
+                  <div className="tal1 grow">({
+                          getTranslation(
+                           `Optional`,  // -----> Englais
+                           `Facultatif`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         })</div>
+                 </div>{" "}
+                 <input
                   type="text"
                   name="cityresidence"
                   value={formData.cityresidence}
                   className={` form-control justify-center items-start py-2.5 pr-0 w-full md:pr-2  mt-2 max-w-full text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 md:w-[32%]  ${inputErrors["cityresidence"] ? "is-invalid" : ""
                     }`}
-                  placeholder="Ville"
+                  placeholder={
+                    getTranslation(
+                     `City of residence`,  // -----> Englais
+                     `Ville de résidence`, //  -----> Francais
+                     ``,  //  -----> Turkey
+                     `` ,  //  -----> Allemagne
+                     ) 
+       
+                   }
                   onChange={handleInputChange}
                 />
                 {inputErrors["cityresidence"] && (
@@ -6075,43 +6397,60 @@ function Register() {
                   </div>
                 )}
                 <div className="flex gap-5 justify-between mt-8 mb-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                  <Link to="/"> <div className="flex gap-2 justify-between   px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                  <Link to="/"> 
+                  <div className="flex gap-2 justify-between   px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
 
-                    <div className="flex flex-row text-white">
-
-                      <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clipPath="url(#clip0_2249_46735)">
-                          <path d="M14.9341 19.3598C14.9338 19.0284 14.8019 18.7107 14.5674 18.4765L8.17408 12.0831C7.98057 11.8897 7.82706 11.66 7.72233 11.4072C7.6176 11.1544 7.56369 10.8834 7.56369 10.6098C7.56369 10.3362 7.6176 10.0652 7.72233 9.81241C7.82706 9.55962 7.98057 9.32993 8.17408 9.13646L14.5591 2.7473C14.7868 2.51154 14.9128 2.19579 14.9099 1.86804C14.9071 1.5403 14.7756 1.22678 14.5439 0.995023C14.3121 0.763263 13.9986 0.631802 13.6708 0.628954C13.3431 0.626105 13.0273 0.752098 12.7916 0.979796L6.40658 7.36396C5.54805 8.22418 5.06588 9.38988 5.06588 10.6052C5.06588 11.8206 5.54805 12.9862 6.40658 13.8465L12.7999 20.2398C12.9745 20.4145 13.1969 20.5335 13.439 20.5819C13.6812 20.6304 13.9323 20.606 14.1606 20.5118C14.3889 20.4177 14.5842 20.258 14.7219 20.053C14.8595 19.848 14.9334 19.6068 14.9341 19.3598Z" fill="white" />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_2249_46735">
-                            <rect width={20} height={20} fill="white" transform="matrix(-1 0 0 1 20 0.609375)" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-
-
-
-                      Retour</div>
+                    <div className="tal1 flex flex-row text-white">
+                      
+                    <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clipPath="url(#clip0_2249_46735)">
+      <path d="M14.9341 19.3598C14.9338 19.0284 14.8019 18.7107 14.5674 18.4765L8.17408 12.0831C7.98057 11.8897 7.82706 11.66 7.72233 11.4072C7.6176 11.1544 7.56369 10.8834 7.56369 10.6098C7.56369 10.3362 7.6176 10.0652 7.72233 9.81241C7.82706 9.55962 7.98057 9.32993 8.17408 9.13646L14.5591 2.7473C14.7868 2.51154 14.9128 2.19579 14.9099 1.86804C14.9071 1.5403 14.7756 1.22678 14.5439 0.995023C14.3121 0.763263 13.9986 0.631802 13.6708 0.628954C13.3431 0.626105 13.0273 0.752098 12.7916 0.979796L6.40658 7.36396C5.54805 8.22418 5.06588 9.38988 5.06588 10.6052C5.06588 11.8206 5.54805 12.9862 6.40658 13.8465L12.7999 20.2398C12.9745 20.4145 13.1969 20.5335 13.439 20.5819C13.6812 20.6304 13.9323 20.606 14.1606 20.5118C14.3889 20.4177 14.5842 20.258 14.7219 20.053C14.8595 19.848 14.9334 19.6068 14.9341 19.3598Z" fill="white" />
+    </g>
+    <defs>
+      <clipPath id="clip0_2249_46735">
+        <rect width={20} height={20} fill="white" transform="matrix(-1 0 0 1 20 0.609375)" />
+      </clipPath>
+    </defs>
+  </svg>
+                      
+                      
+  {
+                          getTranslation(
+                           `Previous`,  // -----> Englais
+                           `Retour`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }  
+                      </div>
                   </div>{" "}</Link>
                   <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                     <button
                       type="button"
                       onClick={handleNextStep1}
-                      className="grow"
+                      className="tal2 grow"
                     >
-                      Suivant
+                     {
+                          getTranslation(
+                           `Next`,  // -----> Englais
+                           `Suivant`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         } 
                     </button>{" "}
                     <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g clipPath="url(#clip0_2249_46740)">
-                        <path d="M5.06543 19.3598C5.06572 19.0284 5.19761 18.7107 5.4321 18.4765L11.8254 12.0831C12.0189 11.8897 12.1725 11.66 12.2772 11.4072C12.3819 11.1544 12.4358 10.8834 12.4358 10.6098C12.4358 10.3362 12.3819 10.0652 12.2772 9.81241C12.1725 9.55962 12.0189 9.32993 11.8254 9.13646L5.44043 2.7473C5.21273 2.51154 5.08674 2.19579 5.08959 1.86804C5.09244 1.5403 5.2239 1.22678 5.45566 0.995023C5.68742 0.763263 6.00093 0.631802 6.32868 0.628954C6.65642 0.626105 6.97218 0.752098 7.20793 0.979796L13.5929 7.36396C14.4515 8.22418 14.9336 9.38988 14.9336 10.6052C14.9336 11.8206 14.4515 12.9862 13.5929 13.8465L7.1996 20.2398C7.02503 20.4145 6.80263 20.5335 6.56047 20.5819C6.31831 20.6304 6.06723 20.606 5.83892 20.5118C5.61061 20.4177 5.41531 20.258 5.27764 20.053C5.13998 19.848 5.06614 19.6068 5.06543 19.3598Z" fill="white" />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_2249_46740">
-                          <rect width={20} height={20} fill="white" transform="translate(0 0.609375)" />
-                        </clipPath>
-                      </defs>
-                    </svg>
+    <g clipPath="url(#clip0_2249_46740)">
+      <path d="M5.06543 19.3598C5.06572 19.0284 5.19761 18.7107 5.4321 18.4765L11.8254 12.0831C12.0189 11.8897 12.1725 11.66 12.2772 11.4072C12.3819 11.1544 12.4358 10.8834 12.4358 10.6098C12.4358 10.3362 12.3819 10.0652 12.2772 9.81241C12.1725 9.55962 12.0189 9.32993 11.8254 9.13646L5.44043 2.7473C5.21273 2.51154 5.08674 2.19579 5.08959 1.86804C5.09244 1.5403 5.2239 1.22678 5.45566 0.995023C5.68742 0.763263 6.00093 0.631802 6.32868 0.628954C6.65642 0.626105 6.97218 0.752098 7.20793 0.979796L13.5929 7.36396C14.4515 8.22418 14.9336 9.38988 14.9336 10.6052C14.9336 11.8206 14.4515 12.9862 13.5929 13.8465L7.1996 20.2398C7.02503 20.4145 6.80263 20.5335 6.56047 20.5819C6.31831 20.6304 6.06723 20.606 5.83892 20.5118C5.61061 20.4177 5.41531 20.258 5.27764 20.053C5.13998 19.848 5.06614 19.6068 5.06543 19.3598Z" fill="white" />
+    </g>
+    <defs>
+      <clipPath id="clip0_2249_46740">
+        <rect width={20} height={20} fill="white" transform="translate(0 0.609375)" />
+      </clipPath>
+    </defs>
+  </svg>
                   </div>
                 </div>
               </div>
@@ -6121,16 +6460,27 @@ function Register() {
           {step === 2 && (
             <div className="flex flex-col items-center pb-12 pl-2 pr-5 bg-gray-200">
 
-              <div className="mt-6 text-2xl text-center font-bold text-zinc-900 max-md:max-w-full sm:text-3xl sm:text-center xs:text-2xl">
-                Choisissez Le Type de Profil
+              <div className="tal1 mt-6 text-2xl text-center font-bold text-zinc-900 max-md:max-w-full sm:text-3xl sm:text-center xs:text-2xl">
+                 
+
+                {
+                          getTranslation(
+                           `Choose the Profile Type`,  // -----> Englais
+                           `Choisissez Le Type de Profil`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         } 
+
               </div>
               <div className="flex justify-center items-center px-6 mt-3 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full sm:px-2 xs:px-2">
-                <div className="flex gap-3 justify-between mr-2 ml-2">
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+              <div className="flex gap-3 justify-between mr-2 ml-2">
+                    <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                    <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
 
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                </div>
+                    <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                  </div>
               </div>
 
 
@@ -6175,25 +6525,71 @@ function Register() {
                             >
                               {data.profile === "player" && (
                                 <React.Fragment>
-                                  Joueur<span className="invisible">xxx</span>
+                                  {
+                          getTranslation(
+                           `Player`,  // -----> Englais
+                           `Joueur`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         } 
+
+                                  <span className="invisible">xxx</span>
                                 </React.Fragment>
                               )}
                               {data.profile === "coach" && (
-                                <React.Fragment>Entraîneur</React.Fragment>
+                                <React.Fragment>
+                                  {
+                          getTranslation(
+                           `Coach`,  // -----> Englais
+                           `Entraîneur`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         } 
+                                </React.Fragment>
                               )}
                               {data.profile === "agent" && (
                                 <React.Fragment>
-                                  Manager <span className="invisible">x</span>
+                                  {
+                          getTranslation(
+                           `Manager`,  // -----> Englais
+                           `Manager`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         } Manager <span className="invisible">x</span>
                                 </React.Fragment>
                               )}
                               {data.profile === "scout" && (
                                 <React.Fragment>
-                                  Scout<span className="invisible">xxxx</span>
+                                 {
+                          getTranslation(
+                           `Scout`,  // -----> Englais
+                           `Scout`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                          <span className="invisible">xxxx</span>
                                 </React.Fragment>
                               )}
                               {data.profile === "other" && (
                                 <React.Fragment>
-                                  Autres<span className="invisible">xxxx</span>
+                                  {
+                          getTranslation(
+                           `Other`,  // -----> Englais
+                           `Autre`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                         <span className="invisible">xxxx</span>
                                 </React.Fragment>
                               )}
                             </div>
@@ -6205,7 +6601,17 @@ function Register() {
                 ))}
                 {profileError && (
                   <div className="text-danger mt-2">
-                    Veuillez choisir un profil s'il vous plait!
+
+                    {
+                          getTranslation(
+                           `Please select a profile.`,  // -----> Englais
+                           `Veuillez choisir un profil s'il vous plait!`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+
                   </div>
                 )}
               </div>
@@ -6219,60 +6625,88 @@ function Register() {
                   >
 
                     <div className="flex flex-row text-white">
-
-
-                      <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clipPath="url(#clip0_2249_46735)">
-                          <path d="M14.9341 19.3598C14.9338 19.0284 14.8019 18.7107 14.5674 18.4765L8.17408 12.0831C7.98057 11.8897 7.82706 11.66 7.72233 11.4072C7.6176 11.1544 7.56369 10.8834 7.56369 10.6098C7.56369 10.3362 7.6176 10.0652 7.72233 9.81241C7.82706 9.55962 7.98057 9.32993 8.17408 9.13646L14.5591 2.7473C14.7868 2.51154 14.9128 2.19579 14.9099 1.86804C14.9071 1.5403 14.7756 1.22678 14.5439 0.995023C14.3121 0.763263 13.9986 0.631802 13.6708 0.628954C13.3431 0.626105 13.0273 0.752098 12.7916 0.979796L6.40658 7.36396C5.54805 8.22418 5.06588 9.38988 5.06588 10.6052C5.06588 11.8206 5.54805 12.9862 6.40658 13.8465L12.7999 20.2398C12.9745 20.4145 13.1969 20.5335 13.439 20.5819C13.6812 20.6304 13.9323 20.606 14.1606 20.5118C14.3889 20.4177 14.5842 20.258 14.7219 20.053C14.8595 19.848 14.9334 19.6068 14.9341 19.3598Z" fill="white" />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_2249_46735">
-                            <rect width={20} height={20} fill="white" transform="matrix(-1 0 0 1 20 0.609375)" />
-                          </clipPath>
-                        </defs>
-                      </svg>Retour</div>
+                      
+                        
+                    <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clipPath="url(#clip0_2249_46735)">
+      <path d="M14.9341 19.3598C14.9338 19.0284 14.8019 18.7107 14.5674 18.4765L8.17408 12.0831C7.98057 11.8897 7.82706 11.66 7.72233 11.4072C7.6176 11.1544 7.56369 10.8834 7.56369 10.6098C7.56369 10.3362 7.6176 10.0652 7.72233 9.81241C7.82706 9.55962 7.98057 9.32993 8.17408 9.13646L14.5591 2.7473C14.7868 2.51154 14.9128 2.19579 14.9099 1.86804C14.9071 1.5403 14.7756 1.22678 14.5439 0.995023C14.3121 0.763263 13.9986 0.631802 13.6708 0.628954C13.3431 0.626105 13.0273 0.752098 12.7916 0.979796L6.40658 7.36396C5.54805 8.22418 5.06588 9.38988 5.06588 10.6052C5.06588 11.8206 5.54805 12.9862 6.40658 13.8465L12.7999 20.2398C12.9745 20.4145 13.1969 20.5335 13.439 20.5819C13.6812 20.6304 13.9323 20.606 14.1606 20.5118C14.3889 20.4177 14.5842 20.258 14.7219 20.053C14.8595 19.848 14.9334 19.6068 14.9341 19.3598Z" fill="white" />
+    </g>
+    <defs>
+      <clipPath id="clip0_2249_46735">
+        <rect width={20} height={20} fill="white" transform="matrix(-1 0 0 1 20 0.609375)" />
+      </clipPath>
+    </defs>
+  </svg> {
+                          getTranslation(
+                           `Previous`,  // -----> Englais
+                           `Retour`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }</div>
                   </button>
                   <button
                     type="button"
                     onClick={handleNextStep}
-                    className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
+                    className="tal2 flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
                   >
-                    <div>Suivant</div>
+                    <div>
+                    {
+                          getTranslation(
+                           `Next`,  // -----> Englais
+                           `Suivant`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+
+                    </div>
                     <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g clipPath="url(#clip0_2249_46740)">
-                        <path d="M5.06543 19.3598C5.06572 19.0284 5.19761 18.7107 5.4321 18.4765L11.8254 12.0831C12.0189 11.8897 12.1725 11.66 12.2772 11.4072C12.3819 11.1544 12.4358 10.8834 12.4358 10.6098C12.4358 10.3362 12.3819 10.0652 12.2772 9.81241C12.1725 9.55962 12.0189 9.32993 11.8254 9.13646L5.44043 2.7473C5.21273 2.51154 5.08674 2.19579 5.08959 1.86804C5.09244 1.5403 5.2239 1.22678 5.45566 0.995023C5.68742 0.763263 6.00093 0.631802 6.32868 0.628954C6.65642 0.626105 6.97218 0.752098 7.20793 0.979796L13.5929 7.36396C14.4515 8.22418 14.9336 9.38988 14.9336 10.6052C14.9336 11.8206 14.4515 12.9862 13.5929 13.8465L7.1996 20.2398C7.02503 20.4145 6.80263 20.5335 6.56047 20.5819C6.31831 20.6304 6.06723 20.606 5.83892 20.5118C5.61061 20.4177 5.41531 20.258 5.27764 20.053C5.13998 19.848 5.06614 19.6068 5.06543 19.3598Z" fill="white" />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_2249_46740">
-                          <rect width={20} height={20} fill="white" transform="translate(0 0.609375)" />
-                        </clipPath>
-                      </defs>
-                    </svg>
+    <g clipPath="url(#clip0_2249_46740)">
+      <path d="M5.06543 19.3598C5.06572 19.0284 5.19761 18.7107 5.4321 18.4765L11.8254 12.0831C12.0189 11.8897 12.1725 11.66 12.2772 11.4072C12.3819 11.1544 12.4358 10.8834 12.4358 10.6098C12.4358 10.3362 12.3819 10.0652 12.2772 9.81241C12.1725 9.55962 12.0189 9.32993 11.8254 9.13646L5.44043 2.7473C5.21273 2.51154 5.08674 2.19579 5.08959 1.86804C5.09244 1.5403 5.2239 1.22678 5.45566 0.995023C5.68742 0.763263 6.00093 0.631802 6.32868 0.628954C6.65642 0.626105 6.97218 0.752098 7.20793 0.979796L13.5929 7.36396C14.4515 8.22418 14.9336 9.38988 14.9336 10.6052C14.9336 11.8206 14.4515 12.9862 13.5929 13.8465L7.1996 20.2398C7.02503 20.4145 6.80263 20.5335 6.56047 20.5819C6.31831 20.6304 6.06723 20.606 5.83892 20.5118C5.61061 20.4177 5.41531 20.258 5.27764 20.053C5.13998 19.848 5.06614 19.6068 5.06543 19.3598Z" fill="white" />
+    </g>
+    <defs>
+      <clipPath id="clip0_2249_46740">
+        <rect width={20} height={20} fill="white" transform="translate(0 0.609375)" />
+      </clipPath>
+    </defs>
+  </svg>
                   </button>
                 </div>
               </div>
             </div>
           )}
 
-          {step === 3 && (
+{step === 3 && (
             <div>
               {formData.profil === "player" && (
                 <div className="flex flex-col items-center pb-12 w-full bg-gray-200">
 
                   <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
-                    <div className="text-center max-w-xl mx-auto mt-8">
-                      <p className="md:text-3xl text-2xl text-zinc-900 ">
-                        Informations du Profil
+                    <div className="tal1 text-center max-w-xl mx-auto mt-8">
+                      <p className=" md:text-3xl text-2xl text-zinc-900 ">
+                      {
+                          getTranslation(
+                           `Profile Information`,  // -----> Englais
+                           ` Informations du Profil`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                       
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-8 sm:px-16 mt-4 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-3 justify-between mr-2 ml-2">
-                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                        <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+                  <div className="flex gap-3 justify-between mr-2 ml-2">
+                    <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                    <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                    <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
 
-                      </div>
-                    </div>
+                  </div>
+                </div>
                   </div>
                   <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-8 md:px-16 mt-8 w-full max-md:px-2 max-md:max-w-full">
                     <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
@@ -6284,7 +6718,18 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ec3a1cc3b9a3012e6a2edef9cd4e023c9016540e0fc86b9417135ccff83ce39?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Club Actuel</div>
+                            <div className="tal1 grow">
+                            {
+                          getTranslation(
+                           `Current Club`,  // -----> Englais
+                           ` Club Actuel`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                       
+                       </div>
                           </div>
                           <input
                             type="text"
@@ -6293,7 +6738,15 @@ function Register() {
                             value={formData.champsoptionelle}
                             className={`form-control mt-2 flex gap-5 justify-between border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] px-4 py-3.5 rounded-xl ${inputErrors["champsoptionelle"] ? "is-invalid" : ""
                               }`}
-                            placeholder="Club Actuel"
+                            placeholder={
+                              getTranslation(
+                               `Current Club`,  // -----> Englais
+                               ` Club Actuel`, //  -----> Francais
+                               ``,  //  -----> Turkey
+                               `` ,  //  -----> Allemagne
+                               ) 
+                 
+                             }
                             onChange={handleInputChange}
                           />
 
@@ -6308,7 +6761,18 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/dde2d3eac90bf18968d914655f675d631cc969fb869e731c4dbe98f730d2e3e3?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-4 aspect-[0.8]"
                             />
-                            <div className="grow">Taille</div>
+                            <div className="tal1 grow">
+                            {
+             getTranslation(
+              `Height`,  // -----> Englais
+              `Taille`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+</div>
                           </div>
                           <div className=" flex flex-col justify-center mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <input
@@ -6318,7 +6782,15 @@ function Register() {
                               value={formData.height}
                               className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${inputErrors["height"] ? "is-invalid" : ""
                                 }`}
-                              placeholder="Taille (cm)"
+                              placeholder={
+                                getTranslation(
+                                 `Your height (cm)`,  // -----> Englais
+                                 `Votre taille (cm)`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               } 
                               onChange={handleInputChange}
                             />
 
@@ -6333,7 +6805,15 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/965d241cd8aba884d3ff4396d1686ccf28be6724052e6a16c2ae5eab335e2540?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Poids</div>
+                            <div className="tal1 grow">{
+                                getTranslation(
+                                 `Weight (kg)`,  // -----> Englais
+                                 `Poids (kg)`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               } </div>
                           </div>
                           <div className="flex flex-col justify-center mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <input
@@ -6343,7 +6823,15 @@ function Register() {
                               value={formData.weight}
                               className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${inputErrors["weight"] ? "is-invalid" : ""
                                 }`}
-                              placeholder="Poids (kg)"
+                              placeholder={
+                                getTranslation(
+                                 `Your weight (kg)`,  // -----> Englais
+                                 `Votre poids (kg)`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               } 
                               onChange={handleInputChange}
                             />
 
@@ -6362,7 +6850,17 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/879dad4025b82bfa9c58ea4433c8475e1b0e7b7c4d4fbc93c2a536c9671b6622?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-8 aspect-[1.59]"
                             />
-                            <div className="grow">Pied fort</div>
+                            <div className="grow">
+                              
+                            {
+                                getTranslation(
+                                 `Strong foot`,  // -----> Englais
+                                 `Pied fort`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               } </div>
                           </div>
                           <div className="flex flex-col justify-center mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <select
@@ -6374,11 +6872,49 @@ function Register() {
                               onChange={handleInputChange}
                             >
                               <option value="" disabled>
-                                Pied Fort
+                              {
+                                getTranslation(
+                                 `Strong foot`,  // -----> Englais
+                                 `Pied fort`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               } 
+                               
                               </option>
-                              <option value="PiedGauche">Pied Gauche</option>
-                              <option value="PiedDroit">Pied Droit</option>
-                              <option value="DeuxPieds">Les deux pieds</option>
+                              <option value="PiedGauche">
+                              {
+                                getTranslation(
+                                 `Left foot`,  // -----> Englais
+                                 `Pied Gauche`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               } </option>
+                              <option value="PiedDroit">
+                              {
+                                getTranslation(
+                                 `Right foot`,  // -----> Englais
+                                 `Pied droit`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               } 
+                              </option>
+                              <option value="DeuxPieds">
+                              
+                              {
+                                getTranslation(
+                                 `booth feet`,  // -----> Englais
+                                 `Les deux pieds`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               } </option>
                             </select>
 
                           </div>
@@ -6395,7 +6931,20 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/16a18eafd08ffb5ec4c2a087bd33d4431bd6e830c000a50df46dcfb15ae38c65?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Position Principale</div>
+                            <div className="tal1 grow">
+                              
+                            {
+             getTranslation(
+              `Primary Position`,  // -----> Englais
+              ` Position Principale`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+
+                             </div>
                           </div>
                           <div className="flex flex-col justify-center  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <select
@@ -6406,39 +6955,39 @@ function Register() {
                                 }`}
                               onChange={handleInputChange}
                             >
-                              <option value="" disabled>
-                                Position Principale
-                              </option>
-                              <option value="Gardien de but (GK)">
-                                Gardien de but (GK)
-                              </option>
-                              <option value="Arrière droit (RB)">
-                                Arrière droit (RB)
-                              </option>
-                              <option value="Arrière gauche( LB)">
-                                Arrière gauche( LB)
-                              </option>
-                              <option value="Défenseur central (CB)">
-                                Défenseur central (CB)
-                              </option>
-                              <option value="Milieu défensif (CDM)">
-                                Milieu défensif (CDM)
-                              </option>
-                              <option value="Milieu central (CM)">
+                           <option value="" disabled>
+                                    Position Principale
+                                </option>
+                                <option value="Gardien de but (GK)">
+                                    Gardien de but (GK)
+                                </option>
+                                <option value="Arrière droit (RB)">
+                                    Arrière droit (RB)
+                                </option>
+                                <option value="Arrière gauche( LB)">
+                                    Arrière gauche( LB)
+                                </option>
+                                <option value="Défenseur central (CB)">
+                                    Défenseur central (CB)
+                                </option>
+                                <option value="Milieu défensif (CDM)">
+                                    Milieu défensif (CDM)
+                                </option>
+                                <option value="Milieu central (CM)">
                                 Milieu central (CM)
-                              </option>
-                              <option value="Milieu offensif (MO)">
-                                Milieu offensif (MO)
-                              </option>
-                              <option value="Ailier droit (RW)">
-                                Ailier droit (RW)
-                              </option>
-                              <option value="Ailier gauche ( LW)">
-                                Ailier gauche ( LW)
-                              </option>
-                              <option value="Avant-centre ">
-                                Avant-centre ( ST)
-                              </option>
+                                </option>
+                                <option value="Milieu offensif (MO)">
+                                   Milieu offensif (MO)
+                                </option>
+                                <option value="Ailier droit (RW)">
+                                    Ailier droit (RW)
+                                </option>
+                                <option value="Ailier gauche ( LW)">
+                                    Ailier gauche ( LW)
+                                </option>
+                                <option value="Avant-centre ">
+                                    Avant-centre ( ST)
+                                </option>
                             </select>
 
                           </div>
@@ -6463,8 +7012,8 @@ function Register() {
                               name="positionSecond"
                               value={formData.positionSecond}
                               className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["positionSecond"]
-                                ? "is-invalid"
-                                : ""
+                                  ? "is-invalid"
+                                  : ""
                                 }`}
                               onChange={handleInputChange}
                             >
@@ -6507,8 +7056,8 @@ function Register() {
                         </div>
                       </div>
 
-                      {/* license */}
-                      <div className="flex gap-5 justify-between mt-8 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                   {/* license */}
+                   <div className="flex gap-5 justify-between mt-8 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <div className="flex flex-col text-zinc-900">
                           <div className="flex gap-4 justify-between px-4 text-lg">
                             <img
@@ -6516,14 +7065,45 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/ec3bc7c1a4fe3e2b05035509aa7b6b7bdc539b4798d878532d353d835b6ec863?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Avez-vous une licence ?</div>
+                            <div className="grow">
+                             
+                            
+                            
+           {
+             getTranslation(
+              `Do you have a license?`,  // -----> Englais
+              `Avez-vous une licence ?`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                            </div>
                           </div>
 
 
 
                           <select style={{ width: '335px' }} className=" px-2 flex flex-col justify-center px-px py-3.5  mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]" onChange={(e) => handleSelection(e.target.value)}>
-                            <option className=" w-full" value="Non">Non</option>
-                            <option value="Oui">Oui</option>
+                            <option className=" w-full" value="Non">
+                            {
+             getTranslation(
+              `No`,  // -----> Englais
+              `Non`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }</option>
+                            <option value="Oui">
+                            {
+             getTranslation(
+              `Yes`,  // -----> Englais
+              `Oui`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </option>
                           </select>
 
 
@@ -6541,11 +7121,20 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/1094978de2a7b90ea910c9743ca3b54f27d963af3ebd2f54f91c3bc96843c0b2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Licence</div>
-                          </div>
-                          {isUploadEnabled && (
+                            <div className="tal1 grow">
+                            {
+             getTranslation(
+              `License`,  // -----> Englais
+              `Licence`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                            <div style={{ width: '335px' }} className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
+            }</div>
+                          </div>
+                          {isUploadEnabled && ( 
+                          
+                          <div  style={{ width: '335px' }} className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
                               <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_1342_45742)">
                                   <path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#2E71EB" />
@@ -6557,24 +7146,24 @@ function Register() {
                                 </defs>
                               </svg>
                               <label className="relative block">
-                                <input
-                                  type="file"
-                                  name="file"
-                                  accept="*"
-                                  onChange={handleFileChangeLicense}
-                                  className="absolute inset-0 opacity-0 md:w-full h-full cursor-pointer"
-                                />
-                                <span className="block -indent-20 !overflow-hidden whitespace-nowrap overflow-ellipsis">
-                                  {File ? File.name : 'Importer une Licence'}
-                                </span>
-                              </label>
+    <input
+        type="file"
+        name="file"
+        accept="*"
+        onChange={handleFileChangeLicense}
+        className="absolute inset-0 opacity-0 md:w-full h-full cursor-pointer"
+    />
+    <span className="block -indent-20 !overflow-hidden whitespace-nowrap overflow-ellipsis">
+        {File ? File.name : 'Importer une Licence'}
+    </span>
+</label>
 
 
                             </div>)}
                           {!isUploadEnabled && (<div>
                             <div style={{ width: '335px' }} className="flex gap-4 justify-center items-center w-full">
-                              <div style={{ width: '335px', backgroundColor: '#B3B3B3', fontFamily: 'Sora' }} className={`font-sans w-full flex justify-center gap-2 bg-zinc-100 items-center px-4 py-3.5 rounded-xl `}>
-                                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1342_20565)"><path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#5A5A5A"></path></g><defs><clipPath id="clip0_1342_20565"><rect width="20" height="20" fill="white" transform="translate(0.5)"></rect></clipPath></defs></svg>
+                              <div style={{ width: '335px', backgroundColor:'#B3B3B3' , fontFamily :'Sora'}} className={`font-sans w-full flex justify-center gap-2 bg-zinc-100 items-center px-4 py-3.5 rounded-xl `}>
+                              <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1342_20565)"><path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#5A5A5A"></path></g><defs><clipPath id="clip0_1342_20565"><rect width="20" height="20" fill="white" transform="translate(0.5)"></rect></clipPath></defs></svg>
                                 <label>
                                   <input
                                     type="file"
@@ -6600,7 +7189,17 @@ function Register() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/3d9e1688ed79638d921ae945bc404a38397f807147a71c1acde94d77aab89cd2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="self-start w-5 aspect-square"
                         />
-                        <div className="flex-auto">Compétences</div>
+                        <div className="flex-auto">
+                          
+           {
+             getTranslation(
+              `Skills`,  // -----> Englais
+              `Compétences`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                       </div>
 
                       <div className="form-group rounded-full  icon-input mb-3">
@@ -6677,7 +7276,17 @@ function Register() {
                       </div>
                       {skillsError && (
                         <div className="text-danger mt-2">
-                          Vous pouvez selectionner au maximum 10 compétences !
+
+{
+             getTranslation(
+              `You can select up to 10 skills!`,  // -----> Englais
+              `Vous pouvez selectionner au maximum 10 compétences !`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                             
                         </div>
                       )}
                       {inputErrors["skillsInProfile"] && (
@@ -6686,68 +7295,78 @@ function Register() {
                         </div>
                       )}
 
-                      <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-                        <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-                          <div className="flex md:flex-row gap-2 flex-row">
-                            <div className="flex md:flex-col gap-2 flex-row ">
-                              <label className="">
-                                <input
-                                  type="checkbox"
-                                  checked={formData.termesConditions === "Oui"}
-                                  onChange={(e) =>
-                                    setFormData({
-                                      ...formData,
-                                      termesConditions: e.target.checked ? "Oui" : "Non",
-                                    })
-                                  }
-                                />
-                              </label>
-
-                            </div>
-                            <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-                              J'accepte les{" "}
-                              <span className="text-blue-600 block">Termes et Conditions</span>
-                            </div>
-
-                          </div>
-                        </div>
-                        {errorMessage && (
+<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
+      <div className="flex md:flex-col gap-2 flex-row ">
+        <label className="">
+          <input
+            type="checkbox"
+            checked={formData.termesConditions === "Oui"}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                termesConditions: e.target.checked ? "Oui" : "Non",
+              })
+            }
+          />
+        </label>
+    
+       </div> 
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+        J'accepte les{" "}
+        <span className="text-blue-600 block">Termes et Conditions</span>
+      </div>
+   
+    </div>
+  </div>
+  {errorMessage && (
                           <div className="error-message align-center text-red-600">{errorMessage}</div>
                         )}
 
+                       
 
+  <div className="mt-2 gap-2    flex flex-row items-center">
+     <div className="flex flex-row self-start md:itmes-center pb-2">
+      <label>
+        <input
+          type="checkbox"
+          checked={formData.partagehorsPL === "Oui"}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              partagehorsPL: e.target.checked ? "Oui" : "Non",
+            })
+          }
+        />
+      </label>
+    </div> 
+    
+    <div className="md:w-auto w-[90%]">
+      <label className="tal1 block mb-2 ">
+      
+       
+        {
+             getTranslation(
+              `I authorize Odin E-Sport to share my posts outside the platform.`,  // -----> Englais
+              ` J'autorise Odin E-Sport à partager mes publications hors de la plateforme.`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                        <div className="mt-2 gap-2    flex flex-row items-center">
-                          <div className="flex flex-row self-start md:itmes-center pb-2">
-                            <label>
-                              <input
-                                type="checkbox"
-                                checked={formData.partagehorsPL === "Oui"}
-                                onChange={(e) =>
-                                  setFormData({
-                                    ...formData,
-                                    partagehorsPL: e.target.checked ? "Oui" : "Non",
-                                  })
-                                }
-                              />
-                            </label>
+            } 
+      </label>
+    </div>
+  
+  </div>
+</div>
+
+{(emailError || loginError) && (
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                            {emailError && <p>{emailError}</p>}
+                            {loginError && <p>{loginError}</p>}
                           </div>
-
-                          <div className="md:w-auto w-[90%]">
-                            <label className="block mb-2 ">
-                              J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-                            </label>
-                          </div>
-
-                        </div>
-                      </div>
-
-                      {(emailError || loginError) && (
-                        <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-                          {emailError && <p>{emailError}</p>}
-                          {loginError && <p>{loginError}</p>}
-                        </div>
-                      )}
+                        )}
 
                       <div className="flex gap-2 md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
@@ -6760,10 +7379,21 @@ function Register() {
                           />
                           <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </button>
-                        <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                          <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-                          </svg></button>
+                        <div className="tal2 flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button type="submit" className="flex flex-row"> <span className="px-2">
+                            
+                          {
+             getTranslation(
+              `Submit`,  // -----> Englais
+              `Confirmer`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+             </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+  </svg></button>
 
                         </div>
                       </div>
@@ -6779,9 +7409,18 @@ function Register() {
                 <div className="flex flex-col items-center pb-12 bg-gray-200">
 
                   <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
-                    <div className="text-center max-w-xl mx-auto mt-8">
-                      <p className="text-3xl text-zinc-900 ">
-                        Informations du Profil
+                    <div className="tal1 text-center max-w-xl mx-auto mt-8">
+                      <p className=" text-3xl text-zinc-900 ">
+                      {
+                          getTranslation(
+                           `Profile Information`,  // -----> Englais
+                           ` Informations du Profil`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                        
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
@@ -6802,7 +7441,17 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/c6759924d092dd539c2a5e31a573201abbd73cb3b21abd2a1c36c03266185a25?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Club Actuel</div>
+                            <div className="tal1 grow">
+                            {
+                          getTranslation(
+                           `Current Club`,  // -----> Englais
+                           ` Club Actuel`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                            </div>
                           </div>
                           <input
                             type="text"
@@ -6811,7 +7460,15 @@ function Register() {
                             value={formData.ClubActuelCoach}
                             onChange={handleInputChange}
                             className={`form-control flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-xl ${inputErrors["ClubActuelCoach"] ? "is-invalid" : ""
-                              }`} placeholder="Equipe Actuel"
+                              }`} placeholder={
+                                getTranslation(
+                                 `Current Club`,  // -----> Englais
+                                 ` Club Actuel`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }
                           />
 
                           {inputErrors['ClubActuelCoach'] && (
@@ -6825,7 +7482,17 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/266bb942964e742c53f6ca48c049053cbf3cb990338dd01906f5558f218c1b7b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Nombre de clubs entraînées</div>
+                            <div className="tal1 grow">
+                              
+                            {
+                                getTranslation(
+                                 `Number of teams coached`,  // -----> Englais
+                                 ` Nombre de clubs entraînées `, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               }  </div>
                           </div>
                           <input
                             type="number"
@@ -6853,19 +7520,37 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ef90a0f4cfe5f2905efbdeddd8db64c65b72d6df992e427f3335ecc4b800002?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Tactiques préférés</div>
+                            <div className="grow">
+                              
+                            {
+             getTranslation(
+              `Preferred tactic`,  // -----> Englais
+              `Tactique préférée`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                           </div>
                           <select
                             name="footballTactic"
                             value={formData.footballTactic}
                             className={`form-control flex gap-5 justify-between  px-4 pb-2 pt-0 border-[0.5px]  mb-2 rounded-xl bg-zinc-100 ${inputErrors["footballTactic"]
-                              ? "is-invalid"
-                              : ""
+                                ? "is-invalid"
+                                : ""
                               }`}
                             onChange={handleInputChange}
                           >
                             <option value="" disabled>
-                              Tactique préférée
+                            {
+             getTranslation(
+              `Preferred tactic`,  // -----> Englais
+              `Tactique préférée`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }
                             </option>
                             <option value="4-4-2">4-4-2</option>
                             <option value="4-3-3">4-3-3</option>
@@ -6886,7 +7571,16 @@ function Register() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/ece96b5f61d0b17c400b934b07ea1b22e3a96c08930599d41b7fac9d66b1b647?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="self-start w-5 aspect-square"
                         />
-                        <div className="grow max-md:max-w-full">Pays d’entraînement</div>
+                        <div className="tal1 grow max-md:max-w-full">  
+                        {
+             getTranslation(
+              `Training country`,  // -----> Englais
+              `Pays d’entraînement`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                       </div>
                       <div className="flex flex-col justify-center px-px mt-2 max-w-full text-base text-white whitespace-nowrap rounded-[30px] w-[379px]">
                         {/* <div className="flex gap-4 justify-between px-4 py-1.5 rounded-md max-md:flex-wrap max-md:max-w-full"> */}
@@ -6896,7 +7590,15 @@ function Register() {
 
                         <Select
                           options={optionsPays}
-                          placeholder="Choisi pays ou plus"
+                          placeholder={
+                            getTranslation(
+                             `Training countries`,  // -----> Englais
+                             `Les pays d’entraînement`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           }
                           isMulti // Enable multiple selection
                           components={{ MultiValueContainer }}
                           styles={{
@@ -6939,7 +7641,17 @@ function Register() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="self-start w-5 aspect-square"
                         />
-                        <div className="flex-auto">Compétences</div>
+                        <div className="flex-auto">
+                          
+           {
+             getTranslation(
+              `Skills`,  // -----> Englais
+              `Compétences`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                       </div>
 
 
@@ -6988,15 +7700,23 @@ function Register() {
                         ))}
 
                         {skillsError && (
-                          <div className="text-danger mt-2">
-                            Vous pouvez sélectionner au maximum 10 compétences !
+                          <div className="tal1 text-danger mt-2">
+                            {
+             getTranslation(
+              `You can select up to 10 skills!`,  // -----> Englais
+              `Vous pouvez selectionner au maximum 10 compétences !`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                           </div>
                         )}
-                        {inputErrors["skills"] && (
-                          <div className="error-message text-red-600">
-                            {inputErrors["skills"]}
-                          </div>
-                        )}
+ {inputErrors["skills"] && (
+                        <div className="error-message text-red-600">
+                          {inputErrors["skills"]}
+                        </div>
+                      )}
 
 
 
@@ -7009,70 +7729,79 @@ function Register() {
           )} 
           
           */}
-                      <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-                        <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-                          <div className="flex md:flex-row gap-2 flex-row">
-                            <div className="flex md:flex-col gap-2 flex-row ">
-                              <label className="">
-                                <input
-                                  type="checkbox"
-                                  checked={formData.termesConditions === "Oui"}
-                                  onChange={(e) =>
-                                    setFormData({
-                                      ...formData,
-                                      termesConditions: e.target.checked ? "Oui" : "Non",
-                                    })
-                                  }
-                                />
-                              </label>
-
-                            </div>
-                            <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-                              J'accepte les{" "}
-                              <span className="text-blue-600 block">Termes et Conditions</span>
-                            </div>
-
-                          </div>
-                        </div>
-                        {errorMessage && (
+<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
+      <div className="flex md:flex-col gap-2 flex-row ">
+        <label className="">
+          <input
+            type="checkbox"
+            checked={formData.termesConditions === "Oui"}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                termesConditions: e.target.checked ? "Oui" : "Non",
+              })
+            }
+          />
+        </label>
+    
+       </div> 
+        <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+        J'accepte les{" "}
+        <span className="text-blue-600 block">Termes et Conditions</span>
+      </div>
+   
+    </div>
+  </div>
+  {errorMessage && (
                           <div className="error-message align-center text-red-600">{errorMessage}</div>
                         )}
 
+                       
 
+  <div className="mt-2 gap-2    flex flex-row items-center">
+     <div className="flex flex-row self-start md:itmes-center pb-2">
+      <label>
+        <input
+          type="checkbox"
+          checked={formData.partagehorsPL === "Oui"}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              partagehorsPL: e.target.checked ? "Oui" : "Non",
+            })
+          }
+        />
+      </label>
+    </div> 
+    
+    <div className="md:w-auto w-[90%]">
+      <label className="block mb-2 ">
+      {
+             getTranslation(
+              `I authorize Odin E-Sport to share my posts outside the platform.`,  // -----> Englais
+              ` J'autorise Odin E-Sport à partager mes publications hors de la plateforme.`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                        <div className="mt-2 gap-2    flex flex-row items-center">
-                          <div className="flex flex-row self-start md:itmes-center pb-2">
-                            <label>
-                              <input
-                                type="checkbox"
-                                checked={formData.partagehorsPL === "Oui"}
-                                onChange={(e) =>
-                                  setFormData({
-                                    ...formData,
-                                    partagehorsPL: e.target.checked ? "Oui" : "Non",
-                                  })
-                                }
-                              />
-                            </label>
+            } 
+       
+      </label>
+    </div>
+  
+  </div>
+</div>
+
+{(emailError || loginError) && (
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                            {emailError && <p>{emailError}</p>}
+                            {loginError && <p>{loginError}</p>}
                           </div>
+                        )}
 
-                          <div className="md:w-auto w-[90%]">
-                            <label className="block mb-2 ">
-                              J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-                            </label>
-                          </div>
-
-                        </div>
-                      </div>
-
-                      {(emailError || loginError) && (
-                        <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-                          {emailError && <p>{emailError}</p>}
-                          {loginError && <p>{loginError}</p>}
-                        </div>
-                      )}
-
-                      <div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+<div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
@@ -7083,17 +7812,28 @@ function Register() {
                           />
                           <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </button>
-                        <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                          <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-                          </svg></button>
+                        <div className="tal2 flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button type="submit" className="flex flex-row"> <span className="px-2">
+                            
+                          
+                           {
+             getTranslation(
+              `Submit`,  // -----> Englais
+              `Confirmer`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+  </svg></button>
 
                         </div>
                       </div>
 
 
 
-
+              
                     </div>
                   </div>
                 </div>
@@ -7108,10 +7848,18 @@ function Register() {
 
                 <div className="flex flex-col items-center pb-12 h-full bg-gray-200">
 
-                  <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
-                    <div className="text-center max-w-xl mx-auto mt-8">
+<div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
+                    <div className="tal1 text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-900 ">
-                        Informations du Profil
+                      {
+                          getTranslation(
+                           `Profile Information`,  // -----> Englais
+                           ` Informations du Profil`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
@@ -7132,7 +7880,18 @@ function Register() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/c24f47cfa257b3f53d051885328d947d57043bd4fe7c525389b014b09dd5e753?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-start w-5 aspect-square"
                             />
-                            <div className="grow">Type de responsabilité</div>
+                            <div className="tal1 grow"> 
+                            
+                            {
+             getTranslation(
+              `Type of responsibility `,  // -----> Englais
+              `Type de responsabilité `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+            </div>
 
 
                           </div>
@@ -7146,18 +7905,47 @@ function Register() {
                                 id="typeresponsable"
                                 name="typeresponsable"
                                 className={`w-full bg-zinc-100 w-[270px]${inputErrors["typeresponsable"]
-                                  ? "is-invalid"
-                                  : ""
+                                    ? "is-invalid"
+                                    : ""
                                   }`}
                                 onChange={handleInputChange}
                                 value={formData.typeresponsable}
                                 required
                               >
                                 <option value="">
-                                  Votre Type De Responsabilité
+                                {
+             getTranslation(
+              `Your type of responsibility `,  // -----> Englais
+              `Votre Type De Responsabilité `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }
+                                  
                                 </option>
-                                <option value="club">Manager d'équipe</option>
-                                <option value="players">Manager de Joueur</option>
+                                <option value="club">
+                                {
+             getTranslation(
+              `Club Manager `,  // -----> Englais
+              `Manager d'équipe `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }
+            </option>
+                                <option value="players">
+                                {
+             getTranslation(
+              `Player Manager `,  // -----> Englais
+              `Manager de Joueur `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }
+            </option>
                               </select>
                               {inputErrors["typeresponsable"] && (
                                 <div className="invalid-feedback">
@@ -7188,7 +7976,16 @@ function Register() {
                                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/528f3940d205594823841dbde668c399246e5dc37eb606f331e300f6be94c70e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                       className="self-start w-5 aspect-square"
                                     />
-                                    <div className="grow">Club Actuel</div>
+                                    <div className="tal1 grow">
+                                    {
+                              getTranslation(
+                               `Current Club`,  // -----> Englais
+                               ` Club Actuel`, //  -----> Francais
+                               ``,  //  -----> Turkey
+                               `` ,  //  -----> Allemagne
+                               ) 
+                 
+                             }</div>
                                   </div>
                                   <input
                                     type="text"
@@ -7197,7 +7994,15 @@ function Register() {
                                     className={`form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5${inputErrors["clubCovered"] ? " is-invalid" : ""}`}
                                     onChange={handleInputChange}
                                     value={formData.clubCovered}
-                                    placeholder="Equipe Actuel"
+                                    placeholder={
+                                      getTranslation(
+                                       `Current Club`,  // -----> Englais
+                                       ` Club Actuel`, //  -----> Francais
+                                       ``,  //  -----> Turkey
+                                       `` ,  //  -----> Allemagne
+                                       ) 
+                         
+                                     }
                                   />
 
 
@@ -7215,11 +8020,30 @@ function Register() {
                                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/d35929db3da0f679cb37c2aa46e37529472e2286df1cbb9c382a5ca5cd3dee8b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                       className="self-start w-5 aspect-square"
                                     />
-                                    <div className="grow">Pays du Club</div>
+                                    <div className="tal1 grow">
+                                      
+           {
+             getTranslation(
+              `Club's country`,  // -----> Englais
+              `Pays du Club`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                                      </div>
                                   </div>
                                   <Select
                                     options={optionsPays}
-                                    placeholder="Pays du Club"
+                                    placeholder={
+                                      getTranslation(
+                                       `Club's country`,  // -----> Englais
+                                       `Pays du Club`, //  -----> Francais
+                                       ``,  //  -----> Turkey
+                                       `` ,  //  -----> Allemagne
+                                       ) 
+                         
+                                     } 
                                     styles={{
                                       control: (provided, state) => ({
                                         ...provided,
@@ -7265,7 +8089,15 @@ function Register() {
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="self-start w-5 aspect-square"
                                 />
-                                <div className="flex-auto">Compétences</div>
+                                <div className="tal1 flex-auto">{
+             getTranslation(
+              `Skills`,  // -----> Englais
+              `Compétences`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                               </div>
 
 
@@ -7273,7 +8105,7 @@ function Register() {
 
                               <div className="form-group icon-input  mb-3">
                                 {[
-
+                                  
 
 
 
@@ -7312,7 +8144,7 @@ function Register() {
                                     <label
                                       htmlFor={agentSkill}
                                       className={`form-check-label btn ${formData.skillsagent.split(",").includes(agentSkill)
-                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
                                           ${!formData.skillsagent
                                           .split(",")
                                           .includes(agentSkill) &&
@@ -7335,97 +8167,125 @@ function Register() {
                               </div>
                               {agentSkillsError && (
                                 <div className="text-danger mt-2">
-                                  Vous pouvez selectionner au maximum 10 compétences !
+                                   {
+             getTranslation(
+              `You can select up to 10 skills!`,  // -----> Englais
+              `Vous pouvez selectionner au maximum 10 compétences !`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                                 
                                 </div>
                               )}
                               {inputErrors["skillsagent"] && (
-                                <div className="error-message text-red-600">
-                                  {inputErrors["skillsagent"]}
-                                </div>
-                              )}
+                            <div className="error-message text-red-600">
+                              {inputErrors["skillsagent"]}
+                            </div>
+                          )}
 
+                           
+<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
+      <div className="flex md:flex-col gap-2 flex-row ">
+        <label className="">
+          <input
+            type="checkbox"
+            checked={formData.termesConditions === "Oui"}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                termesConditions: e.target.checked ? "Oui" : "Non",
+              })
+            }
+          />
+        </label>
+    
+       </div> 
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+        J'accepte les{" "}
+        <span className="text-blue-600 block">Termes et Conditions</span>
+      </div>
+   
+    </div>
+  </div>
+  {errorMessage && (
+                          <div className="error-message align-center text-red-600">{errorMessage}</div>
+                        )}
 
-                              <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-                                <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-                                  <div className="flex md:flex-row gap-2 flex-row">
-                                    <div className="flex md:flex-col gap-2 flex-row ">
-                                      <label className="">
-                                        <input
-                                          type="checkbox"
-                                          checked={formData.termesConditions === "Oui"}
-                                          onChange={(e) =>
-                                            setFormData({
-                                              ...formData,
-                                              termesConditions: e.target.checked ? "Oui" : "Non",
-                                            })
-                                          }
-                                        />
-                                      </label>
+                       
 
-                                    </div>
-                                    <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-                                      J'accepte les{" "}
-                                      <span className="text-blue-600 block">Termes et Conditions</span>
-                                    </div>
+  <div className="mt-2 gap-2    flex flex-row items-center">
+     <div className="flex flex-row self-start md:itmes-center pb-2">
+      <label>
+        <input
+          type="checkbox"
+          checked={formData.partagehorsPL === "Oui"}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              partagehorsPL: e.target.checked ? "Oui" : "Non",
+            })
+          }
+        />
+      </label>
+    </div> 
+    
+    <div className="md:w-auto w-[90%]">
+      <label className="tal1 block mb-2 ">
+      {
+             getTranslation(
+              `I authorize Odin E-Sport to share my posts outside the platform.`,  // -----> Englais
+              ` J'autorise Odin E-Sport à partager mes publications hors de la plateforme.`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                                  </div>
-                                </div>
-                                {errorMessage && (
-                                  <div className="error-message align-center text-red-600">{errorMessage}</div>
-                                )}
+            }
+        
+      </label>
+    </div>
+  
+  </div>
+</div>
 
+{(emailError || loginError) && (
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                            {emailError && <p>{emailError}</p>}
+                            {loginError && <p>{loginError}</p>}
+                          </div>
+                        )}
 
+                      <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                        <button
+                          type="button"
+                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square"
+                          />
+                          <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        </button>
+                        <div className="tal2 flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button type="submit" className="flex flex-row"> <span className="px-2">
+                          {
+             getTranslation(
+              `Submit`,  // -----> Englais
+              `Confirmer`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                                <div className="mt-2 gap-2    flex flex-row items-center">
-                                  <div className="flex flex-row self-start md:itmes-center pb-2">
-                                    <label>
-                                      <input
-                                        type="checkbox"
-                                        checked={formData.partagehorsPL === "Oui"}
-                                        onChange={(e) =>
-                                          setFormData({
-                                            ...formData,
-                                            partagehorsPL: e.target.checked ? "Oui" : "Non",
-                                          })
-                                        }
-                                      />
-                                    </label>
-                                  </div>
+            } 
+             </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+  </svg></button>
 
-                                  <div className="md:w-auto w-[90%]">
-                                    <label className="block mb-2 ">
-                                      J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-                                    </label>
-                                  </div>
-
-                                </div>
-                              </div>
-
-                              {(emailError || loginError) && (
-                                <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-                                  {emailError && <p>{emailError}</p>}
-                                  {loginError && <p>{loginError}</p>}
-                                </div>
-                              )}
-
-                              <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                                <button
-                                  type="button"
-                                  onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square"
-                                  />
-                                  <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                </button>
-                                <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                                  <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-                                  </svg></button>
-
-                                </div>
-                              </div>
+                        </div>
+                      </div>
 
 
                             </>
@@ -7445,7 +8305,17 @@ function Register() {
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/40ce3f4dbc1ac29eaa66d4104bf3f6dc7733f2c8c57fa093cc6ba3e58fe3361f?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                         className="self-start w-5 aspect-square"
                                       />
-                                      <div className="grow">Nombre de joueurs</div>
+                                      <div className="grow">
+                                      
+                                      {
+             getTranslation(
+              `Number of managed players`,  // -----> Englais
+              ` Nombre de joueurs gérés`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                                     </div>
                                     <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                                       <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
@@ -7454,12 +8324,20 @@ function Register() {
                                           id="totalPlayer"
                                           name="totalPlayer"
                                           className={`bg-zinc-100 w-full ${inputErrors["totalPlayer"]
-                                            ? "is-invalid"
-                                            : ""
+                                              ? "is-invalid"
+                                              : ""
                                             }`}
                                           onChange={handleInputChange}
                                           value={formData.totalPlayer}
-                                          placeholder="Entrer la totale des joueurs"
+                                          placeholder={
+                                            getTranslation(
+                                             `Number of managed players`,  // -----> Englais
+                                             ` Nombre de joueurs gérés`, //  -----> Francais
+                                             ``,  //  -----> Turkey
+                                             `` ,  //  -----> Allemagne
+                                             ) 
+                               
+                                           }
                                         />
 
                                       </div>
@@ -7476,7 +8354,17 @@ function Register() {
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/bad4ca2b38add0c4edb31196ef177dc9940dcd65460ae94b7a9f136cb548fb20?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                         className="self-start w-5 aspect-square"
                                       />
-                                      <div className="grow">Nombre de transferts effectués</div>
+                                      <div className="tal1 grow"> 
+                                      {
+                                            getTranslation(
+                                             `Number of transfers made `,  // -----> Englais
+                                             ` Nombre de transferts effectués`, //  -----> Francais
+                                             ``,  //  -----> Turkey
+                                             `` ,  //  -----> Allemagne
+                                             ) 
+                               
+                                           }
+                                           </div>
                                     </div>
                                     <div className="flex flex-col justify-center mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                                       <div className="flex gap-5 justify-between  py-3 rounded-md">
@@ -7485,8 +8373,8 @@ function Register() {
                                           id="totalCareerTransfers"
                                           name="totalCareerTransfers"
                                           className={`bg-zinc-100 mx-4 pl-3 w-[80%] ${inputErrors["totalCareerTransfers"]
-                                            ? "is-invalid"
-                                            : ""
+                                              ? "is-invalid"
+                                              : ""
                                             }`}
                                           onChange={handleInputChange}
                                           value={formData.totalCareerTransfers}
@@ -7514,7 +8402,18 @@ function Register() {
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b1aceaa458ae0813ba851a1899314ccc41fda7b9f83817505dcc26c5116673c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="self-start w-5 aspect-square"
                                 />
-                                <div className="flex-auto">Compétences</div>
+                                <div className="tal1 flex-auto">
+                                  
+                                {
+             getTranslation(
+              `Skills!`,  // -----> Englais
+              `Compétences !`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }
+                                </div>
                               </div>
 
 
@@ -7556,9 +8455,9 @@ function Register() {
                                     <label
                                       htmlFor={agentSkill}
                                       className={`form-check-label btn ${formData.skillsagent
-                                        .split(",")
-                                        .includes(agentSkill)
-                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
+                                          .split(",")
+                                          .includes(agentSkill)
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
                                           ${!formData.skillsagent
                                           .split(",")
                                           .includes(agentSkill) &&
@@ -7581,7 +8480,16 @@ function Register() {
                               </div>
                               {agentSkillsError && (
                                 <div className="text-danger mt-2">
-                                  Vous pouvez selectionner au maximum 10 compétences !
+                                  {
+             getTranslation(
+              `You can select up to 10 skills!`,  // -----> Englais
+              `Vous pouvez selectionner au maximum 10 compétences !`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                                  
                                 </div>
                               )}
 
@@ -7601,88 +8509,107 @@ function Register() {
 
 
 
+                            
+<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
+      <div className="flex md:flex-col gap-2 flex-row ">
+        <label className="">
+          <input
+            type="checkbox"
+            checked={formData.termesConditions === "Oui"}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                termesConditions: e.target.checked ? "Oui" : "Non",
+              })
+            }
+          />
+        </label>
+    
+       </div> 
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+        J'accepte les{" "}
+        <span className="text-blue-600 block">Termes et Conditions</span>
+      </div>
+   
+    </div>
+  </div>
+  {errorMessage && (
+                          <div className="error-message align-center text-red-600">{errorMessage}</div>
+                        )}
 
-                              <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-                                <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-                                  <div className="flex md:flex-row gap-2 flex-row">
-                                    <div className="flex md:flex-col gap-2 flex-row ">
-                                      <label className="">
-                                        <input
-                                          type="checkbox"
-                                          checked={formData.termesConditions === "Oui"}
-                                          onChange={(e) =>
-                                            setFormData({
-                                              ...formData,
-                                              termesConditions: e.target.checked ? "Oui" : "Non",
-                                            })
-                                          }
-                                        />
-                                      </label>
+                       
 
-                                    </div>
-                                    <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-                                      J'accepte les{" "}
-                                      <span className="text-blue-600 block">Termes et Conditions</span>
-                                    </div>
+  <div className="mt-2 gap-2    flex flex-row items-center">
+     <div className="flex flex-row self-start md:itmes-center pb-2">
+      <label>
+        <input
+          type="checkbox"
+          checked={formData.partagehorsPL === "Oui"}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              partagehorsPL: e.target.checked ? "Oui" : "Non",
+            })
+          }
+        />
+      </label>
+    </div> 
+    
+    <div className="md:w-auto w-[90%]">
+      <label className="tal1 block mb-2 ">
+      {
+             getTranslation(
+              `You can select up to 10 skills!`,  // -----> Englais
+              `Vous pouvez selectionner au maximum 10 compétences !`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                                  </div>
-                                </div>
-                                {errorMessage && (
-                                  <div className="error-message align-center text-red-600">{errorMessage}</div>
-                                )}
+            } 
+      </label>
+    </div>
+  
+  </div>
+</div>
 
+{(emailError || loginError) && (
+                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                            {emailError && <p>{emailError}</p>}
+                            {loginError && <p>{loginError}</p>}
+                          </div>
+                        )}
 
+                      <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                        <button
+                          type="button"
+                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square"
+                          />
+                          <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        </button>
+                        <div className="tal2 flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button type="submit" className="flex flex-row"> <span className=" px-2">
+                            
+                          {
+             getTranslation(
+              `Submit`,  // -----> Englais
+              `Confirmer`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                                <div className="mt-2 gap-2    flex flex-row items-center">
-                                  <div className="flex flex-row self-start md:itmes-center pb-2">
-                                    <label>
-                                      <input
-                                        type="checkbox"
-                                        checked={formData.partagehorsPL === "Oui"}
-                                        onChange={(e) =>
-                                          setFormData({
-                                            ...formData,
-                                            partagehorsPL: e.target.checked ? "Oui" : "Non",
-                                          })
-                                        }
-                                      />
-                                    </label>
-                                  </div>
+            } 
+             </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+  </svg></button>
 
-                                  <div className="md:w-auto w-[90%]">
-                                    <label className="block mb-2 ">
-                                      J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-                                    </label>
-                                  </div>
-
-                                </div>
-                              </div>
-
-                              {(emailError || loginError) && (
-                                <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-                                  {emailError && <p>{emailError}</p>}
-                                  {loginError && <p>{loginError}</p>}
-                                </div>
-                              )}
-
-                              <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                                <button
-                                  type="button"
-                                  onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square"
-                                  />
-                                  <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                </button>
-                                <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                                  <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-                                  </svg></button>
-
-                                </div>
-                              </div>
+                        </div>
+                      </div>
 
 
 
@@ -7728,24 +8655,32 @@ function Register() {
 
                   <div className="flex flex-col items-center pb-52 -mb-px bg-gray-200">
 
-                    <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
-                      <div className="text-center max-w-xl mx-auto mt-8 ">
-                        <p className="text-3xl text-zinc-900 ">
-                          Informations du Profil
-                        </p>
-                      </div>
-                      <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                        <div className="flex gap-3 justify-between">
-                          <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
-                          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-                          <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
-                        </div>
+                  <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
+                    <div className="tal1 text-center max-w-xl mx-auto mt-8">
+                      <p className="text-3xl text-zinc-900 ">
+                      {
+                          getTranslation(
+                           `Profile Information`,  // -----> Englais
+                           ` Informations du Profil`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                      </p>
+                    </div>
+                    <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                      <div className="flex gap-3 justify-between">
+                        <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
+                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
                       </div>
                     </div>
+                  </div>
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
                       <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
                         <div className="flex  gap-3  md:gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-
+                          
                           <div className="flex flex-col w-full md:w-[33%]  text-zinc-900">
                             <div className="flex gap-4 mb-2 justify-between px-4 text-lg whitespace-nowrap">
                               <img
@@ -7753,7 +8688,18 @@ function Register() {
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/61c6155cdb7cedb8428209197c5325af5b02bf7ecb94533f0ee5c2b47c1c2444?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                 className="self-start aspect-[1.15] w-[23px]"
                               />
-                              <div className="grow">Type d’engagement</div>
+                              <div className="tal1 grow">
+                              
+                              
+           {
+             getTranslation(
+              `Type of commitment`,  // -----> Englais
+              `Type d’engagement`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
 
                             </div>
 
@@ -7764,19 +8710,59 @@ function Register() {
 
 
                             <select
-                              name="engagement"
-                              value={formData.engagement}
-                              className={`form-control flex justify-between border-[0.5px] px-4 pb-3 mb-2 bg-zinc-100 rounded-[30px] ${inputErrors["engagement"] ? "is-invalid" : ""}`}
-                              style={{ paddingTop: "1px", paddingBottom: "10px" }} // Adjust padding as needed
-                              onChange={handleInputChange}
-                            >
-                              <option value="" disabled>
-                                Votre Engagement
-                              </option>
-                              <option value="plein-temps">Plein Temps</option>
-                              <option value="mi-temps">Mi-Temps</option>
-                              <option value="volontaire">Volontaire</option>
-                            </select>
+  name="engagement"
+  value={formData.engagement}
+  className={`form-control flex justify-between border-[0.5px] px-4 pb-3 mb-2 bg-zinc-100 rounded-[30px] ${inputErrors["engagement"] ? "is-invalid" : ""}`}
+  style={{ paddingTop: "1px", paddingBottom: "10px" }} // Adjust padding as needed
+  onChange={handleInputChange}
+>
+  <option value="" disabled>
+  {
+             getTranslation(
+              `Your type of commitment`,  // -----> Englais
+              `Votre type d’engagement`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }
+    
+  </option>
+  <option value="plein-temps">
+  {
+             getTranslation(
+              `Full-Time`,  // -----> Englais
+              `Plein Temps`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+  </option>
+  <option value="mi-temps">
+    
+  {
+             getTranslation(
+              `Part-Time`,  // -----> Englais
+              `Mi-Temps`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }   </option>
+  <option value="volontaire"> 
+  
+  {
+             getTranslation(
+              `Volunteer`,  // -----> Englais
+              `Volontaire`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+            </option>
+</select>
 
 
 
@@ -7796,7 +8782,18 @@ function Register() {
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/905ceacb3a78358a7e57864a93688890f119c8869b3ab4c3558735affbc2aa60?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                 className="self-start w-5 aspect-square"
                               />
-                              <div className="grow">Nombre de joueurs détectés</div>
+                              <div className="grow"> 
+                              
+           {
+             getTranslation(
+              `Number of players scouted`,  // -----> Englais
+              `Nombre de joueurs détectés`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+            </div>
                             </div>
 
 
@@ -7806,10 +8803,18 @@ function Register() {
                               name="nb_joueurdetecter"
                               value={formData.nb_joueurdetecter}
                               className={` form-control flex gap-5 justify-between border-[0.5px] mb-1 bg-zinc-100 w-full px-4 py-2 rounded-xl ${inputErrors["nb_joueurdetecter"]
-                                ? "is-invalid"
-                                : ""
+                                  ? "is-invalid"
+                                  : ""
                                 }`}
-                              placeholder="Nomber des joueurs detecter"
+                              placeholder={
+                                getTranslation(
+                                 `Number of players scouted`,  // -----> Englais
+                                 `Nombre de joueurs détectés`, //  -----> Francais
+                                 ``,  //  -----> Turkey
+                                 `` ,  //  -----> Allemagne
+                                 ) 
+                   
+                               } 
                               onChange={handleInputChange}
                             />
 
@@ -7834,7 +8839,17 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/f48abcee21a3194921563739310f0764132a8c52ff33636c5ffa29d102dc978c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square"
                           />
-                          <div className="grow max-md:max-w-full">Régions d’explorations</div>
+                          <div className="grow max-md:max-w-full">  
+                          {
+             getTranslation(
+              `Exploration regions`,  // -----> Englais
+              `Régions d’explorations`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                           </div>
                         </div>
                         <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-lg text-white whitespace-nowrap w-full md:w-[33%]">
                           <div className="flex flex-col justify-center px-0.5 border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full">
@@ -7844,26 +8859,35 @@ function Register() {
 
 
 
-                                <Select
-                                  options={regionOptions}
-                                  onChange={handleChangeregion}
-                                  placeholder="Choisi Les regions"
-                                  isMulti
-                                  className="w-full bg-zinc-100 border-[0px] text-base"
-                                  styles={{
-                                    option: (provided, state) => ({
-                                      ...provided,
-                                      color: state.isSelected ? 'black' : 'black', // Change colors as needed
-                                    }),
-                                    control: (provided, state) => ({
-                                      ...provided,
-                                      backgroundColor: '#F4F4F5',
-                                      border: 'none',
-                                      fontSize: 'sm',
-                                      width: "full"
-                                    }),
-                                  }}
-                                />
+                              <Select
+  options={regionOptions}
+  onChange={handleChangeregion}
+  placeholder={
+    getTranslation(
+     `The Exploration regions`,  // -----> Englais
+     `Les Régions d’explorations`, //  -----> Francais
+     ``,  //  -----> Turkey
+     `` ,  //  -----> Allemagne
+     ) 
+
+   } 
+
+  isMulti
+  className="w-full bg-zinc-100 border-[0px] text-base"
+  styles={{
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? 'black' : 'black', // Change colors as needed
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: '#F4F4F5', 
+      border: 'none',
+      fontSize: 'sm',
+      width: "full"
+    }),
+  }}
+/>
 
                               </div>
                             </div>
@@ -7878,7 +8902,15 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/eed879260ca15ccfad0d945395a8221b41159b944d63d78bddd58557acc9c58e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square"
                           />
-                          <div className="flex-auto">Compétences</div>
+                          <div className="flex-auto">{
+             getTranslation(
+              `Skills`,  // -----> Englais
+              `Compétences`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                         </div>
                         {/* <div className="flex flex-col justify-center content-start items-center mt-4 text-lg text-blue-600 whitespace-nowrap max-md:max-w-full">
 
@@ -7953,156 +8985,185 @@ function Register() {
 
 
 
-                        <div className="form-group icon-input  mb-3">
-                          {[
-                            "Analyse tactique",
-                            "Connaissance approfondie du sport",
-                            "Réseautage",
-                            "Observation",
-                            "Analyse des données",
-                            "Compétence en communication",
-                            "Connaissance des marchés",
-                            "Rapports détaillés",
-                            "Gestion du temps",
-                            "Éthique professionnelle",
-                            "Compétences informatiques",
-                            "Adaptabilité",
-                            "Évaluation psychologique",
+<div className="form-group icon-input  mb-3">
+{[
+                              "Analyse tactique",
+                              "Connaissance approfondie du sport",
+                              "Réseautage",
+                              "Observation",
+                              "Analyse des données",
+                              "Compétence en communication",
+                              "Connaissance des marchés",
+                              "Rapports détaillés",
+                              "Gestion du temps",
+                              "Éthique professionnelle",
+                              "Compétences informatiques",
+                              "Adaptabilité",
+                              "Évaluation psychologique",
 
-                            // Add other skills...
-                          ].map((skillsscout) => (
-                            <div
-                              key={skillsscout}
-                              className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
-                            >
-                              <input
-                                type="checkbox"
-                                id={skillsscout}
-                                name="skillsscout"
-                                checked={formData.skillsscout
-                                  .split(",")
-                                  .includes(skillsscout)}
-                                onChange={() =>
-                                  handleScoutSkillToggle(skillsscout)
-                                }
-                                className="form-check-input d-none rounded-[30px]"
-                              />
-                              <label
-                                htmlFor={skillsscout}
+                              // Add other skills...
+                            ].map((skillsscout) => (
+                                  <div
+                                    key={skillsscout}
+                                    className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
+                                  >
+                                    <input
+                                  type="checkbox"
+                                  id={skillsscout}
+                                  name="skillsscout"
+                                  checked={formData.skillsscout
+                                    .split(",")
+                                    .includes(skillsscout)}
+                                  onChange={() =>
+                                    handleScoutSkillToggle(skillsscout)
+                                  }
+                                      className="form-check-input d-none rounded-[30px]"
+                                    />
+                                     <label
+                                  htmlFor={skillsscout}
+                                 
 
-
-                                className={`form-check-label btn ${formData.skillsscout
-                                  .split(",")
-                                  .includes(skillsscout)
-                                  ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
+                                    className={`form-check-label btn ${formData.skillsscout
+                                      .split(",")
+                                      .includes(skillsscout)
+                                      ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
 
                                      ${!formData.skillsscout
+                                      .split(",")
+                                      .includes(skillsscout) &&
+                                      scoutSkillsError
+                                      ? "border-danger"
+                                      : ""
+                                    }`}
+                                >
+                                  {!formData.skillsscout
                                     .split(",")
-                                    .includes(skillsscout) &&
-                                    scoutSkillsError
-                                    ? "border-danger"
-                                    : ""
-                                  }`}
-                              >
-                                {!formData.skillsscout
-                                  .split(",")
-                                  .includes(skillsscout)
-                                  ? "+" // Display "+" when not selected
-                                  : "-"}{" "}
-                                {skillsscout}
-                              </label>
-
-
-                            </div>
-                          ))}
-                        </div>
-                        {scoutSkillsError && (
-                          <div className="text-danger mt-2">
-                            Vous pouvez selectionner au maximum 10 compétences !
-                          </div>
-                        )}
-
-                        <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-                          <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-                            <div className="flex md:flex-row gap-2 flex-row">
-                              <div className="flex md:flex-col gap-2 flex-row ">
-                                <label className="">
-                                  <input
-                                    type="checkbox"
-                                    checked={formData.termesConditions === "Oui"}
-                                    onChange={(e) =>
-                                      setFormData({
-                                        ...formData,
-                                        termesConditions: e.target.checked ? "Oui" : "Non",
-                                      })
-                                    }
-                                  />
+                                    .includes(skillsscout)
+                                    ? "+" // Display "+" when not selected
+                                    : "-"}{" "}
+                                  {skillsscout}
                                 </label>
 
+
+                                  </div>
+                                ))}
                               </div>
-                              <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-                                J'accepte les{" "}
-                                <span className="text-blue-600 block">Termes et Conditions</span>
-                              </div>
+                              {scoutSkillsError && (
+                                <div className="text-danger mt-2">
+                                  {
+             getTranslation(
+              `You can select up to 10 skills!`,  // -----> Englais
+              `Vous pouvez selectionner au maximum 10 compétences !`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                            </div>
-                          </div>
-                          {errorMessage && (
-                            <div className="error-message align-center text-red-600">{errorMessage}</div>
-                          )}
+            } 
+                                 
+                                </div>
+                              )}
+                  
+                  <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
+      <div className="flex md:flex-col gap-2 flex-row ">
+        <label className="">
+          <input
+            type="checkbox"
+            checked={formData.termesConditions === "Oui"}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                termesConditions: e.target.checked ? "Oui" : "Non",
+              })
+            }
+          />
+        </label>
+    
+       </div> 
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+        J'accepte les{" "}
+        <span className="text-blue-600 block">Termes et Conditions</span>
+      </div>
+   
+    </div>
+  </div>
+  {errorMessage && (
+                          <div className="error-message align-center text-red-600">{errorMessage}</div>
+                        )}
 
+                       
 
+  <div className="mt-2 gap-2    flex flex-row items-center">
+     <div className="flex flex-row self-start md:itmes-center pb-2">
+      <label>
+        <input
+          type="checkbox"
+          checked={formData.partagehorsPL === "Oui"}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              partagehorsPL: e.target.checked ? "Oui" : "Non",
+            })
+          }
+        />
+      </label>
+    </div> 
+    
+    <div className="md:w-auto w-[90%]">
+      <label className="tal1 block mb-2 ">
+       {
+             getTranslation(
+              `I authorize Odin E-Sport to share my posts outside the platform.`,  // -----> Englais
+              ` J'autorise Odin E-Sport à partager mes publications hors de la plateforme.`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                          <div className="mt-2 gap-2    flex flex-row items-center">
-                            <div className="flex flex-row self-start md:itmes-center pb-2">
-                              <label>
-                                <input
-                                  type="checkbox"
-                                  checked={formData.partagehorsPL === "Oui"}
-                                  onChange={(e) =>
-                                    setFormData({
-                                      ...formData,
-                                      partagehorsPL: e.target.checked ? "Oui" : "Non",
-                                    })
-                                  }
-                                />
-                              </label>
-                            </div>
+            }
 
-                            <div className="md:w-auto w-[90%]">
-                              <label className="block mb-2 ">
-                                J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-                              </label>
-                            </div>
+      </label>
+    </div>
+  
+  </div>
+</div>
 
-                          </div>
-                        </div>
-
-                        {(emailError || loginError) && (
+{(emailError || loginError) && (
                           <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
 
-                        <div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                          <button
-                            type="button"
-                            onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square"
-                            />
-                            <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                          </button>
-                          <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                            <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-                            </svg></button>
+<div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                        <button
+                          type="button"
+                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square"
+                          />
+                          <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        </button>
+                        <div className=" tal2 flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button type="submit" className="flex flex-row"> <span className="px-2">
+                            
+                          {
+             getTranslation(
+              `Submit`,  // -----> Englais
+              `Confirmer`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
-                          </div>
+            } 
+                             </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+  </svg></button>
+
                         </div>
+                      </div>
 
                       </div>
                     </div>
@@ -8132,20 +9193,29 @@ function Register() {
                 <>
                   <div className="flex flex-col items-center  h-full bg-gray-200">
 
-                    <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
-                      <div className="text-center max-w-xl mx-auto mt-8">
-                        <p className="text-3xl text-zinc-900 ">
-                          Informations du Profil
-                        </p>
-                      </div>
-                      <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                        <div className="flex gap-3 justify-between">
-                          <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
-                          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-                          <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
-                        </div>
+                  <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
+                    <div className="tal1 text-center max-w-xl mx-auto mt-8">
+                      <p className="text-3xl text-zinc-900 ">
+                      {
+                          getTranslation(
+                           `Profile Information`,  // -----> Englais
+                           ` Informations du Profil`, //  -----> Francais
+                           ``,  //  -----> Turkey
+                           `` ,  //  -----> Allemagne
+                           ) 
+             
+                         }
+                       
+                      </p>
+                    </div>
+                    <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                      <div className="flex gap-3 justify-between">
+                        <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
+                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
                       </div>
                     </div>
+                  </div>
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch rounded-3xl px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
                       <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
                         <div className="flex gap-4 self-start px-4 whitespace-nowrap  text-zinc-900">
@@ -8154,7 +9224,17 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d9b00671f5c6adfdf6ed3be7a7b9734acc3f6ea0ee7c51e1fe7326d623f7566?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square"
                           />
-                          <div className="grow">Profession</div>
+                          <div className="grow">
+                          {
+             getTranslation(
+              `The profession`,  // -----> Englais
+              `La profession`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                            </div>
                         </div>
                         <div className="flex flex-col justify-center mt-2 max-w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px]">
                           <select
@@ -8166,31 +9246,123 @@ function Register() {
                             value={formData.profession}
                             required
                           >
-                            <option value="">Profession</option>
-                            <option value="Fan Football">Fan Football</option>
+                            <option value="">
+                            {
+             getTranslation(
+              `Your profession`,  // -----> Englais
+              `Votre profession`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                              
+                              </option>
+                            <option value="Fan Football">
+                            {
+             getTranslation(
+              `Football Fan`,  // -----> Englais
+              `Fan de Football`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </option>
                             <option value="Journaliste Sportif">
-                              Journaliste Sportif
+                              
+           {
+             getTranslation(
+              `Sports Journalist`,  // -----> Englais
+              `Journaliste Sportif`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                             </option>
                             <option value="Arbitre Football">
-                              Arbitre Football
+                              
+                              {
+             getTranslation(
+              `Football Referee`,  // -----> Englais
+              `Arbitre Football`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                             </option>
                             <option value="Analyste de performance ">
-                              Analyste de performance
+                              
+                              {
+             getTranslation(
+              `Performance Analyst`,  // -----> Englais
+              `Analyste de performance`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                             </option>
                             <option value="Nutrtitionniste">
-                              Nutrtitionniste
+                              
+                              {
+             getTranslation(
+              `Nutritionist`,  // -----> Englais
+              `Nutrtitionniste`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                             </option>
                             <option value="Physiotherpeute">
-                              Physiotherpeute
+                              
+                              {
+             getTranslation(
+              `Physiotherapist`,  // -----> Englais
+              `Physiothérapeute`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                             </option>
                             <option value="Analyste de football">
-                              Analyste de football
+                              
+                              {
+             getTranslation(
+              `Football Analyst`,  // -----> Englais
+              `Analyste de Football`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                             </option>
                             <option value="Médecin d'équipe">
-                              Médecin d'équipe
+                              
+                              {
+             getTranslation(
+              `Team Doctor`,  // -----> Englais
+              `Médecin d'équipe`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                             </option>
                             <option value="Prof de fitnesse">
-                              Préparateur Physique
+                               
+                              {
+             getTranslation(
+              `Fitness Trainer`,  // -----> Englais
+              `Préparateur Physique`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                             </option>
                           </select>
                           {inputErrors["Profession"] && (
@@ -8209,7 +9381,17 @@ function Register() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/086c2fa012e3785486cfccd51151394483bfd7732b8e22ba3dbf33beaf66bf59?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="self-start w-5 aspect-square"
                           />
-                          <div className="flex-auto">Compétences</div>
+                          <div className="tal1 flex-auto">
+                          {
+             getTranslation(
+              `Skills`,  // -----> Englais
+              `Compétences`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                            </div>
                         </div>
                         <div className="flex flex-col flex-wrap justify-center content-start px-3.5 mt-4 text-blue-600 whitespace-nowrap max-md:max-w-full">
                           {formData.profession && (
@@ -8243,7 +9425,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8284,7 +9466,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8329,7 +9511,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8368,7 +9550,7 @@ function Register() {
                                         <label
                                           htmlFor={skillsAutre}
                                           className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                            ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
                                             }`}
@@ -8405,7 +9587,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8441,7 +9623,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8483,7 +9665,7 @@ function Register() {
                                         <label
                                           htmlFor={skillsAutre}
                                           className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                            ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
                                             }`}
@@ -8520,7 +9702,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8558,7 +9740,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8576,101 +9758,120 @@ function Register() {
 
 
                         <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-                          <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-                            <div className="flex md:flex-row gap-2 flex-row">
-                              <div className="flex md:flex-col gap-2 flex-row ">
-                                <label className="">
-                                  <input
-                                    type="checkbox"
-                                    checked={formData.termesConditions === "Oui"}
-                                    onChange={(e) =>
-                                      setFormData({
-                                        ...formData,
-                                        termesConditions: e.target.checked ? "Oui" : "Non",
-                                      })
-                                    }
-                                  />
-                                </label>
+  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+    <div className="flex md:flex-row gap-2 flex-row">
+      <div className="flex md:flex-col gap-2 flex-row ">
+        <label className="">
+          <input
+            type="checkbox"
+            checked={formData.termesConditions === "Oui"}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                termesConditions: e.target.checked ? "Oui" : "Non",
+              })
+            }
+          />
+        </label>
+    
+       </div> 
+       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+        J'accepte les{" "}
+        <span className="text-blue-600 block">Termes et Conditions</span>
+      </div>
+   
+    </div>
+  </div>
+  {errorMessage && (
+                          <div className="error-message align-center text-red-600">{errorMessage}</div>
+                        )}
 
-                              </div>
-                              <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-                                J'accepte les{" "}
-                                <span className="text-blue-600 block">Termes et Conditions</span>
-                              </div>
+                       
 
-                            </div>
-                          </div>
-                          {errorMessage && (
-                            <div className="error-message align-center text-red-600">{errorMessage}</div>
-                          )}
+  <div className="mt-2 gap-2    flex flex-row items-center">
+     <div className="flex flex-row self-start md:itmes-center pb-2">
+      <label>
+        <input
+          type="checkbox"
+          checked={formData.partagehorsPL === "Oui"}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              partagehorsPL: e.target.checked ? "Oui" : "Non",
+            })
+          }
+        />
+      </label>
+    </div> 
+    
+    <div className="md:w-auto w-[90%]">
+      <label className="tal1 block mb-2 ">
+      {
+             getTranslation(
+              `I authorize Odin E-Sport to share my posts outside the platform.`,  // -----> Englais
+              ` J'autorise Odin E-Sport à partager mes publications hors de la plateforme.`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
 
+            } 
+      </label>
+    </div>
+  
+  </div>
+</div>
 
-
-                          <div className="mt-2 gap-2    flex flex-row items-center">
-                            <div className="flex flex-row self-start md:itmes-center pb-2">
-                              <label>
-                                <input
-                                  type="checkbox"
-                                  checked={formData.partagehorsPL === "Oui"}
-                                  onChange={(e) =>
-                                    setFormData({
-                                      ...formData,
-                                      partagehorsPL: e.target.checked ? "Oui" : "Non",
-                                    })
-                                  }
-                                />
-                              </label>
-                            </div>
-
-                            <div className="md:w-auto w-[90%]">
-                              <label className="block mb-2 ">
-                                J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-                              </label>
-                            </div>
-
-                          </div>
-                        </div>
-
-                        {(emailError || loginError) && (
+{(emailError || loginError) && (
                           <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
 
-                        <div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                          <button
-                            type="button"
-                            onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square"
-                            />
-                            <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                          </button>
-                          <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                            <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-                            </svg></button>
+                      <div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                        <button
+                          type="button"
+                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square"
+                          />
+                          <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        </button>
+                        <div className="tal2 flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button type="submit" className="flex flex-row"> <span className="px-2">
+                            
+                          {
+                            getTranslation(
+                             `Submit`,  // -----> Englais
+                             `Confirmer`, //  -----> Francais
+                             ``,  //  -----> Turkey
+                             `` ,  //  -----> Allemagne
+                             ) 
+               
+                           }
+                            </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+  </svg></button>
 
-                          </div>
                         </div>
+                      </div>
+
+
+
+
+
+                        
+
+                       
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
+                       
                       </div>
                     </div>
                   </div>

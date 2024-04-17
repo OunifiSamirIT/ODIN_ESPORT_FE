@@ -211,7 +211,7 @@ function Home() {
   const userProfileType = storedUserData ? storedUserData.profil : null;
 
   const shouldHideForProfiles = ["other", "player"];
-  const shouldShowAgentItem = ["player", "other"].includes(userProfileType);
+  const shouldShowAgentItem = ["player"].includes(userProfileType);
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
@@ -294,13 +294,15 @@ function Home() {
                   </div>{" "}
                 </Link>
 
-                <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
-                {shouldShowAgentItem && (
+                {  shouldShowAgentItem && (
+                  
                   <Link
                     to="/defaultgroupagent"
                     className="nav-content-bttn open-font"
                   >
+                                    <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
+
                     <div className="flex justify-center items-center gap-4 py-2 px-6">
                       <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                         <svg

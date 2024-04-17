@@ -607,9 +607,19 @@ function Demo( ) {
               <div className=" gap-5 justify-center md:flex hidden items-center py-4 max-md:flex-wrap">
                 <div
                   onClick={() => scrollToRef(contactUsRef)}
-                  className="self-stretch my-auto text-base font-medium text-white"
+                  className="tal1 self-stretch my-auto text-base font-medium text-white"
                 >
-                  Contact
+                  
+
+                  {
+             getTranslation(
+              `Contact`,  // -----> Englais
+              `Contact`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>
                 {/* <a href="/blog">
                   {" "}
@@ -652,13 +662,35 @@ function Demo( ) {
 
                 <Link to="/register">
                   {" "}
-                  <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                    S'inscrire
+                  <div className="tal2 justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                    
+
+                    {
+             getTranslation(
+              `Sign Up`,  // -----> Englais
+              `S'inscrire`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+
                   </div>
                 </Link>
                 <Link to="login">
-                  <div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
-                    Se connecter
+                  <div className="tal2 justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
+                   
+
+                    {
+             getTranslation(
+              `Log In`,  // -----> Englais
+              `Se connecter `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                   </div>
                 </Link>
 
@@ -842,8 +874,18 @@ function Demo( ) {
       </div>
       <div class="flex justify-center items-center px-6 py-8 bg-neutral-900 max-md:px-3">
         <div class="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-          <div class="self-center text-3xl md:text-5xl font-bold text-white max-md:max-w-full">
-            Meet Our Valued Partners
+          <div class="tal1 self-center text-3xl md:text-5xl font-bold text-white max-md:max-w-full">
+            
+            {
+             getTranslation(
+              `Meet Our Valued Partners`,  // -----> Englais
+              `Découvrez nos partenaires précieux`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            }         
+
           </div>
           <div class="grid grid-cols-3 md:grid-cols-6   justify-center   mt-6 max-md:mt-4">
             <div class="flex  justify-center mb-4 max-md:w-full">
@@ -913,26 +955,80 @@ function Demo( ) {
           <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
             <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col self-stretch my-auto text-white max-md:mt-10">
-                <div className="text-3xl md:text-5xl font-bold max-md:max-w-full">
-                  Qui Sommes-Nous?
+                <div className="tal1 text-3xl md:text-5xl font-bold max-md:max-w-full">
+                  
+
+                  {
+             getTranslation(
+              `Who are we ?`,  // -----> Englais
+              `Qui Sommes-Nous? `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
                   <br />
-                  Débloquez vos rêves de football
+                  
+
+                  {
+             getTranslation(
+              `Unlocking Football Dreams`,  // -----> Englais
+              `Débloquez vos rêves de football `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>
-                <div className="mt-2 text-2xl font-light max-md:max-w-full">
-                  Une Expérience Exceptionnelle Pour Tous
+                <div className="tal1 mt-2 text-2xl font-light max-md:max-w-full">
+                  
+                  {
+             getTranslation(
+              `A Comprehensive Experience for All`,  // -----> Englais
+              `Une Expérience Exceptionnelle Pour Tous`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>
-                <div className="mt-12 text-lg max-md:mt-10 max-md:max-w-full">
-                  ODIN E-SPORT offre une expérience exceptionnelle pour tous les
-                  profils de l'écosystème du football, des jeunes talents aux
-                  agents de joueurs, aux entraîneurs et aux clubs de football.
-                  Que vous soyez un jeune talent cherchant à rayonner ou un
-                  professionnel du football à la recherche de la prochaine
-                  étoile, notre plateforme est l'endroit où les rêves se
-                  réalisent et les opportunités se concrétisent.
+                <div className="tal1 mt-12 text-lg max-md:mt-10 max-md:max-w-full">
+                  
+
+                  {
+             getTranslation(
+              `ODIN E-SPORT offers a comprehensive experience for all stakeholders 
+              in the football ecosystem, from young talents to player agents, coaches, 
+              and football clubs. Whether you're a young talent seeking to shine or a football 
+              professional looking for the next star, our platform is the place where dreams come 
+              true and opportunities materialize.`,  // -----> Englais
+              `ODIN E-SPORT offre une expérience exceptionnelle pour tous les
+              profils de l'écosyst-ème du football, des jeunes talents aux
+              agents de joueurs, aux entraîneurs et aux clubs de football.
+              Que vous soyez un jeune talent cherchant à rayonner ou un
+              professionnel du football à la recherche de la prochaine
+              étoile, notre plateforme est l'endroit où les rêves se
+              réalisent et les opportunités se concrétisent.`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>{" "}
                 <a href="/register">
-                  <div class="justify-center w-full  max-w-max self-start px-8 py-2 mt-12 text-base font-medium whitespace-nowrap bg-zinc-900 rounded-[30px] max-md:px-5 max-md:mt-10 inline-block ">
-                    Lancez Votre Parcours !
+                  <div class="tal2 justify-center w-full  max-w-max self-start px-8 py-2 mt-12 text-base font-medium whitespace-nowrap bg-zinc-900 rounded-[30px] max-md:px-5 max-md:mt-10 inline-block ">
+                    
+
+                    {
+             getTranslation(
+              `Begin your Adventure ! `,  // -----> Englais
+              `Lancez Votre Parcours !`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                   </div>
                 </a>
               </div>
@@ -952,22 +1048,71 @@ function Demo( ) {
           <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
             <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col justify-center self-stretch my-auto text-white max-md:mt-10 max-md:max-w-full">
-                <div className="text-4xl md:text-5xl font-bold max-md:max-w-full">
-                  Pour qui est <br /> ODIN E-SPORT? <br />
+                <div className="tal1 text-4xl md:text-5xl font-bold max-md:max-w-full">
+                  
+
+                  
+           {
+             getTranslation(
+              `Who is `,  // -----> Englais
+              `Pour qui est `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+                  <br/>
+                   
+                   {
+             getTranslation(
+              ` ODIN E-SPORT for ?`,  // -----> Englais
+              `ODIN E-SPORT? `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                    <br />
                 </div>{" "}
-                <div className="mt-2 text-lg max-md:max-w-full">
-                  ODIN E-SPORT accueille les passionnés de football de tous
-                  niveaux, des jeunes talents ambitieux aux joueurs
-                  professionnels. Que vous soyez joueur, entraîneur, agent ou
-                  représentant de club, notre plateforme offre une expérience
-                  personnalisée pour sublimer votre parcours de football.
-                  Rejoignez notre communauté inclusive et débloquez un nombre
-                  infini d'opportunités dans le monde de professionnalisme de
-                  football.
+                <div className="tal1 mt-2 text-lg max-md:max-w-full">
+                  
+                  {
+             getTranslation(
+              `ODIN E-SPORT welcomes football enthusiasts of all levels,
+               from aspiring young talents to seasoned professionals. 
+               Whether you're a player, coach, agent, or club representative, 
+               our platform provides a tailored experience to elevate your 
+               football journey. Join our inclusive community and unlock endless 
+               opportunities in the world of football. `,  // -----> Englais
+              `ODIN E-SPORT accueille les passionnés de football de tous
+              niveaux, des jeunes talents ambitieux aux joueurs
+              professionnels. Que vous soyez joueur, entraîneur, agent ou
+              représentant de club, notre plateforme offre une expérience
+              personnalisée pour sublimer votre parcours de football.
+              Rejoignez notre communauté inclusive et débloquez un nombre
+              infini d'opportunités dans le monde de professionnalisme de
+              football. `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>
                 <a href="/register">
-                  <div className="inline-block max-w-max justify-center self-start px-8 py-2 mt-8 text-base font-medium whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
-                    Rejoignez Nous!
+                  <div className="tal1 inline-block max-w-max justify-center self-start px-8 py-2 mt-8 text-base font-medium whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
+                    
+
+                      
+                   {
+             getTranslation(
+              ` Join us !`,  // -----> Englais
+              `Rejoignez Nous! `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                   </div>
                 </a>
               </div>
@@ -1016,15 +1161,39 @@ function Demo( ) {
                   srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="max-w-full aspect-square w-[161px]"
                 />
-                <div className="mt-8 text-4xl md:text-5xl font-bold max-md:max-w-full">
-                  Comment on peut vous aider?
+                <div className="tal1 mt-8 text-4xl md:text-5xl font-bold max-md:max-w-full">
+                   
+                  {
+             getTranslation(
+              `How can we help?`,  // -----> Englais
+              `Comment on peut vous aider?`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
                 </div>
-                <div className="mt-4 text-xl max-md:max-w-full">
-                  N'hésitez pas à poser vos questions ou à partager vos
-                  commentaires sur Odin E-sport, la première communauté des
-                  joueurs de football et des entités associées. Votre feedback
-                  est essentiel alors que nous construisons un espace inclusif
-                  pour les professionnels du football du monde entier.
+                <div className="tal1 mt-4 text-xl max-md:max-w-full">
+                  
+
+                  {
+             getTranslation(
+              `Feel free to ask questions or share feedback about Odin 
+              Esport, the premier community for football players and entities. 
+              Your input is vital as we cultivate an inclusive space for football 
+              professionals worldwide.`,  // -----> Englais
+              `N'hésitez pas à poser vos questions ou à partager vos
+              commentaires sur Odin E-sport, la première communauté des
+              joueurs de football et des entités associées. Votre feedback
+              est essentiel alors que nous construisons un espace inclusif
+              pour les professionnels du football du monde entier.`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
                 </div>
                 <img
                   loading="lazy"
@@ -1036,15 +1205,37 @@ function Demo( ) {
             <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
               <div className="flex grow justify-center items-center px-16 py-9 w-full text-base bg-white rounded-[30px] text-zinc-900 max-md:px-5 max-md:mt-10 max-md:max-w-full">
                 <div className="flex flex-col max-w-full w-[378px]">
-                  <div className="text-4xl md:text-5xl font-bold text-black">
-                    Contactez Nous
+                  <div className="tal2 text-4xl md:text-5xl font-bold text-black">
+                    
+
+                    {
+             getTranslation(
+              `Contact us `,  // -----> Englais
+              `Contactez Nous`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
                   </div>
                   <div>
                     <ToastContainer />
                   </div>
                   <form onSubmit={handleSubmit} className="flex flex-col">
-                    <label htmlFor="nomPrenom" className="mt-6">
+                    <label htmlFor="nomPrenom" className="tal1 mt-6">
                       Nom et Prénom
+                      {
+             getTranslation(
+              `Full name `,  // -----> Englais
+              `Nom et Prénom`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+
                     </label>
                     <input
                       type="text"
@@ -1055,8 +1246,18 @@ function Demo( ) {
                       className="justify-center items-start py-2 pr-16 pl-4 mt-2 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:pr-5"
                       required
                     />
-                    <label htmlFor="emailuser" className="mt-2">
-                      Email
+                    <label htmlFor="emailuser" className="tal1 mt-2">
+                      
+                      
+           {
+             getTranslation(
+              `Email`,  // -----> Englais
+              `Email`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                     </label>
                     <input
                       type="email"
@@ -1067,8 +1268,17 @@ function Demo( ) {
                       className="justify-center items-start py-2 pr-16 pl-4 mt-2 whitespace-nowrap rounded-3xl border border-solid border-[color:var(--Black,#1D1E21)] max-md:pr-5"
                       required
                     />
-                    <label htmlFor="message" className="mt-2">
-                      Message
+                    <label htmlFor="message" className="tal1 mt-2">
+                      
+                      {
+             getTranslation(
+              `Message`,  // -----> Englais
+              `Message`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                     </label>
                     <textarea
                       id="message"
@@ -1080,9 +1290,21 @@ function Demo( ) {
                     />
                     <button
                       type="submit"
-                      className="justify-center items-center px-16 py-2 mt-6 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5"
+                      className="tal2 justify-center items-center px-16 py-2 mt-6 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5"
                     >
-                      Envoyer
+                      
+                      
+                      
+           {
+             getTranslation(
+              `Submit`,  // -----> Englais
+              `Envoyer`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
                     </button>
                   </form>
                 </div>
@@ -1172,9 +1394,18 @@ function Demo( ) {
             <div className="flex gap-3 md:gap-5 justify-center items-center py-1 md:py-4 max-md:flex-wrap">
               <div
                 onClick={() => scrollToRef(contactUsRef)}
-                className="self-stretch my-auto text-base font-medium text-white"
+                className="tal1 self-stretch my-auto text-base font-medium text-white"
               >
-                Contact
+                
+           {
+             getTranslation(
+              `Contact`,  // -----> Englais
+              `Contact`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
               </div>
               {/* <a href="/blog">
                 {" "}
@@ -1194,14 +1425,32 @@ function Demo( ) {
               
               <a href="/register">
                 {" "}
-                <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                  S'inscrire
+                <div className="tal2 justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                  
+
+                  {
+             getTranslation(
+              `Sign Up`,  // -----> Englais
+              `S'inscrire `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>
               </a>
               <a href="/login">
                 {" "}
-                <div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
-                  Se connecter
+                <div className="tal2 justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
+                  {
+             getTranslation(
+              `Log In`,  // -----> Englais
+              `Se connecter `, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>
               </a>
 
@@ -1311,16 +1560,48 @@ function Demo( ) {
           </div>
           <div className="flex gap-5 justify-between py-2 mt-4 md:mt-6 max-md:flex-wrap border-t-white border-t-2 max-md:max-w-full">
             <div className="flex flex-col md:flex-row w-full gap-2 md:gap-3 self-end items-center justify-between ">
-              <div className="flex text-sm font-medium text-white underline">
-                Termes & Conditions
+              <div className="tal1 flex text-sm font-medium text-white underline">
+                
+
+                {
+             getTranslation(
+              `Terms & Conditions`,  // -----> Englais
+              `Termes & Conditions`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+
               </div>
-              <div className="flex text-sm font-medium text-white underline">
-                Politique de Confidentialité
+              <div className="tal1 flex text-sm font-medium text-white underline">
+                 
+
+                {
+             getTranslation(
+              `Privacy Policy`,  // -----> Englais
+              `Politique de Confidentialité`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
               </div>
             </div>
           </div>{" "}
-          <div className="flex flex-col items-center justify-between mt-1 text-xs text-white">
-            All Rights Reserved © 2024 Odin Esport
+          <div className="tal1 flex flex-col items-center justify-between mt-1 text-xs text-white">
+
+              
+            {
+             getTranslation(
+              ` All Rights Reserved © 2024 Odin Esport`,  // -----> Englais
+              `Tous droits réservés © 2024 Odin Esport`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } 
           </div>
         </div>
       </div>
