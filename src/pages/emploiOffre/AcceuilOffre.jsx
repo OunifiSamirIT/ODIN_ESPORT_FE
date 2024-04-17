@@ -9,7 +9,7 @@ import { Config } from "../../config";
 
 
 function AcceuilOffre() {
- 
+  
   const emailRef = useRef(null);
   const [copied, setCopied] = useState(false);
 

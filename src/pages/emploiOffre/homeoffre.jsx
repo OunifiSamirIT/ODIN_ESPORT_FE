@@ -8,10 +8,10 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import { Config } from "../../config";
+ 
 
 
-
-function acceuilOffre() {
+function HomeOffre() {
 
     const [album, setAlbum] = useState([]);
 
@@ -780,4 +780,4 @@ console.log("eeeeeeeeeee", result.data)
   )
 }
 
-export default acceuilOffre
+export default HomeOffre
