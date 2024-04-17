@@ -1,7 +1,7 @@
 import React, { Component, Fragment, useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Post from "../components/Post";
-import Albumsadmin from "../components/albumsadmin";
+import Albumsadmin from "../components/Albumsadmin";
 import Header from "../components/Header2";
 import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
@@ -382,22 +382,25 @@ function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
-                  <div className="flex gap-4 justify-between px-2 py-1.5">
+                <Link
+                  to="/defaultgroupEvents"
+                >
+                  <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
+                    <div className="flex gap-4 justify-between px-2 py-1.5">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                        className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                      />
+                      <div>Événements</div>
+                    </div>
                     <img
                       loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                      className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/d22964e4d2bf57e3d7709bb65ff794adb95fc3a025192d162071e4948acfdb9a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                      className="shrink-0 my-auto w-5 aspect-[2] fill-zinc-900"
                     />
-                    <div>Événements</div>
                   </div>
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/d22964e4d2bf57e3d7709bb65ff794adb95fc3a025192d162071e4948acfdb9a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                    className="shrink-0 my-auto w-5 aspect-[2] fill-zinc-900"
-                  />
-                </div>
-
+                </Link>
                 <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
                   <div className="flex gap-4 justify-between px-2 py-1.5">
                     {" "}
