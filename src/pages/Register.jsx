@@ -14,6 +14,7 @@ import ReactFlagsSelect from "react-flags-select";
 import "./flags.css";
 import Select, { components } from "react-select";
 import * as yup from "yup"
+import { Config } from "../config";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -4131,14 +4132,14 @@ function Register() {
       ...formData,
       Licence: selectedValue === "Oui" ? "Oui" : "Non", // Set to "Oui" if selected value is "Oui", otherwise set to "Non"
     });
-  
+
     // Enable or disable upload based on the selected value
     setUploadEnabled(selectedValue === "Oui");
-  
+
     // Clear the image preview when the selection changes
     setImagePreviewlic(null);
   };
-  
+
   const onSelect = (code) => setSelect(code);
   console.log("SELECT", select);
   const allCountries = [
@@ -4543,22 +4544,22 @@ function Register() {
 
   const handleChangephone = (selectedOption) => {
     setSelectedCountryphone(selectedOption);
-  
+
     const combinedPrefix = getCombinedPrefix(
       selectedCountryphoneWS ? selectedCountryphoneWS.phone : "", // WhatsApp prefix
       selectedOption.phone // Telephone prefix
     );
-  
+
     // Check if phone number is provided, if not, set it to null
     const tel = formData.tel ? formData.tel : null;
-  
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       optionalattributs: combinedPrefix,
       tel: tel // Set tel to null if it's not provided
     }));
   };
-  
+
   // const handleChangePhoneNumber = (e) => {
   //   const inputValue = e.target.value;
 
@@ -4580,7 +4581,7 @@ function Register() {
   // };
   const handleChangePhoneNumber = (e) => {
     const inputValue = e.target.value;
-  
+
     // Check if the entered value is empty or null
     if (inputValue === "" || inputValue === null) {
       setPhoneNumber(""); // Clear the phone number state
@@ -4605,7 +4606,7 @@ function Register() {
       }));
     }
   };
-  
+
 
   const optionsphone = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"] ? country.iso["alpha-2"].toLowerCase() : 'unknown';
@@ -4787,7 +4788,7 @@ function Register() {
   // };
   // const handleCoachSkillToggle = (coachSkill) => {
   //   let updatedCoachSkills = formData.skills.split(",");
-  
+
   //   if (updatedCoachSkills.includes(coachSkill)) {
   //     updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
   //   } else {
@@ -4795,18 +4796,18 @@ function Register() {
   //       updatedCoachSkills.push(coachSkill);
   //     }
   //   }
-  
+
   //   const isSkillsError = updatedCoachSkills.length > 10; // Check if there are more than 10 skills
-  
+
   //   setFormData({
   //     ...formData,
   //     skills: updatedCoachSkills.join(","),
   //   });
   //   setSkillsError(isSkillsError);
-  
+
   //   console.log('isSkillsError:', isSkillsError);
   // };
-  
+
 
   const handleCoachSkillToggle = (coachSkill) => {
     let updatedCoachSkills = formData.skills.split(",");
@@ -4912,7 +4913,7 @@ function Register() {
     }
   };
 
-  
+
 
 
   const handleInputChange = (e) => {
@@ -5107,7 +5108,7 @@ function Register() {
       return;
     }
 
-  
+
     setStep(step + 1);
   };
 
@@ -5204,17 +5205,17 @@ function Register() {
     //   ...prevFormData,
     //   termesConditions: false
     // })
-      
+
     // )
 
-    };
+  };
 
- 
+
 
   const step3ValidationSchema = yup.object().shape({
 
 
-    
+
     champsoptionelle: yup.string().when('profil', {
       is: 'player',
       then: () => yup.string().required("Ce champ est obligatoire !"),
@@ -5246,7 +5247,7 @@ function Register() {
       is: 'player',
       then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
-  
+
 
     // coach
 
@@ -5271,7 +5272,7 @@ function Register() {
       is: 'coach',
       then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
-  
+
     ///agent club 
 
     clubCovered: yup.string().when(['profil', 'typeresponsable'], {
@@ -5353,7 +5354,7 @@ function Register() {
       setInputErrors(errors);
       return;
     }
-    
+
     if (formData.termesConditions !== "Oui") {
       // If not, display an error or prevent form submission
       setErrorMessage("Veuillez accepter les Termes et Conditions .");
@@ -5367,7 +5368,7 @@ function Register() {
     //   return;
     // }
 
-     setErrorMessage("");
+    setErrorMessage("");
 
     const formDataToSubmit = new FormData();
 
@@ -5380,13 +5381,12 @@ function Register() {
       }
     });
     formDataToSubmit.append("file", File || null);
-
+    //prob
     try {
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/auth/signup`, {
         method: "POST",
         body: formDataToSubmit,
       });
-
       if (response.ok) {
         const responseData = await response.json();
 
@@ -5406,7 +5406,7 @@ function Register() {
           setEmailError("");
         } else {
           // Display a generic error message for any other registration failure
-           setEmailError("");
+          setEmailError("");
           setLoginError(errorData.message); // Set the backend error message
 
           // setLoginError("");
@@ -5463,7 +5463,7 @@ function Register() {
 
 
 
-         
+
 
 
           </div>
@@ -5522,11 +5522,11 @@ function Register() {
                 </div>
                 <div className="mt-3 md:mt-8 max-md:max-w-full">
                   <div className="flex gap-2 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
-                  
-                  
+
+
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                     
-                     
+
+
                       <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
                           <img
@@ -5849,44 +5849,43 @@ function Register() {
                           <div className="grow">Année de naissance</div>
                         </div>{" "}
                         <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                        <DatePicker
-  selected={
-    formData.date_naissance
-      ? new Date(formData.date_naissance)
-      : null
-  }
-  onChange={(date) => {
-    handleYearChange(date?.getFullYear());
-    // Update border color here
-    setInputErrors({
-      ...inputErrors,
-      date_naissance: "" // Clear any existing error
-    });
-  }}
-  dateFormat="yyyy"
-  showYearPicker
-  yearDropdownItemNumber={10}
-  maxDate={new Date(2012, 0, 1)}
-  placeholderText="Choisi une année "
-  className={`form-control flex flex-col justify-center w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
-    inputErrors["date_naissance"] ? "is-invalid" : ""
-  }`}
-/>
+                          <DatePicker
+                            selected={
+                              formData.date_naissance
+                                ? new Date(formData.date_naissance)
+                                : null
+                            }
+                            onChange={(date) => {
+                              handleYearChange(date?.getFullYear());
+                              // Update border color here
+                              setInputErrors({
+                                ...inputErrors,
+                                date_naissance: "" // Clear any existing error
+                              });
+                            }}
+                            dateFormat="yyyy"
+                            showYearPicker
+                            yearDropdownItemNumber={10}
+                            maxDate={new Date(2012, 0, 1)}
+                            placeholderText="Choisi une année "
+                            className={`form-control flex flex-col justify-center w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${inputErrors["date_naissance"] ? "is-invalid" : ""
+                              }`}
+                          />
 
 
 
-                           
+
                         </div>{" "}
                         <div className="self-center mt-2 text-zinc-800">
                           Vous devez avoir au moins 13 ans.
                         </div>
                       </div>
                       {inputErrors.date_naissance && (
-                              <span className="text-red-500 text-sm">
-                                {inputErrors.date_naissance}
-                              </span>
-                            )}
-                    </div> 
+                        <span className="text-red-500 text-sm">
+                          {inputErrors.date_naissance}
+                        </span>
+                      )}
+                    </div>
 
                   </div>
 
@@ -5959,7 +5958,7 @@ function Register() {
                             fontSize: "14px", // Set the desired font size
                             backgroundColor: "#f5f5f5", // Set the background color
                             borderWidth: "none",
-                         
+
 
 
                             paddingTop: "8px",
@@ -6060,8 +6059,8 @@ function Register() {
                   />{" "}
                   <div className="flex">Ville de résidence</div>
                   <div className="grow">(Facultative)</div>
-                 </div>{" "}
-                 <input
+                </div>{" "}
+                <input
                   type="text"
                   name="cityresidence"
                   value={formData.cityresidence}
@@ -6079,20 +6078,20 @@ function Register() {
                   <Link to="/"> <div className="flex gap-2 justify-between   px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
 
                     <div className="flex flex-row text-white">
-                      
-                    <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clipPath="url(#clip0_2249_46735)">
-      <path d="M14.9341 19.3598C14.9338 19.0284 14.8019 18.7107 14.5674 18.4765L8.17408 12.0831C7.98057 11.8897 7.82706 11.66 7.72233 11.4072C7.6176 11.1544 7.56369 10.8834 7.56369 10.6098C7.56369 10.3362 7.6176 10.0652 7.72233 9.81241C7.82706 9.55962 7.98057 9.32993 8.17408 9.13646L14.5591 2.7473C14.7868 2.51154 14.9128 2.19579 14.9099 1.86804C14.9071 1.5403 14.7756 1.22678 14.5439 0.995023C14.3121 0.763263 13.9986 0.631802 13.6708 0.628954C13.3431 0.626105 13.0273 0.752098 12.7916 0.979796L6.40658 7.36396C5.54805 8.22418 5.06588 9.38988 5.06588 10.6052C5.06588 11.8206 5.54805 12.9862 6.40658 13.8465L12.7999 20.2398C12.9745 20.4145 13.1969 20.5335 13.439 20.5819C13.6812 20.6304 13.9323 20.606 14.1606 20.5118C14.3889 20.4177 14.5842 20.258 14.7219 20.053C14.8595 19.848 14.9334 19.6068 14.9341 19.3598Z" fill="white" />
-    </g>
-    <defs>
-      <clipPath id="clip0_2249_46735">
-        <rect width={20} height={20} fill="white" transform="matrix(-1 0 0 1 20 0.609375)" />
-      </clipPath>
-    </defs>
-  </svg>
-                      
-                      
-                      
+
+                      <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clipPath="url(#clip0_2249_46735)">
+                          <path d="M14.9341 19.3598C14.9338 19.0284 14.8019 18.7107 14.5674 18.4765L8.17408 12.0831C7.98057 11.8897 7.82706 11.66 7.72233 11.4072C7.6176 11.1544 7.56369 10.8834 7.56369 10.6098C7.56369 10.3362 7.6176 10.0652 7.72233 9.81241C7.82706 9.55962 7.98057 9.32993 8.17408 9.13646L14.5591 2.7473C14.7868 2.51154 14.9128 2.19579 14.9099 1.86804C14.9071 1.5403 14.7756 1.22678 14.5439 0.995023C14.3121 0.763263 13.9986 0.631802 13.6708 0.628954C13.3431 0.626105 13.0273 0.752098 12.7916 0.979796L6.40658 7.36396C5.54805 8.22418 5.06588 9.38988 5.06588 10.6052C5.06588 11.8206 5.54805 12.9862 6.40658 13.8465L12.7999 20.2398C12.9745 20.4145 13.1969 20.5335 13.439 20.5819C13.6812 20.6304 13.9323 20.606 14.1606 20.5118C14.3889 20.4177 14.5842 20.258 14.7219 20.053C14.8595 19.848 14.9334 19.6068 14.9341 19.3598Z" fill="white" />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_2249_46735">
+                            <rect width={20} height={20} fill="white" transform="matrix(-1 0 0 1 20 0.609375)" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+
+
                       Retour</div>
                   </div>{" "}</Link>
                   <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
@@ -6104,15 +6103,15 @@ function Register() {
                       Suivant
                     </button>{" "}
                     <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clipPath="url(#clip0_2249_46740)">
-      <path d="M5.06543 19.3598C5.06572 19.0284 5.19761 18.7107 5.4321 18.4765L11.8254 12.0831C12.0189 11.8897 12.1725 11.66 12.2772 11.4072C12.3819 11.1544 12.4358 10.8834 12.4358 10.6098C12.4358 10.3362 12.3819 10.0652 12.2772 9.81241C12.1725 9.55962 12.0189 9.32993 11.8254 9.13646L5.44043 2.7473C5.21273 2.51154 5.08674 2.19579 5.08959 1.86804C5.09244 1.5403 5.2239 1.22678 5.45566 0.995023C5.68742 0.763263 6.00093 0.631802 6.32868 0.628954C6.65642 0.626105 6.97218 0.752098 7.20793 0.979796L13.5929 7.36396C14.4515 8.22418 14.9336 9.38988 14.9336 10.6052C14.9336 11.8206 14.4515 12.9862 13.5929 13.8465L7.1996 20.2398C7.02503 20.4145 6.80263 20.5335 6.56047 20.5819C6.31831 20.6304 6.06723 20.606 5.83892 20.5118C5.61061 20.4177 5.41531 20.258 5.27764 20.053C5.13998 19.848 5.06614 19.6068 5.06543 19.3598Z" fill="white" />
-    </g>
-    <defs>
-      <clipPath id="clip0_2249_46740">
-        <rect width={20} height={20} fill="white" transform="translate(0 0.609375)" />
-      </clipPath>
-    </defs>
-  </svg>
+                      <g clipPath="url(#clip0_2249_46740)">
+                        <path d="M5.06543 19.3598C5.06572 19.0284 5.19761 18.7107 5.4321 18.4765L11.8254 12.0831C12.0189 11.8897 12.1725 11.66 12.2772 11.4072C12.3819 11.1544 12.4358 10.8834 12.4358 10.6098C12.4358 10.3362 12.3819 10.0652 12.2772 9.81241C12.1725 9.55962 12.0189 9.32993 11.8254 9.13646L5.44043 2.7473C5.21273 2.51154 5.08674 2.19579 5.08959 1.86804C5.09244 1.5403 5.2239 1.22678 5.45566 0.995023C5.68742 0.763263 6.00093 0.631802 6.32868 0.628954C6.65642 0.626105 6.97218 0.752098 7.20793 0.979796L13.5929 7.36396C14.4515 8.22418 14.9336 9.38988 14.9336 10.6052C14.9336 11.8206 14.4515 12.9862 13.5929 13.8465L7.1996 20.2398C7.02503 20.4145 6.80263 20.5335 6.56047 20.5819C6.31831 20.6304 6.06723 20.606 5.83892 20.5118C5.61061 20.4177 5.41531 20.258 5.27764 20.053C5.13998 19.848 5.06614 19.6068 5.06543 19.3598Z" fill="white" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_2249_46740">
+                          <rect width={20} height={20} fill="white" transform="translate(0 0.609375)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
                   </div>
                 </div>
               </div>
@@ -6126,12 +6125,12 @@ function Register() {
                 Choisissez Le Type de Profil
               </div>
               <div className="flex justify-center items-center px-6 mt-3 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full sm:px-2 xs:px-2">
-              <div className="flex gap-3 justify-between mr-2 ml-2">
-                    <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                    <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+                <div className="flex gap-3 justify-between mr-2 ml-2">
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
 
-                    <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                  </div>
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                </div>
               </div>
 
 
@@ -6220,18 +6219,18 @@ function Register() {
                   >
 
                     <div className="flex flex-row text-white">
-                      
-                        
-                    <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clipPath="url(#clip0_2249_46735)">
-      <path d="M14.9341 19.3598C14.9338 19.0284 14.8019 18.7107 14.5674 18.4765L8.17408 12.0831C7.98057 11.8897 7.82706 11.66 7.72233 11.4072C7.6176 11.1544 7.56369 10.8834 7.56369 10.6098C7.56369 10.3362 7.6176 10.0652 7.72233 9.81241C7.82706 9.55962 7.98057 9.32993 8.17408 9.13646L14.5591 2.7473C14.7868 2.51154 14.9128 2.19579 14.9099 1.86804C14.9071 1.5403 14.7756 1.22678 14.5439 0.995023C14.3121 0.763263 13.9986 0.631802 13.6708 0.628954C13.3431 0.626105 13.0273 0.752098 12.7916 0.979796L6.40658 7.36396C5.54805 8.22418 5.06588 9.38988 5.06588 10.6052C5.06588 11.8206 5.54805 12.9862 6.40658 13.8465L12.7999 20.2398C12.9745 20.4145 13.1969 20.5335 13.439 20.5819C13.6812 20.6304 13.9323 20.606 14.1606 20.5118C14.3889 20.4177 14.5842 20.258 14.7219 20.053C14.8595 19.848 14.9334 19.6068 14.9341 19.3598Z" fill="white" />
-    </g>
-    <defs>
-      <clipPath id="clip0_2249_46735">
-        <rect width={20} height={20} fill="white" transform="matrix(-1 0 0 1 20 0.609375)" />
-      </clipPath>
-    </defs>
-  </svg>Retour</div>
+
+
+                      <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clipPath="url(#clip0_2249_46735)">
+                          <path d="M14.9341 19.3598C14.9338 19.0284 14.8019 18.7107 14.5674 18.4765L8.17408 12.0831C7.98057 11.8897 7.82706 11.66 7.72233 11.4072C7.6176 11.1544 7.56369 10.8834 7.56369 10.6098C7.56369 10.3362 7.6176 10.0652 7.72233 9.81241C7.82706 9.55962 7.98057 9.32993 8.17408 9.13646L14.5591 2.7473C14.7868 2.51154 14.9128 2.19579 14.9099 1.86804C14.9071 1.5403 14.7756 1.22678 14.5439 0.995023C14.3121 0.763263 13.9986 0.631802 13.6708 0.628954C13.3431 0.626105 13.0273 0.752098 12.7916 0.979796L6.40658 7.36396C5.54805 8.22418 5.06588 9.38988 5.06588 10.6052C5.06588 11.8206 5.54805 12.9862 6.40658 13.8465L12.7999 20.2398C12.9745 20.4145 13.1969 20.5335 13.439 20.5819C13.6812 20.6304 13.9323 20.606 14.1606 20.5118C14.3889 20.4177 14.5842 20.258 14.7219 20.053C14.8595 19.848 14.9334 19.6068 14.9341 19.3598Z" fill="white" />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_2249_46735">
+                            <rect width={20} height={20} fill="white" transform="matrix(-1 0 0 1 20 0.609375)" />
+                          </clipPath>
+                        </defs>
+                      </svg>Retour</div>
                   </button>
                   <button
                     type="button"
@@ -6240,22 +6239,22 @@ function Register() {
                   >
                     <div>Suivant</div>
                     <svg width={20} height={21} viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clipPath="url(#clip0_2249_46740)">
-      <path d="M5.06543 19.3598C5.06572 19.0284 5.19761 18.7107 5.4321 18.4765L11.8254 12.0831C12.0189 11.8897 12.1725 11.66 12.2772 11.4072C12.3819 11.1544 12.4358 10.8834 12.4358 10.6098C12.4358 10.3362 12.3819 10.0652 12.2772 9.81241C12.1725 9.55962 12.0189 9.32993 11.8254 9.13646L5.44043 2.7473C5.21273 2.51154 5.08674 2.19579 5.08959 1.86804C5.09244 1.5403 5.2239 1.22678 5.45566 0.995023C5.68742 0.763263 6.00093 0.631802 6.32868 0.628954C6.65642 0.626105 6.97218 0.752098 7.20793 0.979796L13.5929 7.36396C14.4515 8.22418 14.9336 9.38988 14.9336 10.6052C14.9336 11.8206 14.4515 12.9862 13.5929 13.8465L7.1996 20.2398C7.02503 20.4145 6.80263 20.5335 6.56047 20.5819C6.31831 20.6304 6.06723 20.606 5.83892 20.5118C5.61061 20.4177 5.41531 20.258 5.27764 20.053C5.13998 19.848 5.06614 19.6068 5.06543 19.3598Z" fill="white" />
-    </g>
-    <defs>
-      <clipPath id="clip0_2249_46740">
-        <rect width={20} height={20} fill="white" transform="translate(0 0.609375)" />
-      </clipPath>
-    </defs>
-  </svg>
+                      <g clipPath="url(#clip0_2249_46740)">
+                        <path d="M5.06543 19.3598C5.06572 19.0284 5.19761 18.7107 5.4321 18.4765L11.8254 12.0831C12.0189 11.8897 12.1725 11.66 12.2772 11.4072C12.3819 11.1544 12.4358 10.8834 12.4358 10.6098C12.4358 10.3362 12.3819 10.0652 12.2772 9.81241C12.1725 9.55962 12.0189 9.32993 11.8254 9.13646L5.44043 2.7473C5.21273 2.51154 5.08674 2.19579 5.08959 1.86804C5.09244 1.5403 5.2239 1.22678 5.45566 0.995023C5.68742 0.763263 6.00093 0.631802 6.32868 0.628954C6.65642 0.626105 6.97218 0.752098 7.20793 0.979796L13.5929 7.36396C14.4515 8.22418 14.9336 9.38988 14.9336 10.6052C14.9336 11.8206 14.4515 12.9862 13.5929 13.8465L7.1996 20.2398C7.02503 20.4145 6.80263 20.5335 6.56047 20.5819C6.31831 20.6304 6.06723 20.606 5.83892 20.5118C5.61061 20.4177 5.41531 20.258 5.27764 20.053C5.13998 19.848 5.06614 19.6068 5.06543 19.3598Z" fill="white" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_2249_46740">
+                          <rect width={20} height={20} fill="white" transform="translate(0 0.609375)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
                   </button>
                 </div>
               </div>
             </div>
           )}
 
-{step === 3 && (
+          {step === 3 && (
             <div>
               {formData.profil === "player" && (
                 <div className="flex flex-col items-center pb-12 w-full bg-gray-200">
@@ -6267,13 +6266,13 @@ function Register() {
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-8 sm:px-16 mt-4 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                  <div className="flex gap-3 justify-between mr-2 ml-2">
-                    <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                    <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                    <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+                      <div className="flex gap-3 justify-between mr-2 ml-2">
+                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
 
-                  </div>
-                </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-8 md:px-16 mt-8 w-full max-md:px-2 max-md:max-w-full">
                     <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
@@ -6407,39 +6406,39 @@ function Register() {
                                 }`}
                               onChange={handleInputChange}
                             >
-                           <option value="" disabled>
-                                    Position Principale
-                                </option>
-                                <option value="Gardien de but (GK)">
-                                    Gardien de but (GK)
-                                </option>
-                                <option value="Arrière droit (RB)">
-                                    Arrière droit (RB)
-                                </option>
-                                <option value="Arrière gauche( LB)">
-                                    Arrière gauche( LB)
-                                </option>
-                                <option value="Défenseur central (CB)">
-                                    Défenseur central (CB)
-                                </option>
-                                <option value="Milieu défensif (CDM)">
-                                    Milieu défensif (CDM)
-                                </option>
-                                <option value="Milieu central (CM)">
+                              <option value="" disabled>
+                                Position Principale
+                              </option>
+                              <option value="Gardien de but (GK)">
+                                Gardien de but (GK)
+                              </option>
+                              <option value="Arrière droit (RB)">
+                                Arrière droit (RB)
+                              </option>
+                              <option value="Arrière gauche( LB)">
+                                Arrière gauche( LB)
+                              </option>
+                              <option value="Défenseur central (CB)">
+                                Défenseur central (CB)
+                              </option>
+                              <option value="Milieu défensif (CDM)">
+                                Milieu défensif (CDM)
+                              </option>
+                              <option value="Milieu central (CM)">
                                 Milieu central (CM)
-                                </option>
-                                <option value="Milieu offensif (MO)">
-                                   Milieu offensif (MO)
-                                </option>
-                                <option value="Ailier droit (RW)">
-                                    Ailier droit (RW)
-                                </option>
-                                <option value="Ailier gauche ( LW)">
-                                    Ailier gauche ( LW)
-                                </option>
-                                <option value="Avant-centre ">
-                                    Avant-centre ( ST)
-                                </option>
+                              </option>
+                              <option value="Milieu offensif (MO)">
+                                Milieu offensif (MO)
+                              </option>
+                              <option value="Ailier droit (RW)">
+                                Ailier droit (RW)
+                              </option>
+                              <option value="Ailier gauche ( LW)">
+                                Ailier gauche ( LW)
+                              </option>
+                              <option value="Avant-centre ">
+                                Avant-centre ( ST)
+                              </option>
                             </select>
 
                           </div>
@@ -6464,8 +6463,8 @@ function Register() {
                               name="positionSecond"
                               value={formData.positionSecond}
                               className={`flex gap-5 bg-zinc-100 justify-between px-4 py-3.5 rounded-xl ${inputErrors["positionSecond"]
-                                  ? "is-invalid"
-                                  : ""
+                                ? "is-invalid"
+                                : ""
                                 }`}
                               onChange={handleInputChange}
                             >
@@ -6508,8 +6507,8 @@ function Register() {
                         </div>
                       </div>
 
-                   {/* license */}
-                   <div className="flex gap-5 justify-between mt-8 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                      {/* license */}
+                      <div className="flex gap-5 justify-between mt-8 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <div className="flex flex-col text-zinc-900">
                           <div className="flex gap-4 justify-between px-4 text-lg">
                             <img
@@ -6544,9 +6543,9 @@ function Register() {
                             />
                             <div className="grow">Licence</div>
                           </div>
-                          {isUploadEnabled && ( 
-                          
-                          <div  style={{ width: '335px' }} className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
+                          {isUploadEnabled && (
+
+                            <div style={{ width: '335px' }} className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
                               <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_1342_45742)">
                                   <path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#2E71EB" />
@@ -6558,24 +6557,24 @@ function Register() {
                                 </defs>
                               </svg>
                               <label className="relative block">
-    <input
-        type="file"
-        name="file"
-        accept="*"
-        onChange={handleFileChangeLicense}
-        className="absolute inset-0 opacity-0 md:w-full h-full cursor-pointer"
-    />
-    <span className="block -indent-20 !overflow-hidden whitespace-nowrap overflow-ellipsis">
-        {File ? File.name : 'Importer une Licence'}
-    </span>
-</label>
+                                <input
+                                  type="file"
+                                  name="file"
+                                  accept="*"
+                                  onChange={handleFileChangeLicense}
+                                  className="absolute inset-0 opacity-0 md:w-full h-full cursor-pointer"
+                                />
+                                <span className="block -indent-20 !overflow-hidden whitespace-nowrap overflow-ellipsis">
+                                  {File ? File.name : 'Importer une Licence'}
+                                </span>
+                              </label>
 
 
                             </div>)}
                           {!isUploadEnabled && (<div>
                             <div style={{ width: '335px' }} className="flex gap-4 justify-center items-center w-full">
-                              <div style={{ width: '335px', backgroundColor:'#B3B3B3' , fontFamily :'Sora'}} className={`font-sans w-full flex justify-center gap-2 bg-zinc-100 items-center px-4 py-3.5 rounded-xl `}>
-                              <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1342_20565)"><path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#5A5A5A"></path></g><defs><clipPath id="clip0_1342_20565"><rect width="20" height="20" fill="white" transform="translate(0.5)"></rect></clipPath></defs></svg>
+                              <div style={{ width: '335px', backgroundColor: '#B3B3B3', fontFamily: 'Sora' }} className={`font-sans w-full flex justify-center gap-2 bg-zinc-100 items-center px-4 py-3.5 rounded-xl `}>
+                                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1342_20565)"><path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#5A5A5A"></path></g><defs><clipPath id="clip0_1342_20565"><rect width="20" height="20" fill="white" transform="translate(0.5)"></rect></clipPath></defs></svg>
                                 <label>
                                   <input
                                     type="file"
@@ -6687,68 +6686,68 @@ function Register() {
                         </div>
                       )}
 
-<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-2 flex-row">
-      <div className="flex md:flex-col gap-2 flex-row ">
-        <label className="">
-          <input
-            type="checkbox"
-            checked={formData.termesConditions === "Oui"}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                termesConditions: e.target.checked ? "Oui" : "Non",
-              })
-            }
-          />
-        </label>
-    
-       </div> 
-       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-        J'accepte les{" "}
-        <span className="text-blue-600 block">Termes et Conditions</span>
-      </div>
-   
-    </div>
-  </div>
-  {errorMessage && (
+                      <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+                          <div className="flex md:flex-row gap-2 flex-row">
+                            <div className="flex md:flex-col gap-2 flex-row ">
+                              <label className="">
+                                <input
+                                  type="checkbox"
+                                  checked={formData.termesConditions === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.checked ? "Oui" : "Non",
+                                    })
+                                  }
+                                />
+                              </label>
+
+                            </div>
+                            <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                              J'accepte les{" "}
+                              <span className="text-blue-600 block">Termes et Conditions</span>
+                            </div>
+
+                          </div>
+                        </div>
+                        {errorMessage && (
                           <div className="error-message align-center text-red-600">{errorMessage}</div>
                         )}
 
-                       
 
-  <div className="mt-2 gap-2    flex flex-row items-center">
-     <div className="flex flex-row self-start md:itmes-center pb-2">
-      <label>
-        <input
-          type="checkbox"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.checked ? "Oui" : "Non",
-            })
-          }
-        />
-      </label>
-    </div> 
-    
-    <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 ">
-        J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-      </label>
-    </div>
-  
-  </div>
-</div>
 
-{(emailError || loginError) && (
-                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-                            {emailError && <p>{emailError}</p>}
-                            {loginError && <p>{loginError}</p>}
+                        <div className="mt-2 gap-2    flex flex-row items-center">
+                          <div className="flex flex-row self-start md:itmes-center pb-2">
+                            <label>
+                              <input
+                                type="checkbox"
+                                checked={formData.partagehorsPL === "Oui"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.checked ? "Oui" : "Non",
+                                  })
+                                }
+                              />
+                            </label>
                           </div>
-                        )}
+
+                          <div className="md:w-auto w-[90%]">
+                            <label className="block mb-2 ">
+                              J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                            </label>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      {(emailError || loginError) && (
+                        <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                          {emailError && <p>{emailError}</p>}
+                          {loginError && <p>{loginError}</p>}
+                        </div>
+                      )}
 
                       <div className="flex gap-2 md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
@@ -6763,8 +6762,8 @@ function Register() {
                         </button>
                         <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
                           <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-  </svg></button>
+                            <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+                          </svg></button>
 
                         </div>
                       </div>
@@ -6860,8 +6859,8 @@ function Register() {
                             name="footballTactic"
                             value={formData.footballTactic}
                             className={`form-control flex gap-5 justify-between  px-4 pb-2 pt-0 border-[0.5px]  mb-2 rounded-xl bg-zinc-100 ${inputErrors["footballTactic"]
-                                ? "is-invalid"
-                                : ""
+                              ? "is-invalid"
+                              : ""
                               }`}
                             onChange={handleInputChange}
                           >
@@ -6993,11 +6992,11 @@ function Register() {
                             Vous pouvez sélectionner au maximum 10 compétences !
                           </div>
                         )}
- {inputErrors["skills"] && (
-                        <div className="error-message text-red-600">
-                          {inputErrors["skills"]}
-                        </div>
-                      )}
+                        {inputErrors["skills"] && (
+                          <div className="error-message text-red-600">
+                            {inputErrors["skills"]}
+                          </div>
+                        )}
 
 
 
@@ -7010,70 +7009,70 @@ function Register() {
           )} 
           
           */}
-<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-2 flex-row">
-      <div className="flex md:flex-col gap-2 flex-row ">
-        <label className="">
-          <input
-            type="checkbox"
-            checked={formData.termesConditions === "Oui"}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                termesConditions: e.target.checked ? "Oui" : "Non",
-              })
-            }
-          />
-        </label>
-    
-       </div> 
-        <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-        J'accepte les{" "}
-        <span className="text-blue-600 block">Termes et Conditions</span>
-      </div>
-   
-    </div>
-  </div>
-  {errorMessage && (
+                      <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+                          <div className="flex md:flex-row gap-2 flex-row">
+                            <div className="flex md:flex-col gap-2 flex-row ">
+                              <label className="">
+                                <input
+                                  type="checkbox"
+                                  checked={formData.termesConditions === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      termesConditions: e.target.checked ? "Oui" : "Non",
+                                    })
+                                  }
+                                />
+                              </label>
+
+                            </div>
+                            <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                              J'accepte les{" "}
+                              <span className="text-blue-600 block">Termes et Conditions</span>
+                            </div>
+
+                          </div>
+                        </div>
+                        {errorMessage && (
                           <div className="error-message align-center text-red-600">{errorMessage}</div>
                         )}
 
-                       
 
-  <div className="mt-2 gap-2    flex flex-row items-center">
-     <div className="flex flex-row self-start md:itmes-center pb-2">
-      <label>
-        <input
-          type="checkbox"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.checked ? "Oui" : "Non",
-            })
-          }
-        />
-      </label>
-    </div> 
-    
-    <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 ">
-        J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-      </label>
-    </div>
-  
-  </div>
-</div>
 
-{(emailError || loginError) && (
-                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-                            {emailError && <p>{emailError}</p>}
-                            {loginError && <p>{loginError}</p>}
+                        <div className="mt-2 gap-2    flex flex-row items-center">
+                          <div className="flex flex-row self-start md:itmes-center pb-2">
+                            <label>
+                              <input
+                                type="checkbox"
+                                checked={formData.partagehorsPL === "Oui"}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    partagehorsPL: e.target.checked ? "Oui" : "Non",
+                                  })
+                                }
+                              />
+                            </label>
                           </div>
-                        )}
 
-<div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                          <div className="md:w-auto w-[90%]">
+                            <label className="block mb-2 ">
+                              J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                            </label>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      {(emailError || loginError) && (
+                        <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                          {emailError && <p>{emailError}</p>}
+                          {loginError && <p>{loginError}</p>}
+                        </div>
+                      )}
+
+                      <div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                         <button
                           type="button"
                           onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
@@ -7086,15 +7085,15 @@ function Register() {
                         </button>
                         <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
                           <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-  </svg></button>
+                            <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+                          </svg></button>
 
                         </div>
                       </div>
 
 
 
-              
+
                     </div>
                   </div>
                 </div>
@@ -7109,7 +7108,7 @@ function Register() {
 
                 <div className="flex flex-col items-center pb-12 h-full bg-gray-200">
 
-<div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
+                  <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
                     <div className="text-center max-w-xl mx-auto mt-8">
                       <p className="text-3xl text-zinc-900 ">
                         Informations du Profil
@@ -7147,8 +7146,8 @@ function Register() {
                                 id="typeresponsable"
                                 name="typeresponsable"
                                 className={`w-full bg-zinc-100 w-[270px]${inputErrors["typeresponsable"]
-                                    ? "is-invalid"
-                                    : ""
+                                  ? "is-invalid"
+                                  : ""
                                   }`}
                                 onChange={handleInputChange}
                                 value={formData.typeresponsable}
@@ -7274,7 +7273,7 @@ function Register() {
 
                               <div className="form-group icon-input  mb-3">
                                 {[
-                                  
+
 
 
 
@@ -7313,7 +7312,7 @@ function Register() {
                                     <label
                                       htmlFor={agentSkill}
                                       className={`form-check-label btn ${formData.skillsagent.split(",").includes(agentSkill)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
                                           ${!formData.skillsagent
                                           .split(",")
                                           .includes(agentSkill) &&
@@ -7340,93 +7339,93 @@ function Register() {
                                 </div>
                               )}
                               {inputErrors["skillsagent"] && (
-                            <div className="error-message text-red-600">
-                              {inputErrors["skillsagent"]}
-                            </div>
-                          )}
+                                <div className="error-message text-red-600">
+                                  {inputErrors["skillsagent"]}
+                                </div>
+                              )}
 
-                           
-<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-2 flex-row">
-      <div className="flex md:flex-col gap-2 flex-row ">
-        <label className="">
-          <input
-            type="checkbox"
-            checked={formData.termesConditions === "Oui"}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                termesConditions: e.target.checked ? "Oui" : "Non",
-              })
-            }
-          />
-        </label>
-    
-       </div> 
-       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-        J'accepte les{" "}
-        <span className="text-blue-600 block">Termes et Conditions</span>
-      </div>
-   
-    </div>
-  </div>
-  {errorMessage && (
-                          <div className="error-message align-center text-red-600">{errorMessage}</div>
-                        )}
 
-                       
+                              <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+                                  <div className="flex md:flex-row gap-2 flex-row">
+                                    <div className="flex md:flex-col gap-2 flex-row ">
+                                      <label className="">
+                                        <input
+                                          type="checkbox"
+                                          checked={formData.termesConditions === "Oui"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.checked ? "Oui" : "Non",
+                                            })
+                                          }
+                                        />
+                                      </label>
 
-  <div className="mt-2 gap-2    flex flex-row items-center">
-     <div className="flex flex-row self-start md:itmes-center pb-2">
-      <label>
-        <input
-          type="checkbox"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.checked ? "Oui" : "Non",
-            })
-          }
-        />
-      </label>
-    </div> 
-    
-    <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 ">
-        J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-      </label>
-    </div>
-  
-  </div>
-</div>
+                                    </div>
+                                    <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                      J'accepte les{" "}
+                                      <span className="text-blue-600 block">Termes et Conditions</span>
+                                    </div>
 
-{(emailError || loginError) && (
-                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-                            {emailError && <p>{emailError}</p>}
-                            {loginError && <p>{loginError}</p>}
-                          </div>
-                        )}
+                                  </div>
+                                </div>
+                                {errorMessage && (
+                                  <div className="error-message align-center text-red-600">{errorMessage}</div>
+                                )}
 
-                      <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                        <button
-                          type="button"
-                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square"
-                          />
-                          <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        </button>
-                        <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                          <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-  </svg></button>
 
-                        </div>
-                      </div>
+
+                                <div className="mt-2 gap-2    flex flex-row items-center">
+                                  <div className="flex flex-row self-start md:itmes-center pb-2">
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        checked={formData.partagehorsPL === "Oui"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.checked ? "Oui" : "Non",
+                                          })
+                                        }
+                                      />
+                                    </label>
+                                  </div>
+
+                                  <div className="md:w-auto w-[90%]">
+                                    <label className="block mb-2 ">
+                                      J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                                    </label>
+                                  </div>
+
+                                </div>
+                              </div>
+
+                              {(emailError || loginError) && (
+                                <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                                  {emailError && <p>{emailError}</p>}
+                                  {loginError && <p>{loginError}</p>}
+                                </div>
+                              )}
+
+                              <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                                <button
+                                  type="button"
+                                  onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </button>
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                                  <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+                                  </svg></button>
+
+                                </div>
+                              </div>
 
 
                             </>
@@ -7455,8 +7454,8 @@ function Register() {
                                           id="totalPlayer"
                                           name="totalPlayer"
                                           className={`bg-zinc-100 w-full ${inputErrors["totalPlayer"]
-                                              ? "is-invalid"
-                                              : ""
+                                            ? "is-invalid"
+                                            : ""
                                             }`}
                                           onChange={handleInputChange}
                                           value={formData.totalPlayer}
@@ -7486,8 +7485,8 @@ function Register() {
                                           id="totalCareerTransfers"
                                           name="totalCareerTransfers"
                                           className={`bg-zinc-100 mx-4 pl-3 w-[80%] ${inputErrors["totalCareerTransfers"]
-                                              ? "is-invalid"
-                                              : ""
+                                            ? "is-invalid"
+                                            : ""
                                             }`}
                                           onChange={handleInputChange}
                                           value={formData.totalCareerTransfers}
@@ -7557,9 +7556,9 @@ function Register() {
                                     <label
                                       htmlFor={agentSkill}
                                       className={`form-check-label btn ${formData.skillsagent
-                                          .split(",")
-                                          .includes(agentSkill)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
+                                        .split(",")
+                                        .includes(agentSkill)
+                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
                                           ${!formData.skillsagent
                                           .split(",")
                                           .includes(agentSkill) &&
@@ -7602,88 +7601,88 @@ function Register() {
 
 
 
-                            
-<div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-2 flex-row">
-      <div className="flex md:flex-col gap-2 flex-row ">
-        <label className="">
-          <input
-            type="checkbox"
-            checked={formData.termesConditions === "Oui"}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                termesConditions: e.target.checked ? "Oui" : "Non",
-              })
-            }
-          />
-        </label>
-    
-       </div> 
-       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-        J'accepte les{" "}
-        <span className="text-blue-600 block">Termes et Conditions</span>
-      </div>
-   
-    </div>
-  </div>
-  {errorMessage && (
-                          <div className="error-message align-center text-red-600">{errorMessage}</div>
-                        )}
 
-                       
+                              <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+                                <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+                                  <div className="flex md:flex-row gap-2 flex-row">
+                                    <div className="flex md:flex-col gap-2 flex-row ">
+                                      <label className="">
+                                        <input
+                                          type="checkbox"
+                                          checked={formData.termesConditions === "Oui"}
+                                          onChange={(e) =>
+                                            setFormData({
+                                              ...formData,
+                                              termesConditions: e.target.checked ? "Oui" : "Non",
+                                            })
+                                          }
+                                        />
+                                      </label>
 
-  <div className="mt-2 gap-2    flex flex-row items-center">
-     <div className="flex flex-row self-start md:itmes-center pb-2">
-      <label>
-        <input
-          type="checkbox"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.checked ? "Oui" : "Non",
-            })
-          }
-        />
-      </label>
-    </div> 
-    
-    <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 ">
-        J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-      </label>
-    </div>
-  
-  </div>
-</div>
+                                    </div>
+                                    <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                      J'accepte les{" "}
+                                      <span className="text-blue-600 block">Termes et Conditions</span>
+                                    </div>
 
-{(emailError || loginError) && (
-                          <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
-                            {emailError && <p>{emailError}</p>}
-                            {loginError && <p>{loginError}</p>}
-                          </div>
-                        )}
+                                  </div>
+                                </div>
+                                {errorMessage && (
+                                  <div className="error-message align-center text-red-600">{errorMessage}</div>
+                                )}
 
-                      <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                        <button
-                          type="button"
-                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square"
-                          />
-                          <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        </button>
-                        <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                          <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-  </svg></button>
 
-                        </div>
-                      </div>
+
+                                <div className="mt-2 gap-2    flex flex-row items-center">
+                                  <div className="flex flex-row self-start md:itmes-center pb-2">
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        checked={formData.partagehorsPL === "Oui"}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            partagehorsPL: e.target.checked ? "Oui" : "Non",
+                                          })
+                                        }
+                                      />
+                                    </label>
+                                  </div>
+
+                                  <div className="md:w-auto w-[90%]">
+                                    <label className="block mb-2 ">
+                                      J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                                    </label>
+                                  </div>
+
+                                </div>
+                              </div>
+
+                              {(emailError || loginError) && (
+                                <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
+                                  {emailError && <p>{emailError}</p>}
+                                  {loginError && <p>{loginError}</p>}
+                                </div>
+                              )}
+
+                              <div className="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                                <button
+                                  type="button"
+                                  onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                </button>
+                                <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                                  <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+                                  </svg></button>
+
+                                </div>
+                              </div>
 
 
 
@@ -7729,24 +7728,24 @@ function Register() {
 
                   <div className="flex flex-col items-center pb-52 -mb-px bg-gray-200">
 
-                  <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
-                    <div className="text-center max-w-xl mx-auto mt-8">
-                      <p className="text-3xl text-zinc-900 ">
-                        Informations du Profil
-                      </p>
-                    </div>
-                    <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-3 justify-between">
-                        <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
-                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-                        <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
+                    <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
+                      <div className="text-center max-w-xl mx-auto mt-8 ">
+                        <p className="text-3xl text-zinc-900 ">
+                          Informations du Profil
+                        </p>
+                      </div>
+                      <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                        <div className="flex gap-3 justify-between">
+                          <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
+                          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                          <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
+                        </div>
                       </div>
                     </div>
-                  </div>
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
                       <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
                         <div className="flex  gap-3  md:gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-                          
+
                           <div className="flex flex-col w-full md:w-[33%]  text-zinc-900">
                             <div className="flex gap-4 mb-2 justify-between px-4 text-lg whitespace-nowrap">
                               <img
@@ -7765,19 +7764,19 @@ function Register() {
 
 
                             <select
-  name="engagement"
-  value={formData.engagement}
-  className={`form-control flex justify-between border-[0.5px] px-4 pb-3 mb-2 bg-zinc-100 rounded-[30px] ${inputErrors["engagement"] ? "is-invalid" : ""}`}
-  style={{ paddingTop: "1px", paddingBottom: "10px" }} // Adjust padding as needed
-  onChange={handleInputChange}
->
-  <option value="" disabled>
-    Votre Engagement
-  </option>
-  <option value="plein-temps">Plein Temps</option>
-  <option value="mi-temps">Mi-Temps</option>
-  <option value="volontaire">Volontaire</option>
-</select>
+                              name="engagement"
+                              value={formData.engagement}
+                              className={`form-control flex justify-between border-[0.5px] px-4 pb-3 mb-2 bg-zinc-100 rounded-[30px] ${inputErrors["engagement"] ? "is-invalid" : ""}`}
+                              style={{ paddingTop: "1px", paddingBottom: "10px" }} // Adjust padding as needed
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                Votre Engagement
+                              </option>
+                              <option value="plein-temps">Plein Temps</option>
+                              <option value="mi-temps">Mi-Temps</option>
+                              <option value="volontaire">Volontaire</option>
+                            </select>
 
 
 
@@ -7807,8 +7806,8 @@ function Register() {
                               name="nb_joueurdetecter"
                               value={formData.nb_joueurdetecter}
                               className={` form-control flex gap-5 justify-between border-[0.5px] mb-1 bg-zinc-100 w-full px-4 py-2 rounded-xl ${inputErrors["nb_joueurdetecter"]
-                                  ? "is-invalid"
-                                  : ""
+                                ? "is-invalid"
+                                : ""
                                 }`}
                               placeholder="Nomber des joueurs detecter"
                               onChange={handleInputChange}
@@ -7845,26 +7844,26 @@ function Register() {
 
 
 
-                              <Select
-  options={regionOptions}
-  onChange={handleChangeregion}
-  placeholder="Choisi Les regions"
-  isMulti
-  className="w-full bg-zinc-100 border-[0px] text-base"
-  styles={{
-    option: (provided, state) => ({
-      ...provided,
-      color: state.isSelected ? 'black' : 'black', // Change colors as needed
-    }),
-    control: (provided, state) => ({
-      ...provided,
-      backgroundColor: '#F4F4F5', 
-      border: 'none',
-      fontSize: 'sm',
-      width: "full"
-    }),
-  }}
-/>
+                                <Select
+                                  options={regionOptions}
+                                  onChange={handleChangeregion}
+                                  placeholder="Choisi Les regions"
+                                  isMulti
+                                  className="w-full bg-zinc-100 border-[0px] text-base"
+                                  styles={{
+                                    option: (provided, state) => ({
+                                      ...provided,
+                                      color: state.isSelected ? 'black' : 'black', // Change colors as needed
+                                    }),
+                                    control: (provided, state) => ({
+                                      ...provided,
+                                      backgroundColor: '#F4F4F5',
+                                      border: 'none',
+                                      fontSize: 'sm',
+                                      width: "full"
+                                    }),
+                                  }}
+                                />
 
                               </div>
                             </div>
@@ -7954,156 +7953,156 @@ function Register() {
 
 
 
-<div className="form-group icon-input  mb-3">
-{[
-                              "Analyse tactique",
-                              "Connaissance approfondie du sport",
-                              "Réseautage",
-                              "Observation",
-                              "Analyse des données",
-                              "Compétence en communication",
-                              "Connaissance des marchés",
-                              "Rapports détaillés",
-                              "Gestion du temps",
-                              "Éthique professionnelle",
-                              "Compétences informatiques",
-                              "Adaptabilité",
-                              "Évaluation psychologique",
+                        <div className="form-group icon-input  mb-3">
+                          {[
+                            "Analyse tactique",
+                            "Connaissance approfondie du sport",
+                            "Réseautage",
+                            "Observation",
+                            "Analyse des données",
+                            "Compétence en communication",
+                            "Connaissance des marchés",
+                            "Rapports détaillés",
+                            "Gestion du temps",
+                            "Éthique professionnelle",
+                            "Compétences informatiques",
+                            "Adaptabilité",
+                            "Évaluation psychologique",
 
-                              // Add other skills...
-                            ].map((skillsscout) => (
-                                  <div
-                                    key={skillsscout}
-                                    className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
-                                  >
-                                    <input
-                                  type="checkbox"
-                                  id={skillsscout}
-                                  name="skillsscout"
-                                  checked={formData.skillsscout
-                                    .split(",")
-                                    .includes(skillsscout)}
-                                  onChange={() =>
-                                    handleScoutSkillToggle(skillsscout)
-                                  }
-                                      className="form-check-input d-none rounded-[30px]"
-                                    />
-                                     <label
-                                  htmlFor={skillsscout}
-                                 
+                            // Add other skills...
+                          ].map((skillsscout) => (
+                            <div
+                              key={skillsscout}
+                              className="form-check  rounded-[30px] form-check-inline me-2 mb-2"
+                            >
+                              <input
+                                type="checkbox"
+                                id={skillsscout}
+                                name="skillsscout"
+                                checked={formData.skillsscout
+                                  .split(",")
+                                  .includes(skillsscout)}
+                                onChange={() =>
+                                  handleScoutSkillToggle(skillsscout)
+                                }
+                                className="form-check-input d-none rounded-[30px]"
+                              />
+                              <label
+                                htmlFor={skillsscout}
 
-                                    className={`form-check-label btn ${formData.skillsscout
-                                      .split(",")
-                                      .includes(skillsscout)
-                                      ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
+
+                                className={`form-check-label btn ${formData.skillsscout
+                                  .split(",")
+                                  .includes(skillsscout)
+                                  ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} 
 
                                      ${!formData.skillsscout
-                                      .split(",")
-                                      .includes(skillsscout) &&
-                                      scoutSkillsError
-                                      ? "border-danger"
-                                      : ""
-                                    }`}
-                                >
-                                  {!formData.skillsscout
                                     .split(",")
-                                    .includes(skillsscout)
-                                    ? "+" // Display "+" when not selected
-                                    : "-"}{" "}
-                                  {skillsscout}
-                                </label>
+                                    .includes(skillsscout) &&
+                                    scoutSkillsError
+                                    ? "border-danger"
+                                    : ""
+                                  }`}
+                              >
+                                {!formData.skillsscout
+                                  .split(",")
+                                  .includes(skillsscout)
+                                  ? "+" // Display "+" when not selected
+                                  : "-"}{" "}
+                                {skillsscout}
+                              </label>
 
 
-                                  </div>
-                                ))}
-                              </div>
-                              {scoutSkillsError && (
-                                <div className="text-danger mt-2">
-                                  Vous pouvez selectionner au maximum 10 compétences !
-                                </div>
-                              )}
-                  
-                  <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-2 flex-row">
-      <div className="flex md:flex-col gap-2 flex-row ">
-        <label className="">
-          <input
-            type="checkbox"
-            checked={formData.termesConditions === "Oui"}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                termesConditions: e.target.checked ? "Oui" : "Non",
-              })
-            }
-          />
-        </label>
-    
-       </div> 
-       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-        J'accepte les{" "}
-        <span className="text-blue-600 block">Termes et Conditions</span>
-      </div>
-   
-    </div>
-  </div>
-  {errorMessage && (
-                          <div className="error-message align-center text-red-600">{errorMessage}</div>
+                            </div>
+                          ))}
+                        </div>
+                        {scoutSkillsError && (
+                          <div className="text-danger mt-2">
+                            Vous pouvez selectionner au maximum 10 compétences !
+                          </div>
                         )}
 
-                       
+                        <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+                            <div className="flex md:flex-row gap-2 flex-row">
+                              <div className="flex md:flex-col gap-2 flex-row ">
+                                <label className="">
+                                  <input
+                                    type="checkbox"
+                                    checked={formData.termesConditions === "Oui"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.checked ? "Oui" : "Non",
+                                      })
+                                    }
+                                  />
+                                </label>
 
-  <div className="mt-2 gap-2    flex flex-row items-center">
-     <div className="flex flex-row self-start md:itmes-center pb-2">
-      <label>
-        <input
-          type="checkbox"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.checked ? "Oui" : "Non",
-            })
-          }
-        />
-      </label>
-    </div> 
-    
-    <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 ">
-        J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-      </label>
-    </div>
-  
-  </div>
-</div>
+                              </div>
+                              <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                J'accepte les{" "}
+                                <span className="text-blue-600 block">Termes et Conditions</span>
+                              </div>
 
-{(emailError || loginError) && (
+                            </div>
+                          </div>
+                          {errorMessage && (
+                            <div className="error-message align-center text-red-600">{errorMessage}</div>
+                          )}
+
+
+
+                          <div className="mt-2 gap-2    flex flex-row items-center">
+                            <div className="flex flex-row self-start md:itmes-center pb-2">
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  checked={formData.partagehorsPL === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.checked ? "Oui" : "Non",
+                                    })
+                                  }
+                                />
+                              </label>
+                            </div>
+
+                            <div className="md:w-auto w-[90%]">
+                              <label className="block mb-2 ">
+                                J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                              </label>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        {(emailError || loginError) && (
                           <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
 
-<div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                        <button
-                          type="button"
-                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square"
-                          />
-                          <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        </button>
-                        <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                          <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-  </svg></button>
+                        <div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                          <button
+                            type="button"
+                            onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                          </button>
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                            <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+                            </svg></button>
 
+                          </div>
                         </div>
-                      </div>
 
                       </div>
                     </div>
@@ -8133,20 +8132,20 @@ function Register() {
                 <>
                   <div className="flex flex-col items-center  h-full bg-gray-200">
 
-                  <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
-                    <div className="text-center max-w-xl mx-auto mt-8">
-                      <p className="text-3xl text-zinc-900 ">
-                        Informations du Profil
-                      </p>
-                    </div>
-                    <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-3 justify-between">
-                        <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
-                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-                        <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
+                    <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
+                      <div className="text-center max-w-xl mx-auto mt-8">
+                        <p className="text-3xl text-zinc-900 ">
+                          Informations du Profil
+                        </p>
+                      </div>
+                      <div className="flex justify-center items-center px-16  mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+                        <div className="flex gap-3 justify-between">
+                          <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
+                          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
+                          <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
+                        </div>
                       </div>
                     </div>
-                  </div>
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch rounded-3xl px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
                       <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
                         <div className="flex gap-4 self-start px-4 whitespace-nowrap  text-zinc-900">
@@ -8244,7 +8243,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8285,7 +8284,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8330,7 +8329,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8369,7 +8368,7 @@ function Register() {
                                         <label
                                           htmlFor={skillsAutre}
                                           className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
                                             }`}
@@ -8406,7 +8405,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8442,7 +8441,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8484,7 +8483,7 @@ function Register() {
                                         <label
                                           htmlFor={skillsAutre}
                                           className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                            ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                               ? "border-danger"
                                               : ""
                                             }`}
@@ -8521,7 +8520,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"}  ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8559,7 +8558,7 @@ function Register() {
                                       <label
                                         htmlFor={skillsAutre}
                                         className={`form-check-label btn ${formData.skillsAutre.split(',').includes(skillsAutre)
-                                        ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
+                                          ? "bg-blue-600 py-2.5 rounded-full text-white" : "bg-white py-2.5 rounded-full"} ${!formData.skillsAutre.split(',').includes(skillsAutre) && skillsAutreError
                                             ? "border-danger"
                                             : ""
                                           }`}
@@ -8577,101 +8576,101 @@ function Register() {
 
 
                         <div className="flex flex-col gap-2 md:gap-5 mt-2 text-lg max-md:flex-wrap max-md:max-w-full">
-  <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
-    <div className="flex md:flex-row gap-2 flex-row">
-      <div className="flex md:flex-col gap-2 flex-row ">
-        <label className="">
-          <input
-            type="checkbox"
-            checked={formData.termesConditions === "Oui"}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                termesConditions: e.target.checked ? "Oui" : "Non",
-              })
-            }
-          />
-        </label>
-    
-       </div> 
-       <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
-        J'accepte les{" "}
-        <span className="text-blue-600 block">Termes et Conditions</span>
-      </div>
-   
-    </div>
-  </div>
-  {errorMessage && (
-                          <div className="error-message align-center text-red-600">{errorMessage}</div>
-                        )}
+                          <div className="flex gap-1 justify-between whitespace-nowrap text-zinc-900">
+                            <div className="flex md:flex-row gap-2 flex-row">
+                              <div className="flex md:flex-col gap-2 flex-row ">
+                                <label className="">
+                                  <input
+                                    type="checkbox"
+                                    checked={formData.termesConditions === "Oui"}
+                                    onChange={(e) =>
+                                      setFormData({
+                                        ...formData,
+                                        termesConditions: e.target.checked ? "Oui" : "Non",
+                                      })
+                                    }
+                                  />
+                                </label>
 
-                       
+                              </div>
+                              <div className="flex flex-row  md:gap-3  underline mb-2 sm:mb-0 sm:order-1" onClick={handleTermsLinkClick}>
+                                J'accepte les{" "}
+                                <span className="text-blue-600 block">Termes et Conditions</span>
+                              </div>
 
-  <div className="mt-2 gap-2    flex flex-row items-center">
-     <div className="flex flex-row self-start md:itmes-center pb-2">
-      <label>
-        <input
-          type="checkbox"
-          checked={formData.partagehorsPL === "Oui"}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              partagehorsPL: e.target.checked ? "Oui" : "Non",
-            })
-          }
-        />
-      </label>
-    </div> 
-    
-    <div className="md:w-auto w-[90%]">
-      <label className="block mb-2 ">
-        J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
-      </label>
-    </div>
-  
-  </div>
-</div>
+                            </div>
+                          </div>
+                          {errorMessage && (
+                            <div className="error-message align-center text-red-600">{errorMessage}</div>
+                          )}
 
-{(emailError || loginError) && (
+
+
+                          <div className="mt-2 gap-2    flex flex-row items-center">
+                            <div className="flex flex-row self-start md:itmes-center pb-2">
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  checked={formData.partagehorsPL === "Oui"}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      partagehorsPL: e.target.checked ? "Oui" : "Non",
+                                    })
+                                  }
+                                />
+                              </label>
+                            </div>
+
+                            <div className="md:w-auto w-[90%]">
+                              <label className="block mb-2 ">
+                                J'autorise Odin E-Sport à partager mes publications hors de la plateforme.
+                              </label>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        {(emailError || loginError) && (
                           <div className="inline-block text-center text-white bg-orange-500 border-0.5 p-2 rounded">
                             {emailError && <p>{emailError}</p>}
                             {loginError && <p>{loginError}</p>}
                           </div>
                         )}
 
-                      <div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                        <button
-                          type="button"
-                          onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square"
-                          />
-                          <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        </button>
-                        <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                          <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
-  </svg></button>
+                        <div class="flex  md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                          <button
+                            type="button"
+                            onClick={handlePrevStep} className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9772a7a53b18b6a8d736b49ecb35ea60754bc1c1cb822d5108c85c04ca43d092?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <div className="grow text-white"> &nbsp;&nbsp;Retour&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                          </button>
+                          <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                            <button type="submit" className="flex flex-row"> <span className="px-2">Confirmer </span> <svg width={21} height={16} viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M6.92986 15.1094C6.34004 15.1096 5.77436 14.8752 5.35764 14.4578L0.6043 9.70618C0.0928374 9.19455 0.0928374 8.36521 0.6043 7.85358C1.11593 7.34212 1.94527 7.34212 2.4569 7.85358L6.92986 12.3265L18.7634 0.492972C19.2751 -0.0184907 20.1044 -0.0184907 20.616 0.492972C21.1275 1.0046 21.1275 1.83394 20.616 2.34557L8.50208 14.4578C8.08536 14.8752 7.51969 15.1096 6.92986 15.1094Z" fill="white" />
+                            </svg></button>
 
+                          </div>
                         </div>
-                      </div>
-
-
-
-
-
-                        
-
-                       
 
 
 
 
 
 
-                       
+
+
+
+
+
+
+
+
+
                       </div>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import React, { element, useEffect, useState } from "react";
+import React, { element, useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 import { createRoot } from "react-dom/client"; // Import createRoot from react-dom/client
@@ -84,7 +84,9 @@ import ProfileSetting from "./pages/Setting/index"
 
 
 
-import OffreEmploi from "./pages/emploiOffre/acceuilOffre"
+import OffreEmploi from "./pages/emploiOffre/AcceuilOffre"
+import Entrpriseemploi from "./pages/emploiOffre/entreprise"
+import Homeoffre from "./pages/emploiOffre/homeoffre"
 
 
 
@@ -98,6 +100,7 @@ import AddEvent from './pages/Admin/Components/AddEvent'
 import AddAlbum from './pages/Admin/Components/AddAlbum'
 import AddAlbumEvents from './pages/Admin/Components/AddAlbumEvents'
 import AddAlbumcamps from './pages/Admin/Components/AddAlbumCamps'
+import AddOffreemploi from './pages/Admin/offreemploi/addoffre'
 import EditUser from './pages/Admin/Components/EditUser'
 import CreateUser from './pages/Admin/Components/CreateUser'
 import FormCamps from './pages/GallerieuserForm'
@@ -114,17 +117,58 @@ import * as serviceWorker from "./serviceWorker";
 import { Routes } from "react-router-dom/dist";
 import { BsTruckFlatbed } from "react-icons/bs";
 import Errors from "./pages/404";
+
 const rootElement = document.getElementById("root");
 
-function Root() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+export const Context = React.createContext(null)
 
+function Root() {
+  
+  
+  
+  
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  
+  // start ________________________translation methods and state
+  let [_currentLang, _setLang] = useState("");
+  let getTranslation = (lang1, lang2, lang3, lang4) => {
+    if (_currentLang == "Eng") {
+      return lang1
+    }
+    else if (  _currentLang == "Fr" ) {
+
+      return lang2
+    }
+    else if (  _currentLang == "Tr" ) {
+      return lang3
+    }
+    else {
+     return lang4
+
+    }
+  } 
+
+  // end ________________________translation methods and state
   useEffect(() => {
     // Check if there's a valid token in localStorage
     const token = localStorage.getItem('accessToken');
     if (token) {
       setIsAuthenticated(true);
     }
+
+  // start ________________________initialize translation 
+      console.log("_____", localStorage.getItem("language"));
+      
+      if (!localStorage.getItem("language")) {
+        localStorage.setItem("language", "fr");
+        console.log("moush mawjoud", localStorage.getItem("language"));
+        _setLang("Fr")
+      } else {
+        console.log("mawjoud", localStorage.getItem("language"));
+      }
+      _setLang(localStorage.getItem("language"))
+
+  // end ________________________initialize translation
   }, []);
 
   // Define a function to set authentication status
@@ -141,7 +185,9 @@ function Root() {
   };
 
   return (
+
     <React.StrictMode>
+    <Context.Provider value={ {_currentLang: _currentLang, _setLang:_setLang, getTranslation: getTranslation} } >
       <BrowserRouter basename={"/"}>
         <Routes>
           <Route exact path="/" element={<Demo />} />
@@ -180,6 +226,8 @@ function Root() {
           <Route exact path="/admin/album" element={<Album />} />
           <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
           <Route exact path="/admin/albumevents" element={<Albumevents />} />
+
+          <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
 
           {/* 02/02 */}
           <Route exact path="/odin/album" element={<Galleryuser />} />
@@ -235,6 +283,13 @@ function Root() {
 
               <Route exact path="/blog" element={<Blog />} />
               <Route exact path="/blog/:articleId" element={<SingleArticle />} />
+              
+              
+              
+              
+              <Route exact path="/offre_emploi/:id" element={<OffreEmploi />} />
+              <Route exact path="/entreprise" element={<Entrpriseemploi />} />
+              <Route exact path="/homeoffre" element={<Homeoffre />} />
 
 
 
@@ -286,6 +341,7 @@ function Root() {
 
         </Routes>
       </BrowserRouter>
+      </Context.Provider>
     </React.StrictMode>
 
   );
