@@ -342,7 +342,7 @@ const Personal = ({ userInfo }) => {
               />
               <div className="grow max-md:max-w-full">A Propos de Moi</div>
             </div>
-            <textarea {...register("discreptionBio", { required: true })} name="discreptionBio" placeholder="A Propos de Moi" className={`border border-gray-800 border-solid ${errors.discreptionBio ? "!border-red-500" : "border-neutral-200"} justify-center p-4 mt-2 text-base font-light  rounded-[30px] text-zinc-900 max-md:max-w-full `}>
+            <textarea {...register("discreptionBio")} name="discreptionBio" placeholder="A Propos de Moi" className={`border border-gray-800 border-solid ${errors.discreptionBio ? "!border-red-500" : "border-neutral-200"} justify-center p-4 mt-2 text-base font-light  rounded-[30px] text-zinc-900 max-md:max-w-full `}>
             </textarea>
             {errors.discreptionBio && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
           </div>

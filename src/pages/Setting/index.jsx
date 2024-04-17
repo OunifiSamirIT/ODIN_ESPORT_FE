@@ -46,17 +46,16 @@ const Index = () => {
     const [PlayerData, setPlyerData] = useState([]);
     const [profile, setUserProfile] = useState([]);
     const [file, setFile] = useState(null);
+    const fetchUserInfo = async () => {
+        try {
+            const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`);
+            const data = await response.json();
+            setUserInfo(data);
+        } catch (error) {
+            console.error("Error fetching user information:", error);
+        }
+    };
     useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`);
-                const data = await response.json();
-                setUserInfo(data);
-            } catch (error) {
-                console.error("Error fetching user information:", error);
-            }
-        };
-
         fetchUserInfo();
     }, [storedUserData.id]);
     useEffect(() => {
@@ -83,7 +82,7 @@ const Index = () => {
                     {currentTab === 'parametre' && <Parametre userInfo={userInfo} />}
                     {currentTab === 'experience' && <Experience userInfo={userInfo} />}
                     {currentTab === 'personal' && <Personal userInfo={userInfo} />}
-                    {currentTab === 'information' && <Information userInfo={userInfo} />}
+                    {currentTab === 'information' && <Information userInfo={userInfo} fetchUserInfo={fetchUserInfo} />}
                 </SettingsLayout>
             </HomeLayout>
 
