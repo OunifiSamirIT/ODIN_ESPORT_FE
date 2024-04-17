@@ -23,7 +23,7 @@ const Album = () => {
   const [user, setUser] = useState([]);
 
 
-
+ 
 
   const [searchDuree, setSearchDuree] = useState("");
   const [searchPays, setSearchPays] = useState("");
@@ -229,7 +229,7 @@ const Album = () => {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      Acceuil
+                      Acceuil 
                     </div>
                   </div>
                 </Link>
