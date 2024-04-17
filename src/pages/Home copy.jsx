@@ -1,7 +1,7 @@
 import React, { Component, Fragment, useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Post from "../components/Post"; 
-import Albumsadmin from "../components/albumsadmin"; 
+import Post from "../components/Post";
+import Albumsadmin from "../components/Albumsadmin";
 import Header from "../components/Header2";
 import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
@@ -81,131 +81,131 @@ function Home() {
     const seconds = String(d.getSeconds()).padStart(2, '0');
 
     return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-};
+  };
 
-const fetchData = async () => {
+  const fetchData = async () => {
     try {
-        setLoading(true);
+      setLoading(true);
 
-        // Fetch articles (posts) and albums
-        const articlesResponse = await fetchArticles();
-        console.log("🚀 ~ fetchData ~ articlesResponse:", articlesResponse);
-        const albumsResponse = await fetchAlbums();
-        console.log('_-_-_-_-_-_', albumsResponse);
+      // Fetch articles (posts) and albums
+      const articlesResponse = await fetchArticles();
+      console.log("🚀 ~ fetchData ~ articlesResponse:", articlesResponse);
+      const albumsResponse = await fetchAlbums();
+      console.log('_-_-_-_-_-_', albumsResponse);
 
-        // Parse createdAt for articles
-        const parsedArticles = articlesResponse.map(article => {
-            // Assuming createdAt is in mm-dd-yyyy format, split and rearrange the date
-            const [month, day, year] = article.createdAt.split('-');
-            const formattedDate = `${day}-${month}-${year}`;
-            return {
-                ...article,
-                createdAt: formatDate(formattedDate)
-            };
-        });
+      // Parse createdAt for articles
+      const parsedArticles = articlesResponse.map(article => {
+        // Assuming createdAt is in mm-dd-yyyy format, split and rearrange the date
+        const [month, day, year] = article.createdAt.split('-');
+        const formattedDate = `${day}-${month}-${year}`;
+        return {
+          ...article,
+          createdAt: formatDate(formattedDate)
+        };
+      });
 
-        // Parse createdAt for albums
-        const parsedAlbums = albumsResponse.map(album => {
-            return {
-                ...album,
-                createdAt: formatDate(album.createdAt)
-            };
-        });
+      // Parse createdAt for albums
+      const parsedAlbums = albumsResponse.map(album => {
+        return {
+          ...album,
+          createdAt: formatDate(album.createdAt)
+        };
+      });
 
-        // Combine articles and albums into a single array
-        const combinedData = [...parsedArticles, ...parsedAlbums];
+      // Combine articles and albums into a single array
+      const combinedData = [...parsedArticles, ...parsedAlbums];
 
-        // Sort the combined array by createdAt
-        combinedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      // Sort the combined array by createdAt
+      combinedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-        // Update state with sorted data
-        setData(combinedData);
+      // Update state with sorted data
+      setData(combinedData);
 
-        console.log("combinedData", combinedData);
-        console.log(data, "data-------------------");
+      console.log("combinedData", combinedData);
+      console.log(data, "data-------------------");
 
-        setLoading(false);
+      setLoading(false);
     } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
+      console.error("Error fetching data:", error);
+      setLoading(false);
     }
-};
+  };
 
 
-  
- 
 
-      const fetchArticles = async (page = 1, size = 10) => {
-        try {
-          const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
-          const result = await response.json();
-          console.log("🚀 ~ fetchArticles ~ result:", result)
-    
-          const articlesWithPromises = result.rows.map(async (article) => {
-            const userId = article.userId;
-            const comt = article.id;
-    
-            const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
-              fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
-              fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
-              fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
-            ]);
-    
-            const likesCount = likesCountResponse.find(
-              (count) =>
-                count.articleId === article.articleId ||
-                count.articleId === article.id
-            );
-    
-            return {
-              ...article,
-              user: userDataResponse,
-              comments: commentsResponse.commentsData,
-              commentsCount: commentsResponse.commentCount,
-              likesCount: likesCount ? likesCount.likesCount : 0,
-            };
-          });
-    
-          const reversedArticlesWithPromises = articlesWithPromises.reverse(); // Reverse the order
-          console.log("🚀 ~ fetchArticles ~ reversedArticlesWithPromises:", reversedArticlesWithPromises)
-          const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
-            console.log("🚀 ~ fetchArticles ~ articlesWithLikesCount:", articlesWithLikesCount)
-            // setData(articlesWithLikesCount);
-          // console.log("articles : ", articlesWithLikesCount);
-    
-          //llml Update pagination state
-          // setTotalItems(result.totalItems);
-          // setTotalPages(result.totalPages);
-          // setCurrentPage(page);
-          return articlesWithLikesCount
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
 
-      // for left slide barre ---------------------------------
-      const [user, setUser] = useState([]);
 
-      useEffect(() => {
-        const storedUserData = JSON.parse(localStorage.getItem("user"));
-        const id = storedUserData ? storedUserData.id : null;
-    
-        if (id) {
-          fetch(`${Config.LOCAL_URL}/api/user/${id}`)
-            .then((response) => response.json())
-            .then((userData) => {
-              setUser(userData);
-              console.log("user offre" , user)
-            })
-            .catch((error) => console.error("Error fetching user data:", error));
-        }
-    
-       
-      }, []);
- 
+  const fetchArticles = async (page = 1, size = 10) => {
+    try {
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
+      const result = await response.json();
+      console.log("🚀 ~ fetchArticles ~ result:", result)
+
+      const articlesWithPromises = result.rows.map(async (article) => {
+        const userId = article.userId;
+        const comt = article.id;
+
+        const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
+          fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
+          fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
+          fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
+        ]);
+
+        const likesCount = likesCountResponse.find(
+          (count) =>
+            count.articleId === article.articleId ||
+            count.articleId === article.id
+        );
+
+        return {
+          ...article,
+          user: userDataResponse,
+          comments: commentsResponse.commentsData,
+          commentsCount: commentsResponse.commentCount,
+          likesCount: likesCount ? likesCount.likesCount : 0,
+        };
+      });
+
+      const reversedArticlesWithPromises = articlesWithPromises.reverse(); // Reverse the order
+      console.log("🚀 ~ fetchArticles ~ reversedArticlesWithPromises:", reversedArticlesWithPromises)
+      const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
+      console.log("🚀 ~ fetchArticles ~ articlesWithLikesCount:", articlesWithLikesCount)
+      // setData(articlesWithLikesCount);
+      // console.log("articles : ", articlesWithLikesCount);
+
+      //llml Update pagination state
+      // setTotalItems(result.totalItems);
+      // setTotalPages(result.totalPages);
+      // setCurrentPage(page);
+      return articlesWithLikesCount
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  // for left slide barre ---------------------------------
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const id = storedUserData ? storedUserData.id : null;
+
+    if (id) {
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+        .then((response) => response.json())
+        .then((userData) => {
+          setUser(userData);
+          console.log("user offre", user)
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+
+
+  }, []);
+
   const storedUserData = JSON.parse(localStorage.getItem("user"));
 
- 
+
   const id = storedUserData.id ? storedUserData.id : null;
 
   const userProfileType = storedUserData ? storedUserData.profil : null;
@@ -225,11 +225,11 @@ const fetchData = async () => {
         <Header />
         <div className="self-center px-3 md:px-2 mt-24 w-full max-w-[1344px] max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-2 max-md:flex-col max-md:gap-0">
-         
-         
-         
-         
-         
+
+
+
+
+
             {/* left menu */}
             <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col items-start gap-4 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
@@ -400,7 +400,7 @@ const fetchData = async () => {
                   />
                 </div>
 
-               <Link to="/homeoffre"> <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
+                <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
                   <div className="flex gap-4 justify-between px-2 py-1.5">
                     {" "}
                     <img
@@ -410,17 +410,17 @@ const fetchData = async () => {
                     />
                     <div>Offres d’emploi</div>
                   </div>
-                </div></Link>
+                </div>
                 {!(userProfileType === "other" && user?.other?.profession === "Fan Football") && userProfileType !== "player" && (
 
-                <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                    className="shrink-0 my-auto w-4 aspect-square fill-white"
-                  />
-                  <div>Publier une offre</div>
-                </div>
+                  <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                      className="shrink-0 my-auto w-4 aspect-square fill-white"
+                    />
+                    <div>Publier une offre</div>
+                  </div>
                 )}
 
               </div>
@@ -434,38 +434,38 @@ const fetchData = async () => {
 
 
             {/* create post */}
-            
-          
-               
-            <div className="flex flex-1 flex-col">
-            <CreatePost/>
-            {
-  loading ? (
-    // Render skeleton loading effect while data is being fetched
-    Array(10).fill().map((_, index) => (
-      <SkeletonArticleCard key={index} />
-    ))
-  ) : (
-    <div>
-      {
-        data.map((item, index) => (
-          <div key={`item-${index}`}>
-            {
-              // Conditionally render Albumsadmin or Post component based on the number of keys in the item
-              Object.keys(item).length <= 7 ? (
-                <Albumsadmin item={item} />
-              ) : (
-                <Post article={item} setArticles={setData} />
-              )
-            }
-          </div>
-        ))
-      }
-    </div>
-  )
-}
 
-    </div>
+
+
+            <div className="flex flex-1 flex-col">
+              <CreatePost />
+              {
+                loading ? (
+                  // Render skeleton loading effect while data is being fetched
+                  Array(10).fill().map((_, index) => (
+                    <SkeletonArticleCard key={index} />
+                  ))
+                ) : (
+                  <div>
+                    {
+                      data.map((item, index) => (
+                        <div key={`item-${index}`}>
+                          {
+                            // Conditionally render Albumsadmin or Post component based on the number of keys in the item
+                            Object.keys(item).length <= 7 ? (
+                              <Albumsadmin item={item} />
+                            ) : (
+                              <Post article={item} setArticles={setData} />
+                            )
+                          }
+                        </div>
+                      ))
+                    }
+                  </div>
+                )
+              }
+
+            </div>
             <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow max-md:mt-6">
                 <Friends />

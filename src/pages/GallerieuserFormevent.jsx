@@ -26,15 +26,10 @@ import Header from "../components/Header2";
 
 
 const schema = yup.object().shape({
-  passport: yup
+  modepaiement: yup
     .string()
-    .required("Ce Champs est obligatoire !"),
-  date_validation: yup.string().when('passport', {
-    is: 'Oui',  // Add the condition here
-    then: () => yup.string().required("Ce Champs est obligatoire !"),
-    otherwise: () => yup.string(), // Validation is skipped when passport is 'Non'
-  }),
-  fraisinscrit: yup.string().required("Veuillez confirmer votre engagement !"),
+    .required("Ce Champs est obligatoire  xxxxxxxx!"),
+
 });
 
 
@@ -60,7 +55,7 @@ const Album = () => {
 
   const handelretourform = () => {
 
-    navigate("/defaultgroup")
+    navigate("/defaultgroupEvents")
 
   }
 
@@ -80,20 +75,7 @@ const Album = () => {
         .catch((error) => console.error("Error fetching user data:", error));
     }
 
-    const fetchAlbums = async () => {
-      try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
-        const result = await response.json();
 
-        setAlbum(result.data);
-
-        console.log(album);
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-      }
-    };
-
-    fetchAlbums();
   }, []);
 
   const matchingCountry = paysAllInfo.find(
@@ -112,19 +94,6 @@ const Album = () => {
 
   const [errors, setErrors] = useState({});
 
-  const validateField = async (name, value) => {
-    try {
-      // Only validate date_validation if passport is set to "Oui"
-      if (name === "date_validation" && formData.passport === "Non") {
-        setErrors((prevErrors) => ({ ...prevErrors, date_validation: null }));
-      } else {
-        await schema.validateAt(name, { [name]: value });
-        setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
-      }
-    } catch (error) {
-      setErrors((prevErrors) => ({ ...prevErrors, [name]: error.message }));
-    }
-  };
 
 
 
@@ -138,19 +107,17 @@ const Album = () => {
 
   const [formData, setFormData] = useState({
     emailsecondaire: "",
-    passport: "",
-    date_validation: "",
-    fraisinscrit: "",
+    modepaiement: "",
+
     status: "Encours",
     champsoptionnel: "",
-    campsId: "",
+    eventodinId: "",
     userId: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-    validateField(name, value);
   };
 
 
@@ -168,21 +135,21 @@ const Album = () => {
 
         const storedUserData = JSON.parse(localStorage.getItem("user"));
         const userId = storedUserData ? storedUserData.id : null;
-        const campsId = id;
+        const eventodinId = id;
 
-        fetch(`${Config.LOCAL_URL}/api/inscrit/upload`, {
+        fetch(`${Config.LOCAL_URL}/api/inscritevent/upload`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
             emailsecondaire: formData.emailsecondaire,
-            passport: formData.passport,
-            date_validation: formData.date_validation,
-            fraisinscrit: formData.fraisinscrit,
+            modepaiement: formData.modepaiement,
+            // date_validation: formData.date_validation,
+            // fraisinscrit: formData.fraisinscrit,
             status: formData.status,
             champsoptionnel: formData.champsoptionnel,
-            campsId: campsId,
+            eventodinId: eventodinId,
             userId: userId,
           }),
         })
@@ -193,19 +160,19 @@ const Album = () => {
             // Reset form data after successful submission
             setFormData({
               emailsecondaire: "",
-              passport: "",
-              date_validation: "",
-              fraisinscrit: "",
+              modepaiement: "",
+              // date_validation: "",
+              // fraisinscrit: "",
               status: "",
               champsoptionnel: "",
-              campsId: "",
+              eventodinId: "",
               userId: "",
             });
 
 
 
 
-            navigate(`/thanks/${id}`);
+            navigate(`/thanksevent/${id}`);
           })
           .catch((error) => {
             console.error("Error submitting form:", error);
@@ -216,6 +183,7 @@ const Album = () => {
 
         if (validationErrors.inner && Array.isArray(validationErrors.inner)) {
           validationErrors.inner.forEach((error) => {
+            console.log(error)
             newErrors[error.path] = error.message;
           });
         } else {
@@ -402,7 +370,7 @@ const Album = () => {
                 <div className="flex-auto">Ville de résidence</div>
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-                {users?.user?.cityresidence}
+                {users?.user?.countryresidence}
               </div>
             </div>
             <div className="flex flex-col flex-1 mt-1 whitespace-nowrap">
@@ -462,79 +430,26 @@ const Album = () => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/8bf2ef649448b0d66ed482eea95f865c88a2d95fa6ccdf076dec39eb896daea2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="my-auto w-5 aspect-square"
                 />
-                <div className="grow">Avez-vous un Passport ?</div>
+                <div className="grow">Mode de paiement ?</div>
               </div>
               <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                <div htmlFor="passport" className="flex gap-5 justify-between px-4 py-2 rounded-md">
+                <div htmlFor="modepaiement" className="flex gap-5 justify-between px-4 py-2 rounded-md">
                   <select
-                    name="passport"
-                    value={formData.passport}
+                    name="modepaiement"
+                    value={formData.modepaiement}
                     onChange={handleChange}
                     className="w-full"
                   >
-                    <option>Oui / Non</option>
-                    <option value="Oui">Oui</option>
-                    <option value="Non">Non</option>
+                    <option>Par virement / sur place</option>
+                    <option value="Par virement">Par virement</option>
+                    <option value="Sur place">Sur place</option>
                   </select>
                 </div>
-              </div>  <p className="text-red text-md">{errors.passport}</p>
+              </div>  <p className="text-red text-md">{errors.modepaiement}</p>
             </div>
-            <div className="flex flex-col flex-1">
-              <div className="flex gap-4 justify-between px-4 text-lg text-zinc-900">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/d25aba1d49146125c002c91e072e49db818d43215feceb4a7555ff8fa612d13d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="my-auto w-5 aspect-square"
-                />
-                <div className="grow">Date d’expiration</div>
-              </div>
-              <DatePicker
-                selected={formData.date_validation}
-                onChange={(date) => setFormData({ ...formData, date_validation: date })}
-                dateFormat="yyyy-MM-dd"
 
-                className="flex flex-col justify-center px-2 py-3.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-neutral-500"
-              />
-              <p className="text-red text-md">{errors.date_validation}</p>
-            </div>
           </div>
-          <div className="self-start mt-10 text-xl text-zinc-900 max-md:max-w-full">
-            Je confirme que je peux payer les{" "}
-            <span className="font-bold">frais de participation</span> de ce
-            camp.
-            <div className="flex gap-5 justify-between self-start mt-2 text-lg leading-7 whitespace-nowrap text-zinc-900 max-md:ml-2">
-              <label htmlFor="fraisinscrit">
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      name="fraisinscrit"
-                      value="Oui"
-                      className="mr-3"
-                      checked={formData.fraisinscrit === "Oui"}
-                      onChange={handleChange}
-                    />
-                    Oui , je confirme
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="fraisinscrit"
-                      value="Non"
-                      className=" ml-4 mr-3"
 
-                      checked={formData.fraisinscrit === "Non"}
-                      onChange={handleChange}
-                    />
-                    Non
-                  </label>
-                </div>
-
-              </label>
-
-            </div>
-            <p className="text-red text-base">{errors.fraisinscrit}</p>
-          </div>
 
 
 
