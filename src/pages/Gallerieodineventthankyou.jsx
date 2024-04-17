@@ -19,7 +19,7 @@ const Album = () => {
   const handleCardClick = (id) => {
     setSelectedCard(id);
     // Navigate to the details page with the selected card's id
-    navigate(`/defaultgroup/${id}`);
+    navigate(`/defaultgroupevent/${id}`);
   };
   useEffect(() => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -27,7 +27,7 @@ const Album = () => {
 
     const fetchAlbums = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumevent`);
         const result = await response.json();
 
         // Convert id to a number before filtering
@@ -56,13 +56,22 @@ const Album = () => {
         <div className="flex justify-center items-center mx-4 md:mx-0 md:px-10 py-10 mt-24  md:mt-24 w-full bg-white rounded-xl">
           <div className="w-full max-w-[1120px]">
             <div className="flex flex-col md:flex-row-reverse gap-5">
+
+              <div className="flex flex-col w-full md:w-2/5">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/6a73a658e3d0a306d0d38890df623257c0eab42a02ed66c047d387e840dcd7be?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                  className="grow w-full aspect-[0.79]"
+                />
+              </div>
+
               <div className="flex flex-col w-full md:w-3/5">
                 <div className="flex flex-col self-stretch my-auto text-base">
                   <div className="text-2xl text-center md:text-4xl font-bold text-blue-600">
                     THANK YOU!
                   </div>
                   <div className="text-zinc-900 md:px-0 px-3">
-                    Votre préinscription au camp de soccer est enregistrée! N'oubliez pas de vérifier vos e-mails pour la confirmation finale. Nous avons hâte de vous retrouver sur le terrain!
+                    Votre préinscription a l'evennemnt de soccer est enregistrée! N'oubliez pas de vérifier vos e-mails pour la confirmation finale. Nous avons hâte de vous retrouver sur le terrain!
                   </div>
                   <div className="flex gap-4 items-center flex-1 justify-center mx-2 px-8 py-2 mt-6 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] ">
                     <img
@@ -74,13 +83,6 @@ const Album = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col w-full md:w-2/5">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/6a73a658e3d0a306d0d38890df623257c0eab42a02ed66c047d387e840dcd7be?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="grow w-full aspect-[0.79]"
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -91,7 +93,7 @@ const Album = () => {
           <div className="flex flex-col w-full max-w-[1115px]">
             <div className="flex gap-5 justify-between pt-4">
               <div className="flex-auto text-lg md:text-3xl font-bold text-zinc-900">
-                Camps qui pourraient vous intéresser
+                Evennement qui pourraient vous intéresser
               </div>
               <div className="self-start mt-3 text-sm font-medium text-blue-600 underline">
                 Voir Tout
@@ -104,7 +106,7 @@ const Album = () => {
                     <div onClick={() => handleCardClick(value.id)} className="flex flex-col grow items-center pb-4 mx-auto w-full bg-white rounded-xl">
                       <img
                         loading="lazy"
-                        srcSet={value.ImagesAlbumcamps[0]?.image_url}
+                        srcSet={value.ImagesAlbumevents[0]?.image_url}
                         className="self-stretch w-full aspect-square object-cover"
                       />
                       <div className="mt-4 text-base font-semibold text-zinc-900">

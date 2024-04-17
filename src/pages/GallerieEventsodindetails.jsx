@@ -41,7 +41,7 @@ const Album = () => {
     setModalIsOpen(false);
   };
   const navigate = useNavigate();
-  const { id: campsId } = useParams();
+  const { id: eventodinId } = useParams();
   const [albumDetails, setAlbumDetails] = useState(null);
   const [inscriptions, setInscriptions] = useState([]);
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -51,9 +51,10 @@ const Album = () => {
   useEffect(() => {
     const fetchAlbumDetails = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc/${campsId}`);
-
+        const response = await fetch(`${Config.LOCAL_URL}/api/eventodin/${eventodinId}`);
+        console.log("reponseee", response)
         const result = await response.json();
+        console.log(response)
 
         if (result.message === "done" && result.data) {
           setAlbumDetails(result.data);
@@ -67,7 +68,7 @@ const Album = () => {
 
     const fetchInscriptions = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/inscritinfo`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/inscritinfoevent`);
 
         const result = await response.json();
 
@@ -75,7 +76,7 @@ const Album = () => {
           setInscriptions(result);
 
           const userPreinscribed = result.find(
-            (inscription) => inscription.userId === userId && inscription.campsId === parseInt(campsId)
+            (inscription) => inscription.userId == userId && inscription.eventodinId == eventodinId
           );
 
           if (userPreinscribed) {
@@ -91,7 +92,7 @@ const Album = () => {
 
     fetchAlbumDetails();
     fetchInscriptions();
-  }, [campsId, userId]);
+  }, [eventodinId, userId]);
 
   if (!albumDetails) {
     return <div>Loading...</div>;
@@ -102,7 +103,7 @@ const Album = () => {
 
   const handleAlbumButtonClick = () => {
 
-    navigate(`/FormCamps/${campsId}`);
+    navigate(`/FormEvent/${eventodinId}`);
 
   };
 
@@ -303,7 +304,7 @@ const Album = () => {
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <img
                         loading="lazy"
-                        src={albumDetails.ImagesAlbumcamps[0]?.image_url}
+                        src={albumDetails.ImagesAlbumevents[0]?.image_url}
                         className="grow w-full aspect-[0.7] object-cover max-md:mt-10"
                       />
                     </div>
@@ -423,7 +424,7 @@ const Album = () => {
 
                 <div className="px-4 mt-6 max-md:max-w-full">
                   <div className="flex flex-wrap gap-1">
-                    {albumDetails.ImagesAlbumcamps.slice(1).map((image, index) => (
+                    {albumDetails.ImagesAlbumevents.slice(1).map((image, index) => (
                       <div key={index} className="ml-3 w-[45%] md:w-[30%] lg:w-[30%]">
                         <img
                           loading="lazy"
@@ -515,10 +516,10 @@ const Album = () => {
         }}
       >
         <button onClick={closeModal}>Close Modal</button>
-        {albumDetails.ImagesAlbumcamps[selectedImageIndex] && (
+        {albumDetails.ImagesAlbumevents[selectedImageIndex] && (
           <img
             loading="lazy"
-            src={albumDetails.ImagesAlbumcamps[selectedImageIndex].image_url}
+            src={albumDetails.ImagesAlbumevents[selectedImageIndex].image_url}
             alt={`Image ${selectedImageIndex}`}
             style={{
               width: '100%', // Set width to 100% for responsiveness
