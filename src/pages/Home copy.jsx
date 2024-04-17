@@ -182,8 +182,26 @@ const fetchData = async () => {
           console.error("Error fetching data:", error);
         }
       };
+
+      // for left slide barre ---------------------------------
+      const [user, setUser] = useState([]);
+
+      useEffect(() => {
+        const storedUserData = JSON.parse(localStorage.getItem("user"));
+        const id = storedUserData ? storedUserData.id : null;
     
-  
+        if (id) {
+          fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+            .then((response) => response.json())
+            .then((userData) => {
+              setUser(userData);
+              console.log("user offre" , user)
+            })
+            .catch((error) => console.error("Error fetching user data:", error));
+        }
+    
+       
+      }, []);
  
   const storedUserData = JSON.parse(localStorage.getItem("user"));
 
@@ -193,9 +211,11 @@ const fetchData = async () => {
   const userProfileType = storedUserData ? storedUserData.profil : null;
 
   const shouldHideForProfiles = ["other", "player"];
-  const shouldShowAgentItem = ["player", "other"].includes(userProfileType);
+  const shouldShowAgentItem = ["player"].includes(userProfileType);
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
+
+  // left slide barre ------------------------------
   return (
     <>
       {/* <Header />
@@ -211,8 +231,7 @@ const fetchData = async () => {
          
          
             {/* left menu */}
-            <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[20%] max-md:ml-0 max-md:w-full">
-           
+            <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col items-start gap-4 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
                 <Link to="/home" className="nav-content-bttn open-font">
                   <div className="flex justify-center items-center gap-4 py-2 px-6 ">
@@ -275,13 +294,15 @@ const fetchData = async () => {
                   </div>{" "}
                 </Link>
 
-                <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
-                {shouldShowAgentItem && (
+                {  shouldShowAgentItem && (
+                  
                   <Link
                     to="/defaultgroupagent"
                     className="nav-content-bttn open-font"
                   >
+                                    <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
+
                     <div className="flex justify-center items-center gap-4 py-2 px-6">
                       <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                         <svg
@@ -363,30 +384,54 @@ const fetchData = async () => {
                     </div>
                   </div>
                 </div>
+                <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
+                  <div className="flex gap-4 justify-between px-2 py-1.5">
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                      className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                    />
+                    <div>Événements</div>
+                  </div>
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/d22964e4d2bf57e3d7709bb65ff794adb95fc3a025192d162071e4948acfdb9a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                    className="shrink-0 my-auto w-5 aspect-[2] fill-zinc-900"
+                  />
+                </div>
 
-                {/* <div className="w-[19.875rem] h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" /> */}
+               <Link to="/homeoffre"> <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
+                  <div className="flex gap-4 justify-between px-2 py-1.5">
+                    {" "}
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a7fc5fd676e2d7354f4a7f19b0967db7f2d99a7e161c7c156ac1ce03217cf2c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                      className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                    />
+                    <div>Offres d’emploi</div>
+                  </div>
+                </div></Link>
+                {!(userProfileType === "other" && user?.other?.profession === "Fan Football") && userProfileType !== "player" && (
 
-                {/* <div className="flex flex-col items-start gap-2">
-  <div className="flex justify-center items-center gap-4 py-2 px-6">
-    <div className="flex justify-center items-center gap-2.5 p-2">
-      <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M15.8333 3.33333H14.9167C14.7233 2.39284 14.2115 1.54779 13.4677 0.940598C12.7239 0.333408 11.7935 0.0012121 10.8333 0H9.16667C8.2065 0.0012121 7.2761 0.333408 6.53229 0.940598C5.78848 1.54779 5.27675 2.39284 5.08333 3.33333H4.16667C3.062 3.33466 2.00297 3.77407 1.22185 4.55518C0.440735 5.3363 0.00132351 6.39534 2.98023e-07 7.5V10H20V7.5C19.9987 6.39534 19.5593 5.3363 18.7782 4.55518C17.997 3.77407 16.938 3.33466 15.8333 3.33333ZM6.82 3.33333C6.99174 2.84758 7.30936 2.42674 7.72942 2.12841C8.14948 1.83007 8.65145 1.6688 9.16667 1.66667H10.8333C11.3486 1.6688 11.8505 1.83007 12.2706 2.12841C12.6906 2.42674 13.0083 2.84758 13.18 3.33333H6.82Z" fill="#1D1E21" />
-        <path d="M10.8333 12.5C10.8333 12.721 10.7455 12.933 10.5893 13.0893C10.433 13.2455 10.221 13.3333 10 13.3333C9.77899 13.3333 9.56703 13.2455 9.41074 13.0893C9.25446 12.933 9.16667 12.721 9.16667 12.5V11.6667H0V15.8333C0.00132321 16.938 0.440735 17.997 1.22185 18.7782C2.00296 19.5593 3.062 19.9987 4.16667 20H15.8333C16.938 19.9987 17.997 19.5593 18.7782 18.7782C19.5593 17.997 19.9987 16.938 20 15.8333V11.6667H10.8333V12.5Z" fill="#1D1E21" />
-      </svg>
-    </div>
-    <div className="text-[#2e71eb] font-['Sora'] text-xl font-medium leading-[normal]">Offres d’emploi</div>
-  </div>
-  <div className="flex flex-col items-center gap-2.5 w-[19.875rem]">
-    <div className="flex justify-center items-center gap-2 py-2 px-8 w-[15.875rem] rounded-full bg-[#2e71eb]">
-      <svg width={17} height={16} viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M15.1667 6.66667H9.83333V1.33333C9.83333 0.979711 9.69286 0.640573 9.44281 0.390525C9.19276 0.140476 8.85362 0 8.5 0C8.14638 0 7.80724 0.140476 7.55719 0.390525C7.30714 0.640573 7.16667 0.979711 7.16667 1.33333V6.66667H1.83333C1.47971 6.66667 1.14057 6.80714 0.890525 7.05719C0.640476 7.30724 0.5 7.64638 0.5 8C0.5 8.35362 0.640476 8.69276 0.890525 8.94281C1.14057 9.19286 1.47971 9.33333 1.83333 9.33333H7.16667V14.6667C7.16667 15.0203 7.30714 15.3594 7.55719 15.6095C7.80724 15.8595 8.14638 16 8.5 16C8.85362 16 9.19276 15.8595 9.44281 15.6095C9.69286 15.3594 9.83333 15.0203 9.83333 14.6667V9.33333H15.1667C15.5203 9.33333 15.8594 9.19286 16.1095 8.94281C16.3595 8.69276 16.5 8.35362 16.5 8C16.5 7.64638 16.3595 7.30724 16.1095 7.05719C15.8594 6.80714 15.5203 6.66667 15.1667 6.66667Z" fill="white" />
-      </svg>
-      <div className="text-white font-['Sora'] font-medium leading-[normal]">Publier une offre</div>
-    </div>
-  </div>
-</div> */}
+                <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                    className="shrink-0 my-auto w-4 aspect-square fill-white"
+                  />
+                  <div>Publier une offre</div>
+                </div>
+                )}
+
               </div>
             </div>
+
+            {/* left menu */}
+
+
+
+
+
 
             {/* create post */}
             
