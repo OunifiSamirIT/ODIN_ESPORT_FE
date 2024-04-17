@@ -233,7 +233,8 @@ function Login({ setAuthStatus }) {
                       <div className="tal2 grow text-base whitespace-nowrap text-zinc-900">
                         <button
                           type="submit"
-                          className="justify-center flex w-full   text-center items-center px-10 py-2  text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full"
+                          className="justify-center flex w-full   text-center items-center px-10 py-2  text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full hover:bg-blue-900
+                          duration-150 border-5 border-blue-0 border-spacing-3 focus:border-blue-400 focus:outline-none-500 "
                         >
                            {
              getTranslation(
@@ -268,22 +269,13 @@ function Login({ setAuthStatus }) {
                   )}
                 </form>
 
-                <div className="tal1 flex gap-2 justify-between px-2 py-2 mt-2 text-base max-md:flex-wrap max-md:px-5 max-md:max-w-full">
-                  <div className="flex-auto text-zinc-900">
-                    
-                    {
-             getTranslation(
-              ` Don’t have an account? `,  // -----> Englais
-              `Vous n'avez pas compte ? `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
-              ) 
-
-            } 
+                <div className="flex gap-2 justify-between px-2 py-2 mt-2 text-base max-md:flex-wrap max-md:px-5 max-md:max-w-full flex-col">
+                  <div className="flex-auto text-zinc-900  text-sm md:text-base text-center">
+                    Vous n'avez pas compte ?
                   </div>
                   <Link
                     to="/register"
-                    className="tal2 flex-auto font-medium text-blue-600 underline"
+                    className="flex-auto font-medium text-blue-600 underline text-sm md:text-base text-center"
                   >
                     {
              getTranslation(
