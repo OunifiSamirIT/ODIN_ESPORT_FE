@@ -4,7 +4,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const SkeletonArticleCard = () => {
   return (
-    <div className="card ml-5 w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+    <div className="card ml-0 md:ml-5 w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
       <div className="card-body p-0 d-flex">
         <figure className="avatar me-3">
           <Skeleton circle width={40} height={40} duration={1.5} />
@@ -30,7 +30,7 @@ const SkeletonArticleCard = () => {
       </div>
 
       <div className="card-body p-0 me-lg-5">
-        <p className="fw-500 font-thin lh-26 ml-8 rounded-md font-xssss w-100 mb-2 text-gray-200 theme-dark-bg">
+        <p className="fw-500 font-thin lh-26 md:ml-8 ml-0 rounded-md font-xssss w-100 mb-2 text-gray-200 theme-dark-bg">
           <Skeleton count={2} duration={1.5} />
         </p>
       </div>

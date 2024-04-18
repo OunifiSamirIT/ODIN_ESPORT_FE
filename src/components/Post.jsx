@@ -926,7 +926,7 @@ function Post({ article, setArticles }) {
     <>
 
 
-       <div className="flex flex-col ml-5 w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
+       <div className="flex flex-col ml-5 w-full md:mt-4 mt-0 max-md:ml-0 max-md:w-full">
               
 
               {/* show post  */}
@@ -1099,7 +1099,7 @@ function Post({ article, setArticles }) {
                               </div>
                             </div>
                             <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
-                            <span className="flex justify-between items-center mb-3 ml-0 p-0 font-bold w-full">
+                            <span className="flex justify-between items-center mb-0 ml-0 p-0 font-bold w-full">
                               <button
                                 onClick={() => {
                                   handleLikeClick(article.id, 1);
@@ -1262,13 +1262,13 @@ function Post({ article, setArticles }) {
 
                                   
                                       {repliesVisible[comment.id] && (
-                                        <div className="replies-section ml-16 mt-3">
+                                        <div className="replies-section ml-16 mt-0">
                                           {articleComments[comment.id] &&
                                             articleComments[comment.id].map(
                                               (reply) => (
                                                 <div
                                                   key={reply.id}
-                                                  className="reply mb-4"
+                                                  className="reply mb-0"
                                                 >
 
                                                   <div className="flex items-start py-2">

@@ -1,14 +1,13 @@
 import React, { useState, useContext } from "react";
 import gsap from "gsap";
-import { Context } from "../index"
+import { Context } from "../index";
 
 export default function LanguageToggler() {
   //start _________ translation context
-  const { _currentLang, _setLang } = useContext(Context)
+  const { _currentLang, _setLang } = useContext(Context);
   //end _________ translation context
 
   let [isOpened, setOpenedPopUp] = useState(true);
-
 
   let setLang = (lang) => {
     localStorage.setItem("language", lang);
@@ -17,11 +16,11 @@ export default function LanguageToggler() {
   };
 
   let openPopUp = () => {
-    gsap.timeline()
+    gsap
+      .timeline()
       .to(".switcherLanguageCon .togglerCon", {
-
         duration: 0,
-        display: "flex"
+        display: "flex",
       })
       .to(".switcherLanguageCon .togglerCon", {
         y: isOpened ? 0 : -5,
@@ -29,9 +28,8 @@ export default function LanguageToggler() {
         duration: 0.2,
       })
       .to(".switcherLanguageCon .togglerCon", {
-
         duration: 0,
-        display: !isOpened ? "none" : "flex"
+        display: !isOpened ? "none" : "flex",
       });
     setOpenedPopUp(!isOpened);
   };
@@ -44,39 +42,38 @@ export default function LanguageToggler() {
         opacity: 0,
         duration: 0.2,
         stagger: 0.1,
-        onComplete: () => { setLang(lang) },
-
+        onComplete: () => {
+          setLang(lang);
+        },
       })
       .to(".tal1", {
         x: 0,
         opacity: 1,
         stagger: 0.1,
         duration: 0.2,
-      })
+      });
 
     gsap
       .timeline()
 
       .to(".tal2", {
-        delay: .3,
-        scale: .95,
-        opacity: .4,
+        delay: 0.3,
+        scale: 0.95,
+        opacity: 0.4,
         duration: 0.2,
         stagger: 0.1,
-
       })
       .to(".tal2", {
         scale: 1,
         opacity: 1,
         stagger: 0.1,
         duration: 0.2,
-      })
-
+      });
   };
   return (
     <div className="switcherLanguageCon" onClick={openPopUp}>
       <label className="currentLangCon">
-        <svg
+<svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -90,7 +87,6 @@ export default function LanguageToggler() {
         </svg>
 
         <span>{_currentLang}</span>
-
         <svg
           width="24"
           height="16"
@@ -106,10 +102,22 @@ export default function LanguageToggler() {
       </label>
 
       <div className="togglerCon">
-        <label onClick={() => { _swichLanguageHandler("Fr") }}>Francais</label>
-        <label onClick={() => { _swichLanguageHandler("Eng") }}>Englais</label>
-        <label onClick={() => { _swichLanguageHandler("Tr") }}>Turqey</label>
-        <label onClick={() => { _swichLanguageHandler("Ger") }}>Germany</label>
+        <label
+          onClick={() => {
+            _swichLanguageHandler("Fr");
+          }}
+        >
+          Francais
+        </label>
+        <label
+          onClick={() => {
+            _swichLanguageHandler("Eng");
+          }}
+        >
+          Englais
+        </label>
+        {/* <label onClick={() => { _swichLanguageHandler("Tr") }}>Turqey</label> */}
+        {/* <label onClick={() => { _swichLanguageHandler("Ger") }}>Germany</label> */}
       </div>
     </div>
   );

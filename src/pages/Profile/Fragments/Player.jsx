@@ -222,7 +222,7 @@ const PlayerCard = ({ userInfo }) => {
             </svg>
           </div>
         </div>
-        <div className="flex flex-col justify-center gap-y-4">
+        {/* <div className="flex flex-col justify-center gap-y-4">
           <div className="flex justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
             <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_878_80013)">
@@ -292,7 +292,40 @@ const PlayerCard = ({ userInfo }) => {
               className="shrink-0 w-6 aspect-[0.96]"
             />
           </a>}
-        </div>
+        </div> */}
+
+        {/* social icons */}
+
+        <div className="  max-w-xl flex flex gap-4 justify-between">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/9f2fa6031aa7cffb21186e5501126b3836a7c414e1752c9e64fdbcac1ce4100c?"
+                  className="shrink-0 aspect-square w-[25px]"
+                />
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/ee734d4428028617729c0185044032ddb130279e8139babab8caab0cdf7d6bd4?"
+                  className="shrink-0 w-6 aspect-[0.96]"
+                />
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8667ac9987e1f4996c37f85b212f897fd480e345bd16b0eac52bb3f8adb76e66?"
+                  className="shrink-0 w-6 aspect-[0.96]"
+                />
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b78e7f165ad6d93ef824dbe6adbbd69b6e0d02007b0bbf390ad2538e8c398dde?"
+                  className="shrink-0 aspect-square w-[25px]"
+                />
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/caac4cd0dd6b89529ac5104e789b62c6cbf2091f6a2f16366ce2bc247406f84a?"
+                  className="shrink-0 w-6 aspect-[0.96]"
+                />
+              </div>
+
+        {/* social icons */}
+
         <div className="flex justify-center items-center px-16 py-2  max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5">
           <div className="flex gap-4 items-center">
             <img

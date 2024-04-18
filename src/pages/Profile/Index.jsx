@@ -913,7 +913,7 @@ const Index = () => {
                           <CustomButton
                             type="submit"
                             title="Publier"
-                            containerStyles="bg-blue-600 text-white mt-1 py-1 px-10 rounded-full font-semibold text-sm"
+                            containerStyles="bg-blue-600 text-white mt-1 py-1 px-4 md:px-10 rounded-full font-semibold text-sm"
                           />
                         )}
                       </div>
