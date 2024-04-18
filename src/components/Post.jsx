@@ -712,7 +712,7 @@ function Post({ article, setArticles }) {
     
       const addComment = async (articleId) => {
         try {
-          if (articleId) {
+          if (articleId && comment !== '' ) {
             // Retrieve user information from local storage
             const user = JSON.parse(localStorage.getItem("user"));
             
@@ -745,6 +745,7 @@ function Post({ article, setArticles }) {
             setArticles((prevArticles) => {
               return prevArticles.map((article) => {
                 if (article.id === articleId) {
+                  console.log(article)
                   return {
                     ...article,
                     commentsCount: (article.commentsCount || 0) + 1,
@@ -1400,7 +1401,7 @@ function Post({ article, setArticles }) {
                                             onClick={() => {
                                               addComment(article.id);
                                               console.log("🚀 ~ Post ~ article.id:", article.id)
-                                            alert('hrllo')}
+                                              }
                                             }
                                             className="ml-2"
                                           >

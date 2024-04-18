@@ -447,7 +447,7 @@ const Personal = ({ userInfo }) => {
                         control: (provided, state) => ({
                           ...provided,
                           justifyContent: "center",
-                          width: "135px",
+                          width: "120px",
                           height: "52px",
                           backgroundColor: "transaprent",
                           borderWidth: "none",
@@ -522,15 +522,14 @@ const Personal = ({ userInfo }) => {
                       styles={{
                         control: (provided, state) => ({
                           ...provided,
-                          borderRadius: "0.375rem",
-                          display: "flex",
                           justifyContent: "center",
-                          width: "135px",
-                          backgroundColor: "transparent",
+                          width: "120px",
+                          height: "52px",
+                          backgroundColor: "transaprent",
                           borderWidth: "none",
                         }),
                       }}
-                      className={`text-sm text-center flex border-solid border-[0.5px] rounded-[30px] `}
+                      className={`px-2 text-sm text-center flex border-solid border-[0.5px] rounded-[30px] ${errors.wats ? 'boreder border-red-500' : ''}`}
                       placeholder="Préfixe"
                       {...field}
                       options={optionsphone}
@@ -785,7 +784,7 @@ const Personal = ({ userInfo }) => {
               type="text"
               name="cityresidence"
               {...register("cityresidence")}
-              className={` text-zinc-600 w-full md:w-1/2 form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[379px] max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
+              className={` text-zinc-600 w-[95%] md:w-1/2 form-control justify-center items-start py-3.5  pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]  max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
                 }`}
               placeholder="Ville"
             />
@@ -796,23 +795,25 @@ const Personal = ({ userInfo }) => {
             )}
           </div>
 
-          <div className="flex  justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
-            <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
-                className="w-5 aspect-square"
-              />
-              <a onClick={resetForm} className="grow">Annuler</a>
-            </div>
-            <div className="flex gap-2  px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+          <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
+           
+          <div className="flex gap-2 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
                 className="w-5 aspect-square"
               />
-              <button type='submit' className="grow">Confirmer</button>
+              <button type='submit' className="">Confirmer</button>
             </div>
+            <div className="flex gap-2 items-center justify-center  px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
+                className="w-5 aspect-square"
+              />
+              <button onClick={resetForm} className="">Annuler</button>
+            </div>
+            
           </div>
         </form>
       </div>

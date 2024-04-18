@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import CustomButton from "../components/CustomButton";
 import Loading from './Loading';
 
-function CreatePost() {
+function CreatePost({setArticles}) {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const {
       register,
@@ -23,65 +23,64 @@ function CreatePost() {
     const [postsData, setPostsData] = useState([]);
     const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [articles, setArticles] = useState([]); // New state for articles
     const [totalPages, setTotalPages] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
     const fetchArticles = async () => {
-        try {
-          setLoading(true);
-          const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
-          const result = await response.json();
-    
-          const articlesWithPromises = result.rows.map(async (article) => {
-            const userId = article.userId;
-            const comt = article.id;
-    
-            const [userDataResponse, commentsResponse, likesCountResponse] =
-              await Promise.all([
-                fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
-                  res.json()
-                ),
-                fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
-                  (res) => res.json()
-                ),
-                fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
-                  (res) => res.json()
-                ),
-              ]);
-    
-            const likesCount = likesCountResponse.find(
-              (count) =>
-                count.articleId === article.articleId ||
-                count.articleId === article.id
-            );
-    
-            return {
-              ...article,
-              user: userDataResponse,
-              comments: commentsResponse.commentsData,
-              commentsCount: commentsResponse.commentCount,
-              likesCount: likesCount ? likesCount.likesCount : 0,
-            };
-          });
-    
-          let newArticles = await Promise.all(articlesWithPromises);
-          newArticles = newArticles.reverse(); // Reverse the order of all articles
-          const initialArticles = newArticles; // Get the first 10 articles
-          setArticles(initialArticles);
-          setTotalItems(result.totalItems);
-          setTotalPages(result.totalPages);
-    
-          // Load the remaining articles after initial set is loaded
-          const remainingArticles = newArticles;
-          if (remainingArticles.length > 0) {
-            await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
-          }
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        } finally {
-          setLoading(false);
+      try {
+        setLoading(true);
+        const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
+        const result = await response.json();
+  
+        const articlesWithPromises = result.rows.map(async (article) => {
+          const userId = article.userId;
+          const comt = article.id;
+  
+          const [userDataResponse, commentsResponse, likesCountResponse] =
+            await Promise.all([
+              fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
+                res.json()
+              ),
+              fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
+                (res) => res.json()
+              ),
+              fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
+                (res) => res.json()
+              ),
+            ]);
+  
+          const likesCount = likesCountResponse.find(
+            (count) =>
+              count.articleId === article.articleId ||
+              count.articleId === article.id
+          );
+  
+          return {
+            ...article,
+            user: userDataResponse,
+            comments: commentsResponse.commentsData,
+            commentsCount: commentsResponse.commentCount,
+            likesCount: likesCount ? likesCount.likesCount : 0,
+          };
+        });
+  
+        let newArticles = await Promise.all(articlesWithPromises);
+        newArticles = newArticles.reverse(); // Reverse the order of all articles
+        const initialArticles = newArticles.slice(0, 50); // Get the first 10 articles
+        setArticles(initialArticles);
+        setTotalItems(result.totalItems);
+        setTotalPages(result.totalPages);
+  
+        // Load the remaining articles after initial set is loaded
+        const remainingArticles = newArticles.slice(50);
+        if (remainingArticles.length > 0) {
+          await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
         }
-      };
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
       const loadRemainingArticles = (remainingArticles) => {
         setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
       };
@@ -106,6 +105,10 @@ function CreatePost() {
     const handlePostSubmit = async (data) => {
         try {
           if (!storedUserData.id) {
+            // Handle validation errors or missing user data
+            return;
+          }
+          if (!data.description && !file ) {
             // Handle validation errors or missing user data
             return;
           }

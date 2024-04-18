@@ -113,7 +113,7 @@ const Index = () => {
       return item.image !== null && item.userId == id
     }))
     setArticleWithVideo(articles.filter((item) => {
-      return item.video !== null && item.userId === id
+      return item.video !== null && item.userId == id
     }))
 
   }, [profileFeed, articles, id])
@@ -1334,7 +1334,7 @@ const Index = () => {
             </div>
           </div>
         </div>}
-        {profileFeed === 'photo' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+        {profileFeed === 'photo' && <div className="w-full mt-4">
           <div>
             <div>
               {articles.length > 0 ? articlesWithPhoto.map((article) => (
