@@ -4698,26 +4698,31 @@ function Register() {
 
   const profilesData = [
     {
+      role: "player",
       profile: "player",
       logo: "https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&",
       description: "Joueur",
     },
     {
+      role: "coach",
       profile: "coach",
       logo: "https://cdn.builder.io/api/v1/image/assets/TEMP/7a0cc293ae1c9014fe1919fea61ad4023a8567a014058579b69f92ed11744ba6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a0cc293ae1c9014fe1919fea61ad4023a8567a014058579b69f92ed11744ba6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a0cc293ae1c9014fe1919fea61ad4023a8567a014058579b69f92ed11744ba6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a0cc293ae1c9014fe1919fea61ad4023a8567a014058579b69f92ed11744ba6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a0cc293ae1c9014fe1919fea61ad4023a8567a014058579b69f92ed11744ba6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a0cc293ae1c9014fe1919fea61ad4023a8567a014058579b69f92ed11744ba6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a0cc293ae1c9014fe1919fea61ad4023a8567a014058579b69f92ed11744ba6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/7a0cc293ae1c9014fe1919fea61ad4023a8567a014058579b69f92ed11744ba6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&",
       description: "Entraineur",
     },
     {
+      role: "agent",
       profile: "agent",
       logo: "https://cdn.builder.io/api/v1/image/assets/TEMP/4f7289581458e0355c5444afa99b74514b801ee79fd13a3730fd6eebebdbef61?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/4f7289581458e0355c5444afa99b74514b801ee79fd13a3730fd6eebebdbef61?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4f7289581458e0355c5444afa99b74514b801ee79fd13a3730fd6eebebdbef61?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/4f7289581458e0355c5444afa99b74514b801ee79fd13a3730fd6eebebdbef61?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/4f7289581458e0355c5444afa99b74514b801ee79fd13a3730fd6eebebdbef61?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4f7289581458e0355c5444afa99b74514b801ee79fd13a3730fd6eebebdbef61?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/4f7289581458e0355c5444afa99b74514b801ee79fd13a3730fd6eebebdbef61?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/4f7289581458e0355c5444afa99b74514b801ee79fd13a3730fd6eebebdbef61?apiKey=1233a7f4653a4a1e9373ae2effa8babd&",
       description: "Manager",
     },
     {
+      role: "scout",
       profile: "scout",
       logo: "https://cdn.builder.io/api/v1/image/assets/TEMP/3ffd5a087d071efc0830bacc02194e4ed7fd37e5d3e6b7365b5f71f0172034bf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/3ffd5a087d071efc0830bacc02194e4ed7fd37e5d3e6b7365b5f71f0172034bf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/3ffd5a087d071efc0830bacc02194e4ed7fd37e5d3e6b7365b5f71f0172034bf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/3ffd5a087d071efc0830bacc02194e4ed7fd37e5d3e6b7365b5f71f0172034bf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/3ffd5a087d071efc0830bacc02194e4ed7fd37e5d3e6b7365b5f71f0172034bf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/3ffd5a087d071efc0830bacc02194e4ed7fd37e5d3e6b7365b5f71f0172034bf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/3ffd5a087d071efc0830bacc02194e4ed7fd37e5d3e6b7365b5f71f0172034bf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/3ffd5a087d071efc0830bacc02194e4ed7fd37e5d3e6b7365b5f71f0172034bf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&",
       description: "Scout",
     },
     {
+      role: "other",
       profile: "other",
       logo: "https://cdn.builder.io/api/v1/image/assets/TEMP/b82ab55a525d80fe9e3e7cce5b1ed322644f7bcb6112c4247783f337a8b03f6a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b82ab55a525d80fe9e3e7cce5b1ed322644f7bcb6112c4247783f337a8b03f6a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b82ab55a525d80fe9e3e7cce5b1ed322644f7bcb6112c4247783f337a8b03f6a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/b82ab55a525d80fe9e3e7cce5b1ed322644f7bcb6112c4247783f337a8b03f6a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/b82ab55a525d80fe9e3e7cce5b1ed322644f7bcb6112c4247783f337a8b03f6a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b82ab55a525d80fe9e3e7cce5b1ed322644f7bcb6112c4247783f337a8b03f6a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b82ab55a525d80fe9e3e7cce5b1ed322644f7bcb6112c4247783f337a8b03f6a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b82ab55a525d80fe9e3e7cce5b1ed322644f7bcb6112c4247783f337a8b03f6a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&",
       description: "Autre",
@@ -5385,7 +5390,7 @@ function Register() {
     formDataToSubmit.append("file", File || null);
     //prob
     try {
-      const response = await fetch("https://odinesport.com/api/auth/signup", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/auth/signup`, {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -6487,7 +6492,7 @@ function Register() {
               <div className="grid grid-cols-1 md:grid-cols-2 ">
                 {profilesData.map((data, index) => (
                   <div
-                    key={data.profile}
+                    key={data.role}
                     className={`max-w-full ${index === profilesData.length - 1 ? 'md:col-span-2  md:flex md:justify-center  ' : ''}`}
                   >                    <div className="justify-center mt-4 mx-2 sm:mx-0 max-w-full md:mx-6">
                       <div className="flex flex-col sm:flex-row gap-4 max-md:flex-col max-md:gap-0 max-md:">
@@ -6503,13 +6508,13 @@ function Register() {
                             <div
                               style={{
                                 background:
-                                  selectedProfile === data.profile
+                                  selectedProfile === data.role
                                     ? "#2E71EB"
                                     : "white",
                               }}
                               className="grow justify-center items-center px-16 pt-16 pb-12 w-full text-2xl text-center rounded-r-3xl text-zinc-900 max-md:px-5"
                               onClick={() => {
-                                const selectedProfileValue = data.profile;
+                                const selectedProfileValue = data.role;
                                 console.log(
                                   "Selected Profile Value:",
                                   selectedProfileValue
@@ -6523,7 +6528,7 @@ function Register() {
                                 });
                               }}
                             >
-                              {data.profile === "player" && (
+                              {data.role === "player" && (
                                 <React.Fragment>
                                   {
                           getTranslation(
@@ -6538,7 +6543,7 @@ function Register() {
                                   <span className="invisible">xxx</span>
                                 </React.Fragment>
                               )}
-                              {data.profile === "coach" && (
+                              {data.role === "coach" && (
                                 <React.Fragment>
                                   {
                           getTranslation(
@@ -6551,7 +6556,7 @@ function Register() {
                          } 
                                 </React.Fragment>
                               )}
-                              {data.profile === "agent" && (
+                              {data.role === "agent" && (
                                 <React.Fragment>
                                   {
                           getTranslation(
@@ -6561,10 +6566,10 @@ function Register() {
                            `` ,  //  -----> Allemagne
                            ) 
              
-                         } Manager <span className="invisible">x</span>
+                         }  <span className="invisible">x</span>
                                 </React.Fragment>
                               )}
-                              {data.profile === "scout" && (
+                              {data.role === "scout" && (
                                 <React.Fragment>
                                  {
                           getTranslation(
@@ -6578,7 +6583,7 @@ function Register() {
                           <span className="invisible">xxxx</span>
                                 </React.Fragment>
                               )}
-                              {data.profile === "other" && (
+                              {data.role === "other" && (
                                 <React.Fragment>
                                   {
                           getTranslation(

@@ -4211,7 +4211,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
 
 
-      <div className="flex flex-col pb-12 mt-0 lg:mt-8 bg-zinc-100">
+      <div className="flex flex-col pb-12   mt-0 lg:mt-8 bg-zinc-100">
         <div className="self-center md:mt-20 w-full max-w-[1344px]  max-md:max-w-full">
           <div className="flex max-md:flex-col max-md:gap-0">
 
@@ -4414,15 +4414,15 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
             {/* left menu */}
 
 
-            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-1 w-[76%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow  max-md:max-w-full">
-                <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-                        <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-                          <div className="flex-auto text-3xl font-bold text-zinc-900">
+            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
+              <div className="flex  md:gap-y-3 flex-col grow  max-md:max-w-full">
+                    <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+                        <div className="flex gap-3 md:gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
+                          <div className="flex-auto text-2xl md:text-3xl font-bold text-zinc-900">
                             Chercher Votre Agent
                           </div>
                           <div
-                            className={`flex gap-2 justify-center self-start px-8 py-2 text-base font-medium ${showFilters ? 'text-white' : 'text-white'
+                            className={`flex gap-2  justify-center self-start px-8 py-2 text-sm md:text-base font-medium ${showFilters ? 'text-white' : 'text-white'
                               } whitespace-nowrap ${showFilters ? 'bg-black' : 'bg-blue-600'
                               } rounded-[30px] max-md:px-5`}
                             onClick={handleToggleFilters}
@@ -4430,7 +4430,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/338f69c576a3cd879110110b941d2824abc1d5b093ee17b0c389f0f0c415230e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square"
+                              className="w-4 md:w-5 aspect-square"
                             />
                             {showFilters ? 'Masquer les filtres' : 'Afficher les filtres'}
                           </div>
@@ -4448,7 +4448,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                
                                
                                
-                                <div className="flex flex-col w-[69%] max-md:ml-0 max-md:w-full">
+                                <div className="flex flex-col w-full max-md:ml-0 max-md:w-full">
                                   <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-2 max-md:max-w-full">
                                     <div className="flex gap-4 justify-between px-4 max-md:flex-wrap max-md:max-w-full">
                                       <img
@@ -4461,7 +4461,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                       </div>
                                     </div>
                                     <input
-                                      class="justify-center  w-full items-start py-3  pl-4 mt-2 text-md font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
+                                      class="justify-center  w-full items-start py-2.5  pl-4 mt-2 text-md font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
                                       type="text"
                                       placeholder=" nom  ou  prenom"
                                       value={searchNom}
@@ -4522,19 +4522,19 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                       <div className="grow ">Type de profil</div>
                                     </div>
                                     <div className="flex flex-col justify-center mt-2 w-full text-md font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                      <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
-                                        <div className="flex-auto self-start mt-1">
+                                      <div className="flex gap-5 justify-between px-4 py-1.5 rounded-md">
+                                        <div className="flex-auto self-start mt-1 w-full">
 
                                           <select
-                                            className="self-start mt-1"
+                                            className="self-start mt-1 w-full"
                                             value={searchTypeProfil}
                                             onChange={(e) => setSearchTypeProfil(e.target.value)}
                                           >
                                             <option value="" disabled>
                                               Type de profil
                                             </option>
-                                            <option value="club">club</option>
-                                            <option value="players">players</option>
+                                            <option value="club">Manager de club</option>
+                                            <option value="players">Manager de Joueur</option>
                                           </select>
                                         </div>
 
@@ -4633,7 +4633,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                   />
                                   <div className="my-auto">Profil</div>
                                 </div>
-                                <div className="flex-auto my-auto font-medium">{user.typeresponsable}</div>
+                                <div className="flex-auto my-auto font-medium">{user.typeresponsable} </div>
                               </div>
                               <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
                                 <div className="flex gap-4 justify-between font-light">
