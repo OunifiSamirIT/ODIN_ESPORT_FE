@@ -1,4 +1,4 @@
-import React, { element, useEffect, useState } from "react";
+import React, { element, useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 import { createRoot } from "react-dom/client"; // Import createRoot from react-dom/client
@@ -49,8 +49,11 @@ import Forgot from "./pages/Forgot";
 import Notfound from "./pages/Notfound";
 import Gallery from "./pages/Gallerie";
 import Galleryuser from "./pages/Gallerieuserodin";
+import GalleryuserEvent from "./pages/GallerieuserodinEvents";
 import GalleryDetailscamps from "./pages/Gallerieuserodindetails";
+import GalleryDetailsevent from "./pages/GallerieEventsodindetails";
 import Thankscamps from "./pages/Gallerieuserthankyou";
+import Thanksodinevent from "./pages/Gallerieodineventthankyou.jsx";
 
 import ShopOne from "./pages/ShopOne";
 import ShopTwo from "./pages/ShopTwo";
@@ -81,7 +84,9 @@ import ProfileSetting from "./pages/Setting/index"
 
 
 
-import OffreEmploi from "./pages/emploiOffre/acceuilOffre"
+import OffreEmploi from "./pages/emploiOffre/AcceuilOffre"
+import Entrpriseemploi from "./pages/emploiOffre/Entreprise"
+import Homeoffre from "./pages/emploiOffre/Homeoffre"
 
 
 
@@ -90,12 +95,16 @@ import Users from './pages/Admin/Users';
 import EventA from './pages/Admin/Event';
 import Album from './pages/Admin/Gallerie'
 import Albumcamps from './pages/Admin/Galleriecamps'
+import Albumevents from './pages/Admin/albumevents'
 import AddEvent from './pages/Admin/Components/AddEvent'
 import AddAlbum from './pages/Admin/Components/AddAlbum'
+import AddAlbumEvents from './pages/Admin/Components/AddAlbumEvents'
 import AddAlbumcamps from './pages/Admin/Components/AddAlbumCamps'
+import AddOffreemploi from './pages/Admin/offreemploi/addoffre'
 import EditUser from './pages/Admin/Components/EditUser'
 import CreateUser from './pages/Admin/Components/CreateUser'
 import FormCamps from './pages/GallerieuserForm'
+import FormEvent from './pages/GallerieuserFormevent.jsx'
 
 import UserEvent from './pages/UserEvent';
 import ViewAlbum from './pages/Admin/Components/ViewAlbum';
@@ -108,17 +117,61 @@ import * as serviceWorker from "./serviceWorker";
 import { Routes } from "react-router-dom/dist";
 import { BsTruckFlatbed } from "react-icons/bs";
 import Errors from "./pages/404";
+import Challenges from "./pages/Challenge/index.jsx";
+import AdminChallenges from "./pages/Admin/Challenges.jsx";
+import AddChallenge from "./pages/Admin/Components/AddChallenge.jsx";
+import ChallengeDetais from "./pages/Challenge/Details.jsx";
 const rootElement = document.getElementById("root");
 
-function Root() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+export const Context = React.createContext(null)
 
+function Root() {
+  
+  
+  
+  
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  
+  // start ________________________translation methods and state
+  let [_currentLang, _setLang] = useState("");
+  let getTranslation = (lang1, lang2, lang3, lang4) => {
+    if (_currentLang == "Eng") {
+      return lang1
+    }
+    else if (  _currentLang == "Fr" ) {
+
+      return lang2
+    }
+    else if (  _currentLang == "Tr" ) {
+      return lang3
+    }
+    else {
+     return lang4
+
+    }
+  } 
+
+  // end ________________________translation methods and state
   useEffect(() => {
     // Check if there's a valid token in localStorage
     const token = localStorage.getItem('accessToken');
     if (token) {
       setIsAuthenticated(true);
     }
+
+  // start ________________________initialize translation 
+      console.log("_____", localStorage.getItem("language"));
+      
+      if (!localStorage.getItem("language")) {
+        localStorage.setItem("language", "fr");
+        console.log("moush mawjoud", localStorage.getItem("language"));
+        _setLang("Fr")
+      } else {
+        console.log("mawjoud", localStorage.getItem("language"));
+      }
+      _setLang(localStorage.getItem("language"))
+
+  // end ________________________initialize translation
   }, []);
 
   // Define a function to set authentication status
@@ -135,7 +188,9 @@ function Root() {
   };
 
   return (
+
     <React.StrictMode>
+    <Context.Provider value={ {_currentLang: _currentLang, _setLang:_setLang, getTranslation: getTranslation} } >
       <BrowserRouter basename={"/"}>
         <Routes>
           <Route exact path="/" element={<Demo />} />
@@ -173,17 +228,23 @@ function Root() {
 
           <Route exact path="/admin/album" element={<Album />} />
           <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
+          <Route exact path="/admin/albumevents" element={<Albumevents />} />
+
+          <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
 
           {/* 02/02 */}
           <Route exact path="/odin/album" element={<Galleryuser />} />
-          <Route exact path="/admin/events/create" element={<AddEvent />} />
+          
+          <Route exact path="/admin/albumevents/create" element={<AddAlbumEvents />} />
           <Route exact path="/admin/album/create" element={<AddAlbum />} />
           <Route exact path="/admin/albumcamps/create" element={<AddAlbumcamps />} />
           <Route exact path="/admin/blog" element={<AdminBlog />} />
           <Route exact path="/admin/blog/create" element={<AddArticle />} />
           <Route exact path="/admin/blog/edit/:articleId" element={<EditBlog />} />
-
-
+ 
+          <Route exact path="/admin/challenge" element={<AdminChallenges />} />
+          <Route exact path="/admin/challenge/create" element={<AddChallenge />} />
+          <Route exact path="/admin/challenge/update/:articleId" element={<EditBlog />} />
 
 
 
@@ -195,12 +256,16 @@ function Root() {
               <Route exact path={`/defaultbadge`} element={<Badge />} />
               <Route exact path={`/defaultgroupagent`} element={<Badgeagent />} />
               <Route exact path={`/defaultgroup/:id`} element={<GalleryDetailscamps />} />
+              <Route exact path={`/defaultgroupevent/:id`} element={<GalleryDetailsevent />} />
               <Route exact path={`/FormCamps/:id`} element={<FormCamps />} />
+              <Route exact path={`/FormEvent/:id`} element={<FormEvent />} />
               <Route exact path={`/thanks/:id`} element={<Thankscamps />} />
+              <Route exact path={`/thanksevent/:id`} element={<Thanksodinevent />} />
 
 
               <Route exact path="/gallery" element={<Gallery />} />
               <Route exact path={`/defaultgroup`} element={<Galleryuser />} />
+              <Route exact path={`/defaultgroupEvents`} element={<GalleryuserEvent />} />
               <Route exact path={`/defaultstorie`} element={<Storie />} />
               <Route exact path={`/defaultemailbox`} element={<Email />} />
               <Route exact path={`/defaultemailopen`} element={<Emailopen />} />
@@ -223,9 +288,16 @@ function Root() {
 
               <Route exact path="/blog" element={<Blog />} />
               <Route exact path="/blog/:articleId" element={<SingleArticle />} />
+              
+              
+              
+              
+              <Route exact path="/offre_emploi/:id" element={<OffreEmploi />} />
+              <Route exact path="/entreprise" element={<Entrpriseemploi />} />
+              <Route exact path="/homeoffre" element={<Homeoffre />} />
 
-
-
+              <Route exact path="/challenges" element={<Challenges/>} />
+              <Route exact path="/challenges/details/:challengeId" element={<ChallengeDetais/>} />
 
 
 
@@ -274,6 +346,7 @@ function Root() {
 
         </Routes>
       </BrowserRouter>
+      </Context.Provider>
     </React.StrictMode>
 
   );

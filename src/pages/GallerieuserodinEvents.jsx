@@ -1,191 +1,165 @@
-import React, { Component, Fragment, useState, useRef, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import Post from "../components/Post";
-import Albumsadmin from "../components/Albumsadmin";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header2";
-import Leftnav from "../components/Leftnav";
-import Rightchat from "../components/Rightchat";
-import Appfooter from "../components/Appfooter";
-import Popupchat from "../components/Popupchat";
-
-import Friends from "../components/Friends";
-import Contacts from "../components/Contacts";
-import Group from "../components/Group";
-import Events from "../components/Events";
-import Createpost from "../components/Createpost";
-import Memberslider from "../components/Memberslider";
-import Friendsilder from "../components/Friendsilder";
-import Storyslider from "../components/Storyslider";
-import Postview from "../components/Postview";
+// import Leftnav from '../../components/Leftnav';
+// import Rightchat from '../../components/Rightchat';
+import Pagetitle from "../components/Pagetitle";
+// import Appfooter from '../../components/Appfooter';
+// import Popupchat from '../../components/Popupchat';
 import Load from "../components/Load";
-import Profilephoto from "../components/Profilephoto";
-import TextInput from "../components/TextInput";
-import CustomButton from "../components/CustomButton";
-import { BsFiletypeGif, BsPersonFillAdd, BsTypeH1 } from "react-icons/bs";
-import placeholder from "../assets/placeholder.jpg";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from "react-router-dom";
+import Modal from "react-modal";
+import { paysAllInfo } from "../assets/data/Country";
+import "./flags.css";
+import Select from "react-select";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { Config } from "../config";
-import {
-  BiEditAlt,
-  BiHeart,
-  BiImages,
-  BiLike,
-  BiMessageRounded,
-  BiSend,
-  BiSolidCommentCheck,
-  BiSolidHeart,
-  BiSolidSend,
-  BiSolidVideo,
-  BiLogInCircle,
-  BiUndo,
-} from "react-icons/bi";
-import Loading from "../components/Loading";
-import { Link, Navigate, useNavigate, useLocation, json } from "react-router-dom";
-import GallerieOdin from "./Gallerieuserodin";
-import AdminImg from "../assets/ODIN22.png";
-import SkeletonArticleCard from "./HomeSkeletonPost";
-import CreatePost from "../components/CreatePostss";;
-function Home() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    fetchData();
-    // fetchAlbumms()
-    // fetchArticles()
-    console.log("🚀 ~ useEffect ~ fetchArticles:", "fetchArticles")
-  }, []);
 
-  const fetchAlbums = async () => {
-    try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/album`);
-      const result = await response.json();
-      console.log("----------------_-_admin--------", result)
-
-      // setData(prev => [...prev, 
-      //   ...result.data.sort(
-      //     (a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      //   ])
-      return result.data
-    } catch (error) {
-      console.error("Error fetching albums:", error);
-    }
-  };
-  const formatDate = (date) => {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const hours = String(d.getHours()).padStart(2, '0');
-    const minutes = String(d.getMinutes()).padStart(2, '0');
-    const seconds = String(d.getSeconds()).padStart(2, '0');
-
-    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-  };
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-
-      // Fetch articles (posts) and albums
-      const articlesResponse = await fetchArticles();
-      console.log("🚀 ~ fetchData ~ articlesResponse:", articlesResponse);
-      const albumsResponse = await fetchAlbums();
-      console.log('_-_-_-_-_-_', albumsResponse);
-
-      // Parse createdAt for articles
-      const parsedArticles = articlesResponse.map(article => {
-        // Assuming createdAt is in mm-dd-yyyy format, split and rearrange the date
-        const [month, day, year] = article.createdAt.split('-');
-        const formattedDate = `${day}-${month}-${year}`;
-        return {
-          ...article,
-          createdAt: formatDate(formattedDate)
-        };
-      });
-
-      // Parse createdAt for albums
-      const parsedAlbums = albumsResponse.map(album => {
-        return {
-          ...album,
-          createdAt: formatDate(album.createdAt)
-        };
-      });
-
-      // Combine articles and albums into a single array
-      const combinedData = [...parsedArticles, ...parsedAlbums];
-
-      // Sort the combined array by createdAt
-      combinedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-      // Update state with sorted data
-      setData(combinedData);
-
-      console.log("combinedData", combinedData);
-      console.log(data, "data-------------------");
-
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setLoading(false);
-    }
-  };
-
-
-
-
-
-  const fetchArticles = async (page = 1, size = 10) => {
-    try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
-      const result = await response.json();
-      console.log("🚀 ~ fetchArticles ~ result:", result)
-
-      const articlesWithPromises = result.rows.map(async (article) => {
-        const userId = article.userId;
-        const comt = article.id;
-
-        const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
-          fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
-          fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
-          fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
-        ]);
-
-        const likesCount = likesCountResponse.find(
-          (count) =>
-            count.articleId === article.articleId ||
-            count.articleId === article.id
-        );
-
-        return {
-          ...article,
-          user: userDataResponse,
-          comments: commentsResponse.commentsData,
-          commentsCount: commentsResponse.commentCount,
-          likesCount: likesCount ? likesCount.likesCount : 0,
-        };
-      });
-
-      const reversedArticlesWithPromises = articlesWithPromises.reverse(); // Reverse the order
-      console.log("🚀 ~ fetchArticles ~ reversedArticlesWithPromises:", reversedArticlesWithPromises)
-      const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
-      console.log("🚀 ~ fetchArticles ~ articlesWithLikesCount:", articlesWithLikesCount)
-      // setData(articlesWithLikesCount);
-      // console.log("articles : ", articlesWithLikesCount);
-
-      //llml Update pagination state
-      // setTotalItems(result.totalItems);
-      // setTotalPages(result.totalPages);
-      // setCurrentPage(page);
-      return articlesWithLikesCount
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  // for left slide barre ---------------------------------
+const Album = () => {
+  const [album, setAlbum] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const navigate = useNavigate();
   const [user, setUser] = useState([]);
 
+
+ 
+
+  const [searchDuree, setSearchDuree] = useState("");
+  const [searchPays, setSearchPays] = useState("");
+  const [searchTypePrix, setSearchTypePrix] = useState("");
+  const [searchDateDB, setSearchDateDb] = useState("");
+  const [searchDateDf, setSearchDateDf] = useState("");
+  const [filteredCamps, setFilteredCamps] = useState([]);
+
+
+  const handleCardClick = (id) => {
+    setSelectedCard(id);
+    navigate(`/defaultgroupevent/${id}`);
+  };
+
+  const optionsPays = paysAllInfo.map((country) => {
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
+
+    return {
+      value: countryCode,
+      label: (
+        <div>
+          {countryCode && (
+            <span
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{ marginRight: "2px", width: "40px" }}
+            ></span>
+          )}
+          {country.name}
+        </div>
+      ),
+    };
+  });
+
+
+  useEffect(() => {
+    const fetchAlbums = async () => {
+      try {
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumevent`);
+
+        const result = await response.json();
+
+        setAlbum(result.data);
+        setFilteredCamps(result.data);
+        console.log("aaaa", filteredCamps)
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
+    };
+    fetchAlbums();
+  }, []);
+
+  const dureeOptions = [
+    { value: '3jours', label: '3 jours' },
+    { value: 'semaine', label: 'Semaine' },
+    { value: '2 semaine', label: '2 semaine' },
+    { value: '3semaines', label: '3 semaines' },
+    { value: '1mois', label: '1 mois' },
+
+  ];
+
+  const resetSearchCriteria = () => {
+    setSearchDuree("");
+    setSearchPays("");
+    setSearchTypePrix("");
+    setSearchDateDb("");
+    setSearchDateDf("");
+    setFilteredCamps(album);
+  };
+
+  const handleReset = () => {
+    resetSearchCriteria();
+    console.log("After Reset:", searchDuree, searchDateDB);
+  };
+
+  const handleDureeChange = (e) => {
+    setSearchDuree(e.target.value);
+  };
+
+
+
+  const handleTypePrixChange = (e) => {
+    setSearchTypePrix(e.target.value);
+  };
+
+  const handleDateDBChange = (date) => {
+    // Format the date as "yyyy-MM-dd"
+    const formattedDate = date?.toISOString()?.split('T')[0];
+
+    // Update the state with the formatted date
+    setSearchDateDb(formattedDate);
+  };
+
+
+
+  const handleDateDFChange = (date) => {
+    const formattedDate = date?.toISOString()?.split('T')[0];
+
+    // Update the state with the formatted date
+    setSearchDateDf(formattedDate);
+
+  };
+
+  const formatDate = (dateString) => {
+    const dateParts = dateString.split('-');
+    if (dateParts.length === 3) {
+      const year = dateParts[0];
+      const month = dateParts[1].padStart(2, '0'); // Ensure two-digit month
+      const day = dateParts[2].padStart(2, '0'); // Ensure two-digit day
+      return `${year}-${month}-${day}`;
+    } else {
+      return null; // Invalid date string
+    }
+  };
+
+  const handleSearch = () => {
+    const filteredData = album.filter((camps) => {
+      console.log('event Camp Data:', camps);
+
+      // Format date_debut and date_fin
+      const formattedDateDB = formatDate(camps.date_debut);
+      const formattedDateDF = formatDate(camps.date_fin);
+
+      return (
+        camps.Duree.toLowerCase().includes(searchDuree.toLowerCase()) &&
+        (searchPays === "" || camps.payscamps === searchPays) &&
+        (searchTypePrix === "" || camps.prix === searchTypePrix) &&
+        (searchDateDB === "" || formattedDateDB === searchDateDB) &&
+        (searchDateDf === "" || formattedDateDF === searchDateDf)
+      );
+    });
+    console.log('Search Criteria:', searchDuree, searchPays, searchTypePrix, searchDateDB, searchDateDf);
+
+    setFilteredCamps(filteredData);
+
+    // console.log("dhia", filteredData)
+  };
   useEffect(() => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const id = storedUserData ? storedUserData.id : null;
@@ -203,35 +177,40 @@ function Home() {
 
   }, []);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
 
+  const storedUserData = JSON.parse(localStorage.getItem("user"));
 
   const id = storedUserData.id ? storedUserData.id : null;
 
   const userProfileType = storedUserData ? storedUserData.profil : null;
 
+
   const shouldHideForProfiles = ["other", "player"];
-  const shouldShowAgentItem = ["player"].includes(userProfileType);
+  const shouldShowAgentItem = ["player", "other"].includes(userProfileType);
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
-  // left slide barre ------------------------------
   return (
     <>
-      {/* <Header />
-       */}
-
-      <div className="flex flex-col pb-20  bg-zinc-100">
-        <Header />
-        <div className="self-center px-3 md:px-2 mt-24 w-full max-w-[1344px] max-md:mt-10 max-md:max-w-full">
-          <div className="flex gap-2 max-md:flex-col max-md:gap-0">
+      <Header />
 
 
 
 
+      <div className="flex flex-col pb-12 mt-0 lg:mt-8 bg-zinc-100">
 
+        <div className="self-center md:mt-20 w-full max-w-[1344px]  max-md:max-w-full">
+
+          <div className="flex max-md:flex-col max-md:gap-0">
+            {/* <div className="flex flex-col w-[24%] max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col px-5 pt-4 pb-6 mx-auto w-full  rounded-xl max-md:mt-6">
+
+
+
+              </div>
+            </div> */}
             {/* left menu */}
-            <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
+            <div className=" xs:hidden sm:hidden hidden md:mt-5  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col items-start gap-4 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
                 <Link to="/home" className="nav-content-bttn open-font">
                   <div className="flex justify-center items-center gap-4 py-2 px-6 ">
@@ -250,7 +229,7 @@ function Home() {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      Acceuil
+                      Acceuil 
                     </div>
                   </div>
                 </Link>
@@ -294,15 +273,13 @@ function Home() {
                   </div>{" "}
                 </Link>
 
+                <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
-                {  shouldShowAgentItem && (
-                  
+                {shouldShowAgentItem && (
                   <Link
                     to="/defaultgroupagent"
                     className="nav-content-bttn open-font"
                   >
-                                    <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
-
                     <div className="flex justify-center items-center gap-4 py-2 px-6">
                       <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                         <svg
@@ -430,52 +407,208 @@ function Home() {
             </div>
 
             {/* left menu */}
-
-
-
-
-
-
-            {/* create post */}
-
-
-
-            <div className="flex flex-1 flex-col">
-              <CreatePost />
-              {
-                loading ? (
-                  // Render skeleton loading effect while data is being fetched
-                  Array(10).fill().map((_, index) => (
-                    <SkeletonArticleCard key={index} />
-                  ))
-                ) : (
-                  <div>
-                    {
-                      data.map((item, index) => (
-                        <div key={`item-${index}`}>
-                          {
-                            // Conditionally render Albumsadmin or Post component based on the number of keys in the item
-                            Object.keys(item).length <= 7 ? (
-                              <Albumsadmin item={item} />
-                            ) : (
-                              <Post article={item} setArticles={setData} />
-                            )
-                          }
-                        </div>
-                      ))
-                    }
+            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-1 w-[76%] max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col grow  max-md:max-w-full">
+                <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+                  <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
+                    Chercher un Events
                   </div>
-                )
-              }
+                  <div className="flex-wrap gap-y-4 justify-between content-start mt-2 max-md:max-w-full">
+                    <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0">
+                      <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+                        <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10">
+                          <div className="flex gap-2 md:gap-4 justify-between px-4 whitespace-nowrap">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/803e02712b2b4c86f9a16b3c2fd85a1f2520ba9fac821299d322e0a17e04e0df?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <div className="grow">Durée</div>
+                          </div>
+                          <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
+                              <select
+                                onChange={handleDureeChange}
+                                value={searchDuree}
+                                className="w-full"
+                              >
+                                {dureeOptions.map((option) => (
+                                  <option key={option.value} value={option.value}>
+                                    {option.label}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+                          <div className="flex gap-4 justify-between px-4 mt-4 whitespace-nowrap">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a38d56790789553e5ad61b7be1f1c9794b8856c20bce58844081006640976d32?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <div className="grow">Date de début</div>
+                          </div>
+                          <div className="flex flex-col justify-center mt-2 w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
+                              <DatePicker
+                                dateFormat="yyyy-MM-dd"
+                                selected={searchDateDB} // Set the selected date from your state
+                                onChange={(date) => handleDateDBChange(date)} // Handle date change
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-            </div>
-            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow max-md:mt-6">
-                <Friends />
-                <Friendsilder />
+                      <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                        <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
+                          <div className="flex gap-4 justify-between px-4 text-base">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bfb1d26cb36312136826da85a4c47e65f704f7a4f080f319b159e471c18e5bc?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <div className="grow">Pays</div>
+                          </div>
+                          <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid  rounded-[30px]">
+                            <Select
+                              options={optionsPays}
+                              onChange={(selectedOption) => setSearchPays(selectedOption.label.props.children[1])}
+                              value={optionsPays.find((option) => option.value === searchPays)}
+                              placeholder="Pays Camps"
+                              styles={{
+                                control: (provided, state) => ({
+                                  ...provided,
+                                  borderRadius: "0.375rem",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  borderRadius: "30px",
+                                  width: "235px",
+                                  paddingTop: "6px",
+                                  paddingBottom: "6px",
+                                  fontSize: "1rem",
+                                  borderWidth: "none",
+                                }),
+                                menu: (provided, state) => ({
+                                  ...provided,
+                                  width: "100%",
+                                }),
+                              }}
 
-                {/* <Group /> */}
-                <Events />
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                        <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 ">
+                          <div className="flex gap-4 justify-between px-4">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/50a0695569327f7204d974bc36853e47face4848f228a6c678484e0d7aca8146?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="aspect-[0.9] fill-zinc-900 w-[18px]"
+                            />
+                            <div className="grow">Prix</div>
+                          </div>
+                          <div className="flex flex-col justify-center mt-2 w-full text-xs  border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
+                              <input
+
+                                value={searchTypePrix}
+                                className="bg-transparent border-hidden "
+
+                                onChange={handleTypePrixChange}
+                                type="text"
+                                name="prix"
+                              // id="prix"
+
+                              />
+                            </div>
+                          </div>
+                          <div className="flex gap-4 justify-between px-4 md:mt-4">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ebab6160954a2bce21ceaf2e169787de6ab38cfed49192e766553aa8805b259?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square"
+                            />
+                            <div className="grow">Date de fin</div>
+                          </div>
+                          <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
+                              <DatePicker
+                                dateFormat="yyyy-MM-dd"
+                                selected={searchDateDf} // Set the selected date from your state
+                                onChange={(date) => handleDateDFChange(date)} // Handle date change
+
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex md:gap-3 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                    <button
+                      className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
+                      onClick={handleReset}
+                    >
+                      Réinitialiser
+                    </button>
+                    <div className="flex gap-2 justify-between pl-6">
+                      <div
+                        className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
+                        onClick={handleSearch}
+                      >
+                        Confirmer
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="px-2 mt-6 max-md:max-w-full">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-md:flex-col max-md:gap-0">
+                    {filteredCamps.map((value, index) => (
+                      <div key={index} className="flex flex-col">
+                        <div onClick={() => handleCardClick(value.id)} className="flex flex-col grow items-start pb-4 mx-auto w-full bg-white rounded-xl">
+                          <img
+                            loading="lazy"
+                            // srcSet={value?.ImagesAlbumevents[0]?.image_url}
+                            src={value?.ImagesAlbumevents?.length > 0 ? value?.ImagesAlbumevents[0]?.image_url : 'placeholder.jpg'}
+                            className="self-stretch w-full aspect-square rounded-t-xl object-cover"
+                          />
+                          <div className="mt-4 px-2 self-start text-base font-semibold text-zinc-900">
+                            {value.album_name}
+                          </div>
+                          <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-400 w-[282px]">
+                            <div className="flex self-start gap-2">
+                              <div className="flex self-start">{value.date_debut}</div>
+                              <div>-</div>
+                              <div className="grow">{value.date_fin}</div>
+                            </div>
+                            <div className=" text-xs font-light">{value.payscamps}</div>
+                          </div>
+                          <div className="mt-2 text-xs mx-2 font-light text-black">
+                            {value.description}
+                          </div>
+                          <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
+                            <div className="flex flex-col whitespace-nowrap ">
+                              <div className="text-xs font-light text-zinc-400">Prix</div>
+                              <div className="mt-1 text-base text-zinc-900 font-semibold">
+                                {value.prix} €
+                              </div>
+                            </div>
+                            <div className="flex justify-center items-center p-2.5  bg-blue-600 rounded-md aspect-[1.13]">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/688459f573915c74266dcb5eb0235120d7e93fd088c5102dd26fe0420b9723d9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-5 h-3 aspect-[1.33] fill-white"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -483,6 +616,6 @@ function Home() {
       </div>
     </>
   );
-}
+};
 
-export default Home;
+export default Album;

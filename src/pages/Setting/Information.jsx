@@ -6,11 +6,11 @@ import Agent from "./Fragments/Agent";
 import Other from "./Fragments/Other";
 
 
-const Information = ({userInfo}) => {
+const Information = ({userInfo,fetchUserInfo}) => {
     return(
        <>
         {/* {userInfo.user.profil === 'scout'  &&  <Scout userInfo={userInfo}/>} */}
-        {userInfo?.user.profil === 'player' && <Player userInfo={userInfo}/>}
+        {userInfo?.user.profil === 'player' && <Player userInfo={userInfo} fetchUserInfo={fetchUserInfo}/>}
         {userInfo?.user.profil === 'coach'  && <Entraineur userInfo={userInfo}/>}
         {userInfo?.user.profil === 'other'  &&  <Other userInfo={userInfo}/>} 
         {userInfo?.user.profil === 'agent'  &&  <Agent userInfo={userInfo}/>}
