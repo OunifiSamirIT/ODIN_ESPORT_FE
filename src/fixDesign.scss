@@ -3,6 +3,7 @@
   height: 30px;
   display: flex;
   justify-content: center;
+  position: relative;
   .currentLangCon {
     display: flex;
     align-items: center;
@@ -31,7 +32,7 @@
     border-radius: 5px;
     z-index: 111;
     display: flex;
-    bottom: -60%;
+    top: 110%;
     align-items: center;
     justify-content: center;
     flex-direction: column;

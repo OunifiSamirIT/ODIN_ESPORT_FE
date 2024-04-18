@@ -300,19 +300,50 @@ const Album = () => {
               <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
                 <div className="justify-between px-8 py-6 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                   
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+                    <Link to="/defaultgroup">
+                    <button
+                    className="w-full bg-orange-400 rounded-full flex items-center justify-center py-2 mb-3">
+                     
+                     <svg
+                          width={20}
+                          height={21}
+                          viewBox="0 0 20 21"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clipPath="url(#clip0_2249_46735)">
+                            <path
+                              d="M14.9341 19.3598C14.9338 19.0284 14.8019 18.7107 14.5674 18.4765L8.17408 12.0831C7.98057 11.8897 7.82706 11.66 7.72233 11.4072C7.6176 11.1544 7.56369 10.8834 7.56369 10.6098C7.56369 10.3362 7.6176 10.0652 7.72233 9.81241C7.82706 9.55962 7.98057 9.32993 8.17408 9.13646L14.5591 2.7473C14.7868 2.51154 14.9128 2.19579 14.9099 1.86804C14.9071 1.5403 14.7756 1.22678 14.5439 0.995023C14.3121 0.763263 13.9986 0.631802 13.6708 0.628954C13.3431 0.626105 13.0273 0.752098 12.7916 0.979796L6.40658 7.36396C5.54805 8.22418 5.06588 9.38988 5.06588 10.6052C5.06588 11.8206 5.54805 12.9862 6.40658 13.8465L12.7999 20.2398C12.9745 20.4145 13.1969 20.5335 13.439 20.5819C13.6812 20.6304 13.9323 20.606 14.1606 20.5118C14.3889 20.4177 14.5842 20.258 14.7219 20.053C14.8595 19.848 14.9334 19.6068 14.9341 19.3598Z"
+                              fill="white"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_2249_46735">
+                              <rect
+                                width={20}
+                                height={20}
+                                fill="white"
+                                transform="matrix(-1 0 0 1 20 0.609375)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg><span className=" text-white"> Revenir au Camps</span>
+                    </button>
+                    </Link>
                       <img
                         loading="lazy"
                         src={albumDetails.ImagesAlbumcamps[0]?.image_url}
-                        className="grow w-full aspect-[0.7] object-cover max-md:mt-10"
+                        className="grow w-full aspect-[0.7] object-cover rounded-2xl "
                       />
                     </div>
-                    <div className="flex flex-col ml-5 w-[67%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10 max-md:max-w-full">
-                        <div className="text-3xl font-bold max-md:max-w-full">
+                    <div className="flex flex-col mt-[-12px] ml-5 w-[67%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col grow text-base text-zinc-900  max-md:max-w-full">
+                        <div className="text-3xl max-md:text-xl font-bold max-md:max-w-full">
                           {albumDetails.album_name}
                         </div>
-                        <div className="mt-4 font-light max-md:max-w-full">
+                        <div className="font-light max-md:max-w-full">
                           {albumDetails.description}
                         </div>
 
@@ -424,11 +455,11 @@ const Album = () => {
                 <div className="px-4 mt-6 max-md:max-w-full">
                   <div className="flex flex-wrap gap-1">
                     {albumDetails.ImagesAlbumcamps.slice(1).map((image, index) => (
-                      <div key={index} className="ml-3 w-[45%] md:w-[30%] lg:w-[30%]">
+                      <div key={index} className="ml-3 w-[45%] md:w-[30%] lg:w-[30%] mb-3">
                         <img
                           loading="lazy"
                           src={image.image_url}
-                          className="w-full aspect-square "
+                          className="w-full aspect-square  rounded-lg"
                           onClick={() => handleCardClick(index)}
 
                         />
