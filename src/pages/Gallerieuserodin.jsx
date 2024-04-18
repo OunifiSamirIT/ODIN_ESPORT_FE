@@ -377,68 +377,7 @@ const handleSearch = () => {
                             </select>
                           </div>
                         </div>
-                        <div className="flex gap-4 justify-between px-4 mt-4 whitespace-nowrap">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/a38d56790789553e5ad61b7be1f1c9794b8856c20bce58844081006640976d32?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square"
-                          />
-                          <div className="grow">Date de début</div>
-                        </div>
-                        <div className="flex flex-col justify-center mt-2 w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                          <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
-                            <DatePicker 
-                            dateFormat="yyyy-MM-dd" 
-                             selected={searchDateDB} // Set the selected date from your state
-                             onChange={(date) => handleDateDBChange(date)} // Handle date change
-  />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
-                        <div className="flex gap-4 justify-between px-4 text-base">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bfb1d26cb36312136826da85a4c47e65f704f7a4f080f319b159e471c18e5bc?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square"
-                          />
-                          <div className="grow">Pays</div>
-                        </div>
-                        <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid  rounded-[30px]">
-                          <Select
-                           options={optionsPays}
-                           onChange={(selectedOption) => setSearchPays(selectedOption.label.props.children[1])}
-                              value={optionsPays.find((option) => option.value === searchPays)}
-                            placeholder="Pays Camps"
-                            styles={{
-                              control: (provided, state) => ({
-                                ...provided,
-                                borderRadius: "0.375rem",
-                                display: "flex",
-                                justifyContent: "center",
-                                borderRadius: "30px",
-                                width: "235px",
-                                paddingTop: "6px",
-                                paddingBottom: "6px",
-                                fontSize: "1rem",
-                                borderWidth: "none",
-                              }),
-                              menu: (provided, state) => ({
-                                ...provided,
-                                width: "100%",
-                              }),
-                            }}
-
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 ">
-                        <div className="flex gap-4 justify-between px-4">
+                        <div className="flex gap-4 mt-3 justify-between px-4">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/50a0695569327f7204d974bc36853e47face4848f228a6c678484e0d7aca8146?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -459,7 +398,71 @@ const handleSearch = () => {
                             />
                           </div>
                         </div>
-                        <div className="flex gap-4 justify-between px-4 md:mt-4">
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
+                        <div className="flex gap-4 justify-between px-4 text-base">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bfb1d26cb36312136826da85a4c47e65f704f7a4f080f319b159e471c18e5bc?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square"
+                          />
+                          <div className="grow">Pays</div>
+                        </div>
+                        <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid rounded-[30px]">
+                          <Select
+                           options={optionsPays}
+                           onChange={(selectedOption) => setSearchPays(selectedOption.label.props.children[1])}
+                              value={optionsPays.find((option) => option.value === searchPays)}
+                            placeholder="Pays Camps"
+                            styles={{
+                              control: (provided, state) => ({
+                                ...provided,
+                                borderRadius: "0.375rem",
+                                display: "flex",
+                                justifyContent: "center",
+                                borderRadius: "30px",
+                                width: "100%",
+                                paddingTop: "6px",
+                                paddingBottom: "6px",
+                                fontSize: "1rem",
+                                borderWidth: "none",
+                              }),
+                              menu: (provided, state) => ({
+                                ...provided,
+                                width: "100%",
+                              }),
+                            }}
+
+                          />
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 ">
+                       
+                        <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/a38d56790789553e5ad61b7be1f1c9794b8856c20bce58844081006640976d32?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square"
+                          />
+                          <div className="grow">Date de début</div>
+                        </div>
+                        <div className="flex flex-col justify-center my-2 w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                          <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
+                            <DatePicker 
+                            dateFormat="yyyy-MM-dd" 
+                             selected={searchDateDB} // Set the selected date from your state
+                             onChange={(date) => handleDateDBChange(date)} // Handle date change
+  />
+                          </div>
+                        </div>
+                        <div className="flex gap-4 mt-2 justify-between px-4 md:mt-4">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ebab6160954a2bce21ceaf2e169787de6ab38cfed49192e766553aa8805b259?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -481,21 +484,27 @@ const handleSearch = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex md:gap-3 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                <div className="flex md:gap-3 flex-col md:flex-row items-center justify-center  py-2 mt-4 w-full text-base font-medium ">
                   <button
-                    className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
+                    className="justify-center px-8 py-2 mt-2 md:mt-0 text-white md:w-fit w-full bg-blue-600 rounded-[30px] px-5"
+                    onClick={handleSearch}
+                    >
+                    Confirmer
+                  </button>
+                  <button
+                    className="justify-center px-8 py-2 mt-2 md:mt-0 text-white bg-orange-500 md:w-fit w-full rounded-[30px] px-5"
                     onClick={handleReset}
                   >
                     Réinitialiser
                   </button>
-                  <div className="flex gap-2 justify-between pl-6">
+                  {/* <div className="flex gap-2 justify-between pl-6">
                     <div
-                      className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
+                      className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]  max-sm:px-5"
                       onClick={handleSearch}
                     >
                       Confirmer
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -523,7 +532,7 @@ const handleSearch = () => {
                         <div className="mt-2 text-xs mx-2 font-light text-black">
                           {value.description}
                         </div>
-                        <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
+                        <div className="flex gap-5 px-2 justify-between mt-2  max-w-full w-[282px]">
                           <div className="flex flex-col whitespace-nowrap ">
                             <div className="text-xs font-light text-zinc-400">Prix</div>
                             <div className="mt-1 text-base text-zinc-900 font-semibold">
