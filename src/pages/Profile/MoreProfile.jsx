@@ -2289,7 +2289,7 @@ const More = () => {
                           </>
                         )}
                       </div>
-                      <div className="flex gap-x-8 gap-y-2 justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap max-w-full">
+                      <div className="flex gap-x-8 gap-y-2 justify-center mt-3 items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap max-w-full">
                         <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                           <span
                             className={`flag-icon flag-icon-${getCountryFlagFromCountryName(
@@ -2454,33 +2454,7 @@ const More = () => {
                   </div>
                       {/* social icons */}
 
-        <div className="  max-w-xl flex flex gap-4 mt-2 justify-between">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/9f2fa6031aa7cffb21186e5501126b3836a7c414e1752c9e64fdbcac1ce4100c?"
-                  className="shrink-0 aspect-square w-[25px]"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/ee734d4428028617729c0185044032ddb130279e8139babab8caab0cdf7d6bd4?"
-                  className="shrink-0 w-6 aspect-[0.96]"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8667ac9987e1f4996c37f85b212f897fd480e345bd16b0eac52bb3f8adb76e66?"
-                  className="shrink-0 w-6 aspect-[0.96]"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b78e7f165ad6d93ef824dbe6adbbd69b6e0d02007b0bbf390ad2538e8c398dde?"
-                  className="shrink-0 aspect-square w-[25px]"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/caac4cd0dd6b89529ac5104e789b62c6cbf2091f6a2f16366ce2bc247406f84a?"
-                  className="shrink-0 w-6 aspect-[0.96]"
-                />
-              </div>
+       
 
         {/* social icons */}
                   {/* <div className="flex-1 flex flex gap-2 text-pretty  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">

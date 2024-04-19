@@ -6494,14 +6494,14 @@ function Register() {
                   <div
                     key={data.role}
                     className={`max-w-full ${index === profilesData.length - 1 ? 'md:col-span-2  md:flex md:justify-center  ' : ''}`}
-                  >                    <div className="justify-center mt-4 mx-2 sm:mx-0 max-w-full md:mx-6">
-                      <div className="flex flex-col sm:flex-row gap-4 max-md:flex-col max-md:gap-0 max-md:">
+                  >                    <div className="justify-center mt-4 mx-2 sm:mx-0 max-w-full md:mx-6 ">
+                      <div className="flex flex-col sm:flex-row gap-4 max-md:flex-col max-md:gap-0 focus hover:scale-[.96]    duration-500 pointer">
                         <div className="flex w-full">
-                          <div className="flex flex-col max-md:ml-0 max-md:w-full">
+                          <div className="flex flex-col max-md:ml-0 max-md:w-full ">
                             <img
                               loading="lazy"
                               srcSet={data.logo}
-                              className="grow max-w-full aspect-[1.3] object-cover"
+                              className="grow max-w-full aspect-[1.3] object-cover rounded-l-3xl "
                             />
                           </div>
                           <div className="flex flex-col max-md:ml-0 max-md:w-full">
@@ -6512,7 +6512,7 @@ function Register() {
                                     ? "#2E71EB"
                                     : "white",
                               }}
-                              className="grow justify-center items-center px-16 pt-16 pb-12 w-full text-2xl text-center rounded-r-3xl text-zinc-900 max-md:px-5"
+                              className="grow justify-center focus:bg-[#2E71EB]   duration-500  items-center px-16 pt-16 pb-12 w-full text-2xl text-center rounded-r-3xl text-zinc-900 max-md:px-5"
                               onClick={() => {
                                 const selectedProfileValue = data.role;
                                 console.log(
