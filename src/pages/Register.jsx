@@ -4465,10 +4465,32 @@ function Register() {
   }));
 
 
+  // const handleChangeregion = selectedOptions => {
+  //   const selectedRegions = selectedOptions.map(option => option.value);
+  //   console.log('Choisi Les Regions:', selectedRegions);
+  // };
   const handleChangeregion = selectedOptions => {
     const selectedRegions = selectedOptions.map(option => option.value);
     console.log('Choisi Les Regions:', selectedRegions);
-  };
+
+    // Check if any selected option represents a scout country
+    const selectedScoutCountry = selectedOptions.find(option => {
+        // You need to replace 'YourScoutCountryIdentifier' with the actual identifier used for scout countries
+        return option.isScoutCountry === true;
+    });
+
+    if (selectedScoutCountry) {
+        console.log('Selected scout country:', selectedScoutCountry.value);
+        // Update formData with the selected scout country
+        setFormData(prevData => ({
+            ...prevData,
+            paysscout: selectedScoutCountry.value,
+        }));
+    }
+};
+
+
+
 
   //////////////////mangerclubpays
   const handleCountryChangePaysAgentclub = (selectedOption) => {
@@ -4772,48 +4794,7 @@ function Register() {
   };
 
 
-  // const handleCoachSkillToggle = (coachSkill) => {
-  //   let updatedCoachSkills = formData.skills.split(",");
-
-  //   if (updatedCoachSkills.includes(coachSkill)) {
-  //     updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
-  //   } else {
-  //     if (updatedCoachSkills.length <= 10) {
-  //       updatedCoachSkills.push(coachSkill);
-  //     }
-  //   }
-
-  //   const isSkillsError = updatedCoachSkills.length >= 11;
-
-  //   setFormData({
-  //     ...formData,
-  //     skills: updatedCoachSkills.join(","),
-  //   });
-  //   setSkillsError(isSkillsError);
-
-  //   console.log('isSkillsError:', isSkillsError);
-  // };
-  // const handleCoachSkillToggle = (coachSkill) => {
-  //   let updatedCoachSkills = formData.skills.split(",");
-  
-  //   if (updatedCoachSkills.includes(coachSkill)) {
-  //     updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
-  //   } else {
-  //     if (updatedCoachSkills.length < 10) {
-  //       updatedCoachSkills.push(coachSkill);
-  //     }
-  //   }
-  
-  //   const isSkillsError = updatedCoachSkills.length > 10; // Check if there are more than 10 skills
-  
-  //   setFormData({
-  //     ...formData,
-  //     skills: updatedCoachSkills.join(","),
-  //   });
-  //   setSkillsError(isSkillsError);
-  
-  //   console.log('isSkillsError:', isSkillsError);
-  // };
+ 
   
 
   const handleCoachSkillToggle = (coachSkill) => {
@@ -5335,10 +5316,10 @@ function Register() {
       is: 'scout',
       then: () => yup.string().required("Ce champ est obligatoire !"),
     }),
-    // paysscout: yup.string().when('profil', {
-    //   is: 'scout',
-    //   then: () => yup.string().required("Ce champ est obligatoire !"),
-    // }),
+    paysscout: yup.string().when('profil', {
+      is: 'scout',
+      then: () => yup.string(),
+    }),
     skillsscout: yup.string().when('profil', {
       is: 'scout',
       then: () => yup.string().required("Ce champ est obligatoire !"),
@@ -5379,15 +5360,27 @@ function Register() {
 
     const formDataToSubmit = new FormData();
 
+    // Object.keys(formData).forEach((key) => {
+    //   if (key === "image") {
+    //     // Append image file separately
+    //     formDataToSubmit.append("image", formData.image);
+    //   } else {
+    //     formDataToSubmit.append(key, formData[key]);
+    //   }
+    // });
     Object.keys(formData).forEach((key) => {
       if (key === "image") {
-        // Append image file separately
-        formDataToSubmit.append("image", formData.image);
+          // Append image file separately
+          formDataToSubmit.append("image", formData.image);
+      } else if (key === "paysscout") {
+          // Ensure paysscout is a string before appending
+          formDataToSubmit.append("paysscout", String(formData.paysscout));
       } else {
-        formDataToSubmit.append(key, formData[key]);
+          formDataToSubmit.append(key, formData[key]);
       }
-    });
+  });
     formDataToSubmit.append("file", File || null);
+    
     //prob
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/auth/signup`, {
