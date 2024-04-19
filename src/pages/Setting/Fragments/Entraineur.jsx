@@ -77,10 +77,10 @@ const Entraineur = ({ userInfo }) => {
             const updatedSkills = selectedSkills.filter((selectedSkill) => selectedSkill !== skill);
             setSelectedSkills(updatedSkills);
         }
-        if(selectedSkills.length >= 10){
+        if (selectedSkills.length >= 10) {
             setSelectedSkillsError(true)
         }
-        if(selectedSkills.length < 10){
+        if (selectedSkills.length < 10) {
             setSelectedSkillsError(false)
         }
     };
