@@ -194,7 +194,7 @@ function Login({ setAuthStatus }) {
 
 <Link
                       to="/forgot"
-                      className="tal2 flex flex-1 w-full justify-end text-right self-end text-base font-medium py-2 text-blue-600 underline whitespace-nowrap"
+                      className="tal2 flex flex-1 w-full justify-end text-right self-end md:text-base text-sm font-medium py-2 text-blue-600 underline whitespace-nowrap"
                     >
                     <p>
                     {
@@ -233,7 +233,7 @@ function Login({ setAuthStatus }) {
                       <div className="tal2 grow text-base whitespace-nowrap text-zinc-900">
                         <button
                           type="submit"
-                          className="justify-center flex w-full   text-center items-center px-10 py-2  text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full hover:bg-blue-900
+                          className="justify-center flex w-full  text-center items-center px-10 py-2  md:text-base  text-sm font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full hover:bg-blue-900
                           duration-150 border-5 border-blue-0 border-spacing-3 focus:border-blue-400 focus:outline-none-500 "
                         >
                            {

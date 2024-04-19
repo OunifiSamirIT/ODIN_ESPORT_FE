@@ -55,7 +55,6 @@ function Home() {
     // fetchArticles()
     console.log("🚀 ~ useEffect ~ fetchArticles:", "fetchArticles")
   }, []);
-
   const fetchAlbums = async () => {
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/album`);
@@ -82,11 +81,9 @@ function Home() {
 
     return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
   };
-
   const fetchData = async () => {
     try {
       setLoading(true);
-
       // Fetch articles (posts) and albums
       const articlesResponse = await fetchArticles();
       console.log("🚀 ~ fetchData ~ articlesResponse:", articlesResponse);
@@ -301,8 +298,7 @@ function Home() {
                     to="/defaultgroupagent"
                     className="nav-content-bttn open-font"
                   >
-                                    <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
-
+                  <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
                     <div className="flex justify-center items-center gap-4 py-2 px-6">
                       <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                         <svg
@@ -441,7 +437,7 @@ function Home() {
 
 
             <div className="flex flex-1 flex-col">
-              <CreatePost />
+              <CreatePost setArticles={setData} />
               {
                 loading ? (
                   // Render skeleton loading effect while data is being fetched

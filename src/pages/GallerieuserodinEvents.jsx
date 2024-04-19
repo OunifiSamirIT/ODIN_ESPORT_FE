@@ -23,7 +23,7 @@ const Album = () => {
   const [user, setUser] = useState([]);
 
 
- 
+
 
   const [searchDuree, setSearchDuree] = useState("");
   const [searchPays, setSearchPays] = useState("");
@@ -131,8 +131,12 @@ const Album = () => {
     if (dateParts.length === 3) {
       const year = dateParts[0];
       const month = dateParts[1].padStart(2, '0'); // Ensure two-digit month
-      const day = dateParts[2].padStart(2, '0'); // Ensure two-digit day
+
+
+      const day = dateParts[2].padStart(2, '0');
+      console.log("tt", day) // Ensure two-digit day
       return `${year}-${month}-${day}`;
+
     } else {
       return null; // Invalid date string
     }
@@ -229,7 +233,7 @@ const Album = () => {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      Acceuil 
+                      Acceuil
                     </div>
                   </div>
                 </Link>
@@ -411,7 +415,8 @@ const Album = () => {
               <div className="flex flex-col grow  max-md:max-w-full">
                 <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                   <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                    Chercher un Events
+                    Chercher un évènement
+
                   </div>
                   <div className="flex-wrap gap-y-4 justify-between content-start mt-2 max-md:max-w-full">
                     <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0">
@@ -451,6 +456,7 @@ const Album = () => {
                           <div className="flex flex-col justify-center mt-2 w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
                               <DatePicker
+
                                 dateFormat="yyyy-MM-dd"
                                 selected={searchDateDB} // Set the selected date from your state
                                 onChange={(date) => handleDateDBChange(date)} // Handle date change
@@ -517,7 +523,7 @@ const Album = () => {
                                 className="bg-transparent border-hidden "
 
                                 onChange={handleTypePrixChange}
-                                type="text"
+                                type="number"
                                 name="prix"
                               // id="prix"
 
@@ -595,6 +601,7 @@ const Album = () => {
                               <div className="mt-1 text-base text-zinc-900 font-semibold">
                                 {value.prix} €
                               </div>
+
                             </div>
                             <div className="flex justify-center items-center p-2.5  bg-blue-600 rounded-md aspect-[1.13]">
                               <img

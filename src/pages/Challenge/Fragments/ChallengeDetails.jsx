@@ -28,7 +28,6 @@ const ChallengeDetais = () => {
         formData.append('challengesId', challengeId)
         formData.append('userId', storedUserData.id)
         formData.append('participantId', showCase.id)
-        console.log('fg')
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/vote`, {
             method: 'PUT',
             body: formData,
