@@ -27,7 +27,7 @@ const AddEvent = () => {
         formData.append("EntrepriseName", data.EntrepriseName);
         formData.append("postoffre", data.postoffre);
         
-        formData.append("Description", data.Description);
+        formData.append("description", data.description);
         formData.append("NivET", data.NivET);
         formData.append("paysoffre", data.paysoffre);
         formData.append("Experience", data.Experience);
@@ -86,7 +86,7 @@ const AddEvent = () => {
                                             <Dropzone onChange={handleFileChange} multiple={true} setUploadedFiles={setUploadedFiles} />
                                             <div className="col-lg-12 mb-3">
                                                 <label className="mont-font fw-600 font-xsss mb-2 text-dark">Description</label>
-                                                <textarea {...register("Description")} className="form-control mb-0 p-3 h100 bg-greylight lh-16" rows="5" placeholder="Write your message... (optional)" ></textarea>
+                                                <textarea {...register("description")} className="form-control mb-0 p-3 h100 bg-greylight lh-16" rows="5" placeholder="Write your message... (optional)" ></textarea>
                                             </div>
 
 
