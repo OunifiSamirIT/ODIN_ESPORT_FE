@@ -23,6 +23,8 @@ const ChallengeDetais = () => {
     const [commentairetext, setCommentairetext] = useState([]);
     const [isVoted, setIsVoted] = useState(false);
     const [commentShow, setCommentShow] = useState(false);
+    const [hasParticipated, setHasParticipated] = useState(false)
+    const [dropdown, setDropdown] = useState(false)
     const handleVote = async () => {
         const formData = new FormData();
         formData.append('challengesId', challengeId)
@@ -32,6 +34,7 @@ const ChallengeDetais = () => {
             method: 'PUT',
             body: formData,
         })
+        setIsVoted(true)
         console.log('voted')
 
     }
@@ -46,8 +49,20 @@ const ChallengeDetais = () => {
             body: formData,
         })
         const result = await response.json()
-        console.log(result)
+    }
+    const handleDelete = async (id) => {
+        console.log(showCase)
 
+        const response = fetch(`${Config.LOCAL_URL}/api/participant/delete/${id}`,{
+            method : 'DELETE'
+        })
+         const result = await response
+
+        if(result.status === 200){
+            fetchChallenges()
+            setShowCase(false)
+            setHasParticipated(false)
+        }
     }
     const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
@@ -76,6 +91,26 @@ const ChallengeDetais = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+    const isOwner = (id) => {
+        return storedUserData.id == id
+    }
+    const checkIfParticipate = (challenges) => {
+        console.log(challenges)
+        if (challenges.participants) {
+            if (challenges.participants.length > 0) {
+                challenges.participants.map((item) => {
+                    if (item.userId == storedUserData.id) {
+                        setHasParticipated(true)
+                    }
+                })
+            }
+        }
+
+    }
+    useEffect(() => {
+        checkIfParticipate(challenges)
+        console.log('changed')
+    }, [challenges])
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const onSubmit = async (data) => {
         const formData = new FormData();
@@ -144,6 +179,21 @@ const ChallengeDetais = () => {
             method: 'PUT',
             body: formData
         })
+    }
+    const openModel = async (item) => {
+        console.log(showCase)
+        const formData = new FormData();
+        formData.append('challengesId', challengeId)
+        formData.append('userId', storedUserData.id)
+        formData.append('participantId', item.id)
+
+        const response = await fetch(`${Config.LOCAL_URL}/api/participant/checkVote`, {
+            method: 'POST',
+            body: formData,
+        })
+        const result = await response.json()
+        setIsVoted(result.res)
+        setShowCase(item)
     }
     return (<>
         {
@@ -243,28 +293,36 @@ const ChallengeDetais = () => {
                                                 <div className="mt-1 text-xs">{formatDate(showCase.createdAt)}</div>
                                             </div>
                                         </div>
-                                        <div className="flex gap-2 self-start py-2">
-                                            <img
-                                                loading="lazy"
-                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf68e407b209e6deac28d1a8059e5b0417c847f6b221b6ddae95fe07d3cd706f?"
-                                                className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
-                                            />
-                                            <img
-                                                loading="lazy"
-                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf68e407b209e6deac28d1a8059e5b0417c847f6b221b6ddae95fe07d3cd706f?"
-                                                className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
-                                            />
-                                            <img
-                                                loading="lazy"
-                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf68e407b209e6deac28d1a8059e5b0417c847f6b221b6ddae95fe07d3cd706f?"
-                                                className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
-                                            />
+                                        <div className="relative flex gap-2 self-start py-2">
+                                            <svg className={'pointer'} onClick={() =>  isOwner(showCase.user.id) == true ? setDropdown(!dropdown) : setDropdown(false)} width="32" height="21" viewBox="0 0 32 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_2800_8736)">
+                                                    <path d="M3.375 13C4.75571 13 5.875 11.8807 5.875 10.5C5.875 9.11929 4.75571 8 3.375 8C1.99429 8 0.875 9.11929 0.875 10.5C0.875 11.8807 1.99429 13 3.375 13Z" fill="#1D1E21" />
+                                                    <path d="M16.375 13C17.7557 13 18.875 11.8807 18.875 10.5C18.875 9.11929 17.7557 8 16.375 8C14.9943 8 13.875 9.11929 13.875 10.5C13.875 11.8807 14.9943 13 16.375 13Z" fill="#1D1E21" />
+                                                    <path d="M29.375 13C30.7557 13 31.875 11.8807 31.875 10.5C31.875 9.11929 30.7557 8 29.375 8C27.9943 8 26.875 9.11929 26.875 10.5C26.875 11.8807 27.9943 13 29.375 13Z" fill="#1D1E21" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_2800_8736">
+                                                        <rect width="31" height="21" fill="white" transform="translate(0.875)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+
+                                            {dropdown ? (
+                                                <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                                    <button
+                                                        onClick={()=> handleDelete(showCase.id)}
+                                                        className="flex gap-1 items-center px-4 py-2 w-full text-gray-800 hover:bg-gray-200"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            ) : ''}
                                         </div>
                                     </div>
                                     <div className="mx-8 mt-4 text-base font-light text-zinc-900 max-md:mr-2.5 max-md:max-w-full">
                                         {showCase.description}
                                     </div>
-                                    <div className="flex justify-center items-center px-8 py-2 mx-8 mt-8 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:mr-2.5 max-md:max-w-full">
+                                    {!isVoted ? <div className="flex justify-center items-center px-8 py-2 mx-8 mt-8 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:mr-2.5 max-md:max-w-full">
                                         <div className="flex gap-2">
                                             <img
                                                 loading="lazy"
@@ -273,7 +331,15 @@ const ChallengeDetais = () => {
                                             />
                                             <button onClick={handleVote}>Voter</button>
                                         </div>
-                                    </div>
+                                    </div> : <div className="flex justify-center items-center px-8 py-2 mx-8 mt-8 text-base font-medium text-blue-600 border-2 border-blue-600 whitespace-nowrap bg-white rounded-[30px] max-md:px-5 max-md:mr-2.5 max-md:max-w-full">
+                                        <div className="flex gap-2">
+                                            <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15.875 0H9.875C7.665 0 5.875 1.79 5.875 4V14C5.875 14.55 6.325 15 6.875 15H18.875C19.425 15 19.875 14.55 19.875 14V4C19.875 1.79 18.085 0 15.875 0ZM16.585 7.56L13.875 10.27C13.385 10.76 12.745 11 12.105 11C11.465 11 10.825 10.76 10.335 10.27L9.165 9.1C8.775 8.71 8.775 8.08 9.165 7.69C9.555 7.3 10.185 7.3 10.575 7.69L11.745 8.86C11.945 9.06 12.255 9.05 12.455 8.86L15.165 6.15C15.555 5.76 16.185 5.76 16.575 6.15C16.965 6.54 16.965 7.17 16.575 7.56H16.585ZM24.875 14V16C24.875 18.21 23.085 20 20.875 20H4.875C2.665 20 0.875 18.21 0.875 16V14C0.875 12.14 2.155 10.59 3.875 10.14V14C3.875 15.65 5.225 17 6.875 17H18.875C20.525 17 21.875 15.65 21.875 14V10.14C23.595 10.59 24.875 12.14 24.875 14Z" fill="#2E71EB" />
+                                            </svg>
+
+                                            <button onClick={handleVote}>Voté</button>
+                                        </div>
+                                    </div>}
                                     <div className="flex gap-5 justify-between px-4 mt-2 w-full text-base text-zinc-900 max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                         <div className="flex w-full gap-5 justify-between whitespace-nowrap">
                                             <div className="flex gap-2 py-2">
@@ -290,7 +356,7 @@ const ChallengeDetais = () => {
                                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/798714e6a8ae27d83b62e7cfed800557a2f9db0ea140b04eca4377d04c78b16b?"
                                                     className="shrink-0 w-5 aspect-square fill-zinc-900"
                                                 />
-                                                <button onClick={()=> setCommentShow(!commentShow)}>Commenter</button>
+                                                <button onClick={() => setCommentShow(!commentShow)}>Commenter</button>
                                             </div>
                                         </div>
                                     </div>
@@ -451,25 +517,29 @@ const ChallengeDetais = () => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-4 text-base font-light text-zinc-900 max-md:max-w-full">
-                    {challenges.description}
-                </div>
-                <div className="flex justify-center items-center px-6 py-2 mt-4 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
-                    <div className="flex gap-2">
-                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_171_1899)">
-                                <path d="M19.25 2.5C18.56 2.5 18 3.06 18 3.75V9.16667C18 9.62667 17.6267 10 17.1667 10C16.7067 10 16.3333 9.62667 16.3333 9.16667V2.08333C16.3333 1.39333 15.7733 0.833333 15.0833 0.833333C14.3933 0.833333 13.8333 1.39333 13.8333 2.08333V9.16667C13.8333 9.62667 13.46 10 13 10C12.54 10 12.1667 9.62667 12.1667 9.16667V1.25C12.1667 0.56 11.6067 0 10.9167 0C10.2267 0 9.66667 0.56 9.66667 1.25V9.16667C9.66667 9.62667 9.29334 10 8.83334 10C8.37334 10 8.00001 9.62667 8.00001 9.16667V2.98333C8.00001 2.36083 7.57417 1.78333 6.96001 1.68333C6.17667 1.55583 5.50001 2.15667 5.50001 2.91583V13.4608L3.32917 11.2525C3.25584 11.1792 3.12917 11.085 2.96167 10.975C2.25917 10.5833 1.33334 10.7383 0.808339 11.4425C0.305006 12.1175 0.444172 13.08 1.03834 13.6758L3.97417 16.705C6.01501 18.8108 8.82167 19.9992 11.7533 19.9992H13.8325C17.5142 19.9992 20.4992 17.0142 20.4992 13.3325V3.75C20.4992 3.06 19.94 2.5 19.25 2.5Z" fill="white" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_171_1899">
-                                    <rect width="20" height="20" fill="white" transform="translate(0.5)" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        {expired ? <div>Challenge terminer</div> : <button onClick={() => setIsOpen(true)}>Participer</button>}
 
+
+
+                {hasParticipated ? <div className="flex justify-center items-center p-4 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
+                    Vous avez deja participé !
+                </div> :
+                    <div className="flex justify-center items-center px-6 py-2 mt-4 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
+                        <div className="flex gap-2">
+                            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_171_1899)">
+                                    <path d="M19.25 2.5C18.56 2.5 18 3.06 18 3.75V9.16667C18 9.62667 17.6267 10 17.1667 10C16.7067 10 16.3333 9.62667 16.3333 9.16667V2.08333C16.3333 1.39333 15.7733 0.833333 15.0833 0.833333C14.3933 0.833333 13.8333 1.39333 13.8333 2.08333V9.16667C13.8333 9.62667 13.46 10 13 10C12.54 10 12.1667 9.62667 12.1667 9.16667V1.25C12.1667 0.56 11.6067 0 10.9167 0C10.2267 0 9.66667 0.56 9.66667 1.25V9.16667C9.66667 9.62667 9.29334 10 8.83334 10C8.37334 10 8.00001 9.62667 8.00001 9.16667V2.98333C8.00001 2.36083 7.57417 1.78333 6.96001 1.68333C6.17667 1.55583 5.50001 2.15667 5.50001 2.91583V13.4608L3.32917 11.2525C3.25584 11.1792 3.12917 11.085 2.96167 10.975C2.25917 10.5833 1.33334 10.7383 0.808339 11.4425C0.305006 12.1175 0.444172 13.08 1.03834 13.6758L3.97417 16.705C6.01501 18.8108 8.82167 19.9992 11.7533 19.9992H13.8325C17.5142 19.9992 20.4992 17.0142 20.4992 13.3325V3.75C20.4992 3.06 19.94 2.5 19.25 2.5Z" fill="white" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_171_1899">
+                                        <rect width="20" height="20" fill="white" transform="translate(0.5)" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            {expired ? <div>Challenge terminer</div> : <button onClick={() => setIsOpen(true)}>Participer</button>}
+
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
         <div className="flex flex-col p-6 bg-white rounded-[10px] max-md:px-5 col-span-3">
@@ -481,10 +551,11 @@ const ChallengeDetais = () => {
                 />
                 <div>Challenge Showcase</div>
             </div>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5  flex-wrap gap-y-6 justify-between content-start mt-6 max-md:max-w-full">
                 {(challenges.participants && challenges.participants.length > 0) ? challenges.participants.map((item, index) => {
-                    return (<div key={index}>
-                        <div onClick={() => setShowCase(item)} className="max-md:flex-col max-md:gap-0">
+                    return (<div key={index} className="border border-red-500">
+                        <div onClick={() => openModel(item)} className="max-md:flex-col max-md:gap-0 relative">
                             <div className="flex flex-col  max-md:ml-0 max-md:w-full rounded-[10px] overflow-hidden">
                                 <div className="relative flex flex-col grow justify-center text-base text-white max-md:mt-9">
                                     <div className="flex overflow-hidden relative flex-col pt-20 w-full aspect-[0.78]">
@@ -496,11 +567,12 @@ const ChallengeDetais = () => {
                                             <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M21.5 11H21V4.5C21 2.57 19.43 1 17.5 1H8.5C6.57 1 5 2.57 5 4.5V11H4.5C2.57 11 1 12.57 1 14.5V17.5C1 19.43 2.57 21 4.5 21H21.5C23.43 21 25 19.43 25 17.5V14.5C25 12.57 23.43 11 21.5 11ZM6 4.5C6 3.12 7.12 2 8.5 2H17.5C18.88 2 20 3.12 20 4.5V16H6V4.5ZM24 17.5C24 18.88 22.88 20 21.5 20H4.5C3.12 20 2 18.88 2 17.5V14.5C2 13.12 3.12 12 4.5 12H5V16.5C5 16.78 5.22 17 5.5 17H20.5C20.78 17 21 16.78 21 16.5V12H21.5C22.88 12 24 13.12 24 14.5V17.5ZM9.2 9.8C9 9.6 9 9.29 9.2 9.09C9.4 8.89 9.71 8.89 9.91 9.09L11.53 10.71C11.92 11.1 12.56 11.1 12.94 10.71L16.57 7.08C16.77 6.88 17.08 6.88 17.28 7.08C17.48 7.28 17.48 7.59 17.28 7.79L13.65 11.42C13.27 11.8 12.77 12.01 12.24 12.01C11.71 12.01 11.2 11.8 10.83 11.42L9.21 9.8H9.2Z" fill="white" stroke="white" stroke-width="0.4" />
                                             </svg>
-                                            <div>{item.votes > 0 ? item.votes : 0 } Votes</div>
+                                            <div>{item.votes > 0 ? item.votes : 0} Votes</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>)
 

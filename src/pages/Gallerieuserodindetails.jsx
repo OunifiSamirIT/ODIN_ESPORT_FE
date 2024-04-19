@@ -510,7 +510,8 @@ const Album = () => {
                             </button>
 
                           </div>
-                        </div>)}  {isUserPreinscribed && (
+                        </div>)}  
+                        {isUserPreinscribed && (
                           <div className="flex justify-center items-center p-4 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
                             Vous étes deja pré-inscrit !
                           </div>
