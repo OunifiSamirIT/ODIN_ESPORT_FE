@@ -9,7 +9,7 @@ import { Config } from "../../config";
 import { paysAllInfo } from "../../assets/data/Country";
 import Select, { components } from "react-select";
 import { useEffect } from "react";
- 
+
 function Entreprise() {
   const navigate = useNavigate();
   const { register, setValue, getValues } = useForm();
@@ -58,19 +58,19 @@ function Entreprise() {
       reader.readAsDataURL(file);
     }
   };
- // Handle change of date
- const formatDate = (date) => {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-};
+  // Handle change of date
+  const formatDate = (date) => {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  };
 
-const handleDateChange = (date) => {
-  const formattedDate = formatDate(date);
-  setFormData({
-    ...formData,
-    date_experie: formattedDate,
-  });
-};
- 
+  const handleDateChange = (date) => {
+    const formattedDate = formatDate(date);
+    setFormData({
+      ...formData,
+      date_experie: formattedDate,
+    });
+  };
+
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState([]);
 
@@ -103,12 +103,12 @@ const handleDateChange = (date) => {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre" , user)
+          console.log("user offre", user)
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
 
-   
+
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -157,9 +157,9 @@ const handleDateChange = (date) => {
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             {/* left slide bar */}
             <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col items-start gap-4 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
+              <div className="flex flex-col items-start gap-3 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
                 <Link to="/home" className="nav-content-bttn open-font">
-                  <div className="flex justify-center items-center gap-4 py-2 px-6 ">
+                  <div className="flex justify-center items-center gap-3 py-2 px-6 ">
                     <div className="flex justify-center items-center gap-2.5 p-2 rounded-full text-xl font-bold whitespace-nowrap text-zinc-900">
                       <svg
                         width={20}
@@ -186,7 +186,7 @@ const handleDateChange = (date) => {
                   to={`/profile/${id}`}
                   className="nav-content-bttn open-font"
                 >
-                  <div className="flex justify-center items-center gap-4 py-2 px-6">
+                  <div className="flex justify-center items-center gap-3 py-2 px-6">
                     <div className="flex flex-col items-center gap-0.5 p-2">
                       <svg
                         width={11}
@@ -226,7 +226,7 @@ const handleDateChange = (date) => {
                     to="/defaultgroupagent"
                     className="nav-content-bttn open-font"
                   >
-                    <div className="flex justify-center items-center gap-4 py-2 px-6">
+                    <div className="flex justify-center items-center gap-3 py-2 px-6">
                       <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                         <svg
                           width={19}
@@ -252,7 +252,7 @@ const handleDateChange = (date) => {
                     to="/defaultbadge"
                     className="nav-content-bttn open-font"
                   >
-                    <div className="flex justify-center items-center gap-4 py-2 px-6">
+                    <div className="flex justify-center items-center gap-3 py-2 px-6">
                       <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                         <svg
                           width="20"
@@ -283,7 +283,7 @@ const handleDateChange = (date) => {
                 <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
                 <div className="flex justify-between items-center py-2 px-6 w-[19.875rem]">
-                  <div className="flex justify-center items-center gap-4">
+                  <div className="flex justify-center items-center gap-3">
                     <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                       <svg
                         width="21"
@@ -308,7 +308,7 @@ const handleDateChange = (date) => {
                   </div>
                 </div>
                 <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
-                  <div className="flex gap-4 justify-between px-2 py-1.5">
+                  <div className="flex gap-3 justify-between px-2 py-1.5">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -324,7 +324,7 @@ const handleDateChange = (date) => {
                 </div>
 
                 <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
-                  <div className="flex gap-4 justify-between px-2 py-1.5">
+                  <div className="flex gap-3 justify-between px-2 py-1.5">
                     {" "}
                     <img
                       loading="lazy"
@@ -336,14 +336,14 @@ const handleDateChange = (date) => {
                 </div>
                 {!(userProfileType === "other" && user?.other?.profession === "Fan Football") && userProfileType !== "player" && (
 
-                <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                    className="shrink-0 my-auto w-4 aspect-square fill-white"
-                  />
-                  <div>Publier une offre</div>
-                </div>
+                  <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                      className="shrink-0 my-auto w-4 aspect-square fill-white"
+                    />
+                    <div>Publier une offre</div>
+                  </div>
                 )}
 
               </div>
@@ -359,23 +359,23 @@ const handleDateChange = (date) => {
                   <div className="flex justify-center items-center px-16 max-md:px-5 max-md:max-w-full">
                     <div className="max-w-full w-[555px]">
                       <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                      <div className="flex flex-col w-[35%] max-md:ml-0 max-md:w-full">
-  {imagePreview ? (
-    <img
-      src={imagePreview}
-      alt="Preview"
-      loading="lazy"
-      className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
-    />
-  ) : (
-    <img
-      src="default-image.jpg" 
-      alt="Default"
-      loading="lazy"
-      className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
-    />
-  )}
-</div>
+                        <div className="flex flex-col w-[35%] max-md:ml-0 max-md:w-full">
+                          {imagePreview ? (
+                            <img
+                              src={imagePreview}
+                              alt="Preview"
+                              loading="lazy"
+                              className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                            />
+                          ) : (
+                            <img
+                              src="default-image.jpg"
+                              alt="Default"
+                              loading="lazy"
+                              className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                            />
+                          )}
+                        </div>
 
                         <div className="flex flex-col ml-5 w-[65%] max-md:ml-0 max-md:w-full">
                           <div className="flex flex-col self-stretch my-auto max-md:mt-10">
@@ -408,13 +408,13 @@ const handleDateChange = (date) => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex gap-4 px-4 mt-6 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap" />
+                  <div className="flex gap-3 px-4 mt-6 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap" />
 
                   <div className="mt-6 max-md:max-w-full">
                     <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                       <div className="flex flex-col w-[55%] max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col grow text-lg text-zinc-900 max-md:mt-10">
-                          <div className="flex gap-4 px-4">
+                          <div className="flex gap-3 px-4">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/a384581add68577a25f4081d8801c28ef67dafd494c0efb9015b701bb68a830a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -434,7 +434,7 @@ const handleDateChange = (date) => {
                             }
                             className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
                           ></input>
-                          <div className="flex gap-4 px-4 mt-6">
+                          <div className="flex gap-3 px-4 mt-6">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/43c300d97aa67300893a5a93497e6396899e47deee593690d089df4b9cbfa5d0?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -462,7 +462,7 @@ const handleDateChange = (date) => {
                               </select>
                             </div>
                           </div>
-                          <div className="flex gap-4 px-4 mt-6 whitespace-nowrap">
+                          <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/477c1c901e0f413e9df8f00fc3f5c46072ae48e6965170ab72f4b9273202ad32?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -470,42 +470,42 @@ const handleDateChange = (date) => {
                             />
                             <div className="flex-1">Pays</div>
                           </div>
-                           
-                              <Select
-                                options={optionsPaysOffre}
-                                placeholder="Pays de résidence"
-                                // onChange={(selectedOption) => console.log(selectedOption)}
-                                styles={{
-                                  control: (provided, state) => ({
-                                    ...provided,
-                                    borderRadius: "0.375rem", // You can adjust the radius as needed
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    borderRadius: "30px",
 
-                                    fontSize: "14px", // Set the desired font size
-                                    backgroundColor: "#f5f5f5", // Set the background color
-                                    borderWidth: "none",
+                          <Select
+                            options={optionsPaysOffre}
+                            placeholder="Pays de résidence"
+                            // onChange={(selectedOption) => console.log(selectedOption)}
+                            styles={{
+                              control: (provided, state) => ({
+                                ...provided,
+                                borderRadius: "0.375rem", // You can adjust the radius as needed
+                                display: "flex",
+                                justifyContent: "center",
+                                borderRadius: "30px",
 
-                                    paddingTop: "8px",
-                                    paddingBottom: "8px",
-                                    marginTop: "8px",
-                                    width: "100%",
+                                fontSize: "14px", // Set the desired font size
+                                backgroundColor: "#f5f5f5", // Set the background color
+                                borderWidth: "none",
 
-                                    border: "0.5px solid #E5E5E5",
-                                  }),
-                                  menu: (provided, state) => ({
-                                    ...provided,
-                                    width: "100%", // Adjust the width as needed
-                                  }),
-                                }}
-                                onChange={handleCountryChangePaysOffre}
-                                value={optionsPaysOffre.find(
-                                  (option) =>
-                                    option.value === formData.paysoffre
-                                )} // Set the value from formData
-                              />
-                          <div className="flex gap-4 px-4 mt-6 whitespace-nowrap">
+                                paddingTop: "8px",
+                                paddingBottom: "8px",
+                                marginTop: "8px",
+                                width: "100%",
+
+                                border: "0.5px solid #E5E5E5",
+                              }),
+                              menu: (provided, state) => ({
+                                ...provided,
+                                width: "100%", // Adjust the width as needed
+                              }),
+                            }}
+                            onChange={handleCountryChangePaysOffre}
+                            value={optionsPaysOffre.find(
+                              (option) =>
+                                option.value === formData.paysoffre
+                            )} // Set the value from formData
+                          />
+                          <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/8f84db8c65fb787a86b9e66e5c919bc6b81d09c021813ee3ed7d469a0e564d58?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -529,7 +529,7 @@ const handleDateChange = (date) => {
                       </div>
                       <div className="flex flex-col ml-5 w-[45%] max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col grow text-lg text-zinc-900 max-md:mt-10">
-                          <div className="flex gap-4 px-4 whitespace-nowrap">
+                          <div className="flex gap-3 px-4 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -550,7 +550,7 @@ const handleDateChange = (date) => {
                             className="justify-center items-start px-4 py-3.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
                           />
 
-                          <div className="flex gap-4 px-4 whitespace-nowrap">
+                          <div className="flex gap-3 px-4 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -572,7 +572,7 @@ const handleDateChange = (date) => {
                             className="justify-center items-start px-4 py-3.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
                           ></input>
 
-                          <div className="flex gap-4 px-4 mt-6">
+                          <div className="flex gap-3 px-4 mt-6">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e2bb7e6929dfe27f019db31dfba3116f9832133a3a48be3d6af89d34cc463e1?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -590,27 +590,27 @@ const handleDateChange = (date) => {
                               </select>
                             </div>
                           </div>
-                          <div className="flex gap-4 px-4 mt-6 whitespace-nowrap">
+                          <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/3466d1b55c7280f975dd0988d2ff14c6cc643c9220fa57af2b5a521d6df0b6cc?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square"
                             />
                             <div
-                            
+
                               className="flex-1"
                             />
                           </div>
-                          <input   type="text"
-                              id="villeoffre"
-                              value={formData.villeoffre}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  villeoffre: e.target.value,
-                                })
-                              } className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5" />
-                          <div className="flex gap-4 px-4 mt-6">
+                          <input type="text"
+                            id="villeoffre"
+                            value={formData.villeoffre}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                villeoffre: e.target.value,
+                              })
+                            } className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5" />
+                          <div className="flex gap-3 px-4 mt-6">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/70d817d0342edd76d5dc9a806a14b84b42c2400d315e3aaaec63dc0c39b6e723?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -620,12 +620,12 @@ const handleDateChange = (date) => {
                           </div>
                           <div className="flex flex-col justify-center py-px mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
-                            <DatePicker
-        id="date_experie"
-        selected={formData.date_experie}
-        onChange={handleDateChange}
-        dateFormat="yyyy-MM-dd" // Set desired date format
-      />
+                              <DatePicker
+                                id="date_experie"
+                                selected={formData.date_experie}
+                                onChange={handleDateChange}
+                                dateFormat="yyyy-MM-dd" // Set desired date format
+                              />
 
                               <img
                                 loading="lazy"
@@ -640,7 +640,7 @@ const handleDateChange = (date) => {
                   </div>
 
                   {/* description */}
-                  <div className="flex gap-4 px-4 mt-6 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
+                  <div className="flex gap-3 px-4 mt-6 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/5f779d8ee0c1bf0e05d7432fa41d675db71640bd2b9c057e88cf4e12605728a6?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -661,7 +661,7 @@ const handleDateChange = (date) => {
 
                   {/* buttons */}
                   <div className="flex gap-5 justify-between py-2 pr-4 mt-6 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                   <Link to="/home"> <button  className="flex gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
+                    <Link to="/home"> <button className="flex gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
                       <img
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/b85bedc4eae672f17d955b80520a5136c05878ae21b3a9e7cc3758d244af61b3?apiKey=3852610df1e148bb99f71ca6c48f37ee&"

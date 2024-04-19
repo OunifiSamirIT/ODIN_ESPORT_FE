@@ -292,13 +292,13 @@ function Home() {
                 </Link>
 
 
-                {  shouldShowAgentItem && (
-                  
+                {shouldShowAgentItem && (
+
                   <Link
                     to="/defaultgroupagent"
                     className="nav-content-bttn open-font"
                   >
-                  <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
+                    <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
                     <div className="flex justify-center items-center gap-4 py-2 px-6">
                       <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                         <svg
@@ -381,7 +381,7 @@ function Home() {
                   </div>
                 </div>
                 <Link
-                  to="/defaultgroupEvents"
+                  to="/defaultgroupevents"
                 >
                   <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
                     <div className="flex gap-4 justify-between px-2 py-1.5">

@@ -415,7 +415,7 @@ const Album = () => {
               <div className="flex flex-col grow  max-md:max-w-full">
                 <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                   <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                    Chercher un évènement
+                    Chercher un Odin Event
 
                   </div>
                   <div className="flex-wrap gap-y-4 justify-between content-start mt-2 max-md:max-w-full">
@@ -476,12 +476,12 @@ const Album = () => {
                             />
                             <div className="grow">Pays</div>
                           </div>
-                          <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid  rounded-[30px]">
+                          <div className="flex flex-col justify-center mt-2 mr-1 text-xs font-light border border-solid  rounded-[30px]">
                             <Select
                               options={optionsPays}
                               onChange={(selectedOption) => setSearchPays(selectedOption.label.props.children[1])}
                               value={optionsPays.find((option) => option.value === searchPays)}
-                              placeholder="Pays Camps"
+                              placeholder="Pays Event"
                               styles={{
                                 control: (provided, state) => ({
                                   ...provided,
@@ -489,7 +489,7 @@ const Album = () => {
                                   display: "flex",
                                   justifyContent: "center",
                                   borderRadius: "30px",
-                                  width: "235px",
+                                  width: "100%",
                                   paddingTop: "6px",
                                   paddingBottom: "6px",
                                   fontSize: "1rem",
@@ -554,7 +554,7 @@ const Album = () => {
                   </div>
                   <div className="flex md:gap-3 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                     <button
-                      className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
+                      className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-3"
                       onClick={handleReset}
                     >
                       Réinitialiser
