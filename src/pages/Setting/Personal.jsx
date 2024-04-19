@@ -13,8 +13,12 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { paysAllInfo } from "../../assets/data/Country";
 import DatePicker from "react-datepicker";
+import { Langue } from "../../assets/data/Langue";
+
 import { Config } from "../../config";
 const Personal = ({ userInfo }) => {
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
+
   const [inputErrors, setInputErrors] = useState({});
   const [buttonClicked, setButtonClicked] = useState(false);
   const options = paysAllInfo.map((country, index) => {
@@ -181,6 +185,8 @@ const Personal = ({ userInfo }) => {
     formDataToUpdate.append("cityresidence", data.cityresidence);
     formDataToUpdate.append("image", file);
     formDataToUpdate.append("prefix", `${data.wats?.label?.props?.children[2]},${data.phoneLength?.label?.props?.children[2]}`);
+    formDataToUpdate.append("langueparlee", data.langueparlee.map(lang => lang.value).join(','));
+
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${storedUserData.id}`,
       {
@@ -220,6 +226,8 @@ const Personal = ({ userInfo }) => {
     setValue('date_naissance', new Date(userInfo.user.date_naissance));
     setValue('wats', selectedObject(userInfo.user?.optionalattributs.split(',')[0]) || null);
     setValue('phoneLength', selectedObject(userInfo.user?.optionalattributs.split(',')[1]) || null);
+    setValue('langueparlee', userInfo.user.langueparlee);
+
   }
 
   useEffect(() => {
@@ -241,6 +249,11 @@ const Personal = ({ userInfo }) => {
         setValue('tel', userData.user.tel);
         setValue('numWSup', userData.user.numWSup);
         setValue('wats', selectedObject(userData.user?.optionalattributs.split(',')[0]) || null);
+        const selectedOptions = userData.user.langueparlee.split(',').map(lang => ({
+          value: lang,
+          label: lang,
+        }));
+        setValue('langueparlee', selectedOptions);
         setValue('phoneLength', selectedObject(userData.user?.optionalattributs.split(',')[1]) || null);
         setValue('date_naissance', new Date(userData.user.date_naissance));
       })
@@ -274,7 +287,23 @@ const Personal = ({ userInfo }) => {
     setValue('tel', value);
   };
 
+  useEffect(() => {
+    setValue('langueparlee', selectedLanguages);
+  }, [selectedLanguages]);
 
+
+  const optionsLangue = Array.from(new Set(Langue.map(langue => langue.name))).map(name => ({
+    value: name,
+    label: name,
+  }));
+
+  
+
+  const handleLanguageChange = (selectedOptions) => {
+    setSelectedLanguages(selectedOptions);
+    const selectedLanguageLabels = selectedOptions.map(option => option.value);
+    console.log('Selected Languages:', selectedLanguageLabels);
+  };
   return (
     <>
       <div>
@@ -447,7 +476,7 @@ const Personal = ({ userInfo }) => {
                         control: (provided, state) => ({
                           ...provided,
                           justifyContent: "center",
-                          width: "135px",
+                          width: "120px",
                           height: "52px",
                           backgroundColor: "transaprent",
                           borderWidth: "none",
@@ -522,15 +551,14 @@ const Personal = ({ userInfo }) => {
                       styles={{
                         control: (provided, state) => ({
                           ...provided,
-                          borderRadius: "0.375rem",
-                          display: "flex",
                           justifyContent: "center",
-                          width: "135px",
-                          backgroundColor: "transparent",
+                          width: "120px",
+                          height: "52px",
+                          backgroundColor: "transaprent",
                           borderWidth: "none",
                         }),
                       }}
-                      className={`text-sm text-center flex border-solid border-[0.5px] rounded-[30px] `}
+                      className={`px-2 text-sm text-center flex border-solid border-[0.5px] rounded-[30px] ${errors.wats ? 'boreder border-red-500' : ''}`}
                       placeholder="Préfixe"
                       {...field}
                       options={optionsphone}
@@ -765,8 +793,9 @@ const Personal = ({ userInfo }) => {
               )}
             </div>
           </div>
+          <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-base">
 
-          <div >
+          <div className="lg:flex-1 w-full">
             <div className="flex gap-4 items-center px-4 text-lg text-zinc-900">
               <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_608_33866)">
@@ -785,7 +814,7 @@ const Personal = ({ userInfo }) => {
               type="text"
               name="cityresidence"
               {...register("cityresidence")}
-              className={` text-zinc-600 w-full md:w-1/2 form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] w-[379px] max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
+              className={` text-zinc-600 w-[95%] md:w-1/2 form-control justify-center items-start py-3.5  pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]  max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
                 }`}
               placeholder="Ville"
             />
@@ -796,23 +825,71 @@ const Personal = ({ userInfo }) => {
             )}
           </div>
 
-          <div className="flex  justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
-            <div className="flex gap-2 justify-between px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
-                className="w-5 aspect-square"
-              />
-              <a onClick={resetForm} className="grow">Annuler</a>
-            </div>
-            <div className="flex gap-2  px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+
+
+          <div className="lg:flex-1 w-full">
+  <div className="flex gap-4 items-center px-4 text-lg text-zinc-900">
+    <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_608_33866)">
+        <path d="M15 5.5C15 2.7425 12.7575 0.5 10 0.5C7.2425 0.5 5 2.7425 5 5.5C5 7.9725 6.80583 10.0258 9.16667 10.425V20.5H10.8333V10.425C13.1942 10.0267 15 7.97333 15 5.5Z" fill="black" />
+      </g>
+      <defs>
+        <clipPath id="clip0_608_33866">
+          <rect width="20" height="20" fill="white" transform="translate(0 0.5)" />
+        </clipPath>
+      </defs>
+    </svg>
+
+    <div className="flex-auto">Langue</div>
+  </div>{" "}
+ 
+ 
+  <Controller
+    control={control}
+    name="langueparlee"
+    render={({ field }) => (
+      <Select
+        options={optionsLangue}
+        isMulti
+        value={selectedLanguages}
+        onChange={handleLanguageChange}
+        className="w-full"
+        placeholder="Langue parlée"
+        styles={{ control: (base) => ({ ...base, border: "none" }) }}
+
+        className="text-zinc-600 w-full md:w-full form-control justify-center items-start   pl-4  max-w-full text-base  whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]  max-md:pr-5 "
+        {...field}
+      />
+    )}
+  
+  />
+
+  
+</div>
+</div>
+        
+        
+        
+        
+          <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
+           
+          <div className="flex gap-2 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
                 className="w-5 aspect-square"
               />
-              <button type='submit' className="grow">Confirmer</button>
+              <button type='submit' className="">Confirmer</button>
             </div>
+            <div className="flex gap-2 items-center justify-center  px-4 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
+                className="w-5 aspect-square"
+              />
+              <button onClick={resetForm} className="">Annuler</button>
+            </div>
+            
           </div>
         </form>
       </div>

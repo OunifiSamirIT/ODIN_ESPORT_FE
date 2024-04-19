@@ -222,7 +222,8 @@ const PlayerCard = ({ userInfo }) => {
             </svg>
           </div>
         </div>
-        {/* <div className="flex flex-col justify-center gap-y-4">
+        <span className="md:block hidden">
+        <div className="flex flex-col justify-center gap-y-4">
           <div className="flex justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
             <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_878_80013)">
@@ -239,15 +240,15 @@ const PlayerCard = ({ userInfo }) => {
           </div>
           <Terrain positionPlay={userInfo?.player?.positionPlay} positionSecond={userInfo?.player?.positionSecond} />
         </div>
-        <div className="flex gap-4 px-4  text-lg whitespace-nowrap text-zinc-900">
+        <div className=" px-4  hidden   items-center justify-center text-center my-2 text-lg whitespace-nowrap text-zinc-900">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
-            className="shrink-0 self-start w-5 aspect-square"
+            className="shrink-0 self-center w-5 aspect-square"
           />
           <div className="grow">Compétences</div>
         </div>
-        <div className="flex gap-2 justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+        <div className="flex gap-2  hidden  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
           {userInfo?.player?.skillsInProfile.split(',').filter(item => item.trim() !== '').map((item, index) => {
             return (<div key={index} className=" text-center justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
@@ -292,7 +293,9 @@ const PlayerCard = ({ userInfo }) => {
               className="shrink-0 w-6 aspect-[0.96]"
             />
           </a>}
-        </div> */}
+        </div>
+
+        </span>
 
         {/* social icons */}
 

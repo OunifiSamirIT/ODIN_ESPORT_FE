@@ -112,14 +112,14 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                         <img
                                                             loading="lazy"
                                                             srcSet={item.receiver.image ? item.receiver.image : PlaceHolder}
-                                                            className="w-20 aspect-square rounded-full"
+                                                            className="w-50  aspect-square rounded-full"
                                                         />
-                                                        <div className="mt-4 font-semibold">{item.receiver.nom}</div>
-                                                        <div className="text-xs font-light">{item.receiver.profil}</div>
-                                                        <div className="text-center justify-center self-stretch px-10 py-2 mt-4 font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                                                        <div className="mt-2 font-bold">{item.receiver.nom}</div>
+                                                        <div className="text-sm font-light">{item.receiver.profil}</div>
+                                                        <div className="text-center justify-center self-stretch px-7 py-2 mt-2 font-medium text-white mx-3  bg-blue-600 rounded-[30px] max-md:px-5">
                                                             <a href={`/profile/${item.receiver.id}`}> Voir Plus</a>
                                                         </div>
-                                                        {owner && <div className="text-center justify-center self-stretch px-10 py-2 mt-4 font-medium text-white bg-orange-500 rounded-[30px] max-md:px-5">
+                                                        {owner && <div className="text-center justify-center self-stretch px-7 py-2 mt-2 font-medium mx-3 text-white bg-orange-500 rounded-[30px] max-md:px-5">
                                                             <button onClick={() => deleteInviation(item.receiver.id)}>Supprimer</button>
                                                         </div>}
                                                     </div>
