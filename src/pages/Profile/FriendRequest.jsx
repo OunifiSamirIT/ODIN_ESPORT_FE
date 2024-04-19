@@ -280,7 +280,7 @@ const FriendRequest = () => {
                 <div>Offres d’emploi</div>
               </div>
             </div></Link>
-            <Link to="/entreprise" className="self-center">  {!(
+            {/* <Link to="/entreprise" className="self-center">  {!(
               userProfileType === "other" &&
               user?.other?.profession === "Fan Football"
             ) &&
@@ -293,7 +293,7 @@ const FriendRequest = () => {
                   />
                   <div>Publier une offre</div>
                 </div>
-              )}</Link>
+              )}</Link> */}
           </div>
             </div>
 
