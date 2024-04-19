@@ -15,10 +15,27 @@ const Album = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
 
+  const [user, setUser] = useState([]);
 
 
   const [modalHeight, setModalHeight] = useState('70%');
   const [modalWidth, setModalWidth] = useState('70%');
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const id = storedUserData ? storedUserData.id : null;
+
+    if (id) {
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+        .then((response) => response.json())
+        .then((userData) => {
+          setUser(userData);
+          console.log("user offre", user)
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+
+
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
