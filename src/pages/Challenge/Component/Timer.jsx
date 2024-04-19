@@ -43,10 +43,10 @@ const Timer = ({ startDate, endDate , setExpired }) => {
     <div className='text-wrap'>
       {remainingTime > 0 ? (
         <p>
-          {days} Days {hours} Hours {minutes} Minutes remaining
+          {days} Jours {hours} Heures {minutes} Minutes restant
         </p>
       ) : (
-        <p>End date has passed</p>
+        <p>Durée de challenge terminer</p>
       )}
     </div>
   );

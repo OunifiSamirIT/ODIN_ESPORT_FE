@@ -11,6 +11,7 @@ import Profilesearch from "../assets/Profilesearch.png";
 import Football from "../assets/Football.png";
 import Parametre from "../assets/Parametre.png";
 import Userdefault from "../assets/userdefault.jpg";
+import LanguageToggler from "../fixDesignComponents/languageToggler";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(null);
@@ -142,7 +143,7 @@ function Header() {
             </div>
             <div className="flex md:flex hidden  gap-2">
               <div className="flex flex-row items-center">
-                <div className="flex items-center gap-2.5 p-1">
+                {/* <div className="flex items-center gap-2.5 p-1">
                   <svg
                     width={15}
                     height={16}
@@ -155,11 +156,15 @@ function Header() {
                       fill="black"
                     />
                   </svg>
-                </div>
-                <div className="text-[#1d1e21] font-['Sora'] font-medium leading-[normal]">
+                </div> */}
+                {/* <div className="text-[#1d1e21] font-['Sora'] font-medium leading-[normal]">
                   FR
-                </div>
-                <div className="scroll_right flex justify-center items-center p-1">
+                </div> */}
+  <span className="px-4">
+                <LanguageToggler color={true} />
+
+  </span>
+                {/* <div className="scroll_right flex justify-center items-center p-1">
                   <svg
                     width={15}
                     height={8}
@@ -172,7 +177,7 @@ function Header() {
                       fill="#1D1E21"
                     />
                   </svg>
-                </div>
+                </div> */}
               </div>
               <Link to="/login">
                 <div className=" px-2 mt-2  py-2 pl-2 md:px-2 md:py-2 my-auto bg-zinc-900 text-white rounded-[30px] ">

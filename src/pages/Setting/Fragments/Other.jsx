@@ -16,7 +16,7 @@ const Other = ({ userInfo }) => {
         "Adaptabilité",
         "Motivation",
         "Respect",
-        "Actif sur les réseaux sociaux"
+
     ];
 
     const journalisteSportifAttributes = [
@@ -117,10 +117,10 @@ const Other = ({ userInfo }) => {
             const updatedSkills = selectedSkills.filter((selectedSkill) => selectedSkill !== skill);
             setSelectedSkills(updatedSkills);
         }
-        if(selectedSkills.length >= 10){
+        if (selectedSkills.length >= 10) {
             setSelectedSkillsError(true)
         }
-        if(selectedSkills.length < 10){
+        if (selectedSkills.length < 10) {
             setSelectedSkillsError(false)
         }
     };
@@ -224,32 +224,32 @@ const Other = ({ userInfo }) => {
                                 </svg>
                                 <div className="grow text-lg">Compétences</div>
                             </div>
-                           
-                        <div className="flex justify-center flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600">
-                            <div className="form-group icon-input  mb-3">
-                                {skillsList.map((skill, index) => (
-                                    <div key={skill} className="form-check rounded-[30px] form-check-inline pl-0 me-2 mb-2">
-                                        <input
-                                            type="checkbox"
-                                            id={'skill' + index}
-                                            name="coachSkillsInProfile"
-                                            checked={selectedSkills.includes(skill)}
-                                            className="form-check-input d-none rounded-[30px] "
-                                            onChange={() => toggleSkill(skill)}
-                                        />
-                                        <label
-                                            htmlFor={'skill' + index}
-                                            className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${(!selectedSkills.includes(skill) && errors.skills) || selectedSkillsError ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
-                                                }`}
-                                        >
-                                            <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
-                                        </label>
-                                    </div>
-                                ))}
-                                {errors.skills && <span className="invalid-feedback block  px-2">{errors.skills?.message}</span>}
-                                {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span> : null}
+
+                            <div className="flex justify-center flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600">
+                                <div className="form-group icon-input  mb-3">
+                                    {skillsList.map((skill, index) => (
+                                        <div key={skill} className="form-check rounded-[30px] form-check-inline pl-0 me-2 mb-2">
+                                            <input
+                                                type="checkbox"
+                                                id={'skill' + index}
+                                                name="coachSkillsInProfile"
+                                                checked={selectedSkills.includes(skill)}
+                                                className="form-check-input d-none rounded-[30px] "
+                                                onChange={() => toggleSkill(skill)}
+                                            />
+                                            <label
+                                                htmlFor={'skill' + index}
+                                                className={`form-check-label btn ${selectedSkills.includes(skill) ? "flex gap-4 text-white justify-between px-4 py-2 bg-blue-600 rounded-[30px]" : `${(!selectedSkills.includes(skill) && errors.skills) || selectedSkillsError ? 'border-1 border-red-500 flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]' : 'flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]'} `
+                                                    }`}
+                                            >
+                                                <div className="text-[18px] font-light"> {skill} {selectedSkills.includes(skill) ? <span className="pl-2">-</span> : <span className="pl-2">+</span>}  </div>
+                                            </label>
+                                        </div>
+                                    ))}
+                                    {errors.skills && <span className="invalid-feedback block  px-2">{errors.skills?.message}</span>}
+                                    {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span> : null}
+                                </div>
                             </div>
-                        </div>
 
                         </div>
                     </div>

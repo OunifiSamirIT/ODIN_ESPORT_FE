@@ -265,7 +265,7 @@ function Root() {
 
               <Route exact path="/gallery" element={<Gallery />} />
               <Route exact path={`/defaultgroup`} element={<Galleryuser />} />
-              <Route exact path={`/defaultgroupEvents`} element={<GalleryuserEvent />} />
+              <Route exact path={`/defaultgroupevents`} element={<GalleryuserEvent />} />
               <Route exact path={`/defaultstorie`} element={<Storie />} />
               <Route exact path={`/defaultemailbox`} element={<Email />} />
               <Route exact path={`/defaultemailopen`} element={<Emailopen />} />

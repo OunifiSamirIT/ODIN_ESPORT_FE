@@ -75,7 +75,7 @@ const General = ({ userInfo }) => {
   }, [id])
   useEffect(() => {
     console.log(getWhatsappPrefix(userInfo.user.optionalattributs))
-  },[])
+  }, [])
   return (
     <>
       <div className="flex flex-col items-center px-4 py-6 bg-white rounded-[10px]">
@@ -256,7 +256,7 @@ const General = ({ userInfo }) => {
               </div> : ''}
         </div>
 
-        {userInfo.user.discreptionBio && <div className="self-stretch text-base font-light text-center text-neutral-900 max-md:max-w-full">
+        {userInfo.user.discreptionBio && <div className="self-stretch text-break font-light text-center text-neutral-900 max-md:max-w-full">
           <div className="flex justify-center mt-2">
             <svg width="366" height="1" viewBox="0 0 366 1" fill="none" xmlns="http://www.w3.org/2000/svg">
               <line x1="0.5" y1="0.5" x2="365.5" y2="0.499968" stroke="#D9E6F7" stroke-linecap="round" />

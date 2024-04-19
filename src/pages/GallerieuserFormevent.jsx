@@ -210,7 +210,7 @@ const Album = () => {
 
       <div className="flex flex-col pt-8 mt-0 md:mt-14 bg-white rounded-xl  max-md:my-10 max-md:max-w-full">
         <div className=" mt-20 md:text-5xl    w-full text-2xl text-center font-bold text-black max-md:max-w-full">
-          Pré-inscription
+          Formulaire de Pré-inscription
         </div>
         <div className="flex flex-col flex-wrap gap-y-2 justify-between content-start px-20 py-8 mt-2 md:mt-6 max-md:px-4 max-md:max-w-full">
           <div className="max-md:max-w-full">
@@ -425,11 +425,9 @@ const Album = () => {
             </div>
             <div className="flex flex-col flex-1 text-zinc-900">
               <div className="flex gap-4 justify-between px-4 text-lg">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8bf2ef649448b0d66ed482eea95f865c88a2d95fa6ccdf076dec39eb896daea2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="my-auto w-5 aspect-square"
-                />
+                <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.8342 3.8475C10.8342 3.3875 11.2067 3.01417 11.6675 3.01417H15.0642L13.9892 1.9175C13.6667 1.58833 13.6717 1.06083 14.0008 0.738333C14.3283 0.4175 14.8575 0.420833 15.1792 0.75L16.9933 2.60083C17.3192 2.92583 17.5008 3.365 17.5008 3.83333C17.5008 4.30167 17.3183 4.74167 16.9875 5.0725L15.1792 6.91667C15.0167 7.08333 14.8 7.16667 14.5842 7.16667C14.3733 7.16667 14.1625 7.0875 14.0008 6.92833C13.6717 6.60583 13.6675 6.07833 13.9892 5.74917L15.0375 4.67917H11.6675C11.2067 4.67917 10.8342 4.30583 10.8342 3.84583V3.8475ZM19.2908 7.735C18.8617 7.34417 18.3025 7.14167 17.7258 7.17C17.145 7.19667 16.61 7.44833 16.2308 7.86583L13.28 10.98C13.3067 11.155 13.3342 11.33 13.3342 11.5117C13.3342 13.2475 12.0383 14.7417 10.32 14.9867L6.77667 15.4833C6.32083 15.5483 5.89917 15.2317 5.83417 14.7767C5.76917 14.3208 6.08583 13.8992 6.54083 13.8342L10.0092 13.3483C10.7892 13.2367 11.4658 12.6767 11.6258 11.905C11.8725 10.7175 10.9675 9.6675 9.8225 9.6675H7.5V8.83417H7.81333C9.01917 8.83417 10 7.85333 10 6.6475C10 5.57417 9.23083 4.66667 8.1725 4.49083L5.435 4.03417C5.18333 3.9925 5.00083 3.77667 5.00083 3.52083C5.00083 3.23417 5.23417 3.00083 5.52083 3.00083H7.72417C8.02083 3.00083 8.2975 3.16083 8.44667 3.4175C8.67583 3.81583 9.18417 3.9525 9.585 3.72167C9.98333 3.49083 10.12 2.98167 9.88833 2.58333C9.44333 1.8125 8.61333 1.33333 7.72333 1.33333H7.5C7.5 0.873333 7.1275 0.5 6.66667 0.5C6.20583 0.5 5.83333 0.873333 5.83333 1.33333H5.52C4.31417 1.33333 3.33333 2.31417 3.33333 3.52C3.33333 4.59333 4.1025 5.50083 5.16083 5.67667L7.89833 6.13333C8.15 6.175 8.3325 6.39083 8.3325 6.64667C8.3325 6.93333 8.09917 7.16667 7.8125 7.16667H5.60917C5.3125 7.16667 5.03583 7.00667 4.88667 6.75C4.6575 6.35083 4.14833 6.21417 3.74833 6.44583C3.35 6.67667 3.21333 7.18583 3.445 7.58417C3.89 8.355 4.72 8.83333 5.61 8.83333H5.83333V9.66667H3.33333C1.4925 9.66667 0 11.1592 0 13V17.1667C0 19.0075 1.4925 20.5 3.33333 20.5H6.885C9.2225 20.5 11.4517 19.5183 13.03 17.795L19.4483 10.7875C20.2383 9.9025 20.1667 8.53167 19.2908 7.73333V7.735Z" fill="#1D1E21" />
+                </svg>
                 <div className="grow">Mode de paiement ?</div>
               </div>
               <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
@@ -440,8 +438,8 @@ const Album = () => {
                     onChange={handleChange}
                     className="w-full"
                   >
-                    <option>Par virement / sur place</option>
-                    <option value="Par virement">Par virement</option>
+                    <option> virement Bancaire / sur place</option>
+                    <option value="Par virement">virement Bancaire</option>
                     <option value="Sur place">Sur place</option>
                   </select>
                 </div>
@@ -453,25 +451,27 @@ const Album = () => {
 
 
 
-          <div className="flex gap-2 md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-            <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/782d8b9c4e26c6ae2faa75f1bad14c148b0b27ad2722daea1be1e990d6d99625?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                className="my-auto aspect-square fill-white w-[15px]"
-              />
-              <button onClick={handelretourform} className="grow">Annuler</button>
-            </div>
-            <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-              <div className="grow" onClick={handleSubmit}>
+          <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
+            <div className="flex gap-1 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] ">
+              <button className="grow" onClick={handleSubmit}>
                 Confirmer
-              </div>
+              </button>
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/baaf729ca2403013e4685351338f1da226bf86e312b0177a0235a267f7f3c2f3?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                 className="w-5 aspect-square"
               />
             </div>
+            <div className="flex gap-3 items-center justify-center  px-4 py-2 text-white  bg-orange-500 rounded-[30px] ">
+
+
+              <button onClick={handelretourform} className="grow">Annuler</button>
+              <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="white" />
+              </svg>
+            </div>
+
+
           </div>
         </div>
       </div>

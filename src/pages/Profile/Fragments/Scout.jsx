@@ -199,7 +199,7 @@ const Scout = ({ userInfo }) => {
                     </div>
                 </div>
 
-                <div className="self-stretch mt-8 text-base font-light text-center text-neutral-900 max-md:max-w-full">
+                <div className="self-stretch mt-8 text-break font-light text-center text-neutral-900 max-md:max-w-full">
                     {userInfo?.user.discreptionBio}
                 </div>
 

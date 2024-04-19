@@ -174,17 +174,8 @@ const Player = ({ userInfo , fetchUserInfo }) => {
             }
         ).then((r) => {
             if (r.status === 200) {
-                toast.success('Licence a éte supprimer vous pouvez ajouter une nouvelle fichier !', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    type: 'success',
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                })
+                fetchUserInfo();
+                setFileName('')
                 setValue('licence', 'non');
             }
         }).finally(() => {
@@ -296,9 +287,6 @@ const Player = ({ userInfo , fetchUserInfo }) => {
     const [isPasswordOpen, setIsPasswordOpen] = useState(true);
     return (
         <>
-            <div>
-                <ToastContainer />
-            </div>
             {
                 model && <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
                     <div ref={ref} className="flex flex-col p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
@@ -575,7 +563,7 @@ const Player = ({ userInfo , fetchUserInfo }) => {
                                                     onChange={handleFileChangeLicense}
                                                     className={`grow my-auto w-2 inset-0 opacity-0`}
                                                 />
-                                                <span onClick={() => setModel(true)} className=""> {FileName ? FileName : 'Importer une Licence'}</span>
+                                                <span  className=""> {FileName ? FileName : 'Importer une Licence'}</span>
                                             </label>
                                         </div>
 
