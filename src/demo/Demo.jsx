@@ -453,12 +453,12 @@ function Demo( ) {
                   >
                     Contact
                   </div>
-                  {/* <a href="/blog">
+                  <a href="/blog">
                   {" "}
                   <div className="self-stretch my-auto text-base font-medium text-white">
                     Blog
                   </div>
-                </a> */}
+                </a>
                   <div className="flex gap-1 items-center self-stretch px-1 py-0.5 my-auto text-base font-medium whitespace-nowrap text-zinc-900">
                     
                       <LanguageToggler />
@@ -598,12 +598,12 @@ function Demo( ) {
 
             } 
                 </div>
-                {/* <a href="/blog">
+                <a href="/blog">
                   {" "}
                   <div className="self-stretch my-auto text-base font-medium text-white">
                     Blog
                   </div>
-                </a> */}
+                </a>
                 {/* <div className=" flex gap-1  items-center self-stretch px-1 py-0.5 my-auto text-base font-medium whitespace-nowrap text-zinc-900">
                 <svg
                     width="24"
@@ -1384,12 +1384,12 @@ function Demo( ) {
 
             } 
               </div>
-              {/* <a href="/blog">
+              <a href="/blog">
                 {" "}
                 <div className="self-stretch my-auto text-base font-medium text-white">
                   Blog
                 </div>
-              </a> */}
+              </a>
               <span style={{
                 zIndex: 111
               }}>

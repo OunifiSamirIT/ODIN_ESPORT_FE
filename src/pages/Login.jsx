@@ -120,11 +120,12 @@ function Login({ setAuthStatus }) {
 
             <div className="flex flex-col mb-10 ml-5 w-[38%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col  justify-between px-12  w-full bg-gray-200 max-md:px-5">
-                <img
+               <Link to="/"                   className="self-center mt-6 mb-6 max-w-full aspect-[2.78] w-[132px] max-md:mt-10"
+> <img
                   loading="lazy"
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/a1284a5dcef540714cf1bd78a1d61d4a149cfc66fd6e4422229107187f1c5f60?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="self-center mt-6 mb-6 max-w-full aspect-[2.78] w-[132px] max-md:mt-10"
-                />
+                /></Link>
                 <div className="tal1 text-5xl font-bold  text-center text-zinc-900 ">
 
                   {
