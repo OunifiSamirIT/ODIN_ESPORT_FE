@@ -201,21 +201,13 @@ const Album = () => {
 
 
 
-      <div className="flex flex-col pb-12 mt-0 lg:mt-8 bg-zinc-100">
-
+      <div className="flex flex-col pb-12   mt-0 lg:mt-8 bg-zinc-100">
         <div className="self-center md:mt-20 w-full max-w-[1344px]  max-md:max-w-full">
-
           <div className="flex max-md:flex-col max-md:gap-0">
-            {/* <div className="flex flex-col w-[24%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col px-5 pt-4 pb-6 mx-auto w-full  rounded-xl max-md:mt-6">
 
-
-
-              </div>
-            </div> */}
-            {/* left menu */}
-            <div className=" xs:hidden sm:hidden hidden md:mt-5  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col items-start gap-4 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
+{/* left menu */}
+<div className=" xs:hidden sm:hidden hidden md:mt-5 md:ml-4  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
+<div className="flex flex-col items-start gap-4 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
                 <Link to="/home" className="nav-content-bttn open-font">
                   <div className="flex justify-center items-center gap-4 py-2 px-6 ">
                     <div className="flex justify-center items-center gap-2.5 p-2 rounded-full text-xl font-bold whitespace-nowrap text-zinc-900">
@@ -277,13 +269,14 @@ const Album = () => {
                   </div>{" "}
                 </Link>
 
-                <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
-                {shouldShowAgentItem && (
+                {  shouldShowAgentItem && (
+                  
                   <Link
                     to="/defaultgroupagent"
                     className="nav-content-bttn open-font"
                   >
+                  <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
                     <div className="flex justify-center items-center gap-4 py-2 px-6">
                       <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                         <svg
@@ -340,7 +333,7 @@ const Album = () => {
                 )}
                 <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
-                <div className="flex justify-between items-center py-2 px-6 w-[19.875rem]">
+             <Link to="/defaultgroup">   <div className="flex justify-between items-center py-2 px-6 w-[19.875rem]">
                   <div className="flex justify-center items-center gap-4">
                     <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                       <svg
@@ -364,7 +357,7 @@ const Album = () => {
                       Camps
                     </div>
                   </div>
-                </div>
+                </div></Link>
                 <Link
                   to="/defaultgroupEvents"
                 >
@@ -384,7 +377,7 @@ const Album = () => {
                     />
                   </div>
                 </Link>
-                <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
+                <Link to="/homeoffre">     <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
                   <div className="flex gap-4 justify-between px-2 py-1.5">
                     {" "}
                     <img
@@ -394,7 +387,7 @@ const Album = () => {
                     />
                     <div>Offres d’emploi</div>
                   </div>
-                </div>
+                </div></Link>
                 {!(userProfileType === "other" && user?.other?.profession === "Fan Football") && userProfileType !== "player" && (
 
                   <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
@@ -411,7 +404,43 @@ const Album = () => {
             </div>
 
             {/* left menu */}
-            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-1 w-[76%] max-md:ml-0 max-md:w-full">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow  max-md:max-w-full">
                 <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                   <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">

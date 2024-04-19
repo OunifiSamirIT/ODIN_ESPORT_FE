@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Config } from '../config';
+import Userdefault from "../assets/userdefault.jpg";
+
 const Createpost = ({ setPostsData, storedUserData }) => {
   const {
     register,
@@ -74,7 +76,13 @@ const Createpost = ({ setPostsData, storedUserData }) => {
       </div>
       <div className="card-body p-0 mt-3 position-relative">
         <figure className="avatar position-absolute ms-2 mt-1 top-5">
-          <img src="assets/images/user.png" alt="icon" className="shadow-sm rounded-circle w30" />
+          {
+            <img
+            src={localStorage.getItem("user").image || Userdefault}
+            className="rounded-full object-fill w-10 h-10"
+          />
+
+          }
         </figure>
         <form onSubmit={handleSubmit(handlePostSubmit)}>
           <textarea
