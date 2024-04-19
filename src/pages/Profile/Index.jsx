@@ -45,6 +45,7 @@ import { Link, useParams } from "react-router-dom";
 import AdminImg from "../../assets/ODIN22.png";
 import SlideMenu from "../../components/SlideMenu";
 import Logo from "../../assets/ODIN22.png";
+import placeholder from "../../assets/placeholder.jpg";
 
 const Index = () => {
   const { id } = useParams();
@@ -411,17 +412,23 @@ const Index = () => {
     }
   };
   const handlePostSubmit = async (data) => {
-    console.log(data)
     try {
+      if (!LocalStorageID.id) {
+        // Handle validation errors or missing user data
+        return;
+      }
+      if (!data.description && !file) {
+        // Handle validation errors or missing user data
+        return;
+      }
       setPosting(true);
-
       const formData = new FormData();
       formData.append("titre", "Your default title");
-      formData.append("description", data.description || null);
-      formData.append("userId", id);
+      formData.append("description", data.description);
+      formData.append("userId", LocalStorageID.id);
       formData.append("type", "Your default type");
-      formData.append("file", file || null);
-      formData.append("fileType", fileType || null);
+      formData.append("file", file);
+      formData.append("fileType", fileType);
 
       // Make a POST request to create a new article
       await fetch(`${Config.LOCAL_URL}/api/articles/`, {
@@ -438,6 +445,7 @@ const Index = () => {
       setPreviewImage(null);
 
       setPosting(false);
+      setValue('description', '');
       fetchArticles();
     } catch (error) {
       console.error("Error submitting post:", error);
@@ -790,141 +798,142 @@ const Index = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
-        {owner && 
-        
-        <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3">
-          <div className="card-body p-2 position-relative">
-            {previewImage && (
-              <div className="mb-3">
-                <img
-                  src={previewImage}
-                  alt="Preview"
-                  className="rounded-xxl"
-                  style={{ maxWidth: "100%", maxHeight: "200px" }}
-                />
-              </div>
-            )}
-            {videoPreviewUrl && (
-              <div className="mt-3">
-                <video
-                  controls
-                  src={videoPreviewUrl}
-                  className="rounded-xxl"
-                  style={{ maxWidth: "100%", maxHeight: "200px" }}
-                ></video>
-              </div>
-            )}
-            <form onSubmit={handleSubmit(handlePostSubmit)}>
-              <div className="card-body d-flex p-0">
-                <div className="flex w-full">
+        {owner &&
+
+          <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3">
+            <div className="card-body p-2 position-relative">
+              {previewImage && (
+                <div className="mb-3">
                   <img
-                    src={LocalStorageID?.image}
-                    alt="icon"
-                    className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                    src={previewImage}
+                    alt="Preview"
+                    className="rounded-xxl"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
                   />
-                  {/* <label>{storedUserData.login}</label> */}
-                  <div className="flex flex-col w-full gap-y-2">
-                    <input
-                      className="grow px-2 h-[50px] justify-center  bg-gray-100 rounded-[30px] theme-dark-bg"
-                      placeholder="Quoi de neuf ? "
-                      // styles="w-full rounded-full py-5 text-bl"
-                      // placeholder="Show your Skills here , your dream begin from here...."
-                      name="description"
-                      {...register('description')}
+                </div>
+              )}
+              {videoPreviewUrl && (
+                <div className="mt-3">
+                  <video
+                    controls
+                    src={videoPreviewUrl}
+                    className="rounded-xxl"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  ></video>
+                </div>
+              )}
+              <form onSubmit={handleSubmit(handlePostSubmit)}>
+                <div className="card-body d-flex p-0">
+                  <div className="flex w-full">
+                    <img
+                      src={LocalStorageID?.image}
+                      alt="icon"
+                      className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                     />
-                    {errMsg?.message && (
-                      <span
-                        role="alert"
-                        className={`text-sm ${errMsg?.status === "failed"
-                          ? "text-[#f64949fe]"
-                          : "text-[#2ba150fe]"
-                          } mt-0.5`}
-                      >
-                        {errMsg?.message}
-                      </span>
-                    )}
-                    <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
-                      <div className="flex w-full justify-between mr-3">
-                        <label
-                          htmlFor="imgUpload"
-                          className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
+                    {/* <label>{storedUserData.login}</label> */}
+                    <div className="flex flex-col w-full gap-y-2">
+                      <input
+                        className="grow px-2 h-[50px] justify-center  bg-gray-100 rounded-[30px] theme-dark-bg"
+                        placeholder="Quoi de neuf ? "
+                        // styles="w-full rounded-full py-5 text-bl"
+                        // placeholder="Show your Skills here , your dream begin from here...."
+                        name="description"
+                        {...register('description')}
+                      />
+                      {errMsg?.message && (
+                        <span
+                          role="alert"
+                          className={`text-sm ${errMsg?.status === "failed"
+                            ? "text-[#f64949fe]"
+                            : "text-[#2ba150fe]"
+                            } mt-0.5`}
                         >
-                          <input
-                            type="file"
-                            onChange={handleFileChange}
-                            className="hidden"
-                            id="imgUpload"
-                            accept=".jpg, .png, .jpeg"
-                          />
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="aspect-square w-[25px]"
-                          />
-                          <span className="d-none-xs ml-2">Photo</span>
-                        </label>
+                          {errMsg?.message}
+                        </span>
+                      )}
+                      <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
+                        <div className="flex w-full justify-between mr-3">
+                          <label
+                            htmlFor="imgUpload"
+                            className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
+                          >
+                            <input
+                              type="file"
+                              onChange={handleFileChange}
+                              className="hidden"
+                              id="imgUpload"
+                              accept=".jpg, .png, .jpeg"
+                            />
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="aspect-square w-[25px]"
+                            />
+                            <span className="d-none-xs ml-2">Photo</span>
+                          </label>
 
-                        <label
-                          className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
-                          htmlFor="videoUpload"
-                        >
-                          <input
-                            type="file"
-                            onChange={(e) => handleFileChange(e, "video")}
-                            className="hidden"
-                            id="videoUpload"
-                            accept=".mp4, .wav"
-                          />
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="aspect-square w-[25px]"
-                          />                            <span className="d-none-xs ml-2"> Video</span>
-                        </label>
+                          <label
+                            className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
+                            htmlFor="videoUpload"
+                          >
+                            <input
+                              type="file"
+                              onChange={(e) => handleFileChange(e, "video")}
+                              className="hidden"
+                              id="videoUpload"
+                              accept=".mp4, .wav"
+                            />
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="aspect-square w-[25px]"
+                            />                            <span className="d-none-xs ml-2"> Video</span>
+                          </label>
 
-                        <label
-                          className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
-                          htmlFor="vgifUpload"
-                        >
-                          <input
-                            type="file"
-                            onChange={(e) => handleFileChange(e, "gif")}
-                            className="hidden"
-                            id="vgifUpload"
-                            accept=".gif"
-                          />
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="aspect-[1.2] fill-slate-500 w-[30px]"
-                          />                           <span className="d-none-xs ml-2">GIF</span>
-                        </label>
-                      </div>
+                          <label
+                            className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
+                            htmlFor="vgifUpload"
+                          >
+                            <input
+                              type="file"
+                              onChange={(e) => handleFileChange(e, "gif")}
+                              className="hidden"
+                              id="vgifUpload"
+                              accept=".gif"
+                            />
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="aspect-[1.2] fill-slate-500 w-[30px]"
+                            />                           <span className="d-none-xs ml-2">GIF</span>
+                          </label>
+                        </div>
 
-                      <div>
-                        {posting ? (
-                          <Loading />
-                        ) : (
-                          <CustomButton
-                            type="submit"
-                            title="Publier"
-                            containerStyles="bg-blue-600 text-white mt-1 py-1 px-4 md:px-10 rounded-full font-semibold text-sm"
-                          />
-                        )}
+                        <div>
+                          {posting ? (
+                            <Loading />
+                          ) : (
+                            <CustomButton
+                              type="submit"
+                              title="Publier"
+                              containerStyles="bg-blue-600 text-white mt-1 py-1 px-4 md:px-10 rounded-full font-semibold text-sm"
+                            />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
-        
+
         }
         {profileFeed === 'pubs' && <div className="w-full mt-4">
           <div>
@@ -945,7 +954,11 @@ const Index = () => {
                     <div className="flex flex-col">
                       <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
                       <span className="d-block font-xssss fw-500 text-grey-500">
-                        {article.user.user.profil}
+                        {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
+                        {article.user.user.profil == 'player' ? ' Joueur' : ''}
+                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                        {article.user.user.profil == 'scout' ? 'Scout' : ''}
                       </span>
                       <span className="d-block font-xssss fw-500 text-grey-500">
                         {new Date(article.user.user.createdAt).toLocaleDateString()}
@@ -1033,8 +1046,6 @@ const Index = () => {
                       </div>
                     )
                   )}
-
-
                   <div className="  rounded-lg">
                     <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
                       <div className="flex gap-2.5 items-center justify-center py-2.5">
@@ -1057,88 +1068,88 @@ const Index = () => {
                     <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
 
                     <span className="flex justify-between items-center ml-0 p-0 font-bold w-full">
-                                <button
-                                  onClick={() => {
-                                    handleLikeClick(article.id, 1);
-                                  }}
-                                >
-                                  <span className="flex items-center flex-col md:flex-row gap-2 ">
-                                    {article.likesCount === 0 ? (
-                                      <BiHeart className="size-6 text-black" />
-                                    ) : (
-                                      <BiSolidHeart className="size-6 text-black" />
-                                    )}
-                                    <div className="flex items-center gap-2">
-                                      <span style={{ marginLeft: '1px', marginTop: '2px' }}>
-                                        Jaime
-                                      </span>
-                                    </div>
-                                  </span>
+                      <button
+                        onClick={() => {
+                          handleLikeClick(article.id, 1);
+                        }}
+                      >
+                        <span className="flex items-center flex-col md:flex-row gap-2 ">
+                          {article.likesCount === 0 ? (
+                            <BiHeart className="size-6 text-black" />
+                          ) : (
+                            <BiSolidHeart className="size-6 text-black" />
+                          )}
+                          <div className="flex items-center gap-2">
+                            <span style={{ marginLeft: '1px', marginTop: '2px' }}>
+                              Jaime
+                            </span>
+                          </div>
+                        </span>
 
-                                </button>{" "}
+                      </button>{" "}
 
-                                <button
-                                  onClick={() => {
-                                    if (selectedArticleId === article.id) {
-                                      setCommentInputVisible(false);
-                                      setSelectedArticleId(null);
-                                    } else {
-                                      fetchCommentsForArticle(article.id);
-                                      setSelectedArticleId(article.id);
-                                      setCommentInputVisible(true);
-                                      setSelectedArticleForCopy(article.id);
-                                    }
-                                  }}
-                                >
-                                  {selectedArticleId === article.id ? (
-                                    <div className="flex flex-col md:flex-row items-center gap-2 md:justify-between py-2">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square fill-zinc-900"
-                                      />
-                                      <div className="grow">Commenter</div>
-                                    </div>
-                                  ) : (
-                                    <div className="flex gap-2 flex-col md:flex-row items-center">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square fill-zinc-900"
-                                      />
-                                      <div className="flex gap-2"> <span>Commenter</span></div>
-                                    </div>
-                                  )}
-                                </button>
+                      <button
+                        onClick={() => {
+                          if (selectedArticleId === article.id) {
+                            setCommentInputVisible(false);
+                            setSelectedArticleId(null);
+                          } else {
+                            fetchCommentsForArticle(article.id);
+                            setSelectedArticleId(article.id);
+                            setCommentInputVisible(true);
+                            setSelectedArticleForCopy(article.id);
+                          }
+                        }}
+                      >
+                        {selectedArticleId === article.id ? (
+                          <div className="flex flex-col md:flex-row items-center gap-2 md:justify-between py-2">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square fill-zinc-900"
+                            />
+                            <div className="grow">Commenter</div>
+                          </div>
+                        ) : (
+                          <div className="flex gap-2 flex-col md:flex-row items-center">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square fill-zinc-900"
+                            />
+                            <div className="flex gap-2"> <span>Commenter</span></div>
+                          </div>
+                        )}
+                      </button>
 
 
 
-                                <button
-                                  onClick={() => {
-                                    copyLinkToClipboard(article.id);
-                                    setIsCopyLinkPopupVisible(true);
-                                    setTimeout(() => {
-                                      setIsCopyLinkPopupVisible(false);
-                                    }, 2000); // Hide the popup after 2 seconds
-                                  }}
-                                  className=""
-                                >
-                                  <div className="flex flex-col md:flex-row items-center gap-2 justify-between py-2">
-                                    <img
-                                      loading="lazy"
-                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                      className="w-5 aspect-square fill-zinc-900"
-                                    />
-                                    <div className="grow">Copier le lien</div>
-                                  </div>
-                                  {isCopyLinkPopupVisible && (
-                                    <div className="copy-link-popup">
-                                      lien copié!
-                                    </div>
-                                  )}
-                                </button>
+                      <button
+                        onClick={() => {
+                          copyLinkToClipboard(article.id);
+                          setIsCopyLinkPopupVisible(true);
+                          setTimeout(() => {
+                            setIsCopyLinkPopupVisible(false);
+                          }, 2000); // Hide the popup after 2 seconds
+                        }}
+                        className=""
+                      >
+                        <div className="flex flex-col md:flex-row items-center gap-2 justify-between py-2">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square fill-zinc-900"
+                          />
+                          <div className="grow">Copier le lien</div>
+                        </div>
+                        {isCopyLinkPopupVisible && (
+                          <div className="copy-link-popup">
+                            lien copié!
+                          </div>
+                        )}
+                      </button>
 
-                              </span>
+                    </span>
 
 
 
@@ -1155,139 +1166,173 @@ const Index = () => {
                         {article.comments &&
                           article.comments.map((comment) => (
                             <div key={comment.id} className="comment">
-                              {/* Display comment information */}
-                              <div className="flex items-center mt-2 ">
-                                <figure className="avatar">
+                              <div className="flex w-full">
+                                <figure className="avatar me-3 mb-8">
                                   <img
                                     src={
-                                      comment.user && comment.user.user.image
+                                      comment.user &&
+                                      comment.user.user?.image
                                     }
-                                    className="shadow-sm rounded-circle w-[64px] h-[64px]"
+                                    className="shadow-sm rounded-full w-[64px] aspect-square"
                                     alt="post"
                                   />
                                 </figure>
-                                <div className="py-2 flex flex-col flex-1 bg-gray-100 md:w-[580px] rounded-3xl max-md:max-w-full px-3">
-                                  <div className="flex flex-col">
-                                    <strong className="text-base text-grey-900">
-                                      {comment.user && comment.user.user.nom}  {comment.user && comment.user.user.prenom}
-                                    </strong>
-                                    <h1 className=" text-base  text-sm text-grey-600">
-                                      {comment.user && comment.user.user.profil}
-                                    </h1>
-                                    {comment.user && comment.user.createdAt && (
-                                      <p className="text-base text-sm text-grey-900">
-                                        {new Date(comment.user.createdAt).toLocaleDateString()}
-                                      </p>
-                                    )}
+                                <div className="flex flex-col w-full">
+                                  <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                    <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                                      <div className="flex flex-col py-1 font-light text-zinc-900">
+                                        <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                          {comment.user &&
+                                            comment.user.user.nom}{" "}
+                                          {comment.user &&
+                                            comment.user.user.prenom}
+                                        </div>
+                                        <div className="mt-1 text-xs">
+                                          {comment.user &&
+                                            comment.user.user.profil}
+                                        </div>
+                                        <div className="mt-1 text-xs">
+                                          {new Date(
+                                            comment.createdAt
+                                          ).toLocaleDateString()}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="mt-2 text-base font-light text-zinc-900 px-4 ">
+                                      {comment.description}
+                                    </div>
+
                                   </div>
 
-                                  <div className="mt-2">{comment.description}</div>
-                                </div>
-                              </div>
-
-
-                              <div className="ml-[66px] flex items-center gap-2 mt-3">
-                                <button
-                                  onClick={() =>
-                                    handleReplyClick(comment.id)
-                                  }
-                                  className="text-sm w-20 font-semibold ml-4"
-                                >
-                                  Répondre
-                                </button>
-                                <button onClick={() => handleLikeComment(comment.id)}>
-                                  {comment.likesCount === 0 ? (
-                                    <BiHeart className="size-7 text-black" />
-                                  ) : (
-                                    <BiSolidHeart className="size-7 text-black" />
-                                  )}
-                                </button>
-                                {/* <span>{comment.likesCount} Likes</span> */}
-                                <span className="ml-0 p-0 font-bold mr-4">
-                                  {comment.likesCount} {comment.likesCount === 1 ? "" : ""}
-                                </span>
-
-                              </div>
-
-
-                              {replyingToCommentId === comment.id && (
-                                <div className="flex items-center">
-                                  <figure className="avatar">
-                                    <img
-                                      src={
-                                        comment.user && comment.user.user.image
+                                  <div className="my-2 flex w-full justify-between">
+                                    <button
+                                      onClick={() =>
+                                        handleLikeComment(comment.id)
                                       }
-                                      className="shadow-sm rounded-circle w-[64px] h-[64px]"
-                                      alt="post"
-                                    />
-                                  </figure>
-                                  <input
-                                    type="text"
-                                    value={replyInput}
-                                    placeholder="ecrire une reponse"
-                                    onChange={(e) =>
-                                      setReplyInput(e.target.value)
-                                    }
-                                    className="bg-gray-100 rounded-md w-full h-12 ml-2 pl-3 h-12"
-                                  />
-                                  <button
-                                    onClick={() =>
-                                      addReply(comment.id, replyInput)
-                                    }
-                                  >
-                                    <BiSolidSend className="size-5  text-cyan-600" />
-                                  </button>
+                                    >
+                                      {comment.likesCount === 0 ? (
+                                        <BiHeart className="size-7 text-black" />
+                                      ) : (
+                                        <BiSolidHeart className="size-7 text-black" />
+                                      )}
+                                    </button>
+
+                                    <button
+                                      onClick={() =>
+                                        handleReplyClick(comment.id)
+                                      }
+                                      className="w-20 font-semibold ml-2"
+                                    >
+                                      Répondre
+                                    </button>
+                                  </div>
                                 </div>
-                              )}
+                              </div>
+
+
                               {repliesVisible[comment.id] && (
-                                <div className="replies-section ml-16 mt-3">
+                                <div className="replies-section ml-16 mt-0">
                                   {articleComments[comment.id] &&
                                     articleComments[comment.id].map(
                                       (reply) => (
                                         <div
                                           key={reply.id}
-                                          className="reply"
+                                          className="reply mb-0"
                                         >
-                                          {/* Display reply information */}
-                                          <div className="flex items-center">
-                                            <figure className="avatar me-3">
+                                          <div className="flex items-start py-2">
+                                            <figure className="rounded-full overflow-hidden flex-shrink-0">
                                               <img
                                                 src={
-                                                  reply.user &&
-                                                  reply.user.image
+                                                  reply.user
+                                                    ?.image
                                                 }
-                                                className="shadow-sm rounded-circle w-10 h-10"
+                                                className="shadow-sm w-14 h-14 object-cover object-center"
                                                 alt="post"
                                               />
                                             </figure>
-                                            <span className="px-3 flex flex-col flex-1 mt-3   bg-gray-100 md:w-[460px]  rounded-3xl max-md:max-w-full">
-                                              <div className="flex flex-col">
-                                                <strong className="mb">
-                                                  {reply.user &&
-                                                    reply.user.login}
-                                                </strong>
-                                                <h1 className=" text-gray-500">
-                                                  {reply.user && reply.user.profil}
-                                                </h1>
-                                                {reply.user && reply.user.createdAt && (
-                                                  <p className="text-gray-500 text-sm mt-0">
-                                                    {new Date(reply.user.createdAt).toLocaleDateString()}
-                                                  </p>
-                                                )}
-                                                <div className="text-base">{reply.description}</div>
-
+                                            <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                              <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                                                <div className="flex flex-col py-1 font-light text-zinc-900">
+                                                  <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                                    {reply.user &&
+                                                      reply.user
+                                                        .nom}
+                                                    {reply.user &&
+                                                      reply.user
+                                                        .prenom}
+                                                  </div>
+                                                  <div className="mt-1 text-xs">
+                                                    {reply.user &&
+                                                      reply.user
+                                                        .profil}
+                                                  </div>
+                                                  <div className="mt-1 text-xs">
+                                                    {new Date(
+                                                      reply.createdAt
+                                                    ).toLocaleDateString()}
+                                                  </div>
+                                                </div>
                                               </div>
-                                            </span>
-
-
+                                              <div className="mt-2 text-base font-light text-zinc-900 px-4 text-break">
+                                                {reply.description}
+                                              </div>
+                                            </div>
 
                                           </div>
 
-                                          {/* <span className="flex flex-col flex-1  bg-gray-100 md:w-[520px] rounded-3xl max-md:max-w-full">
-          <div className="m-2">{reply.description}</div>
-        </span> */}
                                         </div>
                                       )
+                                    )}
+                                  {replyingToCommentId ==
+                                    comment.id && (
+                                      <div className="flex items-center gap-3 mt-1 mb-3">
+                                        <figure className="avatar">
+                                          <img
+                                            src={
+                                              comment.user &&
+                                              comment.user.user?.image
+                                            }
+                                            className="shadow-sm rounded-full w-[52px] aspect-square"
+                                            alt="post"
+                                          />
+                                        </figure>
+                                        <div className="flex flex-col w-full">
+                                          <div className="w-full flex items-center">
+                                            <input
+                                              type="text"
+                                              value={replyInput}
+                                              placeholder="Ecrire un reponse .."
+                                              onChange={(e) =>
+                                                setReplyInput(
+                                                  e.target.value
+                                                )
+                                              }
+                                              className="w-full px-2 bg-gray-100 rounded-[30px]  mr-3 h-12"
+                                            />
+                                            <button
+                                              onClick={() =>
+                                                addReply(
+                                                  replyingToCommentId,
+                                                  replyInput
+                                                )
+                                              }
+                                            >
+                                              <svg
+                                                width="20"
+                                                height="20"
+                                                viewBox="0 0 20 20"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
+                                                  fill="#2E71EB"
+                                                />
+                                              </svg>
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
                                     )}
                                 </div>
                               )}
@@ -1297,30 +1342,50 @@ const Index = () => {
                         {/* Add Comment Input */}
                         {commentInputVisible && (
                           <div>
-                            <div className="flex items-center">
-                              <figure className="avatar me-3">
+                            <div className="flex items-center gap-3 mt-3">
+                              <figure className="avatar">
                                 <img
-                                  src={user.image}
-                                  className="shadow-sm rounded-circle w-10 h-10"
+                                  src={
+                                    placeholder
+                                  }
+                                  className="shadow-sm rounded-full w-[52px] aspect-square"
                                   alt="post"
                                 />
                               </figure>
-                              <input
-                                type="text"
-                                placeholder="Ecrire un commentaire"
-                                className="bg-gray-100 p-2 rounded-md w-96 h-12 mt-3 ml-2"
-                                value={comment}
-                                onChange={(e) =>
-                                  setComment(e.target.value)
-                                }
-                              />{" "}
-                              <button
-                                onClick={() => addComment(article.id)}
-                                className="ml-2"
-                              >
-                                {" "}
-                                <BiSolidSend className="size-7 mt-3 text-cyan-600" />
-                              </button>
+                              <div className="flex flex-col w-full">
+                                <div className="w-full flex items-center">
+                                  <input
+                                    type="text"
+                                    value={comment}
+                                    placeholder="Ecrire un commentaire .."
+                                    onChange={(e) =>
+                                      setComment(e.target.value)
+                                    }
+                                    className="w-full bg-gray-100 rounded-[30px] px-2 mr-3 h-12"
+                                  />
+                                  <button
+                                    onClick={() => {
+                                      addComment(article.id);
+                                      console.log("🚀 ~ Post ~ article.id:", article.id)
+                                    }
+                                    }
+                                    className="ml-2"
+                                  >
+                                    <svg
+                                      width="20"
+                                      height="20"
+                                      viewBox="0 0 20 20"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
+                                        fill="#2E71EB"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         )}
@@ -1334,13 +1399,13 @@ const Index = () => {
             </div>
           </div>
         </div>}
-        {profileFeed === 'photo' && <div className="w-full mt-4">
+        {profileFeed === 'photo' && <div className="w-full mt-3">
           <div>
             <div>
               {articles.length > 0 ? articlesWithPhoto.map((article) => (
                 <div
                   key={article.id}
-                  className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2"
+                  className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-4 mt-3"
                 >
                   <div className="card-body p-0 d-flex">
                     <figure className="avatar me-3">

@@ -961,9 +961,7 @@ function Post({ article, setArticles }) {
 
                               </span>
                               <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                                {
-                                  article.createdAt
-                                }
+                                {new Date(article.user.user.createdAt).toLocaleDateString()}
                               </span>
                             </h4>
                             <div
