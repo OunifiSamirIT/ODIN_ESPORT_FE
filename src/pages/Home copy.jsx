@@ -355,7 +355,7 @@ function Home() {
                 )}
                 <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
-                <div className="flex justify-between items-center py-2 px-6 w-[19.875rem]">
+             <Link to="/defaultgroup">   <div className="flex justify-between items-center py-2 px-6 w-[19.875rem]">
                   <div className="flex justify-center items-center gap-4">
                     <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                       <svg
@@ -379,7 +379,7 @@ function Home() {
                       Camps
                     </div>
                   </div>
-                </div>
+                </div></Link>
                 <Link
                   to="/defaultgroupEvents"
                 >
@@ -399,7 +399,7 @@ function Home() {
                     />
                   </div>
                 </Link>
-                <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
+           <Link to="/homeoffre">     <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
                   <div className="flex gap-4 justify-between px-2 py-1.5">
                     {" "}
                     <img
@@ -409,7 +409,7 @@ function Home() {
                     />
                     <div>Offres d’emploi</div>
                   </div>
-                </div>
+                </div></Link>
                 {!(userProfileType === "other" && user?.other?.profession === "Fan Football") && userProfileType !== "player" && (
 
                   <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
