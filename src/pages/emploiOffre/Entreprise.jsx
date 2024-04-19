@@ -142,12 +142,35 @@ const handleDateChange = (date) => {
     }
   };
 
+  // for left slide barre ---------------------------------
+
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const id = storedUserData ? storedUserData.id : null;
+
+    if (id) {
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+        .then((response) => response.json())
+        .then((userData) => {
+          setUser(userData);
+          console.log("user offre", user)
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+
+
+  }, []);
+
+
+
+
   const userProfileType = storedUserData ? storedUserData.profil : null;
 
   const shouldHideForProfiles = ["other", "player"];
-  const shouldShowAgentItem = ["player", "other"].includes(userProfileType);
+  const shouldShowAgentItem = ["player"].includes(userProfileType);
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
+
   return (
     <>
       <Header />
@@ -156,8 +179,9 @@ const handleDateChange = (date) => {
         <div className="self-center mt-12 w-full max-w-[1344px] max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             {/* left slide bar */}
-            <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col items-start gap-4 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
+           {/* left menu */}
+<div className=" xs:hidden sm:hidden hidden md:mt-5 md:ml-4  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
+<div className="flex flex-col items-start gap-4 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
                 <Link to="/home" className="nav-content-bttn open-font">
                   <div className="flex justify-center items-center gap-4 py-2 px-6 ">
                     <div className="flex justify-center items-center gap-2.5 p-2 rounded-full text-xl font-bold whitespace-nowrap text-zinc-900">
@@ -219,13 +243,14 @@ const handleDateChange = (date) => {
                   </div>{" "}
                 </Link>
 
-                <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
-                {shouldShowAgentItem && (
+                {  shouldShowAgentItem && (
+                  
                   <Link
                     to="/defaultgroupagent"
                     className="nav-content-bttn open-font"
                   >
+                  <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
                     <div className="flex justify-center items-center gap-4 py-2 px-6">
                       <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                         <svg
@@ -282,7 +307,7 @@ const handleDateChange = (date) => {
                 )}
                 <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
-                <div className="flex justify-between items-center py-2 px-6 w-[19.875rem]">
+             <Link to="/defaultgroup">   <div className="flex justify-between items-center py-2 px-6 w-[19.875rem]">
                   <div className="flex justify-center items-center gap-4">
                     <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
                       <svg
@@ -306,23 +331,26 @@ const handleDateChange = (date) => {
                       Camps
                     </div>
                   </div>
-                </div>
-                <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
-                  <div className="flex gap-4 justify-between px-2 py-1.5">
+                </div></Link>
+                <Link
+                  to="/defaultgroupEvents"
+                >
+                  <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
+                    <div className="flex gap-4 justify-between px-2 py-1.5">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                        className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                      />
+                      <div>Événements</div>
+                    </div>
                     <img
                       loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                      className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/d22964e4d2bf57e3d7709bb65ff794adb95fc3a025192d162071e4948acfdb9a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                      className="shrink-0 my-auto w-5 aspect-[2] fill-zinc-900"
                     />
-                    <div>Événements</div>
                   </div>
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/d22964e4d2bf57e3d7709bb65ff794adb95fc3a025192d162071e4948acfdb9a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                    className="shrink-0 my-auto w-5 aspect-[2] fill-zinc-900"
-                  />
-                </div>
-
+                </Link>
                 <div className="flex gap-5 justify-between px-6 py-2 mt-8 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
                   <div className="flex gap-4 justify-between px-2 py-1.5">
                     {" "}
@@ -336,18 +364,20 @@ const handleDateChange = (date) => {
                 </div>
                 {!(userProfileType === "other" && user?.other?.profession === "Fan Football") && userProfileType !== "player" && (
 
-                <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                  <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                    className="shrink-0 my-auto w-4 aspect-square fill-white"
-                  />
-                  <div>Publier une offre</div>
-                </div>
+                  <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                      className="shrink-0 my-auto w-4 aspect-square fill-white"
+                    />
+                    <div>Publier une offre</div>
+                  </div>
                 )}
 
               </div>
             </div>
+
+            {/* left menu */}
 
             <div className="flex flex-col ml-5 w-[76%] max-md:ml-0 max-md:w-full">
               {/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
