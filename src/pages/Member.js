@@ -96,8 +96,8 @@ function  Member  () {
                     </div>
                 </div>
                 
-                <Popupchat />
-                <Appfooter /> 
+                {/* <Popupchat /> */}
+                {/* <Appfooter />  */}
 
             </Fragment>
         );
