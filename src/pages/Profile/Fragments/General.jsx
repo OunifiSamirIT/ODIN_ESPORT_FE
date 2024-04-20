@@ -5,7 +5,11 @@ import { useParams } from "react-router-dom";
 import Placeholder from "../../../assets/placeholder.jpg"
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
+import {Context} from "../../index"
+
+
 const General = ({ userInfo }) => {
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const { id } = useParams();
@@ -110,7 +114,15 @@ const General = ({ userInfo }) => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
                     className="shrink-0 my-auto aspect-square w-[15px]"
                   />
-                  <Link to={'/setting/personal'} className="flex items-center"><p>Modifier</p></Link>
+                  <Link to={'/setting/personal'} className="flex items-center"><p> {
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </p></Link>
                 </div> :
                 <>
                   <div className="flex items-center gap-3 md:w-fit w-full">
@@ -127,7 +139,15 @@ const General = ({ userInfo }) => {
                       </svg>
 
                       {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
-                        <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter</p></button>}
+                        <button className="flex items-center " onClick={sendFriendRequest}><p>{
+                          getTranslation(
+                           `Add`,  // -----> Englais
+                           `Ajouter`, //  -----> Francais
+                         //   ``,  //  -----> Turkey
+                         //   `` ,  //  -----> Allemagne
+                           ) 
+             
+                         } </p></button>}
                     </div>
                     {acceptedFriend?.status === 'accepted' ? <div>
                       <a href={`https://wa.me/${getWhatsappPrefix(userInfo.user.optionalattributs)}${userInfo.user.numWSup}`} target="_blank">
@@ -230,7 +250,17 @@ const General = ({ userInfo }) => {
                       </clipPath>
                     </defs>
                   </svg>
-                  <div className="grow self-start mt-1">{userInfo.agent.totalPlayer} Joueurs</div>
+                  <div className="grow self-start mt-1">{userInfo.agent.totalPlayer}
+                  
+                  {
+             getTranslation(
+              `Players`,  // -----> Englais
+              `Joueurs`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }  </div>
                 </div></>
             </div>}
           {
@@ -267,7 +297,19 @@ const General = ({ userInfo }) => {
                   style={{ marginRight: "8px", width: "25px" }}
                 ></span>
                 { }
-                <div className="grow self-start mt-1">{userInfo.agent?.paysclub} (Pays du club)</div>
+                <div className="grow self-start mt-1">{userInfo.agent?.paysclub} (
+                  
+                  {
+             getTranslation(
+              `Club's Country`,  // -----> Englais
+              `Pays du club`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                  
+                  )</div>
               </div> : ''}
         </div>
 
@@ -357,7 +399,15 @@ const General = ({ userInfo }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
               className="shrink-0 self-start w-4 aspect-[0.94]"
             />
-            <a href={`/profile/more/${id}`}>Voir Plus</a>
+            <a href={`/profile/more/${id}`}> {
+             getTranslation(
+              `See more`,  // -----> Englais
+              ` Voir Plus`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </a>
           </div>
         </div>
       </div>

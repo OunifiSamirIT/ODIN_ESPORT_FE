@@ -5572,7 +5572,7 @@ function Register() {
                           type="file"
                           name="image"
                           onChange={handleFileChange}
-                          className="tal2 grow absolute w-full my-auto "
+                          className="tal2 grow absolute w-full my-auto opacity-0"
                         />
 
                         {
