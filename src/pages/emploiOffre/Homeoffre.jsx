@@ -418,9 +418,9 @@ function HomeOffre() {
                   <div className="my-auto text-3xl font-bold text-zinc-900">
                     Offres d'emploi
                   </div>
-                  <div className="flex flex-col justify-center text-base whitespace-nowrap text-neutral-500">
+                  <div className="flex flex-col justify-center text-base w-full md:w-fit whitespace-nowrap text-neutral-500">
                     <div className="flex flex-col justify-center w-full bg-gray-100 border border-solid border-neutral-200 rounded-[30px]">
-                      <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pl-5">
+                      <div className="flex gap-5 justify-between  px-4 py-2 rounded-md max-md:pl-5">
                         <div>Recherche</div>
                         <img
                           loading="lazy"
@@ -434,7 +434,7 @@ function HomeOffre() {
                 <div className="flex-wrap gap-y-4 justify-between content-start mt-4 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                     <div className="flex flex-col w-[28%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10">
+                      <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-5">
                         <div className="flex gap-4 px-2">
                           <img
                             loading="lazy"
@@ -446,7 +446,7 @@ function HomeOffre() {
                         <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid border-neutral-200 rounded-[30px]">
                           <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
                             <div className="my-auto w-full">
-                              <select className='w-full' value={selectedNiveauEtudes}
+                              <select className='w-full bg-transparent' value={selectedNiveauEtudes}
                                 onChange={handleNEChange}
                               >
                                 <option value="Bac +3">Bac +3</option>
@@ -504,8 +504,8 @@ function HomeOffre() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col text-zinc-900 max-md:mt-10">
+                    <div className="flex flex-col max-md:mt-[-22px] ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col text-zinc-900 ">
                         <div className="flex gap-4 px-4 text-base whitespace-nowrap">
                           <img
                             loading="lazy"
@@ -517,7 +517,7 @@ function HomeOffre() {
                         <div className="flex flex-col justify-center py-1.5 mt-2 text-xs font-light border border-solid border-neutral-200 rounded-[30px]">
                           <div className="flex gap-5 justify-between px-4 py-2.5 rounded-md">
                             <div className="my-auto w-full">
-                              <select className='w-full' value={selectedExperience}
+                              <select className='w-full bg-transparent' value={selectedExperience}
                                 onChange={handleExperienceChange}>
                                 <option value="1 à 2 ans">1 à 2 ans</option>
                                 <option value="2 à 4 ans">2 à 4 ans</option>
@@ -530,8 +530,8 @@ function HomeOffre() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col text-zinc-900 max-md:mt-10">
+                    <div className="flex flex-col ml-5 w-[33%] max-md:mt-[-22px] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col text-zinc-900 ">
                         <div className="flex gap-4 px-4 text-base">
                           <img
                             loading="lazy"
@@ -543,7 +543,7 @@ function HomeOffre() {
                         <div className="flex flex-col justify-center py-1.5 mt-2 text-xs font-light whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                           <div className="flex gap-5 justify-between px-4 py-2.5 rounded-md">
                             <div className="my-auto w-full">
-                              <select className='w-full' value={selectedTypeContrat}
+                              <select className='w-full bg-transparent' value={selectedTypeContrat}
                                 onChange={(e) => setSelectedTypeContrat(e.target.value)}>
                                 <option value="CDD">CDD</option>
                                 <option value="CDI">CDI</option>
@@ -558,14 +558,14 @@ function HomeOffre() {
 
                   </div>
                 </div>
-                <div className="flex gap-1 md:gap-5 justify-between py-2 mt-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                <div className="flex gap-1 mt-3 md:gap-5 w-full justify-between  mt-4ext-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                   <div onClick={handleReset}
-                    className="justify-center px-4 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5">
+                    className="flex justify-center px-4 py-2 w-full md:w-fit text-white bg-orange-500 rounded-[30px] max-md:px-5">
                     Réinitialiser
                   </div>
-                  <div className="flex gap-1 md:gap-5 justify-between pl-6">
+                  <div className="flex gap-1 w-full md:w-fit  justify-between ">
                     <div onClick={handleSearch}
-                      className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                      className=" flex  justify-center w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                       Confirmer
                     </div>
                   </div>
@@ -580,20 +580,27 @@ function HomeOffre() {
 
               {filteredoffres.map((value, index) => (
                 <div key={index} className="flex gap-5 p-6 mt-8 text-base font-light bg-white rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 max-md:flex-wrap max-md:px-5">
+                  <div className='flex flex-row gap-3'>
                   <img
                     loading="lazy"
-                    src={value.imagesalbumoffres.length > 0 ? value.imagesalbumoffres[0].image_url : 'placeholder.jpg'} // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
+                    src={value.imagesalbumoffres.length > 0 ? value.imagesalbumoffres[0].image_url : require('../../assets/offre_icon.png')} // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
                     onClick={() => handleCardClick(value.id)}
                     className="shrink-0 self-start aspect-fit w-[72px]"
                   />
-                  <div className="flex flex-col flex-1 max-md:max-w-full">
+                    <div className='flex-col'>
                     <div className="self-start">{value.EntrepriseName}</div>
                     <div className="self-start mt-1 font-semibold">
                       {value.postoffre}
 
 
                     </div>
-                    <div className="flex gap-4 justify-between py-0.5 pr-20 mt-1.5 text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
+                    </div>
+                  </div>
+                  <div className="flex flex-col  flex-1 max-md:max-w-full">
+                    <div>
+
+                    </div>
+                    <div className="flex gap-4 justify-center items-center py-0.5 pr-20 mt-1.5 text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
                       <div className="flex gap-1.5 justify-between px-1 py-0.5 text-neutral-900 text-opacity-70">
                         <img
                           loading="lazy"

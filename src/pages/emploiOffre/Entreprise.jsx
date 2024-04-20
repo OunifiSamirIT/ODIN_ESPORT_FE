@@ -437,16 +437,16 @@ function Entreprise() {
                             />
                           ) : (
                             <img
-                              src="default-image.jpg"
+                              src={require("../../assets/default.jpg")}
                               alt="Default"
                               loading="lazy"
-                              className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                              className="shrink-0 max-w-full h-[110%] mx-auto rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[180px] h-[180px] max-md:mt-10"
                             />
                           )}
                         </div>
 
                         <div className="flex flex-col ml-5 w-[65%] max-md:ml-0 max-md:w-full">
-                          <div className="flex flex-col self-stretch my-auto max-md:mt-10">
+                          <div className="flex flex-col self-stretch text-center my-auto max-md:mt-10">
                             <div className="text-3xl font-bold text-black">
                               Logo de l’entreprise
                             </div>
@@ -476,9 +476,9 @@ function Entreprise() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex gap-3 px-4 mt-6 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap" />
+                  <div className="flex gap-3  px-4 -m-5 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap" />
 
-                  <div className="mt-6 max-md:max-w-full">
+                  <div className=" max-md:max-w-full">
                     <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                       <div className="flex flex-col w-[55%] max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col grow text-lg text-zinc-900 max-md:mt-10">
@@ -493,6 +493,8 @@ function Entreprise() {
                           <input
                             type="text"
                             id="EntrepriseName"
+                            placeholder="Nom de l’entreprise"
+
                             value={formData.EntrepriseName}
                             onChange={(e) =>
                               setFormData({
@@ -514,6 +516,7 @@ function Entreprise() {
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
                               <select
                                 id="NivET"
+                                className="bg-transparent"
                                 value={formData.NivET}
                                 onChange={(e) =>
                                   setFormData({
@@ -522,7 +525,7 @@ function Entreprise() {
                                   })
                                 }
                               >
-                                <option value="">Select NivET</option>
+                                <option value="">Niveau d’études</option>
                                 <option value="Bac">Bac</option>
                                 <option value="Bac +1">Bac +1</option>
                                 <option value="Bac +2">Bac +2</option>
@@ -552,7 +555,7 @@ function Entreprise() {
                                 borderRadius: "30px",
 
                                 fontSize: "14px", // Set the desired font size
-                                backgroundColor: "#f5f5f5", // Set the background color
+                                backgroundColor: "#fff", // Set the background color
                                 borderWidth: "none",
 
                                 paddingTop: "8px",
@@ -573,7 +576,7 @@ function Entreprise() {
                                 option.value === formData.paysoffre
                             )} // Set the value from formData
                           />
-                          <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
+                          <div className="flex gap-3 px-4 mt-8 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/8f84db8c65fb787a86b9e66e5c919bc6b81d09c021813ee3ed7d469a0e564d58?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -584,6 +587,8 @@ function Entreprise() {
                           <input
                             type="email"
                             id="email"
+                            placeholder="Email"
+
                             value={formData.email}
                             onChange={(e) =>
                               setFormData({
@@ -596,7 +601,7 @@ function Entreprise() {
                         </div>
                       </div>
                       <div className="flex flex-col ml-5 w-[45%] max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col grow text-lg text-zinc-900 max-md:mt-10">
+                        <div className="flex flex-col grow text-lg text-zinc-900 mt-[-20px]">
                           <div className="flex gap-3 px-4 whitespace-nowrap">
                             <img
                               loading="lazy"
@@ -608,6 +613,8 @@ function Entreprise() {
                           <input
                             type="text"
                             id="postoffre"
+                            placeholder="Poste"
+
                             value={formData.postoffre}
                             onChange={(e) =>
                               setFormData({
@@ -618,7 +625,7 @@ function Entreprise() {
                             className="justify-center items-start px-4 py-3.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
                           />
 
-                          <div className="flex gap-3 px-4 whitespace-nowrap">
+                          <div className="flex gap-3 px-4 whitespace-nowrap mt-3">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -650,7 +657,7 @@ function Entreprise() {
                           </div>
                           <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
-                              <select className="w-full" {...register("NivET")}>
+                              <select className="w-full bg-transparent" {...register("NivET")}>
                                 <option value="CDI">CDI</option>
                                 <option value="CDD">CDD</option>
                                 <option value="CVIP">CVIP</option>
@@ -666,11 +673,13 @@ function Entreprise() {
                             />
                             <div
 
-                              className="flex-1"
+                              className="-ml-5"
                             />
+                            Ville
                           </div>
                           <input type="text"
                             id="villeoffre"
+                            placeholder="ville"
                             value={formData.villeoffre}
                             onChange={(e) =>
                               setFormData({
@@ -689,6 +698,7 @@ function Entreprise() {
                           <div className="flex flex-col justify-center py-px mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
                               <DatePicker
+                              className="bg-transparent py-2"
                                 id="date_experie"
                                 selected={formData.date_experie}
                                 onChange={handleDateChange}
@@ -708,7 +718,7 @@ function Entreprise() {
                   </div>
 
                   {/* description */}
-                  <div className="flex gap-3 px-4 mt-6 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
+                  <div className="flex gap-3 px-4 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/5f779d8ee0c1bf0e05d7432fa41d675db71640bd2b9c057e88cf4e12605728a6?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -720,26 +730,30 @@ function Entreprise() {
                   <input
                     type="text"
                     id="description"
+                            placeholder="Description de taches"
+
                     value={formData.description}
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    className="justify-center py-4 pr-2 pl-4 mt-2 text-base font-light border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full"
+                    className="justify-center py-3 pr-2 pl-4 -mt-3 text-base font-light border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full"
                   />
 
                   {/* buttons */}
-                  <div className="flex gap-5 justify-between py-2 pr-4 mt-6 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                    <Link to="/home"> <button className="flex gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
+                  <div className="flex gap-2 flex-col-reverse  md:flex-row  justify-between items-center py-2  mt-2 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                    <Link to="/home" className="w-full"> 
+                    
+                    <button className="flex w-full  md:w-fit gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
                       <img
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/b85bedc4eae672f17d955b80520a5136c05878ae21b3a9e7cc3758d244af61b3?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                        className="shrink-0 w-5 aspect-square"
+                        className="shrink-0  w-5 aspect-square"
                       />
                       <div>Annuler</div>
                     </button></Link>
                     <button
                       type="submit"
-                      className="flex gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
+                      className="flex gap-2 w-full md:w-fit  justify-center px-8 py-2 text-white  bg-blue-600 rounded-[30px]"
                     >
                       <img
                         loading="lazy"

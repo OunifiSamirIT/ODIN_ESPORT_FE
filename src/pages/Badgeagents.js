@@ -4638,18 +4638,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                               </div>
 
 
-{/* 
-                              <div className="flex gap-5 justify-between mt-4 w-full">
-                                <div className="flex gap-5 justify-between  px-1 font-light whitespace-nowrap">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-3.5 aspect-[0.74]"
-                                  />
-                                  <div>Profil</div>
-                                </div>
-                                <div className="flex-auto font-medium">{user.typeresponsable} </div>
-                              </div> */}
+
                               <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
                                 <div className="flex gap-4 justify-between font-light">
                                 <img
@@ -4660,12 +4649,9 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                   <div>Profil</div>
                                 </div>
                                 <div className="flex gap-2.5 my-auto font-medium">
-                                  {/* <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4c5f54f84c558024f118d5e81ca0de6ba64d47d21dd8ea384226e5d3654ccde5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start w-5 aspect-[1.43]"
-                          /> */}
-                                  <div> {user.typeresponsable}</div>
+                                <div>{user.typeresponsable === 'club' ? 'Manager de Club' : 'Manager de joueur'}</div>
+
+                                  {/* <div> {user.typeresponsable}</div> */}
                                 </div>
                               </div>
                               <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
@@ -4678,11 +4664,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                   <div>Nationnalité</div>
                                 </div>
                                 <div className="flex gap-2.5 my-auto font-medium">
-                                  {/* <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4c5f54f84c558024f118d5e81ca0de6ba64d47d21dd8ea384226e5d3654ccde5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start w-5 aspect-[1.43]"
-                          /> */}
+                               
                                   <div> {user.user.nationality}</div>
                                 </div>
                               </div>

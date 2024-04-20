@@ -556,7 +556,7 @@ const More = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex text-center md:text-left text-left text-base font-light  text-neutral-900">
+                    <div className="flex text-break md:text-left  text-center  font-light  text-neutral-900">
                       {CurrentUser?.user.discreptionBio}
                     </div>
                   </div>

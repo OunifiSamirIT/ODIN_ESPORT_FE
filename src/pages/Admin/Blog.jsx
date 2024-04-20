@@ -15,7 +15,7 @@ const Event = () => {
         setArticle(result.blog)
     }
     const handleDeleteBlog = async (id) => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/blog/delete/${id}` , {
+        const response = await fetch(`${Config.LOCAL_URL}/api/blog/delete/${id}`, {
             method: 'DELETE',
         })
         fetchBlogArticles()
