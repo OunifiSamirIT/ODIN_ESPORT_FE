@@ -100,9 +100,9 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                             />
                                             <div className="flex-auto max-md:max-w-full">Friends</div>
                                         </div>
-                                        {owner && <Link to={'/friendsList'} className="my-auto text-sm text-blue-600 underline justify-end">
+                                        {/* {owner && <Link to={'/friendsList'} className="my-auto text-sm text-blue-600 underline justify-end">
                                             Voir Tout
-                                        </Link>}
+                                        </Link>} */}
                                     </div>
                                     <div className="mt-8 max-md:max-w-full">
                                         <div className="flex gap-4 md:gap-8 flex-wrap ">
