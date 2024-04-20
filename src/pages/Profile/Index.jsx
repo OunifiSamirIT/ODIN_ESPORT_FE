@@ -795,136 +795,136 @@ const Index = () => {
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
-        {owner && 
-        
-        <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3">
-          <div className="card-body p-2 position-relative">
-            {previewImage && (
-              <div className="mb-3">
-                <img
-                  src={previewImage}
-                  alt="Preview"
-                  className="rounded-xxl"
-                  style={{ maxWidth: "100%", maxHeight: "200px" }}
-                />
-              </div>
-            )}
-            {videoPreviewUrl && (
-              <div className="mt-3">
-                <video
-                  controls
-                  src={videoPreviewUrl}
-                  className="rounded-xxl"
-                  style={{ maxWidth: "100%", maxHeight: "200px" }}
-                ></video>
-              </div>
-            )}
-            <form onSubmit={handleSubmit(handlePostSubmit)}>
-              <div className="card-body d-flex p-0">
-                <div className="flex w-full">
+        {owner &&
+
+          <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3">
+            <div className="card-body p-2 position-relative">
+              {previewImage && (
+                <div className="mb-3">
                   <img
-                    src={LocalStorageID?.image}
-                    alt="icon"
-                    className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                    src={previewImage}
+                    alt="Preview"
+                    className="rounded-xxl"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
                   />
-                  {/* <label>{storedUserData.login}</label> */}
-                  <div className="flex flex-col w-full gap-y-2">
-                    <input
-                      className="grow px-2 h-[50px] justify-center  bg-gray-100 rounded-[30px] theme-dark-bg"
-                      placeholder="Quoi de neuf ? "
-                      // styles="w-full rounded-full py-5 text-bl"
-                      // placeholder="Show your Skills here , your dream begin from here...."
-                      name="description"
-                      {...register('description')}
+                </div>
+              )}
+              {videoPreviewUrl && (
+                <div className="mt-3">
+                  <video
+                    controls
+                    src={videoPreviewUrl}
+                    className="rounded-xxl"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  ></video>
+                </div>
+              )}
+              <form onSubmit={handleSubmit(handlePostSubmit)}>
+                <div className="card-body d-flex p-0">
+                  <div className="flex w-full">
+                    <img
+                      src={LocalStorageID?.image}
+                      alt="icon"
+                      className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                     />
-                    {errMsg?.message && (
-                      <span
-                        role="alert"
-                        className={`text-sm ${errMsg?.status === "failed"
-                          ? "text-[#f64949fe]"
-                          : "text-[#2ba150fe]"
-                          } mt-0.5`}
-                      >
-                        {errMsg?.message}
-                      </span>
-                    )}
-                    <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
-                      <div className="flex w-full justify-between mr-3">
-                        <label
-                          htmlFor="imgUpload"
-                          className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
+                    {/* <label>{storedUserData.login}</label> */}
+                    <div className="flex flex-col w-full gap-y-2">
+                      <input
+                        className="grow px-2 h-[50px] justify-center  bg-gray-100 rounded-[30px] theme-dark-bg"
+                        placeholder="Quoi de neuf ? "
+                        // styles="w-full rounded-full py-5 text-bl"
+                        // placeholder="Show your Skills here , your dream begin from here...."
+                        name="description"
+                        {...register('description')}
+                      />
+                      {errMsg?.message && (
+                        <span
+                          role="alert"
+                          className={`text-sm ${errMsg?.status === "failed"
+                            ? "text-[#f64949fe]"
+                            : "text-[#2ba150fe]"
+                            } mt-0.5`}
                         >
-                          <input
-                            type="file"
-                            onChange={handleFileChange}
-                            className="hidden"
-                            id="imgUpload"
-                            accept=".jpg, .png, .jpeg"
-                          />
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="aspect-square w-[25px]"
-                          />
-                          <span className="d-none-xs ml-2">Photo</span>
-                        </label>
+                          {errMsg?.message}
+                        </span>
+                      )}
+                      <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
+                        <div className="flex w-full justify-between mr-3">
+                          <label
+                            htmlFor="imgUpload"
+                            className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
+                          >
+                            <input
+                              type="file"
+                              onChange={handleFileChange}
+                              className="hidden"
+                              id="imgUpload"
+                              accept=".jpg, .png, .jpeg"
+                            />
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="aspect-square w-[25px]"
+                            />
+                            <span className="d-none-xs ml-2">Photo</span>
+                          </label>
 
-                        <label
-                          className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
-                          htmlFor="videoUpload"
-                        >
-                          <input
-                            type="file"
-                            onChange={(e) => handleFileChange(e, "video")}
-                            className="hidden"
-                            id="videoUpload"
-                            accept=".mp4, .wav"
-                          />
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="aspect-square w-[25px]"
-                          />                            <span className="d-none-xs ml-2"> Video</span>
-                        </label>
+                          <label
+                            className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
+                            htmlFor="videoUpload"
+                          >
+                            <input
+                              type="file"
+                              onChange={(e) => handleFileChange(e, "video")}
+                              className="hidden"
+                              id="videoUpload"
+                              accept=".mp4, .wav"
+                            />
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="aspect-square w-[25px]"
+                            />                            <span className="d-none-xs ml-2"> Video</span>
+                          </label>
 
-                        <label
-                          className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
-                          htmlFor="vgifUpload"
-                        >
-                          <input
-                            type="file"
-                            onChange={(e) => handleFileChange(e, "gif")}
-                            className="hidden"
-                            id="vgifUpload"
-                            accept=".gif"
-                          />
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="aspect-[1.2] fill-slate-500 w-[30px]"
-                          />                           <span className="d-none-xs ml-2">GIF</span>
-                        </label>
-                      </div>
+                          <label
+                            className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
+                            htmlFor="vgifUpload"
+                          >
+                            <input
+                              type="file"
+                              onChange={(e) => handleFileChange(e, "gif")}
+                              className="hidden"
+                              id="vgifUpload"
+                              accept=".gif"
+                            />
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="aspect-[1.2] fill-slate-500 w-[30px]"
+                            />                           <span className="d-none-xs ml-2">GIF</span>
+                          </label>
+                        </div>
 
-                      <div>
-                        {posting ? (
-                          <Loading />
-                        ) : (
-                          <CustomButton
-                            type="submit"
-                            title="Publier"
-                            containerStyles="bg-blue-600 text-white mt-1 py-1 px-4 md:px-10 rounded-full font-semibold text-sm"
-                          />
-                        )}
+                        <div>
+                          {posting ? (
+                            <Loading />
+                          ) : (
+                            <CustomButton
+                              type="submit"
+                              title="Publier"
+                              containerStyles="bg-blue-600 text-white mt-1 py-1 px-4 md:px-10 rounded-full font-semibold text-sm"
+                            />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
-        
+
         }
         {profileFeed === 'pubs' && <div className="w-full mt-4">
           <div>
@@ -1057,88 +1057,88 @@ const Index = () => {
                     <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
 
                     <span className="flex justify-between items-center ml-0 p-0 font-bold w-full">
-                                <button
-                                  onClick={() => {
-                                    handleLikeClick(article.id, 1);
-                                  }}
-                                >
-                                  <span className="flex items-center flex-col md:flex-row gap-2 ">
-                                    {article.likesCount === 0 ? (
-                                      <BiHeart className="size-6 text-black" />
-                                    ) : (
-                                      <BiSolidHeart className="size-6 text-black" />
-                                    )}
-                                    <div className="flex items-center gap-2">
-                                      <span style={{ marginLeft: '1px', marginTop: '2px' }}>
-                                        Jaime
-                                      </span>
-                                    </div>
-                                  </span>
+                      <button
+                        onClick={() => {
+                          handleLikeClick(article.id, 1);
+                        }}
+                      >
+                        <span className="flex items-center flex-col md:flex-row gap-2 ">
+                          {article.likesCount === 0 ? (
+                            <BiHeart className="size-6 text-black" />
+                          ) : (
+                            <BiSolidHeart className="size-6 text-black" />
+                          )}
+                          <div className="flex items-center gap-2">
+                            <span style={{ marginLeft: '1px', marginTop: '2px' }}>
+                              Jaime
+                            </span>
+                          </div>
+                        </span>
 
-                                </button>{" "}
+                      </button>{" "}
 
-                                <button
-                                  onClick={() => {
-                                    if (selectedArticleId === article.id) {
-                                      setCommentInputVisible(false);
-                                      setSelectedArticleId(null);
-                                    } else {
-                                      fetchCommentsForArticle(article.id);
-                                      setSelectedArticleId(article.id);
-                                      setCommentInputVisible(true);
-                                      setSelectedArticleForCopy(article.id);
-                                    }
-                                  }}
-                                >
-                                  {selectedArticleId === article.id ? (
-                                    <div className="flex flex-col md:flex-row items-center gap-2 md:justify-between py-2">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square fill-zinc-900"
-                                      />
-                                      <div className="grow">Commenter</div>
-                                    </div>
-                                  ) : (
-                                    <div className="flex gap-2 flex-col md:flex-row items-center">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square fill-zinc-900"
-                                      />
-                                      <div className="flex gap-2"> <span>Commenter</span></div>
-                                    </div>
-                                  )}
-                                </button>
+                      <button
+                        onClick={() => {
+                          if (selectedArticleId === article.id) {
+                            setCommentInputVisible(false);
+                            setSelectedArticleId(null);
+                          } else {
+                            fetchCommentsForArticle(article.id);
+                            setSelectedArticleId(article.id);
+                            setCommentInputVisible(true);
+                            setSelectedArticleForCopy(article.id);
+                          }
+                        }}
+                      >
+                        {selectedArticleId === article.id ? (
+                          <div className="flex flex-col md:flex-row items-center gap-2 md:justify-between py-2">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square fill-zinc-900"
+                            />
+                            <div className="grow">Commenter</div>
+                          </div>
+                        ) : (
+                          <div className="flex gap-2 flex-col md:flex-row items-center">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 aspect-square fill-zinc-900"
+                            />
+                            <div className="flex gap-2"> <span>Commenter</span></div>
+                          </div>
+                        )}
+                      </button>
 
 
 
-                                <button
-                                  onClick={() => {
-                                    copyLinkToClipboard(article.id);
-                                    setIsCopyLinkPopupVisible(true);
-                                    setTimeout(() => {
-                                      setIsCopyLinkPopupVisible(false);
-                                    }, 2000); // Hide the popup after 2 seconds
-                                  }}
-                                  className=""
-                                >
-                                  <div className="flex flex-col md:flex-row items-center gap-2 justify-between py-2">
-                                    <img
-                                      loading="lazy"
-                                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                      className="w-5 aspect-square fill-zinc-900"
-                                    />
-                                    <div className="grow">Copier le lien</div>
-                                  </div>
-                                  {isCopyLinkPopupVisible && (
-                                    <div className="copy-link-popup">
-                                      lien copié!
-                                    </div>
-                                  )}
-                                </button>
+                      <button
+                        onClick={() => {
+                          copyLinkToClipboard(article.id);
+                          setIsCopyLinkPopupVisible(true);
+                          setTimeout(() => {
+                            setIsCopyLinkPopupVisible(false);
+                          }, 2000); // Hide the popup after 2 seconds
+                        }}
+                        className=""
+                      >
+                        <div className="flex flex-col md:flex-row items-center gap-2 justify-between py-2">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square fill-zinc-900"
+                          />
+                          <div className="grow">Copier le lien</div>
+                        </div>
+                        {isCopyLinkPopupVisible && (
+                          <div className="copy-link-popup">
+                            lien copié!
+                          </div>
+                        )}
+                      </button>
 
-                              </span>
+                    </span>
 
 
 

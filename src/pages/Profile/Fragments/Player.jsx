@@ -208,12 +208,12 @@ const PlayerCard = ({ userInfo }) => {
 
 
         <div className="self-stretch text-break font-light text-center text-neutral-900 max-md:max-w-full">
-          <div className="flex justify-center mt-2">
+          <div className="flex justify-center  mt-2">
             <svg width="366" height="1" viewBox="0 0 366 1" fill="none" xmlns="http://www.w3.org/2000/svg">
               <line x1="0.5" y1="0.5" x2="365.5" y2="0.499968" stroke="#D9E6F7" stroke-linecap="round" />
             </svg>
           </div>
-          <div className="py-4">
+          <div className="py-4 text-break">
             {userInfo?.user.discreptionBio}
           </div>
           <div className="flex justify-center mt-2">
@@ -223,83 +223,83 @@ const PlayerCard = ({ userInfo }) => {
           </div>
         </div>
         <span className="md:block hidden">
-        <div className="flex flex-col justify-center gap-y-4">
-          <div className="flex justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
-            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0_878_80013)">
-                <path d="M20.1242 17.1658C20.1242 19.0042 18.6292 20.4992 16.7909 20.4992H6.66925L8.37341 18.8325H16.7917C17.7109 18.8325 18.4584 18.085 18.4584 17.1658C18.4584 16.2467 17.7109 15.4992 16.7917 15.4992H12.6251C10.7867 15.4992 9.29175 14.0042 9.29175 12.1658C9.29175 10.56 10.4334 9.21667 11.9476 8.9025L13.5801 10.4992H12.6251C11.7059 10.4992 10.9584 11.2467 10.9584 12.1658C10.9584 13.085 11.7059 13.8325 12.6251 13.8325H16.7917C18.6301 13.8325 20.1242 15.3275 20.1242 17.1658ZM18.9034 7.6125L15.9576 10.4942L13.0176 7.61917C11.3867 5.9875 11.3867 3.345 13.0109 1.72C13.7984 0.933333 14.8451 0.5 15.9576 0.5C17.0701 0.5 18.1167 0.933333 18.9034 1.72C20.5284 3.345 20.5284 5.98833 18.9034 7.6125ZM7.23675 11.72C8.86175 13.345 8.86175 15.9883 7.23675 17.6125L4.29091 20.4942L1.35091 17.6192C-0.279921 15.9875 -0.279921 13.345 1.34425 11.72C2.13175 10.9333 3.17841 10.5 4.29091 10.5C5.40341 10.5 6.45008 10.9333 7.23675 11.72Z" fill="#1D1E21" />
-              </g>
-              <defs>
-                <clipPath id="clip0_878_80013">
-                  <rect width="20" height="20" fill="white" transform="translate(0.125 0.5)" />
-                </clipPath>
-              </defs>
-            </svg>
+          <div className="flex flex-col justify-center gap-y-4">
+            <div className="flex justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
+              <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_878_80013)">
+                  <path d="M20.1242 17.1658C20.1242 19.0042 18.6292 20.4992 16.7909 20.4992H6.66925L8.37341 18.8325H16.7917C17.7109 18.8325 18.4584 18.085 18.4584 17.1658C18.4584 16.2467 17.7109 15.4992 16.7917 15.4992H12.6251C10.7867 15.4992 9.29175 14.0042 9.29175 12.1658C9.29175 10.56 10.4334 9.21667 11.9476 8.9025L13.5801 10.4992H12.6251C11.7059 10.4992 10.9584 11.2467 10.9584 12.1658C10.9584 13.085 11.7059 13.8325 12.6251 13.8325H16.7917C18.6301 13.8325 20.1242 15.3275 20.1242 17.1658ZM18.9034 7.6125L15.9576 10.4942L13.0176 7.61917C11.3867 5.9875 11.3867 3.345 13.0109 1.72C13.7984 0.933333 14.8451 0.5 15.9576 0.5C17.0701 0.5 18.1167 0.933333 18.9034 1.72C20.5284 3.345 20.5284 5.98833 18.9034 7.6125ZM7.23675 11.72C8.86175 13.345 8.86175 15.9883 7.23675 17.6125L4.29091 20.4942L1.35091 17.6192C-0.279921 15.9875 -0.279921 13.345 1.34425 11.72C2.13175 10.9333 3.17841 10.5 4.29091 10.5C5.40341 10.5 6.45008 10.9333 7.23675 11.72Z" fill="#1D1E21" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_878_80013">
+                    <rect width="20" height="20" fill="white" transform="translate(0.125 0.5)" />
+                  </clipPath>
+                </defs>
+              </svg>
 
-            <div className="">Positions</div>
+              <div className="">Positions</div>
+            </div>
+            <Terrain positionPlay={userInfo?.player?.positionPlay} positionSecond={userInfo?.player?.positionSecond} />
           </div>
-          <Terrain positionPlay={userInfo?.player?.positionPlay} positionSecond={userInfo?.player?.positionSecond} />
-        </div>
-        <div className=" px-4  hidden   items-center justify-center text-center my-2 text-lg whitespace-nowrap text-zinc-900">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
-            className="shrink-0 self-center w-5 aspect-square"
-          />
-          <div className="grow">Compétences</div>
-        </div>
-        <div className="flex gap-2  hidden  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+          <div className=" px-4  hidden   items-center justify-center text-center my-2 text-lg whitespace-nowrap text-zinc-900">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
+              className="shrink-0 self-center w-5 aspect-square"
+            />
+            <div className="grow">Compétences</div>
+          </div>
+          <div className="flex gap-2  hidden  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
-          {userInfo?.player?.skillsInProfile.split(',').filter(item => item.trim() !== '').map((item, index) => {
-            return (<div key={index} className=" text-center justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
-              {item}
-            </div>)
-          })}
-        </div>
+            {userInfo?.player?.skillsInProfile.split(',').filter(item => item.trim() !== '').map((item, index) => {
+              return (<div key={index} className=" text-center justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+                {item}
+              </div>)
+            })}
+          </div>
 
-        <div className="flex gap-5 justify-between">
-          {userInfo?.user.liensSM && <a target="_blank" href={`https://www.instagram.com/${userInfo?.user.liensSM}`}>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9f2fa6031aa7cffb21186e5501126b3836a7c414e1752c9e64fdbcac1ce4100c?"
-              className="shrink-0 aspect-square w-[25px]"
-            />
-          </a>}
-          {userInfo?.user.tiktok && <a target="_blank" href={`https://www.tiktok.com/${userInfo?.user.tiktok}`}>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/ee734d4428028617729c0185044032ddb130279e8139babab8caab0cdf7d6bd4?"
-              className="shrink-0 w-6 aspect-[0.96]"
-            />
-          </a>}
-          {userInfo?.user.linkedin && <a target="_blank" href={`https://www.linkedin.com/in/${userInfo?.user.linkedin}`}>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/8667ac9987e1f4996c37f85b212f897fd480e345bd16b0eac52bb3f8adb76e66?"
-              className="shrink-0 w-6 aspect-[0.96]"
-            />
-          </a>}
-          {userInfo?.user.fb && <a target="_blank" href={`https://www.facebook.com/${userInfo?.user.fb}`}>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/b78e7f165ad6d93ef824dbe6adbbd69b6e0d02007b0bbf390ad2538e8c398dde?"
-              className="shrink-0 aspect-square w-[25px]"
-            />
-          </a>}
-          {userInfo?.user.x && <a target="_blank" href={`https://www.facebook.com/${userInfo?.user.fb}`}>
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/caac4cd0dd6b89529ac5104e789b62c6cbf2091f6a2f16366ce2bc247406f84a?"
-              className="shrink-0 w-6 aspect-[0.96]"
-            />
-          </a>}
-        </div>
+          <div className="flex gap-5 justify-between">
+            {userInfo?.user.liensSM && <a target="_blank" href={`https://www.instagram.com/${userInfo?.user.liensSM}`}>
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9f2fa6031aa7cffb21186e5501126b3836a7c414e1752c9e64fdbcac1ce4100c?"
+                className="shrink-0 aspect-square w-[25px] md:mt-20 ml-14"
+              />
+            </a>}
+            {userInfo?.user.tiktok && <a target="_blank" href={`https://www.tiktok.com/${userInfo?.user.tiktok}`}>
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ee734d4428028617729c0185044032ddb130279e8139babab8caab0cdf7d6bd4?"
+                className="shrink-0 w-6 aspect-[0.96] md:mt-20"
+              />
+            </a>}
+            {userInfo?.user.linkedin && <a target="_blank" href={`https://www.linkedin.com/in/${userInfo?.user.linkedin}`}>
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/8667ac9987e1f4996c37f85b212f897fd480e345bd16b0eac52bb3f8adb76e66?"
+                className="shrink-0 w-6 aspect-[0.96] md:mt-20"
+              />
+            </a>}
+            {userInfo?.user.fb && <a target="_blank" href={`https://www.facebook.com/${userInfo?.user.fb}`}>
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/b78e7f165ad6d93ef824dbe6adbbd69b6e0d02007b0bbf390ad2538e8c398dde?"
+                className="shrink-0 aspect-square w-[25px] md:mt-20 mr-7"
+              />
+            </a>}
+            {userInfo?.user.x && <a target="_blank" href={`https://www.facebook.com/${userInfo?.user.fb}`}>
+              {/* <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/caac4cd0dd6b89529ac5104e789b62c6cbf2091f6a2f16366ce2bc247406f84a?"
+                className="shrink-0 w-6 aspect-[0.96] mt-5"
+              /> */}
+            </a>}
+          </div>
 
-        </span>
+        </span >
 
         {/* social icons */}
 
-        <div className="  max-w-xl flex flex gap-4 justify-between">
+        {/* <div div className="  max-w-xl flex flex gap-4 justify-between" >
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/9f2fa6031aa7cffb21186e5501126b3836a7c414e1752c9e64fdbcac1ce4100c?"
@@ -325,12 +325,12 @@ const PlayerCard = ({ userInfo }) => {
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/caac4cd0dd6b89529ac5104e789b62c6cbf2091f6a2f16366ce2bc247406f84a?"
             className="shrink-0 w-6 aspect-[0.96]"
           />
-        </div>
+        </div > */}
 
         {/* social icons */}
 
-        <div className="flex justify-center items-center px-16 py-2  max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5">
-          <div className="flex gap-4 items-center">
+        <div div className="flex justify-center items-center px-16 py-2  max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5 mr-15" >
+          <div className="flex gap-4 items-center ">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
@@ -338,8 +338,8 @@ const PlayerCard = ({ userInfo }) => {
             />
             <a href={`/profile/more/${id}`}>Voir Plus</a>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
     </>
   )
 
