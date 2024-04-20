@@ -3,7 +3,7 @@ import HomeLayout from "../../Layout/HomeLayout";
 import Placeholder from '../../assets/placeholder.jpg';
 import { Link } from 'react-router-dom'
 import { Config } from "../../config";
-import {Context} from "../index"
+import {Context} from "../../index"
 
 const FriendList = () => {
 

@@ -5,7 +5,7 @@ import { Config } from "../../config";
 import { paysAllInfo } from "../../assets/data/Country";
 import { Link } from 'react-router-dom';
 import Header from "../../components/Header2";
-import {Context} from "../index"
+import {Context} from "../../index"
 const FriendRequest = () => {
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
   const [user, setUser] = useState([]);
