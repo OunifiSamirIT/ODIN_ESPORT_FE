@@ -580,7 +580,7 @@ function HomeOffre() {
 
               {filteredoffres.map((value, index) => (
                 <div key={index} className="flex gap-5 p-6 mt-8 text-base font-light bg-white rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 max-md:flex-wrap max-md:px-5">
-                  <div className='flex flex-row gap-3'>
+                  <div className='flex flex-row gap-5 md:gap-3'>
                   <img
                     loading="lazy"
                     src={value.imagesalbumoffres.length > 0 ? value.imagesalbumoffres[0].image_url : require('../../assets/offre_icon.png')} // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
