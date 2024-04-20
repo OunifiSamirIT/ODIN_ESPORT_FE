@@ -980,8 +980,6 @@ const Index = () => {
                         <path d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z" fill="#1D1E21" />
                         <path d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z" fill="#1D1E21" />
                       </svg>
-
-
                       {showDropdown === article.id && isOpen && isOwner ? (
                         <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                           {/* Your dropdown menu content */}
@@ -1405,27 +1403,29 @@ const Index = () => {
               {articles.length > 0 ? articlesWithPhoto.map((article) => (
                 <div
                   key={article.id}
-                  className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-4 mt-3"
+                  className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2 mt-3"
                 >
                   <div className="card-body p-0 d-flex">
                     <figure className="avatar me-3">
                       <img
-                        src={article.user.user.image ? article.user.user.image : PlaceHolder}
-                        className="shadow-sm rounded-full  w-10 h-10"
+                        src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
+                        className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                         alt="post"
-                      />{" "}
+                      />
                     </figure>
-
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                      {article.user?.user.nom}
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {article.user?.user.profil}
+                    <div className="flex flex-col">
+                      <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
+                        {article.user.user.profil == 'player' ? ' Joueur' : ''}
+                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                        {article.user.user.profil == 'scout' ? 'Scout' : ''}
                       </span>
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {new Date(article.user?.user.createdAt).toLocaleDateString()}
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {new Date(article.user.user.createdAt).toLocaleDateString()}
                       </span>
-                    </h4>
-
+                    </div>
                   </div>
 
                   <div className="card-body d-block p-0 mb-3">
@@ -1463,24 +1463,25 @@ const Index = () => {
                   <div className="card-body p-0 d-flex">
                     <figure className="avatar me-3">
                       <img
-                        src={article.user?.image}
-                        className="shadow-sm rounded-full  w-10 h-10"
+                        src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
+                        className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                         alt="post"
-                      />{" "}
+                      />
                     </figure>
-
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                      {article.user?.nom}
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {article.user?.profil}
+                    <div className="flex flex-col">
+                      <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
+                        {article.user.user.profil == 'player' ? ' Joueur' : ''}
+                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                        {article.user.user.profil == 'scout' ? 'Scout' : ''}
                       </span>
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {new Date(article.user?.createdAt).toLocaleDateString()}
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {new Date(article.user.user.createdAt).toLocaleDateString()}
                       </span>
-                    </h4>
-
+                    </div>
                   </div>
-
                   <div className="card-body d-block p-0 mb-3">
                     <div className="row ps-2 pe-2">
                       <div className="col-sm-12 p-1">
