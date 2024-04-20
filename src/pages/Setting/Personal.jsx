@@ -248,6 +248,7 @@ const Personal = ({ userInfo }) => {
         setValue('gender', userData.user.gender);
         setValue('tel', userData.user.tel);
         setValue('numWSup', userData.user.numWSup);
+        setValue('date_naissance', new Date(userData.user.date_naissance));
         setValue('wats', selectedObject(userData.user?.optionalattributs.split(',')[0]) || null);
         const selectedOptions = userData.user.langueparlee.split(',').map(lang => ({
           value: lang,
@@ -255,7 +256,7 @@ const Personal = ({ userInfo }) => {
         }));
         setValue('langueparlee', selectedOptions);
         setValue('phoneLength', selectedObject(userData.user?.optionalattributs.split(',')[1]) || null);
-        setValue('date_naissance', new Date(userData.user.date_naissance));
+
       })
       .catch((error) => console.error("Error fetching user data:", error));
   }, []);

@@ -553,7 +553,7 @@ const Player = ({ userInfo , fetchUserInfo }) => {
                                                     </clipPath>
                                                 </defs>
                                             </svg>
-                                            <label className="cursor-pointer text-ellipsis overflow-hidden w-[250px] ">
+                                            <label className="cursor-pointer text-ellipsis overflow-hidden w-[230px] ">
                                                 <input
                                                     {...register('file')}
                                                     type="file"
