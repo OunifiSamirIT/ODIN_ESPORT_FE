@@ -3,7 +3,7 @@ import Header from '../../components/Header';
 import Terrain from "../../components/Terrain";
 import ProfileLayout from "../../Layout/ProfileLayout";
 import PlaceHolder from "../../assets/placeholder.jpg"
-import {Context} from "../index"
+import { Context } from "../../index";
 
 import { useForm } from "react-hook-form";
 import Leftnav from "../../components/Leftnav";
