@@ -9,9 +9,7 @@ import { Config } from "../../config";
 import { paysAllInfo } from "../../assets/data/Country";
 import Select, { components } from "react-select";
 import { useEffect } from "react";
-
 function Entreprise() {
-  const navigate = useNavigate();
   const { register, setValue, getValues } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
@@ -73,6 +71,7 @@ function Entreprise() {
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const [user, setUser] = useState([]);
+  let navigate = useNavigate();
 
   const id = storedUserData.id ? storedUserData.id : null;
   const [formData, setFormData] = useState({
@@ -120,7 +119,6 @@ function Entreprise() {
     });
 
     formDataToSubmit.append("files", formData.image);
-
     try {
       const response = await fetch(
         `${Config.LOCAL_URL}/api/offreEmploi/upload`,
@@ -133,6 +131,8 @@ function Entreprise() {
       if (response.ok) {
         const responseData = await response.json();
         console.log("Server Response Data:", responseData);
+     navigate("/homeoffre");
+        
       } else {
         const errorData = await response.json();
         console.error("Server Error Message:", errorData.message);
@@ -512,11 +512,11 @@ function Entreprise() {
                             />
                             <div className="flex-1">Niveau d’études</div>
                           </div>
-                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px]">
+                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
-                              <select
+                                    <select
                                 id="NivET"
-                                className="bg-transparent"
+                                className=" w-full bg-transparent"
                                 value={formData.NivET}
                                 onChange={(e) =>
                                   setFormData({
@@ -526,10 +526,17 @@ function Entreprise() {
                                 }
                               >
                                 <option value="">Niveau d’études</option>
-                                <option value="Bac">Bac</option>
+                                <option value="Bac">Primaire</option>
+                                <option value="Bac">Secondaire</option>
+                                <option value="Bac">Formations professionnelles</option>
+                                <option value="Bac +1">Bac</option>
                                 <option value="Bac +1">Bac +1</option>
                                 <option value="Bac +2">Bac +2</option>
                                 <option value="Bac +3">Bac +3</option>
+                                <option value="Bac +3">Bac +4</option>
+                                <option value="Bac +3">Bac +5</option>
+                                <option value="Bac +3">Doctorat</option>
+                                <option value="Bac +3">Expert, Recherche</option>
                               </select>
                             </div>
                           </div>
@@ -602,7 +609,7 @@ function Entreprise() {
                       </div>
                       <div className="flex flex-col ml-5 w-[45%] max-md:ml-0 max-md:w-full">
                         <div className="flex flex-col grow text-lg text-zinc-900 mt-[-20px]">
-                          <div className="flex gap-3 px-4 whitespace-nowrap">
+                          <div className="flex gap-3 px-4 mt-4 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -631,21 +638,20 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                             />
-                            <div className="flex-1">Experience</div>
+                            <div className="flex-1">Niveau d'experience</div>
                           </div>
-                          <input
-                            placeholder="Experience"
-                            type="text"
-                            id="Experience"
-                            value={formData.Experience}
-                            onChange={(e) =>
-                              setFormData({
-                                ...formData,
-                                Experience: e.target.value,
-                              })
-                            }
-                            className="justify-center items-start px-4 py-3.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
-                          ></input>
+                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
+                              <select className="w-full bg-transparent" {...register("NivET")}>
+                                <option value="CDI">Acunne Experience</option>
+                                <option value="CDD">Moins d'un an</option>
+                                <option value="CVIP">Entre 1 et 2 ans</option>
+                                <option value="CVIP">Entre 2 et 5 ans</option>
+                                <option value="CVIP">Entre 5 et 10 ans</option>
+                                <option value="Mission">Plus que 10 ans </option>
+                              </select>
+                            </div>
+                          </div>
 
                           <div className="flex gap-3 px-4 mt-6">
                             <img
@@ -657,7 +663,7 @@ function Entreprise() {
                           </div>
                           <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
-                              <select className="w-full bg-transparent" {...register("NivET")}>
+                              <select className="w-full bg-transparent" {...register("Experience")}>
                                 <option value="CDI">CDI</option>
                                 <option value="CDD">CDD</option>
                                 <option value="CVIP">CVIP</option>

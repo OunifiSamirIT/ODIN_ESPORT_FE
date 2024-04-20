@@ -378,7 +378,7 @@ function HomeOffre() {
 
             <Link to="/homeoffre">
               <div className="flex gap-3 justify-between px-6  py-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
-              <div className="flex gap-4 justify-between px-2 py-1.5">
+              <div className="flex gap-4 justify-betw een px-2 py-1.5">
                 {" "}
                 <img
                   loading="lazy"
@@ -414,11 +414,11 @@ function HomeOffre() {
 
               {/* aaaa */}
               <div className="flex flex-col px-4 pt-8 pb-4 bg-white rounded-xl ">
-                <div className="flex gap-2.5 justify-between  max-md:flex-wrap max-md:max-w-full">
-                  <div className="my-auto text-3xl font-bold text-zinc-900">
+                <div className="flex w-full gap-2.5 justify-between  max-md:flex-wrap max-md:max-w-full">
+                  <div className=" text-3xl w-full max-md:text-center font-bold text-zinc-900">
                     Offres d'emploi
                   </div>
-                  <div className="flex flex-col justify-center text-base w-full md:w-fit whitespace-nowrap text-neutral-500">
+                  <div className="flex flex-col hidden justify-center text-base w-full md:w-fit whitespace-nowrap text-neutral-500">
                     <div className="flex flex-col justify-center w-full bg-gray-100 border border-solid border-neutral-200 rounded-[30px]">
                       <div className="flex gap-5 justify-between  px-4 py-2 rounded-md max-md:pl-5">
                         <div>Recherche</div>
@@ -435,13 +435,13 @@ function HomeOffre() {
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                     <div className="flex flex-col w-[28%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-5">
-                        <div className="flex gap-4 px-2">
+                        <div className="flex gap-2 px-2 ">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e2b478902ee6294e8eec9f0a5e25c169d3e80bc2dfdb1e199c0736222901e81?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                            className="shrink-0 aspect-[1.1] fill-zinc-900 w-[22px]"
+                            className="shrink-0  ml-3 mr-3 aspect-[1.1] fill-zinc-900 w-[22px]"
                           />
-                          <div className="flex-1">Niveau d’études</div>
+                          <div className="flex-1 ">Niveau d’études</div>
                         </div>
                         <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid border-neutral-200 rounded-[30px]">
                           <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
@@ -596,12 +596,13 @@ function HomeOffre() {
                     </div>
                     </div>
                   </div>
+                  {/* lehna */}
                   <div className="flex flex-col  flex-1 max-md:max-w-full">
                     <div>
 
                     </div>
                     <div className="flex gap-4 justify-center items-center py-0.5 pr-20 mt-1.5 text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
-                      <div className="flex gap-1.5 justify-between px-1 py-0.5 text-neutral-900 text-opacity-70">
+                      <div className=" min-w-fit flex gap-1.5 justify-between px-1 py-0.5 text-neutral-900 text-opacity-70">
                         <img
                           loading="lazy"
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/a56e4a73d8bb393d5a1698aeade75643c094a2060b7a72076dd3f55dff87074a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -633,7 +634,7 @@ function HomeOffre() {
                         />
                         <div>{value.paysoffre}</div>
                       </div>
-                      <div className="flex gap-1.5 justify-between px-1 py-0.5">
+                      <div className="flex gap-1.5 min-w-fit justify-between px-1 py-0.5">
                         <img
                           loading="lazy"
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/10a38c1e9a44cb74467a36e05c308edb03242e37340e793426056a9b44611826?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
