@@ -93,6 +93,9 @@ const Parametre = ({ userInfo }) => {
     };
   }, []);
 
+  const handleDeleteUser = (id) => {
+    console.log('delete' , id)
+  }
   const onSubmit = async (data) => {
     const formDataToUpdate = new FormData();
     formDataToUpdate.append("password", data.newpassword);
@@ -134,15 +137,17 @@ const Parametre = ({ userInfo }) => {
 
   return (
     <>
+    
       <div>
         <ToastContainer />
       </div>
+
       {
-        isPasswordOpen && 
+        isPasswordOpen &&
         <div className="bg-black/70  fixed inset-0  z-50  h-full w-full   overflow-auto flex justify-center items-center px-8 ">
           <div ref={ref} className="flex flex-col  overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
 
-            <form onSubmit={handleSubmit(onSubmit)}  className=" overflow-auto">
+            <form onSubmit={handleSubmit(onSubmit)} className=" overflow-auto">
               <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
                 Changement de mot de passe
               </div>
@@ -213,16 +218,11 @@ const Parametre = ({ userInfo }) => {
         </div>
       }
 
-
-
-
-
-
       {
         isEmailOpen &&
-        <div  className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
+        <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
           {step0 &&
-            <div  ref={ref} className="flex flex-col px-8 py-7 mt-64 mb-48 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
+            <div ref={ref} className="flex flex-col px-8 py-7 mt-64 mb-48 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
               <div className="flex gap-5 justify-between py-2 max-md:flex-wrap max-md:max-w-full">
                 <img
                   loading="lazy"
@@ -261,7 +261,7 @@ const Parametre = ({ userInfo }) => {
             </div>}
           {step1 &&
 
-            <div  ref={ref} className="flex flex-col p-8 mt-72 mb-56 max-w-full bg-white rounded-xl w-[625px] max-md:px-5 max-md:my-10">
+            <div ref={ref} className="flex flex-col p-8 mt-72 mb-56 max-w-full bg-white rounded-xl w-[625px] max-md:px-5 max-md:my-10">
               <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
                 Ajouter un e-mail
               </div>
@@ -294,10 +294,12 @@ const Parametre = ({ userInfo }) => {
                   <div className="grow">Confirmer</div>
                 </div>
               </div>
-            </div>}
+            </div>
+
+          }
           {
             step2 &&
-            <div  ref={ref} className="flex flex-col p-8 mt-72 mb-56 max-w-full bg-white rounded-xl w-[625px] max-md:px-5 max-md:my-10">
+            <div ref={ref} className="flex flex-col p-8 mt-72 mb-56 max-w-full bg-white rounded-xl w-[625px] max-md:px-5 max-md:my-10">
               <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
                 Saisir votre mot de passe
               </div>
@@ -341,7 +343,7 @@ const Parametre = ({ userInfo }) => {
           }
 
           {step3 &&
-            <div  ref={ref} className="flex justify-center flex-col p-8  max-w-full bg-white rounded-[10px] w-[564px] max-md:px-5 max-md:my-10">
+            <div ref={ref} className="flex justify-center flex-col p-8  max-w-full bg-white rounded-[10px] w-[564px] max-md:px-5 max-md:my-10">
               <div className="flex justify-end">
                 <img
                   onClick={handleClose}
@@ -404,6 +406,9 @@ const Parametre = ({ userInfo }) => {
         <button onClick={() => setIsPasswordOpen(true)} className="justify-center text-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border !border-blue-500  rounded-[30px] max-md:px-5 max-md:max-w-full">
           Changer votre mot de passe
         </button>
+      </div>
+      <div onClick={()=> handleDeleteUser(storedUserData.id)} className="justify-center text-center hover:bg-red-500 hover:text-white cursor-pointer px-5 py-2 text-base font-medium border-2 border-solid border-red-600 rounded-[30px] text-red-600">
+        Supprimer votre compte
       </div>
     </>
   )
