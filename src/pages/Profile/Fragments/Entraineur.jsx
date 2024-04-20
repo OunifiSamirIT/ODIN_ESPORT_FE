@@ -10,6 +10,7 @@ import T442 from "../../../assets/4-4-2.png"
 import T532 from "../../../assets/5-3-2.png"
 import T541 from "../../../assets/5-4-1.png"
 import { Config } from "../../../config";
+import { paysAllInfo } from "../../../assets/data/Country";
 const PlayerCard = ({ userInfo }) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -25,6 +26,10 @@ const PlayerCard = ({ userInfo }) => {
         const result = await response.json();
         setAcceptedFriend(result.exists)
     }
+    const getCountryFlagFromCountryName = (countryName) => {
+        const country = paysAllInfo.find((country) => country?.name == countryName);
+        return country ? country.iso["alpha-2"].toLowerCase() : null;
+      };
     const sendFriendRequest = async () => {
 
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
@@ -157,12 +162,15 @@ const PlayerCard = ({ userInfo }) => {
                 </div>
                 <div className="md:ml-[10px] max:lg-[150px] md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm">
                     <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
-                        <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5578ac17241460884f81bfecaeacebd3031f2ffd1b2203855765a3b934a027?"
-                            className="aspect-[1.49] w-[30px]"
-                        />
-                        <div className="grow self-start mt-1">Tunisie</div>
+                    <span
+                            className={`flag-icon flag-icon-${getCountryFlagFromCountryName(
+                                userInfo.user?.countryresidence
+                            )}`}
+                            style={{ marginRight: "8px", width: "25px" }}
+                          ></span>
+                          <div className="grow self-start mt-1">
+                            {userInfo.user?.countryresidence}
+                          </div>
                     </div>
 
                     <div className="flex gap-2 justify-center p-2 whitespace-nowrap items-center">
@@ -183,7 +191,7 @@ const PlayerCard = ({ userInfo }) => {
                         </svg>
 
                         <div className="grow self-start mt-1">
-                            Espérance Sportive de Tunis
+                            {userInfo.coach.ClubActuelCoach}
                         </div>
                     </div>
                 </div>
