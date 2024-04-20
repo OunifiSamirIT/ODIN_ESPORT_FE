@@ -62,9 +62,9 @@ function FriendsSlider() {
                     vous pourriez <br />
                     connaître
                 </div>
-                <div className="self-end mt-10 text-sm font-medium text-blue-600 underline">
+                {/* <div className="self-end mt-10 text-sm font-medium text-blue-600 underline">
                     Voir Tout
-                </div>
+                </div> */}
             </div>
             <div className="flex gap-2 justify-between items-center pr-6 pl-1 mt-8">
             <button onClick={prevSlide} className="prev-slide-button text-2xl">&#10094;</button>  <Slider ref={sliderRef} style={{ width: '93%' }} {...friendSettings}>

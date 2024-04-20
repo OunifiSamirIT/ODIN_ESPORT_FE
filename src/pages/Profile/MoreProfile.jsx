@@ -556,7 +556,7 @@ const More = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex text-center md:text-left text-left text-base font-light  text-neutral-900">
+                    <div className="flex text-break md:text-left  text-center  font-light  text-neutral-900">
                       {CurrentUser?.user.discreptionBio}
                     </div>
                   </div>
@@ -1041,7 +1041,7 @@ const More = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex text-base font-light max-sm:text-center text-neutral-900">
+                    <div className="flex text-base text-center font-light max-sm:text-center text-neutral-900">
                       {CurrentUser?.user.discreptionBio}
                     </div>
                   </div>
@@ -1259,29 +1259,26 @@ const More = () => {
           {CurrentUser?.user.profil === "agent" && (
             <div className="flex gap-y-4 flex-col items-center md:px-[30px] max-sm:px-2 py-6 bg-white rounded-[10px] mt-3">
               <div className="flex justify-between w-full max-w-[1110px]">
-                <div className="w-full flex gap-3 justify-center items-start max-md:flex-col max-md:gap-0">
-                  <div className="flex flex-col  max-md:ml-0 ">
-                    <img
-                      loading="lazy"
-                      srcSet={
-                        CurrentUser?.user.image
-                          ? CurrentUser?.user.image
-                          : Placeholder
-                      }
-                      className="max-w-full rounded-full aspect-square w-[227px] max-md:mt-4"
-                    />
-                  </div>
+                <div className="w-full flex gap-3 justify-center items-center md:items-start max-md:flex-col max-md:gap-0">
+                <div className="flex items-center md:w-fit w-full justify-center  md:mx-[0px] ">
+            <img
+              alt="profile"
+              loading="lazy"
+              srcSet={CurrentUser.user.image ? CurrentUser?.user.image : Placeholder}
+              className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+            />
+            <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
+              <div className="text-xl   justify-center font-bold flex-col text-zinc-900  h-full  flex gap-2 flex-wrap whitespace-normal">
+                <p className="break-all">{CurrentUser?.user.nom}  {CurrentUser?.user.prenom}</p>
+                <p className="break-all text-[#2458b7]">{CurrentUser?.user.profil} </p>
+              </div>
+              
+            </div>
+          </div>
                   <div className="w-full flex flex-col items-center justify-between gap-y-4">
                     <div className="flex flex-col w-full ">
-                      <div className="flex gap-2 md:justify-between justify-center w-full max-md:flex-wrap max-md:max-w-full">
-                        <div className="flex flex-col justify-between max-sm:text-center">
-                          <div className="text-xl font-bold text-zinc-900">
-                            {CurrentUser?.user.nom} {CurrentUser?.user.prenom}
-                          </div>
-                          <div className="text-base font-medium text-blue-600">
-                            {CurrentUser?.user.profil}
-                          </div>
-                        </div>
+                      <div className="flex gap-2 mt-3 md:justify-between justify-center w-full max-md:flex-wrap max-md:max-w-full">
+                        
                         {isOwner ? (
                           <div className="max-sm:w-full flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]">
                             <img
@@ -1293,7 +1290,7 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p>Modifier</p>
+                              <p >Modifier</p>
                             </Link>
                           </div>
                         ) : (
@@ -1655,7 +1652,7 @@ const More = () => {
                         )}
                       </div>
                     </div>
-                    <div className="flex text-left text-base font-light max-sm:text-center text-neutral-900">
+                    <div className="flex text-center text-base font-light max-sm:text-center text-neutral-900">
                       {CurrentUser.user.discreptionBio}
                     </div>
                   </div>
@@ -1678,7 +1675,9 @@ const More = () => {
                       .filter((item) => item !== "")
                       .map((item) => {
                         return (
-                          <div className=" text-center justify-center px:1 md:px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+                          <div style={{
+                            fontSize: 16
+                          }} className=" text-center  justify-center px:1 md:px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
                             {item}
                           </div>
                         );
@@ -2141,7 +2140,7 @@ const More = () => {
                         </div> */}
                       </div>
                     </div>
-                    <div className="flex text-center md:text-left text-left text-break font-light  text-neutral-900">
+                    <div className="flex text-center md:text-left text-break font-light  text-neutral-900">
                       {CurrentUser?.user.discreptionBio}
                     </div>
                   </div>
@@ -2694,7 +2693,7 @@ const More = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex text-left text-break font-light  text-neutral-900">
+                    <div className="flex text-center text-break font-light  text-neutral-900">
                       {CurrentUser?.user.discreptionBio}
                     </div>
                   </div>

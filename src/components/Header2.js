@@ -4,13 +4,14 @@ import Darkbutton from "../components/Darkbutton";
 import Logo from "../assets/ODIN22.png";
 import SlideMenu from "./SlideMenu";
 import '../components/Hamburger.css'
-import BurgerMenuLink from '../components/BurgerMenuLink'
+
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import { Config } from "../config";
 import Profilesearch from "../assets/Profilesearch.png"
 import Football from "../assets/Football.png";
 import Parametre from "../assets/Parametre.png";
 import Userdefault from "../assets/userdefault.jpg";
+import BurgerMenuLink from './BurgerMenuLink';
 
 function Header() {
   const iconImages = {
@@ -100,37 +101,11 @@ function Header() {
 
 
 
-  // const handleSearch = (event) => {
-  //   const searchString = event.target.value;
-  //   setSearchTerm(searchString);
-  //   if (searchString.trim() === '') {
-  //     setSearchResults([]);
-  //   } else {
-  //     const filteredResults = search.filter((item) =>
-  //       item.titre.toLowerCase().includes(searchString.toLowerCase())
-  //     );
-  //     setSearchResults(filteredResults);
-  //     console.log("ddddddddd", searchResults
-  //     )
-
-  //   }
-  // };
+  
 
 
 
-  // const handleSearch = (event) => {
-  //   const searchString = event.target.value;
-  //   setSearchTerm(searchString);
-  //   if (searchString.trim() === '') {
-  //     setSearchResults([]);
-  //   } else {
-  //     const filteredResults = search.filter((item) =>
-  //       item.titre.toLowerCase().includes(searchString.toLowerCase())
-  //     );
-  //     setSearchResults(filteredResults);
-
-  //   }
-  // };
+ 
 
 
 
@@ -283,7 +258,7 @@ function Header() {
         </div>
         {Hamburger && <div className='bg-zinc-100 fixed left-0 z-0 py-4 md:hidden w-screen h-screen overflow-y-scroll z-90'>
           <div className="flex flex-col items-center pb-12 mx-auto w-full max-w-[480px]  overflow-hidden ">
-            <div className="flex flex-col gap-y-4 items-center pb-12 mx-auto w-full max-w-[480px] h-[1000px] ">
+            <div className="flex flex-col gap-y-4 items-center pb-12 mx-auto w-full max-w-[480px] h-[1000] ">
               <div className="flex gap-5 justify-between p-6  w-full text-base bg-white rounded-[10px] max-w-[366px] text-zinc-900">
                 <img
                   loading="lazy"
@@ -296,7 +271,7 @@ function Header() {
                 </div>
               </div>
 
-              {/* <BurgerMenuLink Href={'/home'} Title={'Rechercher'} Svg={``}>
+              <BurgerMenuLink Href={'/searchpage'} Title={'Rechercher'} Svg={``}>
                 <svg
                   width="21"
                   height="20"
@@ -309,7 +284,7 @@ function Header() {
                     fill="#2E71EB"
                   />
                 </svg>
-              </BurgerMenuLink> */}
+              </BurgerMenuLink>
               <BurgerMenuLink Href={'/home'} Title={'Accueil'} Svg={``}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18.3299 4.77286V1.6701C18.3299 1.21019 17.9575 0.836926 17.4967 0.836926C17.036 0.836926 16.6635 1.21019 16.6635 1.6701V3.6414L12.3285 0.716116C10.913 -0.238705 9.0833 -0.238705 7.66773 0.716116L1.83549 4.65204C0.686538 5.42773 0 6.71832 0 8.10556V15.8341C0 18.1312 1.86882 20 4.16589 20H5.83224C6.29299 20 6.66542 19.6267 6.66542 19.1668V11.6682C6.66542 11.2091 7.03868 10.8351 7.49859 10.8351H12.4977C12.9576 10.8351 13.3308 11.2091 13.3308 11.6682V19.1668C13.3308 19.6267 13.7033 20 14.164 20H15.8304C18.1274 20 19.9963 18.1312 19.9963 15.8341V8.10556C19.9963 6.78831 19.3764 5.55771 18.3299 4.77286Z" fill="#2E71EB" />
@@ -470,6 +445,7 @@ function Header() {
                   <div className="flex-auto " onClick={handleLogout} >Déconnexion</div>
                 </div>
               </div>
+              
             </div>
           </div>
         </div>}

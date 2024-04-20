@@ -5562,7 +5562,7 @@ function Register() {
                     </div>
 
                     <label className="flex  items-center justify-center self-center w-[266px]"> {/* Center the label section */}
-                      <div className="flex gap-2 justify-center self-center px-8 py-2 mt-2 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
+                      <div className="flex gap-2 justify-center items-center px-8 py-2 mt-2 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
                         {" "}<img
                           loading="lazy"
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -5572,7 +5572,7 @@ function Register() {
                           type="file"
                           name="image"
                           onChange={handleFileChange}
-                          className="tal2 grow my-auto opacity-0"
+                          className="tal2 grow absolute w-full my-auto opacity-0"
                         />
 
                         {
@@ -7172,7 +7172,7 @@ function Register() {
                           </div>
                           {isUploadEnabled && (
 
-                            <div style={{ width: '335px' }} className={`flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
+                            <div style={{ width: '335px' }} className={`flex gap-4 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] max-md:px-5 `}>
                               <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_1342_45742)">
                                   <path d="M12.167 5.84589V0.395052C12.9278 0.683385 13.6278 1.12755 14.2212 1.72005L17.1245 4.62505C17.7178 5.21755 18.162 5.91755 18.4503 6.67839H13.0003C12.5403 6.67839 12.167 6.30505 12.167 5.84589ZM18.8137 8.34589H13.0003C11.622 8.34589 10.5003 7.22422 10.5003 5.84589V0.0317188C10.3662 0.0225521 10.232 0.0117188 10.0962 0.0117188H6.33366C4.03616 0.0125521 2.16699 1.88172 2.16699 4.17922V15.8459C2.16699 18.1434 4.03616 20.0126 6.33366 20.0126H14.667C16.9645 20.0126 18.8337 18.1434 18.8337 15.8459V8.75005C18.8337 8.61422 18.8228 8.48005 18.8137 8.34589ZM13.5895 14.0792C13.427 14.2417 13.2137 14.3234 13.0003 14.3234C12.787 14.3234 12.5737 14.2417 12.4112 14.0792L11.3337 13.0017V16.6667C11.3337 17.1267 10.9603 17.5001 10.5003 17.5001C10.0403 17.5001 9.66699 17.1267 9.66699 16.6667V13.0017L8.58949 14.0792C8.26366 14.4051 7.73699 14.4051 7.41116 14.0792C7.08533 13.7534 7.08533 13.2267 7.41116 12.9009L8.75616 11.5559C9.71783 10.5942 11.2828 10.5942 12.2453 11.5559L13.5903 12.9009C13.9162 13.2267 13.9162 13.7534 13.5903 14.0792H13.5895Z" fill="#2E71EB" />
@@ -7183,18 +7183,18 @@ function Register() {
                                   </clipPath>
                                 </defs>
                               </svg>
-                              <label className="relative block">
-                                <input
-                                  type="file"
-                                  name="file"
-                                  accept="*"
-                                  onChange={handleFileChangeLicense}
-                                  className="absolute inset-0 opacity-0 md:w-full h-full cursor-pointer"
-                                />
-                                <span className="block -indent-20 !overflow-hidden whitespace-nowrap overflow-ellipsis">
-                                  {File ? File.name : 'Importer une Licence'}
-                                </span>
-                              </label>
+                              <label className="relative block max-w-full overflow-hidden">
+  <input
+    type="file"
+    name="file"
+    accept="*"
+    onChange={handleFileChangeLicense}
+    className="absolute inset-0 opacity-0 md:w-full h-full cursor-pointer"
+  />
+  <span className="block overflow-hidden whitespace-nowrap  max-w-full">
+    {File ? File.name : 'Importer une Licence'}
+  </span>
+</label>
 
 
                             </div>)}

@@ -436,8 +436,10 @@ const Experience = () => {
                                     {errors.endDate && <span className="invalid-feedback block py-2 px-2">{errors.endDate?.message}</span>}
                                 </div>
                             </div>
-                            <div className="flex gap-2 items-center justify-between py-2 mt-6 w-full text-base font-medium  flex-nowrap">
-                                <div className="flex  max-w-[170px] flex-1 gap-2 justify-center px-8 py-2 text-blue-600 border-2 border-blue-600 border-solid rounded-[30px] max-md:px-5">
+
+                            <div className="flex flex-col gap-y-3 md:flex-row md:gap-x-80 items-center justify-between py-2 mt-6 w-full text-base font-medium  flex-nowrap">
+                              
+                                <div className="flex w-full md:w-[170px] flex-1 gap-2 justify-center px-8 py-2 text-blue-600 border-2 border-blue-600 border-solid rounded-[30px] max-md:px-5">
                                     <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_1686_73328)">
                                             <path d="M13.3342 7.16586C13.1779 7.00964 12.966 6.92188 12.745 6.92188C12.5241 6.92188 12.3121 7.00964 12.1559 7.16586L10.0009 9.32086L7.84585 7.16586C7.68868 7.01407 7.47818 6.93007 7.25969 6.93197C7.04119 6.93387 6.83218 7.02151 6.67767 7.17601C6.52316 7.33052 6.43552 7.53953 6.43363 7.75803C6.43173 7.97653 6.51572 8.18703 6.66752 8.3442L8.82252 10.4992L6.66752 12.6542C6.51572 12.8114 6.43173 13.0219 6.43363 13.2404C6.43552 13.4589 6.52316 13.6679 6.67767 13.8224C6.83218 13.9769 7.04119 14.0645 7.25969 14.0664C7.47818 14.0683 7.68868 13.9843 7.84585 13.8325L10.0009 11.6775L12.1559 13.8325C12.313 13.9843 12.5235 14.0683 12.742 14.0664C12.9605 14.0645 13.1695 13.9769 13.324 13.8224C13.4785 13.6679 13.5662 13.4589 13.5681 13.2404C13.57 13.0219 13.486 12.8114 13.3342 12.6542L11.1792 10.4992L13.3342 8.3442C13.4904 8.18792 13.5782 7.976 13.5782 7.75503C13.5782 7.53406 13.4904 7.32214 13.3342 7.16586Z" fill="#2E71EB" />
@@ -451,7 +453,7 @@ const Experience = () => {
                                     </svg>
                                     <button onClick={handleClose}>Annuler</button>
                                 </div>
-                                <div className="flex  max-w-[170px] flex-1  items-center gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                                <div className="flex w-full  md:w-[170px] flex-1  items-center gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                                     <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clip-path="url(#clip0_1686_73333)">
                                             <path d="M10 0.5C4.48583 0.5 0 4.98583 0 10.5C0 16.0142 4.48583 20.5 10 20.5C15.5142 20.5 20 16.0142 20 10.5C20 4.98583 15.5142 0.5 10 0.5ZM9.92417 13.3492C9.60167 13.6717 9.1775 13.8325 8.75167 13.8325C8.32583 13.8325 7.8975 13.67 7.57167 13.345L5.25333 11.0983L6.41417 9.90083L8.74167 12.1567L13.5825 7.40583L14.7525 8.59333L9.92417 13.3492Z" fill="white" />
@@ -464,6 +466,7 @@ const Experience = () => {
                                     </svg>
                                     <button type="submit">Confirmer</button>
                                 </div>
+
                             </div>
                         </div>
                     </form>

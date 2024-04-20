@@ -138,10 +138,11 @@ const Parametre = ({ userInfo }) => {
         <ToastContainer />
       </div>
       {
-        isPasswordOpen && <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
-          <div ref={ref} className="flex flex-col p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
+        isPasswordOpen && 
+        <div className="bg-black/70  fixed inset-0  z-50  h-full w-full   overflow-auto flex justify-center items-center px-8 ">
+          <div ref={ref} className="flex flex-col  overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
 
-            <form onSubmit={handleSubmit(onSubmit)} >
+            <form onSubmit={handleSubmit(onSubmit)}  className=" overflow-auto">
               <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
                 Changement de mot de passe
               </div>
@@ -188,7 +189,7 @@ const Parametre = ({ userInfo }) => {
                 <input {...register('confirmpassword')} name='confirmpassword' className={`form-control flex grow px-5 py-3.5 w-full flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full ${errors.confirmpassword ? 'is-invalid !border-red-500' : ''}`} type="password" placeholder="*********" />
                 {errors.confirmpassword && <span className="invalid-feedback block py-2 px-2">{errors.confirmpassword?.message}</span>}
               </div>
-              <div className="flex gap-5 justify-between mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+              <div className="flex gap-2 md:gap-5 justify-between mt-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                 <button onClick={() => setIsPasswordOpen(false)} className="flex flex-1 gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
                   <img
                     loading="lazy"
@@ -378,7 +379,7 @@ const Parametre = ({ userInfo }) => {
           />
           <div className="grow">Email Principale</div>
         </div>
-        <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid bg-zinc-100 border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full">
+        <div className="justify-center items-start overflow-hidden py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid bg-zinc-100 border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full">
           {userInfo?.user.email}
         </div>
         {/* <div className="flex gap-4 justify-between px-4 mt-6 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">

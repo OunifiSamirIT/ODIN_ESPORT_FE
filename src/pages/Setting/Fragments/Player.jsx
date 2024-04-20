@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../../config";
-const Player = ({ userInfo , fetchUserInfo }) => {
+const Player = ({ userInfo, fetchUserInfo }) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [imagePreviewlic, setImagePreviewlic] = useState(null);
 
@@ -19,12 +19,12 @@ const Player = ({ userInfo , fetchUserInfo }) => {
     const [model, setModel] = useState(false)
     const ref = useRef()
     const getFileExtention = (url) => {
-        if(url){
+        if (url) {
             const filename = url.substring(url.lastIndexOf('/') + 1);
-        const extension = filename.substring(filename.lastIndexOf('.') + 1);
-        return extension.toLowerCase();
+            const extension = filename.substring(filename.lastIndexOf('.') + 1);
+            return extension.toLowerCase();
         }
-        
+
     }
 
 
@@ -186,9 +186,9 @@ const Player = ({ userInfo , fetchUserInfo }) => {
 
     const onSubmit = async (data) => {
         setFileError(false)
-        console.log('sfgsfj',licence)
+        console.log('sfgsfj', licence)
         if (data.licence === "oui") {
-            if (data.file.length > 0 && userInfo.player.Licence !== '') {
+            if (data.file?.length > 0 && userInfo.player.Licence !== '') {
                 console.log(FileError)
                 const formDataToUpdate = new FormData();
                 console.log(FileError)
@@ -553,7 +553,7 @@ const Player = ({ userInfo , fetchUserInfo }) => {
                                                     </clipPath>
                                                 </defs>
                                             </svg>
-                                            <label className="cursor-pointer text-ellipsis overflow-hidden w-[250px] ">
+                                            <label className="cursor-pointer text-ellipsis overflow-hidden w-[230px] ">
                                                 <input
                                                     {...register('file')}
                                                     type="file"
@@ -563,12 +563,12 @@ const Player = ({ userInfo , fetchUserInfo }) => {
                                                     onChange={handleFileChangeLicense}
                                                     className={`grow my-auto w-2 inset-0 opacity-0`}
                                                 />
-                                                <span  className=""> {FileName ? FileName : 'Importer une Licence'}</span>
+                                                <span className=""> {FileName ? FileName : 'Importer une Licence'}</span>
                                             </label>
                                         </div>
 
                                     </div> : <div className="cursor-pointer flex gap-4 justify-center items-center w-full">
-                                        <div  className={`mt-3 flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] text-clip  ${FileError ? '!border-red-500 text-red-500 ' : ''}`}>
+                                        <div className={`mt-3 flex gap-2 justify-center items-center w-full  px-8 py-2 text-base font-medium text-blue-500 whitespace-nowrap border-1 border-blue-600 rounded-[30px] text-clip  ${FileError ? '!border-red-500 text-red-500 ' : ''}`}>
                                             <div onClick={() => setModel(true)} className="flex gap-2">
                                                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <g clip-path="url(#clip0_1342_45742)">
@@ -585,21 +585,21 @@ const Player = ({ userInfo , fetchUserInfo }) => {
                                                 </label>
                                             </div>
                                             <svg onClick={supprimerLicence} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <g clip-path="url(#clip0_236_40412)">
-                                                <mask id="mask0_236_40412" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-                                                    <path d="M20 0H0V20H20V0Z" fill="white" />
-                                                </mask>
-                                                <g mask="url(#mask0_236_40412)">
-                                                    <path d="M13.3342 6.66586C13.1779 6.50964 12.966 6.42188 12.745 6.42188C12.5241 6.42188 12.3121 6.50964 12.1559 6.66586L10.0009 8.82086L7.84585 6.66586C7.68868 6.51407 7.47818 6.43007 7.25969 6.43197C7.04119 6.43387 6.83218 6.52151 6.67767 6.67601C6.52316 6.83052 6.43552 7.03953 6.43363 7.25803C6.43173 7.47653 6.51572 7.68703 6.66752 7.8442L8.82252 9.9992L6.66752 12.1542C6.51572 12.3114 6.43173 12.5219 6.43363 12.7404C6.43552 12.9589 6.52316 13.1679 6.67767 13.3224C6.83218 13.4769 7.04119 13.5645 7.25969 13.5664C7.47818 13.5683 7.68868 13.4843 7.84585 13.3325L10.0009 11.1775L12.1559 13.3325C12.313 13.4843 12.5235 13.5683 12.742 13.5664C12.9605 13.5645 13.1695 13.4769 13.324 13.3224C13.4785 13.1679 13.5662 12.9589 13.5681 12.7404C13.57 12.5219 13.486 12.3114 13.3342 12.1542L11.1792 9.9992L13.3342 7.8442C13.4904 7.68792 13.5782 7.476 13.5782 7.25503C13.5782 7.03406 13.4904 6.82214 13.3342 6.66586Z" fill="#FF0000" />
-                                                    <path d="M10 0C8.02219 0 6.08879 0.58649 4.4443 1.6853C2.79981 2.78412 1.51809 4.3459 0.761209 6.17317C0.00433302 8.00043 -0.193701 10.0111 0.192152 11.9509C0.578004 13.8907 1.53041 15.6725 2.92894 17.0711C4.32746 18.4696 6.10929 19.422 8.0491 19.8079C9.98891 20.1937 11.9996 19.9957 13.8268 19.2388C15.6541 18.4819 17.2159 17.2002 18.3147 15.5557C19.4135 13.9112 20 11.9778 20 10C19.9971 7.34872 18.9426 4.80684 17.0679 2.9321C15.1932 1.05736 12.6513 0.00286757 10 0ZM10 18.3333C8.35183 18.3333 6.74066 17.8446 5.37025 16.9289C3.99984 16.0132 2.93174 14.7117 2.30101 13.189C1.67028 11.6663 1.50525 9.99076 1.82679 8.37425C2.14834 6.75774 2.94201 5.27288 4.10745 4.10744C5.27289 2.94201 6.75774 2.14833 8.37425 1.82679C9.99076 1.50525 11.6663 1.67027 13.189 2.301C14.7118 2.93173 16.0132 3.99984 16.9289 5.37025C17.8446 6.74066 18.3333 8.35182 18.3333 10C18.3309 12.2094 17.4522 14.3276 15.8899 15.8899C14.3276 17.4522 12.2094 18.3309 10 18.3333Z" fill="#FF0000" />
+                                                <g clip-path="url(#clip0_236_40412)">
+                                                    <mask id="mask0_236_40412" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                                                        <path d="M20 0H0V20H20V0Z" fill="white" />
+                                                    </mask>
+                                                    <g mask="url(#mask0_236_40412)">
+                                                        <path d="M13.3342 6.66586C13.1779 6.50964 12.966 6.42188 12.745 6.42188C12.5241 6.42188 12.3121 6.50964 12.1559 6.66586L10.0009 8.82086L7.84585 6.66586C7.68868 6.51407 7.47818 6.43007 7.25969 6.43197C7.04119 6.43387 6.83218 6.52151 6.67767 6.67601C6.52316 6.83052 6.43552 7.03953 6.43363 7.25803C6.43173 7.47653 6.51572 7.68703 6.66752 7.8442L8.82252 9.9992L6.66752 12.1542C6.51572 12.3114 6.43173 12.5219 6.43363 12.7404C6.43552 12.9589 6.52316 13.1679 6.67767 13.3224C6.83218 13.4769 7.04119 13.5645 7.25969 13.5664C7.47818 13.5683 7.68868 13.4843 7.84585 13.3325L10.0009 11.1775L12.1559 13.3325C12.313 13.4843 12.5235 13.5683 12.742 13.5664C12.9605 13.5645 13.1695 13.4769 13.324 13.3224C13.4785 13.1679 13.5662 12.9589 13.5681 12.7404C13.57 12.5219 13.486 12.3114 13.3342 12.1542L11.1792 9.9992L13.3342 7.8442C13.4904 7.68792 13.5782 7.476 13.5782 7.25503C13.5782 7.03406 13.4904 6.82214 13.3342 6.66586Z" fill="#FF0000" />
+                                                        <path d="M10 0C8.02219 0 6.08879 0.58649 4.4443 1.6853C2.79981 2.78412 1.51809 4.3459 0.761209 6.17317C0.00433302 8.00043 -0.193701 10.0111 0.192152 11.9509C0.578004 13.8907 1.53041 15.6725 2.92894 17.0711C4.32746 18.4696 6.10929 19.422 8.0491 19.8079C9.98891 20.1937 11.9996 19.9957 13.8268 19.2388C15.6541 18.4819 17.2159 17.2002 18.3147 15.5557C19.4135 13.9112 20 11.9778 20 10C19.9971 7.34872 18.9426 4.80684 17.0679 2.9321C15.1932 1.05736 12.6513 0.00286757 10 0ZM10 18.3333C8.35183 18.3333 6.74066 17.8446 5.37025 16.9289C3.99984 16.0132 2.93174 14.7117 2.30101 13.189C1.67028 11.6663 1.50525 9.99076 1.82679 8.37425C2.14834 6.75774 2.94201 5.27288 4.10745 4.10744C5.27289 2.94201 6.75774 2.14833 8.37425 1.82679C9.99076 1.50525 11.6663 1.67027 13.189 2.301C14.7118 2.93173 16.0132 3.99984 16.9289 5.37025C17.8446 6.74066 18.3333 8.35182 18.3333 10C18.3309 12.2094 17.4522 14.3276 15.8899 15.8899C14.3276 17.4522 12.2094 18.3309 10 18.3333Z" fill="#FF0000" />
+                                                    </g>
                                                 </g>
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0_236_40412">
-                                                    <rect width="20" height="20" fill="white" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
+                                                <defs>
+                                                    <clipPath id="clip0_236_40412">
+                                                        <rect width="20" height="20" fill="white" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
                                         </div>
 
 
