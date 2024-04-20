@@ -5562,7 +5562,7 @@ function Register() {
                     </div>
 
                     <label className="flex  items-center justify-center self-center w-[266px]"> {/* Center the label section */}
-                      <div className="flex gap-2 justify-center self-center px-8 py-2 mt-2 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
+                      <div className="flex gap-2 justify-center items-center px-8 py-2 mt-2 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
                         {" "}<img
                           loading="lazy"
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -5572,7 +5572,7 @@ function Register() {
                           type="file"
                           name="image"
                           onChange={handleFileChange}
-                          className="tal2 grow my-auto opacity-0"
+                          className="tal2 grow absolute w-full my-auto opacity-0"
                         />
 
                         {
