@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import {Context} from "../index"
+import { Context } from "../../index";
 import Header from "../../components/Header2";
 import {
   Link,

@@ -6,7 +6,7 @@ import Placeholder from "../../../assets/placeholder.jpg"
 import { useNavigate } from 'react-router-dom';
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
-import {Context} from "../../index"
+import {Context} from "../../../index"
 
 const PlayerCard = ({ userInfo }) => {
   const {_currentLang, _setLang, getTranslation} = React.useContext(Context)

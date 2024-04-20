@@ -17,7 +17,7 @@ import T442 from "../../assets/4-4-2.png";
 import T532 from "../../assets/5-3-2.png";
 import T541 from "../../assets/5-4-1.png";
 import { Config } from "../../config";
-import {Context} from "../index"
+import {Context} from "../../index"
 import { paysAllInfo } from "../../assets/data/Country";
 import Other from './../Setting/Fragments/Other';
 const More = () => {

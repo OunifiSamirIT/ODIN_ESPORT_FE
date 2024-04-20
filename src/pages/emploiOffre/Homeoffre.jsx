@@ -6,7 +6,7 @@ import "../flags.css";
 import Select from "react-select";
 import { useState } from 'react';
 import { useEffect } from 'react';
-import {Context} from "../index"
+import { Context } from "../../index";
 
 import { Config } from "../../config";
 

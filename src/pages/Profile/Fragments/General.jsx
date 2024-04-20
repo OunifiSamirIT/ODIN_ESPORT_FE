@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Placeholder from "../../../assets/placeholder.jpg"
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
-import {Context} from "../../index"
+import {Context} from "../../../index"
 
 
 const General = ({ userInfo }) => {

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "../../components/Header2";
-import {Context} from "../index"
+import { Context } from "../../index";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";

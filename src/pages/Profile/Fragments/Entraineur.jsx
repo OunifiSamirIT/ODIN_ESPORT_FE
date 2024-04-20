@@ -11,7 +11,7 @@ import T532 from "../../../assets/5-3-2.png"
 import T541 from "../../../assets/5-4-1.png"
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
-import {Context} from "../../index"
+import { Context } from "../../../index";
 const PlayerCard = ({ userInfo }) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));

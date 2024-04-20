@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom";
 import Placeholder from "../../../assets/placeholder.jpg"
 import { Config } from "../../../config";
-import {Context} from "../../index"
+import {Context} from "../../../index"
 
 const Scout = ({ userInfo }) => {
 
