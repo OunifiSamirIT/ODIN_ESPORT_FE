@@ -1102,6 +1102,7 @@ function Post({ article, setArticles }) {
                               </div>
                             </div>
                             <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
+
                             <span className="flex justify-between items-center mb-0 ml-0 p-0 font-bold w-full">
                               <button
                                 onClick={() => {
@@ -1169,30 +1170,7 @@ function Post({ article, setArticles }) {
                                   </div>
                                 )}
                               </button>
-                              <button
-                                onClick={() => {
-                                  copyLinkToClipboard(article.id);
-                                  setIsCopyLinkPopupVisible(true);
-                                  setTimeout(() => {
-                                    setIsCopyLinkPopupVisible(false);
-                                  }, 2000); 
-                                }}
-                                className=""
-                              >
-                                <div className="flex flex-col md:flex-row items-center gap-2 justify-between py-2">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square fill-zinc-900"
-                                  />
-                                  <div className="grow">Copier le lien</div>
-                                </div>
-                                {isCopyLinkPopupVisible && (
-                                  <div className="copy-link-popup">
-                                    lien copié!
-                                  </div>
-                                )}
-                              </button>
+                              
                             </span>
 
                             {selectedArticleId === article.id && (

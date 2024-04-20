@@ -265,6 +265,11 @@ function Demo( ) {
         });
 
         // Reset form fields or show success message
+        setFormData({
+          emailuser: "",
+          nomPrenom: "",
+          message: "",
+        });
       } else {
         console.error("Failed to submit contact form");
         // Handle error (e.g., display error message)
@@ -456,7 +461,15 @@ function Demo( ) {
                   <a href="/blog">
                   {" "}
                   <div className="self-stretch my-auto text-base font-medium text-white">
-                    Blog
+                  {
+             getTranslation(
+              `BLOG`,  // -----> Englais
+              ` `, //  -----> Francais
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                   </div>
                 </a>
                   <div className="flex gap-1 items-center self-stretch px-1 py-0.5 my-auto text-base font-medium whitespace-nowrap text-zinc-900">
@@ -466,13 +479,31 @@ function Demo( ) {
                   </div>
                   <Link to="/register">
                     {" "}
-                    <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                      S'inscrire
+                    <div className="tal2 justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                    {
+             getTranslation(
+              `Sign Up`,  // -----> Englais
+              `S'inscrire `, //  -----> Francais
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                     </div>
                   </Link>
                   <Link to="login">
-                    <div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
-                      Se connecter
+                    <div className=" tal2 justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
+                      
+
+                      {
+             getTranslation(
+              `Log In`,  // -----> Englais
+              `Se connecter `, //  -----> Francais
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                     </div>
                   </Link>
 
@@ -592,8 +623,8 @@ function Demo( ) {
              getTranslation(
               `Contact`,  // -----> Englais
               `Contact`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -601,7 +632,15 @@ function Demo( ) {
                 <a href="/blog">
                   {" "}
                   <div className="self-stretch my-auto text-base font-medium text-white">
-                    Blog
+                    
+                    {
+             getTranslation(
+              `BLOG`,  // -----> Englais
+              `BLOG`, //  -----> Francais
+              
+              ) 
+
+            }  
                   </div>
                 </a>
                 {/* <div className=" flex gap-1  items-center self-stretch px-1 py-0.5 my-auto text-base font-medium whitespace-nowrap text-zinc-900">
@@ -646,8 +685,8 @@ function Demo( ) {
              getTranslation(
               `Sign Up`,  // -----> Englais
               `S'inscrire`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -663,8 +702,8 @@ function Demo( ) {
              getTranslation(
               `Log In`,  // -----> Englais
               `Se connecter `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -672,7 +711,7 @@ function Demo( ) {
                 </Link>
 
                 <div className="flex gap-4 justify-center self-stretch my-auto">
-                  <svg
+                <a href="https://www.facebook.com/share/ySvTnpGkPzbwaycW/?mibextid=qi2Omg"> <svg
                     width="26"
                     height="26"
                     viewBox="0 0 26 26"
@@ -687,8 +726,9 @@ function Demo( ) {
                       d="M14.9822 10.5363V13.2593H18.3508L17.8174 16.928H14.9822V25.3796C14.4136 25.4588 13.832 25.4998 13.2418 25.4998C12.5602 25.4998 11.8915 25.4451 11.2394 25.34V16.928H8.13281V13.2593H11.2394V9.92813C11.2394 7.86093 12.915 6.18457 14.9829 6.18457V6.18673C14.9887 6.18673 14.9944 6.18457 15.0002 6.18457H18.3515V9.35663H16.1619C15.5105 9.35663 14.9829 9.88422 14.9829 10.5356L14.9822 10.5363Z"
                       fill="#1D1E21"
                     />
-                  </svg>
+                  </svg></a> 
 
+               <a href="https://www.instagram.com/odinesportapp/">
                   <svg
                     width="26"
                     height="26"
@@ -713,7 +753,7 @@ function Demo( ) {
                       fill="#1D1E21"
                     />
                   </svg>
-
+</a>
                   <svg
                     width="26"
                     height="26"
@@ -791,9 +831,7 @@ function Demo( ) {
               getTranslation(
               `RAISE YOUR GAME, SEIZE YOUR FUTURE`,
               ` ÉLEVEZ VOTRE JEU, SAISISSEZ VOTRE AVENIR`,
-              `OYUNUNUZU YÜKSELTİN, GELECEĞİNİZİ ELDE EDİN`,
-              `Vernetzen Sie sich mit Top-Fußball-Scouts und -Trainern.
-              Steigern Sie Ihr Spiel, nutzen Sie Ihre Zukunft`
+              
               )
             }
           </div>
@@ -808,14 +846,7 @@ function Demo( ) {
               mettez en valeur vos compétences et franchissez la prochaine étape
               de votre parcours dans le football. Votre avenir dans le football
               commence ici.`,
-              `En iyi futbol gözlemcileri ve antrenörleriyle bağlantı kurun,
-              becerilerinizi sergileyin ve bir sonraki adıma geçin
-              futbol yolculuğunuzun özeti. Futboldaki geleceğiniz
-              burada başlıyor.`,
-              `Vernetzen Sie sich mit Top-Fußball-Scouts und -Trainern.
-              Zeigen Sie Ihre Fähigkeiten und machen Sie den nächsten Schritt
-              von deiner Reise im Fußball. Deine Zukunft im Fußball
-              beginnt hier.`
+              
               )
             }
           </div>
@@ -828,8 +859,7 @@ function Demo( ) {
              getTranslation(
               `Start your adventure!`,  // -----> Englais
               `Commencez votre aventure !`, //  -----> Francais
-              `Maceranıza başlayın!`,  //  -----> Turkey
-              `Beginnen Sie Ihr Abenteuer!` ,  //  -----> Allemagne
+              
               ) 
 
             } 
@@ -838,8 +868,7 @@ function Demo( ) {
              getTranslation(
               ``,  // -----> Englais
               ``, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              
               ) 
 
             }            
@@ -857,8 +886,7 @@ function Demo( ) {
              getTranslation(
               `Meet Our Valued Partners`,  // -----> Englais
               `Découvrez nos partenaires précieux`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+             
               ) 
 
             }         
@@ -939,8 +967,8 @@ function Demo( ) {
              getTranslation(
               `Who are we ?`,  // -----> Englais
               `Qui Sommes-Nous? `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -952,8 +980,8 @@ function Demo( ) {
              getTranslation(
               `Unlocking Football Dreams`,  // -----> Englais
               `Débloquez vos rêves de football `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -964,8 +992,8 @@ function Demo( ) {
              getTranslation(
               `A Comprehensive Experience for All`,  // -----> Englais
               `Une Expérience Exceptionnelle Pour Tous`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -987,8 +1015,8 @@ function Demo( ) {
               professionnel du football à la recherche de la prochaine
               étoile, notre plateforme est l'endroit où les rêves se
               réalisent et les opportunités se concrétisent.`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1001,8 +1029,8 @@ function Demo( ) {
              getTranslation(
               `Begin your Adventure ! `,  // -----> Englais
               `Lancez Votre Parcours !`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1033,8 +1061,8 @@ function Demo( ) {
              getTranslation(
               `Who is `,  // -----> Englais
               `Pour qui est `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1045,8 +1073,8 @@ function Demo( ) {
              getTranslation(
               ` ODIN E-SPORT for ?`,  // -----> Englais
               `ODIN E-SPORT? `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1070,8 +1098,8 @@ function Demo( ) {
               Rejoignez notre communauté inclusive et débloquez un nombre
               infini d'opportunités dans le monde de professionnalisme de
               football. `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1085,8 +1113,8 @@ function Demo( ) {
              getTranslation(
               ` Join us !`,  // -----> Englais
               `Rejoignez Nous! `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1144,8 +1172,8 @@ function Demo( ) {
              getTranslation(
               `How can we help?`,  // -----> Englais
               `Comment on peut vous aider?`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1165,8 +1193,8 @@ function Demo( ) {
               joueurs de football et des entités associées. Votre feedback
               est essentiel alors que nous construisons un espace inclusif
               pour les professionnels du football du monde entier.`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1189,8 +1217,8 @@ function Demo( ) {
              getTranslation(
               `Contact us `,  // -----> Englais
               `Contactez Nous`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1201,13 +1229,12 @@ function Demo( ) {
                   </div>
                   <form onSubmit={handleSubmit} className="flex flex-col">
                     <label htmlFor="nomPrenom" className="tal1 mt-6">
-                      Nom et Prénom
                       {
              getTranslation(
               `Full name `,  // -----> Englais
               `Nom et Prénom`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1230,8 +1257,8 @@ function Demo( ) {
              getTranslation(
               `Email`,  // -----> Englais
               `Email`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1251,8 +1278,8 @@ function Demo( ) {
              getTranslation(
               `Message`,  // -----> Englais
               `Message`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1276,8 +1303,8 @@ function Demo( ) {
              getTranslation(
               `Submit`,  // -----> Englais
               `Envoyer`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1378,16 +1405,24 @@ function Demo( ) {
              getTranslation(
               `Contact`,  // -----> Englais
               `Contact`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
               </div>
               <a href="/blog">
                 {" "}
-                <div className="self-stretch my-auto text-base font-medium text-white">
-                  Blog
+                <div className="tal2 self-stretch my-auto text-base font-medium text-white">
+                {
+             getTranslation(
+              `BLOG`,  // -----> Englais
+              `BLOG `, //  -----> Francais
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>
               </a>
               <span style={{
@@ -1409,8 +1444,8 @@ function Demo( ) {
              getTranslation(
               `Sign Up`,  // -----> Englais
               `S'inscrire `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1423,8 +1458,8 @@ function Demo( ) {
              getTranslation(
               `Log In`,  // -----> Englais
               `Se connecter `, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1544,8 +1579,8 @@ function Demo( ) {
              getTranslation(
               `Terms & Conditions`,  // -----> Englais
               `Termes & Conditions`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1559,8 +1594,8 @@ function Demo( ) {
              getTranslation(
               `Privacy Policy`,  // -----> Englais
               `Politique de Confidentialité`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 
@@ -1574,8 +1609,8 @@ function Demo( ) {
              getTranslation(
               ` All Rights Reserved © 2024 Odin Esport`,  // -----> Englais
               `Tous droits réservés © 2024 Odin Esport`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
+              // ``,  //  -----> Turkey
+              // `` ,  //  -----> Allemagne
               ) 
 
             } 

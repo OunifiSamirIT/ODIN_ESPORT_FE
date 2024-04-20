@@ -12,10 +12,11 @@ function CreatePost({setArticles}) {
       register,
       handleSubmit,
       formState: { errors },
+      setValue
     } = useForm();
     const [user, setUser] = useState([]);
     const [errMsg, setErrMsg] = useState("");
-
+    const [data, setData] = useState({ description: "", otherField: "" });
     const [file, setFile] = useState(null);
     const [fileType, setFileType] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
@@ -130,11 +131,12 @@ function CreatePost({setArticles}) {
           // After creating the article, fetch the updated list of articles
           const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
           const updatedPostsData = await response.json();
-    
+          hendelrest()
           // Update the list of posts and reset the preview image
           setPostsData(updatedPostsData);
           setPreviewImage(null);
-    
+          setValue("description", "");
+
           setPosting(false);
           fetchArticles();
         } catch (error) {
@@ -143,7 +145,9 @@ function CreatePost({setArticles}) {
         }
       };
 
-
+const  hendelrest = () => {
+  setData("")
+}
       useEffect(() => {
         const storedUserData = JSON.parse(localStorage.getItem("user"));
         const id = storedUserData ? storedUserData.id : null;
