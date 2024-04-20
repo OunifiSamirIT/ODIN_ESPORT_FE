@@ -17,10 +17,13 @@ import T442 from "../../assets/4-4-2.png";
 import T532 from "../../assets/5-3-2.png";
 import T541 from "../../assets/5-4-1.png";
 import { Config } from "../../config";
+import {Context} from "../index"
 import { paysAllInfo } from "../../assets/data/Country";
 import Other from './../Setting/Fragments/Other';
 const More = () => {
   const { id } = useParams();
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
   const [player, setPlayer] = useState(null);
   const [agent, setAgent] = useState(null);
   const [user, setUser] = useState([]);
@@ -128,7 +131,17 @@ const More = () => {
               className="my-auto aspect-square w-[15px]"
             />
             <Link to={`/profile/${id}`} className="hover:text-orange-300">
-              Revenir au Profil
+
+            {
+             getTranslation(
+              `Back to profile`,  // -----> Englais
+              `Revenir au Profil`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+              
             </Link>
           </div>
           {CurrentUser?.user.profil === "player" && (
@@ -168,7 +181,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p>Modifier</p>
+                              <p> {
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</p>
                             </Link>
                           </div>
                         ) : (
@@ -220,7 +241,18 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p>
+                                      
+                                    {
+             getTranslation(
+              `Add friend`,  // -----> Englais
+              `Ajouter ami(e)`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                                      </p>
                                   </button>
                                 )}
                               </div>
@@ -274,7 +306,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+             getTranslation(
+              `Link copied!`,  // -----> Englais
+              `  Lien copié!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -320,7 +360,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                       {
+             getTranslation(
+              `Link copied!`,  // -----> Englais
+              `  Lien copié!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -493,7 +541,16 @@ const More = () => {
                             </defs>
                           </svg>
 
-                          <div className="grow self-start mt-1">Licence</div>
+                          <div className="grow self-start mt-1">
+         {
+             getTranslation(
+              `License`,  // -----> Englais
+              `Licence`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                           <svg
                             width="21"
                             height="15"
@@ -590,7 +647,20 @@ const More = () => {
                         </clipPath>
                       </defs>
                     </svg>
-                    <div className="">Les Positions</div>
+                    <div className="">
+                      
+                      
+         {
+             getTranslation(
+              `The positions`,  // -----> Englais
+              `Les positions`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                      
+                      </div>
                   </div>
                   <Terrain
                     positionPlay={CurrentUser?.player.positionPlay}
@@ -604,7 +674,16 @@ const More = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow">     
+                        {
+             getTranslation(
+              `Skills`,  // -----> Englais
+              ` Compétences`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                   </div>
                   <div className="flex flex gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.player.skillsInProfile
@@ -641,7 +720,20 @@ const More = () => {
                       />
                     </svg>
 
-                    <div className="grow">Expériences</div>
+                    <div className="grow">
+                      
+                      
+                           
+                    {
+             getTranslation(
+              `Experiences`,  // -----> Englais
+              ` Expériences`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                      </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3 ">
                     {experience.map((item) => {
@@ -721,7 +813,17 @@ const More = () => {
                             {CurrentUser?.user.nom} {CurrentUser?.user.prenom}
                           </div>
                           <div className="text-base font-medium text-blue-600">
-                            Entraineur
+
+
+                            {
+             getTranslation(
+              `Coach`,  // -----> Englais
+              `Entraîneur`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                           </div>
                         </div>
                         {isOwner ? (
@@ -735,7 +837,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p>Modifier</p>
+                              <p>{
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</p>
                             </Link>
                           </div>
                         ) : (
@@ -787,7 +897,15 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p> {
+             getTranslation(
+              `Add friend`,  // -----> Englais
+              `Ajouter ami(e)`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </p>
                                   </button>
                                 )}
                               </div>
@@ -841,7 +959,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                     {
+             getTranslation(
+              `Link copied!`,  // -----> Englais
+              `  Lien copié!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -887,7 +1013,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                     {
+             getTranslation(
+              `Link copied!`,  // -----> Englais
+              `  Lien copié!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -1036,7 +1170,19 @@ const More = () => {
 
                           <div className="grow self-start mt-1">
                             {" "}
-                            {CurrentUser.coach?.totalTeam} équipes entrainées
+                            {CurrentUser.coach?.totalTeam}    
+
+                            {
+             getTranslation(
+              `Clubs coached`,  // -----> Englais
+              `Equipes entrainées`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+
                           </div>
                         </div>
                       </div>
@@ -1075,7 +1221,18 @@ const More = () => {
                         </clipPath>
                       </defs>
                     </svg>
-                    <div className="grow">Taddctiques Préférée</div>
+                    <div className="grow">
+                      
+                    {
+             getTranslation(
+              ``,  // -----> Englais
+              `Tactique préférée`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                      </div>
                   </div>
                   <div className="flex flex-col justify-center text-xs text-center bg-red-400 w-full md:w-[366px]  text-white whitespace-nowrap ">
                     <div className="relative flex relative flex-col py-9 pr-12 pl-4 w-full aspect-[1.45]">
@@ -1145,7 +1302,15 @@ const More = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow">{
+             getTranslation(
+              `Skills`,  // -----> Englais
+              ` Compétences`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                   </div>
                   <div className="  max-w-xl flex flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.coach?.skills
@@ -1290,7 +1455,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p >Modifier</p>
+                              <p > {
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </p>
                             </Link>
                           </div>
                         ) : (
@@ -1342,7 +1515,15 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p>{
+             getTranslation(
+              `Add friend`,  // -----> Englais
+              `Ajouter ami(e)`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</p>
                                   </button>
                                 )}
                               </div>
@@ -1396,7 +1577,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+             getTranslation(
+              `Copy Link`,  // -----> Englais
+              `  Copier le lien`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -1442,7 +1631,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+             getTranslation(
+              `Copy Link`,  // -----> Englais
+              `  Copier le lien`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -1594,7 +1791,17 @@ const More = () => {
 
                               <div className="grow self-start mt-1">
                                 {CurrentUser.agent.totalCareerTransfers}{" "}
-                                Transferts Effectués
+                                
+                                
+         {
+             getTranslation(
+              ` Total Transfers made`,  // -----> Englais
+              `Total Transferts Effectués`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                               </div>
                             </>
                           </div>
@@ -1644,7 +1851,17 @@ const More = () => {
                                   </defs>
                                 </svg>
                                 <div className="grow self-start mt-1">
-                                  {CurrentUser.agent.totalPlayer} Joueurs
+                                  {CurrentUser.agent.totalPlayer} 
+                                  {
+             getTranslation(
+              `Players`,  // -----> Englais
+              `Joueurs`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                                  
                                 </div>
                               </div>
                             </>
@@ -1667,7 +1884,15 @@ const More = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow"> {
+             getTranslation(
+              `Skills`,  // -----> Englais
+              ` Compétences`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                   </div>
                   <div className="flex-1 max-sm:justify-center  w-full flex flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.agent.skillsagent
@@ -1752,7 +1977,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p>Modifier</p>
+                              <p> {
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </p>
                             </Link>
                           </div>
                         ) : (
@@ -1804,7 +2037,15 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p>{
+             getTranslation(
+              `Add friend`,  // -----> Englais
+              `Ajouter ami(e)`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</p>
                                   </button>
                                 )}
                               </div>
@@ -1858,7 +2099,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+             getTranslation(
+              `Link copied!`,  // -----> Englais
+              `  Lien copié!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -1904,7 +2153,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                       {
+             getTranslation(
+              `Link copied!`,  // -----> Englais
+              `  Lien copié!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -2188,7 +2445,15 @@ const More = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow">{
+             getTranslation(
+              `Skills`,  // -----> Englais
+              ` Compétences`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                   </div>
                   <div className="flex flex gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.other.skillsAutre
@@ -2386,7 +2651,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p>Modifier</p>
+                              <p>{
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </p>
                             </Link>
                           </div>
                         ) : (
@@ -2438,7 +2711,15 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p>{
+             getTranslation(
+              `Add friend`,  // -----> Englais
+              `Ajouter ami(e)`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</p>
                                   </button>
                                 )}
                               </div>
@@ -2492,7 +2773,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                       {
+             getTranslation(
+              `Link copied!`,  // -----> Englais
+              `  Lien copié!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -2538,7 +2827,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                       {
+             getTranslation(
+              `Link copied!`,  // -----> Englais
+              `  Lien copié!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                                     </div>
                                   )}
                                 </div>
@@ -2686,9 +2983,19 @@ const More = () => {
                             </defs>
                           </svg>
 
-                          <div className="grow self-start mt-1">
-                            {CurrentUser?.scout?.nb_joueurdetecter} Joueurs
-                            Détectés
+                          <div className="grow self-start mt-1"> 
+                            {CurrentUser?.scout?.nb_joueurdetecter}
+                            
+                            {
+             getTranslation(
+              `Players detected`,  // -----> Englais
+              ` Joueurs Détectés`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                              
                           </div>
                         </div>
                       </div>
@@ -2708,7 +3015,15 @@ const More = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow"> {
+             getTranslation(
+              `Skills`,  // -----> Englais
+              ` Compétences`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                   </div>
                   {/* social icons */}
 

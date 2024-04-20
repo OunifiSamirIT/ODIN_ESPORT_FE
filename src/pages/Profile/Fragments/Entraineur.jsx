@@ -11,6 +11,7 @@ import T532 from "../../../assets/5-3-2.png"
 import T541 from "../../../assets/5-4-1.png"
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
+import {Context} from "../../index"
 const PlayerCard = ({ userInfo }) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -20,6 +21,7 @@ const PlayerCard = ({ userInfo }) => {
     const [invitationSend, setInvitationSend] = useState(false);
     const [Invitation, setInvitation] = useState([]);
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
+    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
     const isFriendAccepted = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`)
@@ -93,7 +95,18 @@ const PlayerCard = ({ userInfo }) => {
                                 <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
                             </div>
                             <div className="text-base font-medium text-blue-600">
-                                Entraîneur
+                               
+         {
+             getTranslation(
+              `Coach`,  // -----> Englais
+              `Entraîneur`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                               
+                                
                             </div>
                         </div>
                     </div>
@@ -106,7 +119,20 @@ const PlayerCard = ({ userInfo }) => {
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
                                         className="shrink-0 my-auto aspect-square w-[15px]"
                                     />
-                                    <Link to={'/setting/personal'} className="flex items-center hover:text-blue-900"><p>Modifier</p></Link>
+                                    <Link to={'/setting/personal'} className="flex items-center hover:text-blue-900"><p>
+                                        
+                                    {
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                
+                                        
+                                        </p></Link>
                                 </div> :
                                 <>
                                     <div className="flex items-center gap-3 md:w-fit w-full">
@@ -123,7 +149,20 @@ const PlayerCard = ({ userInfo }) => {
                                             </svg>
 
                                             {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
-                                                <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter</p></button>}
+                                                <button className="flex items-center " onClick={sendFriendRequest}><p>
+                                                    
+                                                    
+         {
+             getTranslation(
+              `Add`,  // -----> Englais
+              `Ajouter`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                                                    
+                                                    </p></button>}
                                         </div>
                                         {acceptedFriend?.status === 'accepted' ? <div>
                                             <a rel="noreferrer" href={`https://wa.me/${getWhatsappPrefix(userInfo.user.optionalattributs)}${userInfo.user.numWSup}`} target="_blank">
@@ -221,7 +260,18 @@ const PlayerCard = ({ userInfo }) => {
                             </defs>
                         </svg>
 
-                        <div className="grow mb-3">Tactiques Préférée</div>
+                        <div className="grow mb-3">
+                            
+         {
+             getTranslation(
+              `Preferred Tactics`,  // -----> Englais
+              ` Tactiques Préférée`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                           </div>
                     </div>
                     <div className="flex flex-col justify-center text-xs text-center text-white whitespace-nowrap w-[366px]">
                         <div className="relative flex relative flex-col py-9 pr-12 pl-4 w-full aspect-[1.45]">
@@ -278,7 +328,19 @@ const PlayerCard = ({ userInfo }) => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                             className="shrink-0 self-start w-5 aspect-square"
                         />
-                        <div className="grow">Compétences</div>
+                        <div className="grow">
+                            
+                        {
+             getTranslation(
+              `Skills`,  // -----> Englais
+              ` Compétences`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                            
+                            </div>
                     </div>
                     <div className="flex hidden  justify-center gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
@@ -368,7 +430,20 @@ const PlayerCard = ({ userInfo }) => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
                             className="shrink-0 self-start w-4 aspect-[0.94]"
                         />
-                        <a href={`/profile/more/${id}`}>Voir Plus</a>
+                        <a href={`/profile/more/${id}`}>
+                            
+                            
+         {
+             getTranslation(
+              `See more`,  // -----> Englais
+              ` Voir Plus`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                            
+                           </a>
                     </div>
                 </div>
             </div>

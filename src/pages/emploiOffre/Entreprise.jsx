@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "../../components/Header2";
-
+import {Context} from "../index"
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
@@ -13,7 +13,7 @@ function Entreprise() {
   const { register, setValue, getValues } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
-
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
   const [selectedPaysOffre, setSelectedPaysOffre] = useState(null);
 
   const handleCountryChangePaysOffre = (selectedOption) => {
@@ -200,7 +200,15 @@ function Entreprise() {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      Acceuil
+                    {
+             getTranslation(
+              `Home`,  // -----> Englais
+              `Acceuil`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                     </div>
                   </div>
                 </Link>
@@ -236,7 +244,15 @@ function Entreprise() {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      Profil
+                    {
+             getTranslation(
+              `Profile`,  // -----> Englais
+              `Profil`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                     </div>
                   </div>{" "}
                 </Link>
@@ -264,7 +280,15 @@ function Entreprise() {
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                        Agents
+                      {
+             getTranslation(
+              `Agents`,  // -----> Englais
+              `Agents`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                       </div>
                     </div>{" "}
 
@@ -298,8 +322,15 @@ function Entreprise() {
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                        Joueur
-                      </div>
+                      {
+             getTranslation(
+              `Player`,  // -----> Englais
+              `Joueur`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }                       </div>
                     </div>{" "}
 
                   </Link>
@@ -320,7 +351,15 @@ function Entreprise() {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                       className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                     />
-                    <div>Événements</div>
+                    <div> {
+             getTranslation(
+              `Events`,  // -----> Englais
+              `Événements`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                   </div>
                   <img
                     loading="lazy"
@@ -351,7 +390,15 @@ function Entreprise() {
                                 fill="#1D1E21"
                               />
                             </svg>
-                            <div>Camps</div>
+                            <div>{
+             getTranslation(
+              `Camps`,  // -----> Englais
+              `Camps`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                           </div>
 
                         </div>
@@ -364,7 +411,15 @@ function Entreprise() {
                               <path d="M15 14.9967C15 17.7542 12.7575 19.9967 10 19.9967C7.2425 19.9967 5 17.7542 5 14.9967C5 12.2392 7.2425 9.99667 10 9.99667C10.46 9.99667 10.8333 10.3692 10.8333 10.83C10.8333 11.2908 10.46 11.6633 10 11.6633C8.16167 11.6633 6.66667 13.1583 6.66667 14.9967C6.66667 16.835 8.16167 18.33 10 18.33C11.8383 18.33 13.3333 16.835 13.3333 14.9967C13.3333 14.5358 13.7067 14.1633 14.1667 14.1633C14.6267 14.1633 15 14.5358 15 14.9967ZM15.3033 12.4967C15.745 12.4967 16.1692 12.3208 16.4817 12.0083L17.2867 11.2033C17.7325 10.7575 17.4167 9.99667 16.7867 9.99667H15V8.21C15 7.58 14.2383 7.26417 13.7933 7.71L12.9883 8.515C12.6758 8.8275 12.5 9.25167 12.5 9.69333V11.3183L10.4317 13.3867C10.2942 13.35 10.1492 13.33 10 13.33C9.07917 13.33 8.33333 14.0758 8.33333 14.9967C8.33333 15.9175 9.07917 16.6633 10 16.6633C10.9208 16.6633 11.6667 15.9175 11.6667 14.9967C11.6667 14.8475 11.6467 14.7025 11.61 14.565L13.6783 12.4967H15.3033ZM12.615 6.53167C13.2967 5.85167 14.3117 5.64917 15.2008 6.0175C15.5558 6.16417 15.86 6.38833 16.0983 6.66667H20.0317L20.0267 5.8075C20.0125 3.51667 18.1517 1.66667 15.86 1.66667H15.0008V0.833333C15 0.373333 14.6267 0 14.1667 0C13.7067 0 13.3333 0.373333 13.3333 0.833333V1.66667H6.66667V0.833333C6.66667 0.373333 6.29333 0 5.83333 0C5.37333 0 5 0.373333 5 0.833333V1.66667H4.16667C1.86583 1.66667 0 3.53167 0 5.83333V6.66667H12.48L12.615 6.53167ZM3.33333 15C3.33333 11.3242 6.32417 8.33333 10 8.33333H0V15.8325C0 18.1325 1.86417 19.9975 4.16417 19.9992H5.59583C4.20917 18.7775 3.33333 16.9892 3.33333 15ZM20 8.33H16.7867C17.7508 8.33 18.6108 8.905 18.98 9.79583C19.3492 10.6867 19.1467 11.7017 18.465 12.3825L17.6608 13.1867C17.3325 13.515 16.9475 13.7667 16.5275 13.9325C16.6133 14.4358 16.6675 14.8233 16.6675 15C16.6675 16.9892 15.7917 18.7775 14.405 20H16.3075C18.3817 19.9975 20.0608 18.3133 20.055 16.2392L20 8.33Z" fill="black" />
                             </svg>
 
-                            <div>Challenges</div>
+                            <div>{
+             getTranslation(
+              `Challenges`,  // -----> Englais
+              `Challenges`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                           </div>
 
                         </div>
@@ -379,7 +434,15 @@ function Entreprise() {
                               className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                             />
 
-                            <div>Evénnement ODIN</div>
+                            <div>{
+             getTranslation(
+              `ODIN Event`,  // -----> Englais
+              `Evénnement ODIN`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                           </div>
 
                         </div>
@@ -397,7 +460,15 @@ function Entreprise() {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a7fc5fd676e2d7354f4a7f19b0967db7f2d99a7e161c7c156ac1ce03217cf2c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                       />
-                      <div>Offres d’emploi</div>
+                      <div> {
+             getTranslation(
+              `Jobs Offers`,  // -----> Englais
+              `Offres d’emploi`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                     </div>
                   </div></Link>
                 <Link to="/entreprise" className="self-center">  {!(
@@ -411,7 +482,15 @@ function Entreprise() {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 my-auto w-4 aspect-square fill-white"
                       />
-                      <div>Publier une offre</div>
+                      <div>{
+             getTranslation(
+              `Publish Offer`,  // -----> Englais
+              ` Publier une offre`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                     </div>
                   )}</Link>
               </div>
@@ -449,6 +528,16 @@ function Entreprise() {
                           <div className="flex flex-col self-stretch text-center my-auto max-md:mt-10">
                             <div className="text-3xl font-bold text-black">
                               Logo de l’entreprise
+
+                              {
+             getTranslation(
+              `Company logo`,  // -----> Englais
+              ` Logo de l’entreprise`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }
                             </div>
                             <label>
                               <div className="flex flex-col items-center justify-center mt-4">
@@ -466,8 +555,16 @@ function Entreprise() {
                                       .click()
                                   }
                                   className="mt-2 px-4 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]"
-                                >
-                                  Changer la photo
+                                > {
+                                  getTranslation(
+                                   `Change photo`,  // -----> Englais
+                                   ` Changer la photo`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                                  
                                 </button>
                               </div>
                             </label>
@@ -488,7 +585,18 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/a384581add68577a25f4081d8801c28ef67dafd494c0efb9015b701bb68a830a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square"
                             />
-                            <div className="flex-1">Nom de l’entreprise</div>
+                            <div className="flex-1">
+                            {
+                                  getTranslation(
+                                   `Compagny name`,  // -----> Englais
+                                   ` Nom de l'entreprise`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                              
+                              </div>
                           </div>
                           <input
                             type="text"
@@ -510,7 +618,20 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/43c300d97aa67300893a5a93497e6396899e47deee593690d089df4b9cbfa5d0?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto aspect-[1.1] fill-zinc-900 w-[22px]"
                             />
-                            <div className="flex-1">Niveau d’études</div>
+                            <div className="flex-1">
+                              
+                            {
+                                  getTranslation(
+                                   `Level of education`,  // -----> Englais
+                                   ` Niveau d’études`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                              
+                              
+                              </div>
                           </div>
                           <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
@@ -525,18 +646,81 @@ function Entreprise() {
                                   })
                                 }
                               >
-                                <option value="">Niveau d’études</option>
-                                <option value="Bac">Primaire</option>
-                                <option value="Bac">Secondaire</option>
-                                <option value="Bac">Formations professionnelles</option>
+                                <option value="">{
+                                  getTranslation(
+                                   `Level of education`,  // -----> Englais
+                                   ` Niveau d’études`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }</option>
+                                <option value="Bac">
+                                {
+                                  getTranslation(
+                                   `Primary`,  // -----> Englais
+                                   ` Primaire`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                                  </option>
+                                <option value="Bac">
+                                {
+                                  getTranslation(
+                                   `Secondary`,  // -----> Englais
+                                   ` Secondaire`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                                  </option>
+                                <option value="Bac">  
+                                
+                                {
+                                  getTranslation(
+                                   `Professional training`,  // -----> Englais
+                                   ` Formations professionnelles `, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                                
+                                </option>
                                 <option value="Bac +1">Bac</option>
                                 <option value="Bac +1">Bac +1</option>
                                 <option value="Bac +2">Bac +2</option>
                                 <option value="Bac +3">Bac +3</option>
                                 <option value="Bac +3">Bac +4</option>
                                 <option value="Bac +3">Bac +5</option>
-                                <option value="Bac +3">Doctorat</option>
-                                <option value="Bac +3">Expert, Recherche</option>
+                                <option value="Bac +3">
+                                  
+                                  
+                                {
+                                  getTranslation(
+                                   `Doctorate`,  // -----> Englais
+                                   ` Doctorat `, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                                  </option>
+                                <option value="Bac +3">    
+                                
+                                {
+                                  getTranslation(
+                                   `Expert, Research`,  // -----> Englais
+                                   ` Expert, Recherche  `, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                                   </option>
                               </select>
                             </div>
                           </div>
@@ -546,7 +730,19 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/477c1c901e0f413e9df8f00fc3f5c46072ae48e6965170ab72f4b9273202ad32?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square"
                             />
-                            <div className="flex-1">Pays</div>
+                            <div className="flex-1">
+                            
+                            {
+                                  getTranslation(
+                                   `Country`,  // -----> Englais
+                                   ` Pays `, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                            
+                            </div>
                           </div>
 
                           <Select
@@ -589,7 +785,19 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/8f84db8c65fb787a86b9e66e5c919bc6b81d09c021813ee3ed7d469a0e564d58?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto aspect-[1.1] fill-zinc-900 w-[22px]"
                             />
-                            <div className="flex-1">Email</div>
+                            <div className="flex-1">
+                              
+                            {
+                                  getTranslation(
+                                   `Email`,  // -----> Englais
+                                   ` Email `, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                              
+                              </div>
                           </div>
                           <input
                             type="email"
@@ -615,7 +823,19 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                             />
-                            <div className="flex-1">Poste</div>
+                            <div className="flex-1">
+                            {
+                                  getTranslation(
+                                   `Work position`,  // -----> Englais
+                                   ` Poste `, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                              
+                              
+                              </div>
                           </div>
                           <input
                             type="text"
@@ -638,17 +858,93 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                             />
-                            <div className="flex-1">Niveau d'experience</div>
+                            <div className="flex-1">
+                              
+                            {
+                                  getTranslation(
+                                   `Level of experience`,  // -----> Englais
+                                   `  Niveau d'experience `, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                              
+                              
+                             </div>
                           </div>
                           <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
                               <select className="w-full bg-transparent" {...register("NivET")}>
-                                <option value="CDI">Acunne Experience</option>
-                                <option value="CDD">Moins d'un an</option>
-                                <option value="CVIP">Entre 1 et 2 ans</option>
-                                <option value="CVIP">Entre 2 et 5 ans</option>
-                                <option value="CVIP">Entre 5 et 10 ans</option>
-                                <option value="Mission">Plus que 10 ans </option>
+                                <option value="CDI">
+                                  
+                                {
+                                  getTranslation(
+                                   `No experience`,  // -----> Englais
+                                   `Acunne Experience `, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                                  
+                                  
+                                  </option>
+                                <option value="CDD">
+                                {
+                                  getTranslation(
+                                   `Less than 1 year`,  // -----> Englais
+                                   `Moins d'un an`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                                  
+                                  </option>
+                                <option value="CVIP">
+                                  
+                                {
+                                  getTranslation(
+                                   `Between 1 and 2 years`,  // -----> Englais
+                                   `Entre 1 et 2 ans`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }
+                                  
+                                  </option>
+                                <option value="CVIP">
+                                  
+                                  
+                                {
+                                  getTranslation(
+                                   `Between 2 and 5 years`,  // -----> Englais
+                                   `Entre 2 et 5 ans`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }</option>
+                                <option value="CVIP"> {
+                                  getTranslation(
+                                   `Between 5 and 10 years`,  // -----> Englais
+                                   `Entre 5 et 10 ans`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }</option>
+                                <option value="Mission"> {
+                                  getTranslation(
+                                   `More than 10 years`,  // -----> Englais
+                                   `Plus que 10 ans`, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 } </option>
                               </select>
                             </div>
                           </div>
@@ -659,7 +955,16 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e2bb7e6929dfe27f019db31dfba3116f9832133a3a48be3d6af89d34cc463e1?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto aspect-[0.75] fill-zinc-900 w-[15px]"
                             />
-                            <div className="flex-1">Type de contrat</div>
+                            <div className="flex-1">  
+                            {
+                                  getTranslation(
+                                   `Type of contract `,  // -----> Englais
+                                   `Type de contrat  `, //  -----> Francais
+                                 //   ``,  //  -----> Turkey
+                                 //   `` ,  //  -----> Allemagne
+                                   ) 
+                     
+                                 }  </div>
                           </div>
                           <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
@@ -681,7 +986,18 @@ function Entreprise() {
 
                               className="-ml-5"
                             />
-                            Ville
+
+{
+             getTranslation(
+              `City`,  // -----> Englais
+              `Ville`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+                            
                           </div>
                           <input type="text"
                             id="villeoffre"
@@ -699,7 +1015,19 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/70d817d0342edd76d5dc9a806a14b84b42c2400d315e3aaaec63dc0c39b6e723?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square"
                             />
-                            <div className="flex-1">Date d’expiration</div>
+                            <div className="flex-1">
+                              
+                            {
+             getTranslation(
+              `Expiration date`,  // -----> Englais
+              `  Date d’expiration `, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                              
+                                 </div>
                           </div>
                           <div className="flex flex-col justify-center py-px mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
@@ -755,7 +1083,19 @@ function Entreprise() {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/b85bedc4eae672f17d955b80520a5136c05878ae21b3a9e7cc3758d244af61b3?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0  w-5 aspect-square"
                       />
-                      <div>Annuler</div>
+                      <div>
+                        
+                      {
+             getTranslation(
+              `Cancel`,  // -----> Englais
+              `Annuler`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                        
+                        </div>
                     </button></Link>
                     <button
                       type="submit"
@@ -766,7 +1106,18 @@ function Entreprise() {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5d01c0eee0c5103d74261700846d4597cbbc5efb362e5511402ce42b9f1f3ef?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 w-5 aspect-square"
                       />
-                      <div>Confirmer</div>
+                      <div>
+                        
+                      {
+             getTranslation(
+              `Submit`,  // -----> Englais
+              `Confirmer`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                        </div>
                     </button>
                   </div>
                 </div>

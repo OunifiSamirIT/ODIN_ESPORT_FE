@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom";
 import Placeholder from "../../../assets/placeholder.jpg"
 import { Config } from "../../../config";
+import {Context} from "../../index"
+
 const Scout = ({ userInfo }) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -21,7 +23,8 @@ const Scout = ({ userInfo }) => {
     const getWhatsappPrefix = (string) => {
         return string.split(',')[0].substring(1);
       }
-      
+      const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
     const sendFriendRequest = async () => {
 
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
@@ -96,7 +99,15 @@ const Scout = ({ userInfo }) => {
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
                                         className="shrink-0 my-auto aspect-square w-[15px]"
                                     />
-                                    <Link to={'/setting/personal'} className="flex items-center hover:text-blue-900"><p>Modifier</p></Link>
+                                    <Link to={'/setting/personal'} className="flex items-center hover:text-blue-900"><p>{
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</p></Link>
                                 </div> :
                                 <>
                                     <div className="flex items-center gap-3 md:w-fit w-full">
@@ -113,7 +124,15 @@ const Scout = ({ userInfo }) => {
                                             </svg>
 
                                             {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
-                                                <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter</p></button>}
+                                                <button className="flex items-center " onClick={sendFriendRequest}><p>{
+                                                    getTranslation(
+                                                     `Add`,  // -----> Englais
+                                                     `Ajouter`, //  -----> Francais
+                                                   //   ``,  //  -----> Turkey
+                                                   //   `` ,  //  -----> Allemagne
+                                                     ) 
+                                       
+                                                   }</p></button>}
                                         </div>
                                         {acceptedFriend?.status === 'accepted' ? <div>
                                             <a href={`https://wa.me/${getWhatsappPrefix(userInfo.user.optionalattributs)}${userInfo.user.numWSup}`} target="_blank">
@@ -179,7 +198,20 @@ const Scout = ({ userInfo }) => {
 
 
                         <div className="grow self-start mt-1">
-                            {userInfo?.scout?.nb_joueurdetecter} Joueurs Détectés
+                            {userInfo?.scout?.nb_joueurdetecter}    
+
+
+                            {
+             getTranslation(
+              `Players Detected`,  // -----> Englais
+              `Joueurs Détectés`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+
                         </div>
                     </div>
                 </div>
@@ -194,7 +226,15 @@ const Scout = ({ userInfo }) => {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                         className="shrink-0 self-start w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow">{
+             getTranslation(
+              `Skills`,  // -----> Englais
+              `Compétences`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                 </div>
                 <div className="flex justify-center gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
@@ -249,7 +289,15 @@ const Scout = ({ userInfo }) => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
                             className="shrink-0 self-start w-4 aspect-[0.94]"
                         />
-                        <a href={`/profile/more/${id}`}>Voir Plus</a>
+                        <a href={`/profile/more/${id}`}>{
+             getTranslation(
+              `See more`,  // -----> Englais
+              ` Voir Plus`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</a>
                     </div>
                 </div>
             </div>

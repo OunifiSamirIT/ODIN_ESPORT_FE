@@ -6,8 +6,10 @@ import Placeholder from "../../../assets/placeholder.jpg"
 import { useNavigate } from 'react-router-dom';
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
+import {Context} from "../../index"
 
 const PlayerCard = ({ userInfo }) => {
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const { id } = useParams();
@@ -97,7 +99,15 @@ const PlayerCard = ({ userInfo }) => {
                 <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
               </div>
               <div className="text-base font-medium text-blue-600">
-                Joueur
+              {
+             getTranslation(
+              `Players`,  // -----> Englais
+              `Joueurs`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
               </div>
             </div>
           </div>
@@ -110,7 +120,15 @@ const PlayerCard = ({ userInfo }) => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
                     className="shrink-0 my-auto aspect-square w-[15px]"
                   />
-                  <Link to={'/setting/personal'} className="flex items-center"><p>Modifier</p></Link>
+                  <Link to={'/setting/personal'} className="flex items-center"><p>{
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</p></Link>
                 </div> :
                 <>
                   <div className="flex items-center gap-3 md:w-fit w-full">
@@ -127,7 +145,15 @@ const PlayerCard = ({ userInfo }) => {
                       </svg>
 
                       {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
-                        <button className="flex items-center " onClick={sendFriendRequest}><p>Ajouter</p></button>}
+                        <button className="flex items-center " onClick={sendFriendRequest}><p>{
+                          getTranslation(
+                           `Add`,  // -----> Englais
+                           `Ajouter`, //  -----> Francais
+                         //   ``,  //  -----> Turkey
+                         //   `` ,  //  -----> Allemagne
+                           ) 
+             
+                         } </p></button>}
                     </div>
                     {acceptedFriend?.status === 'accepted' ? <div>
                       <a href={`https://wa.me/${getWhatsappPrefix(userInfo.user.optionalattributs)}${userInfo.user.numWSup}`} target="_blank">
@@ -166,7 +192,18 @@ const PlayerCard = ({ userInfo }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/a2ad5d0e7c1cc757b7d699a58b21f17f4dfeb3117bc9f1e3f4d361257cb7cc63?"
               className="self-stretch w-5 aspect-[1.3]"
             />
-            <div className="my-auto">Licence :</div>
+            <div className="my-auto">
+            {
+             getTranslation(
+              `License :`,  // -----> Englais
+              `Licence :`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+              
+              </div>
 
             {userInfo.player?.Licence ? <img
               loading="lazy"
@@ -235,7 +272,16 @@ const PlayerCard = ({ userInfo }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
               className="shrink-0 self-center w-5 aspect-square"
             />
-            <div className="grow">Compétences</div>
+            <div className="grow">     
+                        {
+             getTranslation(
+              `Skills`,  // -----> Englais
+              ` Compétences`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
           </div>
           <div className="flex gap-2  hidden  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
@@ -325,7 +371,15 @@ const PlayerCard = ({ userInfo }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
               className="shrink-0 w-4 aspect-[0.94]"
             />
-            <a href={`/profile/more/${id}`}>Voir Plus</a>
+            <a href={`/profile/more/${id}`}>{
+             getTranslation(
+              `See more`,  // -----> Englais
+              ` Voir Plus`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</a>
           </div>
         </div >
       </div >
