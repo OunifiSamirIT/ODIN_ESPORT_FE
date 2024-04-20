@@ -121,6 +121,7 @@ import Challenges from "./pages/Challenge/index.jsx";
 import AdminChallenges from "./pages/Admin/Challenges.jsx";
 import AddChallenge from "./pages/Admin/Components/AddChallenge.jsx";
 import ChallengeDetais from "./pages/Challenge/Details.jsx";
+import Searchpage from "./components/Searchpage.jsx";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null)
@@ -279,7 +280,7 @@ function Root() {
 
               <Route exact path="/404" element={<Error />} />
               {/* Profile routes */}
-
+              <Route exact path="/searchpage" element={<Searchpage />} />
               <Route exact path="/profile/:id" element={<Profile />} />
               <Route exact path="/profile/more/:id" element={<MoreProfile />} />
               <Route exact path={`/friends`} element={<FriendRequest />} />
