@@ -5,6 +5,7 @@ import LanguageToggler from "../../fixDesignComponents/languageToggler";
 
 // // wehed
 import { Context } from "../../index"
+import { Link } from "react-router-dom";
 const Index = () => {
     const [article, setArticle] = useState([])
     const rect1Ref = useRef(null);
@@ -64,12 +65,12 @@ const Index = () => {
         <div className="flex flex-col justify-center w-full bg-gray-200 max-h-fit">
             <div className="w-full flex justify-center bg-white shadow-sm">
                 <div className="max-w-[1344px] flex md:gap-5 gap-2 justify-center md:justify-between w-full  max-md:flex-wrap max-md:max-w-full">
-                    <img
+                <Link to="/">   <img
                     
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/2a75ed34d5c19415cab78b345b0d5336760c4e7969ac95ce58c0988fa6ca72f6?"
                         className="shrink-0 md:mt-0 mt-2 my-auto w-36 max-w-full aspect-[2.78]"
-                    />
+                    /></Link> 
                     <div className="flex max-md:gap-x-5 max-md:gap-y-4 md:gap-5 justify-center items-center py-4 max-md:flex-wrap">
                         <div className="self-stretch my-auto text-base font-medium text-zinc-900">
                             Contact
