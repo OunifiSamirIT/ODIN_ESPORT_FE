@@ -1041,7 +1041,7 @@ const More = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex text-base font-light max-sm:text-center text-neutral-900">
+                    <div className="flex text-base text-center font-light max-sm:text-center text-neutral-900">
                       {CurrentUser?.user.discreptionBio}
                     </div>
                   </div>
@@ -1652,7 +1652,7 @@ const More = () => {
                         )}
                       </div>
                     </div>
-                    <div className="flex text-left text-base font-light max-sm:text-center text-neutral-900">
+                    <div className="flex text-center text-base font-light max-sm:text-center text-neutral-900">
                       {CurrentUser.user.discreptionBio}
                     </div>
                   </div>
@@ -2140,7 +2140,7 @@ const More = () => {
                         </div> */}
                       </div>
                     </div>
-                    <div className="flex text-center md:text-left text-left text-break font-light  text-neutral-900">
+                    <div className="flex text-center md:text-left text-break font-light  text-neutral-900">
                       {CurrentUser?.user.discreptionBio}
                     </div>
                   </div>
@@ -2693,7 +2693,7 @@ const More = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex text-left text-break font-light  text-neutral-900">
+                    <div className="flex text-center text-break font-light  text-neutral-900">
                       {CurrentUser?.user.discreptionBio}
                     </div>
                   </div>

@@ -271,7 +271,7 @@ function Header() {
                 </div>
               </div>
 
-              <BurgerMenuLink Href={'/home'} Title={'Rechercher'} Svg={``}>
+              <BurgerMenuLink Href={'/searchpage'} Title={'Rechercher'} Svg={``}>
                 <svg
                   width="21"
                   height="20"
