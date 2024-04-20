@@ -8598,8 +8598,8 @@ function Register() {
                                     <label className="tal1 block mb-2 ">
                                       {
                                         getTranslation(
-                                          `You can select up to 10 skills!`,  // -----> Englais
-                                          `Vous pouvez selectionner au maximum 10 compétences !`, //  -----> Francais
+                                          `I authorize Odin E-Sport to share my posts outside the platform.`,  // -----> Englais
+                                          ` J'autorise Odin E-Sport à partager mes publications hors de la plateforme.`, //  -----> Francais
                                           ``,  //  -----> Turkey
                                           ``,  //  -----> Allemagne
                                         )
