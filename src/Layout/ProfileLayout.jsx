@@ -82,7 +82,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
             <HomeLayout>
                 <div className="self-center mt-[100px] w-full max-w-[1344px]">
                     <div className="flex gap-2 max-md:flex-col max-md:gap-0 max-md:">
-                        <div className="flex flex-col w-full md:w-1/2 max-sm:px-4 ">
+                        <div className="flex flex-col w-full md:w-1/2">
                             <div className="flex flex-col">
                                 {CurrentUser?.user.profil === 'player' && <Player userInfo={CurrentUser} />}
                                 {CurrentUser?.user.profil === 'coach' && <Entraineur userInfo={CurrentUser} />}
@@ -105,10 +105,10 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                         </Link>} */}
                                     </div>
                                     <div className="mt-8 max-md:max-w-full">
-                                        <div className="flex gap-4 md:gap-8 flex-wrap ">
+                                        <div className="grid grid-cols-2 flex gap-4 md:gap-8 flex-wrap ">
                                             {Invitation.map((item, index) => {
                                                 return (<div key={index} className="flex flex-col max-sm:flex-1">
-                                                    <div className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">
+                                                    <a href={`/profile/${item.receiver.id}`} className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">
                                                         <img
                                                             loading="lazy"
                                                             srcSet={item.receiver.image ? item.receiver.image : PlaceHolder}
@@ -116,16 +116,16 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                         />
                                                         <div className="mt-2 font-bold">{item.receiver.nom}</div>
                                                         <div className="text-sm font-light">{item.receiver.profil}</div>
-                                                        <div className="text-center justify-center self-stretch px-7 py-2 mt-2 font-medium text-white mx-3  bg-blue-600 rounded-[30px] max-md:px-5">
+                                                        
+                                                        <div className="hidden md:flex text-center justify-center self-stretch px-7 py-2 mt-2 font-medium text-white mx-3  bg-blue-600 rounded-[30px] max-md:px-5">
                                                             <a href={`/profile/${item.receiver.id}`}> Voir Plus</a>
                                                         </div>
-                                                        {owner && <div className="text-center justify-center self-stretch px-7 py-2 mt-2 font-medium mx-3 text-white bg-orange-500 rounded-[30px] max-md:px-5">
+                                                        {owner && <div className="hidden md:flex text-center justify-center self-stretch px-7 py-2 mt-2 font-medium mx-3 text-white bg-orange-500 rounded-[30px] max-md:px-5">
                                                             <button onClick={() => deleteInviation(item.receiver.id)}>Supprimer</button>
                                                         </div>}
-                                                    </div>
+                                                    </a>
                                                 </div>)
                                             })}
-
                                         </div>
                                     </div>
                                 </div>}

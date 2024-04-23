@@ -25,6 +25,17 @@ const ChallengeDetais = () => {
     const [commentShow, setCommentShow] = useState(false);
     const [hasParticipated, setHasParticipated] = useState(false)
     const [dropdown, setDropdown] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false);
+    const video = useRef();
+    const playVideo = () => {
+        if (isPlaying) {
+            video.current.pause();
+        } else {
+            video.current.play();
+        }
+        setIsPlaying(!isPlaying);
+
+    }
     const handleVote = async () => {
         const formData = new FormData();
         formData.append('challengesId', challengeId)
@@ -53,12 +64,12 @@ const ChallengeDetais = () => {
     const handleDelete = async (id) => {
         console.log(showCase)
 
-        const response = fetch(`${Config.LOCAL_URL}/api/participant/delete/${id}`,{
-            method : 'DELETE'
+        const response = fetch(`${Config.LOCAL_URL}/api/participant/delete/${id}`, {
+            method: 'DELETE'
         })
-         const result = await response
+        const result = await response
 
-        if(result.status === 200){
+        if (result.status === 200) {
             fetchChallenges()
             setShowCase(false)
             setHasParticipated(false)
@@ -281,7 +292,7 @@ const ChallengeDetais = () => {
                             <div className="flex flex-col ml-5 w-[62%] max-md:ml-0 max-md:w-full">
                                 <div className="flex flex-col grow pt-6 w-full bg-white rounded-none max-md:max-w-full">
                                     <div className="flex gap-4 justify-between px-8 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
-                                        <div className="flex gap-5 justify-between font-light text-zinc-900">
+                                        <div className="flex gap-4 justify-between font-light text-zinc-900">
                                             <img
                                                 loading="lazy"
                                                 srcSet={showCase.user.image}
@@ -294,7 +305,7 @@ const ChallengeDetais = () => {
                                             </div>
                                         </div>
                                         <div className="relative flex gap-2 self-start py-2">
-                                            <svg className={'pointer'} onClick={() =>  isOwner(showCase.user.id) == true ? setDropdown(!dropdown) : setDropdown(false)} width="32" height="21" viewBox="0 0 32 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg className={'pointer'} onClick={() => isOwner(showCase.user.id) == true ? setDropdown(!dropdown) : setDropdown(false)} width="32" height="21" viewBox="0 0 32 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_2800_8736)">
                                                     <path d="M3.375 13C4.75571 13 5.875 11.8807 5.875 10.5C5.875 9.11929 4.75571 8 3.375 8C1.99429 8 0.875 9.11929 0.875 10.5C0.875 11.8807 1.99429 13 3.375 13Z" fill="#1D1E21" />
                                                     <path d="M16.375 13C17.7557 13 18.875 11.8807 18.875 10.5C18.875 9.11929 17.7557 8 16.375 8C14.9943 8 13.875 9.11929 13.875 10.5C13.875 11.8807 14.9943 13 16.375 13Z" fill="#1D1E21" />
@@ -310,7 +321,7 @@ const ChallengeDetais = () => {
                                             {dropdown ? (
                                                 <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                     <button
-                                                        onClick={()=> handleDelete(showCase.id)}
+                                                        onClick={() => handleDelete(showCase.id)}
                                                         className="flex gap-1 items-center px-4 py-2 w-full text-gray-800 hover:bg-gray-200"
                                                     >
                                                         Delete
@@ -490,13 +501,17 @@ const ChallengeDetais = () => {
                 />
                 <div>Revenir au Camps</div>
             </div>
-            <div className="flex flex-col px-8 py-10  bg-white rounded-[10px] max-md:px-5 col-span-2">
+            <div className="flex flex-col px-8 py-10  bg-white rounded-[10px]  col-span-2">
                 <div className="flex overflow-hidden relative flex-col justify-center items-center">
-                    <video class="object-cover"
-                        controls
+                    <video onClick={playVideo} ref={video} class="object-cover w-full h-[320px] bg-red-500 aspect-square"
                         src={`${challenges.video}`}
                     >
                     </video>
+                    {!isPlaying && <svg onClick={playVideo} className="absolute cursor-pointer" width="79" height="78" viewBox="0 0 79 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M29.1241 55.8515H28.154C28.0849 55.8261 28.0145 55.8045 27.9432 55.7867C26.2758 55.4558 25.0525 54.0157 25.0516 52.331C25.0453 43.6342 25.0453 34.9373 25.0516 26.2405C25.0553 25.678 25.1978 25.1252 25.4663 24.631C26.3302 22.9895 28.5453 22.117 30.5367 23.2824C34.4485 25.5727 38.3828 27.8215 42.3085 30.0875C45.7953 32.1034 49.2824 34.1163 52.7698 36.1264C54.3179 37.0223 55.0065 38.6317 54.5443 40.2732C54.2635 41.2702 53.6259 41.9734 52.7343 42.4874C46.2143 46.2438 39.7055 50.02 33.1777 53.7634C31.8585 54.5202 30.63 55.4575 29.1241 55.8515Z" fill="white" />
+                        <circle cx="39.3922" cy="39.3004" r="38.1207" stroke="white" />
+                    </svg>}
+
                 </div>
                 <div className="flex gap-4 justify-between mt-4 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
                     <div className="my-auto text-3xl font-bold">{challenges.name}</div>
@@ -517,9 +532,6 @@ const ChallengeDetais = () => {
                         </div>
                     </div>
                 </div>
-
-
-
                 {hasParticipated ? <div className="flex justify-center items-center p-4 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
                     Vous avez deja participé !
                 </div> :
@@ -535,8 +547,7 @@ const ChallengeDetais = () => {
                                     </clipPath>
                                 </defs>
                             </svg>
-                            {expired ? <div>Challenge terminer</div> : <button onClick={() => setIsOpen(true)}>Participer</button>}
-
+                            {expired ? <div>Challenge terminée</div> : <button onClick={() => setIsOpen(true)}>Participer</button>}
                         </div>
                     </div>
                 }

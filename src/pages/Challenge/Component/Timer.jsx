@@ -46,7 +46,7 @@ const Timer = ({ startDate, endDate , setExpired }) => {
           {days} Jours {hours} Heures {minutes} Minutes restant
         </p>
       ) : (
-        <p>Durée de challenge terminer</p>
+        <p>Challenge terminer 🥳</p>
       )}
     </div>
   );

@@ -1573,7 +1573,7 @@ function Demo( ) {
           </div>
           <div className="flex gap-5 justify-between py-2 mt-4 md:mt-6 max-md:flex-wrap border-t-white border-t-2 max-md:max-w-full">
             <div className="flex flex-col md:flex-row w-full gap-2 md:gap-3 self-end items-center justify-between ">
-              <a  href={'https://odinesport.com/uploads/image-1713610149757.pdf#toolbar=0'} className="tal1 flex text-sm font-medium text-white underline">
+              <a  href={'https://odinesport.com/uploads/image-1713610263276.pdf#toolbar=0'} className="tal1 flex text-sm font-medium text-white underline">
                 
                 {
              getTranslation(
@@ -1584,10 +1584,8 @@ function Demo( ) {
               ) 
 
             } 
-
-
               </a>
-              <div className="tal1 flex text-sm font-medium text-white underline">
+              <a  href={'https://odinesport.com/uploads/image-1713610149757.pdf#toolbar=0'} className="tal1 flex text-sm font-medium text-white underline">
                  
 
                 {
@@ -1599,10 +1597,10 @@ function Demo( ) {
               ) 
 
             } 
-              </div>
+              </a>
             </div>
           </div>{" "}
-          <a  href={'https://odinesport.com/uploads/image-1713610263276.pdf#toolbar=0'} className="tal1 flex flex-col items-center justify-between mt-1 text-xs text-white">
+          <div className="tal1 flex flex-col items-center justify-between mt-1 text-xs text-white">
             {
              getTranslation(
               ` All Rights Reserved © 2024 Odin Esport`,  // -----> Englais
@@ -1612,7 +1610,7 @@ function Demo( ) {
               ) 
 
             } 
-          </a>
+          </div>
         </div>
       </div>
     </div>
