@@ -164,7 +164,7 @@ function Root() {
       console.log("_____", localStorage.getItem("language"));
       
       if (!localStorage.getItem("language")) {
-        localStorage.setItem("language", "fr");
+        localStorage.setItem("language", "Fr");
         console.log("moush mawjoud", localStorage.getItem("language"));
         _setLang("Fr")
       } else {

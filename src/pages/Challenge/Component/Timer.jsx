@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
+import { Context } from '../../../index';
 const Timer = ({ startDate, endDate , setExpired }) => {
   const [remainingTime, setRemainingTime] = useState();
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
+  
   // Calculate the remaining time between the current time and the end date
   function calculateRemainingTime() {
     const now = new Date().getTime();
@@ -43,10 +46,42 @@ const Timer = ({ startDate, endDate , setExpired }) => {
     <div className='text-wrap'>
       {remainingTime > 0 ? (
         <p>
-          {days} Jours {hours} Heures {minutes} Minutes restant
+          {days} {
+             getTranslation(
+              `Days`,  // -----> Englais
+              `Jours`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }  {hours} {
+              getTranslation(
+               `Hours`,  // -----> Englais
+               `Heures`, //  -----> Francais
+             //   ``,  //  -----> Turkey
+             //   `` ,  //  -----> Allemagne
+               ) 
+ 
+             }  {minutes} {
+              getTranslation(
+               `Minutes left`,  // -----> Englais
+               `Minutes restant`, //  -----> Francais
+             //   ``,  //  -----> Turkey
+             //   `` ,  //  -----> Allemagne
+               ) 
+ 
+             }
         </p>
       ) : (
-        <p>Challenge terminer 🥳</p>
+        <p> {
+          getTranslation(
+           `Challenge completed `,  // -----> Englais
+           `Challenge terminé`, //  -----> Francais
+         //   ``,  //  -----> Turkey
+         //   `` ,  //  -----> Allemagne
+           ) 
+
+         } </p>
       )}
     </div>
   );

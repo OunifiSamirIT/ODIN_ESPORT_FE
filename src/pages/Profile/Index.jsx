@@ -3,7 +3,7 @@ import Header from '../../components/Header';
 import Terrain from "../../components/Terrain";
 import ProfileLayout from "../../Layout/ProfileLayout";
 import PlaceHolder from "../../assets/placeholder.jpg"
-
+import {Context} from "../../index"
 import { useForm } from "react-hook-form";
 import Leftnav from "../../components/Leftnav";
 import Rightchat from "../../components/Rightchat";
@@ -61,6 +61,9 @@ const Index = () => {
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
   const [posting, setPosting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [postsData, setPostsData] = useState([]);
@@ -875,7 +878,17 @@ const Index = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="aspect-square w-[25px]"
                             />
-                            <span className="d-none-xs ml-2">Photo</span>
+                            <span className="d-none-xs ml-2">
+                            {
+             getTranslation(
+              `Photos`,  // -----> Englais
+              `Photos`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                              </span>
                           </label>
 
                           <label
@@ -893,7 +906,19 @@ const Index = () => {
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="aspect-square w-[25px]"
-                            />                            <span className="d-none-xs ml-2"> Video</span>
+                            />                            <span className="d-none-xs ml-2"> 
+                            
+                            {
+             getTranslation(
+              `Videos`,  // -----> Englais
+              `Vidéos`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                            
+                            </span>
                           </label>
 
                           <label
@@ -992,7 +1017,16 @@ const Index = () => {
                               onClick={() => handleEditClick(article)}
                             >
                               <Link to={`/editPost/${article.id}`}>
-                                <span>Modifier</span>
+                                <span>
+                                  {
+             getTranslation(
+              `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</span>
                               </Link>{" "}
                             </label>
                           </button>
@@ -1000,7 +1034,15 @@ const Index = () => {
                             className="flex gap-1 items-center px-4 py-2 w-full text-gray-800 hover:bg-gray-200"
                             onClick={() => handleDeleteClick(article.id)}
                           >
-                            Delete
+                            {
+             getTranslation(
+              `Delete`,  // -----> Englais
+              `Supprimer`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                           </button>
                         </div>
                       ) : ''}
@@ -1021,7 +1063,18 @@ const Index = () => {
                                 src={article.video}
                                 type="video/mp4"
                               />
-                              Your browser does not support the video tag.
+
+                              
+         {
+             getTranslation(
+              ` Your browser does not support the video tag.`,  // -----> Englais
+              `votre navigateur ne supporte pas cette balise vidéo.`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                             
                             </video>{" "}
                           </div>
                         </div>
@@ -1079,7 +1132,19 @@ const Index = () => {
                           )}
                           <div className="flex items-center gap-2">
                             <span style={{ marginLeft: '1px', marginTop: '2px' }}>
-                              Jaime
+                              
+                              
+                              
+         {
+             getTranslation(
+              `Like`,  // -----> Englais
+              ` J'aime`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                             
                             </span>
                           </div>
                         </span>
@@ -1106,7 +1171,19 @@ const Index = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square fill-zinc-900"
                             />
-                            <div className="grow">Commenter</div>
+                            <div className="grow">
+                            
+                            
+                            {
+             getTranslation(
+              `Like`,  // -----> Englais
+              ` J'aime`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                            </div>
                           </div>
                         ) : (
                           <div className="flex gap-2 flex-col md:flex-row items-center">
@@ -1115,7 +1192,15 @@ const Index = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square fill-zinc-900"
                             />
-                            <div className="flex gap-2"> <span>Commenter</span></div>
+                            <div className="flex gap-2"> <span> {
+             getTranslation(
+              `Like`,  // -----> Englais
+              ` J'aime`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </span></div>
                           </div>
                         )}
                       </button>
@@ -1138,24 +1223,38 @@ const Index = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="w-5 aspect-square fill-zinc-900"
                           />
-                          <div className="grow">Copier le lien</div>
+                          <div className="grow">
+                            
+                            
+                          {
+             getTranslation(
+              `Copy Link`,  // -----> Englais
+              `  Copier le lien`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                           </div>
                         </div>
                         {isCopyLinkPopupVisible && (
                           <div className="copy-link-popup">
-                            lien copié!
+                           {
+             getTranslation(
+              `Link copied!`,  // -----> Englais
+              `  Lien copié!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                           
+     
                           </div>
                         )}
                       </button>
 
                     </span>
-
-
-
-
-
-
-
-
 
 
 
@@ -1221,7 +1320,19 @@ const Index = () => {
                                       }
                                       className="w-20 font-semibold ml-2"
                                     >
-                                      Répondre
+
+
+{
+             getTranslation(
+              `Reply`,  // -----> Englais
+              `Répondre`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+                                      
                                     </button>
                                   </div>
                                 </div>
@@ -1393,7 +1504,22 @@ const Index = () => {
                   </div>
 
                 </div>
-              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun publication pour le moment</div>}
+              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">  
+              
+              
+              
+         {
+             getTranslation(
+              ` No posts at the moment! `,  // -----> Englais
+              `Aucun publication pour le moment!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+              
+              
+              </div>}
             </div>
           </div>
         </div>}
@@ -1448,7 +1574,20 @@ const Index = () => {
                   </div>
 
                 </div>
-              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun Photo pour le moment</div>}
+              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+                
+                
+         {
+             getTranslation(
+              `No photos at the moment!`,  // -----> Englais
+              `Aucune Photo pour le moment!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                
+                </div>}
             </div>
           </div>
         </div>}
@@ -1492,14 +1631,30 @@ const Index = () => {
                                 src={article.video}
                                 type="video/mp4"
                               />
-                              Your browser does not support the video tag.
+                              {
+             getTranslation(
+              ` Your browser does not support the video tag.`,  // -----> Englais
+              `votre navigateur ne supporte pas cette balise vidéo.`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                             </video>{" "}
                           </div>
                         ) : (
                           <div className="card-body d-block p-0 mb-3">
                             <div className="row ps-2 pe-2">
                               <div className="col-sm-12 p-1">
-                                Aucun Video Pour Le Moment
+                              {
+             getTranslation(
+              `No Videos at the moment!`,  // -----> Englais
+              `Aucune vidéo pour le moment!`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                               </div>
                             </div>
                           </div>
@@ -1510,7 +1665,15 @@ const Index = () => {
                   </div>
 
                 </div>
-              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">Aucun Video pour le moment</div>}
+              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">{
+                getTranslation(
+                 `No Videos at the moment!`,  // -----> Englais
+                 `Aucune vidéo pour le moment!`, //  -----> Francais
+               //   ``,  //  -----> Turkey
+               //   `` ,  //  -----> Allemagne
+                 ) 
+   
+               } </div>}
 
 
 

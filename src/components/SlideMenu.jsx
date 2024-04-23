@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import UserImage from "../assets/placeholder.jpg"
 import { Config } from "../config";
+import LanguageToggler from "../fixDesignComponents/languageToggler";
 const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const [expanded, setExpanded] = useState(false);
   const [lang, setLang] = useState('Français')
@@ -94,7 +95,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/3fb21d1ad3af303c8fe8ca3c06f84fa81ac2ef681719a85f8aae751c3eb5e1ef?"
               className="aspect-[1.49] w-[30px]"
             />
-            <div className="grow cursor-pointer" onClick={toggleLanguage}>{lang}</div>
+          <LanguageToggler hide={true} color2={true}/>
           </div>
           <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img

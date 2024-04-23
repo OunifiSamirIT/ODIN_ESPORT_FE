@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import gsap from "gsap";
 import { Context } from "../index";
 
-export default function LanguageToggler( {color=false}) {
+export default function LanguageToggler( {color=false, hide=false, color2=false}) {
   //start _________ translation context
   const { _currentLang, _setLang } = useContext(Context);
   //end _________ translation context
@@ -71,8 +71,24 @@ export default function LanguageToggler( {color=false}) {
       });
   };
   return (
-    <div className="switcherLanguageCon" onClick={openPopUp}>
-      <label className="currentLangCon">
+    <div 
+      style={hide ? {
+        width: "100%",
+        textAlign: "left"
+      } : { showdaw: "none"}}
+    className="switcherLanguageCon"  onClick={openPopUp}>
+      <label 
+       style={hide ? {
+        width: "100%",
+        display: "flex",
+        justifyContent: "flex-start",
+        fontWeight: 500,
+        transform: "translateX(-7px)",
+          fontSize: 12,
+      } : { showdaw: "none"}}
+      className="currentLangCon">
+        {!hide &&
+        
 <svg
           width="24"
           height="24"
@@ -86,9 +102,14 @@ export default function LanguageToggler( {color=false}) {
           />
         </svg>
 
+        }
         <span style={{
-          color: color && "#111",
+          color: color ? "#222" : "",
+          fontWeight: hide ? 500 : "",
         }}>{_currentLang}</span>
+
+{!hide &&
+        
         <svg
           width="24"
           height="16"
@@ -101,9 +122,16 @@ export default function LanguageToggler( {color=false}) {
             fill={color ? "#111" : "#fff"}
           />
         </svg>
+       
+                }
       </label>
 
-      <div className="togglerCon">
+      <div className="togglerCon" style={
+        {
+          color: color2  ? "#111" : "",
+
+        }
+      }>
         <label
           onClick={() => {
             _swichLanguageHandler("Fr");

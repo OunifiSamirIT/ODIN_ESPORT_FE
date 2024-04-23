@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Context } from "../../index";
 import Header from "../../components/Header2";
 import {
   Link,
@@ -15,7 +16,7 @@ import { Config } from "../../config";
 function AcceuilOffre() {
   const emailRef = useRef(null);
   const [copied, setCopied] = useState(false);
-
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
   const copyToClipboard = () => {
     const email = emailRef.current.textContent;
     navigator.clipboard
@@ -119,7 +120,15 @@ function AcceuilOffre() {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      Acceuil
+                    {
+             getTranslation(
+              `Home`,  // -----> Englais
+              `Acceuil`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                     </div>
                   </div>
                 </Link>
@@ -158,7 +167,16 @@ function AcceuilOffre() {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      Profil
+                      
+                    {
+             getTranslation(
+              `Profile`,  // -----> Englais
+              `Profil`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                     </div>
                   </div>{" "}
                 </Link>
@@ -188,7 +206,15 @@ function AcceuilOffre() {
                           </svg>
                         </div>
                         <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                          Agents
+                        {
+             getTranslation(
+              `Agents`,  // -----> Englais
+              `Agents`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                         </div>
                       </div>{" "}
                     </Link>
@@ -225,7 +251,15 @@ function AcceuilOffre() {
                           </svg>
                         </div>
                         <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                          Joueur
+                        {
+             getTranslation(
+              `Player`,  // -----> Englais
+              `Joueur`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                         </div>
                       </div>{" "}
                     </Link>
@@ -244,7 +278,15 @@ function AcceuilOffre() {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                       className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                     />
-                    <div>Événements</div>
+                    <div>{
+             getTranslation(
+              `Events`,  // -----> Englais
+              `Événements`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                   </div>
                   <img
                     loading="lazy"
@@ -274,7 +316,15 @@ function AcceuilOffre() {
                                 fill="#1D1E21"
                               />
                             </svg>
-                            <div>Camps</div>
+                            <div> {
+             getTranslation(
+              `Camps`,  // -----> Englais
+              `Camps`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                           </div>
                         </div>
                       </Link>
@@ -295,7 +345,15 @@ function AcceuilOffre() {
                               />
                             </svg>
 
-                            <div>Challenges</div>
+                            <div> {
+             getTranslation(
+              `Challenges`,  // -----> Englais
+              `Challenges`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                           </div>
                         </div>
                       </Link>
@@ -309,7 +367,15 @@ function AcceuilOffre() {
                               className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                             />
 
-                            <div>Evénnement ODIN</div>
+                            <div>{
+             getTranslation(
+              `ODIN Event`,  // -----> Englais
+              `Evénnement ODIN`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                           </div>
                         </div>
                       </Link>
@@ -327,7 +393,15 @@ function AcceuilOffre() {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a7fc5fd676e2d7354f4a7f19b0967db7f2d99a7e161c7c156ac1ce03217cf2c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                       />
-                      <div>Offres d’emploi</div>
+                      <div> {
+             getTranslation(
+              `Jobs Offers`,  // -----> Englais
+              `Offres d’emploi`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                     </div>
                   </div>
                 </Link>
@@ -344,7 +418,15 @@ function AcceuilOffre() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                           className="shrink-0 my-auto w-4 aspect-square fill-white"
                         />
-                        <div>Publier une offre</div>
+                        <div> {
+             getTranslation(
+              `Publish Offer`,  // -----> Englais
+              ` Publier une offre`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                       </div>
                     )}
                 </Link>
@@ -455,12 +537,32 @@ function AcceuilOffre() {
                         className=" shrink-0 w-5 aspect-square"
                         alt="Copier"
                       />
-                      <div>Copier</div>
+                      <div>{
+             getTranslation(
+              `Copy`,  // -----> Englais
+              `Copier`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+</div>
                     </button>
                   </div>
                   {copied && (
                     <div className="text-green-500 text-base self-center">
-                      Email copied!
+                      
+                      {
+             getTranslation(
+              `Email copied!`,  // -----> Englais
+              `Email copié`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+                      
                     </div>
                   )}
                 </div>

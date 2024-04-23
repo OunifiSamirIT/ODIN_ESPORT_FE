@@ -879,7 +879,7 @@ function Demo( ) {
           </a>
         </div>
       </div>
-      <div class="flex justify-center items-center px-6 py-8 bg-neutral-900 max-md:px-3">
+      {/* <div class="flex justify-center items-center px-6 py-8 bg-neutral-900 max-md:px-3">
         <div class="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
           <div class="tal1 self-center text-3xl md:text-5xl font-bold text-white max-md:max-w-full">
             
@@ -955,7 +955,7 @@ function Demo( ) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="flex justify-center items-center px-16 py-12 w-full bg-blue-600 max-md:px-5 max-md:max-w-full">
         <div className="my-1.5 w-full max-w-[1184px] max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
