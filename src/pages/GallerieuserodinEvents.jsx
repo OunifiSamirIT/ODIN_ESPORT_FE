@@ -38,8 +38,28 @@ const Album = () => {
     navigate(`/defaultgroupevent/${id}`);
   };
 
+  // const optionsPays = paysAllInfo.map((country) => {
+  //   const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
+
+  //   return {
+  //     value: countryCode,
+  //     label: (
+  //       <div>
+  //         {countryCode && (
+  //           <span
+  //             className={`flag-icon flag-icon-${countryCode}`}
+  //             style={{ marginRight: "2px", width: "40px" }}
+  //           ></span>
+  //         )}
+  //         {country.name}
+  //       </div>
+  //     ),
+  //   };
+  // });
+
   const optionsPays = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+    const paysRS = country.name ? country.name : '';
 
     return {
       value: countryCode,
@@ -51,13 +71,11 @@ const Album = () => {
               style={{ marginRight: "2px", width: "40px" }}
             ></span>
           )}
-          {country.name}
+          {paysRS}
         </div>
       ),
     };
   });
-
-
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
@@ -512,7 +530,7 @@ const Album = () => {
                             <div className="grow">Pays</div>
                           </div>
                           <div className="flex flex-col justify-center mt-2 mr-1 text-xs font-light border border-solid  rounded-[30px]">
-                            <Select
+                            {/* <Select
                               options={optionsPays}
                               onChange={(selectedOption) => setSearchPays(selectedOption.label.props.children[1])}
                               value={optionsPays.find((option) => option.value === searchPays)}
@@ -536,7 +554,66 @@ const Album = () => {
                                 }),
                               }}
 
-                            />
+                            /> */}
+                            <Select
+                        options={optionsPays}
+                        // placeholder={
+                        //   getTranslation(
+                        //     `Country of residence`,  // -----> Englais
+                        //     `Pays de résidence`, //  -----> Francais
+                        //     ``,  //  -----> Turkey
+                        //     ``,  //  -----> Allemagne
+                        //   )
+
+                        // }
+                        // onChange={(selectedOption) => console.log(selectedOption)}
+                        styles={{
+                          control: (provided, state) => ({
+                            ...provided,
+                            borderRadius: "0.375rem", // You can adjust the radius as needed
+                            display: "flex",
+                            justifyContent: "center",
+                            borderRadius: "30px",
+
+                            fontSize: "14px", // Set the desired font size
+                            backgroundColor: "#ffffff", // Set the background color
+                            borderWidth: "none",
+
+
+
+                            paddingTop: "6px",
+                            paddingBottom: "6px",
+                            // marginTop: "4px",
+                            width: "100%",
+
+                            border: "0.5px solid #E5E5E5",
+                          }),
+                          menu: (provided, state) => ({
+                            ...provided,
+                            width: "100%", // Adjust the width as needed
+                          }),
+                        }}
+
+
+                        onChange={(selectedOption) =>
+                          setSearchPays(
+                            selectedOption.label.props.children[1]
+                          )
+                        }
+                        value={optionsPays.find(
+                          (option) => option.value === searchPays
+                        )}
+                        placeholder="Pays Camps"
+                        filterOption={(option, inputValue) => {
+                          const paysRS = option.label.props.children; // Assuming nationalite is directly the children of label
+                      
+                          const paysRSString = typeof paysRS === 'string' ? paysRS.toLowerCase() : paysRS.join("").toLowerCase(); // Join children of JSX element if it's an array
+                      
+                          return paysRSString.includes(inputValue.toLowerCase());
+                        }}
+                        // Ensure that all options are displayed even when filtered
+                        isSearchable
+                      />
                           </div>
                         </div>
                       </div>

@@ -110,6 +110,7 @@ import UserEvent from './pages/UserEvent';
 import ViewAlbum from './pages/Admin/Components/ViewAlbum';
 import ViewAlbumodinuser from './pages/ViewAlbumOdin';
 import Error from './pages/404';
+import Bussinse from './OdinBussinse/HomeBussinsse';
 
 
 import { BrowserRouter, Switch, Route, Navigate } from "react-router-dom";
@@ -226,7 +227,8 @@ function Root() {
           {/* <Route exact  path="/" element={<Demo />} /> */}
 
           <Route exact path={`/events`} element={<UserEvent />} />
-
+          <Route exact path={`/bussinse`} element={<Bussinse />} />
+          
           <Route exact path="/admin/album" element={<Album />} />
           <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
           <Route exact path="/admin/albumevents" element={<Albumevents />} />
