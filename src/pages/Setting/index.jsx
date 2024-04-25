@@ -8,6 +8,7 @@ import Personal from "./Personal";
 import { useParams } from "react-router-dom";
 import HomeLayout from "../../Layout/HomeLayout";
 import { Config } from "../../config";
+import { ToastContainer } from "react-toastify";
 const Index = () => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [currentTab, setCurrentTab] = useState('personal')
@@ -77,6 +78,7 @@ const Index = () => {
     return (
         <>
             <HomeLayout>
+
                 <SettingsLayout setCurrentTab={setCurrentTab} tab={tab}>
                     {currentTab === 'social' && <Social userInfo={userInfo}/>}
                     {currentTab === 'parametre' && <Parametre userInfo={userInfo} />}

@@ -218,11 +218,6 @@ function Home() {
         <Header />
         <div className="self-center px-3 md:px-2 mt-24 w-full max-w-[1344px] max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-2 max-md:flex-col max-md:gap-0">
-
-
-
-
-
             {/* left menu */}
             <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
               <div className="  flex flex-col items-start gap-3 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
@@ -310,8 +305,6 @@ function Home() {
                         Agents
                       </div>
                     </div>{" "}
-
-
                   </Link>
                     <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
                   </>
