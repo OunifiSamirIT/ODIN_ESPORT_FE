@@ -1,4 +1,4 @@
-const CustomButton = ({ title, containerStyles, iconRight, type, onClick }) => {
+const CustomButton = ({ title, containerStyles, iconRight, type, onClick ,onClose }) => {
   return (
     <button
       onClick={onClick}

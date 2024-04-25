@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));

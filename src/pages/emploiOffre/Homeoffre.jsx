@@ -19,7 +19,8 @@ function HomeOffre() {
 
 
   const optionsPays = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+    const paysRS = country.name ? country.name : '';
 
     return {
       value: countryCode,
@@ -31,7 +32,7 @@ function HomeOffre() {
               style={{ marginRight: "2px", width: "40px" }}
             ></span>
           )}
-          {country.name}
+          {paysRS}
         </div>
       ),
     };
@@ -608,13 +609,23 @@ function HomeOffre() {
                         </div>
 
 
-                        <div className="flex flex-col justify-center py-1.5 mt-2 text-xs font-light whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                        <div className="flex flex-col justify-center  mt-2 text-xs font-light whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
 
                           <Select
                             options={optionsPays}
                             //    onChange={(selectedOption) => setSearchPays(selectedOption.label.props.children[1])}
                             value={selectedPays}
-                            onChange={(selectedOption) => setSelectedPays(selectedOption.label.props.children[1])} placeholder="Pays Camps"
+                            onChange={(selectedOption) => handlePaysChange(selectedOption.label.props.children[1])}
+                             placeholder="Pays Offre"
+                             filterOption={(option, inputValue) => {
+                              const paysRS = option.label.props.children; // Assuming nationalite is directly the children of label
+                          
+                              const paysRSString = typeof paysRS === 'string' ? paysRS.toLowerCase() : paysRS.join("").toLowerCase(); // Join children of JSX element if it's an array
+                          
+                              return paysRSString.includes(inputValue.toLowerCase());
+                            }}
+                            // Ensure that all options are displayed even when filtered
+                            isSearchable
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,

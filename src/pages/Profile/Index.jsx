@@ -3,7 +3,7 @@ import Header from '../../components/Header';
 import Terrain from "../../components/Terrain";
 import ProfileLayout from "../../Layout/ProfileLayout";
 import PlaceHolder from "../../assets/placeholder.jpg"
-import {Context} from "../../index"
+import { Context } from "../../index"
 import { useForm } from "react-hook-form";
 import Leftnav from "../../components/Leftnav";
 import Rightchat from "../../components/Rightchat";
@@ -62,7 +62,7 @@ const Index = () => {
   const [fileType, setFileType] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
-  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
   const [posting, setPosting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -798,6 +798,15 @@ const Index = () => {
       setShowDropdown(null);
     }
   };
+  const formatDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    // Format the date object into the desired format
+    return dateObject.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
   const {
     register,
     handleSubmit,
@@ -879,16 +888,16 @@ const Index = () => {
                               className="aspect-square w-[25px]"
                             />
                             <span className="d-none-xs ml-2">
-                            {
-             getTranslation(
-              `Photos`,  // -----> Englais
-              `Photos`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              {
+                                getTranslation(
+                                  `Photos`,  // -----> Englais
+                                  `Photos`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
 
-            } 
-                              </span>
+                              }
+                            </span>
                           </label>
 
                           <label
@@ -906,18 +915,18 @@ const Index = () => {
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="aspect-square w-[25px]"
-                            />                            <span className="d-none-xs ml-2"> 
-                            
-                            {
-             getTranslation(
-              `Videos`,  // -----> Englais
-              `Vidéos`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                            />                            <span className="d-none-xs ml-2">
 
-            } 
-                            
+                              {
+                                getTranslation(
+                                  `Videos`,  // -----> Englais
+                                  `Vidéos`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              }
+
                             </span>
                           </label>
 
@@ -972,13 +981,14 @@ const Index = () => {
                     <figure className="avatar me-3">
                       <img
                         src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
-                        className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                        className="avatar me-3shadow-sm rounded-full aspect-square w-[64px] mr-2"
                         alt="post"
                       />
                     </figure>
                     <div className="flex flex-col">
                       <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
+                      <span className="d-block  font-xssss mt-0 text-grey-500">
+
                         {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
                         {article.user.user.profil == 'player' ? ' Joueur' : ''}
                         {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
@@ -986,7 +996,7 @@ const Index = () => {
                         {article.user.user.profil == 'scout' ? 'Scout' : ''}
                       </span>
                       <span className="d-block font-xssss fw-500 text-grey-500">
-                        {new Date(article.user.user.createdAt).toLocaleDateString()}
+                        {formatDate(article.user.user.createdAt)}
                       </span>
                     </div>
 
@@ -1019,14 +1029,14 @@ const Index = () => {
                               <Link to={`/editPost/${article.id}`}>
                                 <span>
                                   {
-             getTranslation(
-              `Edit`,  // -----> Englais
-              `Modifier`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                                    getTranslation(
+                                      `Edit`,  // -----> Englais
+                                      `Modifier`, //  -----> Francais
+                                      //   ``,  //  -----> Turkey
+                                      //   `` ,  //  -----> Allemagne
+                                    )
 
-            }</span>
+                                  }</span>
                               </Link>{" "}
                             </label>
                           </button>
@@ -1035,14 +1045,14 @@ const Index = () => {
                             onClick={() => handleDeleteClick(article.id)}
                           >
                             {
-             getTranslation(
-              `Delete`,  // -----> Englais
-              `Supprimer`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              getTranslation(
+                                `Delete`,  // -----> Englais
+                                `Supprimer`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
 
-            } 
+                            }
                           </button>
                         </div>
                       ) : ''}
@@ -1064,17 +1074,17 @@ const Index = () => {
                                 type="video/mp4"
                               />
 
-                              
-         {
-             getTranslation(
-              ` Your browser does not support the video tag.`,  // -----> Englais
-              `votre navigateur ne supporte pas cette balise vidéo.`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                             
+                              {
+                                getTranslation(
+                                  ` Your browser does not support the video tag.`,  // -----> Englais
+                                  `votre navigateur ne supporte pas cette balise vidéo.`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              }
+
                             </video>{" "}
                           </div>
                         </div>
@@ -1132,19 +1142,19 @@ const Index = () => {
                           )}
                           <div className="flex items-center gap-2">
                             <span style={{ marginLeft: '1px', marginTop: '2px' }}>
-                              
-                              
-                              
-         {
-             getTranslation(
-              `Like`,  // -----> Englais
-              ` J'aime`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                             
+
+
+                              {
+                                getTranslation(
+                                  `Like`,  // -----> Englais
+                                  ` J'aime`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              }
+
                             </span>
                           </div>
                         </span>
@@ -1172,17 +1182,17 @@ const Index = () => {
                               className="w-5 aspect-square fill-zinc-900"
                             />
                             <div className="grow">
-                            
-                            
-                            {
-             getTranslation(
-              `Like`,  // -----> Englais
-              ` J'aime`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
+
+                              {
+                                getTranslation(
+                                  `Comment`,  // -----> Englais
+                                  ` Commenter`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              }
                             </div>
                           </div>
                         ) : (
@@ -1193,21 +1203,21 @@ const Index = () => {
                               className="w-5 aspect-square fill-zinc-900"
                             />
                             <div className="flex gap-2"> <span> {
-             getTranslation(
-              `Like`,  // -----> Englais
-              ` J'aime`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              getTranslation(
+                                `Comment`,  // -----> Englais
+                                ` Commenter`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
 
-            } </span></div>
+                            } </span></div>
                           </div>
                         )}
                       </button>
 
 
 
-                      <button
+                      {/* <button
                         onClick={() => {
                           copyLinkToClipboard(article.id);
                           setIsCopyLinkPopupVisible(true);
@@ -1252,7 +1262,7 @@ const Index = () => {
      
                           </div>
                         )}
-                      </button>
+                      </button> */}
 
                     </span>
 
@@ -1270,12 +1280,12 @@ const Index = () => {
                                       comment.user &&
                                       comment.user.user?.image
                                     }
-                                    className="shadow-sm rounded-full w-[64px] aspect-square"
+                                    className="shadow-sm max-w-[54px] rounded-full md:max-w-[57px] aspect-square"
                                     alt="post"
                                   />
                                 </figure>
                                 <div className="flex flex-col w-full">
-                                  <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                  <div className=" flex text-wrap flex-wrap flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
                                     <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                       <div className="flex flex-col py-1 font-light text-zinc-900">
                                         <div className="fw-700 text-grey-900 font-xssss mt-1">
@@ -1284,18 +1294,18 @@ const Index = () => {
                                           {comment.user &&
                                             comment.user.user.prenom}
                                         </div>
-                                        <div className="mt-1 text-xs">
+                                        <div className=" text-xs font-xssss">
                                           {comment.user &&
                                             comment.user.user.profil}
                                         </div>
-                                        <div className="mt-1 text-xs">
-                                          {new Date(
+                                        <div className="  text-xs font-xssss">
+                                          {formatDate(
                                             comment.createdAt
-                                          ).toLocaleDateString()}
+                                          )}
                                         </div>
                                       </div>
                                     </div>
-                                    <div className="mt-2 text-base font-light text-zinc-900 px-4 ">
+                                    <div className="mt-2 text-wrap text-break font-light text-zinc-900 px-4 ">
                                       {comment.description}
                                     </div>
 
@@ -1312,6 +1322,7 @@ const Index = () => {
                                       ) : (
                                         <BiSolidHeart className="size-7 text-black" />
                                       )}
+
                                     </button>
 
                                     <button
@@ -1322,17 +1333,17 @@ const Index = () => {
                                     >
 
 
-{
-             getTranslation(
-              `Reply`,  // -----> Englais
-              `Répondre`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                                      {
+                                        getTranslation(
+                                          `Reply`,  // -----> Englais
+                                          `Répondre`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
 
-            } 
+                                      }
 
-                                      
+
                                     </button>
                                   </div>
                                 </div>
@@ -1348,7 +1359,7 @@ const Index = () => {
                                           key={reply.id}
                                           className="reply mb-0"
                                         >
-                                          <div className="flex items-start py-2">
+                                          <div className="flex items-start py-2 gap-3 mt-1 mb-3">
                                             <figure className="rounded-full overflow-hidden flex-shrink-0">
                                               <img
                                                 src={
@@ -1359,10 +1370,10 @@ const Index = () => {
                                                 alt="post"
                                               />
                                             </figure>
-                                            <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                            <div className="w-full flex text-wrap flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
                                               <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                                 <div className="flex flex-col py-1 font-light text-zinc-900">
-                                                  <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                                  <div className="fw-700 text-grey-900 font-xssss ">
                                                     {reply.user &&
                                                       reply.user
                                                         .nom}
@@ -1376,9 +1387,9 @@ const Index = () => {
                                                         .profil}
                                                   </div>
                                                   <div className="mt-1 text-xs">
-                                                    {new Date(
+                                                    {formatDate(
                                                       reply.createdAt
-                                                    ).toLocaleDateString()}
+                                                    )}
                                                   </div>
                                                 </div>
                                               </div>
@@ -1394,7 +1405,7 @@ const Index = () => {
                                     )}
                                   {replyingToCommentId ==
                                     comment.id && (
-                                      <div className="flex items-center gap-3 mt-1 mb-3">
+                                      <div className="flex items-center gap-3 mt-1 mb-3 ">
                                         <figure className="avatar">
                                           <img
                                             src={
@@ -1504,21 +1515,21 @@ const Index = () => {
                   </div>
 
                 </div>
-              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">  
-              
-              
-              
-         {
-             getTranslation(
-              ` No posts at the moment! `,  // -----> Englais
-              `Aucun publication pour le moment!`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
 
-            } 
-              
-              
+
+
+                {
+                  getTranslation(
+                    ` No posts at the moment! `,  // -----> Englais
+                    `Aucun publication pour le moment!`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
+
+                }
+
+
               </div>}
             </div>
           </div>
@@ -1554,7 +1565,7 @@ const Index = () => {
                     </div>
                   </div>
 
-                  <div className="card-body d-block p-0 mb-3">
+                  <div className="card-body d-block p-0 mb-3 mt-3">
                     <div className="row ps-2 pe-2">
                       <div className="col-sm-12 p-1">
                         <div className="card-body d-block p-0 mb-3">
@@ -1575,19 +1586,19 @@ const Index = () => {
 
                 </div>
               )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-                
-                
-         {
-             getTranslation(
-              `No photos at the moment!`,  // -----> Englais
-              `Aucune Photo pour le moment!`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                
-                </div>}
+
+                {
+                  getTranslation(
+                    `No photos at the moment!`,  // -----> Englais
+                    `Aucune Photo pour le moment!`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
+
+                }
+
+              </div>}
             </div>
           </div>
         </div>}
@@ -1632,29 +1643,29 @@ const Index = () => {
                                 type="video/mp4"
                               />
                               {
-             getTranslation(
-              ` Your browser does not support the video tag.`,  // -----> Englais
-              `votre navigateur ne supporte pas cette balise vidéo.`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                                getTranslation(
+                                  ` Your browser does not support the video tag.`,  // -----> Englais
+                                  `votre navigateur ne supporte pas cette balise vidéo.`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
 
-            } 
+                              }
                             </video>{" "}
                           </div>
                         ) : (
                           <div className="card-body d-block p-0 mb-3">
                             <div className="row ps-2 pe-2">
                               <div className="col-sm-12 p-1">
-                              {
-             getTranslation(
-              `No Videos at the moment!`,  // -----> Englais
-              `Aucune vidéo pour le moment!`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                                {
+                                  getTranslation(
+                                    `No Videos at the moment!`,  // -----> Englais
+                                    `Aucune vidéo pour le moment!`, //  -----> Francais
+                                    //   ``,  //  -----> Turkey
+                                    //   `` ,  //  -----> Allemagne
+                                  )
 
-            } 
+                                }
                               </div>
                             </div>
                           </div>
@@ -1667,13 +1678,13 @@ const Index = () => {
                 </div>
               )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">{
                 getTranslation(
-                 `No Videos at the moment!`,  // -----> Englais
-                 `Aucune vidéo pour le moment!`, //  -----> Francais
-               //   ``,  //  -----> Turkey
-               //   `` ,  //  -----> Allemagne
-                 ) 
-   
-               } </div>}
+                  `No Videos at the moment!`,  // -----> Englais
+                  `Aucune vidéo pour le moment!`, //  -----> Francais
+                  //   ``,  //  -----> Turkey
+                  //   `` ,  //  -----> Allemagne
+                )
+
+              } </div>}
 
 
 

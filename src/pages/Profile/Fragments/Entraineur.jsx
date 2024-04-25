@@ -11,6 +11,7 @@ import T532 from "../../../assets/5-3-2.png"
 import T541 from "../../../assets/5-4-1.png"
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
+import Modal from 'react-modal';
 import { Context } from "../../../index";
 const PlayerCard = ({ userInfo }) => {
 
@@ -21,7 +22,9 @@ const PlayerCard = ({ userInfo }) => {
     const [invitationSend, setInvitationSend] = useState(false);
     const [Invitation, setInvitation] = useState([]);
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
-    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [imageSrc, setImageSrc] = useState(null);
+    const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
     const isFriendAccepted = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`)
@@ -56,6 +59,41 @@ const PlayerCard = ({ userInfo }) => {
         // })
         // setInvitationSend(isFriend)
     }
+
+    // Styles pour la modale
+    const modalStyle = {
+        overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        },
+        content: {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'transparent', // Fond transparent
+            border: 'none', // Supprimer les bordures
+            // borderRadius: '50%', // Modal circulaire
+            padding: 0, // Pas de padding
+            width: '80vw', // Largeur relative de la fenêtre
+            height: '80vw', // Hauteur relative de la fenêtre
+            maxWidth: '400px', // Limite la largeur maximale
+            maxHeight: '400px', // Limite la hauteur maximale
+            overflow: 'hidden', // Cacher tout contenu dépassant
+            animation: 'fadeIn 0.3s ease-out', // Animation d'apparition
+        },
+    };
+
+
+    const openModal = (src) => {
+        setImageSrc(src);
+        setModalIsOpen(true);
+    };
+
+    // Fonction pour fermer la modale
+    const closeModal = () => {
+        setImageSrc(null);
+        setModalIsOpen(false);
+    };
     const copyLinkToClipboard = (articleId) => {
         // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
         const number = userInfo.user.numWSup;
@@ -72,9 +110,9 @@ const PlayerCard = ({ userInfo }) => {
             console.log('add as friend to copy number')
         }
 
-    };  const getWhatsappPrefix = (string) => {
+    }; const getWhatsappPrefix = (string) => {
         return string.split(',')[0].substring(1);
-      }
+    }
     useEffect(() => {
         isFriendAccepted()
     }, [id])
@@ -84,29 +122,60 @@ const PlayerCard = ({ userInfo }) => {
             <div className="flex flex-col items-center px-4 py-6 bg-white rounded-[10px]">
                 <div className="flex flex-col md:flex-row justify-between gap-4 w-full">
                     <div className="flex items-center md:w-fit w-full justify-center  md:mx-[0px] ">
-                        <img
+
+                        <div>
+                            {/* Bouton/image cliquable */}
+                            <a href="#" onClick={() => openModal(userInfo?.user.image ? userInfo?.user.image : Placeholder)}>
+                                <img
+                                    alt="profile"
+                                    loading="lazy"
+                                    srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
+                                    className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+                                />
+                            </a>
+
+                            {/* Modale d'agrandissement de l'image */}
+                            <Modal
+                                isOpen={modalIsOpen}
+                                onRequestClose={closeModal}
+                                contentLabel="Image Modal"
+                                style={modalStyle} // Styles personnalisés pour la modale
+                            >
+                                <div style={{ width: '100%', height: '100%' }}>
+                                    <img
+                                        alt="profile"
+                                        loading="lazy"
+                                        srcSet={imageSrc ? imageSrc : Placeholder}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Remplir tout l'espace disponible
+                                    />
+                                </div>
+                            </Modal>
+                        </div>
+
+
+                        {/* <img
                             alt="profile"
                             loading="lazy"
                             srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
                             className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
-                        />
+                        /> */}
                         <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
                             <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
                                 <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
                             </div>
                             <div className="text-base font-medium text-blue-600">
-                               
-         {
-             getTranslation(
-              `Coach`,  // -----> Englais
-              `Entraîneur`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                               
-                                
+                                {
+                                    getTranslation(
+                                        `Coach`,  // -----> Englais
+                                        `Entraîneur`, //  -----> Francais
+                                        //   ``,  //  -----> Turkey
+                                        //   `` ,  //  -----> Allemagne
+                                    )
+
+                                }
+
+
                             </div>
                         </div>
                     </div>
@@ -120,19 +189,19 @@ const PlayerCard = ({ userInfo }) => {
                                         className="shrink-0 my-auto aspect-square w-[15px]"
                                     />
                                     <Link to={'/setting/personal'} className="flex items-center hover:text-blue-900"><p>
-                                        
-                                    {
-             getTranslation(
-              `Edit`,  // -----> Englais
-              `Modifier`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                
-                                        
-                                        </p></Link>
+                                        {
+                                            getTranslation(
+                                                `Edit`,  // -----> Englais
+                                                `Modifier`, //  -----> Francais
+                                                //   ``,  //  -----> Turkey
+                                                //   `` ,  //  -----> Allemagne
+                                            )
+
+                                        }
+
+
+                                    </p></Link>
                                 </div> :
                                 <>
                                     <div className="flex items-center gap-3 md:w-fit w-full">
@@ -150,19 +219,19 @@ const PlayerCard = ({ userInfo }) => {
 
                                             {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
                                                 <button className="flex items-center " onClick={sendFriendRequest}><p>
-                                                    
-                                                    
-         {
-             getTranslation(
-              `Add`,  // -----> Englais
-              `Ajouter`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                                                    
-                                                    </p></button>}
+
+                                                    {
+                                                        getTranslation(
+                                                            `Add`,  // -----> Englais
+                                                            `Ajouter`, //  -----> Francais
+                                                            //   ``,  //  -----> Turkey
+                                                            //   `` ,  //  -----> Allemagne
+                                                        )
+
+                                                    }
+
+                                                </p></button>}
                                         </div>
                                         {acceptedFriend?.status === 'accepted' ? <div>
                                             <a rel="noreferrer" href={`https://wa.me/${getWhatsappPrefix(userInfo.user.optionalattributs)}${userInfo.user.numWSup}`} target="_blank">
@@ -261,17 +330,17 @@ const PlayerCard = ({ userInfo }) => {
                         </svg>
 
                         <div className="grow mb-3">
-                            
-         {
-             getTranslation(
-              `Preferred Tactics`,  // -----> Englais
-              ` Tactiques Préférée`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                           </div>
+                            {
+                                getTranslation(
+                                    `Preferred Tactics`,  // -----> Englais
+                                    ` Tactiques Préférée`, //  -----> Francais
+                                    //   ``,  //  -----> Turkey
+                                    //   `` ,  //  -----> Allemagne
+                                )
+
+                            }
+                        </div>
                     </div>
                     <div className="flex flex-col justify-center text-xs text-center text-white whitespace-nowrap w-[366px]">
                         <div className="relative flex relative flex-col py-9 pr-12 pl-4 w-full aspect-[1.45]">
@@ -329,18 +398,18 @@ const PlayerCard = ({ userInfo }) => {
                             className="shrink-0 self-start w-5 aspect-square"
                         />
                         <div className="grow">
-                            
-                        {
-             getTranslation(
-              `Skills`,  // -----> Englais
-              ` Compétences`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                            
-                            </div>
+                            {
+                                getTranslation(
+                                    `Skills`,  // -----> Englais
+                                    ` Compétences`, //  -----> Francais
+                                    //   ``,  //  -----> Turkey
+                                    //   `` ,  //  -----> Allemagne
+                                )
+
+                            }
+
+                        </div>
                     </div>
                     <div className="flex hidden  justify-center gap-2  mt-4 text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
@@ -394,33 +463,88 @@ const PlayerCard = ({ userInfo }) => {
 
                 {/* social icons */}
 
-                <div className="  max-w-xl flex flex gap-4 mt-2 justify-between">
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/9f2fa6031aa7cffb21186e5501126b3836a7c414e1752c9e64fdbcac1ce4100c?"
-                        className="shrink-0 aspect-square w-[25px]"
-                    />
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/ee734d4428028617729c0185044032ddb130279e8139babab8caab0cdf7d6bd4?"
-                        className="shrink-0 w-6 aspect-[0.96]"
-                    />
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/8667ac9987e1f4996c37f85b212f897fd480e345bd16b0eac52bb3f8adb76e66?"
-                        className="shrink-0 w-6 aspect-[0.96]"
-                    />
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/b78e7f165ad6d93ef824dbe6adbbd69b6e0d02007b0bbf390ad2538e8c398dde?"
-                        className="shrink-0 aspect-square w-[25px]"
-                    />
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/caac4cd0dd6b89529ac5104e789b62c6cbf2091f6a2f16366ce2bc247406f84a?"
-                        className="shrink-0 w-6 aspect-[0.96]"
-                    />
-                </div>
+                <div div className="  max-w-xl flex flex gap-4 justify-between" >
+                    {userInfo?.user.liensSM && <a target="_blank" href={`https://www.instagram.com/${userInfo?.user.liensSM}`}>
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M25 12.5C25 18.8133 20.3199 24.0326 14.2405 24.8798C13.6718 24.959 13.0902 25 12.5 25C11.8184 25 11.1497 24.9453 10.4975 24.8402C4.54624 23.8822 0 18.7212 0 12.4993C0 5.59642 5.59642 0 12.5 0C19.4036 0 25 5.59642 25 12.5Z" fill="url(#paint0_linear_250_40236)" />
+                            <path d="M16.4145 4.99609H8.58526C6.42227 4.99609 4.66309 6.75528 4.66309 8.91827V16.081C4.66309 18.244 6.42227 20.0031 8.58526 20.0031H16.4145C18.5775 20.0031 20.3367 18.244 20.3367 16.081V8.91827C20.3367 6.75528 18.5775 4.99609 16.4145 4.99609ZM6.04654 8.91827C6.04654 7.51826 7.18526 6.37954 8.58526 6.37954H16.4145C17.8145 6.37954 18.9532 7.51826 18.9532 8.91827V16.081C18.9532 17.481 17.8145 18.6197 16.4145 18.6197H8.58526C7.18526 18.6197 6.04654 17.481 6.04654 16.081V8.91827Z" fill="white" />
+                            <path d="M12.4983 16.1489C14.5101 16.1489 16.1469 14.512 16.1469 12.5002C16.1469 10.4884 14.5101 8.85156 12.4983 8.85156C10.4864 8.85156 8.84961 10.4884 8.84961 12.5002C8.84961 14.512 10.4864 16.1489 12.4983 16.1489ZM12.4983 10.2357C13.7471 10.2357 14.7627 11.2514 14.7627 12.5002C14.7627 13.7491 13.7471 14.7647 12.4983 14.7647C11.2494 14.7647 10.2338 13.7491 10.2338 12.5002C10.2338 11.2514 11.2494 10.2357 12.4983 10.2357Z" fill="white" />
+                            <path d="M16.4862 9.43914C17.0282 9.43914 17.4694 8.99791 17.4694 8.4559C17.4694 7.91389 17.0282 7.47266 16.4862 7.47266C15.9442 7.47266 15.5029 7.91389 15.5029 8.4559C15.5029 8.99791 15.9442 9.43914 16.4862 9.43914Z" fill="white" />
+                            <defs>
+                                <linearGradient id="paint0_linear_250_40236" x1="12.5" y1="0" x2="12.5" y2="25" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#E001CE" />
+                                    <stop offset="0.185" stop-color="#CD01BD" />
+                                    <stop offset="0.455" stop-color="#F61079" />
+                                    <stop offset="0.78" stop-color="#FF4935" />
+                                    <stop offset="1" stop-color="#E39816" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </a>}
+
+                    {userInfo?.user.tiktok ? <a target="_blank" href={`https://www.tiktok.com/${userInfo?.user.tiktok}`}>
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24.9993 12.5004C24.9993 18.8135 20.3193 24.0326 14.2401 24.8798C13.6714 24.959 13.0899 25 12.4996 25C11.818 25 11.1493 24.9453 10.4972 24.8402C4.54611 23.8822 0 18.7214 0 12.4996C0 5.59626 5.59626 0 12.4996 0C19.403 0 24.9993 5.59626 24.9993 12.4996V12.5004Z" fill="black" />
+                            <path d="M18.6181 9.00229V11.3905C18.1999 11.3502 17.6587 11.2552 17.0576 11.0349C16.2738 10.7477 15.6901 10.3547 15.3086 10.0503V14.8785L15.2992 14.8634C15.3057 14.9592 15.3086 15.0563 15.3086 15.1549C15.3086 17.5532 13.358 19.5045 10.959 19.5045C8.55996 19.5045 6.60938 17.5525 6.60938 15.1549C6.60938 12.7574 8.55996 10.8046 10.959 10.8046C11.1936 10.8046 11.424 10.8233 11.6492 10.8593V13.2137C11.4326 13.136 11.2008 13.0942 10.959 13.0942C9.82317 13.0942 8.89826 14.0184 8.89826 15.1549C8.89826 16.2915 9.82317 17.2157 10.959 17.2157C12.0948 17.2157 13.0197 16.2907 13.0197 15.1549C13.0197 15.1125 13.019 15.07 13.0161 15.0275V5.64453H15.4036C15.4122 5.84679 15.4209 6.05049 15.4288 6.25274C15.4446 6.65078 15.5864 7.03298 15.8333 7.34608C16.1234 7.71389 16.5509 8.14144 17.1527 8.48261C17.7155 8.80147 18.2438 8.93823 18.6181 9.00301V9.00229Z" fill="white" />
+                        </svg>
+                    </a> : <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25.9016 13.1918C25.9016 19.5049 21.2216 24.724 15.1424 25.5712C14.5738 25.6504 13.9922 25.6914 13.402 25.6914C12.7204 25.6914 12.0517 25.6367 11.3996 25.5316C5.44845 24.5736 0.902344 19.4128 0.902344 13.191C0.902344 6.28767 6.49861 0.691406 13.402 0.691406C20.3054 0.691406 25.9016 6.28767 25.9016 13.191V13.1918Z" fill="#BBC0CE" />
+                        <path d="M19.5205 9.6937V12.0819C19.1023 12.0416 18.561 11.9466 17.96 11.7263C17.1762 11.4392 16.5924 11.0462 16.2109 10.7417V15.57L16.2016 15.5548C16.2081 15.6506 16.2109 15.7477 16.2109 15.8463C16.2109 18.2446 14.2603 20.196 11.8613 20.196C9.46231 20.196 7.51172 18.2439 7.51172 15.8463C7.51172 13.4488 9.46231 11.496 11.8613 11.496C12.096 11.496 12.3263 11.5147 12.5516 11.5507V13.9051C12.3349 13.8274 12.1032 13.7856 11.8613 13.7856C10.7255 13.7856 9.8006 14.7098 9.8006 15.8463C9.8006 16.9829 10.7255 17.9071 11.8613 17.9071C12.9971 17.9071 13.922 16.9822 13.922 15.8463C13.922 15.8039 13.9213 15.7614 13.9185 15.7189V6.33594H16.3059C16.3146 6.53819 16.3232 6.74189 16.3311 6.94415C16.347 7.34219 16.4888 7.72439 16.7356 8.03749C17.0257 8.40529 17.4533 8.83284 18.055 9.17402C18.6179 9.49288 19.1462 9.62964 19.5205 9.69442V9.6937Z" fill="white" />
+                    </svg>
+                    }
+                    {userInfo?.user.linkedin ? <a target="_blank" href={`https://www.linkedin.com/in/${userInfo?.user.linkedin}`}>
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24.9983 12.5004C24.9983 18.8135 20.3183 24.0326 14.2391 24.8798C13.6705 24.959 13.0889 25 12.4987 25C11.817 25 11.1484 24.9453 10.4962 24.8402C4.54513 23.8822 -0.000976562 18.7214 -0.000976562 12.4996C-0.000976562 5.59626 5.59528 0 12.4987 0C19.402 0 24.9983 5.59626 24.9983 12.4996V12.5004Z" fill="#0A66C2" />
+                            <path d="M6.07961 8.27762C5.74635 7.96811 5.58008 7.58519 5.58008 7.12958C5.58008 6.67396 5.74635 6.27376 6.07961 5.96426C6.41286 5.65475 6.84184 5.5 7.368 5.5C7.89416 5.5 8.30587 5.65475 8.63841 5.96426C8.97166 6.27376 9.13794 6.66244 9.13794 7.12958C9.13794 7.59671 8.97166 7.96811 8.63841 8.27762C8.30515 8.58712 7.88192 8.74188 7.368 8.74188C6.85408 8.74188 6.41286 8.58712 6.07961 8.27762ZM8.85722 10.0526V19.5371H5.86079V10.0526H8.85722Z" fill="#FEFFFC" />
+                            <path d="M18.8344 10.9921C19.4872 11.7011 19.814 12.6749 19.814 13.9144V19.3732H16.9673V14.2994C16.9673 13.6747 16.8053 13.1888 16.4814 12.8426C16.1575 12.4964 15.7221 12.3237 15.175 12.3237C14.628 12.3237 14.1926 12.4971 13.8687 12.8426C13.5448 13.1888 13.3828 13.6747 13.3828 14.2994V19.3732H10.5195V10.0297H13.3828V11.2692C13.6729 10.856 14.0637 10.53 14.5553 10.2896C15.0462 10.0499 15.599 9.92969 16.213 9.92969C17.307 9.92969 18.1808 10.2845 18.8337 10.9928L18.8344 10.9921Z" fill="#FEFFFC" />
+                        </svg>
+
+                    </a> : <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24.9983 12.5004C24.9983 18.8135 20.3183 24.0326 14.2391 24.8798C13.6705 24.959 13.0889 25 12.4987 25C11.817 25 11.1484 24.9453 10.4962 24.8402C4.54513 23.8822 -0.000976562 18.7214 -0.000976562 12.4996C-0.000976562 5.59626 5.59528 0 12.4987 0C19.402 0 24.9983 5.59626 24.9983 12.4996V12.5004Z" fill="#BBC0CE" />
+                        <path d="M6.07961 8.27762C5.74635 7.96811 5.58008 7.58519 5.58008 7.12958C5.58008 6.67396 5.74635 6.27376 6.07961 5.96426C6.41286 5.65475 6.84184 5.5 7.368 5.5C7.89416 5.5 8.30587 5.65475 8.63841 5.96426C8.97166 6.27376 9.13794 6.66244 9.13794 7.12958C9.13794 7.59671 8.97166 7.96811 8.63841 8.27762C8.30515 8.58712 7.88192 8.74188 7.368 8.74188C6.85408 8.74188 6.41286 8.58712 6.07961 8.27762ZM8.85722 10.0526V19.5371H5.86079V10.0526H8.85722Z" fill="#FEFFFC" />
+                        <path d="M18.8344 10.9921C19.4872 11.7011 19.814 12.6749 19.814 13.9144V19.3732H16.9673V14.2994C16.9673 13.6747 16.8053 13.1888 16.4814 12.8426C16.1575 12.4964 15.7221 12.3237 15.175 12.3237C14.628 12.3237 14.1926 12.4971 13.8687 12.8426C13.5448 13.1888 13.3828 13.6747 13.3828 14.2994V19.3732H10.5195V10.0297H13.3828V11.2692C13.6729 10.856 14.0637 10.53 14.5553 10.2896C15.0462 10.0499 15.599 9.92969 16.213 9.92969C17.307 9.92969 18.1808 10.2845 18.8337 10.9928L18.8344 10.9921Z" fill="#FEFFFC" />
+                    </svg>
+
+                    }
+                    {userInfo?.user.fb ? <a target="_blank" href={`https://www.facebook.com/${userInfo?.user.fb}`}>
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24.9997 12.5C24.9997 18.8133 20.3196 24.0326 14.2402 24.8798C13.6716 24.959 13.09 25 12.4997 25C11.8181 25 11.1494 24.9453 10.4973 24.8402C4.54454 23.8822 -0.000976562 18.7219 -0.000976562 12.5C-0.000976562 5.59642 5.59545 0 12.499 0C19.4026 0 24.999 5.59642 24.999 12.5H24.9997Z" fill="#2E71EB" />
+                            <path d="M14.2392 10.0355V12.7585H17.6079L17.0745 16.4273H14.2392V24.8791C13.6706 24.9583 13.089 24.9994 12.4988 24.9994C11.8171 24.9994 11.1484 24.9446 10.4963 24.8396V16.4273H7.38965V12.7585H10.4963V9.42726C10.4963 7.36 12.172 5.68359 14.24 5.68359V5.68575C14.2457 5.68575 14.2515 5.68359 14.2572 5.68359H17.6086V8.85574H15.419C14.7676 8.85574 14.24 9.38335 14.24 10.0348L14.2392 10.0355Z" fill="white" />
+                        </svg>
+
+                    </a> : <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24.9997 12.5C24.9997 18.8133 20.3196 24.0326 14.2402 24.8798C13.6716 24.959 13.09 25 12.4997 25C11.8181 25 11.1494 24.9453 10.4973 24.8402C4.54454 23.8822 -0.000976562 18.7219 -0.000976562 12.5C-0.000976562 5.59642 5.59545 0 12.499 0C19.4026 0 24.999 5.59642 24.999 12.5H24.9997Z" fill="#BBC0CE" />
+                        <path d="M14.2392 10.0355V12.7585H17.6079L17.0745 16.4273H14.2392V24.8791C13.6706 24.9583 13.089 24.9994 12.4988 24.9994C11.8171 24.9994 11.1484 24.9446 10.4963 24.8396V16.4273H7.38965V12.7585H10.4963V9.42726C10.4963 7.36 12.172 5.68359 14.24 5.68359V5.68575C14.2457 5.68575 14.2515 5.68359 14.2572 5.68359H17.6086V8.85574H15.419C14.7676 8.85574 14.24 9.38335 14.24 10.0348L14.2392 10.0355Z" fill="white" />
+                    </svg>
+
+                    }
+                    {userInfo?.user.x ? <a target="_blank" href={`https://www.facebook.com/${userInfo?.user.x}`}>
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_250_40254)">
+                                <circle cx="12.499" cy="12.5" r="12.5" fill="white" />
+                                <path d="M7.14648 6.41406L16.3923 18.5026H17.809L8.66836 6.41406H7.14648Z" fill="#1D1E21" />
+                                <path d="M12.499 0C5.5959 0 -0.000976562 5.59687 -0.000976562 12.5C-0.000976562 19.4031 5.5959 25 12.499 25C19.4021 25 24.999 19.4031 24.999 12.5C24.999 5.59687 19.4021 0 12.499 0ZM15.6896 20.0333L11.6584 14.7677L7.05215 20.0333H4.49173L10.4636 13.2062L4.16569 4.96667H9.43861L13.0782 9.78021L17.2896 4.96667H19.8469L14.2626 11.3479L20.8324 20.0323L15.6896 20.0333Z" fill="black" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_250_40254">
+                                    <rect width="25" height="25" fill="white" transform="translate(-0.000976562)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </a> : <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_251_40304)">
+                            <circle cx="12.499" cy="12.5" r="12.5" fill="white" />
+                            <path d="M7.14648 6.41406L16.3923 18.5026H17.809L8.66836 6.41406H7.14648Z" fill="#BBC0CE" />
+                            <path d="M12.499 0C5.5959 0 -0.000976562 5.59687 -0.000976562 12.5C-0.000976562 19.4031 5.5959 25 12.499 25C19.4021 25 24.999 19.4031 24.999 12.5C24.999 5.59687 19.4021 0 12.499 0ZM15.6896 20.0333L11.6584 14.7677L7.05215 20.0333H4.49173L10.4636 13.2062L4.16569 4.96667H9.43861L13.0782 9.78021L17.2896 4.96667H19.8469L14.2626 11.3479L20.8324 20.0323L15.6896 20.0333Z" fill="#BBC0CE" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_251_40304">
+                                <rect width="25" height="25" fill="white" transform="translate(-0.000976562)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    }
+                </div >
 
                 {/* social icons */}
                 <div className="flex justify-center items-center px-16 py-2 mt-4 max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5">
@@ -431,19 +555,19 @@ const PlayerCard = ({ userInfo }) => {
                             className="shrink-0 self-start w-4 aspect-[0.94]"
                         />
                         <a href={`/profile/more/${id}`}>
-                            
-                            
-         {
-             getTranslation(
-              `See more`,  // -----> Englais
-              ` Voir Plus`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                            
-                           </a>
+
+                            {
+                                getTranslation(
+                                    `See more`,  // -----> Englais
+                                    ` Voir Plus`, //  -----> Francais
+                                    //   ``,  //  -----> Turkey
+                                    //   `` ,  //  -----> Allemagne
+                                )
+
+                            }
+
+                        </a>
                     </div>
                 </div>
             </div>

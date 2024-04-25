@@ -70,17 +70,17 @@ function Home() {
       console.error("Error fetching albums:", error);
     }
   };
-  const formatDate = (date) => {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const hours = String(d.getHours()).padStart(2, '0');
-    const minutes = String(d.getMinutes()).padStart(2, '0');
-    const seconds = String(d.getSeconds()).padStart(2, '0');
+  // const formatDate = (date) => {
+  //   const d = new Date(date);
+  //   const year = d.getFullYear();
+  //   const month = String(d.getMonth() + 1).padStart(2, '0');
+  //   const day = String(d.getDate()).padStart(2, '0');
+  //   const hours = String(d.getHours()).padStart(2, '0');
+  //   const minutes = String(d.getMinutes()).padStart(2, '0');
+  //   const seconds = String(d.getSeconds()).padStart(2, '0');
 
-    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-  };
+  //   return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+  // };
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -97,7 +97,7 @@ function Home() {
         const formattedDate = `${day}-${month}-${year}`;
         return {
           ...article,
-          createdAt: formatDate(formattedDate)
+          createdAt: formattedDate
         };
       });
 
@@ -105,7 +105,7 @@ function Home() {
       const parsedAlbums = albumsResponse.map(album => {
         return {
           ...album,
-          createdAt: formatDate(album.createdAt)
+          createdAt: album.createdAt
         };
       });
 
@@ -167,13 +167,7 @@ function Home() {
       console.log("🚀 ~ fetchArticles ~ reversedArticlesWithPromises:", reversedArticlesWithPromises)
       const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
       console.log("🚀 ~ fetchArticles ~ articlesWithLikesCount:", articlesWithLikesCount)
-      // setData(articlesWithLikesCount);
-      // console.log("articles : ", articlesWithLikesCount);
-
-      //llml Update pagination state
-      // setTotalItems(result.totalItems);
-      // setTotalPages(result.totalPages);
-      // setCurrentPage(page);
+     
       return articlesWithLikesCount
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -224,11 +218,6 @@ function Home() {
         <Header />
         <div className="self-center px-3 md:px-2 mt-24 w-full max-w-[1344px] max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-2 max-md:flex-col max-md:gap-0">
-
-
-
-
-
             {/* left menu */}
             <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
               <div className="  flex flex-col items-start gap-3 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
@@ -316,8 +305,6 @@ function Home() {
                         Agents
                       </div>
                     </div>{" "}
-
-
                   </Link>
                     <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
                   </>
@@ -516,6 +503,7 @@ function Home() {
                 <Events />
               </div>
             </div>
+
           </div>
         </div>
       </div>

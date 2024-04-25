@@ -110,6 +110,7 @@ import UserEvent from './pages/UserEvent';
 import ViewAlbum from './pages/Admin/Components/ViewAlbum';
 import ViewAlbumodinuser from './pages/ViewAlbumOdin';
 import Error from './pages/404';
+import Bussinse from './OdinBussinse/HomeBussinsse';
 
 
 import { BrowserRouter, Switch, Route, Navigate } from "react-router-dom";
@@ -122,6 +123,7 @@ import AdminChallenges from "./pages/Admin/Challenges.jsx";
 import AddChallenge from "./pages/Admin/Components/AddChallenge.jsx";
 import ChallengeDetais from "./pages/Challenge/Details.jsx";
 import Searchpage from "./components/Searchpage.jsx";
+import { Professionalprofile } from "./pages/Professionalprofile/Professionalprofile.jsx";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null)
@@ -226,7 +228,8 @@ function Root() {
           {/* <Route exact  path="/" element={<Demo />} /> */}
 
           <Route exact path={`/events`} element={<UserEvent />} />
-
+          <Route exact path={`/bussinse`} element={<Bussinse />} />
+          
           <Route exact path="/admin/album" element={<Album />} />
           <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
           <Route exact path="/admin/albumevents" element={<Albumevents />} />
@@ -262,6 +265,8 @@ function Root() {
               <Route exact path={`/FormEvent/:id`} element={<FormEvent />} />
               <Route exact path={`/thanks/:id`} element={<Thankscamps />} />
               <Route exact path={`/thanksevent/:id`} element={<Thanksodinevent />} />
+
+              {/* <Route exact path={`/professionalprofile`} element={<Professionalprofile />} /> */}
 
 
               <Route exact path="/gallery" element={<Gallery />} />
