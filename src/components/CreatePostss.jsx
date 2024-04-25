@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import CustomButton from "../components/CustomButton";
 import Loading from './Loading';
+import placeholder from "../assets/placeholder.jpg"
 
 function CreatePost({ setArticles }) {
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -191,7 +192,7 @@ function CreatePost({ setArticles }) {
             <div className="card-body d-flex p-0">
               <div className="flex w-full">
                 <img
-                  srcSet={localStorage.user?.user?.image}
+                  srcSet={user?.user?.image ? user?.user.image : placeholder}
                   alt="icon"
                   className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                 />
@@ -206,8 +207,8 @@ function CreatePost({ setArticles }) {
                     <span
                       role="alert"
                       className={`text-sm ${errMsg?.status === "failed"
-                          ? "text-[#f64949fe]"
-                          : "text-[#2ba150fe]"
+                        ? "text-[#f64949fe]"
+                        : "text-[#2ba150fe]"
                         } mt-0.5`}
                     >
                       {errMsg?.message}
