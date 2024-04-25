@@ -4371,11 +4371,7 @@ function Register() {
   const defaultImageSrcSet =
     "https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/fe9c3262ca73af40633bbe9ebec770a2f5b68f0d5fa1fab6effe307ba7c4b620?apiKey=1233a7f4653a4a1e9373ae2effa8babd&";
 
-  // const countryList = [
-  //   { name: 'USA', code: 'us' },
-  //   { name: 'INDIA', code: 'in' },
-  //   { name: 'UK', code: 'gb' }
-  // ]
+ 
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -4392,8 +4388,10 @@ function Register() {
     }),
   };
 
+ 
   const options = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+    const countryCode = country.iso && country.iso["alpha-2"] ? country.iso["alpha-2"].toLowerCase() : null;
+    const nationalite = country.nationalite ? country.nationalite : '';
 
     return {
       value: countryCode,
@@ -4405,11 +4403,12 @@ function Register() {
               style={{ marginRight: "8px", width: "40px" }}
             ></span>
           )}
-          {country.nationalite}
+          {nationalite}
         </div>
-      ),
-    };
+      ),    };
   });
+
+  // Handle country change
   const handleCountryChange = (selectedOption) => {
     // Update the formData state with the selected nationality
     setFormData({
@@ -4424,8 +4423,12 @@ function Register() {
     console.log("Selected Nationality:", selectedNationalityValue);
   };
 
+
+
+
   const optionsPays = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+    const paysRS = country.name ? country.name : '';
 
     return {
       value: countryCode,
@@ -4437,11 +4440,13 @@ function Register() {
               style={{ marginRight: "2px", width: "40px" }}
             ></span>
           )}
-          {country.name}
+          {paysRS}
         </div>
       ),
     };
   });
+
+
   const handleCountryChangePaysResidence = (selectedOption) => {
     // Update the formData state with the selected nationality
     setFormData({
@@ -4465,32 +4470,26 @@ function Register() {
   }));
 
 
-  // const handleChangeregion = selectedOptions => {
-  //   const selectedRegions = selectedOptions.map(option => option.value);
-  //   console.log('Choisi Les Regions:', selectedRegions);
-  // };
-  const handleChangeregion = selectedOptions => {
-    const selectedRegions = selectedOptions.map(option => option.value);
-    console.log('Choisi Les Regions:', selectedRegions);
+ 
+  
+  const [selectedRegions, setSelectedRegions] = useState([]);
 
-    // Check if any selected option represents a scout country
-    const selectedScoutCountry = selectedOptions.find(option => {
-      // You need to replace 'YourScoutCountryIdentifier' with the actual identifier used for scout countries
-      return option.isScoutCountry === true;
-    });
+  const handleChangeRegion = event => {
+    const clickedOption = event.target.value;
+    const isOptionSelected = selectedRegions.includes(clickedOption);
 
-    if (selectedScoutCountry) {
-      console.log('Selected scout country:', selectedScoutCountry.value);
-      // Update formData with the selected scout country
-      setFormData(prevData => ({
-        ...prevData,
-        paysscout: selectedScoutCountry.value,
-      }));
+    if (isOptionSelected) {
+      const updatedSelectedRegions = selectedRegions.filter(region => region !== clickedOption);
+      setSelectedRegions(updatedSelectedRegions);
+    } else {
+      setSelectedRegions([...selectedRegions, clickedOption]);
     }
   };
 
-
-
+  const handleRemoveRegion = regionToRemove => {
+    const updatedSelectedRegions = selectedRegions.filter(region => region !== regionToRemove);
+    setSelectedRegions(updatedSelectedRegions);
+  };
 
   //////////////////mangerclubpays
   const handleCountryChangePaysAgentclub = (selectedOption) => {
@@ -4554,17 +4553,7 @@ function Register() {
   const [selectedCountryphone, setSelectedCountryphone] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  // const handleChangephone = (selectedOption) => {
-  //   setSelectedCountryphone(selectedOption);
-
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     optionalattributs: getCombinedPrefix(
-  //       selectedCountryphoneWS ? selectedCountryphoneWS.phone : "", // WhatsApp prefix
-  //       selectedOption.phone // Telephone prefix
-  //     ),
-  //   }));
-  // };
+  
 
   const handleChangephone = (selectedOption) => {
     setSelectedCountryphone(selectedOption);
@@ -4584,25 +4573,7 @@ function Register() {
     }));
   };
 
-  // const handleChangePhoneNumber = (e) => {
-  //   const inputValue = e.target.value;
-
-  //   // Check if the entered value does not exceed the maximum length
-  //   if (inputValue.length <= selectedCountryphone.phoneLength) {
-  //     setPhoneNumber(inputValue);
-  //     setFormData({ ...formData, tel: inputValue });
-  //     setInputErrors((prevErrors) => ({
-  //       ...prevErrors,
-  //       tel: "", // Clear any Retour error message
-  //     }));
-  //   } else {
-  //     // If it exceeds the maximum length, set an error message
-  //     setInputErrors((prevErrors) => ({
-  //       ...prevErrors,
-  //       tel: `Le Numéro doit étre avec  ${selectedCountryphone.phoneLength} chiffres .`,
-  //     }));
-  //   }
-  // };
+  
   const handleChangePhoneNumber = (e) => {
     const inputValue = e.target.value;
 
@@ -4635,27 +4606,53 @@ function Register() {
   const optionsphone = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"] ? country.iso["alpha-2"].toLowerCase() : 'unknown';
     const phonePrefix = country.phone && country.phone[0] !== undefined ? country.phone[0] : 'No prefix';
-
+    const label = countryCode !== 'unknown' ? (
+      <div style={{ textAlign: "left" , width: "350%" , lineHeight: "1"}}>
+          <div
+              className={` flag-icon flag-icon-${countryCode}`}
+              style={{ marginRight: "1px", textAlign: "left", rounded: "30px" }}
+          ></div>
+         ({phonePrefix}) 
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp;&nbsp;
+          {country.name}
+      </div>
+  ) : `Unknown (${phonePrefix})`;
     return {
       value: countryCode,
-      label: (
-        <div style={{ textAlign: "left" }}>
-          {countryCode !== 'unknown' && (
-            <div
-              className={`flag-icon flag-icon-${countryCode}`}
-              style={{ marginRight: "1px", textAlign: "left", rounded: "30px" }}
-            ></div>
-          )}
-          ({phonePrefix})
-        </div>
-      ),
+      label: label,
       countryCode: countryCode,
       phoneLength: country.phoneLength,
-      phone: phonePrefix
-    };
-  });
+      phone: phonePrefix,
+      name: country.name
+  };
+}).filter(country => country.name !== undefined).sort((a, b) => a.name.localeCompare(b.name));
+  //   return {
+  //     value: countryCode,
+  //     label: (
+  //       <div style={{ textAlign: "left" }}>
+  //         {countryCode !== 'unknown' && (
+  //           <div
+  //             className={`flag-icon flag-icon-${countryCode}`}
+  //             style={{ marginRight: "1px", textAlign: "left", rounded: "30px" }}
+  //           ></div>
+  //         )}
+  //         ({phonePrefix})
+  //       </div>
+  //     ),
+  //     countryCode: countryCode,
+  //     phoneLength: country.phoneLength,
+  //     phone: phonePrefix
+  //   };
+  // });
 
   // ///////////////////////
+  
+  
+  
+  
+  
   const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
   const [phoneNumberWS, setPhoneNumberWS] = useState("");
 
@@ -4694,30 +4691,39 @@ function Register() {
     }
   };
 
+  
   const optionsphoneWS = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"] ? country.iso["alpha-2"].toLowerCase() : 'unknown';
     const phonePrefix = country.phone && country.phone[0] !== undefined ? country.phone[0] : 'No prefix';
 
-    return {
-      value: countryCode,
-      label: (
+    // Construct the label JSX element
+    const label = countryCode !== 'unknown' ? (
         <div style={{ textAlign: "left" }}>
-          {countryCode !== 'unknown' && (
             <div
-              className={`flag-icon flag-icon-${countryCode}`}
-              style={{ marginRight: "1px", textAlign: "left", rounded: "30px" }}
+                className={` flag-icon flag-icon-${countryCode}`}
+                style={{ marginRight: "1px", textAlign: "left", rounded: "30px" }}
             ></div>
-          )}
-          ({phonePrefix})
+           ({phonePrefix}) 
+           &nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;
+            {country.name}
         </div>
-      ),
-      countryCode: countryCode,
-      phoneLength: country.phoneLength,
-      phone: phonePrefix
+    ) : `Unknown (${phonePrefix})`;
+
+    return {
+        value: countryCode,
+        label: label,
+        countryCode: countryCode,
+        phoneLength: country.phoneLength,
+        phone: phonePrefix,
+        name: country.name
     };
-  });
+}).filter(country => country.name !== undefined).sort((a, b) => a.name.localeCompare(b.name));
 
 
+  
+  
   const profilesData = [
     {
       role: "player",
@@ -4794,48 +4800,7 @@ function Register() {
   };
 
 
-  // const handleCoachSkillToggle = (coachSkill) => {
-  //   let updatedCoachSkills = formData.skills.split(",");
-
-  //   if (updatedCoachSkills.includes(coachSkill)) {
-  //     updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
-  //   } else {
-  //     if (updatedCoachSkills.length <= 10) {
-  //       updatedCoachSkills.push(coachSkill);
-  //     }
-  //   }
-
-  //   const isSkillsError = updatedCoachSkills.length >= 11;
-
-  //   setFormData({
-  //     ...formData,
-  //     skills: updatedCoachSkills.join(","),
-  //   });
-  //   setSkillsError(isSkillsError);
-
-  //   console.log('isSkillsError:', isSkillsError);
-  // };
-  // const handleCoachSkillToggle = (coachSkill) => {
-  //   let updatedCoachSkills = formData.skills.split(",");
-
-  //   if (updatedCoachSkills.includes(coachSkill)) {
-  //     updatedCoachSkills = updatedCoachSkills.filter((s) => s !== coachSkill);
-  //   } else {
-  //     if (updatedCoachSkills.length < 10) {
-  //       updatedCoachSkills.push(coachSkill);
-  //     }
-  //   }
-
-  //   const isSkillsError = updatedCoachSkills.length > 10; // Check if there are more than 10 skills
-
-  //   setFormData({
-  //     ...formData,
-  //     skills: updatedCoachSkills.join(","),
-  //   });
-  //   setSkillsError(isSkillsError);
-
-  //   console.log('isSkillsError:', isSkillsError);
-  // };
+  
 
 
   const handleCoachSkillToggle = (coachSkill) => {
@@ -5370,6 +5335,8 @@ function Register() {
 
 
 
+ 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -5383,45 +5350,33 @@ function Register() {
       setInputErrors(errors);
       return;
     }
-
+  
     if (formData.termesConditions !== "Oui") {
       // If not, display an error or prevent form submission
       setErrorMessage("Veuillez accepter les Termes et Conditions .");
       // You can also set an error state or display a message to the user
       return;
     }
-    // if (!File && isUploadEnabled) {
-    //   // If not, display an error or prevent form submission
-    //   setInputErrors({ 'Licence': 'ce champs est obligatoire' })
-    //   // You can also set an error state or display a message to the user
-    //   return;
-    // }
-
+  
     setErrorMessage("");
-
+  
     const formDataToSubmit = new FormData();
-
-    // Object.keys(formData).forEach((key) => {
-    //   if (key === "image") {
-    //     // Append image file separately
-    //     formDataToSubmit.append("image", formData.image);
-    //   } else {
-    //     formDataToSubmit.append(key, formData[key]);
-    //   }
-    // });
+  
     Object.keys(formData).forEach((key) => {
       if (key === "image") {
         // Append image file separately
         formDataToSubmit.append("image", formData.image);
       } else if (key === "paysscout") {
-        // Ensure paysscout is a string before appending
-        formDataToSubmit.append("paysscout", String(formData.paysscout));
+        // Concatenate selected regions into a single string separated by commas
+        formDataToSubmit.append("paysscout", selectedRegions.join(", "));
       } else {
         formDataToSubmit.append(key, formData[key]);
       }
     });
+  
+    // Append file to the form data
     formDataToSubmit.append("file", File || null);
-
+  
     //prob
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/auth/signup`, {
@@ -5430,14 +5385,14 @@ function Register() {
       });
       if (response.ok) {
         const responseData = await response.json();
-
+  
         console.log("Server Response Data:", responseData);
         navigate("/login");
         console.log("User registered successfully!");
       } else {
         const errorData = await response.json();
         console.error("Server Error Message:", errorData.message);
-
+  
         // Check for specific error messages related to email or login
         if (errorData.message.includes("Email")) {
           setEmailError("Adresse e-mail déjà utilisée.");
@@ -5449,20 +5404,19 @@ function Register() {
           // Display a generic error message for any other registration failure
           setEmailError("");
           setLoginError(errorData.message); // Set the backend error message
-
+  
           // setLoginError("");
         }
       }
     } catch (error) {
       console.error("An error occurred:", error);
-
+  
       // Handle generic registration failure
       // setEmailError("Registration failed.");
       setLoginError("");
     }
   };
-
-
+  
 
 
 
@@ -5561,7 +5515,7 @@ function Register() {
                       }
                     </div>
 
-                    <label className="flex  items-center justify-center self-center w-[266px]"> {/* Center the label section */}
+                    <label className="tal2 flex  items-center justify-center self-center w-[266px]"> {/* Center the label section */}
                       <div className="flex gap-2 justify-center items-center px-8 py-2 mt-2 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
                         {" "}<img
                           loading="lazy"
@@ -5572,7 +5526,7 @@ function Register() {
                           type="file"
                           name="image"
                           onChange={handleFileChange}
-                          className="tal2 grow absolute w-full my-auto opacity-0"
+                          className=" grow absolute w-full my-auto opacity-0"
                         />
 
                         {
@@ -5818,8 +5772,8 @@ function Register() {
                             }`}
                           placeholder={
                             getTranslation(
-                              `Your password`,  // -----> Englais
-                              `Votre mot de passe`, //  -----> Francais
+                              `Your password [Aexemple@exemple]`,  // -----> Englais
+                              `Votre mot de passe [Aexemple@exemple]`, //  -----> Francais
                               ``,  //  -----> Turkey
                               ``,  //  -----> Allemagne
                             )
@@ -5827,11 +5781,16 @@ function Register() {
                           }
                           onChange={handleInputChange}
                         />
-                        {validationError && (
-                          <div className="invalid-feedback">
-                            {validationError}
-                          </div>
-                        )}
+                       {validationError ? (
+  <div className="invalid-feedback">
+    {validationError}
+  </div>
+) : (
+  <div className="text-sm">
+    Le mot de passe doit contenir au moins 8 caractères dont 1 majuscule, 1 symbole et 1 chiffre !
+  </div>
+)}
+
                       </div>
                     </div>{" "}
                     {/* confirm ps */}
@@ -5909,38 +5868,52 @@ function Register() {
                         </div>{" "}
 
                         <div className="flex gap-4 justify-between  text-base">
-                          <Select
-                            styles={{
-                              control: (provided, state) => ({
-                                ...provided,
-                                borderRadius: "0.375rem",
-                                display: "flex",
-                                justifyContent: "center",
-                                borderRadius: "30px",
-                                width: "125px",
-                                fontSize: "1rem",
-                                backgroundColor: "#f5f5f5",
-                                borderWidth: "none",
-                                paddingTop: "6px", // Adjust paddingTop to match the desired height
-                                paddingBottom: "6px",
-                              }),
-                            }}
-                            className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
-                            placeholder={
-                              getTranslation(
-                                `Prefix`,  // -----> Englais
-                                `Prefix`, //  -----> Francais
-                                ``,  //  -----> Turkey
-                                ``,  //  -----> Allemagne
-                              )
+                        <Select
+  styles={{
+    control: (provided, state) => ({
+      ...provided,
+      borderRadius: "0.375rem",
+      display: "flex",
+      justifyContent: "center",
+      borderRadius: "30px",
+      width: "130px",
+      fontSize: "1rem",
+      backgroundColor: "#f5f5f5",
+      borderWidth: "none",
+      paddingTop: "6px", // Adjust paddingTop to match the desired height
+      paddingBottom: "6px",
+    }),
+  }}
+  className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
+  placeholder={
+    getTranslation(
+      `Prefix`,  // -----> Englais
+      `Prefix`, //  -----> Francais
+      ``,  //  -----> Turkey
+      ``,  //  -----> Allemagne
+    )
+  }
+  options={optionsphoneWS}
+  value={selectedCountryphoneWS}
+  onChange={handleChangephoneWS}
+  isSearchable={true} // Enable search functionality
+  filterOption={(option, inputValue) => {
+    const labelContent = typeof option.label === 'string' ? option.label : option.label.props.children;
 
-                            }
+    const labelString = typeof labelContent === 'string' ? labelContent.toLowerCase() : labelContent.join("").toLowerCase(); // Join children of JSX element if it's an array
+    const name = option.name ? option.name.toLowerCase() : ''; // Check if name property exists
 
-                            options={optionsphoneWS}
-                            value={selectedCountryphoneWS}
-                            onChange={handleChangephoneWS}
+    const labelIncludesInput = labelString.includes(inputValue.toLowerCase());
+    const nameIncludesInput = name.includes(inputValue.toLowerCase());
 
-                          />
+    return labelIncludesInput || nameIncludesInput;
+  }}
+/>
+
+
+
+
+
                           <div style={{ position: "relative", marginTop: "5px", width: "230px" }}>
                             <input
                               type="number"
@@ -6011,6 +5984,21 @@ function Register() {
 
                         <div className="flex gap-4  text-base ">
                           <Select
+                            // styles={{
+                            //   control: (provided, state) => ({
+                            //     ...provided,
+                            //     borderRadius: "0.375rem",
+                            //     display: "flex",
+                            //     justifyContent: "center",
+                            //     borderRadius: "30px",
+                            //     width: "130px",
+                            //     fontSize: "1rem",
+                            //     backgroundColor: "#f5f5f5",
+                            //     borderWidth: "none",
+                            //     paddingTop: "6px", // Adjust paddingTop to match the desired height
+                            //     paddingBottom: "6px",
+                            //   }),
+                            // }}
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
@@ -6018,8 +6006,8 @@ function Register() {
                                 display: "flex",
                                 justifyContent: "center",
                                 borderRadius: "30px",
-                                width: "125px",
-                                fontSize: "14px",
+                                width: "130px",
+                                fontSize: "1rem",
                                 backgroundColor: "#f5f5f5",
                                 borderWidth: "none",
                                 paddingTop: "6px", // Adjust paddingTop to match the desired height
@@ -6031,6 +6019,22 @@ function Register() {
                             options={optionsphone}
                             value={selectedCountryphone}
                             onChange={handleChangephone}
+                            isSearchable={true} // Enable search functionality
+                            filterOption={(option, inputValue) => {
+                              const labelContent = typeof option.label === 'string' ? option.label : option.label.props.children;
+                          
+                              const labelString = typeof labelContent === 'string' ? labelContent.toLowerCase() : labelContent.join("").toLowerCase(); // Join children of JSX element if it's an array
+                              const name = option.name ? option.name.toLowerCase() : ''; // Check if name property exists
+                          
+                              const labelIncludesInput = labelString.includes(inputValue.toLowerCase());
+                              const nameIncludesInput = name.includes(inputValue.toLowerCase());
+                          
+                              return labelIncludesInput || nameIncludesInput;
+                            }}
+
+
+
+
                             placeholder={
                               getTranslation(
                                 `Prefix`,  // -----> Englais
@@ -6250,7 +6254,7 @@ function Register() {
                         }</div>
                       </div>{" "}
 
-                      <Select
+                      {/* <Select
                         options={options}
                         placeholder={
                           getTranslation(
@@ -6289,7 +6293,50 @@ function Register() {
                           (option) =>
                             option.value === formData.nationality
                         )}
-                      />
+                      /> */}
+<Select
+  options={options}
+  placeholder={
+    getTranslation(
+      `Your nationality`,  // -----> English
+      `Votre nationalité`, //  -----> French
+      ``,  //  -----> Turkish
+      ``,  //  -----> German
+    )
+  }
+  styles={{
+    control: (provided, state) => ({
+      ...provided,
+      borderRadius: "0.375rem", // You can adjust the radius as needed
+      display: "flex",
+      justifyContent: "center",
+      borderRadius: "30px",
+      fontSize: "14px", // Set the desired font size
+      backgroundColor: "#f5f5f5", // Set the background color
+      borderWidth: "none",
+      paddingTop: "8px",
+      paddingBottom: "8px",
+      marginTop: "8px",
+      width: "100%",
+      border: "0.5px solid #E5E5E5",
+    }),
+  }}
+  onChange={handleCountryChange}
+  value={options.find((option) => option.value === formData.nationality)}
+  // Enable searching by nationalite
+  filterOption={(option, inputValue) => {
+    const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+
+    const nationaliteString = typeof nationalite === 'string' ? nationalite.toLowerCase() : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
+
+    return nationaliteString.includes(inputValue.toLowerCase());
+  }}
+  // Ensure that all options are displayed even when filtered
+  isSearchable
+/>
+
+
+
 
 
                       {inputErrors["nationality"] && (
@@ -6365,8 +6412,19 @@ function Register() {
                         value={optionsPays.find(
                           (option) =>
                             option.value === formData.countryresidence
-                        )} // Set the value from formData
+                        )} 
+                        filterOption={(option, inputValue) => {
+                          const paysRS = option.label.props.children; // Assuming nationalite is directly the children of label
+                      
+                          const paysRSString = typeof paysRS === 'string' ? paysRS.toLowerCase() : paysRS.join("").toLowerCase(); // Join children of JSX element if it's an array
+                      
+                          return paysRSString.includes(inputValue.toLowerCase());
+                        }}
+                        // Ensure that all options are displayed even when filtered
+                        isSearchable
                       />
+
+
 
 
                       {inputErrors["countryresidence"] && (
@@ -7242,7 +7300,11 @@ function Register() {
 
                       <div className="form-group rounded-full  icon-input mb-3">
                         {[
-                          "Rapidite",
+                           getTranslation(
+                            `speed`,
+                             `Rapidité`
+                           ),
+                          // "Rapidite",
                           "Tacle",
                           "Defence",
                           "Tirs de loin",
@@ -8891,12 +8953,53 @@ function Register() {
                         <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-lg text-white whitespace-nowrap w-full md:w-[33%]">
                           <div className="flex flex-col justify-center px-0.5 border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full">
                             <div className="flex flex-col justify-center py-1.5 pl-4 rounded-md max-md:max-w-full">
-                              <div className="flex gap-5 justify-between pr-20 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
+                              <div className="flex gap-5 justify-between pr-4  max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
+
+                              <div className="w-full">
+      <select
+        onChange={handleChangeRegion}
+        multiple 
+        className="w-full bg-zinc-100 border-[0px] text-black w-full text-base"
+        style={{
+          backgroundColor: 'transparent',
+                    border: 'none',
+          fontSize: 'sm',
+          width: 'full',
+        }}
+        value={selectedRegions}
+      >
+        <option value="Europe">Europe</option>
+        <option value="Asia">Asia</option>
+        <option value="Amerique">Amerique</option>
+        <option value="Afrique">Afrique</option>
+        <option value="Océanie">Océanie</option>
+        <option value="Amérique">Amérique</option>
+      </select>
+      
+      <div>
+      <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4] " />
+
+        <h2>Regions Choisi:</h2>
+                        <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4] " />
+
+        <ul>
+          {selectedRegions.map(region => (
+            <li className="text-black gap-y-2 pb-2" key={region}>
+           <div className="flex flex-row  "> 
+
+             <div className="flex-col w-[50%]"> {region}</div>
+
+          <div className="flex-col"> <button className="transition ease-in-out delay-150 bg-red-300 hover:-translate-y-1 rounded-md hover:scale-110 hover:bg-red-500 duration-300  w-6 h-6 text-white text-xs" onClick={() => handleRemoveRegion(region)}>X</button></div>
+         
+          </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
 
 
-
-
-                                <Select
+                                {/* <Select
                                   options={regionOptions}
                                   onChange={handleChangeregion}
                                   placeholder={
@@ -8924,7 +9027,7 @@ function Register() {
                                       width: "full"
                                     }),
                                   }}
-                                />
+                                /> */}
 
                               </div>
                             </div>

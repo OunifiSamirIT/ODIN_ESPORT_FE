@@ -70,17 +70,17 @@ function Home() {
       console.error("Error fetching albums:", error);
     }
   };
-  const formatDate = (date) => {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const hours = String(d.getHours()).padStart(2, '0');
-    const minutes = String(d.getMinutes()).padStart(2, '0');
-    const seconds = String(d.getSeconds()).padStart(2, '0');
+  // const formatDate = (date) => {
+  //   const d = new Date(date);
+  //   const year = d.getFullYear();
+  //   const month = String(d.getMonth() + 1).padStart(2, '0');
+  //   const day = String(d.getDate()).padStart(2, '0');
+  //   const hours = String(d.getHours()).padStart(2, '0');
+  //   const minutes = String(d.getMinutes()).padStart(2, '0');
+  //   const seconds = String(d.getSeconds()).padStart(2, '0');
 
-    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-  };
+  //   return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+  // };
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -97,7 +97,7 @@ function Home() {
         const formattedDate = `${day}-${month}-${year}`;
         return {
           ...article,
-          createdAt: formatDate(formattedDate)
+          createdAt: formattedDate
         };
       });
 
@@ -105,7 +105,7 @@ function Home() {
       const parsedAlbums = albumsResponse.map(album => {
         return {
           ...album,
-          createdAt: formatDate(album.createdAt)
+          createdAt: album.createdAt
         };
       });
 
@@ -167,13 +167,7 @@ function Home() {
       console.log("🚀 ~ fetchArticles ~ reversedArticlesWithPromises:", reversedArticlesWithPromises)
       const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
       console.log("🚀 ~ fetchArticles ~ articlesWithLikesCount:", articlesWithLikesCount)
-      // setData(articlesWithLikesCount);
-      // console.log("articles : ", articlesWithLikesCount);
-
-      //llml Update pagination state
-      // setTotalItems(result.totalItems);
-      // setTotalPages(result.totalPages);
-      // setCurrentPage(page);
+     
       return articlesWithLikesCount
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -516,6 +510,7 @@ function Home() {
                 <Events />
               </div>
             </div>
+
           </div>
         </div>
       </div>

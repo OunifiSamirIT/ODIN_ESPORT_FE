@@ -24,6 +24,9 @@ import placeholder from "../assets/placeholder.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../config";
+import Modal from "react-modal";
+
+
 import {
   BiEditAlt,
   BiHeart,
@@ -39,10 +42,11 @@ import {
   BiUndo,
 } from "react-icons/bi";
 import Loading from "../components/Loading";
-import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
 import GallerieOdin from "../pages/Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "../pages/HomeSkeletonPost";
+import EditPost from "../pages/EditPost";
 function Post({ article, setArticles }) {
     const {
         register,
@@ -87,14 +91,47 @@ function Post({ article, setArticles }) {
       const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
       const [showDropdown, setShowDropdown] = useState(null);
       const [selectedArticle, setSelectedArticle] = useState(null);
-    
+
       const [loading, setLoading] = useState(false);
       const [page, setPage] = useState(1);
       const [hasMore, setHasMore] = useState(true);
       const [currentPage, setCurrentPage] = useState(1);
       const [totalPages, setTotalPages] = useState(1);
       const [totalItems, setTotalItems] = useState(0);
+
+
+      const ref = useRef(null);
+
+      const [isModaldOpen, setIsModaldOpen] = useState(false)
+      const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+          console.log(!ref.current.contains(event.target))
+          setIsModaldOpen(false)
+          fetchArticles()
+        }
+      };
+      useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, []);
+
+
+      const handleEdit = (articleId) => {
+        console.log("Editing article with ID:", articleId); // Add this line to debug
+        setSelectedArticleId(articleId);
+        setIsModaldOpen(true);
+      };
+      
+      const handleCloseModal = () => {
+        setIsModaldOpen(false);
+        fetchArticles()
+
+      };
     
+
+
       const handleClick = () => {
         setShowMenu(!showMenu);
       };
@@ -105,17 +142,7 @@ function Post({ article, setArticles }) {
     
       const [repliesVisible, setRepliesVisible] = useState({});
     
-      const toggleRepliesVisibility = async (commentId) => {
-        setRepliesVisible((prevVisibility) => ({
-          ...prevVisibility,
-          [commentId]: !prevVisibility[commentId],
-        }));
     
-        // Fetch replies if not already loaded
-        if (!repliesVisible[commentId]) {
-          await fetchRepliesForComment(commentId);
-        }
-      };
     
       const handleLikeClick = async (articleId, emoji) => {
         try {
@@ -218,242 +245,10 @@ function Post({ article, setArticles }) {
         }
       };
     
-      // const handleLikeComment = async (commentId) => {
-      //   try {
-      //     const response = await fetch(
-      //       `${Config.LOCAL_URL}/api/likes/comment/${commentId}`,
-      //       {
-      //         method: "POST",
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //         body: JSON.stringify({
-      //           userId: storedUserData.id,
-      //           commentId: commentId,
-      //           emoji: 1,
-      //         }),
-      //       }
-      //     );
-    
-      //     if (response.ok) {
-      //       console.log("API response:", await response.json());
-    
-      //     } else {
-      //       toast.error("Error liking/unliking the comment. Please try again.", {
-      //         position: "top-right",
-      //       });
-      //     }
-      //   } catch (error) {
-      //     console.error("Error adding like to comment:", error);
-      //     toast.error("An unexpected error occurred. Please try again later.", {
-      //       position: "top-right",
-      //     });
-      //   }
-      // };
-    
-      const handleLikeReply = async (replyId) => {
-        try {
-          const response = await fetch(
-            `${Config.LOCAL_URL}/api/likes/reply/${replyId}`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                userId: storedUserData.id,
-                replyId: replyId,
-                emoji: 1, // Assuming 1 for liking
-              }),
-            }
-          );
-    
-          if (response.ok) {
-            // Fetch updated replies after liking
-            fetchRepliesForComment(replyId);
-          } else {
-            // Handle error
-            console.error("Error liking/unliking the reply. Please try again.");
-          }
-        } catch (error) {
-          console.error("Error adding like:", error);
-        }
-      };
-    
-      const fetchLikesCountForCommentWithEmoji = async (commentId, emoji) => {
-        try {
-          const response = await fetch(
-            `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count?emoji=${emoji}`
-          );
-          const likesCountData = await response.json();
-    
-          // Display a success notification
-          toast.success(
-            `Likes count for comment ${commentId}: ${likesCountData.count}`
-          );
-        } catch (error) {
-          console.error(
-            `Error fetching likes count for comment ${commentId} with emoji ${emoji}:`,
-            error
-          );
-    
-          // Display an error notification
-          toast.error("Error fetching likes count");
-        }
-      };
-    
-      const fetchLikesCountForReplyWithEmoji = async (replyId, emoji) => {
-        try {
-          const response = await fetch(
-            `${Config.LOCAL_URL}/api/likes/reply/${replyId}/count?emoji=${emoji}`
-          );
-          const likesCountData = await response.json();
-    
-          // Display a success notification
-          toast.success(
-            `Likes count for reply ${replyId}: ${likesCountData.count}`
-          );
-        } catch (error) {
-          console.error(
-            `Error fetching likes count for reply ${replyId} with emoji ${emoji}:`,
-            error
-          );
-    
-          // Display an error notification
-          toast.error("Error fetching likes count");
-        }
-      };
-    
-      const fetchLikesCountForArticleWithEmoji = async (articleId, emoji) => {
-        try {
-          const response = await fetch(
-            `${Config.LOCAL_URL}/api/likes/article/${articleId}/count?emoji=${emoji}`
-          );
-          const likesCountData = await response.json();
-    
-          // Display a success notification
-          toast.success(
-            `Likes count for article ${articleId}: ${likesCountData.count}`
-          );
-        } catch (error) {
-          console.error(
-            `Error fetching likes count for article ${articleId} with emoji ${emoji}:`,
-            error
-          );
-    
-          // Display an error notification
-          toast.error("Error fetching likes count");
-        }
-      };
-    
-      const handleFileChange = (e, type) => {
-        const selectedFile = e.target.files[0];
-        setFile(selectedFile);
-        setFileType(type);
-    
-        if (type === "video") {
-          const videoPreviewURL = URL.createObjectURL(selectedFile);
-          setVideoPreviewUrl(videoPreviewURL);
-          // Clear the image preview if there was one
-          setPreviewImage(null);
-        } else {
-          const imagePreviewURL = URL.createObjectURL(selectedFile);
-          setPreviewImage(imagePreviewURL);
-          // Clear the video preview if there was one
-          setVideoPreviewUrl(null);
-        }
-      };
-    
+  
       const storedUserData = JSON.parse(localStorage.getItem("user"));
     
-      // const fetchArticles = async () => {
-      //   try {
-      //     const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
-      //     const result = await response.json();
     
-      //     const reversedArticles = result.rows.reverse();
-      //     const articlesWithLikesCount = [];
-    
-      //     for (const article of reversedArticles) {
-      //       const userId = article.userId;
-      //       const comt = article.id;
-    
-      //       const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${userId}`);
-      //       const userData = await userResponse.json();
-    
-      //       const comtResponse = await fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`);
-      //       const commentsData = await comtResponse.json();
-    
-      //       const likesCountResponse = await fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`);
-      //       const likesCountData = await likesCountResponse.json();
-    
-      //       const likesCount = likesCountData.find(
-      //         (count) =>
-      //           count.articleId === article.articleId ||
-      //           count.articleId === article.id
-      //       );
-    
-      //       const articleWithLikesCount = {
-      //         ...article,
-      //         user: userData,
-      //         comments: commentsData.commentsData,
-      //         commentsCount: commentsData.commentCount,
-      //         likesCount: likesCount ? likesCount.likesCount : 0,
-      //       };
-    
-      //       articlesWithLikesCount.push(articleWithLikesCount);
-      //     }
-    
-      //     setArticles(articlesWithLikesCount);
-      //     console.log("articles : ", articlesWithLikesCount);
-      //   } catch (error) {
-      //     console.error("Error fetching data:", error);
-      //   }
-      // };
-    
-      // const fetchArticles = async (page = 1, size = 10) => {
-      //   try {
-      //     const response = await fetch(`${Config.LOCAL_URL}/api/articles/?page=${page}&size=${size}`);
-      //     const result = await response.json();
-    
-      //     const articlesWithPromises = result.rows.map(async (article) => {
-      //       const userId = article.userId;
-      //       const comt = article.id;
-    
-      //       const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
-      //         fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
-      //         fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
-      //         fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
-      //       ]);
-    
-      //       const likesCount = likesCountResponse.find(
-      //         (count) =>
-      //           count.articleId === article.articleId ||
-      //           count.articleId === article.id
-      //       );
-    
-      //       return {
-      //         ...article,
-      //         user: userDataResponse,
-      //         comments: commentsResponse.commentsData,
-      //         commentsCount: commentsResponse.commentCount,
-      //         likesCount: likesCount ? likesCount.likesCount : 0,
-      //       };
-      //     });
-    
-      //     const reversedArticlesWithPromises = articlesWithPromises.reverse(); // Reverse the order
-      //     const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
-      //       setArticles(articlesWithLikesCount);
-      //     console.log("articles : ", articlesWithLikesCount);
-    
-      //     // Update pagination state
-      //     setTotalItems(result.totalItems);
-      //     setTotalPages(result.totalPages);
-      //     setCurrentPage(page);
-      //   } catch (error) {
-      //     console.error("Error fetching data:", error);
-      //   }
-      // };
     
       const fetchArticles = async () => {
         try {
@@ -922,6 +717,10 @@ function Post({ article, setArticles }) {
       const shouldShowAgentItem = ["player", "other"].includes(userProfileType);
     
       const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
+      function formatDate(isoDate) {
+        const date = new Date(isoDate);
+        return date.toISOString().split('T')[0];
+      }
   return (
     <>
 
@@ -961,7 +760,7 @@ function Post({ article, setArticles }) {
 
                               </span>
                               <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                                {new Date(article.user.user.createdAt).toLocaleDateString()}
+                              {formatDate(article?.user?.user?.createdAt)}
                               </span>
                             </h4>
                             <div
@@ -1003,10 +802,11 @@ function Post({ article, setArticles }) {
                                         className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                         onClick={() => handleEditClick(article)}
                                       >
-                                        <BiEditAlt />
-                                        <Link to={`/editPost/${article.id}`}>
+                                               <button onClick={() => handleEdit(article.id)} className="dropdown-item">Edit</button>
+
+                                        {/* <Link to={`/editPost/${article.id}`}>
                                           <span>Edit</span>
-                                        </Link>{" "}
+                                        </Link>{" "} */}
                                       </label>
                                     </button>
 
@@ -1411,51 +1211,19 @@ function Post({ article, setArticles }) {
                      
                     </>
                 
-                   
+                    {isModaldOpen && (
+        <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+          <div ref={ref} className="flex flex-col overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
+          <EditPost articleId={selectedArticleId} onClose={handleCloseModal} />
+
+          <button
+          className="bg-red-600 w-1/3 items-center self-center py-2 text-white  rounded-md "
+          onClick={() => handleCloseModal(true)}> Fermer </button>
+          </div>
+        </div>
+      )}
                 
-{/* 
-                  {latestItemType !== "album" &&
-                    album.map((albums) => (
-                      <div
-                        key={albums.id}
-                        className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
-                      >
-                        <div className="card-body p-0 d-flex">
-                          <figure className="avatar me-3">
-                            <img
-                              src={AdminImg}
-                              className="shadow-sm rounded-circle w-10 h-10"
-                              alt="post"
-                            />{" "}
-                          </figure>
-                          <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                            ODIN Sport
-                            <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                              {calculateTimeDifference(albums.createdAt)}
-                            </span>
-                          </h4>
-                        </div>
-
-                        <div className="card-body d-block p-0 mb-3">
-                          <div className="row ps-2 pe-2">
-                            <div className="col-sm-12 p-1">
-                              <div
-                                className="card-body position-relative h200 bg-image-cover bg-image-center cover"
-                                style={{
-                                  backgroundImage: `url(${albums.ImagesAlbums[0]?.image_url})`,
-                                }}
-                              ></div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="card-body p-0 me-lg-5">
-                          <p className="fw-500 font-thin lh-26 ml-8 rounded-md font-xssss w-100 mb-2 text-dark theme-dark-bg">
-                            {album.description}
-                          </p>
-                        </div>
-                      </div>
-                    ))} */}
+                  
                 </div>
              
             </div>

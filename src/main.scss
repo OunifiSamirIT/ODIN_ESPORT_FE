@@ -19,8 +19,11 @@
   }
 }
 
+
 body {
   scroll-behavior: auto;
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 244 245 / var(--tw-bg-opacity));
 }
 .expand {
   transition: all 1s ease-in-out; /* Adjust timing and easing as needed */

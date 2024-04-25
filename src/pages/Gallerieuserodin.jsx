@@ -34,7 +34,8 @@ const Album = () => {
   };
 
   const optionsPays = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+    const paysRS = country.name ? country.name : '';
 
     return {
       value: countryCode,
@@ -46,7 +47,7 @@ const Album = () => {
               style={{ marginRight: "2px", width: "40px" }}
             ></span>
           )}
-          {country.name}
+          {paysRS}
         </div>
       ),
     };
@@ -525,7 +526,7 @@ const Album = () => {
                             <div className="grow">Pays</div>
                           </div>
                           <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid rounded-[30px]">
-                            <Select
+                            {/* <Select
                               options={optionsPays}
                               onChange={(selectedOption) =>
                                 setSearchPays(
@@ -554,7 +555,68 @@ const Album = () => {
                                   width: "100%",
                                 }),
                               }}
-                            />
+                            /> */}
+
+
+<Select
+                        options={optionsPays}
+                        // placeholder={
+                        //   getTranslation(
+                        //     `Country of residence`,  // -----> Englais
+                        //     `Pays de résidence`, //  -----> Francais
+                        //     ``,  //  -----> Turkey
+                        //     ``,  //  -----> Allemagne
+                        //   )
+
+                        // }
+                        // onChange={(selectedOption) => console.log(selectedOption)}
+                        styles={{
+                          control: (provided, state) => ({
+                            ...provided,
+                            borderRadius: "0.375rem", // You can adjust the radius as needed
+                            display: "flex",
+                            justifyContent: "center",
+                            borderRadius: "30px",
+
+                            fontSize: "14px", // Set the desired font size
+                            backgroundColor: "#ffffff", // Set the background color
+                            borderWidth: "none",
+
+
+
+                            paddingTop: "6px",
+                            paddingBottom: "6px",
+                            // marginTop: "4px",
+                            width: "100%",
+
+                            border: "0.5px solid #E5E5E5",
+                          }),
+                          menu: (provided, state) => ({
+                            ...provided,
+                            width: "100%", // Adjust the width as needed
+                          }),
+                        }}
+
+
+                        onChange={(selectedOption) =>
+                          setSearchPays(
+                            selectedOption.label.props.children[1]
+                          )
+                        }
+                        value={optionsPays.find(
+                          (option) => option.value === searchPays
+                        )}
+                        placeholder="Pays Camps"
+                        filterOption={(option, inputValue) => {
+                          const paysRS = option.label.props.children; // Assuming nationalite is directly the children of label
+                      
+                          const paysRSString = typeof paysRS === 'string' ? paysRS.toLowerCase() : paysRS.join("").toLowerCase(); // Join children of JSX element if it's an array
+                      
+                          return paysRSString.includes(inputValue.toLowerCase());
+                        }}
+                        // Ensure that all options are displayed even when filtered
+                        isSearchable
+                      />
                           </div>
                         </div>
                       </div>
@@ -578,7 +640,7 @@ const Album = () => {
                               />
                             </div>
                           </div>
-                          <div className="flex gap-4 mt-2 justify-between px-4 md:mt-4">
+                          {/* <div className="flex gap-4 mt-2 justify-between px-4 md:mt-4">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ebab6160954a2bce21ceaf2e169787de6ab38cfed49192e766553aa8805b259?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -594,7 +656,7 @@ const Album = () => {
                                 onChange={(date) => handleDateDFChange(date)} // Handle date change
                               />
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -646,7 +708,7 @@ const Album = () => {
                                 {value.date_debut}
                               </div>
                               <div>-</div>
-                              <div className="grow">{value.date_fin}</div>
+                              <div className="grow">{value.Duree}</div>
                             </div>
                             <div className=" text-xs font-light w-35 ml-5 whitespace-pre-line">
                               {value.payscamps}
