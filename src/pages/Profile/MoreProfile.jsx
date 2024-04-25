@@ -1455,20 +1455,19 @@ const More = () => {
                       srcSet={CurrentUser.user.image ? CurrentUser?.user.image : Placeholder}
                       className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
                     />
-                    <div className="flex-col grow w-full items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
-                      <div className="text-xl   justify-center font-bold flex-col text-zinc-900  h-full  flex gap-2 flex-wrap whitespace-normal">
-                        <p className="break-all">{CurrentUser?.user.nom}  {CurrentUser?.user.prenom}</p>
-                        <p className="break-all text-[#2458b7]">{CurrentUser?.user.profil} </p>
-                      </div>
-
-                    </div>
                   </div>
                   <div className="flex flex-col items-center justify-between gap-y-4">
                     <div className="flex  flex-col w-full ">
-                      <div className="flex gap-2 mt-3 md:justify-end  self-end w-full max-md:flex-wrap max-md:max-w-full">
+                      <div className="flex md:flex-row flex-col">
+                        <div className="flex-col grow w-full items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
+                          <div className="text-xl   justify-center font-bold flex-col text-zinc-900  h-full  flex gap-2 flex-wrap whitespace-normal">
+                            <p className="break-all">{CurrentUser?.user.nom}  {CurrentUser?.user.prenom}</p>
+                            <p className="break-all text-[#2458b7]">{CurrentUser?.user.profil} </p>
+                          </div>
 
+                        </div>
                         {isOwner ? (
-                          <div className="max-sm:w-full justify-end flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]">
+                          <div className="max-sm:w-full flex gap-2 max-sm:justify-center justify-center px-8 py-2 h-12 text-base font-medium text-white bg-blue-600 rounded-[30px]">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
