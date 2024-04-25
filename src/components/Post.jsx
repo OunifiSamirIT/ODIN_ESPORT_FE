@@ -90,6 +90,7 @@ function Post({ article, setArticles }) {
       const [selectedArticleForCopy, setSelectedArticleForCopy] = useState(null);
       const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
       const [showDropdown, setShowDropdown] = useState(null);
+      const [showDropdownedit, setShowDropdownedit] = useState(null);
       const [selectedArticle, setSelectedArticle] = useState(null);
 
       const [loading, setLoading] = useState(false);
@@ -108,6 +109,7 @@ function Post({ article, setArticles }) {
           console.log(!ref.current.contains(event.target))
           setIsModaldOpen(false)
           fetchArticles()
+
         }
       };
       useEffect(() => {
@@ -122,11 +124,14 @@ function Post({ article, setArticles }) {
         console.log("Editing article with ID:", articleId); // Add this line to debug
         setSelectedArticleId(articleId);
         setIsModaldOpen(true);
+        setCommentInputVisible(false);
+
       };
       
       const handleCloseModal = () => {
         setIsModaldOpen(false);
         fetchArticles()
+        setCommentInputVisible(false);
 
       };
     
@@ -662,7 +667,7 @@ function Post({ article, setArticles }) {
     
       const handleMoreClick = (article) => {
         console.log("More clicked", article.id);
-        setSelectedArticle(article);
+        // setSelectedArticle(article);
     
         // Toggle the dropdown visibility
         setShowDropdown((prevState) =>
@@ -792,18 +797,37 @@ function Post({ article, setArticles }) {
                                 article.user.user &&
                                 article.user.user.id === storedUserData.id && (
                                   <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                                    <button
-                                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
-                                      onClick={() =>
-                                        handleEditClick(selectedArticle)
-                                      }
-                                    >
-                                      <label
-                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                        onClick={() => handleEditClick(article)}
-                                      >
-                                               <button onClick={() => handleEdit(article.id)} className="dropdown-item">Edit</button>
+                                  
+                                  
+                                  
 
+                                  
+                                  
+                                   <button
+                                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                                      // onClick={() =>
+                                      //   handleEditClick(selectedArticle)
+                                      // }
+                                    >
+                                      
+                                     <label
+                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                        // onClick={() => handleEditClick(article)}
+                                      >
+         
+         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3133_71907)">
+<path d="M1.2325 12.4487C0.763627 12.9175 0.500142 13.5533 0.5 14.2163L0.5 15.4994H1.78312C2.44611 15.4992 3.08189 15.2357 3.55062 14.7669L11.89 6.4275L9.57187 4.10938L1.2325 12.4487Z" fill="black"/>
+<path d="M14.9651 1.03527C14.8129 0.882917 14.6322 0.762055 14.4332 0.679593C14.2343 0.597132 14.0211 0.554688 13.8057 0.554688C13.5904 0.554687 13.3771 0.597132 13.1782 0.679593C12.9793 0.762055 12.7985 0.882917 12.6463 1.03527L10.4551 3.22715L12.7732 5.54527L14.9651 3.35402C15.1174 3.20183 15.2383 3.0211 15.3208 2.82216C15.4032 2.62323 15.4457 2.40999 15.4457 2.19465C15.4457 1.9793 15.4032 1.76606 15.3208 1.56713C15.2383 1.36819 15.1174 1.18746 14.9651 1.03527Z" fill="black"/>
+</g>
+<defs>
+<clipPath id="clip0_3133_71907">
+<rect width="15" height="15" fill="black" transform="translate(0.5 0.5)"/>
+</clipPath>
+</defs>
+</svg>
+ <span onClick={() => handleEdit(article.id)}>Edit</span>
+ 
                                         {/* <Link to={`/editPost/${article.id}`}>
                                           <span>Edit</span>
                                         </Link>{" "} */}
@@ -816,7 +840,9 @@ function Post({ article, setArticles }) {
                                         handleDeleteClick(article.id)
                                       }
                                     >
-                                      <BiLogInCircle />
+                                     <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.5 3.33333H14.0825C13.695 1.43417 12.0125 0 10 0H8.33333C6.32167 0 4.63833 1.43417 4.25083 3.33333H0.833333C0.373333 3.33333 0 3.70583 0 4.16667C0 4.6275 0.373333 5 0.833333 5H1.55L2.63 16.2325C2.83667 18.3808 4.62 20 6.7775 20H11.55C13.7108 20 15.4942 18.3775 15.6983 16.2267L16.7617 5H17.4992C17.9592 5 18.3325 4.6275 18.3325 4.16667C18.3325 3.70583 17.96 3.33333 17.5 3.33333ZM8.33333 1.66667H10C11.085 1.66667 12.0017 2.36583 12.3467 3.33333H5.9875C6.3325 2.36583 7.24833 1.66667 8.33333 1.66667ZM12.2558 13.5775C12.5817 13.9033 12.5817 14.43 12.2558 14.7558C12.0933 14.9183 11.88 15 11.6667 15C11.4533 15 11.24 14.9183 11.0775 14.7558L9.16667 12.845L7.25583 14.7558C7.09333 14.9183 6.88 15 6.66667 15C6.45333 15 6.24 14.9183 6.0775 14.7558C5.75167 14.43 5.75167 13.9033 6.0775 13.5775L7.98833 11.6667L6.0775 9.75583C5.75167 9.43 5.75167 8.90333 6.0775 8.5775C6.40333 8.25167 6.93 8.25167 7.25583 8.5775L9.16667 10.4883L11.0775 8.5775C11.4033 8.25167 11.93 8.25167 12.2558 8.5775C12.5817 8.90333 12.5817 9.43 12.2558 9.75583L10.345 11.6667L12.2558 13.5775Z" fill="black"/>
+</svg>
                                       <span className="text-base">Delete</span>
                                     </button>
                                   </div>
@@ -1010,7 +1036,7 @@ function Post({ article, setArticles }) {
                                                 </div>
                                               </div>
                                             </div>
-                                            <div className="mt-2 text-base font-light text-zinc-900 px-4 ">
+                                            <div className="mt-2 text-base font-light text-wrap text-break text-zinc-900 px-4 ">
                                               {comment.description}
                                             </div>
                                          
@@ -1213,12 +1239,13 @@ function Post({ article, setArticles }) {
                 
                     {isModaldOpen && (
         <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
-          <div ref={ref} className="flex flex-col overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
+          <div ref={ref} className="flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
+          <button
+          className="bg-zinc-600 w-10 h-10 items-end self-end py-2 text-white  rounded-full "
+          onClick={() => handleCloseModal(true)}> X </button>
           <EditPost articleId={selectedArticleId} onClose={handleCloseModal} />
 
-          <button
-          className="bg-red-600 w-1/3 items-center self-center py-2 text-white  rounded-md "
-          onClick={() => handleCloseModal(true)}> Fermer </button>
+          
           </div>
         </div>
       )}
