@@ -6,10 +6,11 @@ import Placeholder from "../../../assets/placeholder.jpg"
 import { useNavigate } from 'react-router-dom';
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
-import {Context} from "../../../index"
+import Modal from 'react-modal';
+import { Context } from "../../../index"
 
 const PlayerCard = ({ userInfo }) => {
-  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const { id } = useParams();
@@ -39,6 +40,44 @@ const PlayerCard = ({ userInfo }) => {
     const result = await response.json();
     console.log('friend request sent')
   }
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
+  // Styles pour la modale
+  const modalStyle = {
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    content: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: 'transparent', // Fond transparent
+      border: 'none', // Supprimer les bordures
+      // borderRadius: '50%', // Modal circulaire
+      padding: 0, // Pas de padding
+      width: '80vw', // Largeur relative de la fenêtre
+      height: '80vw', // Hauteur relative de la fenêtre
+      maxWidth: '400px', // Limite la largeur maximale
+      maxHeight: '400px', // Limite la hauteur maximale
+      overflow: 'hidden', // Cacher tout contenu dépassant
+      animation: 'fadeIn 0.3s ease-out', // Animation d'apparition
+    },
+  };
+
+
+  const openModal = (src) => {
+    setImageSrc(src);
+    setModalIsOpen(true);
+  };
+
+  // Fonction pour fermer la modale
+  const closeModal = () => {
+    setImageSrc(null);
+    setModalIsOpen(false);
+  };
+
 
   // const CheckIfInvitationIsSend = async () => {
   //   const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/friend-requests`, {
@@ -88,26 +127,56 @@ const PlayerCard = ({ userInfo }) => {
       <div className="flex gap-y-4 flex-col items-center md:px-[30px] max-sm:px-2 py-6 bg-white rounded-[10px] ">
         <div className="flex flex-col md:flex-row justify-between gap-4 w-full">
           <div className="flex items-center md:w-fit w-full justify-center  md:mx-[0px] ">
-            <img
+
+
+            <div>
+              {/* Bouton/image cliquable */}
+              <a href="#" onClick={() => openModal(userInfo?.user.image ? userInfo?.user.image : Placeholder)}>
+                <img
+                  alt="profile"
+                  loading="lazy"
+                  srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
+                  className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+                />
+              </a>
+
+              {/* Modale d'agrandissement de l'image */}
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Image Modal"
+                style={modalStyle} // Styles personnalisés pour la modale
+              >
+                <div style={{ width: '100%', height: '100%' }}>
+                  <img
+                    alt="profile"
+                    loading="lazy"
+                    srcSet={imageSrc ? imageSrc : Placeholder}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Remplir tout l'espace disponible
+                  />
+                </div>
+              </Modal>
+            </div>
+            {/* <img
               alt="profile"
               loading="lazy"
               srcSet={userInfo.user.image ? userInfo?.user.image : Placeholder}
               className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
-            />
+            /> */}
             <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
               <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
                 <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
               </div>
               <div className="text-base font-medium text-blue-600">
-              {
-             getTranslation(
-              `Players`,  // -----> Englais
-              `Joueurs`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                {
+                  getTranslation(
+                    `Players`,  // -----> Englais
+                    `Joueurs`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
 
-            } 
+                }
               </div>
             </div>
           </div>
@@ -121,14 +190,14 @@ const PlayerCard = ({ userInfo }) => {
                     className="shrink-0 my-auto aspect-square w-[15px]"
                   />
                   <Link to={'/setting/personal'} className="flex items-center"><p>{
-             getTranslation(
-              `Edit`,  // -----> Englais
-              `Modifier`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                    getTranslation(
+                      `Edit`,  // -----> Englais
+                      `Modifier`, //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )
 
-            }</p></Link>
+                  }</p></Link>
                 </div> :
                 <>
                   <div className="flex items-center gap-3 md:w-fit w-full">
@@ -147,13 +216,13 @@ const PlayerCard = ({ userInfo }) => {
                       {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
                         <button className="flex items-center " onClick={sendFriendRequest}><p>{
                           getTranslation(
-                           `Add`,  // -----> Englais
-                           `Ajouter`, //  -----> Francais
-                         //   ``,  //  -----> Turkey
-                         //   `` ,  //  -----> Allemagne
-                           ) 
-             
-                         } </p></button>}
+                            `Add`,  // -----> Englais
+                            `Ajouter`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
+
+                        } </p></button>}
                     </div>
                     {acceptedFriend?.status === 'accepted' ? <div>
                       <a href={`https://wa.me/${getWhatsappPrefix(userInfo.user.optionalattributs)}${userInfo.user.numWSup}`} target="_blank">
@@ -193,17 +262,17 @@ const PlayerCard = ({ userInfo }) => {
               className="self-stretch w-5 aspect-[1.3]"
             />
             <div className="my-auto">
-            {
-             getTranslation(
-              `License :`,  // -----> Englais
-              `Licence :`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+              {
+                getTranslation(
+                  `License :`,  // -----> Englais
+                  `Licence :`, //  -----> Francais
+                  //   ``,  //  -----> Turkey
+                  //   `` ,  //  -----> Allemagne
+                )
 
-            } 
-              
-              </div>
+              }
+
+            </div>
 
             {userInfo.player?.Licence ? <img
               loading="lazy"
@@ -233,7 +302,7 @@ const PlayerCard = ({ userInfo }) => {
         </div>
 
 
-{ userInfo?.user.discreptionBio &&  <div className="self-stretch text-break font-light text-center text-neutral-900 max-md:max-w-full">
+        {userInfo?.user.discreptionBio && <div className="self-stretch text-break font-light text-center text-neutral-900 max-md:max-w-full">
           <div className="flex justify-center  mt-2">
             <svg width="366" height="1" viewBox="0 0 366 1" fill="none" xmlns="http://www.w3.org/2000/svg">
               <line x1="0.5" y1="0.5" x2="365.5" y2="0.499968" stroke="#D9E6F7" stroke-linecap="round" />
@@ -273,16 +342,17 @@ const PlayerCard = ({ userInfo }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
               className="shrink-0 self-center w-5 aspect-square"
             />
-            <div className="grow">     
-                        {
-             getTranslation(
-              `Skills`,  // -----> Englais
-              ` Compétences`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+            <div className="grow">Compétences </div>
+            <div className="grow">
+              {
+                getTranslation(
+                  `Skills`,  // -----> Englais
+                  ` Compétences`, //  -----> Francais
+                  //   ``,  //  -----> Turkey
+                  //   `` ,  //  -----> Allemagne
+                )
 
-            } </div>
+              } </div>
           </div>
           <div className="flex gap-2  hidden  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
@@ -294,7 +364,6 @@ const PlayerCard = ({ userInfo }) => {
           </div>
         </span >
 
-        {/* social icons */}
 
         <div div className="  max-w-xl flex flex gap-4 justify-between" >
           {userInfo?.user.liensSM && <a target="_blank" href={`https://www.instagram.com/${userInfo?.user.liensSM}`}>
@@ -382,23 +451,24 @@ const PlayerCard = ({ userInfo }) => {
         {/* social icons */}
 
         <div div className="flex justify-center items-center px-16 py-2  max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5 mr-15" >
-          <div className="flex gap-4 items-center ">
+          <div className="flex  gap-16 items-center ">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
               className="shrink-0 w-4 aspect-[0.94]"
             />
             <a href={`/profile/more/${id}`}>{
-             getTranslation(
-              `See more`,  // -----> Englais
-              ` Voir Plus`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+              getTranslation(
+                `See more`,  // -----> Englais
+                ` Voir Plus`, //  -----> Francais
+                //   ``,  //  -----> Turkey
+                //   `` ,  //  -----> Allemagne
+              )
 
             }</a>
           </div>
         </div >
+
       </div >
     </>
   )

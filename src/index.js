@@ -123,6 +123,7 @@ import AdminChallenges from "./pages/Admin/Challenges.jsx";
 import AddChallenge from "./pages/Admin/Components/AddChallenge.jsx";
 import ChallengeDetais from "./pages/Challenge/Details.jsx";
 import Searchpage from "./components/Searchpage.jsx";
+import { Professionalprofile } from "./pages/Professionalprofile/Professionalprofile.jsx";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null)
@@ -264,6 +265,8 @@ function Root() {
               <Route exact path={`/FormEvent/:id`} element={<FormEvent />} />
               <Route exact path={`/thanks/:id`} element={<Thankscamps />} />
               <Route exact path={`/thanksevent/:id`} element={<Thanksodinevent />} />
+
+              {/* <Route exact path={`/professionalprofile`} element={<Professionalprofile />} /> */}
 
 
               <Route exact path="/gallery" element={<Gallery />} />

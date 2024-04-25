@@ -128,10 +128,32 @@ const Album = () => {
 
   };
 
+  // const formatDate = (dateString) => {
+  //   const dateParts = dateString.split('-');
+  //   if (dateParts.length === 3) {
+  //     const year = dateParts[0];
+  //     const month = dateParts[1].padStart(2, '0'); // Ensure two-digit month
 
 
+  //     const day = dateParts[2].padStart(2, '0');
+  //     console.log("tt", day) // Ensure two-digit day
+  //     return `${day}-${month}-${year}`;
+
+  //   } else {
+  //     return null; // Invalid date string
+  //   }
+  // };
 
 
+  const formatDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    // Format the date object into the desired format
+    return dateObject.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
 
 
 
@@ -554,7 +576,7 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/545e939511a47d6db83d17be743c494bcd9b7824f609f0def7b7a0a0da2ac415?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
                             />
-                            <div className="flex items-center justify-center mt-2">{albumDetails.date_debut}</div>
+                            <div className="flex items-center justify-center mt-2">{formatDate(albumDetails.date_debut)}</div>
                           </div>
                           <img
                             loading="lazy"
@@ -567,7 +589,7 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3d803e2aa84cc65dafa06294cf90b747ef51e660e2c45f13da33c1f8a6c4b0e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
                             />
-                            <div className="flex items-center justify-center mt-2">{albumDetails.date_fin}</div>
+                            <div className="flex items-center justify-center mt-2">{formatDate(albumDetails.date_fin)}</div>
                           </div>
                           <img
                             loading="lazy"
