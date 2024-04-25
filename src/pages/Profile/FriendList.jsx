@@ -3,9 +3,13 @@ import HomeLayout from "../../Layout/HomeLayout";
 import Placeholder from '../../assets/placeholder.jpg';
 import { Link } from 'react-router-dom'
 import { Config } from "../../config";
+import {Context} from "../../index"
+
 const FriendList = () => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
     const [FriendRequest, setFriendRequest] = useState([])
     const fetchFriendRequest = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/getFriends`);
@@ -58,7 +62,15 @@ const FriendList = () => {
                                         fill="#1D1E21"
                                     />
                                 </svg>
-                                <span className="ml-3">Acceuil</span>
+                                <span className="ml-3">{
+             getTranslation(
+              `Home`,  // -----> Englais
+              `Acceuil`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </span>
                             </Link>
                         </div>
                         <div className="w-[19.874rem]  h-[0.3px] opacity-[0.2] bg-[#A3A3A4]" />
@@ -86,7 +98,15 @@ const FriendList = () => {
                                         fill="#1D1E21"
                                     />
                                 </svg>
-                                <span className="ml-3"> Agents</span>
+                                <span className="ml-3"> {
+             getTranslation(
+              `Agents`,  // -----> Englais
+              `Agents`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </span>
                             </Link>
                         </div>
                         <div className="w-[19.875rem] h-[0.3px] opacity-[0.2] bg-[#A3A3A4]" />
@@ -96,7 +116,15 @@ const FriendList = () => {
                                     <path d="M9.16667 7.5C9.16667 7.27899 9.25447 7.06702 9.41074 6.91074C9.56703 6.75446 9.77899 6.66667 10 6.66667C10.221 6.66667 10.433 6.75446 10.5893 6.91074C10.7455 7.06702 10.8333 7.27899 10.8333 7.5C10.8333 7.72101 10.7455 7.93297 10.5893 8.08926C10.433 8.24554 10.221 8.33333 10 8.33333C9.77899 8.33333 9.56703 8.24554 9.41074 8.08926C9.25447 7.93297 9.16667 7.72101 9.16667 7.5ZM18.3333 4.16667V15.8333C18.332 16.938 17.8926 17.997 17.1115 18.7782C16.3304 19.5593 15.2713 19.9987 14.1667 20H5.83333C5.02353 19.9989 4.23158 19.7619 3.55434 19.3179C2.8771 18.8739 2.34392 18.2422 2.02 17.5H0.833333C0.61232 17.5 0.400358 17.4122 0.244078 17.2559C0.0877973 17.0996 0 16.8877 0 16.6667C0 16.4457 0.0877973 16.2337 0.244078 16.0774C0.400358 15.9211 0.61232 15.8333 0.833333 15.8333H1.66667V14.1667H0.833333C0.61232 14.1667 0.400358 14.0789 0.244078 13.9226C0.0877973 13.7663 0 13.5543 0 13.3333C0 13.1123 0.0877973 12.9004 0.244078 12.7441C0.400358 12.5878 0.61232 12.5 0.833333 12.5H1.66667V10.8333H0.833333C0.61232 10.8333 0.400358 10.7455 0.244078 10.5893C0.0877973 10.433 0 10.221 0 10C0 9.77899 0.0877973 9.56702 0.244078 9.41074C0.400358 9.25446 0.61232 9.16667 0.833333 9.16667H1.66667V7.5H0.833333C0.61232 7.5 0.400358 7.4122 0.244078 7.25592C0.0877973 7.09964 0 6.88768 0 6.66667C0 6.44565 0.0877973 6.23369 0.244078 6.07741C0.400358 5.92113 0.61232 5.83333 0.833333 5.83333H1.66667V4.16667H0.833333C0.61232 4.16667 0.400358 4.07887 0.244078 3.92259C0.0877973 3.76631 0 3.55435 0 3.33333C0 3.11232 0.0877973 2.90036 0.244078 2.74408C0.400358 2.5878 0.61232 2.5 0.833333 2.5H2.02C2.34392 1.7578 2.8771 1.12608 3.55434 0.682083C4.23158 0.238088 5.02353 0.00106531 5.83333 0L14.1667 0C15.2713 0.00132321 16.3304 0.440735 17.1115 1.22185C17.8926 2.00296 18.332 3.062 18.3333 4.16667ZM7.5 7.5C7.5 8.16304 7.76339 8.79893 8.23223 9.26777C8.70107 9.73661 9.33696 10 10 10C10.663 10 11.2989 9.73661 11.7678 9.26777C12.2366 8.79893 12.5 8.16304 12.5 7.5C12.5 6.83696 12.2366 6.20107 11.7678 5.73223C11.2989 5.26339 10.663 5 10 5C9.33696 5 8.70107 5.26339 8.23223 5.73223C7.76339 6.20107 7.5 6.83696 7.5 7.5ZM14.1667 15C13.9908 9.49333 6.0075 9.495 5.83333 15C5.83333 15.221 5.92113 15.433 6.07741 15.5893C6.23369 15.7455 6.44565 15.8333 6.66667 15.8333C6.88768 15.8333 7.09964 15.7455 7.25592 15.5893C7.4122 15.433 7.5 15.221 7.5 15C7.5 14.337 7.76339 13.7011 8.23223 13.2322C8.70107 12.7634 9.33696 12.5 10 12.5C10.663 12.5 11.2989 12.7634 11.7678 13.2322C12.2366 13.7011 12.5 14.337 12.5 15C12.5 15.221 12.5878 15.433 12.7441 15.5893C12.9004 15.7455 13.1123 15.8333 13.3333 15.8333C13.5543 15.8333 13.7663 15.7455 13.9226 15.5893C14.0789 15.433 14.1667 15.221 14.1667 15Z" fill="#1D1E21" />
                                 </svg>
                             </div>
-                            <div className="text-[#1D1E21] font-['Sora'] text-xl font-medium leading-[normal]">Agents</div>
+                            <div className="text-[#1D1E21] font-['Sora'] text-xl font-medium leading-[normal]">{
+             getTranslation(
+              `Agents`,  // -----> Englais
+              `Agents`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                         </div>
                         <div className="w-[19.875rem] h-[0.3px] opacity-[0.2] bg-[#A3A3A4]" />
                         <div className="flex justify-between items-center py-2 px-6 w-[19.875rem]">
@@ -106,7 +134,15 @@ const FriendList = () => {
                                         <path d="M13.6375 11.8192C13.6375 12.135 13.4175 12.4008 13.1658 12.5408L11.8625 13.2658L12.4408 14.8433C12.5525 15.1492 12.4517 15.4917 12.1917 15.6875C11.9258 15.8875 11.5592 15.885 11.2958 15.6817L9.99917 14.6792L8.7025 15.6817C8.43917 15.885 8.0725 15.8875 7.80667 15.6875C7.54667 15.4917 7.44583 15.1492 7.5575 14.8433L8.13583 13.2658L6.8325 12.5408C6.58083 12.4008 6.36083 12.135 6.36083 11.8192C6.36083 11.5517 6.59333 11.2558 6.97 11.2558H8.8425L9.33917 9.35333C9.4175 9.05167 9.68833 8.84167 9.99917 8.83583C10.31 8.84167 10.5808 9.05167 10.6592 9.35333L11.1558 11.2558H13.0283C13.405 11.2558 13.6375 11.5508 13.6375 11.8192ZM15.4167 1.66667H15V1.25C15 0.559167 14.4408 0 13.75 0C13.0592 0 12.5 0.559167 12.5 1.25V1.66667H7.5V1.25C7.5 0.559167 6.94083 0 6.25 0C5.55917 0 5 0.559167 5 1.25V1.66667H4.58333C2.05583 1.66667 0 3.7225 0 6.25V15.4167C0 17.9442 2.05583 20 4.58333 20H15.4167C17.9442 20 20 17.9442 20 15.4167V6.25C20 3.7225 17.9442 1.66667 15.4167 1.66667ZM15.4167 17.5H4.58333C3.435 17.5 2.5 16.565 2.5 15.4167V7.5H17.5V15.4167C17.5 16.565 16.565 17.5 15.4167 17.5Z" fill="#1D1E21" />
                                     </svg>
                                 </div>
-                                <div className="text-[#1D1E21] font-['Sora'] text-xl font-medium leading-[normal]">Événements</div>
+                                <div className="text-[#1D1E21] font-['Sora'] text-xl font-medium leading-[normal]">{
+             getTranslation(
+              `Events`,  // -----> Englais
+              `Événements`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                             </div>
                             <div className="scroll_right flex justify-center items-center p-2">
                                 <svg width={20} height={10} viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,14 +159,30 @@ const FriendList = () => {
                                         <path d="M10.8333 12.5C10.8333 12.721 10.7455 12.933 10.5893 13.0893C10.433 13.2455 10.221 13.3333 10 13.3333C9.77899 13.3333 9.56703 13.2455 9.41074 13.0893C9.25446 12.933 9.16667 12.721 9.16667 12.5V11.6667H0V15.8333C0.00132321 16.938 0.440735 17.997 1.22185 18.7782C2.00296 19.5593 3.062 19.9987 4.16667 20H15.8333C16.938 19.9987 17.997 19.5593 18.7782 18.7782C19.5593 17.997 19.9987 16.938 20 15.8333V11.6667H10.8333V12.5Z" fill="#1D1E21" />
                                     </svg>
                                 </div>
-                                <div className="text-[#2E71EB] font-['Sora'] text-xl font-medium leading-[normal]">Offres d’emploi</div>
+                                <div className="text-[#2E71EB] font-['Sora'] text-xl font-medium leading-[normal]">{
+             getTranslation(
+              `Jobs Offers`,  // -----> Englais
+              `Offres d’emploi`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                             </div>
                             <div className="flex flex-col items-center gap-2.5 w-[19.875rem]">
                                 <div className="flex justify-center items-center gap-2 py-2 px-8 w-[15.875rem] rounded-full bg-[#2E71EB]">
                                     <svg width={17} height={16} viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M15.1667 6.66667H9.83333V1.33333C9.83333 0.979711 9.69286 0.640573 9.44281 0.390525C9.19276 0.140476 8.85362 0 8.5 0C8.14638 0 7.80724 0.140476 7.55719 0.390525C7.30714 0.640573 7.16667 0.979711 7.16667 1.33333V6.66667H1.83333C1.47971 6.66667 1.14057 6.80714 0.890525 7.05719C0.640476 7.30724 0.5 7.64638 0.5 8C0.5 8.35362 0.640476 8.69276 0.890525 8.94281C1.14057 9.19286 1.47971 9.33333 1.83333 9.33333H7.16667V14.6667C7.16667 15.0203 7.30714 15.3594 7.55719 15.6095C7.80724 15.8595 8.14638 16 8.5 16C8.85362 16 9.19276 15.8595 9.44281 15.6095C9.69286 15.3594 9.83333 15.0203 9.83333 14.6667V9.33333H15.1667C15.5203 9.33333 15.8594 9.19286 16.1095 8.94281C16.3595 8.69276 16.5 8.35362 16.5 8C16.5 7.64638 16.3595 7.30724 16.1095 7.05719C15.8594 6.80714 15.5203 6.66667 15.1667 6.66667Z" fill="white" />
                                     </svg>
-                                    <div className="text-white font-['Sora'] font-medium leading-[normal]">Publier une offre</div>
+                                    <div className="text-white font-['Sora'] font-medium leading-[normal]">{
+             getTranslation(
+              `Publish Offer`,  // -----> Englais
+              ` Publier une offre`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +195,21 @@ const FriendList = () => {
                     List des amis
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 ">
-                    {FriendRequest.length <= 0 && <div className="text-lg text-center col-span-3">Vous n'avez pas aucune ami pour le moment !</div>}
+                    {FriendRequest.length <= 0 && <div className="text-lg text-center col-span-3">   
+                    
+                    
+                    {
+             getTranslation(
+              `You don't have any friends at the moment!`,  // -----> Englais
+              `Vous n'avez pas aucune ami pour le moment !`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                    
+                    
+                    </div>}
                     {FriendRequest.map((item) => {
                         return (
                             <div className="col-span-1">
@@ -163,7 +229,15 @@ const FriendList = () => {
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/576404c583a66cbb5fc431ad30a1cd490dd50b47c1745b9e924980a529366444?"
                                                 className="shrink-0 w-3.5 aspect-[0.74]"
                                             />
-                                            <div className="my-auto">Profil</div>
+                                            <div className="my-auto">{
+             getTranslation(
+              `Profile`,  // -----> Englais
+              `Profil`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }</div>
                                         </div>
                                         <div className="my-auto font-medium">{item?.receiver?.profil}</div>
                                     </div>
@@ -174,7 +248,15 @@ const FriendList = () => {
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5eae7f20e92fe11b1e7f70f0906a949d8f8881426a877620d101145fd278e5?"
                                                 className="shrink-0 w-5 aspect-square"
                                             />
-                                            <div className="my-auto">Nationnalité</div>
+                                            <div className="my-auto">{
+                          getTranslation(
+                            `Nationality`,  // -----> Englais
+                            `Nationalité`, //  -----> Francais
+                            ``,  //  -----> Turkey
+                            ``,  //  -----> Allemagne
+                          )
+
+                        }</div>
                                         </div>
                                         <div className="flex font-medium">
                                             <div className="flex font-medium whitespace-nowrap">
@@ -194,8 +276,15 @@ const FriendList = () => {
                                                 className="shrink-0 my-auto w-5 aspect-square"
                                             />
                                             <div>
-                                                Pays de
-                                                résidence
+                                            {
+                            getTranslation(
+                              `Country of residence`,  // -----> Englais
+                              `Pays de résidence`, //  -----> Francais
+                              ``,  //  -----> Turkey
+                              ``,  //  -----> Allemagne
+                            )
+
+                          }
                                             </div>
                                         </div>
                                         <div className="flex font-medium whitespace-nowrap">
@@ -208,10 +297,34 @@ const FriendList = () => {
                                     </div>
                                     <div className="flex gap-2 justify-between mt-4 text-base font-medium text-white whitespace-nowrap">
                                         <Link to={`/profile/${item.receiver.id}`} className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                                            Voir Profil
+                                           
+                                           
+                                        {
+             getTranslation(
+              `More details`,  // -----> Englais
+              ` Voir Profil`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                                           
+                                           
                                         </Link>
                                         <button onClick={() => deleteInviation(item.receiverId)} className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                                            Supprimer
+                                           
+                                           
+                                        {
+             getTranslation(
+              `Delete`,  // -----> Englais
+              ` Supprimer`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                                           
+                                            
                                         </button>
                                     </div>
                                 </div>

@@ -6,7 +6,10 @@ import AdminImg from "../assets/ODIN22.png";
 
 function Albumsadmin( {item} ) {
     const [album, setAlbum] = useState([]);
-
+    function formatDate(isoDate) {
+      const date = new Date(isoDate);
+      return date.toISOString().split('T')[0];
+    }
     useEffect(() => {
       
         
@@ -45,7 +48,7 @@ function Albumsadmin( {item} ) {
                           <h4 className="fw-700 text-grey-900 font-xssss mt-1">
                             ODIN Sport
                             <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                              {item.createdAt}
+                            {formatDate(item.createdAt)}
                             </span>
                           </h4>
                         </div>

@@ -60,7 +60,6 @@ const SettingsLayout = ({ children, setCurrentTab ,tab }) => {
                 <div className="flex w-full flex-col flex-wrap gap-y-2   px-2 bg-white rounded-[10px]">
                     {children}
                 </div>
-
             </div>
         </>
 

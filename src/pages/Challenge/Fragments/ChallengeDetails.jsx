@@ -7,6 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Timer from "../Component/Timer";
 import placeholder from '../../../assets/placeholder.jpg'
+import {Context} from "../../../index"
 const ChallengeDetais = () => {
     const {
         register,
@@ -14,6 +15,8 @@ const ChallengeDetais = () => {
         setValue,
     } = useForm();
     const ref = useRef(null);
+    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
     const { challengeId } = useParams();
     const [isOpen, setIsOpen] = useState(false)
     const [showCase, setShowCase] = useState(false)
@@ -25,6 +28,17 @@ const ChallengeDetais = () => {
     const [commentShow, setCommentShow] = useState(false);
     const [hasParticipated, setHasParticipated] = useState(false)
     const [dropdown, setDropdown] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false);
+    const video = useRef();
+    const playVideo = () => {
+        if (isPlaying) {
+            video.current.pause();
+        } else {
+            video.current.play();
+        }
+        setIsPlaying(!isPlaying);
+
+    }
     const handleVote = async () => {
         const formData = new FormData();
         formData.append('challengesId', challengeId)
@@ -53,12 +67,12 @@ const ChallengeDetais = () => {
     const handleDelete = async (id) => {
         console.log(showCase)
 
-        const response = fetch(`${Config.LOCAL_URL}/api/participant/delete/${id}`,{
-            method : 'DELETE'
+        const response = fetch(`${Config.LOCAL_URL}/api/participant/delete/${id}`, {
+            method: 'DELETE'
         })
-         const result = await response
+        const result = await response
 
-        if(result.status === 200){
+        if (result.status === 200) {
             fetchChallenges()
             setShowCase(false)
             setHasParticipated(false)
@@ -201,8 +215,24 @@ const ChallengeDetais = () => {
                 <div ref={ref} className="flex flex-col px-4 py-8 max-w-full bg-white rounded-[10px] w-[936px]">
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col  text-base bg-white rounded-xl max-w-[936px] text-zinc-900 ">
                         <div className="self-center mt-6 text-3xl font-bold text-center">
-                            Partagez votre vidéo <br />
-                            et relevez le défi !
+                        {
+             getTranslation(
+              `Share your video`,  // -----> Englais
+              `Partagez votre vidéo`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } <br />
+                           {
+             getTranslation(
+              ` and embrace the challenge.`,  // -----> Englais
+              `et relevez le défi !`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                         </div>
                         <div className="flex gap-4 self-start px-4 mt-8 text-lg whitespace-nowrap">
                             <img
@@ -210,7 +240,15 @@ const ChallengeDetais = () => {
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/1632032c4b9cc0a36a580eeb6d59c230aeaf9df1d716cf481033bcffcdc30506?"
                                 className="shrink-0 my-auto w-5 aspect-square"
                             />
-                            <div>Description</div>
+                            <div> {
+             getTranslation(
+              `Description`,  // -----> Englais
+              `Description`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                         </div>
                         <input type="text" name="description" {...register("description")} className="justify-center p-4 mt-2 font-light rounded-[10px] border border-solid border-neutral-200 max-md:max-w-full" placeholder="📢 Big News! Thrilled to announce my signing with FC Barcelona! Grateful" />
                         <div className="flex justify-center items-center px-8 py-10 mt-8 font-medium text-white rounded-[10px] border-2 border-blue-600 border-dashed max-md:px-5 max-md:max-w-full">
@@ -221,7 +259,15 @@ const ChallengeDetais = () => {
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/7123def0a3472b3c80be2e883ea0924a14fd3bb7a77eac6c4c15dc33e92f9d35?"
                                         className="shrink-0 aspect-[1.45] fill-white w-[29px]"
                                     />
-                                    <div>Importer votre vidéo</div>
+                                    <div>{
+             getTranslation(
+              `Import your video`,  // -----> Englais
+              `Importer votre vidéo`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                                 </div>
                                 <input type="file" name="video" {...register("video")} className="top-0 opacity-0 absolute flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5" />
 
@@ -234,14 +280,38 @@ const ChallengeDetais = () => {
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/18d5ab46a9a614282d78f6472fee72d2c6c7772c52c783a98afd3ca7bb3dd6cb?"
                                     className="shrink-0 w-5 aspect-square"
                                 />
-                                <div>Noter bien :</div>
+                                <div> {
+             getTranslation(
+              `Please take note:`,  // -----> Englais
+              `Noter bien :`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+              
+            } </div>
                             </div>
-                            <div>Seules les vidéos verticales seront acceptées.</div>
+                            <div>{
+             getTranslation(
+              ` Only vertical videos shall be accepted.`,  // -----> Englais
+              `Seules les vidéos verticales seront acceptées.`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+               
+            }</div>
                         </div>
 
                         <div className="flex flex-col">
                             <div className="flex gap-2 justify-center self-center px-8 py-2 mt-8 font-medium bg-blue-500 text-white whitespace-nowrap border-2 border-blue-500 border-solid rounded-[30px] max-md:px-5">
-                                <button type="submit">Confirmer</button>
+                                <button type="submit"> {
+             getTranslation(
+              `Submit`,  // -----> Englais
+              `Confirmer`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+              
+            } </button>
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_203_8700)">
                                         <path d="M6.45766 17.2188C5.88994 17.2191 5.34547 16.9934 4.94438 16.5916L0.369217 12.0182C-0.123072 11.5257 -0.123072 10.7275 0.369217 10.235C0.861665 9.74274 1.65992 9.74274 2.15237 10.235L6.45766 14.5403L17.8476 3.15035C18.3401 2.65806 19.1383 2.65806 19.6308 3.15035C20.1231 3.64279 20.1231 4.44105 19.6308 4.9335L7.97094 16.5916C7.56984 16.9934 7.02538 17.2191 6.45766 17.2188Z" fill="white" />
@@ -260,7 +330,15 @@ const ChallengeDetais = () => {
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/c125ccff0f979c2c50f9e8e6ac7098bbfb8c561a23d75e86e0eaa57843568d61?"
                                     className="shrink-0 my-auto aspect-square fill-orange-500 w-[15px]"
                                 />
-                                <button onClick={() => setIsOpen(false)}>Annuler</button>
+                                <button onClick={() => setIsOpen(false)}> {
+             getTranslation(
+              `Cancel`,  // -----> Englais
+              `Annuler`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </button>
                             </div>
                         </div>
                     </form>
@@ -281,7 +359,7 @@ const ChallengeDetais = () => {
                             <div className="flex flex-col ml-5 w-[62%] max-md:ml-0 max-md:w-full">
                                 <div className="flex flex-col grow pt-6 w-full bg-white rounded-none max-md:max-w-full">
                                     <div className="flex gap-4 justify-between px-8 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
-                                        <div className="flex gap-5 justify-between font-light text-zinc-900">
+                                        <div className="flex gap-4 justify-between font-light text-zinc-900">
                                             <img
                                                 loading="lazy"
                                                 srcSet={showCase.user.image}
@@ -294,7 +372,7 @@ const ChallengeDetais = () => {
                                             </div>
                                         </div>
                                         <div className="relative flex gap-2 self-start py-2">
-                                            <svg className={'pointer'} onClick={() =>  isOwner(showCase.user.id) == true ? setDropdown(!dropdown) : setDropdown(false)} width="32" height="21" viewBox="0 0 32 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg className={'pointer'} onClick={() => isOwner(showCase.user.id) == true ? setDropdown(!dropdown) : setDropdown(false)} width="32" height="21" viewBox="0 0 32 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_2800_8736)">
                                                     <path d="M3.375 13C4.75571 13 5.875 11.8807 5.875 10.5C5.875 9.11929 4.75571 8 3.375 8C1.99429 8 0.875 9.11929 0.875 10.5C0.875 11.8807 1.99429 13 3.375 13Z" fill="#1D1E21" />
                                                     <path d="M16.375 13C17.7557 13 18.875 11.8807 18.875 10.5C18.875 9.11929 17.7557 8 16.375 8C14.9943 8 13.875 9.11929 13.875 10.5C13.875 11.8807 14.9943 13 16.375 13Z" fill="#1D1E21" />
@@ -310,10 +388,19 @@ const ChallengeDetais = () => {
                                             {dropdown ? (
                                                 <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                     <button
-                                                        onClick={()=> handleDelete(showCase.id)}
+                                                        onClick={() => handleDelete(showCase.id)}
                                                         className="flex gap-1 items-center px-4 py-2 w-full text-gray-800 hover:bg-gray-200"
                                                     >
-                                                        Delete
+                                                        {
+                                                        getTranslation(
+                                                         `Delete`,  // -----> Englais
+                                                         `Supprimer`, //  -----> Francais
+                                                       //   ``,  //  -----> Turkey
+                                                       //   `` ,  //  -----> Allemagne
+                                                         ) 
+                                           
+                                                       }
+                                                        
                                                     </button>
                                                 </div>
                                             ) : ''}
@@ -329,7 +416,15 @@ const ChallengeDetais = () => {
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/a71ea75149c9710418976dfe985f413899a5dbaed4d67b4d3d9fb84cadc66712?"
                                                 className="shrink-0 w-6 border-0 border-white border-solid aspect-[1.2] fill-white stroke-[0.4px] stroke-white"
                                             />
-                                            <button onClick={handleVote}>Voter</button>
+                                            <button onClick={handleVote}>{
+                                                        getTranslation(
+                                                         `Vote`,  // -----> Englais
+                                                         `Voter`, //  -----> Francais
+                                                       //   ``,  //  -----> Turkey
+                                                       //   `` ,  //  -----> Allemagne
+                                                         ) 
+                                           
+                                                       }</button>
                                         </div>
                                     </div> : <div className="flex justify-center items-center px-8 py-2 mx-8 mt-8 text-base font-medium text-blue-600 border-2 border-blue-600 whitespace-nowrap bg-white rounded-[30px] max-md:px-5 max-md:mr-2.5 max-md:max-w-full">
                                         <div className="flex gap-2">
@@ -337,7 +432,15 @@ const ChallengeDetais = () => {
                                                 <path d="M15.875 0H9.875C7.665 0 5.875 1.79 5.875 4V14C5.875 14.55 6.325 15 6.875 15H18.875C19.425 15 19.875 14.55 19.875 14V4C19.875 1.79 18.085 0 15.875 0ZM16.585 7.56L13.875 10.27C13.385 10.76 12.745 11 12.105 11C11.465 11 10.825 10.76 10.335 10.27L9.165 9.1C8.775 8.71 8.775 8.08 9.165 7.69C9.555 7.3 10.185 7.3 10.575 7.69L11.745 8.86C11.945 9.06 12.255 9.05 12.455 8.86L15.165 6.15C15.555 5.76 16.185 5.76 16.575 6.15C16.965 6.54 16.965 7.17 16.575 7.56H16.585ZM24.875 14V16C24.875 18.21 23.085 20 20.875 20H4.875C2.665 20 0.875 18.21 0.875 16V14C0.875 12.14 2.155 10.59 3.875 10.14V14C3.875 15.65 5.225 17 6.875 17H18.875C20.525 17 21.875 15.65 21.875 14V10.14C23.595 10.59 24.875 12.14 24.875 14Z" fill="#2E71EB" />
                                             </svg>
 
-                                            <button onClick={handleVote}>Voté</button>
+                                            <button onClick={handleVote}>{
+                                                        getTranslation(
+                                                         `Voted`,  // -----> Englais
+                                                         `Voté`, //  -----> Francais
+                                                       //   ``,  //  -----> Turkey
+                                                       //   `` ,  //  -----> Allemagne
+                                                         ) 
+                                           
+                                                       } </button>
                                         </div>
                                     </div>}
                                     <div className="flex gap-5 justify-between px-4 mt-2 w-full text-base text-zinc-900 max-md:flex-wrap max-md:px-5 max-md:max-w-full">
@@ -348,7 +451,15 @@ const ChallengeDetais = () => {
                                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/1607232e818388901807a7c074c396773b9625ee8dc30654ea6f124866840214?"
                                                     className="shrink-0 aspect-[1.05] w-[21px]"
                                                 />
-                                                <button onClick={handleLike} >J’aime</button>
+                                                <button onClick={handleLike} >{
+                                                        getTranslation(
+                                                         `Like`,  // -----> Englais
+                                                         `J’aime`, //  -----> Francais
+                                                       //   ``,  //  -----> Turkey
+                                                       //   `` ,  //  -----> Allemagne
+                                                         ) 
+                                           
+                                                       }</button>
                                             </div>
                                             <div className="flex gap-2 py-2">
                                                 <img
@@ -356,7 +467,15 @@ const ChallengeDetais = () => {
                                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/798714e6a8ae27d83b62e7cfed800557a2f9db0ea140b04eca4377d04c78b16b?"
                                                     className="shrink-0 w-5 aspect-square fill-zinc-900"
                                                 />
-                                                <button onClick={() => setCommentShow(!commentShow)}>Commenter</button>
+                                                <button onClick={() => setCommentShow(!commentShow)}> {
+                                                        getTranslation(
+                                                         `Comment`,  // -----> Englais
+                                                         `Commenter`, //  -----> Francais
+                                                       //   ``,  //  -----> Turkey
+                                                       //   `` ,  //  -----> Allemagne
+                                                         ) 
+                                           
+                                                       }</button>
                                             </div>
                                         </div>
                                     </div>
@@ -488,15 +607,27 @@ const ChallengeDetais = () => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/f4786f6b5c1d397bc7db5824ce7a9ef71cb4fc756bcad073d96bb22ae8dbe08c?"
                     className="shrink-0 w-5 aspect-square"
                 />
-                <div>Revenir au Camps</div>
+                <div>Revenir au Camps{
+             getTranslation(
+              `Back to Challenge`,  // -----> Englais
+              `Revenir au challenge`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
             </div>
-            <div className="flex flex-col px-8 py-10  bg-white rounded-[10px] max-md:px-5 col-span-2">
+            <div className="flex flex-col px-8 py-10  bg-white rounded-[10px]  col-span-2">
                 <div className="flex overflow-hidden relative flex-col justify-center items-center">
-                    <video class="object-cover"
-                        controls
+                    <video onClick={playVideo} ref={video} class="object-cover w-full h-[320px] bg-red-500 aspect-square"
                         src={`${challenges.video}`}
                     >
                     </video>
+                    {!isPlaying && <svg onClick={playVideo} className="absolute cursor-pointer" width="79" height="78" viewBox="0 0 79 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M29.1241 55.8515H28.154C28.0849 55.8261 28.0145 55.8045 27.9432 55.7867C26.2758 55.4558 25.0525 54.0157 25.0516 52.331C25.0453 43.6342 25.0453 34.9373 25.0516 26.2405C25.0553 25.678 25.1978 25.1252 25.4663 24.631C26.3302 22.9895 28.5453 22.117 30.5367 23.2824C34.4485 25.5727 38.3828 27.8215 42.3085 30.0875C45.7953 32.1034 49.2824 34.1163 52.7698 36.1264C54.3179 37.0223 55.0065 38.6317 54.5443 40.2732C54.2635 41.2702 53.6259 41.9734 52.7343 42.4874C46.2143 46.2438 39.7055 50.02 33.1777 53.7634C31.8585 54.5202 30.63 55.4575 29.1241 55.8515Z" fill="white" />
+                        <circle cx="39.3922" cy="39.3004" r="38.1207" stroke="white" />
+                    </svg>}
+
                 </div>
                 <div className="flex gap-4 justify-between mt-4 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
                     <div className="my-auto text-3xl font-bold">{challenges.name}</div>
@@ -517,11 +648,16 @@ const ChallengeDetais = () => {
                         </div>
                     </div>
                 </div>
-
-
-
                 {hasParticipated ? <div className="flex justify-center items-center p-4 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
-                    Vous avez deja participé !
+                {
+             getTranslation(
+              `You have already participated!`,  // -----> Englais
+              `Vous avez déjà participé !`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            }
                 </div> :
                     <div className="flex justify-center items-center px-6 py-2 mt-4 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
                         <div className="flex gap-2">
@@ -535,7 +671,23 @@ const ChallengeDetais = () => {
                                     </clipPath>
                                 </defs>
                             </svg>
-                            {expired ? <div>Challenge terminer</div> : <button onClick={() => setIsOpen(true)}>Participer</button>}
+                            {expired ? <div> {
+             getTranslation(
+              `Challenge completed!`,  // -----> Englais
+              `Challenge terminer`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div> : <button onClick={() => setIsOpen(true)}>  {
+                getTranslation(
+                 `Participate`,  // -----> Englais
+                 `Participer`, //  -----> Francais
+               //   ``,  //  -----> Turkey
+               //   `` ,  //  -----> Allemagne
+                 ) 
+   
+               } </button>}
 
                         </div>
                     </div>
@@ -549,7 +701,15 @@ const ChallengeDetais = () => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ddda3932af487b599484345d1d0a25b00d284af55f1059e9b684afddb656034?"
                     className="shrink-0 my-auto aspect-square w-[30px]"
                 />
-                <div>Challenge Showcase</div>
+                <div>  {
+             getTranslation(
+              `Challenge Showcase`,  // -----> Englais
+              `Galerie Challenge `, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5  flex-wrap gap-y-6 justify-between content-start mt-6 max-md:max-w-full">
@@ -567,7 +727,15 @@ const ChallengeDetais = () => {
                                             <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M21.5 11H21V4.5C21 2.57 19.43 1 17.5 1H8.5C6.57 1 5 2.57 5 4.5V11H4.5C2.57 11 1 12.57 1 14.5V17.5C1 19.43 2.57 21 4.5 21H21.5C23.43 21 25 19.43 25 17.5V14.5C25 12.57 23.43 11 21.5 11ZM6 4.5C6 3.12 7.12 2 8.5 2H17.5C18.88 2 20 3.12 20 4.5V16H6V4.5ZM24 17.5C24 18.88 22.88 20 21.5 20H4.5C3.12 20 2 18.88 2 17.5V14.5C2 13.12 3.12 12 4.5 12H5V16.5C5 16.78 5.22 17 5.5 17H20.5C20.78 17 21 16.78 21 16.5V12H21.5C22.88 12 24 13.12 24 14.5V17.5ZM9.2 9.8C9 9.6 9 9.29 9.2 9.09C9.4 8.89 9.71 8.89 9.91 9.09L11.53 10.71C11.92 11.1 12.56 11.1 12.94 10.71L16.57 7.08C16.77 6.88 17.08 6.88 17.28 7.08C17.48 7.28 17.48 7.59 17.28 7.79L13.65 11.42C13.27 11.8 12.77 12.01 12.24 12.01C11.71 12.01 11.2 11.8 10.83 11.42L9.21 9.8H9.2Z" fill="white" stroke="white" stroke-width="0.4" />
                                             </svg>
-                                            <div>{item.votes > 0 ? item.votes : 0} Votes</div>
+                                            <div>{item.votes > 0 ? item.votes : 0}  {
+             getTranslation(
+              `Votes`,  // -----> Englais
+              `Votes `, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
                                         </div>
                                     </div>
                                 </div>
@@ -576,7 +744,15 @@ const ChallengeDetais = () => {
                         </div>
                     </div>)
 
-                }) : <p>Be the first to participate</p>}
+                }) : <p>{
+                    getTranslation(
+                     `Be the first to participate!`,  // -----> Englais
+                     `Soyez le premier à participer! `, //  -----> Francais
+                   //   ``,  //  -----> Turkey
+                   //   `` ,  //  -----> Allemagne
+                     ) 
+       
+                   }</p>}
             </div>
         </div>
     </>
