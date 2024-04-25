@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom";
 import Placeholder from "../../../assets/placeholder.jpg"
 import { Config } from "../../../config";
+import Modal from 'react-modal';
 const Scout = ({ userInfo }) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -12,6 +13,8 @@ const Scout = ({ userInfo }) => {
     const [invitationSend, setInvitationSend] = useState(false);
     const [Invitation, setInvitation] = useState([]);
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [imageSrc, setImageSrc] = useState(null);
 
     const isFriendAccepted = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`)
@@ -20,8 +23,8 @@ const Scout = ({ userInfo }) => {
     }
     const getWhatsappPrefix = (string) => {
         return string.split(',')[0].substring(1);
-      }
-      
+    }
+
     const sendFriendRequest = async () => {
 
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
@@ -46,6 +49,40 @@ const Scout = ({ userInfo }) => {
         // })
         // setInvitationSend(isFriend)
     }
+    // Styles pour la modale
+    const modalStyle = {
+        overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        },
+        content: {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'transparent', // Fond transparent
+            border: 'none', // Supprimer les bordures
+            // borderRadius: '50%', // Modal circulaire
+            padding: 0, // Pas de padding
+            width: '80vw', // Largeur relative de la fenêtre
+            height: '80vw', // Hauteur relative de la fenêtre
+            maxWidth: '400px', // Limite la largeur maximale
+            maxHeight: '400px', // Limite la hauteur maximale
+            overflow: 'hidden', // Cacher tout contenu dépassant
+            animation: 'fadeIn 0.3s ease-out', // Animation d'apparition
+        },
+    };
+
+
+    const openModal = (src) => {
+        setImageSrc(src);
+        setModalIsOpen(true);
+    };
+
+    // Fonction pour fermer la modale
+    const closeModal = () => {
+        setImageSrc(null);
+        setModalIsOpen(false);
+    };
     const copyLinkToClipboard = (articleId) => {
         // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
         const number = userInfo.user.numWSup;
@@ -72,12 +109,44 @@ const Scout = ({ userInfo }) => {
             <div className="flex flex-col items-center px-4 py-6 bg-white rounded-[10px]">
                 <div className="flex flex-col md:flex-row justify-between gap-4 w-full">
                     <div className="flex items-center md:w-fit w-full justify-center  md:mx-[0px] ">
-                        <img
+
+                        <div>
+                            {/* Bouton/image cliquable */}
+                            <a href="#" onClick={() => openModal(userInfo?.user.image ? userInfo?.user.image : Placeholder)}>
+                                <img
+                                    alt="profile"
+                                    loading="lazy"
+                                    srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
+                                    className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+                                />
+                            </a>
+
+                            {/* Modale d'agrandissement de l'image */}
+                            <Modal
+                                isOpen={modalIsOpen}
+                                onRequestClose={closeModal}
+                                contentLabel="Image Modal"
+                                style={modalStyle} // Styles personnalisés pour la modale
+                            >
+                                <div style={{ width: '100%', height: '100%' }}>
+                                    <img
+                                        alt="profile"
+                                        loading="lazy"
+                                        srcSet={imageSrc ? imageSrc : Placeholder}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Remplir tout l'espace disponible
+                                    />
+                                </div>
+                            </Modal>
+                        </div>
+
+
+
+                        {/* <img
                             alt="profile"
                             loading="lazy"
                             srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
                             className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
-                        />
+                        /> */}
                         <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
                             <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
                                 <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>

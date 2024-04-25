@@ -160,7 +160,7 @@ function Header() {
       <div className={`w-full bg-white fixed z-50 shadow-xs ${Hamburger ? 'fixed top-0 h-screen overflow-hidden z-50' : ''}`}>
         <div className="max-sm:px-4 max-w-[1344px] h-[80px] w-full bg-white  border-0 flex items-center justify-between mx-auto py-2 ">
           <div className="flex flex-row">
-            <Link to="/home" className="mt-3">
+            <a href="/home" className="mt-3">
               <svg width="209" height="53" viewBox="0 0 209 53" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_983_61844)">
                   <path d="M66.8102 14.0668V52.3118H40.5283L38.1046 47.5324L35.7149 42.7481L33.3204 37.9687L30.9307 33.1893L33.3204 28.4099L35.7149 23.6256L38.1046 18.8656L40.5283 14.0668H66.8102ZM42.9034 18.8656L40.5283 23.6256L38.1046 28.4099L35.7149 33.1893L38.1046 37.9687L40.4943 42.7481L42.884 47.5324H62.0066V18.8656H42.9034Z" fill="#2E71EB" />
@@ -186,7 +186,7 @@ function Header() {
                 </defs>
               </svg>
               <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0"> </span>
-            </Link>
+            </a>
 
             <div className="hidden md:flex pl-7 pt-4 w-full min-w-[250px]">
               <div className="flex items-center relative ">

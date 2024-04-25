@@ -6,7 +6,7 @@ import Placeholder from "../../../assets/placeholder.jpg"
 import { useNavigate } from 'react-router-dom';
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
-
+import Modal from 'react-modal';
 const PlayerCard = ({ userInfo }) => {
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -37,6 +37,44 @@ const PlayerCard = ({ userInfo }) => {
     const result = await response.json();
     console.log('friend request sent')
   }
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
+  // Styles pour la modale
+  const modalStyle = {
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    content: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: 'transparent', // Fond transparent
+      border: 'none', // Supprimer les bordures
+      // borderRadius: '50%', // Modal circulaire
+      padding: 0, // Pas de padding
+      width: '80vw', // Largeur relative de la fenêtre
+      height: '80vw', // Hauteur relative de la fenêtre
+      maxWidth: '400px', // Limite la largeur maximale
+      maxHeight: '400px', // Limite la hauteur maximale
+      overflow: 'hidden', // Cacher tout contenu dépassant
+      animation: 'fadeIn 0.3s ease-out', // Animation d'apparition
+    },
+  };
+
+
+  const openModal = (src) => {
+    setImageSrc(src);
+    setModalIsOpen(true);
+  };
+
+  // Fonction pour fermer la modale
+  const closeModal = () => {
+    setImageSrc(null);
+    setModalIsOpen(false);
+  };
+
 
   // const CheckIfInvitationIsSend = async () => {
   //   const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/friend-requests`, {
@@ -86,12 +124,42 @@ const PlayerCard = ({ userInfo }) => {
       <div className="flex gap-y-4 flex-col items-center md:px-[30px] max-sm:px-2 py-6 bg-white rounded-[10px] ">
         <div className="flex flex-col md:flex-row justify-between gap-4 w-full">
           <div className="flex items-center md:w-fit w-full justify-center  md:mx-[0px] ">
-            <img
+
+
+            <div>
+              {/* Bouton/image cliquable */}
+              <a href="#" onClick={() => openModal(userInfo?.user.image ? userInfo?.user.image : Placeholder)}>
+                <img
+                  alt="profile"
+                  loading="lazy"
+                  srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
+                  className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+                />
+              </a>
+
+              {/* Modale d'agrandissement de l'image */}
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Image Modal"
+                style={modalStyle} // Styles personnalisés pour la modale
+              >
+                <div style={{ width: '100%', height: '100%' }}>
+                  <img
+                    alt="profile"
+                    loading="lazy"
+                    srcSet={imageSrc ? imageSrc : Placeholder}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Remplir tout l'espace disponible
+                  />
+                </div>
+              </Modal>
+            </div>
+            {/* <img
               alt="profile"
               loading="lazy"
               srcSet={userInfo.user.image ? userInfo?.user.image : Placeholder}
               className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
-            />
+            /> */}
             <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
               <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
                 <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
@@ -211,7 +279,7 @@ const PlayerCard = ({ userInfo }) => {
             </svg>
           </div>
         </div>
-        <span className="md:block hidden">
+        <span className="mt-5 md:block hidden">
           <div className="flex flex-col justify-center gap-y-4">
             <div className="flex justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
               <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -235,7 +303,7 @@ const PlayerCard = ({ userInfo }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
               className="shrink-0 self-center w-5 aspect-square"
             />
-            <div className="grow">Compétences</div>
+            <div className="grow">Compétences </div>
           </div>
           <div className="flex gap-2  hidden  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
 
@@ -272,7 +340,7 @@ const PlayerCard = ({ userInfo }) => {
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/b78e7f165ad6d93ef824dbe6adbbd69b6e0d02007b0bbf390ad2538e8c398dde?"
-                className="shrink-0 aspect-square w-[25px] md:mt-20 mr-7"
+                className=" w-[25px] md:mt-20 mr-7"
               />
             </a>}
             {userInfo?.user.x && <a target="_blank" href={`https://www.facebook.com/${userInfo?.user.fb}`}>
@@ -286,40 +354,10 @@ const PlayerCard = ({ userInfo }) => {
 
         </span >
 
-        {/* social icons */}
 
-        {/* <div div className="  max-w-xl flex flex gap-4 justify-between" >
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9f2fa6031aa7cffb21186e5501126b3836a7c414e1752c9e64fdbcac1ce4100c?"
-            className="shrink-0 aspect-square w-[25px]"
-          />
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/ee734d4428028617729c0185044032ddb130279e8139babab8caab0cdf7d6bd4?"
-            className="shrink-0 w-6 aspect-[0.96]"
-          />
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/8667ac9987e1f4996c37f85b212f897fd480e345bd16b0eac52bb3f8adb76e66?"
-            className="shrink-0 w-6 aspect-[0.96]"
-          />
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/b78e7f165ad6d93ef824dbe6adbbd69b6e0d02007b0bbf390ad2538e8c398dde?"
-            className="shrink-0 aspect-square w-[25px]"
-          />
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/caac4cd0dd6b89529ac5104e789b62c6cbf2091f6a2f16366ce2bc247406f84a?"
-            className="shrink-0 w-6 aspect-[0.96]"
-          />
-        </div > */}
-
-        {/* social icons */}
 
         <div div className="flex justify-center items-center px-16 py-2  max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5 mr-15" >
-          <div className="flex gap-4 items-center ">
+          <div className="flex  gap-16 items-center ">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
@@ -328,6 +366,7 @@ const PlayerCard = ({ userInfo }) => {
             <a href={`/profile/more/${id}`}>Voir Plus</a>
           </div>
         </div >
+
       </div >
     </>
   )

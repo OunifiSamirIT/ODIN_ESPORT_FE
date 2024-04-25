@@ -795,6 +795,15 @@ const Index = () => {
       setShowDropdown(null);
     }
   };
+  const formatDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    // Format the date object into the desired format
+    return dateObject.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
   const {
     register,
     handleSubmit,
@@ -947,13 +956,14 @@ const Index = () => {
                     <figure className="avatar me-3">
                       <img
                         src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
-                        className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                        className="avatar me-3shadow-sm rounded-full aspect-square w-[64px] mr-2"
                         alt="post"
                       />
                     </figure>
                     <div className="flex flex-col">
                       <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
+                      <span className="d-block  font-xssss mt-0 text-grey-500">
+
                         {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
                         {article.user.user.profil == 'player' ? ' Joueur' : ''}
                         {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
@@ -961,7 +971,7 @@ const Index = () => {
                         {article.user.user.profil == 'scout' ? 'Scout' : ''}
                       </span>
                       <span className="d-block font-xssss fw-500 text-grey-500">
-                        {new Date(article.user.user.createdAt).toLocaleDateString()}
+                        {formatDate(article.user.user.createdAt)}
                       </span>
                     </div>
 
@@ -1124,7 +1134,7 @@ const Index = () => {
 
 
 
-                      <button
+                      {/* <button
                         onClick={() => {
                           copyLinkToClipboard(article.id);
                           setIsCopyLinkPopupVisible(true);
@@ -1147,7 +1157,7 @@ const Index = () => {
                             lien copié!
                           </div>
                         )}
-                      </button>
+                      </button> */}
 
                     </span>
 
@@ -1173,12 +1183,12 @@ const Index = () => {
                                       comment.user &&
                                       comment.user.user?.image
                                     }
-                                    className="shadow-sm rounded-full w-[64px] aspect-square"
+                                    className="shadow-sm max-w-[54px] rounded-full md:max-w-[57px] aspect-square"
                                     alt="post"
                                   />
                                 </figure>
                                 <div className="flex flex-col w-full">
-                                  <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                  <div className=" flex text-wrap flex-wrap flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
                                     <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                       <div className="flex flex-col py-1 font-light text-zinc-900">
                                         <div className="fw-700 text-grey-900 font-xssss mt-1">
@@ -1187,18 +1197,18 @@ const Index = () => {
                                           {comment.user &&
                                             comment.user.user.prenom}
                                         </div>
-                                        <div className="mt-1 text-xs">
+                                        <div className=" text-xs font-xssss">
                                           {comment.user &&
                                             comment.user.user.profil}
                                         </div>
-                                        <div className="mt-1 text-xs">
-                                          {new Date(
+                                        <div className="  text-xs font-xssss">
+                                          {formatDate(
                                             comment.createdAt
-                                          ).toLocaleDateString()}
+                                          )}
                                         </div>
                                       </div>
                                     </div>
-                                    <div className="mt-2 text-base font-light text-zinc-900 px-4 ">
+                                    <div className="mt-2 text-wrap text-break font-light text-zinc-900 px-4 ">
                                       {comment.description}
                                     </div>
 
@@ -1215,6 +1225,7 @@ const Index = () => {
                                       ) : (
                                         <BiSolidHeart className="size-7 text-black" />
                                       )}
+
                                     </button>
 
                                     <button
@@ -1239,7 +1250,7 @@ const Index = () => {
                                           key={reply.id}
                                           className="reply mb-0"
                                         >
-                                          <div className="flex items-start py-2">
+                                          <div className="flex items-start py-2 gap-3 mt-1 mb-3">
                                             <figure className="rounded-full overflow-hidden flex-shrink-0">
                                               <img
                                                 src={
@@ -1250,10 +1261,10 @@ const Index = () => {
                                                 alt="post"
                                               />
                                             </figure>
-                                            <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                            <div className="w-full flex text-wrap flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
                                               <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                                 <div className="flex flex-col py-1 font-light text-zinc-900">
-                                                  <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                                  <div className="fw-700 text-grey-900 font-xssss ">
                                                     {reply.user &&
                                                       reply.user
                                                         .nom}
@@ -1267,9 +1278,9 @@ const Index = () => {
                                                         .profil}
                                                   </div>
                                                   <div className="mt-1 text-xs">
-                                                    {new Date(
+                                                    {formatDate(
                                                       reply.createdAt
-                                                    ).toLocaleDateString()}
+                                                    )}
                                                   </div>
                                                 </div>
                                               </div>
@@ -1285,7 +1296,7 @@ const Index = () => {
                                     )}
                                   {replyingToCommentId ==
                                     comment.id && (
-                                      <div className="flex items-center gap-3 mt-1 mb-3">
+                                      <div className="flex items-center gap-3 mt-1 mb-3 ">
                                         <figure className="avatar">
                                           <img
                                             src={
@@ -1411,24 +1422,24 @@ const Index = () => {
                     <figure className="avatar me-3">
                       <img
                         src={article.user.user.image ? article.user.user.image : PlaceHolder}
-                        className="shadow-sm rounded-full  w-10 h-10"
+                        className="shadow-sm rounded-full  w-16 h-16"
                         alt="post"
                       />{" "}
                     </figure>
 
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                      {article.user?.user.nom}
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                    <h4 className="w-16 h-16 mt-1 ">
+                      {article.user?.user.nom}  {article.user?.user.prenom}
+                      <span className="d-block  font-xssss fw-800 mt-1 lh-3 text-grey-500">
                         {article.user?.user.profil}
                       </span>
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {new Date(article.user?.user.createdAt).toLocaleDateString()}
+                      <span className="d-block text-xs font-xssss fw-500 mt-2 lh-3 text-grey-500">
+                        {formatDate(article.user?.user.createdAt)}
                       </span>
                     </h4>
 
                   </div>
 
-                  <div className="card-body d-block p-0 mb-3">
+                  <div className="card-body d-block p-0 mb-3 mt-3">
                     <div className="row ps-2 pe-2">
                       <div className="col-sm-12 p-1">
                         <div className="card-body d-block p-0 mb-3">
@@ -1464,18 +1475,18 @@ const Index = () => {
                     <figure className="avatar me-3">
                       <img
                         src={article.user?.image}
-                        className="shadow-sm rounded-full  w-10 h-10"
+                        className="shadow-sm rounded-full  w-16 h-16"
                         alt="post"
                       />{" "}
                     </figure>
 
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                      {article.user?.nom}
+                      {article.user?.nom}  {article.user?.prenom}
                       <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                         {article.user?.profil}
                       </span>
                       <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {new Date(article.user?.createdAt).toLocaleDateString()}
+                        {formatDate(article.user?.createdAt)}
                       </span>
                     </h4>
 

@@ -11,6 +11,7 @@ import T532 from "../../../assets/5-3-2.png"
 import T541 from "../../../assets/5-4-1.png"
 import { Config } from "../../../config";
 import { paysAllInfo } from "../../../assets/data/Country";
+import Modal from 'react-modal';
 const PlayerCard = ({ userInfo }) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -20,7 +21,8 @@ const PlayerCard = ({ userInfo }) => {
     const [invitationSend, setInvitationSend] = useState(false);
     const [Invitation, setInvitation] = useState([]);
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
-
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [imageSrc, setImageSrc] = useState(null);
     const isFriendAccepted = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`)
         const result = await response.json();
@@ -29,7 +31,7 @@ const PlayerCard = ({ userInfo }) => {
     const getCountryFlagFromCountryName = (countryName) => {
         const country = paysAllInfo.find((country) => country?.name == countryName);
         return country ? country.iso["alpha-2"].toLowerCase() : null;
-      };
+    };
     const sendFriendRequest = async () => {
 
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`, {
@@ -54,6 +56,41 @@ const PlayerCard = ({ userInfo }) => {
         // })
         // setInvitationSend(isFriend)
     }
+
+    // Styles pour la modale
+    const modalStyle = {
+        overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        },
+        content: {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'transparent', // Fond transparent
+            border: 'none', // Supprimer les bordures
+            // borderRadius: '50%', // Modal circulaire
+            padding: 0, // Pas de padding
+            width: '80vw', // Largeur relative de la fenêtre
+            height: '80vw', // Hauteur relative de la fenêtre
+            maxWidth: '400px', // Limite la largeur maximale
+            maxHeight: '400px', // Limite la hauteur maximale
+            overflow: 'hidden', // Cacher tout contenu dépassant
+            animation: 'fadeIn 0.3s ease-out', // Animation d'apparition
+        },
+    };
+
+
+    const openModal = (src) => {
+        setImageSrc(src);
+        setModalIsOpen(true);
+    };
+
+    // Fonction pour fermer la modale
+    const closeModal = () => {
+        setImageSrc(null);
+        setModalIsOpen(false);
+    };
     const copyLinkToClipboard = (articleId) => {
         // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
         const number = userInfo.user.numWSup;
@@ -80,12 +117,43 @@ const PlayerCard = ({ userInfo }) => {
             <div className="flex flex-col items-center px-4 py-6 bg-white rounded-[10px]">
                 <div className="flex flex-col md:flex-row justify-between gap-4 w-full">
                     <div className="flex items-center md:w-fit w-full justify-center  md:mx-[0px] ">
-                        <img
+
+                        <div>
+                            {/* Bouton/image cliquable */}
+                            <a href="#" onClick={() => openModal(userInfo?.user.image ? userInfo?.user.image : Placeholder)}>
+                                <img
+                                    alt="profile"
+                                    loading="lazy"
+                                    srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
+                                    className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+                                />
+                            </a>
+
+                            {/* Modale d'agrandissement de l'image */}
+                            <Modal
+                                isOpen={modalIsOpen}
+                                onRequestClose={closeModal}
+                                contentLabel="Image Modal"
+                                style={modalStyle} // Styles personnalisés pour la modale
+                            >
+                                <div style={{ width: '100%', height: '100%' }}>
+                                    <img
+                                        alt="profile"
+                                        loading="lazy"
+                                        srcSet={imageSrc ? imageSrc : Placeholder}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Remplir tout l'espace disponible
+                                    />
+                                </div>
+                            </Modal>
+                        </div>
+
+
+                        {/* <img
                             alt="profile"
                             loading="lazy"
                             srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
                             className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
-                        />
+                        /> */}
                         <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
                             <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
                                 <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
@@ -132,7 +200,7 @@ const PlayerCard = ({ userInfo }) => {
                                                 </svg>
                                             </a>
                                         </div> :
-                                        <div>
+                                            <div>
                                                 <button onClick={() => {
                                                 }}>
                                                     <svg className='fill-white' width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -147,7 +215,7 @@ const PlayerCard = ({ userInfo }) => {
                                                     </div>
                                                 )}
 
-                                        </div>
+                                            </div>
 
                                         }
                                     </div>
@@ -162,15 +230,15 @@ const PlayerCard = ({ userInfo }) => {
                 </div>
                 <div className="md:ml-[10px] max:lg-[150px] md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm">
                     <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
-                    <span
+                        <span
                             className={`flag-icon flag-icon-${getCountryFlagFromCountryName(
                                 userInfo.user?.countryresidence
                             )}`}
                             style={{ marginRight: "8px", width: "25px" }}
-                          ></span>
-                          <div className="grow self-start mt-1">
+                        ></span>
+                        <div className="grow self-start mt-1">
                             {userInfo.user?.countryresidence}
-                          </div>
+                        </div>
                     </div>
 
                     <div className="flex gap-2 justify-center p-2 whitespace-nowrap items-center">
