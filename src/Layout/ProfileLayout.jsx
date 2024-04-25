@@ -10,6 +10,7 @@ import Entraineur from "../pages/Profile/Fragments/Entraineur"
 import PlaceHolder from "../assets/placeholder.jpg"
 import { Config } from "../config";
 import Scout from "../pages/Profile/Fragments/Scout";
+import { toast, ToastContainer } from 'react-toastify';
 const ProfileLayout = ({ children, onChange, user }) => {
     const [CurrentUser, setCurrentUser] = useState(null)
     const { id } = useParams()
@@ -80,6 +81,9 @@ const ProfileLayout = ({ children, onChange, user }) => {
     return (
         <>
             <HomeLayout>
+            <div>
+            <ToastContainer />
+          </div>
                 <div className="self-center mt-[100px] w-full max-w-[1344px]">
                     <div className="flex gap-2 max-md:flex-col max-md:gap-0 max-md:">
                         <div className="flex flex-col w-full md:w-1/2">

@@ -341,7 +341,7 @@ const Experience = () => {
                     })}
                 </div>}
             {isOpen && <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
-                <div ref={ref} className="flex flex-col px-2 md:px-8 py-7  max-w-full bg-white rounded-[10px] w-[1000px]">
+                <div ref={ref} className="flex flex-col px-4 md:px-8 py-7  max-w-full bg-white rounded-[10px] w-[1000px]">
                     <div className="text-xl md:text-4xl font-bold text-zinc-900 max-md:max-w-full">
                         Expérience
                     </div>
@@ -436,38 +436,29 @@ const Experience = () => {
                                     {errors.endDate && <span className="invalid-feedback block py-2 px-2">{errors.endDate?.message}</span>}
                                 </div>
                             </div>
+                            <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
+                        <div className="hidden md:flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
+                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
+                            </svg>
+                            <button onClick={handleClose} className="">Annuler</button>
+                        </div>
+                        <div className="flex mr-3 gap-2 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                            <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
+                                className="w-5 aspect-square"
+                            />
+                            <button type='submit' className="">Confirmer</button>
+                        </div>
+                        <div className="md:hidden flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
+                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
+                            </svg>
 
-                            <div className="flex flex-col gap-y-3 md:flex-row md:gap-x-80 items-center justify-between py-2 mt-6 w-full text-base font-medium  flex-nowrap">
-                              
-                                <div className="flex w-full md:w-[170px] flex-1 gap-2 justify-center px-8 py-2 text-blue-600 border-2 border-blue-600 border-solid rounded-[30px] max-md:px-5">
-                                    <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_1686_73328)">
-                                            <path d="M13.3342 7.16586C13.1779 7.00964 12.966 6.92188 12.745 6.92188C12.5241 6.92188 12.3121 7.00964 12.1559 7.16586L10.0009 9.32086L7.84585 7.16586C7.68868 7.01407 7.47818 6.93007 7.25969 6.93197C7.04119 6.93387 6.83218 7.02151 6.67767 7.17601C6.52316 7.33052 6.43552 7.53953 6.43363 7.75803C6.43173 7.97653 6.51572 8.18703 6.66752 8.3442L8.82252 10.4992L6.66752 12.6542C6.51572 12.8114 6.43173 13.0219 6.43363 13.2404C6.43552 13.4589 6.52316 13.6679 6.67767 13.8224C6.83218 13.9769 7.04119 14.0645 7.25969 14.0664C7.47818 14.0683 7.68868 13.9843 7.84585 13.8325L10.0009 11.6775L12.1559 13.8325C12.313 13.9843 12.5235 14.0683 12.742 14.0664C12.9605 14.0645 13.1695 13.9769 13.324 13.8224C13.4785 13.6679 13.5662 13.4589 13.5681 13.2404C13.57 13.0219 13.486 12.8114 13.3342 12.6542L11.1792 10.4992L13.3342 8.3442C13.4904 8.18792 13.5782 7.976 13.5782 7.75503C13.5782 7.53406 13.4904 7.32214 13.3342 7.16586Z" fill="#2E71EB" />
-                                            <path d="M10 0.5C8.02219 0.5 6.08879 1.08649 4.4443 2.1853C2.79981 3.28412 1.51809 4.8459 0.761209 6.67317C0.00433286 8.50043 -0.193701 10.5111 0.192152 12.4509C0.578004 14.3907 1.53041 16.1725 2.92894 17.5711C4.32746 18.9696 6.10929 19.922 8.0491 20.3079C9.98891 20.6937 11.9996 20.4957 13.8268 19.7388C15.6541 18.9819 17.2159 17.7002 18.3147 16.0557C19.4135 14.4112 20 12.4778 20 10.5C19.9971 7.84872 18.9426 5.30684 17.0679 3.4321C15.1932 1.55736 12.6513 0.502868 10 0.5ZM10 18.8333C8.35183 18.8333 6.74066 18.3446 5.37025 17.4289C3.99984 16.5132 2.93174 15.2117 2.30101 13.689C1.67028 12.1663 1.50525 10.4908 1.82679 8.87425C2.14834 7.25774 2.94201 5.77288 4.10745 4.60744C5.27289 3.44201 6.75774 2.64833 8.37425 2.32679C9.99076 2.00525 11.6663 2.17027 13.189 2.801C14.7118 3.43173 16.0132 4.49984 16.9289 5.87025C17.8446 7.24066 18.3333 8.85182 18.3333 10.5C18.3309 12.7094 17.4522 14.8276 15.8899 16.3899C14.3276 17.9522 12.2094 18.8309 10 18.8333Z" fill="#2E71EB" />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_1686_73328">
-                                                <rect width="20" height="20" fill="white" transform="translate(0 0.5)" />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                    <button onClick={handleClose}>Annuler</button>
-                                </div>
-                                <div className="flex w-full  md:w-[170px] flex-1  items-center gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                                    <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <g clip-path="url(#clip0_1686_73333)">
-                                            <path d="M10 0.5C4.48583 0.5 0 4.98583 0 10.5C0 16.0142 4.48583 20.5 10 20.5C15.5142 20.5 20 16.0142 20 10.5C20 4.98583 15.5142 0.5 10 0.5ZM9.92417 13.3492C9.60167 13.6717 9.1775 13.8325 8.75167 13.8325C8.32583 13.8325 7.8975 13.67 7.57167 13.345L5.25333 11.0983L6.41417 9.90083L8.74167 12.1567L13.5825 7.40583L14.7525 8.59333L9.92417 13.3492Z" fill="white" />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_1686_73333">
-                                                <rect width="20" height="20" fill="white" transform="translate(0 0.5)" />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                    <button type="submit">Confirmer</button>
-                                </div>
-
-                            </div>
+                            <button onClick={handleClose} className="">Annuler</button>
+                        </div>
+                    </div>
                         </div>
                     </form>
 
