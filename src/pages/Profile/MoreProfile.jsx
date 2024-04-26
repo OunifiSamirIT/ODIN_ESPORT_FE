@@ -1619,7 +1619,7 @@ const More = () => {
                           </div>
                         ) : (
                           <>
-                            <div className="flex items-center gap-3">
+                            {/* <div className="flex items-center gap-3">
                               <div
                                 className={`max-sm:w-full flex gap-2  justify-center  items-center px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]`}
                               >
@@ -1795,7 +1795,7 @@ const More = () => {
                                   )}
                                 </div>
                               )}
-                            </div>
+                            </div> */}
                           </>
                         )}
                       </div>
@@ -2155,7 +2155,7 @@ const More = () => {
                           </div>
                         ) : (
                           <>
-                            <div className="flex items-center gap-3">
+                            {/* <div className="flex items-center gap-3">
                               <div
                                 className={`max-sm:w-full flex gap-2 justify-center items-center px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]`}
                               >
@@ -2331,7 +2331,7 @@ const More = () => {
                                   )}
                                 </div>
                               )}
-                            </div>
+                            </div> */}
                           </>
                         )}
                       </div>
@@ -2621,7 +2621,7 @@ const More = () => {
                     } </div>
                   </div>
                   <div className="flex  gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
-                    {CurrentUser?.other.skillsAutre
+                    {CurrentUser?.other?.skillsAutre
 
                       .split(",")
                       .filter((item) => item !== "")
@@ -2840,7 +2840,7 @@ const More = () => {
                           </div>
                         ) : (
                           <>
-                            <div className="flex items-center gap-3">
+                            {/* <div className="flex items-center gap-3">
                               <div
                                 className={`max-sm:w-full justify-center items-center  flex gap-2 px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]`}
                               >
@@ -3016,7 +3016,7 @@ const More = () => {
                                   )}
                                 </div>
                               )}
-                            </div>
+                            </div> */}
                           </>
                         )}
                       </div>

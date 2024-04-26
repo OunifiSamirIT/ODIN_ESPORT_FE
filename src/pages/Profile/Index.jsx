@@ -822,6 +822,26 @@ const Index = () => {
     setValue,
     formState: { errors },
   } = useForm();
+
+
+
+
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const id = storedUserData ? storedUserData.id : null;
+
+    if (id) {
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+        .then((response) => response.json())
+        .then((userData) => {
+          setUser(userData);
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+
+    // fetchArticles();
+    // fetchAlbums();
+  }, []);
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
@@ -852,7 +872,11 @@ const Index = () => {
                 <div className="card-body d-flex p-0">
                   <div className="flex w-full">
                     <img
-                      src={LocalStorageID?.image}
+                     src={
+                      user?.user?.image
+                        ? user?.user?.image
+                        : PlaceHolder
+                    }
                       alt="icon"
                       className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                     />
@@ -1036,7 +1060,7 @@ const Index = () => {
                         {new Date(article.user.user.createdAt).toLocaleDateString()}
                       </span>
                     </h4> */}
-                        <div className="ms-auto relative">
+                        {/* <div className="ms-auto relative">
                           <svg
                             onClick={() => handleMoreClick(article)}
                             width="31"
@@ -1060,7 +1084,6 @@ const Index = () => {
                           </svg>
                           {showDropdown === article.id && isOpen && isOwner ? (
                             <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                              {/* Your dropdown menu content */}
                               <button
                                 className="block w-full px-4 py-2 text-gray-800 hover:bg-gray-200"
                                 onClick={() => handleEditClick(selectedArticle)}
@@ -1084,7 +1107,7 @@ const Index = () => {
                           ) : (
                             ""
                           )}
-                        </div>
+                        </div> */}
                       </div>
                       <div className="card-body p-0 me-lg-5">
                         <p className="font-light text-base rounded-md  w-full text-dark theme-dark-bg text-pretty">

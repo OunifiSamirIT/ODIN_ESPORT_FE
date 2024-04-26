@@ -118,9 +118,9 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                             srcSet={item.receiver.image ? item.receiver.image : PlaceHolder}
                                                             className="w-50  aspect-square rounded-full"
                                                         />
-                                                        <div className="mt-2 font-bold">{item.receiver.nom}</div>
+                                                        <div className="mt-2 font-bold">{item.receiver.nom}  {item.receiver.prenom}</div>
                                                         <div className="text-sm font-light">
-                                                            {item.receiver.profil == 'other' ? item.receiver.profil : ''}
+                                                            {/* {item.receiver.profil == 'other' ? item.receiver.profil.profession : ''} */}
                                                             {item.receiver.profil == 'player' ? ' Joueur' : ''}
                                                             {item.receiver.profil == 'agent' && item.receiver.profil == 'players' ? 'Manager de Joueur' : ''}
                                                             {item.receiver.profil == 'agent' && item.receiver.profil == 'club' ? 'Manager de CLub' : ''}
