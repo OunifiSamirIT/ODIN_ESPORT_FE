@@ -47,6 +47,7 @@ import GallerieOdin from "../pages/Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "../pages/HomeSkeletonPost";
 import EditPost from "../pages/EditPost";
+import { Context } from "../index";
 function Post({ article, setArticles }) {
   const {
     register,
@@ -92,7 +93,7 @@ function Post({ article, setArticles }) {
   const [showDropdown, setShowDropdown] = useState(null);
   const [showDropdownedit, setShowDropdownedit] = useState(null);
   const [selectedArticle, setSelectedArticle] = useState(null);
-
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -891,12 +892,13 @@ function Post({ article, setArticles }) {
     const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
     // Format the date object into the desired format
-    return dateObject.toLocaleDateString('en-GB', {
+    return dateObject.toLocaleDateString('fr-FR', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
     });
   }
+ 
   return (
     <>
 
@@ -936,6 +938,27 @@ function Post({ article, setArticles }) {
                               </span>
                               <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                               {formatDate(article?.user?.user?.createdAt)}
+                              {/* {formatDate(article?.user?.user?.createdAt).split(" ")[0]} {" "}
+                                                              
+                    {getTranslation(
+                      formatDate(article?.user?.user?.createdAt).split(" ")[1],
+                      `
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="january" ? "janvier" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="february" ? "février" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="march" ? "mars" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="april" ? "avril" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="may" ? "mai" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="june" ? "juin" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="july" ? "juillet" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="august" ? "aout" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="september" ? "septembre" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="october" ? "octobre" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="november" ? "novembre" : ""}
+                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="december" ? "décembre": ""}
+                      `
+                    )
+                    }{"  "}
+                    {formatDate(article?.user?.user?.createdAt).split(" ")[0]} */}
                               </span>
                             </h4>
                             <div
@@ -1555,13 +1578,13 @@ function Post({ article, setArticles }) {
 
           {isModaldOpen && (
             <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
-              <div ref={ref} className="flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
-                <button
-                  className="bg-zinc-600 w-10 h-10 items-end self-end py-2 text-white  rounded-full "
-                  onClick={() => handleCloseModal(true)}> X </button>
+              <div ref={ref} className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
+              
                 <EditPost articleId={selectedArticleId} onClose={handleCloseModal} />
 
-
+  <button
+                  className=" absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
+                  onClick={() => handleCloseModal(true)}> X </button>
               </div>
             </div>
           )}
