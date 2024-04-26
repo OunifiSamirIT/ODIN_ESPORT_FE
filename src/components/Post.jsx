@@ -224,18 +224,38 @@ function Post({ article, setArticles }) {
         const likesCountData = await likesCountResponse.json();
 
         // Update the state with the new likes count
+        // setArticles((prevArticles) =>
+        //   prevArticles.map((article) => {
+        //     const updatedComments = article.comments.map((c) =>
+        //       c.id === commentId
+        //         ? { ...c, likesCount: likesCountData.count }
+        //         : c
+        //     );
+        //     return article.id === selectedArticleId
+        //       ? { ...article, comments: updatedComments }
+        //       : article;
+        //   })
+        // );
         setArticles((prevArticles) =>
-          prevArticles.map((article) => {
-            const updatedComments = article.comments.map((c) =>
-              c.id === commentId
-                ? { ...c, likesCount: likesCountData.count }
-                : c
-            );
-            return article.id === selectedArticleId
-              ? { ...article, comments: updatedComments }
-              : article;
-          })
-        );
+  prevArticles.map((article) => {
+    // Check if article is defined and if it has comments
+    if (article && article.comments) {
+      const updatedComments = article.comments.map((c) =>
+        c.id === commentId
+          ? { ...c, likesCount: likesCountData.count }
+          : c
+      );
+      // Return updated article object with updated comments
+      return article.id === selectedArticleId
+        ? { ...article, comments: updatedComments }
+        : article;
+    } else {
+      // Return the original article if it doesn't have comments
+      return article;
+    }
+  })
+);
+
       } else {
         // Handle error
         toast.error("Error liking/unliking the comment. Please try again.", {
