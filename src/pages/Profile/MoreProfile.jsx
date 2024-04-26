@@ -199,7 +199,7 @@ const More = () => {
                           </div>
                         ) : (
                           <>
-                            
+
                             {/* <div className="flex items-center gap-3">
                               <div
                                 className={`max-sm:w-full items-center justify-center flex gap-2  px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]`}

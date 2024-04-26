@@ -2,8 +2,8 @@ import React, { Component, Fragment, useState, useRef, useEffect } from "react";
 import Header from "../../components/Header";
 import Terrain from "../../components/Terrain";
 import ProfileLayout from "../../Layout/ProfileLayout";
-import PlaceHolder from "../../assets/placeholder.jpg"
-import { Context } from "../../index"
+import PlaceHolder from "../../assets/placeholder.jpg";
+
 import { useForm } from "react-hook-form";
 import Leftnav from "../../components/Leftnav";
 import Rightchat from "../../components/Rightchat";
@@ -27,6 +27,7 @@ import { BsFiletypeGif, BsPersonFillAdd, BsTypeH1 } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../config";
+import { Context } from "../../index";
 import {
   BiEditAlt,
   BiHeart,
@@ -990,8 +991,8 @@ const Index = () => {
                         <figure className="avatar me-3">
                           <img
                             src={
-                              article?.user?.user.image
-                                ? article?.user?.user.image
+                              article?.user?.user?.image
+                                ? article?.user?.user?.image
                                 : PlaceHolder
                             }
                             className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
@@ -1097,7 +1098,7 @@ const Index = () => {
                           <div className="row ps-2 pe-2">
                             <div className="col-sm-12 p-1">
                               <div className="card-body p-0 mb-3  overflow-hidden ">
-                                <video controls className="w-100 md:max-h-[600px] max-h-350">
+                                <video controls className="w-100 md:max-h-[600px]">
                                   <source
                                     src={article.video}
                                     type="video/mp4"
@@ -1124,14 +1125,14 @@ const Index = () => {
                                     alt={article.titre}
                                   />
                                 </div> */}
-                                <div className="col-sm-12 p-1 ">
-                                  <img
-                                    className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
-                                    src={article.image}
-                                    alt={article.titre}
-                                  />
-                                 
-                                </div>
+                            <div className="col-sm-12 p-1 ">
+                              <img
+                                className=" md:h-fit  max-h-[600px]   w-100 object-contain "
+                                src={article.image}
+                                alt={article.titre}
+                              />
+
+                            </div>
                           </div>
                         </div>
                       )}
@@ -1244,11 +1245,13 @@ const Index = () => {
                                   <div className="flex w-full">
                                     <figure className="avatar me-3 mb-8">
                                       <img
-                                        src={comment?.user?.user.image ? comment?.user?.user.image : PlaceHolder}
+
+                                        src={comment?.user?.user?.image ? comment?.user?.user?.image : PlaceHolder}
                                         className="shadow-sm rounded-full w-[64px] aspect-square"
                                         alt="post"
                                       />
                                     </figure>
+
                                     <div className="flex flex-col w-full">
                                       <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
                                         <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
@@ -1322,7 +1325,7 @@ const Index = () => {
                                               <div className="flex items-start py-2">
                                                 <figure className="rounded-full overflow-hidden flex-shrink-0">
                                                   <img
-                                                    src={reply?.user?.user.image ? reply?.user?.user.image : PlaceHolder}
+                                                    src={reply?.user?.user?.image ? reply?.user?.user?.image : PlaceHolder}
                                                     className="shadow-sm w-14 h-14 object-cover object-center"
                                                     alt="post"
                                                   />
@@ -1496,8 +1499,8 @@ const Index = () => {
                         <figure className="avatar me-3">
                           <img
                             src={
-                              article?.user?.user.image
-                                ? article?.user?.user.image
+                              article?.user?.user?.image
+                                ? article?.user?.user?.image
                                 : PlaceHolder
                             }
                             className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
