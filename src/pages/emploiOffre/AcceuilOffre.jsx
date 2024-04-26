@@ -438,28 +438,70 @@ function AcceuilOffre() {
             <div className="flex  flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow  max-md:max-w-full">
                 <div className="flex  flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-                  <div className="flex  p-3 flex-col gap-5 text-lg text-neutral-900 max-md:flex-wrap">
-                    <div className="flex flex-row gap-4">
-                    <img
-                      loading="lazy"
-                      src={
-                        albumDetails?.imagesalbumoffres.length > 0
-                          ? albumDetails?.imagesalbumoffres[0].image_url
-                          : require("../../assets/offre_icon.png")
-                      } // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
-                      className="shrink-0 self-start aspect-fit w-[72px]"
-                    />
-                      <div className="flex flex-col">
-                      <div className="max-md:max-w-full ml-1">
-                        {albumDetails?.EntrepriseName}
-                      </div>
-                      <div className="mt-1 text-3xl font-bold max-md:max-w-full">
-                        {albumDetails?.EntrepriseName}
-                      </div>
+                  <div className="flex  p-3 flex-col gap-1 text-lg text-neutral-900 max-md:flex-wrap">
+                    <div className="flex flex-row gap-1 -ml-4 ">
+                      <img
+                        loading="lazy"
+                        src={
+                          albumDetails?.imagesalbumoffres.length > 0
+                            ? albumDetails?.imagesalbumoffres[0].image_url
+                            : require("../../assets/offre_icon.png")
+                        } // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
+                        className="shrink-0 self-start aspect-fit w-[72px] md:w-[100px]"
+                      />
+                      <div className="flex flex-col  ml-4 ">
+                        <div className="max-md:max-w-full ml-1">
+                          {albumDetails?.EntrepriseName}
+                        </div>
+                        <div className=" md:text-3xl text-base font-bold max-md:max-w-full">
+                          {albumDetails?.postoffre}
+                        </div>
+                        <div className="  md:flex hidden  gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5 pr-20 mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
+                          <div className="flex min-w-fit align-center gap-1.5 justify-between py-px">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/bbe2d67ac99b0e08d3e27b575e6b31b1a19a587662414d4c0f4a15bcacd8152f?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto aspect-[1.06] fill-neutral-900 fill-opacity-70 w-[17px]"
+                            />
+                            <div> {albumDetails?.NivET}</div>
+                          </div>
+                          <div className="flex min-w-fit gap-1.5 justify-between px-1 py-0.5 text-base text-neutral-900 text-opacity-70">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/e0749ff185cd8fe41f1f039dd801b62b71af443982f9ff7a852796271c18a3a0?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
+                            />
+                            <div> {albumDetails?.Experience}</div>
+                          </div>
+                          <div className="flex min-w-fit flex-row align-center gap-1.5 justify-center px-1 py-px whitespace-nowrap">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a1a450696ad392ca381fcdefd966ceb1a69aebcd7d31f7fbf80f20cbd168d9f9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto w-3 aspect-[0.75] fill-neutral-900 fill-opacity-70"
+                            />
+                            <div>CDI</div>
+                          </div>
+                          <div className="flex min-w-fit gap-1.5 justify-between px-1 py-px">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/fad9cfd1318d01185e1076aead7632d3237157b031a0a7a014a227eba086bb6a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto w-3.5 aspect-[0.88] fill-neutral-900 fill-opacity-70"
+                            />
+                            <div> {albumDetails?.paysoffre}</div>
+                          </div>
+                          <div className="flex min-w-fit gap-1.5 justify-between px-1 py-0.5 text-base text-neutral-900 text-opacity-70">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/388d7e4e6c54c7e6d1d362363c9431f612d2af0605696aed9b1bc3f3f607f965?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
+                            />
+                            <div>Expire le {albumDetails?.date_experie}</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="block flex-col flex-1 items-center my-auto max-md:max-w-full">
-                      <div className="flex   gap-2 md:gap-4 justify-center items-center self-stretch py-0.5 pr-20 mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
+                    <div className="block flex md:hidden flex-col flex-1 items-center my-auto max-md:max-w-full">
+                      <div className="flex -ml-2 md:-ml-0  text-base  gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5 pr-20 mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
                         <div className="flex align-center gap-1.5 justify-between py-px">
                           <img
                             loading="lazy"
@@ -476,7 +518,7 @@ function AcceuilOffre() {
                           />
                           <div> {albumDetails?.NivET}</div>
                         </div>
-                        <div className="flex gap-1.5 justify-between px-1 py-0.5 text-base text-neutral-900 text-opacity-70">
+                        <div className="flex gap-1.5 justify-between px-1 py-0.5  text-neutral-900 text-opacity-70">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/e0749ff185cd8fe41f1f039dd801b62b71af443982f9ff7a852796271c18a3a0?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -503,7 +545,7 @@ function AcceuilOffre() {
                       </div>
                     </div>
                   </div>
-                  <div className="mt-6 text-xl font-bold text-neutral-900 max-md:max-w-full">
+                  <div className="mt-2 md:mt-6  text-xl font-bold text-neutral-900 max-md:max-w-full">
                     Description
                   </div>
                   <div className="mt-2 text-lg text-neutral-900 text-opacity-70 max-md:max-w-full">
