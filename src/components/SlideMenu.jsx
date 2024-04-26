@@ -3,11 +3,17 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import UserImage from "../assets/placeholder.jpg"
 import { Config } from "../config";
 import LanguageToggler from "../fixDesignComponents/languageToggler";
+import Sun from "../assets/sun.png"
+import Moon from "../assets/moon.png"
+import { Context } from "../index";
+
 const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const [expanded, setExpanded] = useState(false);
   const [lang, setLang] = useState('Français')
   const [user, setUser] = useState({})
   const storedUserData = JSON.parse(localStorage.getItem("user"));
+
+  let {handleDarkModeToggler} = React.useContext(Context)
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
     fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
@@ -40,7 +46,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   };
   return (
     <>
-      <div className="relative flex justify-end">
+      <div className=" relative flex justify-end">
         <img
           alt="user iamge"
           loading="lazy"
@@ -96,6 +102,17 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               className="aspect-[1.49] w-[30px]"
             />
           <LanguageToggler hide={true} color2={true}/>
+         
+          </div>
+          <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-10 h-10 bg-[#11111120] cursor-pointer rounded-full justify-center items-center -ml-4">
+            <img
+              src={Moon}
+              className="w-5 h-5 invert moon "
+            />
+            <img
+              src={Sun}
+              className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
+            />
           </div>
           <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img

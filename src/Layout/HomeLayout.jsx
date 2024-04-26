@@ -10,9 +10,7 @@ const HomeLayout = ({ children }) => {
       <div className="bg-gray-200 min-h-screen overflow-hidden font-sans">
 
         <Header />
-        <div>
-            <ToastContainer />
-          </div>
+
         <div className="max-w-[1344px] mx-auto my-2 md:my-5 px-2">
           {children}
         </div>

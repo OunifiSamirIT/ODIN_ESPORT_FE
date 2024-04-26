@@ -81,9 +81,9 @@ const ProfileLayout = ({ children, onChange, user }) => {
     return (
         <>
             <HomeLayout>
-            <div>
+                {/* <div>
             <ToastContainer />
-          </div>
+          </div> */}
                 <div className="self-center mt-[100px] w-full max-w-[1344px]">
                     <div className="flex gap-2 max-md:flex-col max-md:gap-0 max-md:">
                         <div className="flex flex-col w-full md:w-1/2">
@@ -119,8 +119,14 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                             className="w-50  aspect-square rounded-full"
                                                         />
                                                         <div className="mt-2 font-bold">{item.receiver.nom}</div>
-                                                        <div className="text-sm font-light">{item.receiver.profil}</div>
-                                                        
+                                                        <div className="text-sm font-light">
+                                                            {item.receiver.profil == 'other' ? item.receiver.profil : ''}
+                                                            {item.receiver.profil == 'player' ? ' Joueur' : ''}
+                                                            {item.receiver.profil == 'agent' && item.receiver.profil == 'players' ? 'Manager de Joueur' : ''}
+                                                            {item.receiver.profil == 'agent' && item.receiver.profil == 'club' ? 'Manager de CLub' : ''}
+                                                            {item.receiver.profil == 'scout' ? 'Scout' : ''}
+                                                        </div>
+
                                                         <div className="hidden md:flex text-center justify-center self-stretch px-7 py-2 mt-2 font-medium text-white mx-3  bg-blue-600 rounded-[30px] max-md:px-5">
                                                             <a href={`/profile/${item.receiver.id}`}> Voir Plus</a>
                                                         </div>

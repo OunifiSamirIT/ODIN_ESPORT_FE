@@ -112,6 +112,7 @@ import ViewAlbumodinuser from './pages/ViewAlbumOdin';
 import Error from './pages/404';
 import Bussinse from './OdinBussinse/HomeBussinsse';
 
+import gsap from "gsap";
 
 import { BrowserRouter, Switch, Route, Navigate } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
@@ -124,6 +125,7 @@ import AddChallenge from "./pages/Admin/Components/AddChallenge.jsx";
 import ChallengeDetais from "./pages/Challenge/Details.jsx";
 import Searchpage from "./components/Searchpage.jsx";
 import { Professionalprofile } from "./pages/Professionalprofile/Professionalprofile.jsx";
+import HomeBusiness from "./pages/bussinessComponents/HomeBusiness.jsx";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null)
@@ -155,6 +157,178 @@ function Root() {
   } 
 
   // end ________________________translation methods and state
+
+  // start ________________________dark mode methods and state
+  let [_currentTheme, setDarkTheme] = useState(false);
+
+  
+
+  let handleDarkModeToggler = () => {
+
+    if (_currentTheme) {
+      gsap.timeline()
+      .to(".darkModeSwitcher .sun", {
+        opacity:0 , 
+        scale:  0.5,
+        rotate: "360deg" ,
+      })
+      .to(".darkModeSwitcher .moon", {
+        scale:1,
+        rotate: "0deg",
+        opacity:  1 
+      })
+      gsap.to(".dark-Wide-bg", {
+        delay: 1,
+
+        backgroundColor: "#f4f4f5",
+        background: "#f4f4f5",
+        color: "#111",
+      })
+      gsap.to("body", {
+        delay: 1,
+
+        background: "#f4f4f5",
+      })
+      gsap.to(".dark-text", {
+        delay: 1,
+
+        color: "#111",
+      })
+      gsap.to(".dark-bg", {
+        delay: 1,
+
+        backgroundColor: "#fff",
+        background: "#fff",
+        color: "#111",
+        onComplete: () => {setDarkTheme(!_currentTheme)}
+      })
+      gsap.to(".dark-light-bg", {
+        delay: 1,
+
+        backgroundColor: "#fff",
+        background: "#fff",
+        color: "#111",
+      })
+      gsap.to(".dark-fill-svg", {
+        delay: 1,
+
+        fill: "#111",
+      })
+      gsap.to(".dark-invert-img", {
+        delay: 1,
+
+        filter: "invert(0)",
+        
+      })
+
+      //switch logo
+      
+      gsap.timeline().to(".odinDarkLogo", {
+        delay: .5,
+
+        opacity: 0
+      })
+      .to(".odinDarkLogo", {
+        duration: 0,
+
+        display: "none",
+      })
+      .to(".odinLightLogo", {
+        duration: 0,
+
+        display: "block",
+      })
+      .to(".odinLightLogo", {
+
+        opacity: 1
+      })
+      
+      
+      
+    }
+    else {
+      gsap.timeline()
+      
+      .to(".darkModeSwitcher .moon", {
+        scale:0.5 ,
+        rotate: "360deg",
+        opacity:  0 
+      })
+      .to(".darkModeSwitcher .sun", {
+        opacity:  1, 
+        scale: 1,
+        rotate: "0deg",
+      })
+      gsap.to(".dark-Wide-bg", {
+        delay: 1,
+        backgroundColor: "#333",
+        background: "#333",
+        color: "#fff",
+      })
+      gsap.to("body", {
+        delay: 1,
+
+        background: "#333",
+      })
+      gsap.to(".dark-text", {
+        delay: 1,
+
+        color: "#fff",
+      })
+      gsap.to(".dark-bg", {
+        delay: 1,
+
+        backgroundColor: "#333",
+        background: "#333",
+        color: "#fff",
+        onComplete: () => {setDarkTheme(!_currentTheme)}
+      })
+      gsap.to(".dark-light-bg", {
+        delay: 1,
+
+        backgroundColor: "#444",
+        background: "#444",
+        color: "#fff",
+      })
+      gsap.to(".dark-fill-svg", {
+        delay: 1,
+
+        fill: "#fff",
+      })
+      gsap.to(".dark-invert-img", {
+        delay: 1,
+
+        filter: "invert(1)",
+      })
+
+      //switch logo
+
+      gsap.timeline().to(".odinLightLogo", {
+        delay: 1,
+
+        opacity: 0
+      })
+      .to(".odinLightLogo", {
+        duration: 0,
+
+        display: "none",
+      })
+      .to(".odinDarkLogo", {
+        duration: 0,
+
+        display: "block",
+      })
+      .to(".odinDarkLogo", {
+
+        opacity: 1
+      })
+      
+    }
+    
+    
+  }
+
+  // end ________________________dark mode methods and state
   useEffect(() => {
     // Check if there's a valid token in localStorage
     const token = localStorage.getItem('accessToken');
@@ -193,7 +367,7 @@ function Root() {
   return (
 
     <React.StrictMode>
-    <Context.Provider value={ {_currentLang: _currentLang, _setLang:_setLang, getTranslation: getTranslation} } >
+    <Context.Provider value={ {_currentLang: _currentLang, _setLang:_setLang, getTranslation: getTranslation, handleDarkModeToggler: handleDarkModeToggler, _currentTheme: _currentTheme} } >
       <BrowserRouter basename={"/"}>
         <Routes>
           <Route exact path="/" element={<Demo />} />
@@ -205,7 +379,11 @@ function Root() {
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/postview" element={<PostView />} />
 
+          
+          {/* start khedmet IHEB*/}
 
+          <Route exact path="/homeBusiness" element={ <HomeBusiness /> } />
+          {/* end khedmet IHEB*/}
 
 
           <Route exact path={"/login/:token"} element={<Loginreset />} />
