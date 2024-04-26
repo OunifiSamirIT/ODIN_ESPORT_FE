@@ -457,6 +457,7 @@ const Index = () => {
 
       setPosting(false);
       setValue("description", "");
+      window.location.reload()
       fetchArticles();
     } catch (error) {
       console.error("Error submitting post:", error);
@@ -797,6 +798,7 @@ const Index = () => {
           // Handle the error or show a notification to the user
         })
         .finally(() => {
+          window.location.reload()
           // Close the dropdown after deleting
           setShowDropdown(null);
         });
