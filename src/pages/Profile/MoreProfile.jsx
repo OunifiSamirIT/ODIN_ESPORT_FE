@@ -488,7 +488,7 @@ const More = () => {
                           </svg>
 
                           <div className="grow self-start mt-1">
-                            {CurrentUser.player?.height}cm
+                            {CurrentUser?.player?.height}cm
                           </div>
                         </div>
                         <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
@@ -498,7 +498,7 @@ const More = () => {
                             className="w-5 aspect-square"
                           />
                           <div className="grow self-start mt-1">
-                            {CurrentUser.player?.champsoptionelle}
+                            {CurrentUser?.player?.champsoptionelle}
                           </div>
                         </div>
                         <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
@@ -609,7 +609,7 @@ const More = () => {
                           </svg>
 
                           <div className="grow self-start mt-1">
-                            {CurrentUser.player.PiedFort}
+                            {CurrentUser?.player?.PiedFort}
                           </div>
                         </div>
 
@@ -674,8 +674,8 @@ const More = () => {
                     </div>
                   </div>
                   <Terrain
-                    positionPlay={CurrentUser?.player.positionPlay}
-                    positionSecond={CurrentUser?.player.positionSecond}
+                    positionPlay={CurrentUser?.player?.positionPlay}
+                    positionSecond={CurrentUser?.player?.positionSecond}
                   />
                 </div>
                 <div className="flex flex-col gap-y-4">
@@ -697,7 +697,7 @@ const More = () => {
                       } </div>
                   </div>
                   <div className="flex flex gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
-                    {CurrentUser?.player.skillsInProfile
+                    {CurrentUser?.player?.skillsInProfile
                       .split(",")
                       .filter((item) => item !== "")
                       .map((item) => {
