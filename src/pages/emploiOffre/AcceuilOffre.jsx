@@ -10,13 +10,12 @@ import {
   useParams,
 } from "react-router-dom";
 import { useEffect } from "react";
-
 import { Config } from "../../config";
 
 function AcceuilOffre() {
   const emailRef = useRef(null);
-  const [copied, setCopied] = useState(false);
   const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+  const [copied, setCopied] = useState(false);
   const copyToClipboard = () => {
     const email = emailRef.current.textContent;
     navigator.clipboard
@@ -498,7 +497,20 @@ function AcceuilOffre() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/388d7e4e6c54c7e6d1d362363c9431f612d2af0605696aed9b1bc3f3f607f965?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                             className="shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                           />
-                          <div>Expire le {albumDetails?.date_experie}</div>
+                          <div>
+                            
+                          {
+             getTranslation(
+              `Expire in`,  // -----> Englais
+              `Expire le`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
+                            
+                             {albumDetails?.date_experie}</div>
                         </div>
                       </div>
                     </div>

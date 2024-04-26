@@ -9,6 +9,8 @@ import { Config } from "../../config";
 import { paysAllInfo } from "../../assets/data/Country";
 import Select, { components } from "react-select";
 import { useEffect } from "react";
+
+
 function Entreprise() {
   const { register, setValue, getValues } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);

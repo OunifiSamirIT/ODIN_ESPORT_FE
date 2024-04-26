@@ -62,15 +62,15 @@ const Index = () => {
 
     const contactUsRef = useRef();
     return (
-        <div className="flex flex-col justify-center w-full bg-gray-200 max-h-fit">
+        <div className="flex flex-col justify-center w-full bg-gray-200 space-y-7">
             <div className="w-full flex justify-center bg-white shadow-sm">
                 <div className="max-w-[1344px] flex md:gap-5 gap-2 justify-center md:justify-between w-full  max-md:flex-wrap max-md:max-w-full">
-                <Link to="/">   <img
-                    
+                    <Link to="/">   <img
+
                         loading="lazy"
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/2a75ed34d5c19415cab78b345b0d5336760c4e7969ac95ce58c0988fa6ca72f6?"
                         className="shrink-0 md:mt-0 mt-2 my-auto w-36 max-w-full aspect-[2.78]"
-                    /></Link> 
+                    /></Link>
                     <div className="flex max-md:gap-x-5 max-md:gap-y-4 md:gap-5 justify-center items-center py-4 max-md:flex-wrap">
                         <div className="self-stretch my-auto text-base font-medium text-zinc-900">
                             Contact
@@ -124,7 +124,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col items-center gap-y-32 w-full h-fit flex justify-center text-center">
+            <div className=" flex-col items-center gap-y-2 mt-0  md:gap-y-12 w-full h-fit flex justify-center text-center">
                 <div className="flex  relative flex-col items-center px-16 pt-20 mt-14 w-full max-w-[1184px] h-[600px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
                     <img
                         loading="lazy"
@@ -157,15 +157,15 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                <div className="justify-between w-full max-w-[1184px] max-md:max-w-full px-4">
-                    <div className="flex flex-col gap-y-8 text-3xl font-bold text-zinc-900 max-md:mt-10 max-md:max-w-full">
+                <div className="justify-between  w-full max-w-[1184px] max-md:max-w-full px-4">
+                    <div className="flex flex-col gap-y-5 text-3xl font-bold text-zinc-900 max-md:mt-10 max-md:max-w-full">
                         <div className="flex justify-start">Latest Articles</div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-md:flex-col max-md:gap-0">
                             {article.map((item) => {
                                 return (
                                     <a href={`/blog/${item.id}`}>
                                         <div className="flex col-span-1 flex-col justify-between h-full ">
-                                            <div className="relative flex flex-col grow px-4 py-4 w-full bg-white rounded-[10px] border border-gray-200 border-solid">
+                                            <div className="relative flex flex-col  grow px-4 py-4 w-full bg-white rounded-[10px] border border-gray-200 border-solid">
                                                 <img
                                                     loading="lazy"
                                                     src={item?.imageUrl}
@@ -208,7 +208,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center items-center px-16 py-6 w-full bg-blue-600 max-md:px-5 max-md:max-w-full">
+            <div className="flex justify-center items-center px-16 py-4 w-full bg-blue-600 max-md:px-5 max-md:max-w-full">
                 <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
                     <div className="flex gap-4 justify-between py-2 w-full max-md:flex-wrap max-md:max-w-full">
                         <svg

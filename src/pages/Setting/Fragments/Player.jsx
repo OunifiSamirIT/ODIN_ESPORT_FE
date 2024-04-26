@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form"
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../../config";
+import { Context } from "../../../index";
 const Player = ({ userInfo, fetchUserInfo }) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const [imagePreviewlic, setImagePreviewlic] = useState(null);
@@ -26,6 +27,8 @@ const Player = ({ userInfo, fetchUserInfo }) => {
         }
 
     }
+    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
     const schema = yup
         .object({
             club: yup.string().required().min(2, ({ min }) => `Minimum de (${min} characters nécessaire)`).max(50, ({ max }) => `Maximum de (${max} characters autorisé)`),
@@ -308,11 +311,29 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/d48be6745725217387de9710be0a193a4d08011e72ce73951c9268683bb1b223?"
                                     className="my-auto w-5 aspect-square"
                                 />
-                                <div className="grow text-lg">Club Actuel</div>
+                                <div className="grow text-lg">{
+                                getTranslation(
+                                  `Current Club`,  // -----> Englais
+                                  ` Club Actuel`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</div>
                             </div>
                             <div className="relative">
                                 <input name='club' {...register('club')} type='text' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid !border-red-500' : ''}`} />
-                                {errors.club && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
+                                {errors.club && <span className="invalid-feedback block py-2 px-2">{
+                          getTranslation(
+                            `This field is required!`,  // -----> Englais
+                            `Ce champ est obligatoire!`, //  -----> Francais
+                            ``,  //  -----> Turkey
+                            ``,  //  -----> Allemagne
+                          )
+
+                        }
+                        
+                        </span>}
                             </div>
                         </div>
                         <div className="lg:flex-1 w-full">
@@ -322,11 +343,27 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/67cc44c5147e294e812e8e6e60b5a03612a46374164925d1ed48b3daf7f65514?"
                                     className="my-auto aspect-[0.85] w-[17px]"
                                 />
-                                <div className="grow text-lg">Taille</div>
+                                <div className="grow text-lg"> {
+                                getTranslation(
+                                  `Height`,  // -----> Englais
+                                  `Taille`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</div>
                             </div>
 
                             <input {...register('height')} onChange={handleChange} name='height' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.height ? 'is-invalid !border-red-500' : ''}`} />
-                            {errors.height && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
+                            {errors.height && <span className="invalid-feedback block py-2 px-2">{
+                          getTranslation(
+                            `This field is required!`,  // -----> Englais
+                            `Ce champ est obligatoire!`, //  -----> Francais
+                            ``,  //  -----> Turkey
+                            ``,  //  -----> Allemagne
+                          )
+
+                        }</span>}
                         </div>
                     </div>
                     <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
@@ -343,11 +380,27 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                     </defs>
                                 </svg>
 
-                                <div className="grow text-lg">Poids</div>
+                                <div className="grow text-lg">{
+                              getTranslation(
+                                `Weight (kg)`,  // -----> Englais
+                                `Poids (kg)`, //  -----> Francais
+                                ``,  //  -----> Turkey
+                                ``,  //  -----> Allemagne
+                              )
+
+                            } </div>
                             </div>
                             <div className="relative">
                                 <input {...register('weight')} onChange={handleChange} name='weight' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.weight ? 'is-invalid !border-red-500' : ''}`} />
-                                {errors.weight && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
+                                {errors.weight && <span className="invalid-feedback block py-2 px-2">{
+                          getTranslation(
+                            `This field is required!`,  // -----> Englais
+                            `Ce champ est obligatoire!`, //  -----> Francais
+                            ``,  //  -----> Turkey
+                            ``,  //  -----> Allemagne
+                          )
+
+                        }</span>}
                             </div>
                         </div>
                         <div className="lg:flex-1 w-full">
@@ -367,7 +420,15 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                     </defs>
                                 </svg>
 
-                                <div className="grow text-lg">Pied fort</div>
+                                <div className="grow text-lg">{
+                                getTranslation(
+                                  `Strong foot`,  // -----> Englais
+                                  `Pied fort`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</div>
                             </div>
                             <select
                                 id="PiedFort"
@@ -377,13 +438,53 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                     }`}
                             >
                                 <option value="" disabled>
-                                    Pied Fort
+                                {
+                                  getTranslation(
+                                    `Strong foot`,  // -----> Englais
+                                    `Pied fort`, //  -----> Francais
+                                    ``,  //  -----> Turkey
+                                    ``,  //  -----> Allemagne
+                                  )
+
+                                }
                                 </option>
-                                <option value="PiedGauche">Pied Gauche</option>
-                                <option value="PiedDroit">Pied Droit</option>
-                                <option value="DeuxPieds">Les deux pieds</option>
+                                <option value="PiedGauche">{
+                                  getTranslation(
+                                    `Left foot`,  // -----> Englais
+                                    `Pied Gauche`, //  -----> Francais
+                                    ``,  //  -----> Turkey
+                                    ``,  //  -----> Allemagne
+                                  )
+
+                                }</option>
+                                <option value="PiedDroit"> {
+                                  getTranslation(
+                                    `Right foot`,  // -----> Englais
+                                    `Pied droit`, //  -----> Francais
+                                    ``,  //  -----> Turkey
+                                    ``,  //  -----> Allemagne
+                                  )
+
+                                }</option>
+                                <option value="DeuxPieds">{
+                                  getTranslation(
+                                    `booth feet`,  // -----> Englais
+                                    `Les deux pieds`, //  -----> Francais
+                                    ``,  //  -----> Turkey
+                                    ``,  //  -----> Allemagne
+                                  )
+
+                                } </option>
                             </select>
-                            {errors.PiedFort && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
+                            {errors.PiedFort && <span className="invalid-feedback block py-2 px-2">{
+                          getTranslation(
+                            `This field is required!`,  // -----> Englais
+                            `Ce champ est obligatoire!`, //  -----> Francais
+                            ``,  //  -----> Turkey
+                            ``,  //  -----> Allemagne
+                          )
+
+                        }</span>}
                         </div>
                     </div>
                     <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
@@ -394,7 +495,15 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/b051312f4e1495e14e7b1235b0b1ebab3cae89f347c699d855c048d1aa427fb4?"
                                     className="my-auto w-5 aspect-square"
                                 />
-                                <div className="grow text-lg">Position Principale</div>
+                                <div className="grow text-lg">{
+                                getTranslation(
+                                  `Primary Position`,  // -----> Englais
+                                  ` Position Principale`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</div>
                             </div>
                             <select
                                 id="positionPlay"
@@ -435,7 +544,15 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                     Avant-centre ( ST)
                                 </option>
                             </select>
-                            {errors.positionPlay && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
+                            {errors.positionPlay && <span className="invalid-feedback block py-2 px-2"> {
+                          getTranslation(
+                            `This field is required!`,  // -----> Englais
+                            `Ce champ est obligatoire!`, //  -----> Francais
+                            ``,  //  -----> Turkey
+                            ``,  //  -----> Allemagne
+                          )
+
+                        }</span>}
                         </div>
                         <div className="lg:flex-1 w-full">
                             <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
@@ -452,7 +569,15 @@ const Player = ({ userInfo, fetchUserInfo }) => {
 
 
 
-                                <div className="grow text-lg">Position Secondaire</div>
+                                <div className="grow text-lg">{
+                                getTranslation(
+                                  `Secondary Position`,  // -----> Englais
+                                  ` Position Secondaire`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</div>
                             </div>
                             <select
                                 {...register('positionSecond')}
@@ -504,13 +629,45 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/a7a97c9bcd4cc04810a57119703304622116c26ca19187ab06a1368043f945f4?"
                                     className="my-auto w-5 aspect-square"
                                 />
-                                <div className="grow text-lg">Avez-vous une licence ?</div>
+                                <div className="grow text-lg">{
+                                getTranslation(
+                                  `Do you have a license?`,  // -----> Englais
+                                  `Avez-vous une licence ?`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</div>
                             </div>
                             <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                                 <select {...register('licence')} className="flex gap-5 justify-between px-4 py-2 rounded-md" name="licence" id="licence" >
-                                    <option disabled>Oui/Non</option>
-                                    <option value="oui">OUI</option>
-                                    <option value="non">Non</option>
+                                    <option disabled>{
+                                getTranslation(
+                                  `Yes/No`,  // -----> Englais
+                                  `Oui/Non`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</option>
+                                    <option value="oui">{
+                                getTranslation(
+                                  `Yes`,  // -----> Englais
+                                  `Oui`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</option>
+                                    <option value="non">{
+                                getTranslation(
+                                  `No`,  // -----> Englais
+                                  `Non`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</option>
                                 </select>
                             </div>
                         </div>
@@ -604,7 +761,15 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                                     disabled
                                                     className="grow my-auto w-2 inset-0 opacity-0"
                                                 />
-                                                Importer une Licence
+                                                {
+                          getTranslation(
+                            `Import a photo`,  // -----> Englais
+                            `Importer une photo`, //  -----> Francais
+                            ``,  //  -----> Turkey
+                            ``,  //  -----> Allemagne
+                          )
+
+                        }
                                             </label>
                                         </div>
                                     </div>
@@ -612,7 +777,18 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                             }
 
                         </div>
-                        {FileError && <span className="invalid-feedback block px-2 ">Ce champ est obligatoire</span>}
+                        {FileError && <span className="invalid-feedback block px-2 ">
+                            
+                        {
+                          getTranslation(
+                            `This field is required!`,  // -----> Englais
+                            `Ce champ est obligatoire!`, //  -----> Francais
+                            ``,  //  -----> Turkey
+                            ``,  //  -----> Allemagne
+                          )
+
+                        }
+                            </span>}
                         {/* {imagePreviewlic &&  <span><img src={imagePreviewlic} alt="preview" /></span>} */}
 
                     </div>
@@ -624,7 +800,15 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/7a53452f15bd5895da162bb03bb52c137da8fbcc9d687ab358a7d4d0a05729b5?"
                                 className="my-auto w-5 aspect-square"
                             />
-                            <div className="flex-auto text-lg">Compétences</div>
+                            <div className="flex-auto text-lg">{
+                            getTranslation(
+                              `Skills`,  // -----> Englais
+                              `Compétences`, //  -----> Francais
+                              ``,  //  -----> Turkey
+                              ``,  //  -----> Allemagne
+                            )
+
+                          }</div>
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-2  mt-4 text-lg text-blue-600 max-md:flex-wrap">
@@ -657,7 +841,15 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                             <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
                             </svg>
-                            <button onClick={resetForm} className="">Annuler</button>
+                            <button onClick={resetForm} className="">{
+                                    getTranslation(
+                                      `Cancel`,  // -----> Englais
+                                      ` Annuler`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }</button>
                         </div>
                         <div className="flex gap-2 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                             <img
@@ -665,14 +857,30 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
                                 className="w-5 aspect-square"
                             />
-                            <button type='submit' className="">Confirmer</button>
+                            <button type='submit' className="">{
+                                    getTranslation(
+                                      `Submit`,  // -----> Englais
+                                      `Confirmer`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }</button>
                         </div>
                         <div className="md:hidden flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
                             <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
                             </svg>
 
-                            <button onClick={resetForm} className="">Annuler</button>
+                            <button onClick={resetForm} className="">{
+                                    getTranslation(
+                                      `Cancel`,  // -----> Englais
+                                      ` Annuler`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }</button>
                         </div>
                     </div>
                 </form>

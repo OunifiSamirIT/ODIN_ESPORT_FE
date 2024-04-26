@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Config } from "../../config";
-
+import { Context } from "../../index";
 
 
 
@@ -57,6 +57,7 @@ const Parametre = ({ userInfo }) => {
           'Le mot de passe de confirmation doit contenir une combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%)'
         ),
     })
+    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
   const navigate = useNavigate();
   const {
@@ -149,11 +150,35 @@ const Parametre = ({ userInfo }) => {
 
             <form onSubmit={handleSubmit(onSubmit)} className=" overflow-auto">
               <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                Changement de mot de passe
+                  
+
+
+                {
+             getTranslation(
+              `Change password`,  // -----> Englais
+              `Changement de mot de passe`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+
               </div>
               <div className="mt-2 text-zinc-900 max-md:max-w-full">
-                Votre mot de passe doit contenir au moins 6 caractères ainsi qu’une
-                combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%).
+               
+
+                
+
+                {
+             getTranslation(
+              `Your password must be at least 6 characters long and include a combination of numbers, letters, and special characters (!$@%).`,  // -----> Englais
+              ` Votre mot de passe doit contenir au moins 6 caractères ainsi qu’une
+              combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%).`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
               </div>
               <div className="flex gap-4 px-6 mt-6 text-lg text-zinc-900  max-md:px-5">
                 <img
@@ -161,7 +186,19 @@ const Parametre = ({ userInfo }) => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9b83235dcf72c09520e36abb0c835a12fcc97fd51d2b5644ab1be7e8f2d9094?"
                   className="shrink-0 my-auto w-5 aspect-square"
                 />
-                <div className="flex-auto max-md:max-w-full">Mot de passe actuel</div>
+                <div className="flex-auto max-md:max-w-full">
+                  
+                {
+             getTranslation(
+              `Current password`,  // -----> Englais
+              `Mot de passe actuel`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                  
+                  </div>
               </div>
               <div className="w-full  flex-col flex items-center">
                 <input  {...register('password')} name='password' className={`form-control flex grow px-5 py-3.5 w-full flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full ${errors.password ? 'is-invalid !border-red-500' : ''}`} type="password" placeholder="*********" />
@@ -174,7 +211,19 @@ const Parametre = ({ userInfo }) => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/e4ef12c3e38e0a77c5f6e8cccfe0418318f174e33bd12b20ae49840d8c06c3ad?"
                   className="shrink-0 my-auto w-5 aspect-square"
                 />
-                <div className="flex-auto max-md:max-w-full">Nouveau mot de passe</div>
+                <div className="flex-auto max-md:max-w-full">
+                
+                {
+             getTranslation(
+              `New password`,  // -----> Englais
+              `Nouveau mot de passe`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                
+                </div>
               </div>
               <div className="w-full flex flex-col items-center">
                 <input {...register('newpassword')} name='newpassword' className={`form-control flex grow px-5 py-3.5 w-full flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full ${errors.newpassword ? 'is-invalid !border-red-500' : ''}`} type="password" placeholder="*********" />
@@ -187,7 +236,17 @@ const Parametre = ({ userInfo }) => {
                   className="shrink-0 my-auto w-5 aspect-square"
                 />
                 <div className="flex-auto max-md:max-w-full">
-                  Confirmer le mot de passe
+                  
+
+                  {
+             getTranslation(
+              `Confirm password`,  // -----> Englais
+              `Confirmer le mot de passe`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
                 </div>
               </div>
               <div className="w-full flex flex-col items-center">
@@ -201,7 +260,15 @@ const Parametre = ({ userInfo }) => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/36783b2bbc0c4d8acd402a87827fbf522d3e413b9d2fd96d908a05709d3b2242?"
                     className="shrink-0 w-5 aspect-square"
                   />
-                  <div className="">Annuler</div>
+                  <div className="">{
+                                    getTranslation(
+                                      `Cancel`,  // -----> Englais
+                                      ` Annuler`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }</div>
                 </button>
                 <button className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
                   <img
@@ -209,7 +276,15 @@ const Parametre = ({ userInfo }) => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/534a656afb5625680d54ff4ea52bbe985ada0762ba3c4cc382181406f743d9e8?"
                     className="shrink-0 w-5 aspect-square"
                   />
-                  <div className="">Confirmer</div>
+                  <div className="">{
+                                    getTranslation(
+                                      `Submit`,  // -----> Englais
+                                      `Confirmer`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }</div>
                 </button>
               </div>
             </form>
@@ -236,7 +311,18 @@ const Parametre = ({ userInfo }) => {
                 />
               </div>
               <div className="mt-4 text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                Gérer vos adresses e-mails
+                
+
+                
+                {
+             getTranslation(
+              `Manage your email addresses`,  // -----> Englais
+              `Gérer vos adresses e-mails`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
               </div>
               <div className="flex gap-5 justify-between px-6 py-2 mt-5 w-full text-lg whitespace-nowrap rounded-xl border-blue-600 border-solid border-[0.7px] max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                 <div className="flex gap-4 justify-center py-1">
@@ -256,14 +342,35 @@ const Parametre = ({ userInfo }) => {
                 />
               </div>
               <button onClick={() => { setStep1(true); setStep0(false) }} className="justify-center text-center items-center px-16 py-2 mt-4 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
-                Ajouter une nouvelle adresse e-mail
+                
+
+                
+
+                {
+             getTranslation(
+              `Add a new email address`,  // -----> Englais
+              `Ajouter une nouvelle adresse e-mail`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
               </button>
             </div>}
           {step1 &&
 
             <div ref={ref} className="flex flex-col p-8 mt-72 mb-56 max-w-full bg-white rounded-xl w-[625px] max-md:px-5 max-md:my-10">
               <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                Ajouter un e-mail
+                  
+                {
+             getTranslation(
+              `Add an email`,  // -----> Englais
+              `Ajouter un e-mail `, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
               </div>
               <div className="flex gap-4 px-6 mt-6 text-lg text-zinc-900 max-md:flex-wrap max-md:px-5">
                 <img
@@ -271,7 +378,18 @@ const Parametre = ({ userInfo }) => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c858a82cf16a859a744a1d83f6e54d82120e6304f01ab0888fde057abc7b068?"
                   className="shrink-0 my-auto aspect-[1.1] w-[22px]"
                 />
-                <div className="flex-auto max-md:max-w-full">Nouveau Email</div>
+                <div className="flex-auto max-md:max-w-full">
+                  
+                {
+             getTranslation(
+              `New email`,  // -----> Englais
+              `Nouveau Email`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+                  </div>
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:pr-5 max-md:max-w-full">
                 johndoe@gmail.com
@@ -283,7 +401,15 @@ const Parametre = ({ userInfo }) => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/a16a87d6940e2db9a1e70f4606483f083c35a35f113608fd1077bbd3df410fe5?"
                     className="shrink-0 w-5 aspect-square"
                   />
-                  <div className="grow">Annuler</div>
+                  <div className="grow">{
+                                    getTranslation(
+                                      `Cancel`,  // -----> Englais
+                                      ` Annuler`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }</div>
                 </button>
                 <div onClick={() => { setStep2(true); setStep1(false) }} className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                   <img
@@ -291,7 +417,15 @@ const Parametre = ({ userInfo }) => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/39f5c3f587bdfa0c06dddee1e4ab1580b5c0bfd515433ac8e505193f72fb13b8?"
                     className="shrink-0 w-5 aspect-square"
                   />
-                  <div className="grow">Confirmer</div>
+                  <div className="grow">{
+                                    getTranslation(
+                                      `Submit`,  // -----> Englais
+                                      `Confirmer`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }</div>
                 </div>
               </div>
             </div>
@@ -301,7 +435,17 @@ const Parametre = ({ userInfo }) => {
             step2 &&
             <div ref={ref} className="flex flex-col p-8 mt-72 mb-56 max-w-full bg-white rounded-xl w-[625px] max-md:px-5 max-md:my-10">
               <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                Saisir votre mot de passe
+                
+
+                {
+             getTranslation(
+              `Enter your password`,  // -----> Englais
+              `Saisir votre mot de passe`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
               </div>
               <div className="flex gap-4 px-6 mt-6 text-lg text-zinc-900 max-md:flex-wrap max-md:px-5">
                 <img
@@ -309,7 +453,15 @@ const Parametre = ({ userInfo }) => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/784e4a785eb762c3295ee4d39b8d1601afb74fa467574753ca93ac06f38301a9?"
                   className="shrink-0 my-auto w-5 aspect-square"
                 />
-                <div className="flex-auto max-md:max-w-full">Mot de passe</div>
+                <div className="flex-auto max-md:max-w-full"> {
+             getTranslation(
+              `Password`,  // -----> Englais
+              `Mot de passe`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
               </div>
               <div className="flex flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full">
                 <div className="flex gap-5 justify-between px-5 py-3.5 rounded-md max-md:flex-wrap max-md:max-w-full">
@@ -328,7 +480,15 @@ const Parametre = ({ userInfo }) => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/029dbea0684be609a614a7fd509f212d0a9aa9110c49439e3d43764db16e2c25?"
                     className="shrink-0 w-5 aspect-square"
                   />
-                  <div className="grow">Annuler</div>
+                  <div className="grow">{
+                                    getTranslation(
+                                      `Cancel`,  // -----> Englais
+                                      ` Annuler`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }</div>
                 </button>
                 <button onClick={() => { setStep3(true); setStep2(false) }} className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                   <img
@@ -336,7 +496,15 @@ const Parametre = ({ userInfo }) => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/448bf14bfc599fa4746059e1744892548705d521caf33cc64e777d47b39b61e4?"
                     className="shrink-0 w-5 aspect-square"
                   />
-                  <div className="grow">Confirmer</div>
+                  <div className="grow">{
+                                    getTranslation(
+                                      `Submit`,  // -----> Englais
+                                      `Confirmer`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }</div>
                 </button>
               </div>
             </div>
@@ -362,11 +530,29 @@ const Parametre = ({ userInfo }) => {
               </div>
 
               <div className="self-center mt-6 text-3xl font-bold whitespace-nowrap text-zinc-900">
-                Email envoyé
+              {
+                                    getTranslation(
+                                      `Email sent`,  // -----> Englais
+                                      `Email envoyé`, //  -----> Francais
+                                      ``,  //  -----> Turkey
+                                      ``,  //  -----> Allemagne
+                                    )
+
+                                  }
               </div>
               <div className="mt-4 text-2xl text-center text-zinc-900 max-md:max-w-full">
-                Vérifiez votre e-mail et ouvrez le lien que nous vous avons envoyé pour
-                finaliser la réinitialisation de votre mot de passe.
+                
+                
+                {
+             getTranslation(
+              `Check your email and open the link we sent you to finalize the password reset.`,  // -----> Englais
+              `Vérifiez votre e-mail et ouvrez le lien que nous vous avons envoyé pour
+              finaliser la réinitialisation de votre mot de passe.`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
               </div>
             </div>}
         </div>
@@ -379,7 +565,19 @@ const Parametre = ({ userInfo }) => {
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/e0f2ace319a8a40362513aebe5b9d3895ee695350e8c08fdf2d1f81c2a6111bf?"
             className="my-auto aspect-[1.1] w-[22px]"
           />
-          <div className="grow">Email Principale</div>
+          <div className="grow">
+            
+          {
+             getTranslation(
+              `Principal Email`,  // -----> Englais
+              `Email Principale`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+            
+            </div>
         </div>
         <div className="justify-center items-start overflow-hidden py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid bg-zinc-100 border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full">
           {userInfo?.user.email}
@@ -401,14 +599,43 @@ const Parametre = ({ userInfo }) => {
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a85b62b66ecf00095664baf16a200ba7858326683afa2b2f6a03ae7601c2701?"
             className="my-auto w-5 aspect-square"
           />
-          <div className="grow max-md:max-w-full">Mot de passe</div>
+          <div className="grow max-md:max-w-full"> {
+             getTranslation(
+              `Password`,  // -----> Englais
+              `Mot de passe`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
         </div>
         <button onClick={() => setIsPasswordOpen(true)} className="justify-center text-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border !border-blue-500  rounded-[30px] max-md:px-5 max-md:max-w-full">
-          Changer votre mot de passe
+           
+
+          {
+             getTranslation(
+              `Change your Password`,  // -----> Englais
+              `Changer votre Mot de passe`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
         </button>
       </div>
       <div onClick={()=> handleDeleteUser(storedUserData.id)} className="justify-center text-center hover:bg-red-500 hover:text-white cursor-pointer px-5 py-2 text-base font-medium border-2 border-solid border-red-600 rounded-[30px] text-red-600">
-        Supprimer votre compte
+        
+        
+      {
+             getTranslation(
+              `Delete account`,  // -----> Englais
+              `Supprimer votre compte`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+        
       </div>
     </>
   )

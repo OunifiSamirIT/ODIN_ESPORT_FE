@@ -8,6 +8,7 @@ import Personal from "./Personal";
 import { useParams } from "react-router-dom";
 import HomeLayout from "../../Layout/HomeLayout";
 import { Config } from "../../config";
+import { Context } from "../../index";
 import { ToastContainer } from "react-toastify";
 const Index = () => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));

@@ -3,11 +3,10 @@ import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom";
 import Placeholder from "../../../assets/placeholder.jpg"
 import { Config } from "../../../config";
-import { Context } from "../../../index"
+import { Context } from "../../../index";
 
 
 import { Modal } from 'react-modal';
-
 const Scout = ({ userInfo }) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -29,7 +28,7 @@ const Scout = ({ userInfo }) => {
         return string.split(',')[0].substring(1);
     }
 
-    const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
+const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
     const sendFriendRequest = async () => {
 
@@ -418,14 +417,13 @@ const Scout = ({ userInfo }) => {
                                 //   `` ,  //  -----> Allemagne
                             )
 
-                        }</a>
-                    </div>
+                    }</a>
                 </div>
             </div>
-        </>
-    )
+        </div>
+    </>
+)
 }
-
 
 
 export default Scout

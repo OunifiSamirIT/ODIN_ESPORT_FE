@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useState, useRef, useEffect } from "react";
-import Header from '../../components/Header';
+import Header from "../../components/Header";
 import Terrain from "../../components/Terrain";
 import ProfileLayout from "../../Layout/ProfileLayout";
 import PlaceHolder from "../../assets/placeholder.jpg"
@@ -49,15 +49,14 @@ import placeholder from "../../assets/placeholder.jpg";
 
 const Index = () => {
   const { id } = useParams();
-  const [profileFeed, SetProfileFeed] = useState('pubs')
+  const [profileFeed, SetProfileFeed] = useState("pubs");
   useEffect(() => {
-    SetProfileFeed('pubs');
-  }, [])
-
+    SetProfileFeed("pubs");
+  }, []);
 
   const handleProfileFeed = (data) => {
-    SetProfileFeed(data)
-  }
+    SetProfileFeed(data);
+  };
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -69,8 +68,8 @@ const Index = () => {
   const [postsData, setPostsData] = useState([]);
   const fileInputRef = useRef(null);
   const [articles, setArticles] = useState([]); // New state for articles
-  const [articlesWithPhoto, setArticleWithPhoto] = useState([])
-  const [articlesWithVideo, setArticleWithVideo] = useState([])
+  const [articlesWithPhoto, setArticleWithPhoto] = useState([]);
+  const [articlesWithVideo, setArticleWithVideo] = useState([]);
   const [isActive, setIsActive] = useState(false);
   const [comment, setComment] = useState("");
   const [selectedArticleId, setSelectedArticleId] = useState(null);
@@ -100,27 +99,29 @@ const Index = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
   // const [isActive, setIsActive] = useState()
-  const [owner, setOwner] = useState(false)
+  const [owner, setOwner] = useState(false);
 
   const handleClick = () => {
     setShowMenu(!showMenu);
   };
 
-
   useEffect(() => {
     if (LocalStorageID.id == id) {
-      setOwner(true)
+      setOwner(true);
     }
-  }, [id])
+  }, [id]);
   useEffect(() => {
-    setArticleWithPhoto(articles.filter((item) => {
-      return item.image !== null && item.userId == id
-    }))
-    setArticleWithVideo(articles.filter((item) => {
-      return item.video !== null && item.userId == id
-    }))
-
-  }, [profileFeed, articles, id])
+    setArticleWithPhoto(
+      articles.filter((item) => {
+        return item.image !== null && item.userId == id;
+      })
+    );
+    setArticleWithVideo(
+      articles.filter((item) => {
+        return item.video !== null && item.userId == id;
+      })
+    );
+  }, [profileFeed, articles, id]);
   const toggleActive = () => setIsActive(!isActive);
 
   const emojiClass = `${isActive ? "active" : ""}`;
@@ -163,7 +164,6 @@ const Index = () => {
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
           `${Config.LOCAL_URL}/api/likes/article/allLikes`
-
         );
         const allLikesData = await allLikesResponse.json();
 
@@ -190,7 +190,6 @@ const Index = () => {
       });
     }
   };
-
 
   const handleLikeComment = async (commentId) => {
     try {
@@ -357,10 +356,12 @@ const Index = () => {
   };
 
   const LocalStorageID = JSON.parse(localStorage.getItem("user"));
-  const isOwner = LocalStorageID.id == id
+  const isOwner = LocalStorageID.id == id;
   const fetchArticles = async () => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/byUser/${id}`);
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/articles/byUser/${id}`
+      );
       const result = await response.json();
 
       const reversedArticles = result.rows.reverse();
@@ -370,13 +371,19 @@ const Index = () => {
         const userId = article.userId;
         const comt = article.id;
 
-        const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${userId}`);
+        const userResponse = await fetch(
+          `${Config.LOCAL_URL}/api/user/${userId}`
+        );
         const userData = await userResponse.json();
 
-        const comtResponse = await fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`);
+        const comtResponse = await fetch(
+          `${Config.LOCAL_URL}/api/commentaires/article/${comt}`
+        );
         const commentsData = await comtResponse.json();
 
-        const likesCountResponse = await fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`);
+        const likesCountResponse = await fetch(
+          `${Config.LOCAL_URL}/api/likes/article/allLikes`
+        );
         const likesCountData = await likesCountResponse.json();
 
         const likesCount = likesCountData.find(
@@ -448,7 +455,8 @@ const Index = () => {
       setPreviewImage(null);
 
       setPosting(false);
-      setValue('description', '');
+      setValue("description", "");
+      window.location.reload()
       fetchArticles();
     } catch (error) {
       console.error("Error submitting post:", error);
@@ -538,7 +546,7 @@ const Index = () => {
           const userData = await userResponse.json();
           return {
             ...reply,
-            user: userData.user,
+            user: userData,
           };
         })
       );
@@ -564,7 +572,6 @@ const Index = () => {
         .catch((error) => console.error(error));
     }
   }, [profileFeed]);
-
 
   useEffect(() => {
     fetchArticles();
@@ -607,20 +614,17 @@ const Index = () => {
         // Retrieve user information from local storage
         const user = JSON.parse(localStorage.getItem("user"));
 
-        const response = await fetch(
-          `${Config.LOCAL_URL}/api/commentaires/`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              description: comment,
-              userId: user.id,
-              articleId: articleId,
-            }),
-          }
-        );
+        const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            description: comment,
+            userId: user.id,
+            articleId: articleId,
+          }),
+        });
 
         const newComment = await response.json();
         console.log("Comment created:", newComment);
@@ -747,12 +751,13 @@ const Index = () => {
     const articleUrl = `${Config.LOCAL_URL}/articles/${articleId}`;
 
     // Copy the URL to the clipboard
-    navigator.clipboard.writeText(articleUrl)
+    navigator.clipboard
+      .writeText(articleUrl)
       .then(() => {
-        console.log('Link copied to clipboard');
+        console.log("Link copied to clipboard");
       })
       .catch((err) => {
-        console.error('Failed to copy link to clipboard', err);
+        console.error("Failed to copy link to clipboard", err);
       });
   };
 
@@ -763,15 +768,17 @@ const Index = () => {
   };
 
   const handleDeleteClick = (id) => {
-    const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer cette publication ?');
+    const confirmDelete = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer cette publication ?"
+    );
 
     if (confirmDelete) {
-      console.log('Deleting article...');
+      console.log("Deleting article...");
 
       fetch(`${Config.LOCAL_URL}/api/articles/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           // Add any additional headers if needed
         },
       })
@@ -790,6 +797,7 @@ const Index = () => {
           // Handle the error or show a notification to the user
         })
         .finally(() => {
+          window.location.reload()
           // Close the dropdown after deleting
           setShowDropdown(null);
         });
@@ -816,8 +824,7 @@ const Index = () => {
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
-        {owner &&
-
+        {owner && (
           <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3">
             <div className="card-body p-2 position-relative">
               {previewImage && (
@@ -856,7 +863,7 @@ const Index = () => {
                         // styles="w-full rounded-full py-5 text-bl"
                         // placeholder="Show your Skills here , your dream begin from here...."
                         name="description"
-                        {...register('description')}
+                        {...register("description")}
                       />
                       {errMsg?.message && (
                         <span
@@ -945,7 +952,8 @@ const Index = () => {
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="aspect-[1.2] fill-slate-500 w-[30px]"
-                            />                           <span className="d-none-xs ml-2">GIF</span>
+                            />{" "}
+                            <span className="d-none-xs ml-2">GIF</span>
                           </label>
                         </div>
 
@@ -967,40 +975,58 @@ const Index = () => {
               </form>
             </div>
           </div>
-
-        }
-        {profileFeed === 'pubs' && <div className="w-full mt-4">
-          <div>
+        )}
+        {profileFeed === "pubs" && (
+          <div className="w-full mt-4">
             <div>
-              {articles ? articles.map((article) => (
-                <div
-                  key={article.id}
-                  className="card w-full shadow-xss flex rounded-xxl border-0 p-4 mb-3"
-                >
-                  <div className="card-body p-0 d-flex mb-3">
-                    <figure className="avatar me-3">
-                      <img
-                        src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
-                        className="avatar me-3shadow-sm rounded-full aspect-square w-[64px] mr-2"
-                        alt="post"
-                      />
-                    </figure>
-                    <div className="flex flex-col">
-                      <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
-                      <span className="d-block  font-xssss mt-0 text-grey-500">
+              <div>
+                {articles ? (
+                  articles.map((article) => (
+                    <div
+                      key={article.id}
+                      className="card w-full shadow-xss flex rounded-xxl border-0 p-4 mb-3"
+                    >
+                      <div className="card-body p-0 d-flex mb-3">
+                        <figure className="avatar me-3">
+                          <img
+                            src={
+                              article?.user?.user.image
+                                ? article?.user?.user.image
+                                : PlaceHolder
+                            }
+                            className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                            alt="post"
+                          />
+                        </figure>
+                        <div className="flex flex-col">
+                          <span className="text-base text-grey-900">
+                            {article.user.user.nom} {article.user.user.prenom}
+                          </span>
+                          <span className="d-block font-xssss fw-500 text-grey-500">
+                            {article.user.user.profil == "other"
+                              ? article.user.other?.profession
+                              : ""}
+                            {article.user.user.profil == "player"
+                              ? " Joueur"
+                              : ""}
+                            {article.user.user.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "players"
+                              ? "Manager de Joueur"
+                              : ""}
+                            {article.user.user.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "club"
+                              ? "Manager de CLub"
+                              : ""}
+                            {article.user.user.profil == "scout" ? "Scout" : ""}
+                          </span>
+                          <span className="d-block font-xssss fw-500 text-grey-500">
+                            {formatDate(
+                              article.user.user.createdAt
+                            )}
+                          </span>
+                        </div>
 
-                        {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
-                        {article.user.user.profil == 'player' ? ' Joueur' : ''}
-                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
-                        {article.user.user.profil == 'scout' ? 'Scout' : ''}
-                      </span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
-                        {formatDate(article.user.user.createdAt)}
-                      </span>
-                    </div>
-
-                    {/* <h4 className="">
+                        {/* <h4 className="">
                       
                       <span className="d-block font-xssss fw-500 text-grey-500">
                         {article.user.user.profil}
@@ -1009,699 +1035,621 @@ const Index = () => {
                         {new Date(article.user.user.createdAt).toLocaleDateString()}
                       </span>
                     </h4> */}
-                    <div className="ms-auto relative">
-                      <svg onClick={() => handleMoreClick(article)} width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z" fill="#1D1E21" />
-                        <path d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z" fill="#1D1E21" />
-                        <path d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z" fill="#1D1E21" />
-                      </svg>
-                      {showDropdown === article.id && isOpen && isOwner ? (
-                        <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                          {/* Your dropdown menu content */}
-                          <button
-                            className="block w-full px-4 py-2 text-gray-800 hover:bg-gray-200"
-                            onClick={() => handleEditClick(selectedArticle)}
+                        <div className="ms-auto relative">
+                          <svg
+                            onClick={() => handleMoreClick(article)}
+                            width="31"
+                            height="21"
+                            viewBox="0 0 31 21"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <label
-                              className="flex items-center w-full gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                              onClick={() => handleEditClick(article)}
-                            >
-                              <Link to={`/editPost/${article.id}`}>
-                                <span>
-                                  {
-                                    getTranslation(
-                                      `Edit`,  // -----> Englais
-                                      `Modifier`, //  -----> Francais
-                                      //   ``,  //  -----> Turkey
-                                      //   `` ,  //  -----> Allemagne
-                                    )
-
-                                  }</span>
-                              </Link>{" "}
-                            </label>
-                          </button>
-                          <button
-                            className="flex gap-1 items-center px-4 py-2 w-full text-gray-800 hover:bg-gray-200"
-                            onClick={() => handleDeleteClick(article.id)}
-                          >
-                            {
-                              getTranslation(
-                                `Delete`,  // -----> Englais
-                                `Supprimer`, //  -----> Francais
-                                //   ``,  //  -----> Turkey
-                                //   `` ,  //  -----> Allemagne
-                              )
-
-                            }
-                          </button>
-                        </div>
-                      ) : ''}
-                    </div>
-                  </div>
-                  <div className="card-body p-0 me-lg-5">
-                    <p className="font-light text-base rounded-md  w-full text-dark theme-dark-bg text-pretty">
-                      {article.description !== 'null' ? article.description : ''}
-                    </p>
-                  </div>
-                  {article.video && (
-                    <div className="card-body d-block p-0">
-                      <div className="row ps-2 pe-2">
-                        <div className="col-sm-12 p-1">
-                          <div className="card-body p-0 mb-3  overflow-hidden uttam-die">
-                            <video controls className="float-right w-100">
-                              <source
-                                src={article.video}
-                                type="video/mp4"
-                              />
-
-
-                              {
-                                getTranslation(
-                                  ` Your browser does not support the video tag.`,  // -----> Englais
-                                  `votre navigateur ne supporte pas cette balise vidéo.`, //  -----> Francais
-                                  //   ``,  //  -----> Turkey
-                                  //   `` ,  //  -----> Allemagne
-                                )
-
-                              }
-
-                            </video>{" "}
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  )}
-                  {article.image && (
-                    (
-                      <div className="card-body d-block p-0">
-                        <div className="row ps-2 pe-2">
-                          <div className="col-sm-12 p-1">
-                            <img
-                              className=" max-w-full w-full"
-                              src={article.image}
-                              alt={article.titre}
+                            <path
+                              d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                              fill="#1D1E21"
                             />
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  )}
-                  <div className="  rounded-lg">
-                    <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
-                      <div className="flex gap-2.5 items-center justify-center py-2.5">
-                        <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M11.7267 0C10.9723 0.0117335 10.2344 0.222313 9.58752 0.610472C8.94058 0.998631 8.40753 1.55062 8.04219 2.21071C7.67684 1.55062 7.14379 0.998631 6.49686 0.610472C5.84993 0.222313 5.11203 0.0117335 4.35767 0C3.15514 0.0522469 2.02216 0.578304 1.20626 1.46324C0.390358 2.34818 -0.0421438 3.52007 0.00324311 4.72288C0.00324311 9.26153 7.3428 14.5036 7.65498 14.726L8.04219 15L8.4294 14.726C8.74158 14.5049 16.0811 9.26153 16.0811 4.72288C16.1265 3.52007 15.694 2.34818 14.8781 1.46324C14.0622 0.578304 12.9292 0.0522469 11.7267 0Z" fill="#65676B" />
-                        </svg>
-                        <span className="text-md py-1">
-                          {article.likesCount}
-                        </span>
-                      </div>
-                      <div className="flex gap-2.5 items-center justify-center py-2.5">
-                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12.2974 1.72552C11.5056 1.06664 10.586 0.578896 9.5964 0.29302C8.6068 0.00714375 7.56872 -0.0706678 6.54756 0.0644883C4.65848 0.309904 2.9336 1.26506 1.72316 2.73601C0.512716 4.20696 -0.0925499 6.08345 0.0302592 7.98444C0.153068 9.88544 0.994746 11.6684 2.38439 12.9714C3.77403 14.2744 5.60748 14.9997 7.51244 15H11.8756C12.704 14.999 13.4982 14.6695 14.0839 14.0837C14.6697 13.498 14.9992 12.7038 15.0002 11.8754V7.06918V7.02981C14.934 6.00835 14.6602 5.01111 14.1955 4.09908C13.7308 3.18706 13.0849 2.3794 12.2974 1.72552ZM5.00152 4.37641H7.50119C7.66693 4.37641 7.82588 4.44225 7.94307 4.55945C8.06026 4.67664 8.1261 4.83559 8.1261 5.00133C8.1261 5.16707 8.06026 5.32602 7.94307 5.44321C7.82588 5.56041 7.66693 5.62625 7.50119 5.62625H5.00152C4.83578 5.62625 4.67683 5.56041 4.55964 5.44321C4.44244 5.32602 4.3766 5.16707 4.3766 5.00133C4.3766 4.83559 4.44244 4.67664 4.55964 4.55945C4.67683 4.44225 4.83578 4.37641 5.00152 4.37641ZM10.0009 10.6256H5.00152C4.83578 10.6256 4.67683 10.5597 4.55964 10.4425C4.44244 10.3254 4.3766 10.1664 4.3766 10.0007C4.3766 9.83493 4.44244 9.67598 4.55964 9.55878C4.67683 9.44159 4.83578 9.37575 5.00152 9.37575H10.0009C10.1666 9.37575 10.3255 9.44159 10.4427 9.55878C10.5599 9.67598 10.6258 9.83493 10.6258 10.0007C10.6258 10.1664 10.5599 10.3254 10.4427 10.4425C10.3255 10.5597 10.1666 10.6256 10.0009 10.6256ZM10.0009 8.12591H5.00152C4.83578 8.12591 4.67683 8.06008 4.55964 7.94288C4.44244 7.82569 4.3766 7.66674 4.3766 7.501C4.3766 7.33526 4.44244 7.17631 4.55964 7.05912C4.67683 6.94192 4.83578 6.87608 5.00152 6.87608H10.0009C10.1666 6.87608 10.3255 6.94192 10.4427 7.05912C10.5599 7.17631 10.6258 7.33526 10.6258 7.501C10.6258 7.66674 10.5599 7.82569 10.4427 7.94288C10.3255 8.06008 10.1666 8.12591 10.0009 8.12591Z" fill="#65676B" />
-                        </svg>
-                        <span className="text-md py-1">
-                          {article.commentsCount}
-                        </span>
-                      </div>
-                    </div>
-                    <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
-
-                    <span className="flex justify-between items-center ml-0 p-0 font-bold w-full">
-                      <button
-                        onClick={() => {
-                          handleLikeClick(article.id, 1);
-                        }}
-                      >
-                        <span className="flex items-center flex-col md:flex-row gap-2 ">
-                          {article.likesCount === 0 ? (
-                            <BiHeart className="size-6 text-black" />
+                            <path
+                              d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                              fill="#1D1E21"
+                            />
+                            <path
+                              d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                              fill="#1D1E21"
+                            />
+                          </svg>
+                          {showDropdown === article.id && isOpen && isOwner ? (
+                            <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                              {/* Your dropdown menu content */}
+                              <button
+                                className="block w-full px-4 py-2 text-gray-800 hover:bg-gray-200"
+                                onClick={() => handleEditClick(selectedArticle)}
+                              >
+                                <label
+                                  className="flex items-center w-full gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                  onClick={() => handleEditClick(article)}
+                                >
+                                  <Link to={`/editPost/${article.id}`}>
+                                    <span>Modifier</span>
+                                  </Link>{" "}
+                                </label>
+                              </button>
+                              <button
+                                className="flex gap-1 items-center px-4 py-2 w-full text-gray-800 hover:bg-gray-200"
+                                onClick={() => handleDeleteClick(article.id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
                           ) : (
-                            <BiSolidHeart className="size-6 text-black" />
+                            ""
                           )}
-                          <div className="flex items-center gap-2">
-                            <span style={{ marginLeft: '1px', marginTop: '2px' }}>
-
-
-
-                              {
-                                getTranslation(
-                                  `Like`,  // -----> Englais
-                                  ` J'aime`, //  -----> Francais
-                                  //   ``,  //  -----> Turkey
-                                  //   `` ,  //  -----> Allemagne
-                                )
-
-                              }
-
-                            </span>
-                          </div>
-                        </span>
-
-                      </button>{" "}
-
-                      <button
-                        onClick={() => {
-                          if (selectedArticleId === article.id) {
-                            setCommentInputVisible(false);
-                            setSelectedArticleId(null);
-                          } else {
-                            fetchCommentsForArticle(article.id);
-                            setSelectedArticleId(article.id);
-                            setCommentInputVisible(true);
-                            setSelectedArticleForCopy(article.id);
-                          }
-                        }}
-                      >
-                        {selectedArticleId === article.id ? (
-                          <div className="flex flex-col md:flex-row items-center gap-2 md:justify-between py-2">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square fill-zinc-900"
-                            />
-                            <div className="grow">
-
-
-                              {
-                                getTranslation(
-                                  `Comment`,  // -----> Englais
-                                  ` Commenter`, //  -----> Francais
-                                  //   ``,  //  -----> Turkey
-                                  //   `` ,  //  -----> Allemagne
-                                )
-
-                              }
+                        </div>
+                      </div>
+                      <div className="card-body p-0 me-lg-5">
+                        <p className="font-light text-base rounded-md  w-full text-dark theme-dark-bg text-pretty">
+                          {article.description !== "null"
+                            ? article.description
+                            : ""}
+                        </p>
+                      </div>
+                      {article.video && (
+                        <div className="card-body d-block p-0">
+                          <div className="row ps-2 pe-2">
+                            <div className="col-sm-12 p-1">
+                              <div className="card-body p-0 mb-3  overflow-hidden ">
+                                <video controls className="w-100 md:max-h-[600px] max-h-350">
+                                  <source
+                                    src={article.video}
+                                    type="video/mp4"
+                                  />
+                                  Your browser does not support the video tag.
+                                </video>{" "}
+                              </div>
                             </div>
                           </div>
-                        ) : (
-                          <div className="flex gap-2 flex-col md:flex-row items-center">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square fill-zinc-900"
-                            />
-                            <div className="flex gap-2"> <span> {
-                              getTranslation(
-                                `Comment`,  // -----> Englais
-                                ` Commenter`, //  -----> Francais
-                                //   ``,  //  -----> Turkey
-                                //   `` ,  //  -----> Allemagne
-                              )
-
-                            } </span></div>
-                          </div>
-                        )}
-                      </button>
-
-
-
-                      {/* <button
-                        onClick={() => {
-                          copyLinkToClipboard(article.id);
-                          setIsCopyLinkPopupVisible(true);
-                          setTimeout(() => {
-                            setIsCopyLinkPopupVisible(false);
-                          }, 2000); // Hide the popup after 2 seconds
-                        }}
-                        className=""
-                      >
-                        <div className="flex flex-col md:flex-row items-center gap-2 justify-between py-2">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square fill-zinc-900"
-                          />
-                          <div className="grow">
-                            
-                            
-                          {
-             getTranslation(
-              `Copy Link`,  // -----> Englais
-              `  Copier le lien`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-                           </div>
                         </div>
-                        {isCopyLinkPopupVisible && (
-                          <div className="copy-link-popup">
-                           {
-             getTranslation(
-              `Link copied!`,  // -----> Englais
-              `  Lien copié!`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-                           
-     
-                          </div>
-                        )}
-                      </button> */}
-
-                    </span>
-
-
-
-                    {selectedArticleId === article.id && (
-                      <div className="comments-section ">
-                        {article.comments &&
-                          article.comments.map((comment) => (
-                            <div key={comment.id} className="comment">
-                              <div className="flex w-full">
-                                <figure className="avatar me-3 mb-8">
+                      )}
+                      {article.image && (
+                        <div className="card-body d-block p-0">
+                          <div className="row ps-2 pe-2">
+                            {/* <div className="col-sm-12 p-1 relative">
                                   <img
-                                    src={
-                                      comment.user &&
-                                      comment.user.user?.image
-                                    }
-                                    className="shadow-sm max-w-[54px] rounded-full md:max-w-[57px] aspect-square"
-                                    alt="post"
+                                    className=" md:h-fit  max-h-[600px] relative  z-20 scale-95 rounded-none md:rounded-lg drop-shadow-sm shadow-cyan-50 sha w-100 object-contain "
+                                    src={article.image}
+                                    alt={article.titre}
                                   />
-                                </figure>
-                                <div className="flex flex-col w-full">
-                                  <div className=" flex text-wrap flex-wrap flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
-                                    <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
-                                      <div className="flex flex-col py-1 font-light text-zinc-900">
-                                        <div className="fw-700 text-grey-900 font-xssss mt-1">
-                                          {comment.user &&
-                                            comment.user.user.nom}{" "}
-                                          {comment.user &&
-                                            comment.user.user.prenom}
-                                        </div>
-                                        <div className=" text-xs font-xssss">
-                                          {comment.user &&
-                                            comment.user.user.profil}
-                                        </div>
-                                        <div className="  text-xs font-xssss">
-                                          {formatDate(
-                                            comment.createdAt
-                                          )}
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="mt-2 text-wrap text-break font-light text-zinc-900 px-4 ">
-                                      {comment.description}
-                                    </div>
+                                  <img
+                                    className="  max-h-[600px] absolute top-1 hidden md:block  z-10 blur-md opacity-100 w-100 object-cover "
+                                    src={article.image}
+                                    alt={article.titre}
+                                  />
+                                </div> */}
+                                <div className="col-sm-12 p-1 ">
+                                  <img
+                                    className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
+                                    src={article.image}
+                                    alt={article.titre}
+                                  />
+                                 
+                                </div>
+                          </div>
+                        </div>
+                      )}
+                      <div className="  rounded-lg">
+                        <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
+                          <div className="flex gap-2.5 items-center justify-center py-2.5">
+                            <svg
+                              width="17"
+                              height="15"
+                              viewBox="0 0 17 15"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M11.7267 0C10.9723 0.0117335 10.2344 0.222313 9.58752 0.610472C8.94058 0.998631 8.40753 1.55062 8.04219 2.21071C7.67684 1.55062 7.14379 0.998631 6.49686 0.610472C5.84993 0.222313 5.11203 0.0117335 4.35767 0C3.15514 0.0522469 2.02216 0.578304 1.20626 1.46324C0.390358 2.34818 -0.0421438 3.52007 0.00324311 4.72288C0.00324311 9.26153 7.3428 14.5036 7.65498 14.726L8.04219 15L8.4294 14.726C8.74158 14.5049 16.0811 9.26153 16.0811 4.72288C16.1265 3.52007 15.694 2.34818 14.8781 1.46324C14.0622 0.578304 12.9292 0.0522469 11.7267 0Z"
+                                fill="#65676B"
+                              />
+                            </svg>
+                            <span className="text-md py-1">
+                              {article.likesCount}
+                            </span>
+                          </div>
+                          <div className="flex gap-2.5 items-center justify-center py-2.5">
+                            <svg
+                              width="15"
+                              height="15"
+                              viewBox="0 0 15 15"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M12.2974 1.72552C11.5056 1.06664 10.586 0.578896 9.5964 0.29302C8.6068 0.00714375 7.56872 -0.0706678 6.54756 0.0644883C4.65848 0.309904 2.9336 1.26506 1.72316 2.73601C0.512716 4.20696 -0.0925499 6.08345 0.0302592 7.98444C0.153068 9.88544 0.994746 11.6684 2.38439 12.9714C3.77403 14.2744 5.60748 14.9997 7.51244 15H11.8756C12.704 14.999 13.4982 14.6695 14.0839 14.0837C14.6697 13.498 14.9992 12.7038 15.0002 11.8754V7.06918V7.02981C14.934 6.00835 14.6602 5.01111 14.1955 4.09908C13.7308 3.18706 13.0849 2.3794 12.2974 1.72552ZM5.00152 4.37641H7.50119C7.66693 4.37641 7.82588 4.44225 7.94307 4.55945C8.06026 4.67664 8.1261 4.83559 8.1261 5.00133C8.1261 5.16707 8.06026 5.32602 7.94307 5.44321C7.82588 5.56041 7.66693 5.62625 7.50119 5.62625H5.00152C4.83578 5.62625 4.67683 5.56041 4.55964 5.44321C4.44244 5.32602 4.3766 5.16707 4.3766 5.00133C4.3766 4.83559 4.44244 4.67664 4.55964 4.55945C4.67683 4.44225 4.83578 4.37641 5.00152 4.37641ZM10.0009 10.6256H5.00152C4.83578 10.6256 4.67683 10.5597 4.55964 10.4425C4.44244 10.3254 4.3766 10.1664 4.3766 10.0007C4.3766 9.83493 4.44244 9.67598 4.55964 9.55878C4.67683 9.44159 4.83578 9.37575 5.00152 9.37575H10.0009C10.1666 9.37575 10.3255 9.44159 10.4427 9.55878C10.5599 9.67598 10.6258 9.83493 10.6258 10.0007C10.6258 10.1664 10.5599 10.3254 10.4427 10.4425C10.3255 10.5597 10.1666 10.6256 10.0009 10.6256ZM10.0009 8.12591H5.00152C4.83578 8.12591 4.67683 8.06008 4.55964 7.94288C4.44244 7.82569 4.3766 7.66674 4.3766 7.501C4.3766 7.33526 4.44244 7.17631 4.55964 7.05912C4.67683 6.94192 4.83578 6.87608 5.00152 6.87608H10.0009C10.1666 6.87608 10.3255 6.94192 10.4427 7.05912C10.5599 7.17631 10.6258 7.33526 10.6258 7.501C10.6258 7.66674 10.5599 7.82569 10.4427 7.94288C10.3255 8.06008 10.1666 8.12591 10.0009 8.12591Z"
+                                fill="#65676B"
+                              />
+                            </svg>
+                            <span className="text-md py-1">
+                              {article.commentsCount}
+                            </span>
+                          </div>
+                        </div>
+                        <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
 
-                                  </div>
-
-                                  <div className="my-2 flex w-full justify-between">
-                                    <button
-                                      onClick={() =>
-                                        handleLikeComment(comment.id)
-                                      }
-                                    >
-                                      {comment.likesCount === 0 ? (
-                                        <BiHeart className="size-7 text-black" />
-                                      ) : (
-                                        <BiSolidHeart className="size-7 text-black" />
-                                      )}
-
-                                    </button>
-
-                                    <button
-                                      onClick={() =>
-                                        handleReplyClick(comment.id)
-                                      }
-                                      className="w-20 font-semibold ml-2"
-                                    >
-
-
-                                      {
-                                        getTranslation(
-                                          `Reply`,  // -----> Englais
-                                          `Répondre`, //  -----> Francais
-                                          //   ``,  //  -----> Turkey
-                                          //   `` ,  //  -----> Allemagne
-                                        )
-
-                                      }
-
-
-                                    </button>
-                                  </div>
+                        <span className="flex justify-between items-center ml-0 p-0 font-bold w-full">
+                          <button
+                            onClick={() => {
+                              handleLikeClick(article.id, 1);
+                            }}
+                          >
+                            <span className="flex items-center flex-col md:flex-row gap-2 ">
+                              {article.likesCount === 0 ? (
+                                <BiHeart className="size-6 text-black" />
+                              ) : (
+                                <BiSolidHeart className="size-6 text-black" />
+                              )}
+                              <div className="flex items-center gap-2">
+                                <span
+                                  style={{
+                                    marginLeft: "1px",
+                                    marginTop: "2px",
+                                  }}
+                                >
+                                  Jaime
+                                </span>
+                              </div>
+                            </span>
+                          </button>{" "}
+                          <button
+                            onClick={() => {
+                              if (selectedArticleId === article.id) {
+                                setCommentInputVisible(false);
+                                setSelectedArticleId(null);
+                              } else {
+                                fetchCommentsForArticle(article.id);
+                                setSelectedArticleId(article.id);
+                                setCommentInputVisible(true);
+                                setSelectedArticleForCopy(article.id);
+                              }
+                            }}
+                          >
+                            {selectedArticleId === article.id ? (
+                              <div className="flex flex-col md:flex-row items-center gap-2 md:justify-between py-2">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-square fill-zinc-900"
+                                />
+                                <div className="grow">Commenter</div>
+                              </div>
+                            ) : (
+                              <div className="flex gap-2 flex-col md:flex-row items-center">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-square fill-zinc-900"
+                                />
+                                <div className="flex gap-2">
+                                  {" "}
+                                  <span>Commenter</span>
                                 </div>
                               </div>
+                            )}
+                          </button>
+                        </span>
 
+                        {selectedArticleId === article.id && (
+                          <div className="comments-section ">
+                            {article.comments &&
+                              article.comments.map((comment) => (
+                                <div key={comment.id} className="comment">
+                                  <div className="flex w-full">
+                                    <figure className="avatar me-3 mb-8">
+                                      <img
+                                        src={comment?.user?.user.image ? comment?.user?.user.image : PlaceHolder}
+                                        className="shadow-sm rounded-full w-[64px] aspect-square"
+                                        alt="post"
+                                      />
+                                    </figure>
+                                    <div className="flex flex-col w-full">
+                                      <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                        <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                                          <div className="flex flex-col py-1 font-light text-zinc-900">
+                                            <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                              {comment.user &&
+                                                comment.user.user.nom}{" "}
+                                              {comment.user &&
+                                                comment.user.user.prenom}
+                                            </div>
+                                            <div className="mt-1 text-xs">
+                                              {/* {comment.user &&
+                                            comment?.user?.user?.profil} */}
 
-                              {repliesVisible[comment.id] && (
-                                <div className="replies-section ml-16 mt-0">
-                                  {articleComments[comment.id] &&
-                                    articleComments[comment.id].map(
-                                      (reply) => (
-                                        <div
-                                          key={reply.id}
-                                          className="reply mb-0"
+                                              {comment.user && (
+                                                <div>
+                                                  {comment.user.user.profil === 'other' && comment.user.other?.profession}
+                                                  {comment.user.user.profil === 'player' && 'Joueur'}
+                                                  {comment.user.user.profil === 'agent' && comment.user.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                                  {comment.user.user.profil === 'agent' && comment.user.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                                  {comment.user.user.profil === 'scout' && 'Scout'}
+                                                </div>
+                                              )}
+                                            </div>
+                                            <div className="mt-1 text-xs">
+                                              {formatDate(
+                                                comment.createdAt
+                                              )}
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className="mt-2 text-base text-wrap font-light text-zinc-900 px-4 ">
+                                          {comment.description}
+                                        </div>
+                                      </div>
+
+                                      <div className="my-2 flex w-full justify-between">
+                                        <button
+                                          onClick={() =>
+                                            handleLikeComment(comment.id)
+                                          }
                                         >
-                                          <div className="flex items-start py-2 gap-3 mt-1 mb-3">
-                                            <figure className="rounded-full overflow-hidden flex-shrink-0">
-                                              <img
-                                                src={
-                                                  reply.user
-                                                    ?.image
-                                                }
-                                                className="shadow-sm w-14 h-14 object-cover object-center"
-                                                alt="post"
-                                              />
-                                            </figure>
-                                            <div className="w-full flex text-wrap flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
-                                              <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
-                                                <div className="flex flex-col py-1 font-light text-zinc-900">
-                                                  <div className="fw-700 text-grey-900 font-xssss ">
-                                                    {reply.user &&
-                                                      reply.user
-                                                        .nom}
-                                                    {reply.user &&
-                                                      reply.user
-                                                        .prenom}
+                                          {comment.likesCount === 0 ? (
+                                            <BiHeart className="size-7 text-black" />
+                                          ) : (
+                                            <BiSolidHeart className="size-7 text-black" />
+                                          )}
+                                        </button>
+
+                                        <button
+                                          onClick={() =>
+                                            handleReplyClick(comment.id)
+                                          }
+                                          className="w-20 font-semibold ml-2"
+                                        >
+                                          Répondre
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {repliesVisible[comment.id] && (
+                                    <div className="replies-section ml-16 mt-0">
+                                      {articleComments[comment.id] &&
+                                        articleComments[comment.id].map(
+                                          (reply) => (
+                                            <div
+                                              key={reply.id}
+                                              className="reply mb-0"
+                                            >
+                                              <div className="flex items-start py-2">
+                                                <figure className="rounded-full overflow-hidden flex-shrink-0">
+                                                  <img
+                                                    src={reply?.user?.user.image ? reply?.user?.user.image : PlaceHolder}
+                                                    className="shadow-sm w-14 h-14 object-cover object-center"
+                                                    alt="post"
+                                                  />
+                                                </figure>
+                                                <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                                  <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                                                    <div className="flex flex-col py-1 font-light text-zinc-900">
+                                                      <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                                        {reply.user.user &&
+                                                          reply.user.user.nom}
+                                                        {reply.user.user &&
+                                                          reply.user.user.prenom}
+                                                      </div>
+                                                      <div className="mt-1 text-xs">
+                                                        {/* {comment.user &&
+                                            comment?.user?.user?.profil} */}
+
+                                                        {reply.user && (
+                                                          <div>
+                                                            {reply.user.user.profil === 'other' && reply.user.other?.profession}
+                                                            {reply.user.user.profil === 'player' && 'Joueur'}
+                                                            {reply.user.user.profil === 'agent' && reply.user.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                                            {reply.user.user.profil === 'agent' && reply.user.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                                            {reply.user.user.profil === 'scout' && 'Scout'}
+                                                          </div>
+                                                        )}
+                                                      </div>
+                                                      <div className="mt-1 text-xs">
+                                                        {formatDate(
+                                                          reply.createdAt
+                                                        )}
+                                                      </div>
+                                                    </div>
                                                   </div>
-                                                  <div className="mt-1 text-xs">
-                                                    {reply.user &&
-                                                      reply.user
-                                                        .profil}
-                                                  </div>
-                                                  <div className="mt-1 text-xs">
-                                                    {formatDate(
-                                                      reply.createdAt
-                                                    )}
+                                                  <div className="mt-2 text-wrap font-light text-zinc-900 px-4 text-break">
+                                                    {reply.description}
                                                   </div>
                                                 </div>
                                               </div>
-                                              <div className="mt-2 text-base font-light text-zinc-900 px-4 text-break">
-                                                {reply.description}
-                                              </div>
                                             </div>
-
-                                          </div>
-
-                                        </div>
-                                      )
-                                    )}
-                                  {replyingToCommentId ==
-                                    comment.id && (
-                                      <div className="flex items-center gap-3 mt-1 mb-3 ">
-                                        <figure className="avatar">
-                                          <img
-                                            src={
-                                              comment.user &&
-                                              comment.user.user?.image
-                                            }
-                                            className="shadow-sm rounded-full w-[52px] aspect-square"
-                                            alt="post"
-                                          />
-                                        </figure>
-                                        <div className="flex flex-col w-full">
-                                          <div className="w-full flex items-center">
-                                            <input
-                                              type="text"
-                                              value={replyInput}
-                                              placeholder="Ecrire un reponse .."
-                                              onChange={(e) =>
-                                                setReplyInput(
-                                                  e.target.value
-                                                )
+                                          )
+                                        )}
+                                      {replyingToCommentId == comment.id && (
+                                        <div className="flex items-center gap-3 mt-1 mb-3">
+                                          <figure className="avatar">
+                                            <img
+                                              src={
+                                                comment.user &&
+                                                comment.user.user?.image
                                               }
-                                              className="w-full px-2 bg-gray-100 rounded-[30px]  mr-3 h-12"
+                                              className="shadow-sm rounded-full w-[52px] aspect-square"
+                                              alt="post"
                                             />
-                                            <button
-                                              onClick={() =>
-                                                addReply(
-                                                  replyingToCommentId,
-                                                  replyInput
-                                                )
-                                              }
-                                            >
-                                              <svg
-                                                width="20"
-                                                height="20"
-                                                viewBox="0 0 20 20"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
+                                          </figure>
+                                          <div className="flex flex-col w-full">
+                                            <div className="w-full flex items-center">
+                                              <input
+                                                type="text"
+                                                value={replyInput}
+                                                placeholder="Ecrire un reponse .."
+                                                onChange={(e) =>
+                                                  setReplyInput(e.target.value)
+                                                }
+                                                className="w-full px-2 bg-gray-100 rounded-[30px]  mr-3 h-12"
+                                              />
+                                              <button
+                                                onClick={() =>
+                                                  addReply(
+                                                    replyingToCommentId,
+                                                    replyInput
+                                                  )
+                                                }
                                               >
-                                                <path
-                                                  d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
-                                                  fill="#2E71EB"
-                                                />
-                                              </svg>
-                                            </button>
+                                                <svg
+                                                  width="20"
+                                                  height="20"
+                                                  viewBox="0 0 20 20"
+                                                  fill="none"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                  <path
+                                                    d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
+                                                    fill="#2E71EB"
+                                                  />
+                                                </svg>
+                                              </button>
+                                            </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    )}
+                                      )}
+                                    </div>
+                                  )}
                                 </div>
-                              )}
-                            </div>
-                          ))}
+                              ))}
 
-                        {/* Add Comment Input */}
-                        {commentInputVisible && (
-                          <div>
-                            <div className="flex items-center gap-3 mt-3">
-                              <figure className="avatar">
-                                <img
-                                  src={
-                                    placeholder
-                                  }
-                                  className="shadow-sm rounded-full w-[52px] aspect-square"
-                                  alt="post"
-                                />
-                              </figure>
-                              <div className="flex flex-col w-full">
-                                <div className="w-full flex items-center">
-                                  <input
-                                    type="text"
-                                    value={comment}
-                                    placeholder="Ecrire un commentaire .."
-                                    onChange={(e) =>
-                                      setComment(e.target.value)
-                                    }
-                                    className="w-full bg-gray-100 rounded-[30px] px-2 mr-3 h-12"
-                                  />
-                                  <button
-                                    onClick={() => {
-                                      addComment(article.id);
-                                      console.log("🚀 ~ Post ~ article.id:", article.id)
-                                    }
-                                    }
-                                    className="ml-2"
-                                  >
-                                    <svg
-                                      width="20"
-                                      height="20"
-                                      viewBox="0 0 20 20"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
-                                        fill="#2E71EB"
+                            {/* Add Comment Input */}
+                            {commentInputVisible && (
+                              <div>
+                                <div className="flex items-center gap-3 mt-3">
+                                  <figure className="avatar">
+                                    <img
+                                      src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
+                                      className="shadow-sm rounded-full w-[52px] aspect-square"
+                                      alt="post"
+                                    />
+                                  </figure>
+                                  <div className="flex flex-col w-full">
+                                    <div className="w-full flex items-center">
+                                      <input
+                                        type="text"
+                                        value={comment}
+                                        placeholder="Ecrire un commentaire .."
+                                        onChange={(e) =>
+                                          setComment(e.target.value)
+                                        }
+                                        className="w-full bg-gray-100 rounded-[30px] px-2 mr-3 h-12"
                                       />
-                                    </svg>
-                                  </button>
+                                      <button
+                                        onClick={() => {
+                                          addComment(article.id);
+                                          console.log(
+                                            "🚀 ~ Post ~ article.id:",
+                                            article.id
+                                          );
+                                        }}
+                                        className="ml-2"
+                                      >
+                                        <svg
+                                          width="20"
+                                          height="20"
+                                          viewBox="0 0 20 20"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
+                                            fill="#2E71EB"
+                                          />
+                                        </svg>
+                                      </button>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
+                            )}
                           </div>
                         )}
                       </div>
-                    )}
-
+                    </div>
+                  ))
+                ) : (
+                  <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+                    Aucun publication pour le moment
                   </div>
-
-                </div>
-              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-
-
-
-                {
-                  getTranslation(
-                    ` No posts at the moment! `,  // -----> Englais
-                    `Aucun publication pour le moment!`, //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )
-
-                }
-
-
-              </div>}
+                )}
+              </div>
             </div>
           </div>
-        </div>}
-        {profileFeed === 'photo' && <div className="w-full mt-3">
-          <div>
+        )}
+        {profileFeed === "photo" && (
+          <div className="w-full mt-3">
             <div>
-              {articles.length > 0 ? articlesWithPhoto.map((article) => (
-                <div
-                  key={article.id}
-                  className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2 mt-3"
-                >
-                  <div className="card-body p-0 d-flex">
-                    <figure className="avatar me-3">
-                      <img
-                        src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
-                        className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
-                        alt="post"
-                      />
-                    </figure>
-                    <div className="flex flex-col">
-                      <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
-                        {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
-                        {article.user.user.profil == 'player' ? ' Joueur' : ''}
-                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
-                        {article.user.user.profil == 'scout' ? 'Scout' : ''}
-                      </span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
-                        {new Date(article.user.user.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div>
+              <div>
+                {articles.length > 0 ? (
+                  articlesWithPhoto.map((article) => (
+                    <div
+                      key={article.id}
+                      className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2 mt-3"
+                    >
+                      <div className="card-body p-0 d-flex">
+                        <figure className="avatar me-3">
+                          <img
+                            src={
+                              article?.user?.user.image
+                                ? article?.user?.user.image
+                                : PlaceHolder
+                            }
+                            className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                            alt="post"
+                          />
+                        </figure>
+                        <div className="flex flex-col">
+                          <span className="text-base text-grey-900">
+                            {article.user.user.nom} {article.user.user.prenom}
+                          </span>
+                          <span className="d-block font-xssss fw-500 text-grey-500">
+                            {article.user.user.profil == "other"
+                              ? article.user.other?.profession
+                              : ""}
+                            {article.user.user.profil == "player"
+                              ? " Joueur"
+                              : ""}
+                            {article.user.user.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "players"
+                              ? "Manager de Joueur"
+                              : ""}
+                            {article.user.user.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "club"
+                              ? "Manager de CLub"
+                              : ""}
+                            {article.user.user.profil == "scout" ? "Scout" : ""}
+                          </span>
+                          <span className="d-block font-xssss fw-500 text-grey-500">
+                            {formatDate(
+                              article.user.user.createdAt
+                            )}
+                          </span>
+                        </div>
+                      </div>
 
-                  <div className="card-body d-block p-0 mb-3 mt-3">
-                    <div className="row ps-2 pe-2">
-                      <div className="col-sm-12 p-1">
-                        <div className="card-body d-block p-0 mb-3">
-                          <div className="row ps-2 pe-2">
-                            <div className="col-sm-12 p-1">
-                              <img
-                                className=" h-96 w-100 object-cover"
-                                src={article.image}
-                                alt={article.titre}
-                              />
+                      <div className="card-body d-block p-0 mb-3">
+                        <div className="row ps-2 pe-2">
+                          <div className="col-sm-12 p-1">
+                            <div className="card-body d-block p-0 mb-3">
+                              <div className="row ps-2 pe-2">
+                                <div className="col-sm-12 p-1">
+                                  <img
+                                    className=" h-96 w-100 object-cover"
+                                    src={article.image}
+                                    alt={article.titre}
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-
                     </div>
+                  ))
+                ) : (
+                  <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+                    Aucun Photo pour le moment
                   </div>
-
-                </div>
-              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-
-
-                {
-                  getTranslation(
-                    `No photos at the moment!`,  // -----> Englais
-                    `Aucune Photo pour le moment!`, //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )
-
-                }
-
-              </div>}
+                )}
+              </div>
             </div>
           </div>
-        </div>}
-        {profileFeed === 'video' && <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-          <div>
+        )}
+        {profileFeed === "video" && (
+          <div className="w-full mt-4 text-center">
             <div>
-              {articles.length > 0 ? articlesWithVideo.map((article) => (
-                <div
-                  key={article.id}
-                  className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
-                >
-                  <div className="card-body p-0 d-flex">
-                    <figure className="avatar me-3">
-                      <img
-                        src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
-                        className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
-                        alt="post"
-                      />
-                    </figure>
-                    <div className="flex flex-col">
-                      <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
-                        {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
-                        {article.user.user.profil == 'player' ? ' Joueur' : ''}
-                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
-                        {article.user.user.profil == 'scout' ? 'Scout' : ''}
-                      </span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
-                        {new Date(article.user.user.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="card-body d-block p-0 mb-3">
-                    <div className="row ps-2 pe-2">
-                      <div className="col-sm-12 p-1">
-                        {article.video ? (
-                          <div className="card-body p-0 mb-3  overflow-hidden uttam-die">
-                            <video controls className="float-right w-100">
-                              <source
-                                src={article.video}
-                                type="video/mp4"
-                              />
-                              {
-                                getTranslation(
-                                  ` Your browser does not support the video tag.`,  // -----> Englais
-                                  `votre navigateur ne supporte pas cette balise vidéo.`, //  -----> Francais
-                                  //   ``,  //  -----> Turkey
-                                  //   `` ,  //  -----> Allemagne
-                                )
-
-                              }
-                            </video>{" "}
-                          </div>
-                        ) : (
-                          <div className="card-body d-block p-0 mb-3">
-                            <div className="row ps-2 pe-2">
-                              <div className="col-sm-12 p-1">
-                                {
-                                  getTranslation(
-                                    `No Videos at the moment!`,  // -----> Englais
-                                    `Aucune vidéo pour le moment!`, //  -----> Francais
-                                    //   ``,  //  -----> Turkey
-                                    //   `` ,  //  -----> Allemagne
-                                  )
-
-                                }
-                              </div>
-                            </div>
-                          </div>
-                        )}
+              <div>
+                {articles.length > 0 ? (
+                  articlesWithVideo.map((article) => (
+                    <div
+                      key={article.id}
+                      className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
+                    >
+                      <div className="card-body p-0 d-flex">
+                        <figure className="avatar me-3">
+                          <img
+                            src={
+                              article?.user?.user.image
+                                ? article?.user?.user.image
+                                : PlaceHolder
+                            }
+                            className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                            alt="post"
+                          />
+                        </figure>
+                        <div className="flex flex-col">
+                          <span className="text-base text-grey-900">
+                            {article.user.user.nom} {article.user.user.prenom}
+                          </span>
+                          <span className="d-block font-xssss fw-500 text-grey-500">
+                            {article.user.user.profil == "other"
+                              ? article.user.other?.profession
+                              : ""}
+                            {article.user.user.profil == "player"
+                              ? " Joueur"
+                              : ""}
+                            {article.user.user.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "players"
+                              ? "Manager de Joueur"
+                              : ""}
+                            {article.user.user.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "club"
+                              ? "Manager de CLub"
+                              : ""}
+                            {article.user.user.profil == "scout" ? "Scout" : ""}
+                          </span>
+                          <span className="d-block font-xssss fw-500 text-grey-500">
+                            {formatDate(
+                              article.user.user.createdAt
+                            )}
+                          </span>
+                        </div>
                       </div>
-
+                      <div className="card-body d-block p-0 mb-3">
+                        <div className="row ps-2 pe-2">
+                          <div className="col-sm-12 p-1">
+                            {article.video ? (
+                              <div className="card-body p-0 mb-3  overflow-hidden">
+                                <video controls className="w-100 md:max-h-[600px]">
+                                  <source
+                                    src={article.video}
+                                    type="video/mp4"
+                                  />
+                                  Your browser does not support the video tag.
+                                </video>{" "}
+                              </div>
+                            ) : (
+                              <div className="card-body d-block p-0 mb-3">
+                                <div className="row ps-2 pe-2">
+                                  <div className="col-sm-12 p-1">
+                                    Aucun Video Pour Le Moment
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  ))
+                ) : (
+                  <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+                    Aucun Video pour le moment
                   </div>
-
-                </div>
-              )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">{
-                getTranslation(
-                  `No Videos at the moment!`,  // -----> Englais
-                  `Aucune vidéo pour le moment!`, //  -----> Francais
-                  //   ``,  //  -----> Turkey
-                  //   `` ,  //  -----> Allemagne
-                )
-
-              } </div>}
-
-
-
-
-
-
-
-
-
-
-
+                )}
+              </div>
             </div>
           </div>
-        </div>}
+        )}
       </ProfileLayout>
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;
