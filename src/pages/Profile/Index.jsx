@@ -2,8 +2,8 @@ import React, { Component, Fragment, useState, useRef, useEffect } from "react";
 import Header from "../../components/Header";
 import Terrain from "../../components/Terrain";
 import ProfileLayout from "../../Layout/ProfileLayout";
-import PlaceHolder from "../../assets/placeholder.jpg";
-
+import PlaceHolder from "../../assets/placeholder.jpg"
+import { Context } from "../../index"
 import { useForm } from "react-hook-form";
 import Leftnav from "../../components/Leftnav";
 import Rightchat from "../../components/Rightchat";
@@ -27,7 +27,6 @@ import { BsFiletypeGif, BsPersonFillAdd, BsTypeH1 } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../config";
-import { Context } from "../../index";
 import {
   BiEditAlt,
   BiHeart,
@@ -1098,7 +1097,7 @@ const Index = () => {
                           <div className="row ps-2 pe-2">
                             <div className="col-sm-12 p-1">
                               <div className="card-body p-0 mb-3  overflow-hidden ">
-                                <video controls className="w-100 md:max-h-[600px]">
+                                <video controls className="w-100 md:max-h-[600px] max-h-350">
                                   <source
                                     src={article.video}
                                     type="video/mp4"
@@ -1125,14 +1124,14 @@ const Index = () => {
                                     alt={article.titre}
                                   />
                                 </div> */}
-                            <div className="col-sm-12 p-1 ">
-                              <img
-                                className=" md:h-fit  max-h-[600px]   w-100 object-contain "
-                                src={article.image}
-                                alt={article.titre}
-                              />
-
-                            </div>
+                                <div className="col-sm-12 p-1 ">
+                                  <img
+                                    className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
+                                    src={article.image}
+                                    alt={article.titre}
+                                  />
+                                 
+                                </div>
                           </div>
                         </div>
                       )}
