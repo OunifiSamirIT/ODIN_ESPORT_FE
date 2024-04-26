@@ -145,14 +145,16 @@ const Album = () => {
   };
 
   const formatDate = (dateString) => {
-    const dateObject = new Date(dateString);
-    // Format the date object into the desired format
-    return dateObject.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-  }
+    const dateParts = dateString.split("-");
+    if (dateParts.length === 3) {
+      const year = dateParts[0];
+      const month = dateParts[1].padStart(2, "0"); // Ensure two-digit month
+      const day = dateParts[2].padStart(2, "0"); // Ensure two-digit day
+      return `${year}-${month}-${day}`;
+    } else {
+      return null; // Invalid date string
+    }
+  };
 
   const handleSearch = () => {
     const filteredData = album.filter((camps) => {
@@ -550,64 +552,64 @@ const Album = () => {
 
                             /> */}
                             <Select
-                        options={optionsPays}
-                        // placeholder={
-                        //   getTranslation(
-                        //     `Country of residence`,  // -----> Englais
-                        //     `Pays de résidence`, //  -----> Francais
-                        //     ``,  //  -----> Turkey
-                        //     ``,  //  -----> Allemagne
-                        //   )
+                              options={optionsPays}
+                              // placeholder={
+                              //   getTranslation(
+                              //     `Country of residence`,  // -----> Englais
+                              //     `Pays de résidence`, //  -----> Francais
+                              //     ``,  //  -----> Turkey
+                              //     ``,  //  -----> Allemagne
+                              //   )
 
-                        // }
-                        // onChange={(selectedOption) => console.log(selectedOption)}
-                        styles={{
-                          control: (provided, state) => ({
-                            ...provided,
-                            borderRadius: "0.375rem", // You can adjust the radius as needed
-                            display: "flex",
-                            justifyContent: "center",
-                            borderRadius: "30px",
+                              // }
+                              // onChange={(selectedOption) => console.log(selectedOption)}
+                              styles={{
+                                control: (provided, state) => ({
+                                  ...provided,
+                                  borderRadius: "0.375rem", // You can adjust the radius as needed
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  borderRadius: "30px",
 
-                            fontSize: "14px", // Set the desired font size
-                            backgroundColor: "#ffffff", // Set the background color
-                            borderWidth: "none",
-
-
-
-                            paddingTop: "6px",
-                            paddingBottom: "6px",
-                            // marginTop: "4px",
-                            width: "100%",
-
-                            border: "0.5px solid #E5E5E5",
-                          }),
-                          menu: (provided, state) => ({
-                            ...provided,
-                            width: "100%", // Adjust the width as needed
-                          }),
-                        }}
+                                  fontSize: "14px", // Set the desired font size
+                                  backgroundColor: "#ffffff", // Set the background color
+                                  borderWidth: "none",
 
 
-                        onChange={(selectedOption) =>
-                          setSearchPays(
-                            selectedOption.label.props.children[1]
-                          )
-                        }
-                        value={optionsPays.find(
-                          (option) => option.value === searchPays
-                        )}
-                        placeholder="Pays Camps"
-                        filterOption={(option, inputValue) => {
-                          const paysRS = option.label.props.children; // Assuming nationalite is directly the children of label
-                      
-                          const paysRSString = typeof paysRS === 'string' ? paysRS.toLowerCase() : paysRS.join("").toLowerCase(); // Join children of JSX element if it's an array
-                      
-                          return paysRSString.includes(inputValue.toLowerCase());
-                        }}
-                        // Ensure that all options are displayed even when filtered
-                        isSearchable
-                      />
+
+                                  paddingTop: "6px",
+                                  paddingBottom: "6px",
+                                  // marginTop: "4px",
+                                  width: "100%",
+
+                                  border: "0.5px solid #E5E5E5",
+                                }),
+                                menu: (provided, state) => ({
+                                  ...provided,
+                                  width: "100%", // Adjust the width as needed
+                                }),
+                              }}
+
+
+                              onChange={(selectedOption) =>
+                                setSearchPays(
+                                  selectedOption.label.props.children[1]
+                                )
+                              }
+                              value={optionsPays.find(
+                                (option) => option.value === searchPays
+                              )}
+                              placeholder="Pays Camps"
+                              filterOption={(option, inputValue) => {
+                                const paysRS = option.label.props.children; // Assuming nationalite is directly the children of label
+
+                                const paysRSString = typeof paysRS === 'string' ? paysRS.toLowerCase() : paysRS.join("").toLowerCase(); // Join children of JSX element if it's an array
+
+                                return paysRSString.includes(inputValue.toLowerCase());
+                              }}
+                              // Ensure that all options are displayed even when filtered
+                              isSearchable
+                            />
                           </div>
                         </div>
                       </div>
