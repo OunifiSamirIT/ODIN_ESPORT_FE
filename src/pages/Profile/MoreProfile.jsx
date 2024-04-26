@@ -168,7 +168,11 @@ const More = () => {
                             {CurrentUser?.user.nom} {CurrentUser?.user.prenom}
                           </div>
                           <div className="text-base font-medium text-blue-600">
-                            {CurrentUser?.user.profil}
+                            {CurrentUser?.user.profil == 'other' ? CurrentUser?.other?.profession : ''}
+                            {CurrentUser?.user?.profil == 'player' ? ' Joueur' : ''}
+                            {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                            {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                            {CurrentUser?.user.profil == 'scout' ? 'Scout' : ''}
                           </div>
                         </div>
                         {isOwner ? (
@@ -824,6 +828,13 @@ const More = () => {
                             {CurrentUser?.user.nom} {CurrentUser?.user.prenom}
                           </div>
                           <div className="text-base font-medium text-blue-600">
+                            {CurrentUser?.user.profil == 'other' ? CurrentUser?.other?.profession : ''}
+                            {CurrentUser?.user?.profil == 'player' ? ' Joueur' : ''}
+                            {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                            {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                            {CurrentUser?.user.profil == 'scout' ? 'Scout' : ''}
+                          </div>
+                          <div className="text-base font-medium text-blue-600">
 
 
                             {
@@ -1461,7 +1472,12 @@ const More = () => {
                         <div className="flex-col grow w-full items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
                           <div className="text-xl   justify-center font-bold flex-col text-zinc-900  h-full  flex gap-2 flex-wrap whitespace-normal">
                             <p className="break-all">{CurrentUser?.user.nom}  {CurrentUser?.user.prenom}</p>
-                            <p className="break-all text-[#2458b7]">{CurrentUser?.user.profil} </p>
+                            <p className="break-all text-[#2458b7]">
+                              {CurrentUser?.user.profil == 'other' ? CurrentUser?.other?.profession : ''}
+                              {CurrentUser?.user?.profil == 'player' ? ' Joueur' : ''}
+                              {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                              {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                              {CurrentUser?.user.profil == 'scout' ? 'Scout' : ''} </p>
                           </div>
 
                         </div>
@@ -1994,7 +2010,11 @@ const More = () => {
                             {CurrentUser?.user.nom} {CurrentUser?.user.prenom}
                           </div>
                           <div className="text-base font-medium text-blue-600">
-                            {CurrentUser?.user.profil}
+                            {CurrentUser?.user.profil == 'other' ? CurrentUser?.other?.profession : ''}
+                            {CurrentUser?.user?.profil == 'player' ? ' Joueur' : ''}
+                            {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                            {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                            {CurrentUser?.user.profil == 'scout' ? 'Scout' : ''}
                           </div>
                         </div>
                         {isOwner ? (
@@ -2678,7 +2698,11 @@ const More = () => {
                             {CurrentUser?.user.nom} {CurrentUser?.user.prenom}
                           </div>
                           <div className="text-base font-medium text-blue-600">
-                            {CurrentUser?.user.profil}
+                            {CurrentUser?.user.profil == 'other' ? CurrentUser?.other?.profession : ''}
+                            {CurrentUser?.user?.profil == 'player' ? ' Joueur' : ''}
+                            {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                            {CurrentUser?.user.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                            {CurrentUser?.user.profil == 'scout' ? 'Scout' : ''}
                           </div>
                         </div>
                         {isOwner ? (
