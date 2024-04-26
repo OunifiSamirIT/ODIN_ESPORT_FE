@@ -6,9 +6,14 @@ import AdminImg from "../assets/ODIN22.png";
 
 function Albumsadmin( {item} ) {
     const [album, setAlbum] = useState([]);
-    function formatDate(isoDate) {
-      const date = new Date(isoDate);
-      return date.toISOString().split('T')[0];
+    const formatDate = (dateString) => {
+      const dateObject = new Date(dateString);
+      // Format the date object into the desired format
+      return dateObject.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
     }
     useEffect(() => {
       

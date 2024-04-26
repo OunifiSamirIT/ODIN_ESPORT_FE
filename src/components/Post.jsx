@@ -224,18 +224,38 @@ function Post({ article, setArticles }) {
         const likesCountData = await likesCountResponse.json();
 
         // Update the state with the new likes count
+        // setArticles((prevArticles) =>
+        //   prevArticles.map((article) => {
+        //     const updatedComments = article.comments.map((c) =>
+        //       c.id === commentId
+        //         ? { ...c, likesCount: likesCountData.count }
+        //         : c
+        //     );
+        //     return article.id === selectedArticleId
+        //       ? { ...article, comments: updatedComments }
+        //       : article;
+        //   })
+        // );
         setArticles((prevArticles) =>
-          prevArticles.map((article) => {
-            const updatedComments = article.comments.map((c) =>
-              c.id === commentId
-                ? { ...c, likesCount: likesCountData.count }
-                : c
-            );
-            return article.id === selectedArticleId
-              ? { ...article, comments: updatedComments }
-              : article;
-          })
-        );
+  prevArticles.map((article) => {
+    // Check if article is defined and if it has comments
+    if (article && article.comments) {
+      const updatedComments = article.comments.map((c) =>
+        c.id === commentId
+          ? { ...c, likesCount: likesCountData.count }
+          : c
+      );
+      // Return updated article object with updated comments
+      return article.id === selectedArticleId
+        ? { ...article, comments: updatedComments }
+        : article;
+    } else {
+      // Return the original article if it doesn't have comments
+      return article;
+    }
+  })
+);
+
       } else {
         // Handle error
         toast.error("Error liking/unliking the comment. Please try again.", {
@@ -722,10 +742,10 @@ function Post({ article, setArticles }) {
   const shouldShowAgentItem = ["player", "other"].includes(userProfileType);
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
-  function formatDate(isoDate) {
-    const date = new Date(isoDate);
-    return date.toISOString().split('T')[0];
-  }
+  // function formatDate(isoDate) {
+  //   const date = new Date(isoDate);
+  //   return date.toISOString().split('T')[0];
+  // }
 
 
 
@@ -866,6 +886,17 @@ function Post({ article, setArticles }) {
   const cancelEdit = () => {
     setEditingCommentId(null);
   };
+
+
+    const formatDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    // Format the date object into the desired format
+    return dateObject.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
   return (
     <>
 
@@ -1166,13 +1197,29 @@ function Post({ article, setArticles }) {
                                         comment.user.user.prenom}
                                     </div>
                                     <div className="mt-1 text-xs">
-                                      {comment.user &&
-                                        comment.user.user.profil}
+                                    {/* {comment.user && comment.user.user.profil === "other" ? (
+    <div>{comment.user.user.profession}</div>
+) : (
+    <div>{comment.user.user.profil}</div>
+)} */}
+{comment.user && (
+    <div>
+        {comment.user.user.profil === 'other' && comment.user.other?.profession}
+        {comment.user.user.profil === 'player' && 'Joueur'}
+        {comment.user.user.profil === 'agent' && comment.user.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+        {comment.user.user.profil === 'agent' && comment.user.agent?.typeresponsable === 'club' && 'Manager de Club'}
+        {comment.user.user.profil === 'scout' && 'Scout'}
+    </div>
+)}
+
+                                      {/* {comment.user &&
+                                        comment.user.user.profil} */}
                                     </div>
                                     <div className="mt-1 text-xs">
-                                      {new Date(
+                                    
+                                      {formatDate(
                                         comment.createdAt
-                                      ).toLocaleDateString()}
+                                      )}
                                     </div>
                                   </div>
 
