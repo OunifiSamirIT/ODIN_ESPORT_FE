@@ -1295,8 +1295,21 @@ const Index = () => {
                                             comment.user.user.prenom}
                                         </div>
                                         <div className=" text-xs font-xssss">
-                                          {comment.user &&
-                                            comment.user.user.profil}
+                                          {/* {comment.user &&
+                                            comment?.user?.user?.profil} */}
+
+                                          {comment.user && (
+                                            <div>
+                                              {comment.user.user.profil === 'other' && comment.user.other?.profession}
+                                              {comment.user.user.profil === 'player' && 'Joueur'}
+                                              {comment.user.user.profil === 'agent' && comment.user.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                              {comment.user.user.profil === 'agent' && comment.user.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                              {comment.user.user.profil === 'scout' && 'Scout'}
+                                            </div>
+                                          )}
+
+
+
                                         </div>
                                         <div className="  text-xs font-xssss">
                                           {formatDate(
@@ -1465,9 +1478,8 @@ const Index = () => {
                             <div className="flex items-center gap-3 mt-3">
                               <figure className="avatar">
                                 <img
-                                  src={
-                                    placeholder
-                                  }
+                                  src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
+
                                   className="shadow-sm rounded-full w-[52px] aspect-square"
                                   alt="post"
                                 />

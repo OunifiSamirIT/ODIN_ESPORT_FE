@@ -167,11 +167,12 @@ const PlayerCard = ({ userInfo }) => {
               <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
                 <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
               </div>
+
               <div className="text-base font-medium text-blue-600">
                 {
                   getTranslation(
-                    `Players`,  // -----> Englais
-                    `Joueurs`, //  -----> Francais
+                    `Player`,  // -----> Englais
+                    `Joueur`, //  -----> Francais
                     //   ``,  //  -----> Turkey
                     //   `` ,  //  -----> Allemagne
                   )
