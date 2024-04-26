@@ -919,7 +919,9 @@ function Post({ article, setArticles }) {
                 <Link to={`/profile/${article.user.user.id}`}>
                   <figure className="avatar me-3">
                     <img
-                      src={article.user.user?.image}
+                                      srcSet={article?.user?.user?.image ? article?.user?.user?.image : placeholder}
+
+                      // src={article.user.user?.image}
                       className="shadow-sm rounded-full  w-10 h-10"
                       alt="post"
                     />{" "}
@@ -1213,9 +1215,12 @@ function Post({ article, setArticles }) {
                           <div className="flex w-full">
                             <figure className="avatar me-3 mb-8">
                               <img
+
+// srcSet={comment?.user?.user?.image ? article?.user?.user?.image : placeholder}
+
                                 src={
                                   comment.user &&
-                                  comment.user.user?.image
+                                  comment?.user?.user?.image ? comment?.user?.user?.image : placeholder
                                 }
                                 className="shadow-sm rounded-full w-[64px] aspect-square"
                                 alt="post"
@@ -1421,9 +1426,10 @@ function Post({ article, setArticles }) {
                                         <figure className="rounded-full overflow-hidden flex-shrink-0">
                                           <img
                                             src={
-                                              reply.user?.user
-                                                ?.image
-                                            }
+                                              //  reply.user?.user?.image
+                                               reply?.user?.user?.image ? reply?.user?.user?.image : placeholder
+
+                                              }
                                             className="shadow-sm w-14 h-14 object-cover object-center"
                                             alt="post"
                                           />
@@ -1466,10 +1472,10 @@ function Post({ article, setArticles }) {
                                   <div className="flex items-center gap-3 mt-1 mb-3">
                                     <figure className="avatar">
                                       <img
-                                        src={
-                                          comment.user &&
-                                          comment.user.user?.image
-                                        }
+                                      src={
+                                        comment.user &&
+                                        comment?.user?.user?.image ? comment?.user?.user?.image : placeholder
+                                      }
                                         className="shadow-sm rounded-full w-[52px] aspect-square"
                                         alt="post"
                                       />
