@@ -4,17 +4,14 @@ import { Link, Navigate, useNavigate, useLocation, json } from "react-router-dom
 import { paysAllInfo } from "../../assets/data/Country";
 import "../flags.css";
 import Select from "react-select";
-
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Context } from "../../index";
-import Plus from "../../assets/plus.png"
-
 
 import { Config } from "../../config";
 
 
-/*  */
+
 function HomeOffre() {
 
   const [album, setAlbum] = useState([]);

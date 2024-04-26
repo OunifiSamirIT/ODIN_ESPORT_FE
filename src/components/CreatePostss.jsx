@@ -20,15 +20,13 @@ function CreatePost({ setArticles }) {
   const [data, setData] = useState({ description: "", otherField: "" });
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
-  const [previewImage, setPreviewImage] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   const [posting, setPosting] = useState(false);
   const [postsData, setPostsData] = useState([]);
-  const [videoPreviewUrl, setVideoPreviewUrl] = useState(false);
+  const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [resetPreviews, setResetPreviews] = useState(false);
-
   const fetchArticles = async () => {
     try {
       setLoading(true);
@@ -98,30 +96,14 @@ function CreatePost({ setArticles }) {
       const videoPreviewURL = URL.createObjectURL(selectedFile);
       setVideoPreviewUrl(videoPreviewURL);
       // Clear the image preview if there was one
-      setPreviewImage(false);
+      setPreviewImage(null);
     } else {
       const imagePreviewURL = URL.createObjectURL(selectedFile);
       setPreviewImage(imagePreviewURL);
       // Clear the video preview if there was one
-      setVideoPreviewUrl(false);
+      setVideoPreviewUrl(null);
     }
   };
-
-  useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
-    const id = storedUserData ? storedUserData.id : null;
-
-    if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
-        .then((response) => response.json())
-        .then((userData) => {
-          setUser(userData);
-        })
-        .catch((error) => console.error("Error fetching user data:", error));
-    }
-  
-    fetchArticles();
-  }, []);
   const handlePostSubmit = async (data) => {
     try {
       if (!storedUserData.id) {
@@ -146,36 +128,43 @@ function CreatePost({ setArticles }) {
         method: "POST",
         body: formData,
       });
-      setVideoPreviewUrl(null);
-      setPreviewImage(null);
+
       // After creating the article, fetch the updated list of articles
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const updatedPostsData = await response.json();
       hendelrest()
-
-   
       // Update the list of posts and reset the preview image
       setPostsData(updatedPostsData);
+      setPreviewImage(null);
       setValue("description", "");
-     
-
-      setPosting(false);    
-     window.location.reload()
-   
+      setPosting(false);
       fetchArticles();
+      window.location.reload()
 
     } catch (error) {
       console.error("Error submitting post:", error);
       setPosting(false);
     }
   };
- 
+
   const hendelrest = () => {
     setData("")
-    setPreviewImage(false);
-
   }
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const id = storedUserData ? storedUserData.id : null;
 
+    if (id) {
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+        .then((response) => response.json())
+        .then((userData) => {
+          setUser(userData);
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+
+    fetchArticles();
+  }, []);
   return (
     <div className="flex flex-col ml-5 w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
       <div className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-3">
