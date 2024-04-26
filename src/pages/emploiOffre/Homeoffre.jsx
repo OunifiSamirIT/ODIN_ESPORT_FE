@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import Plus from "../../assets/plus.png"
 
 import { Config } from "../../config";
-
+import { Context } from "../../index";
 function HomeOffre() {
   const [album, setAlbum] = useState([]);
   const {_currentLang, _setLang, getTranslation} = React.useContext(Context)

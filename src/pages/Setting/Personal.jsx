@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useEffect, useReducer, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {Context} from "../index"
+import { Context } from "../../index";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Select, { components } from "react-select";

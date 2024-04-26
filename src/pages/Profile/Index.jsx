@@ -27,6 +27,7 @@ import { BsFiletypeGif, BsPersonFillAdd, BsTypeH1 } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../config";
+import { Context } from "../../index";
 import {
   BiEditAlt,
   BiHeart,

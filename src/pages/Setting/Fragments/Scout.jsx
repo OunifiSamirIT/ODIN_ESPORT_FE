@@ -7,7 +7,7 @@ import { useForm, Controller } from "react-hook-form"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../../config";
-import {Context} from "../index"
+import { Context } from "../../../index";
 const Scout = ({ userInfo }) => {
     const [selectedCountries, setSelectedCountries] = useState([])
 

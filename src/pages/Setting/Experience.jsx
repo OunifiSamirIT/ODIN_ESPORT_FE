@@ -7,7 +7,7 @@ import * as yup from "yup"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../config";
-import { Context } from "../index"
+import { Context } from "../../index";
 const Experience = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [update, setUpdate] = useState(false)

@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Config } from "../../config";
-import {Context} from "../index"
+import { Context } from "../../index";
 
 
 

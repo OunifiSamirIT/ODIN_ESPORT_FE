@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../../config";
-import {Context} from "../index"
+import { Context } from "../../../index";
 
 const Other = ({ userInfo }) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
