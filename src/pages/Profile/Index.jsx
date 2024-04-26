@@ -1186,26 +1186,17 @@ const Index = () => {
                                 <BiSolidHeart className="size-6 text-black" />
                               )}
                               <div className="flex items-center gap-2">
-                                <span style={{ marginLeft: '1px', marginTop: '2px' }}>
-
-
-
-                                  {
-                                    getTranslation(
-                                      `Like`,  // -----> Englais
-                                      ` J'aime`, //  -----> Francais
-                                      //   ``,  //  -----> Turkey
-                                      //   `` ,  //  -----> Allemagne
-                                    )
-
-                                  }
-
+                                <span
+                                  style={{
+                                    marginLeft: "1px",
+                                    marginTop: "2px",
+                                  }}
+                                >
+                                  Jaime
                                 </span>
                               </div>
                             </span>
-
                           </button>{" "}
-
                           <button
                             onClick={() => {
                               if (selectedArticleId === article.id) {
@@ -1226,19 +1217,7 @@ const Index = () => {
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="w-5 aspect-square fill-zinc-900"
                                 />
-                                <div className="grow">
-
-
-                                  {
-                                    getTranslation(
-                                      `Comment`,  // -----> Englais
-                                      ` Commenter`, //  -----> Francais
-                                      //   ``,  //  -----> Turkey
-                                      //   `` ,  //  -----> Allemagne
-                                    )
-
-                                  }
-                                </div>
+                                <div className="grow">Commenter</div>
                               </div>
                             ) : (
                               <div className="flex gap-2 flex-col md:flex-row items-center">
@@ -1247,71 +1226,14 @@ const Index = () => {
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="w-5 aspect-square fill-zinc-900"
                                 />
-                                <div className="flex gap-2"> <span> {
-                                  getTranslation(
-                                    `Comment`,  // -----> Englais
-                                    ` Commenter`, //  -----> Francais
-                                    //   ``,  //  -----> Turkey
-                                    //   `` ,  //  -----> Allemagne
-                                  )
-
-                                } </span></div>
+                                <div className="flex gap-2">
+                                  {" "}
+                                  <span>Commenter</span>
+                                </div>
                               </div>
                             )}
                           </button>
-
-
-
-                          {/* <button
-                        onClick={() => {
-                          copyLinkToClipboard(article.id);
-                          setIsCopyLinkPopupVisible(true);
-                          setTimeout(() => {
-                            setIsCopyLinkPopupVisible(false);
-                          }, 2000); // Hide the popup after 2 seconds
-                        }}
-                        className=""
-                      >
-                        <div className="flex flex-col md:flex-row items-center gap-2 justify-between py-2">
-                          <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/3384d54fc4420ffcd2096bc1ad93b25131710f1205c2746005f8d733e81e3bcb?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square fill-zinc-900"
-                          />
-                          <div className="grow">
-                            
-                            
-                          {
-             getTranslation(
-              `Copy Link`,  // -----> Englais
-              `  Copier le lien`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-                           </div>
-                        </div>
-                        {isCopyLinkPopupVisible && (
-                          <div className="copy-link-popup">
-                           {
-             getTranslation(
-              `Link copied!`,  // -----> Englais
-              `  Lien copié!`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-                           
-     
-                          </div>
-                        )}
-                      </button> */}
-
                         </span>
-
-
 
                         {selectedArticleId === article.id && (
                           <div className="comments-section ">
@@ -1325,12 +1247,12 @@ const Index = () => {
                                           comment.user &&
                                           comment.user.user?.image
                                         }
-                                        className="shadow-sm max-w-[54px] rounded-full md:max-w-[57px] aspect-square"
+                                        className="shadow-sm rounded-full w-[64px] aspect-square"
                                         alt="post"
                                       />
                                     </figure>
                                     <div className="flex flex-col w-full">
-                                      <div className=" flex text-wrap flex-wrap flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                      <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
                                         <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                           <div className="flex flex-col py-1 font-light text-zinc-900">
                                             <div className="fw-700 text-grey-900 font-xssss mt-1">
@@ -1339,7 +1261,7 @@ const Index = () => {
                                               {comment.user &&
                                                 comment.user.user.prenom}
                                             </div>
-                                            <div className=" text-xs font-xssss">
+                                            <div className="mt-1 text-xs">
                                               {/* {comment.user &&
                                             comment?.user?.user?.profil} */}
 
@@ -1352,21 +1274,17 @@ const Index = () => {
                                                   {comment.user.user.profil === 'scout' && 'Scout'}
                                                 </div>
                                               )}
-
-
-
                                             </div>
-                                            <div className="  text-xs font-xssss">
-                                              {formatDate(
+                                            <div className="mt-1 text-xs">
+                                              {new Date(
                                                 comment.createdAt
-                                              )}
+                                              ).toLocaleDateString()}
                                             </div>
                                           </div>
                                         </div>
-                                        <div className="mt-2 text-wrap text-break font-light text-zinc-900 px-4 ">
+                                        <div className="mt-2 text-base text-wrap font-light text-zinc-900 px-4 ">
                                           {comment.description}
                                         </div>
-
                                       </div>
 
                                       <div className="my-2 flex w-full justify-between">
@@ -1499,7 +1417,6 @@ const Index = () => {
                                   <figure className="avatar">
                                     <img
                                       src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
-
                                       className="shadow-sm rounded-full w-[52px] aspect-square"
                                       alt="post"
                                     />
@@ -1518,9 +1435,11 @@ const Index = () => {
                                       <button
                                         onClick={() => {
                                           addComment(article.id);
-                                          console.log("🚀 ~ Post ~ article.id:", article.id)
-                                        }
-                                        }
+                                          console.log(
+                                            "🚀 ~ Post ~ article.id:",
+                                            article.id
+                                          );
+                                        }}
                                         className="ml-2"
                                       >
                                         <svg
@@ -1543,87 +1462,96 @@ const Index = () => {
                             )}
                           </div>
                         )}
-
                       </div>
-
                     </div>
-                  )) : <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-
-
-
-                  {
-                    getTranslation(
-                      ` No posts at the moment! `,  // -----> Englais
-                      `Aucun publication pour le moment!`, //  -----> Francais
-                      //   ``,  //  -----> Turkey
-                      //   `` ,  //  -----> Allemagne
-                    )
-
-                  }
-
-
-                </div>}
+                  ))
+                ) : (
+                  <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+                    Aucun publication pour le moment
+                  </div>
+                )}
               </div>
             </div>
-          </div>}
-        {profileFeed === 'photo' && <div className="w-full mt-3">
-          <div>
+          </div>
+        )}
+        {profileFeed === "photo" && (
+          <div className="w-full mt-3">
             <div>
-              {articles.length > 0 ? articlesWithPhoto.map((article) => (
-                <div
-                  key={article.id}
-                  className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2 mt-3"
-                >
-                  <div className="card-body p-0 d-flex">
-                    <figure className="avatar me-3">
-                      <img
-                        src={article?.user?.user.image ? article?.user?.user.image : PlaceHolder}
-                        className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
-                        alt="post"
-                      />
-                    </figure>
-                    <div className="flex flex-col">
-                      <span className="text-base text-grey-900">{article.user.user.nom} {article.user.user.prenom}</span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
-                        {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
-                        {article.user.user.profil == 'player' ? ' Joueur' : ''}
-                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-                        {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
-                        {article.user.user.profil == 'scout' ? 'Scout' : ''}
-                      </span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
-                        {new Date(article.user.user.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div>
+              <div>
+                {articles.length > 0 ? (
+                  articlesWithPhoto.map((article) => (
+                    <div
+                      key={article.id}
+                      className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2 mt-3"
+                    >
+                      <div className="card-body p-0 d-flex">
+                        <figure className="avatar me-3">
+                          <img
+                            src={
+                              article?.user?.user.image
+                                ? article?.user?.user.image
+                                : PlaceHolder
+                            }
+                            className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                            alt="post"
+                          />
+                        </figure>
+                        <div className="flex flex-col">
+                          <span className="text-base text-grey-900">
+                            {article.user.user.nom} {article.user.user.prenom}
+                          </span>
+                          <span className="d-block font-xssss fw-500 text-grey-500">
+                            {article.user.user.profil == "other"
+                              ? article.user.other?.profession
+                              : ""}
+                            {article.user.user.profil == "player"
+                              ? " Joueur"
+                              : ""}
+                            {article.user.user.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "players"
+                              ? "Manager de Joueur"
+                              : ""}
+                            {article.user.user.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "club"
+                              ? "Manager de CLub"
+                              : ""}
+                            {article.user.user.profil == "scout" ? "Scout" : ""}
+                          </span>
+                          <span className="d-block font-xssss fw-500 text-grey-500">
+                            {new Date(
+                              article.user.user.createdAt
+                            ).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
 
-                  <div className="card-body d-block p-0 mb-3">
-                    <div className="row ps-2 pe-2">
-                      <div className="col-sm-12 p-1">
-                        <div className="card-body d-block p-0 mb-3">
-                          <div className="row ps-2 pe-2">
-                            <div className="col-sm-12 p-1">
-                              <img
-                                className=" h-96 w-100 object-cover"
-                                src={article.image}
-                                alt={article.titre}
-                              />
+                      <div className="card-body d-block p-0 mb-3">
+                        <div className="row ps-2 pe-2">
+                          <div className="col-sm-12 p-1">
+                            <div className="card-body d-block p-0 mb-3">
+                              <div className="row ps-2 pe-2">
+                                <div className="col-sm-12 p-1">
+                                  <img
+                                    className=" h-96 w-100 object-cover"
+                                    src={article.image}
+                                    alt={article.titre}
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))
+                  ))
                 ) : (
-              <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-                Aucun Photo pour le moment
-              </div>
+                  <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+                    Aucun Photo pour le moment
+                  </div>
                 )}
+              </div>
             </div>
           </div>
-        </div>
         )}
         {profileFeed === "video" && (
           <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
