@@ -1554,7 +1554,7 @@ const Index = () => {
           </div>
         )}
         {profileFeed === "video" && (
-          <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+          <div className="w-full mt-4 text-center">
             <div>
               <div>
                 {articles.length > 0 ? (

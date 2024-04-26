@@ -5516,7 +5516,7 @@ function Register() {
                     </div>
 
                     <label className="tal2 flex  items-center justify-center self-center w-[266px]"> {/* Center the label section */}
-                      <div className="flex gap-2 justify-center items-center px-8 py-2 mt-2 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
+                      <div className="cursor-pointer flex gap-2 justify-center items-center px-8 py-2 mt-2 max-w-full text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] w-[266px] max-md:px-5">
                         {" "}<img
                           loading="lazy"
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -5526,7 +5526,7 @@ function Register() {
                           type="file"
                           name="image"
                           onChange={handleFileChange}
-                          className=" grow absolute w-full my-auto opacity-0"
+                          className="flex opacity-0"
                         />
 
                         {
@@ -7305,20 +7305,75 @@ function Register() {
                              `Rapidité`
                            ),
                           // "Rapidite",
-                          "Tacle",
-                          "Defence",
-                          "Tirs de loin",
-                          "jeu en une touche",
-                          "Rapidite de la prise de désicion",
-                          "Frappe puissante",
-                          "Agilité",
-                          "Controller du Ballon",
-                          "Dribble",
-                          "Exploitation de l'espace",
-                          "Evaluation des risques sur les terrain",
-                          "Endurance",
-                          "Equilibre et Coordination",
-                          "Auto-Motivation",
+                          getTranslation(
+                            `Tackle`,
+                             `Tacle`
+                           ),
+                           getTranslation(
+                            `Defense`,
+                             `Défence`
+                           ),
+                          
+                          getTranslation(
+                            `Tirs de loin`,
+                             `Long Shots`
+                           ),
+                           getTranslation(
+                            `One-touch play`,
+                             `Tirs de loin`
+                           ),
+                          
+                          getTranslation(
+                            `Quick Decision Making`,
+                             `Rapidite de la prise de désicion`
+                           ),
+
+                          
+                          getTranslation(
+                            `Powerful Strike`,
+                             `Frappe puissante`
+                           ),
+                          
+                          getTranslation(
+                            `Agility`,
+                             `Agilité`
+                           )
+                          ,
+                          
+                          getTranslation(
+                            `Ball Control`,
+                             `Controller du Ballon`
+                           ),
+                          
+                          
+                          getTranslation(
+                            `Dribbling`,
+                             `Dribble`
+                           ),
+                          
+                          
+                          getTranslation(
+                            `Space Exploitation`,
+                             `Exploitation de l'espace`
+                           ),
+                          
+                          getTranslation(
+                            `Risk Assessment on the Field`,
+                             `Evaluation des risques sur le terrain`
+                           ),
+                          "Endurance"
+                          ,
+                          getTranslation(
+                            `Balance and Coordination`,
+                             `Equilibre et Coordination`
+                           )
+                          ,
+                          
+                          getTranslation(
+                            `Self-Motivation`,
+                             `Auto-Motivation`
+                           )
+                          ,
                           // Add other skills...
                         ].map((skillsInProfile) => (
                           <div
@@ -7759,7 +7814,62 @@ function Register() {
 
                       <div className="form-group icon-input  mb-3">
                         {[
-                          "Connaissance des tactiques", "Compétences techniques", "Leadership", "Communication", "Gestion de groupe", "Analyse", "Planification", "Adaptabilité", "Ethique", "Connaissance des règles du jeu", "Gestion de stress", "Développement individuel", "Empathie"
+                          
+                          getTranslation(
+                            `Knowledge of tactics`,
+                             `Connaissance des tactiques`
+                           ),
+                           
+                           getTranslation(
+                            `technical skills`,
+                             `Compétences techniques`
+                           ),
+                            "Leadership",
+                             "Communication",
+                              
+                              getTranslation(
+                                `Group management`,
+                                 `Gestion de groupe`
+                               ), 
+                              
+                              getTranslation(
+                                `Analysis`,
+                                 `Analyse`
+                               ), 
+                              
+                              getTranslation(
+                                `Scheduling`,
+                                 `Planification`
+                               ), 
+                              
+                              getTranslation(
+                                `Adaptability`,
+                                 `Adaptabilité`
+                               ),
+                               
+                               getTranslation(
+                                `Ethics`,
+                                 `Ethique`
+                               ), 
+                               
+                               getTranslation(
+                                `Knowledge of the rules of the game`,
+                                 `Connaissance des règles du jeu`
+                               ), 
+                               
+                               getTranslation(
+                                `Stress management`,
+                                 `Gestion de stress`
+                               ), 
+                               
+                               getTranslation(
+                                `Individual development`,
+                                 `Développement individuel`
+                               ),
+                               getTranslation(
+                                `Empathy`,
+                                 `Empathie`
+                               )
                           // Add other skills...
                         ].map((coachSkill) => (
                           <div
@@ -8210,18 +8320,69 @@ function Register() {
 
 
                                   "Leadership",
-                                  "Gestion financière",
-                                  "Négociation",
-                                  "Gestion des ressources humaines",
+                                  
+                                  getTranslation(
+                                    `Financial Management`,
+                                     `Gestion financière`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Negotiation`,
+                                     `Négociation`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Human Resources Management`,
+                                     `Gestion des ressources humaines`
+                                   )
+                                  ,
                                   "Communication",
-                                  "Connaissance du marché du football",
-                                  "Stratégie marketing",
-                                  "Planification stratégique",
-                                  "Gestion des installations",
-                                  "Juridique et conformité",
-                                  "Analyse des performances",
-                                  "Empathie",
-                                  "Gestion de crise"
+                                  
+                                  getTranslation(
+                                    `Football Market Knowledge`,
+                                     `Connaissance du marché du football`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Marketing Strategy`,
+                                     `Stratégie marketing`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Strategic Planning`,
+                                     `Planification stratégique`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Facilities Management`,
+                                     `Gestion des installations`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Legal and Compliance`,
+                                     `Juridique et conformité`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Analyse des performances`,
+                                     `Performance Analysis`
+                                   ),
+                                  
+                                  getTranslation(
+                                    `Empathy`,
+                                     `Empathie`
+                                   ),
+                                  getTranslation(
+                                    `Crisis Management`,
+                                     `Gestion de crise`
+                                   )
                                   // Add other skills...
                                 ].map((agentSkill) => (
                                   <div
@@ -8520,19 +8681,74 @@ function Register() {
 
                               <div className="form-group icon-input  mb-3">
                                 {[
-                                  "Négociation",
-                                  "Connaissance approfondie du sport",
-                                  "Empathie",
-                                  "Compétences juridiques",
-                                  "Gestion des carrières",
+                                  getTranslation(
+                                    `Negotiation`,
+                                     `Négociation`
+                                   ),
+                                  
+                                  getTranslation(
+                                    `In-depth Sports Knowledge`,
+                                     `Connaissance approfondie du sport`
+                                   )
+                                  ,
+                                  getTranslation(
+                                    `Empathy`,
+                                     `Empathie`
+                                   ),
+                                  
+                                  getTranslation(
+                                    `Legal Skills`,
+                                     `Compétences juridiques`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Career Management`,
+                                     `Gestion des carrières`
+                                   )
+                                  ,
                                   "Communication",
-                                  "Conseil financier",
-                                  "Analyse du marché",
-                                  "Gestion du stress",
-                                  "Éthique professionnelle",
-                                  "Gestion de conflits",
-                                  "Adaptabilité",
-                                  "Compétences marketing"
+                                  
+                                  getTranslation(
+                                    `Financial Advisory`,
+                                     `Conseil financier`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Market Analysis`,
+                                     `Analyse du marché`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Stress Management`,
+                                     `Gestion du stress`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Professional Ethics`,
+                                     `Éthique professionnelle`
+                                   ),
+                                  
+                                  
+                                  getTranslation(
+                                    `Conflict Management`,
+                                     `Gestion de conflits`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Adaptability`,
+                                     `Adaptabilité`
+                                   )
+                                  ,
+                                  
+                                  getTranslation(
+                                    `Marketing Skills`,
+                                     `Compétences marketing`
+                                   )
                                   // Add other skills...
                                 ].map((agentSkill) => (
                                   <div
@@ -9051,7 +9267,18 @@ function Register() {
       </div> */}
 
 <div class="mt-2 flex flex-col sm:flex-row"> 
-    <h2>Regions Choisi:</h2>
+    <h2>
+
+    {
+             getTranslation(
+              `Selected Regions`,  // -----> Englais
+              `Régions Choisies:`, //  -----> Francais
+            //   ``,  //  -----> Turkey
+            //   `` ,  //  -----> Allemagne
+              ) 
+
+            } 
+    </h2>
 
     <ul class="flex flex-row flex-wrap gap-y-2"> 
         {selectedRegions.map(region => (
@@ -9161,19 +9388,69 @@ function Register() {
 
                         <div className="form-group icon-input  mb-3">
                           {[
-                            "Analyse tactique",
-                            "Connaissance approfondie du sport",
-                            "Réseautage",
+                            getTranslation(
+                              `Tactical analysis`,
+                               `Analyse tactique`
+                             ),
+                             getTranslation(
+                              `In-depth knowledge of the sport`,
+                               `Connaissance approfondie du sport`
+                             ),
+                            
+                            
+                            getTranslation(
+                              `networking`,
+                               `Réseautage`
+                             ),
                             "Observation",
-                            "Analyse des données",
-                            "Compétence en communication",
-                            "Connaissance des marchés",
-                            "Rapports détaillés",
-                            "Gestion du temps",
-                            "Éthique professionnelle",
-                            "Compétences informatiques",
-                            "Adaptabilité",
-                            "Évaluation psychologique",
+                            
+                            getTranslation(
+                              `data analysis`,
+                               `Analyse des données`
+                             )
+                            ,
+                            
+                            getTranslation(
+                              `communication skills`,
+                               `Compétence en communication`
+                             ),
+                            
+                            getTranslation(
+                              `Commercial knowledge`,
+                               `Connaissance des marchés`
+                             )
+                            ,
+                            
+                            getTranslation(
+                              `detailed reporting`,
+                               `Rapports détaillés`
+                             )
+                            ,
+                            
+                            getTranslation(
+                              `time management`,
+                               `Gestion du temps`
+                             ),
+                            
+                            getTranslation(
+                              `Professional ethics`,
+                               `Éthique professionnelle`
+                             ),
+                            
+                            getTranslation(
+                              `Computer skills`,
+                               `Compétences informatiques`
+                             ),
+                            
+                            getTranslation(
+                              `adaptability`,
+                               `Adaptabilité`
+                             ),
+                            
+                            getTranslation(
+                              `Psychological assessment`,
+                               `Évaluation psychologique`
+                             ),
 
                             // Add other skills...
                           ].map((skillsscout) => (
@@ -9573,11 +9850,30 @@ function Register() {
                               {formData.profession === "Fan Football" && (
                                 <div className="form-group icon-input mb-3 flex flex-wrap">
                                   {[
-                                    "Engagement émotionnel",
-                                    "Fidélité",
-                                    "Esprit sportif",
-                                    "Réseautage social",
-                                    "Adaptabilité",
+                                     getTranslation(
+                                      `Emotional Engagement`,
+                                       `Engagement émotionnel`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Loyalty`,  
+                                      `Fidélité`
+                                    ),
+                                    
+                                    getTranslation(
+                                      `Sportsmanship`,  
+                                      `Esprit sportif`
+                                    ),
+                                    
+                                    getTranslation(
+                                      `Social networking`,  
+                                      `Réseautage social`
+                                    ),
+                                    
+                                    getTranslation(
+                                      `Flexibility`,  
+                                      `Adaptabilité`
+                                    ),
                                     "Motivation",
                                     "Respect",
 
@@ -9615,14 +9911,42 @@ function Register() {
                               {formData.profession === "Journaliste Sportif" && (
                                 <div className="form-group icon-input mb-3 flex flex-wrap">
                                   {[
-                                    "Recherche",
-                                    "Rédaction",
+                                    
+                                    getTranslation(
+                                      `Research`,
+                                       `Recherche`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Writing`,
+                                       `Rédaction`
+                                     ),
                                     "Communication",
-                                    "Maîtrise des médias sociaux",
-                                    "Réactivité",
-                                    "Gestion du temps",
-                                    "Analyse critique",
-                                    "Adaptabilité"
+                                    
+                                    getTranslation(
+                                      `Expertise in social media`,
+                                       `Maîtrise des médias sociaux`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Reactivity`,
+                                       `Réactivité`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Time management`,
+                                       `Gestion du temps`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Critical analysis`,
+                                       `Analyse critique`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Flexibility`,
+                                       `Adaptabilité`
+                                     )
                                     // Add other skills...
                                   ].map((skillsAutre) => (
                                     <div
@@ -9657,14 +9981,34 @@ function Register() {
                                 <div className="form-group icon-input mb-3 flex flex-wrap">
                                   {[
                                     "Encouragement",
-                                    "Ecoute",
+                                    
+                                    getTranslation(
+                                      `Listening`,
+                                       `Ecoute`
+                                     ),
                                     "Communication",
                                     "Leadership",
                                     "Motivation",
-                                    "Autorité et respect",
-                                    "Gestion des conflits",
-                                    "Réactivité",
-                                    "Gestion du stress"
+                                    
+                                    getTranslation(
+                                      `Respect and authority`,
+                                       `Autorité et respect`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Conflict Management`,
+                                       `Gestion des conflits`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Reactivity`,
+                                       `Réactivité`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Stress management`,
+                                       `Gestion du stress`
+                                     )
                                   ].map((skillsAutre) => (
                                     <div
                                       key={skillsAutre}
@@ -9739,12 +10083,32 @@ function Register() {
                               {formData.profession === "Nutrtitionniste" && (
                                 <div className="form-group icon-input mb-3 flex flex-wrap">
                                   {[
-                                    "Évaluation nutritionnelle",
-                                    "Planification de régimes",
-                                    "Compréhension des besoins",
-                                    "Adaptabilité",
+                                    
+                                    getTranslation(
+                                      `Nutritional assessment`,
+                                       `Évaluation nutritionnelle`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Diet planning`,
+                                       `Planification de régimes`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Understanding of Needs`,
+                                       `Compréhension des besoins`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Flexibility`,
+                                       `Adaptabilité`
+                                     ),
                                     "Communication",
-                                    "Écoute",
+                                    
+                                    getTranslation(
+                                      `Listening`,
+                                       `Écoute`
+                                     ),
                                     "Encouragement"
                                   ].map((skillsAutre) => (
                                     <div
@@ -9777,11 +10141,29 @@ function Register() {
                               {formData.profession === "Physiotherpeute" && (
                                 <div className="form-group icon-input mb-3 flex flex-wrap">
                                   {[
-                                    "Compétences Physiothérapeute",
-                                    "Gestion du temps",
-                                    "Éthique professionnelle",
-                                    "Empathie",
-                                    "Analyse des mouvements sportifs"
+                                    
+                                    getTranslation(
+                                      `Physiotherapist skills`,
+                                       `Compétences Physiothérapeute`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Time management`,
+                                       `Gestion du temps`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Professional attitude`,
+                                       `Éthique professionnelle`
+                                     ),
+                                    getTranslation(
+                                      `Empathy`,
+                                       `Empathie`
+                                     ),
+                                     getTranslation(
+                                      `Analyse des mouvements sportifs`,
+                                       `Analysis of sports movements`
+                                     )
                                   ].map((skillsAutre) => (
                                     <div
                                       key={skillsAutre}
@@ -9814,19 +10196,59 @@ function Register() {
                                 "Analyste de football" && (
                                   <div className="form-group icon-input mb-3 flex flex-wrap">
                                     {[
-                                      "Esprit d'équipe",
-                                      "Gestion du temps",
+                                      
+                                      getTranslation(
+                                        `Team spirit`,
+                                         `Esprit d'équipe`
+                                       ),
+                                      
+                                      getTranslation(
+                                        `Time management`,
+                                         `Gestion du temps`
+                                       ),
                                       "Communication",
-                                      "Analyse vidéo",
-                                      "Compétences analytiques",
-                                      "Connaissance tactique",
+                                      
+                                      getTranslation(
+                                        `Video analysis`,
+                                         `Analyse vidéo`
+                                       ),
+                                      
+                                      getTranslation(
+                                        `Analytical skills`,
+                                         `Compétences analytiques`
+                                       ),
+                                      
+                                      getTranslation(
+                                        `Tactical knowledge`,
+                                         `Connaissance des tactiques`
+                                       ),
                                       "Communication",
-                                      "Adaptabilité",
-                                      "Compréhension des adversaires",
-                                      "Rapports détaillés",
+                                      
+                                      getTranslation(
+                                        `Adaptability`,
+                                         `Adaptabilité`
+                                       ),
+                                      
+                                      getTranslation(
+                                        `Understanding competitors`,
+                                         `Compréhension des adversaires`
+                                       ),
+                                      
+                                      getTranslation(
+                                        `Detailed reporting`,
+                                         `Rapports détaillés`
+                                       ),
                                       "Collaboration",
-                                      "Compétences informatiques",
-                                      "Éthique professionnelle"
+                                      
+                                      getTranslation(
+                                        `Computer skills`,
+                                         `Compétences informatiques`
+                                       ),
+                                      
+                                      getTranslation(
+                                        `Professional ethics`,
+                                         `Éthique professionnelle`
+                                       )
                                     ].map((skillsAutre) => (
                                       <div
                                         key={skillsAutre}
@@ -9858,11 +10280,30 @@ function Register() {
                               {formData.profession === "Médecin d'équipe" && (
                                 <div className="form-group icon-input mb-3 flex flex-wrap">
                                   {[
-                                    "Diagnostic des blessures",
-                                    "Prévention des blessures",
-                                    "Gestion du stress",
-                                    "Technologie médicale",
-                                    "Empathie"
+                                    
+                                    getTranslation(
+                                      `Injury diagnosis`,
+                                       `Diagnostic des blessures`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Injury prevention`,
+                                       `Prévention des blessures`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Stress management`,
+                                       `Gestion du stress`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Medical technology`,
+                                       `Technologie médicale`
+                                     ),
+                                    getTranslation(
+                                      `Empathy`,
+                                       `Empathie`
+                                     )
 
                                   ].map((skillsAutre) => (
                                     <div
@@ -9898,12 +10339,32 @@ function Register() {
                                     "Leadership",
                                     "Collaboration",
                                     "Communication",
-                                    "Connaissance du football",
-                                    "Rééducation",
+                                    
+                                    getTranslation(
+                                      `Football knowledge`,
+                                       `Connaissance du football`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Physical therapy`,
+                                       `Rééducation`
+                                     ),
                                     "Motivation",
-                                    "Gestion du stress",
-                                    "Évaluation de condition physique",
-                                    "Planification de l'entraînement"
+                                    
+                                    getTranslation(
+                                      `Stress management`,
+                                       `Gestion du stress`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Fitness assessment`,
+                                       `Évaluation de condition physique`
+                                     ),
+                                    
+                                    getTranslation(
+                                      `Training planning`,
+                                       `Planification de l'entraînement`
+                                     )
                                   ].map((skillsAutre) => (
                                     <div
                                       key={skillsAutre}
