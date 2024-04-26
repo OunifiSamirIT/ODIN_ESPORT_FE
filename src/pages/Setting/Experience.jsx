@@ -7,7 +7,7 @@ import * as yup from "yup"
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../config";
-
+import { Context } from "../index"
 const Experience = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [update, setUpdate] = useState(false)
@@ -21,6 +21,8 @@ const Experience = () => {
         // Create a Date object with the year and month (subtract 1 because months are zero-indexed)
         return new Date(parseInt(yearString), parseInt(monthString) - 1);
     }
+    const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
+
     const handleAddExperience = () => {
         setIsOpen(!isOpen)
     }
@@ -274,7 +276,16 @@ const Experience = () => {
                     <ToastContainer />
                 </div>
                 <div className="flex gap-5 justify-between pr-2 text-3xl md:text-4xl font-bold whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                    <div className="flex-auto">Expériences</div>
+                    <div className="flex-auto"> {
+                        getTranslation(
+                            `Expériences`,  // -----> Englais
+                            `Experience`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                        )
+
+                    }
+                    </div>
                     <button onClick={handleAddExperience}>
                         <svg width="30" height="30" viewBox="0 0 46 47" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M36.125 21.625H24.875V10.375C24.875 9.33947 24.0355 8.5 23 8.5C21.9645 8.5 21.125 9.33947 21.125 10.375V21.625H9.875C8.83947 21.625 8 22.4645 8 23.5C8 24.5355 8.83947 25.375 9.875 25.375H21.125V36.625C21.125 37.6605 21.9645 38.5 23 38.5C24.0355 38.5 24.875 37.6605 24.875 36.625V25.375H36.125C37.1605 25.375 38 24.5355 38 23.5C38 22.4645 37.1605 21.625 36.125 21.625Z" fill="#2E71EB" />
@@ -282,8 +293,22 @@ const Experience = () => {
                     </button>
                 </div>
                 <div className="text-center mt-4">
-                    <p>Ajoutez votre expérience pour valoriser votre profil
-                        et attirer les agents</p>
+                    <p>
+
+
+                        {
+                            getTranslation(
+                                `Add your experience to enhance your profile and attract agents`,  // -----> Englais
+                                `Ajoutez votre expérience pour valoriser votre profil
+              et attirer les agents`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                            )
+
+                        }
+
+
+                    </p>
                 </div>
             </div>}
             {experience.length > 0 &&
@@ -293,7 +318,15 @@ const Experience = () => {
                         <ToastContainer />
                     </div>
                     <div className="w-full flex justify-between md:gap-5 text-3xl md:text-4xl font-bold whitespace-nowrap max-md:flex-wrap">
-                        <div className="flex">Expériences</div>
+                        <div className="flex">{
+                            getTranslation(
+                                `Expériences`,  // -----> Englais
+                                `Experience`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                            )
+
+                        } </div>
                         <button onClick={handleAddExperience}>
                             <svg width="30" height="30" viewBox="0 0 46 47" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M36.125 21.625H24.875V10.375C24.875 9.33947 24.0355 8.5 23 8.5C21.9645 8.5 21.125 9.33947 21.125 10.375V21.625H9.875C8.83947 21.625 8 22.4645 8 23.5C8 24.5355 8.83947 25.375 9.875 25.375H21.125V36.625C21.125 37.6605 21.9645 38.5 23 38.5C24.0355 38.5 24.875 37.6605 24.875 36.625V25.375H36.125C37.1605 25.375 38 24.5355 38 23.5C38 22.4645 37.1605 21.625 36.125 21.625Z" fill="#2E71EB" />
@@ -343,7 +376,15 @@ const Experience = () => {
             {isOpen && <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
                 <div ref={ref} className="flex flex-col px-4 md:px-8 py-7  max-w-full bg-white rounded-[10px] w-[1000px]">
                     <div className="text-xl md:text-4xl font-bold text-zinc-900 max-md:max-w-full">
-                        Expérience
+                        {
+                            getTranslation(
+                                `Expériences`,  // -----> Englais
+                                `Experience`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                            )
+
+                        }
                     </div>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -362,11 +403,31 @@ const Experience = () => {
                                             </defs>
                                         </svg>
 
-                                        <div className="grow text-lg">Club/Académie</div>
+                                        <div className="grow text-lg">
+
+                                            {
+                                                getTranslation(
+                                                    `Club/Academy`,  // -----> Englais
+                                                    `Club/Académie`, //  -----> Francais
+                                                    //   ``,  //  -----> Turkey
+                                                    //   `` ,  //  -----> Allemagne
+                                                )
+
+                                            }
+
+                                        </div>
                                     </div>
                                     <div className="relative">
                                         <input {...register('club')} name='club' type='text' placeholder="Real Madrid CF" className={`text-grey-900 placeholder-zinc-400 form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid border-1 !border-red-500' : ''}`} />
-                                        {errors.club && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
+                                        {errors.club && <span className="invalid-feedback block py-2 px-2">{
+                                            getTranslation(
+                                                `This field is required!`,  // -----> Englais
+                                                `Ce champ est obligatoire!`, //  -----> Francais
+                                                ``,  //  -----> Turkey
+                                                ``,  //  -----> Allemagne
+                                            )
+
+                                        }</span>}
                                     </div>
                                 </div>
                                 <div className="lg:flex-1 w-full">
@@ -382,14 +443,30 @@ const Experience = () => {
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                        <div className="grow text-lg">Niveau</div>
+                                        <div className="grow text-lg">{
+                                            getTranslation(
+                                                `Level`,  // -----> Englais
+                                                `Niveau`, //  -----> Francais
+                                                ``,  //  -----> Turkey
+                                                ``,  //  -----> Allemagne
+                                            )
+
+                                        }</div>
                                     </div>
                                     <div className="relative">
                                         <select {...register('niveau')} name='niveau' type='text' placeholder="Senior" className={`text-grey-900 placeholder-zinc-400 form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.niveau ? 'is-invalid border-1 !border-red-500' : ''}`}>
                                             <option value="seniors">Seniors</option>
                                             <option value="cadets">Cadets</option>
                                             <option value="minimes">Minimes </option>
-                                            <option value="ecoles">Ecoles </option>
+                                            <option value="ecoles">{
+                                                getTranslation(
+                                                    `School`,  // -----> Englais
+                                                    `Ecole`, //  -----> Francais
+                                                    ``,  //  -----> Turkey
+                                                    ``,  //  -----> Allemagne
+                                                )
+
+                                            } </option>
                                             <option value="benjamins ">Benjamins </option>
                                         </select>
                                         <div className="absolute right-0 top-1/2 px-4">
@@ -397,7 +474,15 @@ const Experience = () => {
                                                 <path d="M10.4995 9.80888C9.95196 9.80986 9.4096 9.70291 8.90342 9.49414C8.39723 9.28538 7.93716 8.97889 7.5495 8.59221L0.74117 1.78388C0.58425 1.62696 0.496094 1.41413 0.496094 1.19221C0.496094 0.970294 0.58425 0.757465 0.74117 0.600545C0.89809 0.443625 1.11092 0.355469 1.33284 0.355469C1.55475 0.355469 1.76758 0.443625 1.9245 0.600545L8.73284 7.40888C9.20159 7.87705 9.837 8.14001 10.4995 8.14001C11.162 8.14001 11.7974 7.87705 12.2662 7.40888L19.0745 0.600545C19.2314 0.443625 19.4443 0.355469 19.6662 0.355469C19.8881 0.355469 20.1009 0.443625 20.2578 0.600545C20.4148 0.757465 20.5029 0.970294 20.5029 1.19221C20.5029 1.41413 20.4148 1.62696 20.2578 1.78388L13.4495 8.59221C13.0618 8.97889 12.6018 9.28538 12.0956 9.49414C11.5894 9.70291 11.047 9.80986 10.4995 9.80888Z" fill="black" />
                                             </svg>
                                         </div>
-                                        {errors.niveau && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
+                                        {errors.niveau && <span className="invalid-feedback block py-2 px-2">{
+                                            getTranslation(
+                                                `This field is required!`,  // -----> Englais
+                                                `Ce champ est obligatoire!`, //  -----> Francais
+                                                ``,  //  -----> Turkey
+                                                ``,  //  -----> Allemagne
+                                            )
+
+                                        }</span>}
                                     </div>
                                 </div>
                             </div>
@@ -415,12 +500,33 @@ const Experience = () => {
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                        <div className="grow text-lg">Date de début</div>
+                                        <div className="grow text-lg">
+
+                                            {
+                                                getTranslation(
+                                                    `Start date`,  // -----> Englais
+                                                    `Date de début`, //  -----> Francais
+                                                    //   ``,  //  -----> Turkey
+                                                    //   `` ,  //  -----> Allemagne
+                                                )
+
+                                            }
+
+
+                                        </div>
                                     </div>
                                     <div className="w-full">
                                         <DatePicker placeholderText="Choisir date de début" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.startDate ? 'is-invalid border-1 !border-red-500' : ''}`} selected={startDate} dateFormat="MM/yyyy" onChange={(date) => { setValue('startDate', date); setStartDate(date) }} />
                                     </div>
-                                    {errors.startDate && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
+                                    {errors.startDate && <span className="invalid-feedback block py-2 px-2">{
+                                        getTranslation(
+                                            `This field is required!`,  // -----> Englais
+                                            `Ce champ est obligatoire!`, //  -----> Francais
+                                            ``,  //  -----> Turkey
+                                            ``,  //  -----> Allemagne
+                                        )
+
+                                    }</span>}
                                 </div>
                                 <div className="lg:flex-1 w-full">
                                     <div className="flex gap-4 justify-between px-4 items-center">
@@ -428,7 +534,20 @@ const Experience = () => {
                                             <path d="M15.8333 1.66667H15V0.833333C15 0.61232 14.9122 0.400358 14.7559 0.244078C14.5996 0.0877974 14.3877 0 14.1667 0C13.9457 0 13.7337 0.0877974 13.5774 0.244078C13.4211 0.400358 13.3333 0.61232 13.3333 0.833333V1.66667H6.66667V0.833333C6.66667 0.61232 6.57887 0.400358 6.42259 0.244078C6.26631 0.0877974 6.05435 0 5.83333 0C5.61232 0 5.40036 0.0877974 5.24408 0.244078C5.0878 0.400358 5 0.61232 5 0.833333V1.66667H4.16667C3.062 1.66799 2.00296 2.1074 1.22185 2.88852C0.440735 3.66963 0.00132321 4.72867 0 5.83333L0 15.8333C0.00132321 16.938 0.440735 17.997 1.22185 18.7782C2.00296 19.5593 3.062 19.9987 4.16667 20H15.8333C16.938 19.9987 17.997 19.5593 18.7782 18.7782C19.5593 17.997 19.9987 16.938 20 15.8333V5.83333C19.9987 4.72867 19.5593 3.66963 18.7782 2.88852C17.997 2.1074 16.938 1.66799 15.8333 1.66667ZM1.66667 5.83333C1.66667 5.17029 1.93006 4.53441 2.3989 4.06557C2.86774 3.59673 3.50363 3.33333 4.16667 3.33333H15.8333C16.4964 3.33333 17.1323 3.59673 17.6011 4.06557C18.0699 4.53441 18.3333 5.17029 18.3333 5.83333V6.66667H1.66667V5.83333ZM15.8333 18.3333H4.16667C3.50363 18.3333 2.86774 18.0699 2.3989 17.6011C1.93006 17.1323 1.66667 16.4964 1.66667 15.8333V8.33333H18.3333V15.8333C18.3333 16.4964 18.0699 17.1323 17.6011 17.6011C17.1323 18.0699 16.4964 18.3333 15.8333 18.3333Z" fill="black" />
                                         </svg>
 
-                                        <div className="grow text-lg">Date de fin</div>
+                                        <div className="grow text-lg">
+                                            {
+                                                getTranslation(
+                                                    ` Date de fin`,  // -----> Englais
+                                                    `End date`, //  -----> Francais
+                                                    //   ``,  //  -----> Turkey
+                                                    //   `` ,  //  -----> Allemagne
+                                                )
+
+                                            }
+
+
+
+                                        </div>
                                     </div>
                                     <div className="w-full">
                                         <DatePicker placeholderText="Choisir date fin" showMonthYearPicker wrapperClassName="w-full cursor-pointer" calendarClassName={'w-full'} className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.endDate ? 'is-invalid border-1 !border-red-500' : ''} `} selected={endDate} dateFormat={'MM/yyyy'} onChange={(date) => { setValue('endDate', date); setEndDate(date) }} />
@@ -437,28 +556,52 @@ const Experience = () => {
                                 </div>
                             </div>
                             <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
-                        <div className="hidden md:flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
-                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
-                            </svg>
-                            <button onClick={handleClose} className="">Annuler</button>
-                        </div>
-                        <div className="flex mr-3 gap-2 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
-                                className="w-5 aspect-square"
-                            />
-                            <button type='submit' className="">Confirmer</button>
-                        </div>
-                        <div className="md:hidden flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
-                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
-                            </svg>
+                                <div className="hidden md:flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
+                                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
+                                    </svg>
+                                    <button onClick={handleClose} className="">{
+                                        getTranslation(
+                                            `Cancel`,  // -----> Englais
+                                            ` Annuler`, //  -----> Francais
+                                            ``,  //  -----> Turkey
+                                            ``,  //  -----> Allemagne
+                                        )
 
-                            <button onClick={handleClose} className="">Annuler</button>
-                        </div>
-                    </div>
+                                    }</button>
+                                </div>
+                                <div className="flex mr-3 gap-2 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
+                                        className="w-5 aspect-square"
+                                    />
+                                    <button type='submit' className="">{
+                                        getTranslation(
+                                            `Submit`,  // -----> Englais
+                                            `Confirmer`, //  -----> Francais
+                                            ``,  //  -----> Turkey
+                                            ``,  //  -----> Allemagne
+                                        )
+
+                                    }</button>
+                                </div>
+                                <div className="md:hidden flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
+                                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
+                                    </svg>
+
+                                    <button onClick={handleClose} className="">{
+                                        getTranslation(
+                                            `Cancel`,  // -----> Englais
+                                            ` Annuler`, //  -----> Francais
+                                            ``,  //  -----> Turkey
+                                            ``,  //  -----> Allemagne
+                                        )
+
+                                    }</button>
+                                </div>
+                            </div>
                         </div>
                     </form>
 

@@ -460,7 +460,7 @@ const General = ({ userInfo }) => {
         </div> */}
         {/* social icons */}
 
-        <div div className="  max-w-xl flex flex gap-4 justify-between" >
+        <div div className="  max-w-xl flex flex gap-4 justify-between mt-3" >
           {userInfo?.user.liensSM && <a target="_blank" href={`https://www.instagram.com/${userInfo?.user.liensSM}`}>
             <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M25 12.5C25 18.8133 20.3199 24.0326 14.2405 24.8798C13.6718 24.959 13.0902 25 12.5 25C11.8184 25 11.1497 24.9453 10.4975 24.8402C4.54624 23.8822 0 18.7212 0 12.4993C0 5.59642 5.59642 0 12.5 0C19.4036 0 25 5.59642 25 12.5Z" fill="url(#paint0_linear_250_40236)" />

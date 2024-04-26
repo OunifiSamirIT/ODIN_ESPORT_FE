@@ -7,7 +7,6 @@ import { Context } from "../../../index"
 
 
 import { Modal } from 'react-modal';
-import Modal from "react-modal"
 const Scout = ({ userInfo }) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -28,8 +27,6 @@ const Scout = ({ userInfo }) => {
     const getWhatsappPrefix = (string) => {
         return string.split(',')[0].substring(1);
     }
-
-    const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
 const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 

@@ -362,7 +362,19 @@ const ChallengeDetais = () => {
 
                             }
                         </div>
-                        <p className="text-center text-gray-500 text-sm md:text-base">Confimez-vous que vous voulez supprimer votre participation au challenge ?</p>
+                        <p className="text-center text-gray-500 text-sm md:text-base">
+                        
+                        
+                        {
+                                getTranslation(
+                                    `Do you confirm that you want to delete your participation in the challenge?`,  // -----> Englais
+                                    `Confimez-vous que vous voulez supprimer votre participation au challenge ?`, //  -----> Francais
+                                    //   ``,  //  -----> Turkey
+                                    //   `` ,  //  -----> Allemagne
+                                )
+
+                            }
+                        </p>
 
                         <div className="flex justify-center items-center px-8 py-10 mt-8 font-medium text-white rounded-[10px] border-2 border-blue-600 border-dashed max-md:px-5 max-md:max-w-full">
                             <div className="relative ">
@@ -401,7 +413,7 @@ const ChallengeDetais = () => {
                                 </svg>
                                 <button type="submit"> {
                                     getTranslation(
-                                        `Confirm`,  // -----> Englais
+                                        `Submit`,  // -----> Englais
                                         `Confirmer`, //  -----> Francais
                                         //   ``,  //  -----> Turkey
                                         //   `` ,  //  -----> Allemagne
@@ -548,7 +560,7 @@ const ChallengeDetais = () => {
 
                                                 }</button>
                                             </div>
-                                            <div className="flex gap-2 py-2">
+                                            {/* <div className="flex gap-2 py-2"> */}
                                                 <img
                                                     loading="lazy"
                                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/798714e6a8ae27d83b62e7cfed800557a2f9db0ea140b04eca4377d04c78b16b?"
@@ -563,7 +575,7 @@ const ChallengeDetais = () => {
                                                     )
 
                                                 }</button>
-                                            </div>
+                                            {/* </div> */}
                                         </div>
                                     </div>
                                     <div className="flex gap-4 justify-between items-center px-8 mt-2 w-full text-xs font-light whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:px-5 max-md:max-w-full">
@@ -825,7 +837,7 @@ const ChallengeDetais = () => {
 
                                         } </div>
                                     </div>
-                                    {<div className="text-white">
+                                    {isOwner(item.userId) && <div className="text-white">
                                         Ma Vidéo
                                     </div>}
 
