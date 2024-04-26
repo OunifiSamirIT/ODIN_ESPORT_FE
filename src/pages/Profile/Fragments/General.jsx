@@ -157,16 +157,6 @@ const General = ({ userInfo }) => {
               </Modal>
             </div>
 
-
-
-
-
-            {/* <img
-              alt="profile"
-              loading="lazy"
-              srcSet={userInfo?.user.image ? userInfo?.user.image : Placeholder}
-              className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
-            /> */}
             <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
               <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
                 <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>

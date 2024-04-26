@@ -714,11 +714,10 @@ const Personal = ({ userInfo }) => {
                           styles={{
                             control: (provided, state) => ({
                               ...provided,
-                              borderRadius: "0.375rem", // You can adjust the radius as needed
-
+                              borderRadius: "0.375rem",
                               width: "100%",
-                              fontSize: "1rem", // Set the desired font size
-                              backgroundColor: "white", // Set the background color
+                              fontSize: "1rem",
+                              backgroundColor: "white",
                               borderWidth: "none",
                             }),
                             menu: (provided, state) => ({
@@ -726,6 +725,15 @@ const Personal = ({ userInfo }) => {
                               width: "100%",
                             }),
                           }}
+                          filterOption={(option, inputValue) => {
+                            const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+
+                            const nationaliteString = typeof nationalite === 'string' ? nationalite.toLowerCase() : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
+
+                            return nationaliteString.includes(inputValue.toLowerCase());
+                          }}
+                          // Ensure that all options are displayed even when filtered
+                          isSearchable
                         />
 
                       )}
@@ -783,6 +791,15 @@ const Personal = ({ userInfo }) => {
                                 width: "100%",
                               })
                             }}
+                            filterOption={(option, inputValue) => {
+                              const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+
+                              const nationaliteString = typeof nationalite === 'string' ? nationalite.toLowerCase() : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
+
+                              return nationaliteString.includes(inputValue.toLowerCase());
+                            }}
+                            // Ensure that all options are displayed even when filtered
+                            isSearchable
                           />
                         )}
                       />
@@ -819,7 +836,7 @@ const Personal = ({ userInfo }) => {
                 type="text"
                 name="cityresidence"
                 {...register("cityresidence")}
-                className={` text-zinc-600 w-[95%] md:w-1/2 form-control justify-center items-start py-3.5  pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]  max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
+                className={` text-zinc-600   form-control justify-center items-start py-3.5  pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]  max-md:pr-5 ${errors.cityresidence ? "is-invalid" : ""
                   }`}
                 placeholder="Ville"
               />
@@ -832,7 +849,7 @@ const Personal = ({ userInfo }) => {
 
 
 
-            <div className="lg:flex-1 w-full">
+            <div className="lg:flex-1 w-full ">
               <div className="flex gap-4 items-center px-4 text-lg text-zinc-900">
                 <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_608_33866)">
@@ -847,28 +864,35 @@ const Personal = ({ userInfo }) => {
 
                 <div className="flex-auto">Langue</div>
               </div>{" "}
+              <div className={`flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.country ? 'border !border-red-500' : ''}`}>
+                <div className="flex gap-5 justify-between px-2  w-full rounded-md">
+                  <div className="flex gap-4 justify-between w-full">
+                    <div className="flex-auto">
+
+                      <Controller
+                        control={control}
+                        name="langueparlee"
+                        render={({ field }) => (
+                          <Select
+                            options={optionsLangue}
+                            isMulti
+                            value={selectedLanguages}
+                            onChange={handleLanguageChange}
+                            className="w-full"
+                            placeholder="Langue parlée"
+                            styles={{ control: (base) => ({ ...base, border: "none" }) }}
 
 
-              <Controller
-                control={control}
-                name="langueparlee"
-                render={({ field }) => (
-                  <Select
-                    options={optionsLangue}
-                    isMulti
-                    value={selectedLanguages}
-                    onChange={handleLanguageChange}
-                    className="w-full"
-                    placeholder="Langue parlée"
-                    styles={{ control: (base) => ({ ...base, border: "none" }) }}
+                            {...field}
+                          />
+                        )}
 
+                      />
 
-                    {...field}
-                  />
-                )}
-
-              />
-
+                    </div>
+                  </div>{" "}
+                </div>
+              </div>
 
             </div>
           </div>
@@ -877,8 +901,8 @@ const Personal = ({ userInfo }) => {
 
 
           <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
-            <div className="hidden md:flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
-            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div className="hidden md:flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-500 rounded-[30px] max-md:px-5">
+              <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
               </svg>
               <button onClick={resetForm} className="">Annuler</button>
@@ -891,7 +915,7 @@ const Personal = ({ userInfo }) => {
               />
               <button type='submit' className="">Confirmer</button>
             </div>
-            <div className="md:hidden flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
+            <div className="md:hidden flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2  border-orange-600 rounded-[30px] max-md:px-5">
               <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
               </svg>

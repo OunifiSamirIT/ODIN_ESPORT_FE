@@ -11,7 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 const Information = ({ userInfo, fetchUserInfo }) => {
     return (
         <>
-
+            <div>
+                <ToastContainer />
+            </div>
             {/* {userInfo.user.profil === 'scout'  &&  <Scout userInfo={userInfo}/>} */}
             {userInfo?.user.profil === 'player' && <Player userInfo={userInfo} fetchUserInfo={fetchUserInfo} />}
             {userInfo?.user.profil === 'coach' && <Entraineur userInfo={userInfo} />}

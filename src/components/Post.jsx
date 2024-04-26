@@ -757,7 +757,6 @@ function Post({ article, setArticles }) {
                                 {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''} 
                                 {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''} 
                                 {article.user.user.profil == 'scout' ? 'Scout' : ''} 
-
                               </span>
                               <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                               {formatDate(article?.user?.user?.createdAt)}
