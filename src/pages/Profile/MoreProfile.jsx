@@ -17,10 +17,14 @@ import T442 from "../../assets/4-4-2.png";
 import T532 from "../../assets/5-3-2.png";
 import T541 from "../../assets/5-4-1.png";
 import { Config } from "../../config";
+import { Context } from "../../index";
+import { Langue } from "../../assets/data/Langue";
 import { paysAllInfo } from "../../assets/data/Country";
 import Other from './../Setting/Fragments/Other';
 const More = () => {
   const { id } = useParams();
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
+
   const [player, setPlayer] = useState(null);
   const [agent, setAgent] = useState(null);
   const [user, setUser] = useState([]);
@@ -128,7 +132,17 @@ const More = () => {
               className="my-auto aspect-square w-[15px]"
             />
             <Link to={`/profile/${id}`} className="hover:text-orange-300">
-              Revenir au Profil
+
+              {
+                getTranslation(
+                  `Back to profile`,  // -----> Englais
+                  `Revenir au Profil`, //  -----> Francais
+                  //   ``,  //  -----> Turkey
+                  //   `` ,  //  -----> Allemagne
+                )
+
+              }
+
             </Link>
           </div>
           {CurrentUser?.user.profil === "player" && (
@@ -168,7 +182,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p>Modifier</p>
+                              <p> {
+                                getTranslation(
+                                  `Edit`,  // -----> Englais
+                                  `Modifier`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              }</p>
                             </Link>
                           </div>
                         ) : (
@@ -220,7 +242,18 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p>
+
+                                      {
+                                        getTranslation(
+                                          `Add friend`,  // -----> Englais
+                                          `Ajouter ami(e)`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
+                                    </p>
                                   </button>
                                 )}
                               </div>
@@ -274,7 +307,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Link copied!`,  // -----> Englais
+                                          `  Lien copié!`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -320,7 +361,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Link copied!`,  // -----> Englais
+                                          `  Lien copié!`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -329,7 +378,7 @@ const More = () => {
                           </>
                         )}
                       </div>
-                      <div className="mt-3 flex gap-x-4 px gap-y-2 justify-center md:justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap max-w-full">
+                      <div className="mt-3 flex gap-x-4 px gap-y-2 justify-center  items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap max-w-full">
                         <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                           <span
                             className={`flag-icon flag-icon-${getCountryFlagFromCountryName(
@@ -493,7 +542,16 @@ const More = () => {
                             </defs>
                           </svg>
 
-                          <div className="grow self-start mt-1">Licence</div>
+                          <div className="grow self-start mt-1">
+                            {
+                              getTranslation(
+                                `License`,  // -----> Englais
+                                `Licence`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
+
+                            } </div>
                           <svg
                             width="21"
                             height="15"
@@ -554,6 +612,16 @@ const More = () => {
                             {CurrentUser.player.PiedFort}
                           </div>
                         </div>
+
+                        <div className="flex gap-2   justify-center p-2 whitespace-nowrap">
+                          <svg className="size-6" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5C11.1463 5.00005 11.2893 5.04286 11.4115 5.12317C11.5338 5.20348 11.6299 5.31778 11.688 5.452L14.938 12.952C14.98 13.0428 15.0035 13.1411 15.007 13.2411C15.0105 13.3411 14.9939 13.4408 14.9583 13.5343C14.9226 13.6278 14.8686 13.7133 14.7995 13.7856C14.7303 13.8579 14.6474 13.9157 14.5555 13.9554C14.4637 13.9952 14.3649 14.0162 14.2648 14.0172C14.1647 14.0182 14.0655 13.9991 13.9729 13.9611C13.8803 13.9232 13.7962 13.8671 13.7257 13.7961C13.6551 13.7252 13.5995 13.6408 13.562 13.548L12.89 12H9.10899L8.43899 13.548C8.35996 13.7306 8.21162 13.8743 8.02662 13.9476C7.84161 14.0208 7.63509 14.0175 7.45249 13.9385C7.26989 13.8595 7.12616 13.7111 7.05293 13.5261C6.9797 13.3411 6.98296 13.1346 7.06199 12.952L10.312 5.452C10.3701 5.31778 10.4662 5.20348 10.5884 5.12317C10.7107 5.04286 10.8537 5.00005 11 5ZM9.75999 10.5H12.24L11 7.636L9.75999 10.5ZM4.99999 1C5.1989 1 5.38967 1.07902 5.53032 1.21967C5.67097 1.36032 5.74999 1.55109 5.74999 1.75V3.011C6.61904 3.03659 7.4862 3.10702 8.34799 3.222C8.54518 3.24852 8.72376 3.35229 8.84444 3.51048C8.96512 3.66866 9.01801 3.86831 8.99149 4.0655C8.96497 4.26269 8.8612 4.44127 8.70301 4.56195C8.54483 4.68262 8.34518 4.73552 8.14799 4.709C7.92799 4.679 7.70799 4.653 7.48599 4.629C7.13418 5.84232 6.60659 6.99758 5.91999 8.058C6.15699 8.362 6.40799 8.653 6.67199 8.931C6.80924 9.07501 6.88366 9.26765 6.87888 9.46653C6.8741 9.66541 6.7905 9.85425 6.64649 9.9915C6.50248 10.1288 6.30984 10.2032 6.11096 10.1984C5.91208 10.1936 5.72324 10.11 5.58599 9.966C5.3833 9.75299 5.18786 9.53319 4.99999 9.307C4.18263 10.2901 3.22543 11.1479 2.15899 11.853C1.9931 11.9575 1.79287 11.993 1.60119 11.9517C1.40951 11.9104 1.24162 11.7956 1.13349 11.6321C1.02535 11.4685 0.985581 11.2691 1.02268 11.0766C1.05979 10.884 1.17082 10.7137 1.33199 10.602C2.38018 9.9086 3.30835 9.049 4.07999 8.057C3.88229 7.75222 3.69746 7.43928 3.52599 7.119C3.43224 6.94356 3.41202 6.73806 3.46978 6.54771C3.52754 6.35736 3.65855 6.19775 3.83399 6.104C4.00943 6.01025 4.21493 5.99003 4.40528 6.04779C4.59563 6.10555 4.75524 6.23656 4.84899 6.412C4.89799 6.502 4.94799 6.593 4.99899 6.683C5.38699 6.003 5.70699 5.278 5.95099 4.519C4.58141 4.46485 3.2097 4.52842 1.85099 4.709C1.6538 4.73552 1.45415 4.68262 1.29597 4.56195C1.13778 4.44127 1.03401 4.26269 1.00749 4.0655C0.98097 3.86831 1.03387 3.66866 1.15455 3.51048C1.27523 3.35229 1.4538 3.24852 1.65099 3.222C2.50399 3.108 3.37099 3.037 4.24899 3.011V1.75C4.24899 1.65143 4.26842 1.55382 4.30618 1.46276C4.34393 1.3717 4.39926 1.28897 4.46901 1.21932C4.53876 1.14966 4.62156 1.09444 4.71267 1.0568C4.80378 1.01917 4.90142 0.999869 4.99999 1Z" fill="black" />
+                          </svg>
+
+                          <div className=" self-start mt-1">
+                            {CurrentUser.user.langueparlee}
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="flex text-break md:text-left  text-center  font-light  text-neutral-900">
@@ -590,7 +658,20 @@ const More = () => {
                         </clipPath>
                       </defs>
                     </svg>
-                    <div className="">Les Positions</div>
+                    <div className="">
+
+
+                      {
+                        getTranslation(
+                          `The positions`,  // -----> Englais
+                          `Les positions`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
+
+                      }
+
+                    </div>
                   </div>
                   <Terrain
                     positionPlay={CurrentUser?.player.positionPlay}
@@ -604,7 +685,16 @@ const More = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow">
+                      {
+                        getTranslation(
+                          `Skills`,  // -----> Englais
+                          ` Compétences`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
+
+                      } </div>
                   </div>
                   <div className="flex flex gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.player.skillsInProfile
@@ -641,7 +731,20 @@ const More = () => {
                       />
                     </svg>
 
-                    <div className="grow">Expériences</div>
+                    <div className="grow">
+
+
+
+                      {
+                        getTranslation(
+                          `Experiences`,  // -----> Englais
+                          ` Expériences`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
+
+                      }
+                    </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3 ">
                     {experience.map((item) => {
@@ -721,7 +824,17 @@ const More = () => {
                             {CurrentUser?.user.nom} {CurrentUser?.user.prenom}
                           </div>
                           <div className="text-base font-medium text-blue-600">
-                            Entraineur
+
+
+                            {
+                              getTranslation(
+                                `Coach`,  // -----> Englais
+                                `Entraîneur`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
+
+                            }
                           </div>
                         </div>
                         {isOwner ? (
@@ -735,7 +848,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p>Modifier</p>
+                              <p>{
+                                getTranslation(
+                                  `Edit`,  // -----> Englais
+                                  `Modifier`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              }</p>
                             </Link>
                           </div>
                         ) : (
@@ -787,7 +908,15 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p> {
+                                      getTranslation(
+                                        `Add friend`,  // -----> Englais
+                                        `Ajouter ami(e)`, //  -----> Francais
+                                        //   ``,  //  -----> Turkey
+                                        //   `` ,  //  -----> Allemagne
+                                      )
+
+                                    } </p>
                                   </button>
                                 )}
                               </div>
@@ -841,7 +970,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Link copied!`,  // -----> Englais
+                                          `  Lien copié!`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -887,7 +1024,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Link copied!`,  // -----> Englais
+                                          `  Lien copié!`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -1036,8 +1181,31 @@ const More = () => {
 
                           <div className="grow self-start mt-1">
                             {" "}
-                            {CurrentUser.coach?.totalTeam} équipes entrainées
+                            {CurrentUser.coach?.totalTeam}
+
+                            {
+                              getTranslation(
+                                `Clubs coached`,  // -----> Englais
+                                `Equipes entrainées`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
+
+                            }
+
+
                           </div>
+                          <div className="flex gap-2   justify-center p-2 whitespace-nowrap">
+                            <svg className="size-6" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5C11.1463 5.00005 11.2893 5.04286 11.4115 5.12317C11.5338 5.20348 11.6299 5.31778 11.688 5.452L14.938 12.952C14.98 13.0428 15.0035 13.1411 15.007 13.2411C15.0105 13.3411 14.9939 13.4408 14.9583 13.5343C14.9226 13.6278 14.8686 13.7133 14.7995 13.7856C14.7303 13.8579 14.6474 13.9157 14.5555 13.9554C14.4637 13.9952 14.3649 14.0162 14.2648 14.0172C14.1647 14.0182 14.0655 13.9991 13.9729 13.9611C13.8803 13.9232 13.7962 13.8671 13.7257 13.7961C13.6551 13.7252 13.5995 13.6408 13.562 13.548L12.89 12H9.10899L8.43899 13.548C8.35996 13.7306 8.21162 13.8743 8.02662 13.9476C7.84161 14.0208 7.63509 14.0175 7.45249 13.9385C7.26989 13.8595 7.12616 13.7111 7.05293 13.5261C6.9797 13.3411 6.98296 13.1346 7.06199 12.952L10.312 5.452C10.3701 5.31778 10.4662 5.20348 10.5884 5.12317C10.7107 5.04286 10.8537 5.00005 11 5ZM9.75999 10.5H12.24L11 7.636L9.75999 10.5ZM4.99999 1C5.1989 1 5.38967 1.07902 5.53032 1.21967C5.67097 1.36032 5.74999 1.55109 5.74999 1.75V3.011C6.61904 3.03659 7.4862 3.10702 8.34799 3.222C8.54518 3.24852 8.72376 3.35229 8.84444 3.51048C8.96512 3.66866 9.01801 3.86831 8.99149 4.0655C8.96497 4.26269 8.8612 4.44127 8.70301 4.56195C8.54483 4.68262 8.34518 4.73552 8.14799 4.709C7.92799 4.679 7.70799 4.653 7.48599 4.629C7.13418 5.84232 6.60659 6.99758 5.91999 8.058C6.15699 8.362 6.40799 8.653 6.67199 8.931C6.80924 9.07501 6.88366 9.26765 6.87888 9.46653C6.8741 9.66541 6.7905 9.85425 6.64649 9.9915C6.50248 10.1288 6.30984 10.2032 6.11096 10.1984C5.91208 10.1936 5.72324 10.11 5.58599 9.966C5.3833 9.75299 5.18786 9.53319 4.99999 9.307C4.18263 10.2901 3.22543 11.1479 2.15899 11.853C1.9931 11.9575 1.79287 11.993 1.60119 11.9517C1.40951 11.9104 1.24162 11.7956 1.13349 11.6321C1.02535 11.4685 0.985581 11.2691 1.02268 11.0766C1.05979 10.884 1.17082 10.7137 1.33199 10.602C2.38018 9.9086 3.30835 9.049 4.07999 8.057C3.88229 7.75222 3.69746 7.43928 3.52599 7.119C3.43224 6.94356 3.41202 6.73806 3.46978 6.54771C3.52754 6.35736 3.65855 6.19775 3.83399 6.104C4.00943 6.01025 4.21493 5.99003 4.40528 6.04779C4.59563 6.10555 4.75524 6.23656 4.84899 6.412C4.89799 6.502 4.94799 6.593 4.99899 6.683C5.38699 6.003 5.70699 5.278 5.95099 4.519C4.58141 4.46485 3.2097 4.52842 1.85099 4.709C1.6538 4.73552 1.45415 4.68262 1.29597 4.56195C1.13778 4.44127 1.03401 4.26269 1.00749 4.0655C0.98097 3.86831 1.03387 3.66866 1.15455 3.51048C1.27523 3.35229 1.4538 3.24852 1.65099 3.222C2.50399 3.108 3.37099 3.037 4.24899 3.011V1.75C4.24899 1.65143 4.26842 1.55382 4.30618 1.46276C4.34393 1.3717 4.39926 1.28897 4.46901 1.21932C4.53876 1.14966 4.62156 1.09444 4.71267 1.0568C4.80378 1.01917 4.90142 0.999869 4.99999 1Z" fill="black" />
+                            </svg>
+
+                            <div className=" self-start mt-1">
+
+                              {CurrentUser.user.langueparlee}
+                            </div>
+                          </div>
+
                         </div>
                       </div>
                     </div>
@@ -1075,7 +1243,18 @@ const More = () => {
                         </clipPath>
                       </defs>
                     </svg>
-                    <div className="grow">Taddctiques Préférée</div>
+                    <div className="grow">
+
+                      {
+                        getTranslation(
+                          ``,  // -----> Englais
+                          `Tactique préférée`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
+
+                      }
+                    </div>
                   </div>
                   <div className="flex flex-col justify-center text-xs text-center bg-red-400 w-full md:w-[366px]  text-white whitespace-nowrap ">
                     <div className="relative flex relative flex-col py-9 pr-12 pl-4 w-full aspect-[1.45]">
@@ -1145,7 +1324,15 @@ const More = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow">{
+                      getTranslation(
+                        `Skills`,  // -----> Englais
+                        ` Compétences`, //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )
+
+                    } </div>
                   </div>
                   <div className="  max-w-xl flex flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.coach?.skills
@@ -1259,28 +1446,27 @@ const More = () => {
           {CurrentUser?.user.profil === "agent" && (
             <div className="flex gap-y-4 flex-col items-center md:px-[30px] max-sm:px-2 py-6 bg-white rounded-[10px] mt-3">
               <div className="flex justify-between w-full max-w-[1110px]">
-                <div className="w-full flex gap-3 justify-center items-center md:items-start max-md:flex-col max-md:gap-0">
-                <div className="flex items-center md:w-fit w-full justify-center  md:mx-[0px] ">
-            <img
-              alt="profile"
-              loading="lazy"
-              srcSet={CurrentUser.user.image ? CurrentUser?.user.image : Placeholder}
-              className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
-            />
-            <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
-              <div className="text-xl   justify-center font-bold flex-col text-zinc-900  h-full  flex gap-2 flex-wrap whitespace-normal">
-                <p className="break-all">{CurrentUser?.user.nom}  {CurrentUser?.user.prenom}</p>
-                <p className="break-all text-[#2458b7]">{CurrentUser?.user.profil} </p>
-              </div>
-              
-            </div>
-          </div>
-                  <div className="w-full flex flex-col items-center justify-between gap-y-4">
-                    <div className="flex flex-col w-full ">
-                      <div className="flex gap-2 mt-3 md:justify-between justify-center w-full max-md:flex-wrap max-md:max-w-full">
-                        
+                <div className="w-full  flex gap-3 justify-center items-center md:items-start max-md:flex-col max-md:gap-0">
+                  <div className="flex items-center md:w-fit w-full justify-center  md:mx-[0px] ">
+                    <img
+                      alt="profile"
+                      loading="lazy"
+                      srcSet={CurrentUser.user.image ? CurrentUser?.user.image : Placeholder}
+                      className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+                    />
+                  </div>
+                  <div className="flex flex-col items-center justify-between gap-y-4">
+                    <div className="flex  flex-col w-full ">
+                      <div className="flex md:flex-row flex-col">
+                        <div className="flex-col grow w-full items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
+                          <div className="text-xl   justify-center font-bold flex-col text-zinc-900  h-full  flex gap-2 flex-wrap whitespace-normal">
+                            <p className="break-all">{CurrentUser?.user.nom}  {CurrentUser?.user.prenom}</p>
+                            <p className="break-all text-[#2458b7]">{CurrentUser?.user.profil} </p>
+                          </div>
+
+                        </div>
                         {isOwner ? (
-                          <div className="max-sm:w-full flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]">
+                          <div className="max-sm:w-full flex gap-2 max-sm:justify-center justify-center px-8 py-2 h-12 text-base font-medium text-white bg-blue-600 rounded-[30px]">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
@@ -1290,7 +1476,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p >Modifier</p>
+                              <p > {
+                                getTranslation(
+                                  `Edit`,  // -----> Englais
+                                  `Modifier`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              } </p>
                             </Link>
                           </div>
                         ) : (
@@ -1342,7 +1536,15 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p>{
+                                      getTranslation(
+                                        `Add friend`,  // -----> Englais
+                                        `Ajouter ami(e)`, //  -----> Francais
+                                        //   ``,  //  -----> Turkey
+                                        //   `` ,  //  -----> Allemagne
+                                      )
+
+                                    }</p>
                                   </button>
                                 )}
                               </div>
@@ -1396,7 +1598,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Copy Link`,  // -----> Englais
+                                          `  Copier le lien`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -1442,7 +1652,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Copy Link`,  // -----> Englais
+                                          `  Copier le lien`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -1461,6 +1679,16 @@ const More = () => {
                           ></span>
                           <div className="grow self-start mt-1">
                             {CurrentUser.user?.countryresidence}
+                          </div>
+                        </div>
+                        <div className="flex gap-2   justify-center p-2 whitespace-nowrap">
+                          <svg className="size-6" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5C11.1463 5.00005 11.2893 5.04286 11.4115 5.12317C11.5338 5.20348 11.6299 5.31778 11.688 5.452L14.938 12.952C14.98 13.0428 15.0035 13.1411 15.007 13.2411C15.0105 13.3411 14.9939 13.4408 14.9583 13.5343C14.9226 13.6278 14.8686 13.7133 14.7995 13.7856C14.7303 13.8579 14.6474 13.9157 14.5555 13.9554C14.4637 13.9952 14.3649 14.0162 14.2648 14.0172C14.1647 14.0182 14.0655 13.9991 13.9729 13.9611C13.8803 13.9232 13.7962 13.8671 13.7257 13.7961C13.6551 13.7252 13.5995 13.6408 13.562 13.548L12.89 12H9.10899L8.43899 13.548C8.35996 13.7306 8.21162 13.8743 8.02662 13.9476C7.84161 14.0208 7.63509 14.0175 7.45249 13.9385C7.26989 13.8595 7.12616 13.7111 7.05293 13.5261C6.9797 13.3411 6.98296 13.1346 7.06199 12.952L10.312 5.452C10.3701 5.31778 10.4662 5.20348 10.5884 5.12317C10.7107 5.04286 10.8537 5.00005 11 5ZM9.75999 10.5H12.24L11 7.636L9.75999 10.5ZM4.99999 1C5.1989 1 5.38967 1.07902 5.53032 1.21967C5.67097 1.36032 5.74999 1.55109 5.74999 1.75V3.011C6.61904 3.03659 7.4862 3.10702 8.34799 3.222C8.54518 3.24852 8.72376 3.35229 8.84444 3.51048C8.96512 3.66866 9.01801 3.86831 8.99149 4.0655C8.96497 4.26269 8.8612 4.44127 8.70301 4.56195C8.54483 4.68262 8.34518 4.73552 8.14799 4.709C7.92799 4.679 7.70799 4.653 7.48599 4.629C7.13418 5.84232 6.60659 6.99758 5.91999 8.058C6.15699 8.362 6.40799 8.653 6.67199 8.931C6.80924 9.07501 6.88366 9.26765 6.87888 9.46653C6.8741 9.66541 6.7905 9.85425 6.64649 9.9915C6.50248 10.1288 6.30984 10.2032 6.11096 10.1984C5.91208 10.1936 5.72324 10.11 5.58599 9.966C5.3833 9.75299 5.18786 9.53319 4.99999 9.307C4.18263 10.2901 3.22543 11.1479 2.15899 11.853C1.9931 11.9575 1.79287 11.993 1.60119 11.9517C1.40951 11.9104 1.24162 11.7956 1.13349 11.6321C1.02535 11.4685 0.985581 11.2691 1.02268 11.0766C1.05979 10.884 1.17082 10.7137 1.33199 10.602C2.38018 9.9086 3.30835 9.049 4.07999 8.057C3.88229 7.75222 3.69746 7.43928 3.52599 7.119C3.43224 6.94356 3.41202 6.73806 3.46978 6.54771C3.52754 6.35736 3.65855 6.19775 3.83399 6.104C4.00943 6.01025 4.21493 5.99003 4.40528 6.04779C4.59563 6.10555 4.75524 6.23656 4.84899 6.412C4.89799 6.502 4.94799 6.593 4.99899 6.683C5.38699 6.003 5.70699 5.278 5.95099 4.519C4.58141 4.46485 3.2097 4.52842 1.85099 4.709C1.6538 4.73552 1.45415 4.68262 1.29597 4.56195C1.13778 4.44127 1.03401 4.26269 1.00749 4.0655C0.98097 3.86831 1.03387 3.66866 1.15455 3.51048C1.27523 3.35229 1.4538 3.24852 1.65099 3.222C2.50399 3.108 3.37099 3.037 4.24899 3.011V1.75C4.24899 1.65143 4.26842 1.55382 4.30618 1.46276C4.34393 1.3717 4.39926 1.28897 4.46901 1.21932C4.53876 1.14966 4.62156 1.09444 4.71267 1.0568C4.80378 1.01917 4.90142 0.999869 4.99999 1Z" fill="black" />
+                          </svg>
+
+                          <div className=" self-start mt-1">
+
+                            {CurrentUser.user.langueparlee}
                           </div>
                         </div>
                         <div className="flex gap-2 justify-center items-center self-stretch py-2">
@@ -1594,7 +1822,17 @@ const More = () => {
 
                               <div className="grow self-start mt-1">
                                 {CurrentUser.agent.totalCareerTransfers}{" "}
-                                Transferts Effectués
+
+
+                                {
+                                  getTranslation(
+                                    ` Total Transfers made`,  // -----> Englais
+                                    `Total Transferts Effectués`, //  -----> Francais
+                                    //   ``,  //  -----> Turkey
+                                    //   `` ,  //  -----> Allemagne
+                                  )
+
+                                }
                               </div>
                             </>
                           </div>
@@ -1644,7 +1882,17 @@ const More = () => {
                                   </defs>
                                 </svg>
                                 <div className="grow self-start mt-1">
-                                  {CurrentUser.agent.totalPlayer} Joueurs
+                                  {CurrentUser.agent.totalPlayer}
+                                  {
+                                    getTranslation(
+                                      `Players`,  // -----> Englais
+                                      `Joueurs`, //  -----> Francais
+                                      //   ``,  //  -----> Turkey
+                                      //   `` ,  //  -----> Allemagne
+                                    )
+
+                                  }
+
                                 </div>
                               </div>
                             </>
@@ -1661,13 +1909,21 @@ const More = () => {
               <span className="h-1 w-full bg-gray-100"></span>
               <div className="max-w-[1110px] w-full flex-wrap">
                 <div className="flex  flex-1 flex-col gap-y-4">
-                  <div className="flex items-center  flex gap-4 px-4  text-lg whitespace-nowrap text-zinc-900">
+                  <div className=" items-center  flex gap-4 px-4  text-lg whitespace-nowrap text-zinc-900">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow"> {
+                      getTranslation(
+                        `Skills`,  // -----> Englais
+                        ` Compétences`, //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )
+
+                    } </div>
                   </div>
                   <div className="flex-1 max-sm:justify-center  w-full flex flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.agent.skillsagent
@@ -1752,7 +2008,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p>Modifier</p>
+                              <p> {
+                                getTranslation(
+                                  `Edit`,  // -----> Englais
+                                  `Modifier`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              } </p>
                             </Link>
                           </div>
                         ) : (
@@ -1804,7 +2068,15 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p>{
+                                      getTranslation(
+                                        `Add friend`,  // -----> Englais
+                                        `Ajouter ami(e)`, //  -----> Francais
+                                        //   ``,  //  -----> Turkey
+                                        //   `` ,  //  -----> Allemagne
+                                      )
+
+                                    }</p>
                                   </button>
                                 )}
                               </div>
@@ -1858,7 +2130,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Link copied!`,  // -----> Englais
+                                          `  Lien copié!`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -1904,7 +2184,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Link copied!`,  // -----> Englais
+                                          `  Lien copié!`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -2188,9 +2476,17 @@ const More = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow">{
+                      getTranslation(
+                        `Skills`,  // -----> Englais
+                        ` Compétences`, //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )
+
+                    } </div>
                   </div>
-                  <div className="flex flex gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+                  <div className="flex  gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.other.skillsAutre
 
                       .split(",")
@@ -2202,6 +2498,16 @@ const More = () => {
                           </div>
                         );
                       })}
+                  </div>
+                  <div className="flex gap-2   justify-center p-2 whitespace-nowrap">
+                    <svg className="size-6" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5C11.1463 5.00005 11.2893 5.04286 11.4115 5.12317C11.5338 5.20348 11.6299 5.31778 11.688 5.452L14.938 12.952C14.98 13.0428 15.0035 13.1411 15.007 13.2411C15.0105 13.3411 14.9939 13.4408 14.9583 13.5343C14.9226 13.6278 14.8686 13.7133 14.7995 13.7856C14.7303 13.8579 14.6474 13.9157 14.5555 13.9554C14.4637 13.9952 14.3649 14.0162 14.2648 14.0172C14.1647 14.0182 14.0655 13.9991 13.9729 13.9611C13.8803 13.9232 13.7962 13.8671 13.7257 13.7961C13.6551 13.7252 13.5995 13.6408 13.562 13.548L12.89 12H9.10899L8.43899 13.548C8.35996 13.7306 8.21162 13.8743 8.02662 13.9476C7.84161 14.0208 7.63509 14.0175 7.45249 13.9385C7.26989 13.8595 7.12616 13.7111 7.05293 13.5261C6.9797 13.3411 6.98296 13.1346 7.06199 12.952L10.312 5.452C10.3701 5.31778 10.4662 5.20348 10.5884 5.12317C10.7107 5.04286 10.8537 5.00005 11 5ZM9.75999 10.5H12.24L11 7.636L9.75999 10.5ZM4.99999 1C5.1989 1 5.38967 1.07902 5.53032 1.21967C5.67097 1.36032 5.74999 1.55109 5.74999 1.75V3.011C6.61904 3.03659 7.4862 3.10702 8.34799 3.222C8.54518 3.24852 8.72376 3.35229 8.84444 3.51048C8.96512 3.66866 9.01801 3.86831 8.99149 4.0655C8.96497 4.26269 8.8612 4.44127 8.70301 4.56195C8.54483 4.68262 8.34518 4.73552 8.14799 4.709C7.92799 4.679 7.70799 4.653 7.48599 4.629C7.13418 5.84232 6.60659 6.99758 5.91999 8.058C6.15699 8.362 6.40799 8.653 6.67199 8.931C6.80924 9.07501 6.88366 9.26765 6.87888 9.46653C6.8741 9.66541 6.7905 9.85425 6.64649 9.9915C6.50248 10.1288 6.30984 10.2032 6.11096 10.1984C5.91208 10.1936 5.72324 10.11 5.58599 9.966C5.3833 9.75299 5.18786 9.53319 4.99999 9.307C4.18263 10.2901 3.22543 11.1479 2.15899 11.853C1.9931 11.9575 1.79287 11.993 1.60119 11.9517C1.40951 11.9104 1.24162 11.7956 1.13349 11.6321C1.02535 11.4685 0.985581 11.2691 1.02268 11.0766C1.05979 10.884 1.17082 10.7137 1.33199 10.602C2.38018 9.9086 3.30835 9.049 4.07999 8.057C3.88229 7.75222 3.69746 7.43928 3.52599 7.119C3.43224 6.94356 3.41202 6.73806 3.46978 6.54771C3.52754 6.35736 3.65855 6.19775 3.83399 6.104C4.00943 6.01025 4.21493 5.99003 4.40528 6.04779C4.59563 6.10555 4.75524 6.23656 4.84899 6.412C4.89799 6.502 4.94799 6.593 4.99899 6.683C5.38699 6.003 5.70699 5.278 5.95099 4.519C4.58141 4.46485 3.2097 4.52842 1.85099 4.709C1.6538 4.73552 1.45415 4.68262 1.29597 4.56195C1.13778 4.44127 1.03401 4.26269 1.00749 4.0655C0.98097 3.86831 1.03387 3.66866 1.15455 3.51048C1.27523 3.35229 1.4538 3.24852 1.65099 3.222C2.50399 3.108 3.37099 3.037 4.24899 3.011V1.75C4.24899 1.65143 4.26842 1.55382 4.30618 1.46276C4.34393 1.3717 4.39926 1.28897 4.46901 1.21932C4.53876 1.14966 4.62156 1.09444 4.71267 1.0568C4.80378 1.01917 4.90142 0.999869 4.99999 1Z" fill="black" />
+                    </svg>
+
+                    <div className=" self-start mt-1">
+
+                      {CurrentUser.user.langueparlee}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2386,7 +2692,15 @@ const More = () => {
                               to={"/setting/personal"}
                               className="flex items-center"
                             >
-                              <p>Modifier</p>
+                              <p>{
+                                getTranslation(
+                                  `Edit`,  // -----> Englais
+                                  `Modifier`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              } </p>
                             </Link>
                           </div>
                         ) : (
@@ -2438,7 +2752,15 @@ const More = () => {
                                     className="flex items-center "
                                     onClick={sendFriendRequest}
                                   >
-                                    <p>Ajouter ami(e)</p>
+                                    <p>{
+                                      getTranslation(
+                                        `Add friend`,  // -----> Englais
+                                        `Ajouter ami(e)`, //  -----> Francais
+                                        //   ``,  //  -----> Turkey
+                                        //   `` ,  //  -----> Allemagne
+                                      )
+
+                                    }</p>
                                   </button>
                                 )}
                               </div>
@@ -2492,7 +2814,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Link copied!`,  // -----> Englais
+                                          `  Lien copié!`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -2538,7 +2868,15 @@ const More = () => {
                                   </button>
                                   {isCopyLinkPopupVisible && (
                                     <div className="text-black copy-link-popup flex items-center">
-                                      lien copié!
+                                      {
+                                        getTranslation(
+                                          `Link copied!`,  // -----> Englais
+                                          `  Lien copié!`, //  -----> Francais
+                                          //   ``,  //  -----> Turkey
+                                          //   `` ,  //  -----> Allemagne
+                                        )
+
+                                      }
                                     </div>
                                   )}
                                 </div>
@@ -2687,8 +3025,28 @@ const More = () => {
                           </svg>
 
                           <div className="grow self-start mt-1">
-                            {CurrentUser?.scout?.nb_joueurdetecter} Joueurs
-                            Détectés
+                            {CurrentUser?.scout?.nb_joueurdetecter}
+
+                            {
+                              getTranslation(
+                                `Players detected`,  // -----> Englais
+                                ` Joueurs Détectés`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
+
+                            }
+
+                          </div>
+                          <div className="flex gap-2   justify-center p-2 whitespace-nowrap">
+                            <svg className="size-6" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5C11.1463 5.00005 11.2893 5.04286 11.4115 5.12317C11.5338 5.20348 11.6299 5.31778 11.688 5.452L14.938 12.952C14.98 13.0428 15.0035 13.1411 15.007 13.2411C15.0105 13.3411 14.9939 13.4408 14.9583 13.5343C14.9226 13.6278 14.8686 13.7133 14.7995 13.7856C14.7303 13.8579 14.6474 13.9157 14.5555 13.9554C14.4637 13.9952 14.3649 14.0162 14.2648 14.0172C14.1647 14.0182 14.0655 13.9991 13.9729 13.9611C13.8803 13.9232 13.7962 13.8671 13.7257 13.7961C13.6551 13.7252 13.5995 13.6408 13.562 13.548L12.89 12H9.10899L8.43899 13.548C8.35996 13.7306 8.21162 13.8743 8.02662 13.9476C7.84161 14.0208 7.63509 14.0175 7.45249 13.9385C7.26989 13.8595 7.12616 13.7111 7.05293 13.5261C6.9797 13.3411 6.98296 13.1346 7.06199 12.952L10.312 5.452C10.3701 5.31778 10.4662 5.20348 10.5884 5.12317C10.7107 5.04286 10.8537 5.00005 11 5ZM9.75999 10.5H12.24L11 7.636L9.75999 10.5ZM4.99999 1C5.1989 1 5.38967 1.07902 5.53032 1.21967C5.67097 1.36032 5.74999 1.55109 5.74999 1.75V3.011C6.61904 3.03659 7.4862 3.10702 8.34799 3.222C8.54518 3.24852 8.72376 3.35229 8.84444 3.51048C8.96512 3.66866 9.01801 3.86831 8.99149 4.0655C8.96497 4.26269 8.8612 4.44127 8.70301 4.56195C8.54483 4.68262 8.34518 4.73552 8.14799 4.709C7.92799 4.679 7.70799 4.653 7.48599 4.629C7.13418 5.84232 6.60659 6.99758 5.91999 8.058C6.15699 8.362 6.40799 8.653 6.67199 8.931C6.80924 9.07501 6.88366 9.26765 6.87888 9.46653C6.8741 9.66541 6.7905 9.85425 6.64649 9.9915C6.50248 10.1288 6.30984 10.2032 6.11096 10.1984C5.91208 10.1936 5.72324 10.11 5.58599 9.966C5.3833 9.75299 5.18786 9.53319 4.99999 9.307C4.18263 10.2901 3.22543 11.1479 2.15899 11.853C1.9931 11.9575 1.79287 11.993 1.60119 11.9517C1.40951 11.9104 1.24162 11.7956 1.13349 11.6321C1.02535 11.4685 0.985581 11.2691 1.02268 11.0766C1.05979 10.884 1.17082 10.7137 1.33199 10.602C2.38018 9.9086 3.30835 9.049 4.07999 8.057C3.88229 7.75222 3.69746 7.43928 3.52599 7.119C3.43224 6.94356 3.41202 6.73806 3.46978 6.54771C3.52754 6.35736 3.65855 6.19775 3.83399 6.104C4.00943 6.01025 4.21493 5.99003 4.40528 6.04779C4.59563 6.10555 4.75524 6.23656 4.84899 6.412C4.89799 6.502 4.94799 6.593 4.99899 6.683C5.38699 6.003 5.70699 5.278 5.95099 4.519C4.58141 4.46485 3.2097 4.52842 1.85099 4.709C1.6538 4.73552 1.45415 4.68262 1.29597 4.56195C1.13778 4.44127 1.03401 4.26269 1.00749 4.0655C0.98097 3.86831 1.03387 3.66866 1.15455 3.51048C1.27523 3.35229 1.4538 3.24852 1.65099 3.222C2.50399 3.108 3.37099 3.037 4.24899 3.011V1.75C4.24899 1.65143 4.26842 1.55382 4.30618 1.46276C4.34393 1.3717 4.39926 1.28897 4.46901 1.21932C4.53876 1.14966 4.62156 1.09444 4.71267 1.0568C4.80378 1.01917 4.90142 0.999869 4.99999 1Z" fill="black" />
+                            </svg>
+
+                            <div className=" self-start mt-1">
+
+                              {CurrentUser.user.langueparlee}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -2708,7 +3066,15 @@ const More = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
                       className="shrink-0 w-5 aspect-square"
                     />
-                    <div className="grow">Compétences</div>
+                    <div className="grow"> {
+                      getTranslation(
+                        `Skills`,  // -----> Englais
+                        ` Compétences`, //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )
+
+                    } </div>
                   </div>
                   {/* social icons */}
 

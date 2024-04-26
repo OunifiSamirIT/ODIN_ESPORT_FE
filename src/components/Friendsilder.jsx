@@ -67,7 +67,7 @@ function FriendsSlider() {
                 </div> */}
             </div>
             <div className="flex gap-2 justify-between items-center pr-6 pl-1 mt-8">
-            <button onClick={prevSlide} className="prev-slide-button text-2xl">&#10094;</button>  <Slider ref={sliderRef} style={{ width: '93%' }} {...friendSettings}>
+                <button onClick={prevSlide} className="prev-slide-button text-2xl">&#10094;</button>  <Slider ref={sliderRef} style={{ width: '93%' }} {...friendSettings}>
                     {agents.map((value, index) => (
                         <div key={index} className="card w150 d-block border-0 bg-gray-100  rounded-3 overflow-hidden mb-3 me-3 ">
                             <div className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center">
@@ -78,12 +78,12 @@ function FriendsSlider() {
                                 </Link>
                                 <h4 className="fw-700 font-xssss mt-3 mb-1 d-block w-100"> {value.nom} {value.prenom} </h4>
                                 <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-3 lh-2">{value.profil}</p>
-                                <a href="/defaultmember" className=" justify-center px-6 py-2  text-white text-center bg-blue-600 rounded-[30px] max-md:px-5">Voir Profil</a>
+                                <a href={`/profile/${value.id}`} className=" justify-center px-6 py-2  text-white text-center bg-blue-600 rounded-[30px] max-md:px-5">Voir Profil</a>
                             </div>
                         </div>
                     ))}
                 </Slider>
-                
+
                 <button onClick={nextSlide} className="next-slide-button text-2xl">&#10095;</button>
             </div>
         </div>

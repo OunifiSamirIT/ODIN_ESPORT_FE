@@ -1186,8 +1186,8 @@ const Index = () => {
 
                               {
                                 getTranslation(
-                                  `Like`,  // -----> Englais
-                                  ` J'aime`, //  -----> Francais
+                                  `Comment`,  // -----> Englais
+                                  ` Commenter`, //  -----> Francais
                                   //   ``,  //  -----> Turkey
                                   //   `` ,  //  -----> Allemagne
                                 )
@@ -1204,8 +1204,8 @@ const Index = () => {
                             />
                             <div className="flex gap-2"> <span> {
                               getTranslation(
-                                `Like`,  // -----> Englais
-                                ` J'aime`, //  -----> Francais
+                                `Comment`,  // -----> Englais
+                                ` Commenter`, //  -----> Francais
                                 //   ``,  //  -----> Turkey
                                 //   `` ,  //  -----> Allemagne
                               )

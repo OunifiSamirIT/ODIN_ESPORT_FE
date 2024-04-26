@@ -8950,15 +8950,19 @@ function Register() {
                             }
                           </div>
                         </div>
-                        <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-lg text-white whitespace-nowrap w-full md:w-[33%]">
+
+                  <div className="flex flex-row md:gap-x-20">   
+                  
+                  
+                   <div className="flex flex-col justify-center px-1 mt-2 max-w-full text-lg text-white whitespace-nowrap w-full md:w-[33%]">
                           <div className="flex flex-col justify-center px-0.5 border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full">
                             <div className="flex flex-col justify-center py-1.5 pl-4 rounded-md max-md:max-w-full">
-                              <div className="flex gap-5 justify-between pr-4  max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
+                              <div className="flex md:gap-5 justify-between pr-4  max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
 
-                              <div className="w-full">
+                              <div className="w-full  ">
       <select
         onChange={handleChangeRegion}
-        multiple 
+        // multiple 
         className="w-full bg-zinc-100 border-[0px] text-black w-full text-base"
         style={{
           backgroundColor: 'transparent',
@@ -8976,26 +8980,13 @@ function Register() {
         <option value="Amérique">Amérique</option>
       </select>
       
-      <div>
-      <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4] " />
 
-        <h2>Regions Choisi:</h2>
-                        <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4] " />
+    </div>
 
-        <ul>
-          {selectedRegions.map(region => (
-            <li className="text-black gap-y-2 pb-2" key={region}>
-           <div className="flex flex-row  "> 
+    <div>
 
-             <div className="flex-col w-[50%]"> {region}</div>
 
-          <div className="flex-col"> <button className="transition ease-in-out delay-150 bg-red-300 hover:-translate-y-1 rounded-md hover:scale-110 hover:bg-red-500 duration-300  w-6 h-6 text-white text-xs" onClick={() => handleRemoveRegion(region)}>X</button></div>
-         
-          </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      
     </div>
 
 
@@ -9036,6 +9027,49 @@ function Register() {
                             <div className="error-message text-red-600 text-sm mt-2">{inputErrors['paysscout']}</div>
                           )} */}
                         </div>
+
+
+
+
+ {/* <div className="mt-2  flex flex-row">   
+    <h2>Regions Choisi:</h2>
+                        <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4] " />
+
+        <ul className="flex flex-row gap-y-2">
+          {selectedRegions.map(region => (
+            <li className="text-black bg-blue-600 mx-2 rounded-[30px] gap-y-2 " key={region}>
+           <div className="flex flex-row gap-x-2 "> 
+
+             <div className="flex-col text-white w-[50%] pl-2 pt-2"> {region}</div>
+
+          <div className="flex-col pt-2 flex-wrap"> <button className="transition mx-3 ease-in-out delay-150 bg-blue-600 hover:-translate-y-1 rounded-md hover:scale-110 hover:bg-blue-400 duration-300  w-6 h-6 text-white text-xs" onClick={() => handleRemoveRegion(region)}>X</button></div>
+         
+          </div>
+            </li>
+          ))}
+        </ul>
+      </div> */}
+
+<div class="mt-2 flex flex-col sm:flex-row"> 
+    <h2>Regions Choisi:</h2>
+
+    <ul class="flex flex-row flex-wrap gap-y-2"> 
+        {selectedRegions.map(region => (
+        <li class="text-black bg-blue-600 mx-2 rounded-[30px] flex items-center" key={region}>
+            <div class="flex md:flex-row gap-x-2"> 
+                <div class="text-white w-[50%] pl-2 pt-1"> {region}</div>
+                <div class="pt-1 flex-col flex-wrap"> 
+                    <button class="transition mx-3 ease-in-out delay-150 bg-blue-600 hover:-translate-y-1 rounded-md hover:scale-110 hover:bg-blue-400 duration-300 w-6 h-6 text-white text-xs" onClick={() => handleRemoveRegion(region)}>X</button>
+                </div>
+            </div>
+        </li>
+        ))}
+    </ul>
+</div>
+
+      
+</div>  
+
                         <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
                           <img
                             loading="lazy"
