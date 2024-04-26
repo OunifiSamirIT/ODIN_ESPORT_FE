@@ -546,7 +546,7 @@ const Index = () => {
           const userData = await userResponse.json();
           return {
             ...reply,
-            user: userData.user,
+            user: userData,
           };
         })
       );
@@ -868,8 +868,8 @@ const Index = () => {
                         <span
                           role="alert"
                           className={`text-sm ${errMsg?.status === "failed"
-                              ? "text-[#f64949fe]"
-                              : "text-[#2ba150fe]"
+                            ? "text-[#f64949fe]"
+                            : "text-[#2ba150fe]"
                             } mt-0.5`}
                         >
                           {errMsg?.message}
@@ -1019,9 +1019,9 @@ const Index = () => {
                             {article.user.user.profil == "scout" ? "Scout" : ""}
                           </span>
                           <span className="d-block font-xssss fw-500 text-grey-500">
-                            {new Date(
+                            {formatDate(
                               article.user.user.createdAt
-                            ).toLocaleDateString()}
+                            )}
                           </span>
                         </div>
 
@@ -1243,10 +1243,7 @@ const Index = () => {
                                   <div className="flex w-full">
                                     <figure className="avatar me-3 mb-8">
                                       <img
-                                        src={
-                                          comment.user &&
-                                          comment.user.user?.image
-                                        }
+                                        src={comment?.user?.user.image ? comment?.user?.user.image : PlaceHolder}
                                         className="shadow-sm rounded-full w-[64px] aspect-square"
                                         alt="post"
                                       />
@@ -1276,9 +1273,9 @@ const Index = () => {
                                               )}
                                             </div>
                                             <div className="mt-1 text-xs">
-                                              {new Date(
+                                              {formatDate(
                                                 comment.createdAt
-                                              ).toLocaleDateString()}
+                                              )}
                                             </div>
                                           </div>
                                         </div>
@@ -1324,7 +1321,7 @@ const Index = () => {
                                               <div className="flex items-start py-2">
                                                 <figure className="rounded-full overflow-hidden flex-shrink-0">
                                                   <img
-                                                    src={reply.user?.image}
+                                                    src={reply?.user?.user.image ? reply?.user?.user.image : PlaceHolder}
                                                     className="shadow-sm w-14 h-14 object-cover object-center"
                                                     alt="post"
                                                   />
@@ -1333,23 +1330,33 @@ const Index = () => {
                                                   <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                                     <div className="flex flex-col py-1 font-light text-zinc-900">
                                                       <div className="fw-700 text-grey-900 font-xssss mt-1">
-                                                        {reply.user &&
-                                                          reply.user.nom}
-                                                        {reply.user &&
-                                                          reply.user.prenom}
+                                                        {reply.user.user &&
+                                                          reply.user.user.nom}
+                                                        {reply.user.user &&
+                                                          reply.user.user.prenom}
                                                       </div>
                                                       <div className="mt-1 text-xs">
-                                                        {reply.user &&
-                                                          reply.user.profil}
+                                                        {/* {comment.user &&
+                                            comment?.user?.user?.profil} */}
+
+                                                        {reply.user && (
+                                                          <div>
+                                                            {reply.user.user.profil === 'other' && reply.user.other?.profession}
+                                                            {reply.user.user.profil === 'player' && 'Joueur'}
+                                                            {reply.user.user.profil === 'agent' && reply.user.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                                            {reply.user.user.profil === 'agent' && reply.user.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                                            {reply.user.user.profil === 'scout' && 'Scout'}
+                                                          </div>
+                                                        )}
                                                       </div>
                                                       <div className="mt-1 text-xs">
-                                                        {new Date(
+                                                        {formatDate(
                                                           reply.createdAt
-                                                        ).toLocaleDateString()}
+                                                        )}
                                                       </div>
                                                     </div>
                                                   </div>
-                                                  <div className="mt-2 text-base font-light text-zinc-900 px-4 text-break">
+                                                  <div className="mt-2 text-wrap font-light text-zinc-900 px-4 text-break">
                                                     {reply.description}
                                                   </div>
                                                 </div>
@@ -1518,9 +1525,9 @@ const Index = () => {
                             {article.user.user.profil == "scout" ? "Scout" : ""}
                           </span>
                           <span className="d-block font-xssss fw-500 text-grey-500">
-                            {new Date(
+                            {formatDate(
                               article.user.user.createdAt
-                            ).toLocaleDateString()}
+                            )}
                           </span>
                         </div>
                       </div>
@@ -1597,9 +1604,9 @@ const Index = () => {
                             {article.user.user.profil == "scout" ? "Scout" : ""}
                           </span>
                           <span className="d-block font-xssss fw-500 text-grey-500">
-                            {new Date(
+                            {formatDate(
                               article.user.user.createdAt
-                            ).toLocaleDateString()}
+                            )}
                           </span>
                         </div>
                       </div>
