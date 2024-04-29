@@ -137,9 +137,10 @@ function CreatePost({ setArticles }) {
       setPostsData(updatedPostsData);
       setPreviewImage(null);
       setValue("description", "");
-
       setPosting(false);
       fetchArticles();
+      window.location.reload()
+
     } catch (error) {
       console.error("Error submitting post:", error);
       setPosting(false);
