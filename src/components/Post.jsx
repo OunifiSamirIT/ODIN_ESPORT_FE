@@ -1046,11 +1046,12 @@ function Post({ article, setArticles }) {
                 </div>
               </div>
 
-              <div className="card-body p-0 me-lg-5 mt-2">
-                <p className="rounded-md text-base w-100 mb-2 text-dar">
-                  {article.description}{" "}
-                </p>
-              </div>
+              <div class="card-body p-0 me-lg-5 mt-2">
+    <p class="rounded-md  break-all  text-base w-full mb-2 text-dark">
+        {article.description}
+    </p>
+</div>
+
 
               {article?.video && (
                 <div className="card-body d-block p-0 mb-3">
