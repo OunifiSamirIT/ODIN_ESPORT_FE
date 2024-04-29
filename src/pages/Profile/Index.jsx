@@ -991,8 +991,8 @@ const Index = () => {
                         <figure className="avatar me-3">
                           <img
                             src={
-                              article?.user?.user.image
-                                ? article?.user?.user.image
+                              article?.user?.user?.image
+                                ? article?.user?.user?.image
                                 : PlaceHolder
                             }
                             className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
@@ -1245,11 +1245,13 @@ const Index = () => {
                                   <div className="flex w-full">
                                     <figure className="avatar me-3 mb-8">
                                       <img
-                                        src={comment?.user?.user.image ? comment?.user?.user.image : PlaceHolder}
+
+                                        src={comment?.user?.user?.image ? comment?.user?.user?.image : PlaceHolder}
                                         className="shadow-sm rounded-full w-[64px] aspect-square"
                                         alt="post"
                                       />
                                     </figure>
+
                                     <div className="flex flex-col w-full">
                                       <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
                                         <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
@@ -1323,7 +1325,7 @@ const Index = () => {
                                               <div className="flex items-start py-2">
                                                 <figure className="rounded-full overflow-hidden flex-shrink-0">
                                                   <img
-                                                    src={reply?.user?.user.image ? reply?.user?.user.image : PlaceHolder}
+                                                    src={reply?.user?.user?.image ? reply?.user?.user?.image : PlaceHolder}
                                                     className="shadow-sm w-14 h-14 object-cover object-center"
                                                     alt="post"
                                                   />
@@ -1497,8 +1499,8 @@ const Index = () => {
                         <figure className="avatar me-3">
                           <img
                             src={
-                              article?.user?.user.image
-                                ? article?.user?.user.image
+                              article?.user?.user?.image
+                                ? article?.user?.user?.image
                                 : PlaceHolder
                             }
                             className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"

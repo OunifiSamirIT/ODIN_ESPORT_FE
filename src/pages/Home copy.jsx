@@ -167,7 +167,7 @@ function Home() {
       console.log("🚀 ~ fetchArticles ~ reversedArticlesWithPromises:", reversedArticlesWithPromises)
       const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
       console.log("🚀 ~ fetchArticles ~ articlesWithLikesCount:", articlesWithLikesCount)
-     
+
       return articlesWithLikesCount
     } catch (error) {
       console.error("Error fetching data:", error);
