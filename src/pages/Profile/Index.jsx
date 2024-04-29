@@ -822,6 +822,26 @@ const Index = () => {
     setValue,
     formState: { errors },
   } = useForm();
+
+
+
+
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const id = storedUserData ? storedUserData.id : null;
+
+    if (id) {
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+        .then((response) => response.json())
+        .then((userData) => {
+          setUser(userData);
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+
+    // fetchArticles();
+    // fetchAlbums();
+  }, []);
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
@@ -852,7 +872,11 @@ const Index = () => {
                 <div className="card-body d-flex p-0">
                   <div className="flex w-full">
                     <img
-                      src={LocalStorageID?.image}
+                     src={
+                      user?.user?.image
+                        ? user?.user?.image
+                        : PlaceHolder
+                    }
                       alt="icon"
                       className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                     />
@@ -991,8 +1015,8 @@ const Index = () => {
                         <figure className="avatar me-3">
                           <img
                             src={
-                              article?.user?.user.image
-                                ? article?.user?.user.image
+                              article?.user?.user?.image
+                                ? article?.user?.user?.image
                                 : PlaceHolder
                             }
                             className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
@@ -1036,7 +1060,7 @@ const Index = () => {
                         {new Date(article.user.user.createdAt).toLocaleDateString()}
                       </span>
                     </h4> */}
-                        <div className="ms-auto relative">
+                        {/* <div className="ms-auto relative">
                           <svg
                             onClick={() => handleMoreClick(article)}
                             width="31"
@@ -1060,7 +1084,6 @@ const Index = () => {
                           </svg>
                           {showDropdown === article.id && isOpen && isOwner ? (
                             <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                              {/* Your dropdown menu content */}
                               <button
                                 className="block w-full px-4 py-2 text-gray-800 hover:bg-gray-200"
                                 onClick={() => handleEditClick(selectedArticle)}
@@ -1084,7 +1107,7 @@ const Index = () => {
                           ) : (
                             ""
                           )}
-                        </div>
+                        </div> */}
                       </div>
                       <div className="card-body p-0 me-lg-5">
                         <p className="font-light text-base rounded-md  w-full text-dark theme-dark-bg text-pretty">
@@ -1245,11 +1268,13 @@ const Index = () => {
                                   <div className="flex w-full">
                                     <figure className="avatar me-3 mb-8">
                                       <img
-                                        src={comment?.user?.user.image ? comment?.user?.user.image : PlaceHolder}
+
+                                        src={comment?.user?.user?.image ? comment?.user?.user?.image : PlaceHolder}
                                         className="shadow-sm rounded-full w-[64px] aspect-square"
                                         alt="post"
                                       />
                                     </figure>
+
                                     <div className="flex flex-col w-full">
                                       <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
                                         <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
@@ -1323,7 +1348,7 @@ const Index = () => {
                                               <div className="flex items-start py-2">
                                                 <figure className="rounded-full overflow-hidden flex-shrink-0">
                                                   <img
-                                                    src={reply?.user?.user.image ? reply?.user?.user.image : PlaceHolder}
+                                                    src={reply?.user?.user?.image ? reply?.user?.user?.image : PlaceHolder}
                                                     className="shadow-sm w-14 h-14 object-cover object-center"
                                                     alt="post"
                                                   />
@@ -1497,8 +1522,8 @@ const Index = () => {
                         <figure className="avatar me-3">
                           <img
                             src={
-                              article?.user?.user.image
-                                ? article?.user?.user.image
+                              article?.user?.user?.image
+                                ? article?.user?.user?.image
                                 : PlaceHolder
                             }
                             className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"

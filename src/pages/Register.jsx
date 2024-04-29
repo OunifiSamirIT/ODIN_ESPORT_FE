@@ -8279,6 +8279,15 @@ function Register() {
 
                                     onChange={handleCountryChangePaysAgentclub}
                                     value={optionsPays.find((option) => option.value === formData.paysclub)}
+                                    filterOption={(option, inputValue) => {
+                                      const paysRS = option.label.props.children; // Assuming nationalite is directly the children of label
+                                  
+                                      const paysRSString = typeof paysRS === 'string' ? paysRS.toLowerCase() : paysRS.join("").toLowerCase(); // Join children of JSX element if it's an array
+                                  
+                                      return paysRSString.includes(inputValue.toLowerCase());
+                                    }}
+                                    // Ensure that all options are displayed even when filtered
+                                    isSearchable
                                   />
 
                                   {inputErrors['paysclub'] && (

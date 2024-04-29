@@ -13,7 +13,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const [user, setUser] = useState({})
   const storedUserData = JSON.parse(localStorage.getItem("user"));
 
-  let {handleDarkModeToggler} = React.useContext(Context)
+  let { handleDarkModeToggler } = React.useContext(Context)
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
     fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
@@ -101,8 +101,8 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/3fb21d1ad3af303c8fe8ca3c06f84fa81ac2ef681719a85f8aae751c3eb5e1ef?"
               className="aspect-[1.49] w-[30px]"
             />
-          <LanguageToggler hide={true} color2={true}/>
-         
+            <LanguageToggler hide={true} color2={true} />
+
           </div>
           {/* <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-10 h-10 bg-[#11111120] cursor-pointer rounded-full justify-center items-center -ml-4">
             <img
