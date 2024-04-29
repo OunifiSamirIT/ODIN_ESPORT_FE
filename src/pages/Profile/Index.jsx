@@ -872,11 +872,11 @@ const Index = () => {
                 <div className="card-body d-flex p-0">
                   <div className="flex w-full">
                     <img
-                     src={
-                      user?.user?.image
-                        ? user?.user?.image
-                        : PlaceHolder
-                    }
+                      src={
+                        user?.user?.image
+                          ? user?.user?.image
+                          : PlaceHolder
+                      }
                       alt="icon"
                       className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                     />
