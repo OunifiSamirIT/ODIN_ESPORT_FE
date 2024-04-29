@@ -35,9 +35,9 @@ const Createpost = ({ setPostsData, storedUserData }) => {
         // Handle validation errors or missing user data
         return;
       }
-  
+
       setPosting(true);
-  
+
       const formData = new FormData();
       formData.append("titre", "Your default title");
       formData.append("description", data.description);
@@ -45,28 +45,28 @@ const Createpost = ({ setPostsData, storedUserData }) => {
       formData.append("type", "Your default type");
       formData.append("file", file);
       formData.append("fileType", fileType);
-  
+
       // Make a POST request to create a new article
       await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
       });
-  
+
       // After creating the article, fetch the updated list of articles
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const updatedPostsData = await response.json();
-  
+      console.log('hegfgfgsdddddddddddddddddddelo', response)
       // Update the list of posts and reset the preview image
       setPostsData(updatedPostsData);
       setPreviewImage(null);
-  
+      formData.remove("gdhssssssssssssssssssssssssghdfhdfhdfhdfhdfhdfh", file);
       setPosting(false);
     } catch (error) {
       console.error("Error submitting post:", error);
       setPosting(false);
     }
   };
-  
+
   const menuClass = `${isOpen ? " show" : ""}`;
 
   return (
@@ -78,9 +78,9 @@ const Createpost = ({ setPostsData, storedUserData }) => {
         <figure className="avatar position-absolute ms-2 mt-1 top-5">
           {
             <img
-            src={localStorage.getItem("user").image || Userdefault}
-            className="rounded-full object-fill w-10 h-10"
-          />
+              src={localStorage.getItem("user").image || Userdefault}
+              className="rounded-full object-fill w-10 h-10"
+            />
 
           }
         </figure>

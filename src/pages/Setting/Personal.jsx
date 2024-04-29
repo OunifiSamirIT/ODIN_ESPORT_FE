@@ -214,7 +214,7 @@ const Personal = ({ userInfo }) => {
   const selectedObject = (countryName) => { return optionsphone.find(item => item.label.props?.children[2] == countryName) || '' };
   const resetForm = async () => {
     setValue('nom', userInfo.user.nom);
-    setValue('discreptionBio', userInfo.user.discreptionBio);
+    setValue('discreptionBio', userInfo.user.discreption ?? '');
     setValue('prenom', userInfo.user.prenom);
     setValue('country', userInfo.user.country);
     setValue('cityresidence', userInfo.user.cityresidence);
