@@ -1159,8 +1159,8 @@ const Index = () => {
                                 </div> */}
                             <div className="col-sm-12 p-1 ">
                               <img
-                                className=" md:h-fit  max-h-[600px]   w-100 object-contain "
-                                src={article.image}
+className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
+src={article.image}
                                 alt={article.titre}
                               />
 
@@ -1740,7 +1740,10 @@ const Index = () => {
                           <div className="col-sm-12 p-1">
                             {article.video ? (
                               <div className="card-body p-0 mb-3  overflow-hidden">
-                                <video controls className="w-100 md:max-h-[600px]">
+                                <video controls 
+                          className=" w-100 md:max-h-[600px] max-h-[350px]"
+                                
+                                >
                                   <source
                                     src={article.video}
                                     type="video/mp4"

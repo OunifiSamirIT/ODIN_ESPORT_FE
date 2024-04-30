@@ -1060,7 +1060,7 @@ function Post({ article, setArticles }) {
                       <div className="card-body p-0 mb-3  overflow-hidden ">
                         <video
                           controls
-                          className=" w-100 md:max-h-[600px]"
+                          className=" w-100 md:max-h-[600px] max-h-[350px]"
                         >
                           <source
                             src={article.video}
@@ -1077,11 +1077,22 @@ function Post({ article, setArticles }) {
               {article?.image && (
                 <div className="card-body d-block p-0 mb-3">
                   <div className="row ps-2 pe-2">
-                   
+                    {/* <div className="col-sm-12 p-1 relative">
+                                  <img
+                                    className=" md:h-fit  max-h-[600px] relative  z-20 scale-95 rounded-none md:rounded-lg drop-shadow-sm shadow-cyan-50 sha w-100 object-contain "
+                                    src={article.image}
+                                    alt={article.titre}
+                                  />
+                                  <img
+                                    className="  max-h-[600px] absolute top-1 hidden md:block  z-10 blur-md opacity-100 w-100 object-cover "
+                                    src={article.image}
+                                    alt={article.titre}
+                                  />
+                                </div> */}
                     <div className="col-sm-12 p-1 ">
                       <img
-                        className=" md:h-fit  max-h-[600px]   w-100 object-contain "
-                        src={article.image}
+className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
+src={article.image}
                         alt={article.titre}
                       />
 
