@@ -1202,7 +1202,7 @@ src={article.image}
         await fetchLikesForArticle(article.id);
     }}
     >
-        <span
+        {/* <span
             className="flex flex-col md:flex-row gap-2 items-center"
             style={{
                 display: "flex",
@@ -1225,7 +1225,52 @@ src={article.image}
                     Jaime
                 </span>
             </div>
-        </span>
+        </span> */}
+
+
+
+
+
+
+        <span className="flex items-center flex-col md:flex-row gap-2 ">
+        {likesData && likesData.some(like => like.userId === storedUserData.id) ? (
+                                < span className="flex flex-row">  <BiSolidHeart className="size-6 text-orange-500" />
+                                  <div className="flex items-center gap-2">
+                                    <span
+
+                                      style={{
+                                        marginLeft: "1px",
+                                        marginTop: "2px",
+                                        color: "#f97316"
+
+                                      }}
+                                    >
+
+                                      Jaime
+                                    </span>
+                                  </div>
+                                </span>
+                              ) : (
+                                <span className="flex flex-row"> <BiHeart className="size-6 text-black" />
+                                  <div className="flex items-center gap-2">
+                                    <span
+
+                                      style={{
+                                        marginLeft: "1px",
+                                        marginTop: "2px",
+                                        color: "black"
+
+                                      }}
+                                    >
+
+                                      Jaime
+                                    </span>
+                                  </div>
+
+                                </span>
+                              )
+                              }
+                            </span>
     </button>{" "}
                
                
