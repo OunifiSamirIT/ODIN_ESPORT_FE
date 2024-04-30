@@ -148,6 +148,57 @@ function Post({ article, setArticles }) {
 
   const [repliesVisible, setRepliesVisible] = useState({});
 
+  const [likesData, setLikesData] = useState(null); // State to store likes data
+  const storedUserData = JSON.parse(localStorage.getItem("user"));
+
+//   const fetchLikesForArticle = async (articleId) => {
+//     const userId = storedUserData.id ? storedUserData.id : null;
+
+//     try {
+//         const response = await fetch(
+//             `${Config.LOCAL_URL}/api/likes/articless/${articleId}/`
+//         );
+
+//         if (response.ok) {
+//             const likeData = await response.json();
+//             setLikesData(likeData); 
+//             console.log("dddddddddddddddddd", likesData)
+//             // Update state with fetched like data
+//         } else {
+//             throw new Error("Error fetching like data.");
+//         }
+//     } catch (error) {
+//         console.error("Error fetching like data:", error);
+//     }
+// };
+const fetchLikesForArticle = async (articleId) => {
+  const userId = storedUserData.id ? storedUserData.id : null;
+
+  try {
+      const response = await fetch(
+          `${Config.LOCAL_URL}/api/likes/articless/${articleId}/`
+      );
+
+      if (response.ok) {
+          const likeData = await response.json();
+          setLikesData(likeData);
+
+          // Check if userId exists in the fetched data
+          const userLiked = likeData.some(like => like.userId === userId);
+          
+          if (userLiked) {
+              console.log("User has liked this article.");
+          } else {
+              console.log("User has not liked this article.");
+          }
+          // Update state with fetched like data
+      } else {
+          throw new Error("Error fetching like data.");
+      }
+  } catch (error) {
+      console.error("Error fetching like data:", error);
+  }
+};
 
 
   const handleLikeClick = async (articleId, emoji) => {
@@ -183,10 +234,14 @@ function Post({ article, setArticles }) {
               allLikesData.find((like) => like.articleId === article.id)
                 ?.likesCount || 0;
             return article.id === articleId
-              ? { ...article, likesCount: updatedLikesCount }
+              ? {
+                 ...article,
+                
+                likesCount: updatedLikesCount }
               : article;
           })
         );
+
       } else {
         toast.error("Error liking/unliking the article. Please try again.", {
           position: "top-right",
@@ -272,7 +327,7 @@ function Post({ article, setArticles }) {
   };
 
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  // const storedUserData = JSON.parse(localStorage.getItem("user"));
 
 
 
@@ -497,6 +552,7 @@ function Post({ article, setArticles }) {
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
+    fetchLikesForArticle()
 
     // fetchArticles();
     // fetchAlbums();
@@ -1129,36 +1185,39 @@ function Post({ article, setArticles }) {
                 <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
 
                 <span className="flex justify-between items-center mb-0 ml-0 p-0 font-bold w-full">
-                  <button
-                    onClick={() => {
-                      handleLikeClick(article.id, 1);
+    <button
+       onClick={async () => {
+        await handleLikeClick(article.id, 1);
+        await fetchLikesForArticle(article.id);
+    }}
+    >
+        <span
+            className="flex flex-col md:flex-row gap-2 items-center"
+            style={{
+                display: "flex",
+                alignItems: "center",
+            }}
+        >
+            {likesData && likesData.some(like => like.userId === storedUserData.id) ? (
+                <BiSolidHeart className="size-6 text-black" />
+            ) : (
+                <BiHeart className="size-6 text-black" />
+            )}
+            <div className="flex items-center gap-2">
+                <span
+                    className=""
+                    style={{
+                        marginLeft: "1px",
+                        marginTop: "2px",
                     }}
-                  >
-                    <span
-                      className="flex flex-col md:flex-row gap-2 items-center"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      {article.likesCount === 0 ? (
-                        <BiHeart className="size-6 text-black" />
-                      ) : (
-                        <BiSolidHeart className="size-6 text-black" />
-                      )}
-                      <div className="flex items-center gap-2">
-                        <span
-                          className=""
-                          style={{
-                            marginLeft: "1px",
-                            marginTop: "2px",
-                          }}
-                        >
-                          Jaime
-                        </span>
-                      </div>
-                    </span>
-                  </button>{" "}
+                >
+                    Jaime
+                </span>
+            </div>
+        </span>
+    </button>{" "}
+               
+               
                   <button
                     onClick={() => {
                       if (selectedArticleId === article.id) {
@@ -1197,6 +1256,7 @@ function Post({ article, setArticles }) {
                   </button>
 
                 </span>
+
 
                 {selectedArticleId === article.id && (
                   <div className="comments-section ">
