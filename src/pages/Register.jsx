@@ -5536,7 +5536,6 @@ function Register() {
                             ``,  //  -----> Turkey
                             ``,  //  -----> Allemagne
                           )
-
                         }
                       </div>
                     </label>
@@ -5546,11 +5545,7 @@ function Register() {
                 </div>
                 <div className="mt-3 md:mt-8 max-md:max-w-full">
                   <div className="flex gap-2 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
-
-
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-
-
                       <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
                         <div className="flex gap-4 justify-between px-4 text-lg">
                           <img

@@ -257,10 +257,13 @@ const Index = () => {
             replyId: replyId,
             emoji: 1, // Assuming 1 for liking
           }),
+
         }
+
       );
 
       if (response.ok) {
+        console.log("aaaaaadhia", response)
         // Fetch updated replies after liking
         fetchRepliesForComment(replyId);
       } else {
@@ -664,6 +667,12 @@ const Index = () => {
     }
   };
 
+
+  useEffect(() => {
+    console.log(articleComments)
+
+  }, [articleComments])
+
   const handleEditClick = (article) => {
     setEditArticle(article);
     // Navigate to the edit page with the article ID
@@ -872,11 +881,11 @@ const Index = () => {
                 <div className="card-body d-flex p-0">
                   <div className="flex w-full">
                     <img
-                     src={
-                      user?.user?.image
-                        ? user?.user?.image
-                        : PlaceHolder
-                    }
+                      src={
+                        user?.user?.image
+                          ? user?.user?.image
+                          : PlaceHolder
+                      }
                       alt="icon"
                       className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
                     />
@@ -1150,8 +1159,8 @@ const Index = () => {
                                 </div> */}
                             <div className="col-sm-12 p-1 ">
                               <img
-                                className=" md:h-fit  max-h-[600px]   w-100 object-contain "
-                                src={article.image}
+className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
+src={article.image}
                                 alt={article.titre}
                               />
 
@@ -1206,20 +1215,42 @@ const Index = () => {
                           >
                             <span className="flex items-center flex-col md:flex-row gap-2 ">
                               {article.likesCount === 0 ? (
-                                <BiHeart className="size-6 text-black" />
-                              ) : (
-                                <BiSolidHeart className="size-6 text-black" />
-                              )}
-                              <div className="flex items-center gap-2">
-                                <span
-                                  style={{
-                                    marginLeft: "1px",
-                                    marginTop: "2px",
-                                  }}
-                                >
-                                  Jaime
+                                < span className="flex flex-row">  <BiHeart className="size-6 text-black" />
+                                  <div className="flex items-center gap-2">
+                                    <span
+
+                                      style={{
+                                        marginLeft: "1px",
+                                        marginTop: "2px",
+                                        color: "black"
+
+                                      }}
+                                    >
+
+                                      Jaime
+                                    </span>
+                                  </div>
                                 </span>
-                              </div>
+                              ) : (
+                                <span className="flex flex-row"> <BiSolidHeart className="size-6 text-orange-500" />
+                                  <div className="flex items-center gap-2">
+                                    <span
+
+                                      style={{
+                                        marginLeft: "1px",
+                                        marginTop: "2px",
+                                        color: "orange"
+
+                                      }}
+                                    >
+
+                                      Jaime
+                                    </span>
+                                  </div>
+
+                                </span>
+                              )
+                              }
                             </span>
                           </button>{" "}
                           <button
@@ -1286,8 +1317,7 @@ const Index = () => {
                                                 comment.user.user.prenom}
                                             </div>
                                             <div className="mt-1 text-xs">
-                                              {/* {comment.user &&
-                                            comment?.user?.user?.profil} */}
+
 
                                               {comment.user && (
                                                 <div>
@@ -1317,12 +1347,24 @@ const Index = () => {
                                             handleLikeComment(comment.id)
                                           }
                                         >
-                                          {comment.likesCount === 0 ? (
-                                            <BiHeart className="size-7 text-black" />
-                                          ) : (
-                                            <BiSolidHeart className="size-7 text-black" />
-                                          )}
+                                          <div className="flex gap-2.5 items-center justify-center ">
+
+                                            {comment.likesCount === 0 ? (
+                                              <span className="flex gap-2.5 items-center justify-center" >   <BiHeart className="size-7  text-black" />  <span className="text-md ml-3 p-0flex gap-2.5 items-center justify-center py-2.5">
+                                                {comment.likesCount}
+                                              </span></span>
+                                            ) : (
+                                              <span className="flex gap-2.5 items-center justify-center">    <BiSolidHeart className="size-7 text-orange-500" /><span className="text-md text-orange-500 ml-3 p-0flex gap-2.5 items-center justify-center py-2.5">
+                                                {comment.likesCount}
+                                              </span></span>
+                                            )}
+                                            <div className="flex gap-2.5 items-center justify-center py-2.5">
+
+
+                                            </div>
+                                          </div>
                                         </button>
+
 
                                         <button
                                           onClick={() =>
@@ -1332,6 +1374,7 @@ const Index = () => {
                                         >
                                           Répondre
                                         </button>
+
                                       </div>
                                     </div>
                                   </div>
@@ -1345,7 +1388,7 @@ const Index = () => {
                                               key={reply.id}
                                               className="reply mb-0"
                                             >
-                                              <div className="flex items-start py-2">
+                                              <div className="flex flex-col items-start py-2">
                                                 <figure className="rounded-full overflow-hidden flex-shrink-0">
                                                   <img
                                                     src={reply?.user?.user?.image ? reply?.user?.user?.image : PlaceHolder}
@@ -1362,9 +1405,9 @@ const Index = () => {
                                                         {reply.user.user &&
                                                           reply.user.user.prenom}
                                                       </div>
+
                                                       <div className="mt-1 text-xs">
-                                                        {/* {comment.user &&
-                                            comment?.user?.user?.profil} */}
+
 
                                                         {reply.user && (
                                                           <div>
@@ -1383,11 +1426,66 @@ const Index = () => {
                                                       </div>
                                                     </div>
                                                   </div>
+
                                                   <div className="mt-2 text-wrap font-light text-zinc-900 px-4 text-break">
                                                     {reply.description}
                                                   </div>
+
+
+
+
+
+
                                                 </div>
+                                                {/* <button
+                                                  onClick={() =>
+                                                    handleLikeReply(reply.id)
+                                                  }
+                                                >
+                                                  <div className="flex gap-2.5 items-center justify-center ">
+
+                                                    {reply.likesCount === 0 ? (
+                                                      <span className="flex gap-2.5 items-center justify-center" >   <BiHeart className="size-7  text-black" />  <span className="text-md ml-3 p-0flex gap-2.5 items-center justify-center py-2.5">
+                                                        {reply.allLikesData?.likesCount}
+                                                      </span></span>
+                                                    ) : (
+                                                      <span className="flex gap-2.5 items-center justify-center">    <BiSolidHeart className="size-7 text-orange-500" /><span className="text-md text-orange-500 ml-3 p-0flex gap-2.5 items-center justify-center py-2.5">
+                                                        {reply.allLikesData?.likesCount}
+                                                      </span></span>
+                                                    )}
+                                                    <div className="flex gap-2.5 items-center justify-center py-2.5">
+
+
+                                                    </div>
+                                                  </div>
+                                                </button> */}
                                               </div>
+
+
+
+                                              {/* <div className="flex gap-2.5 items-center justify-center ">
+                                                <button
+                                                  onClick={() =>
+                                                    handleLikeReply(reply.id)
+
+                                                  }
+                                                >
+                                                  <div className=" gap-2.5 items-center justify-center ">
+
+                                                    {reply.likesCount === 0 ? (
+                                                      <span className=" gap-2.5 items-center justify-center" >   <BiHeart className="size-7  text-black" />  <span className="text-md ml-3 p-0flex gap-2.5 items-center justify-center py-2.5">
+                                                        {reply.likesCount}
+                                                      </span></span>
+                                                    ) : (
+                                                      <span className="flex gap-2.5 items-center justify-center">    <BiSolidHeart className="size-7 text-orange-500" /><span className="text-md text-orange-500 ml-3 p-0flex gap-2.5 items-center justify-center py-2.5">
+                                                        {reply.likesCount}
+                                                      </span></span>
+                                                    )}
+
+                                                  </div>
+                                                </button>
+
+                                              </div> */}
                                             </div>
                                           )
                                         )}
@@ -1642,7 +1740,10 @@ const Index = () => {
                           <div className="col-sm-12 p-1">
                             {article.video ? (
                               <div className="card-body p-0 mb-3  overflow-hidden">
-                                <video controls className="w-100 md:max-h-[600px]">
+                                <video controls 
+                          className=" w-100 md:max-h-[600px] max-h-[350px]"
+                                
+                                >
                                   <source
                                     src={article.video}
                                     type="video/mp4"

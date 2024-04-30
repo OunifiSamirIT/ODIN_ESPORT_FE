@@ -104,7 +104,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
           <LanguageToggler hide={true} color2={true}/>
          
           </div>
-          {/* <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-10 h-10 bg-[#11111120] cursor-pointer rounded-full justify-center items-center -ml-4">
+          <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-10 h-10 bg-[#11111120] cursor-pointer rounded-full justify-center items-center -ml-4">
             <img
               src={Moon}
               className="w-5 h-5 invert moon "
@@ -113,7 +113,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src={Sun}
               className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
             />
-          </div> */}
+          </div>
           <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
               loading="lazy"
