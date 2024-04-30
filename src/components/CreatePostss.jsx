@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Config } from "../config";
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -27,6 +27,10 @@ function CreatePost({ setArticles }) {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+
+  let _ref_previewImage = useRef(null)
+  let _ref_previewVedeo = useRef(null)
+
   const fetchArticles = async () => {
     try {
       setLoading(true);
@@ -136,10 +140,14 @@ function CreatePost({ setArticles }) {
       // Update the list of posts and reset the preview image
       setPostsData(updatedPostsData);
       setPreviewImage(null);
+      setVideoPreviewUrl(null)
       setValue("description", "");
       setPosting(false);
       fetchArticles();
-      window.location.reload()
+      setFile('')
+      _ref_previewImage.current.src=""
+      _ref_previewVedeo.current.src=""
+      // window.location.reload()
 
     } catch (error) {
       console.error("Error submitting post:", error);
@@ -172,6 +180,7 @@ function CreatePost({ setArticles }) {
           {previewImage && (
             <div className="mb-3">
               <img
+                ref={_ref_previewImage}
                 src={previewImage}
                 alt="Preview"
                 className="rounded-xxl"
@@ -182,6 +191,7 @@ function CreatePost({ setArticles }) {
           {videoPreviewUrl && (
             <div className="mt-3">
               <video
+                ref={_ref_previewVedeo}
                 controls
                 src={videoPreviewUrl}
                 className="rounded-xxl"

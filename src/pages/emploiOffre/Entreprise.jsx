@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "../../components/Header2";
-import { Context } from "../../index";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
@@ -9,13 +9,11 @@ import { Config } from "../../config";
 import { paysAllInfo } from "../../assets/data/Country";
 import Select, { components } from "react-select";
 import { useEffect } from "react";
-
-
 function Entreprise() {
   const { register, setValue, getValues } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
-  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
   const [selectedPaysOffre, setSelectedPaysOffre] = useState(null);
 
   const handleCountryChangePaysOffre = (selectedOption) => {
@@ -60,7 +58,10 @@ function Entreprise() {
   };
   // Handle change of date
   const formatDate = (date) => {
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
   const handleDateChange = (date) => {
@@ -90,11 +91,6 @@ function Entreprise() {
     image: null, // Assuming you have an image field
   });
 
-
-
-
-
-
   useEffect(() => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const id = storedUserData ? storedUserData.id : null;
@@ -104,12 +100,10 @@ function Entreprise() {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre", user)
+          console.log("user offre", user);
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-
-
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -133,8 +127,7 @@ function Entreprise() {
       if (response.ok) {
         const responseData = await response.json();
         console.log("Server Response Data:", responseData);
-     navigate("/homeoffre");
-        
+        navigate("/homeoffre");
       } else {
         const errorData = await response.json();
         console.error("Server Error Message:", errorData.message);
@@ -155,16 +148,11 @@ function Entreprise() {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre", user)
+          console.log("user offre", user);
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-
-
   }, []);
-
-
-
 
   const userProfileType = storedUserData ? storedUserData.profil : null;
 
@@ -202,22 +190,17 @@ function Entreprise() {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    {
-             getTranslation(
-              `Home`,  // -----> Englais
-              `Acceuil`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
+                      Acceuil
                     </div>
                   </div>
                 </Link>
 
                 <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4] " />
 
-                <Link to={`/profile/${id}`} className="nav-content-bttn open-font ">
+                <Link
+                  to={`/profile/${id}`}
+                  className="nav-content-bttn open-font "
+                >
                   <div className="flex justify-center items-center gap-4 py-2 px-6">
                     <div className="flex flex-col items-center gap-0.5 p-2">
                       <svg
@@ -246,122 +229,94 @@ function Entreprise() {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    {
-             getTranslation(
-              `Profile`,  // -----> Englais
-              `Profil`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
+                      Profil
                     </div>
                   </div>{" "}
                 </Link>
                 <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
                 {shouldShowAgentItem && (
-                  <> <Link
-                    to="/defaultgroupagent"
-                    className="nav-content-bttn open-font"
-                  >
-                    {/* <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" /> */}
-                    <div className="flex justify-center items-center gap-4 py-2 px-6">
-                      <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
-                        <svg
-                          width={19}
-                          height={20}
-                          viewBox="0 0 19 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M9.16667 7.5C9.16667 7.27899 9.25447 7.06702 9.41074 6.91074C9.56703 6.75446 9.77899 6.66667 10 6.66667C10.221 6.66667 10.433 6.75446 10.5893 6.91074C10.7455 7.06702 10.8333 7.27899 10.8333 7.5C10.8333 7.72101 10.7455 7.93297 10.5893 8.08926C10.433 8.24554 10.221 8.33333 10 8.33333C9.77899 8.33333 9.56703 8.24554 9.41074 8.08926C9.25447 7.93297 9.16667 7.72101 9.16667 7.5ZM18.3333 4.16667V15.8333C18.332 16.938 17.8926 17.997 17.1115 18.7782C16.3304 19.5593 15.2713 19.9987 14.1667 20H5.83333C5.02353 19.9989 4.23158 19.7619 3.55434 19.3179C2.8771 18.8739 2.34392 18.2422 2.02 17.5H0.833333C0.61232 17.5 0.400358 17.4122 0.244078 17.2559C0.0877973 17.0996 0 16.8877 0 16.6667C0 16.4457 0.0877973 16.2337 0.244078 16.0774C0.400358 15.9211 0.61232 15.8333 0.833333 15.8333H1.66667V14.1667H0.833333C0.61232 14.1667 0.400358 14.0789 0.244078 13.9226C0.0877973 13.7663 0 13.5543 0 13.3333C0 13.1123 0.0877973 12.9004 0.244078 12.7441C0.400358 12.5878 0.61232 12.5 0.833333 12.5H1.66667V10.8333H0.833333C0.61232 10.8333 0.400358 10.7455 0.244078 10.5893C0.0877973 10.433 0 10.221 0 10C0 9.77899 0.0877973 9.56702 0.244078 9.41074C0.400358 9.25446 0.61232 9.16667 0.833333 9.16667H1.66667V7.5H0.833333C0.61232 7.5 0.400358 7.4122 0.244078 7.25592C0.0877973 7.09964 0 6.88768 0 6.66667C0 6.44565 0.0877973 6.23369 0.244078 6.07741C0.400358 5.92113 0.61232 5.83333 0.833333 5.83333H1.66667V4.16667H0.833333C0.61232 4.16667 0.400358 4.07887 0.244078 3.92259C0.0877973 3.76631 0 3.55435 0 3.33333C0 3.11232 0.0877973 2.90036 0.244078 2.74408C0.400358 2.5878 0.61232 2.5 0.833333 2.5H2.02C2.34392 1.7578 2.8771 1.12608 3.55434 0.682083C4.23158 0.238088 5.02353 0.00106531 5.83333 0L14.1667 0C15.2713 0.00132321 16.3304 0.440735 17.1115 1.22185C17.8926 2.00296 18.332 3.062 18.3333 4.16667ZM7.5 7.5C7.5 8.16304 7.76339 8.79893 8.23223 9.26777C8.70107 9.73661 9.33696 10 10 10C10.663 10 11.2989 9.73661 11.7678 9.26777C12.2366 8.79893 12.5 8.16304 12.5 7.5C12.5 6.83696 12.2366 6.20107 11.7678 5.73223C11.2989 5.26339 10.663 5 10 5C9.33696 5 8.70107 5.26339 8.23223 5.73223C7.76339 6.20107 7.5 6.83696 7.5 7.5ZM14.1667 15C13.9908 9.49333 6.0075 9.495 5.83333 15C5.83333 15.221 5.92113 15.433 6.07741 15.5893C6.23369 15.7455 6.44565 15.8333 6.66667 15.8333C6.88768 15.8333 7.09964 15.7455 7.25592 15.5893C7.4122 15.433 7.5 15.221 7.5 15C7.5 14.337 7.76339 13.7011 8.23223 13.2322C8.70107 12.7634 9.33696 12.5 10 12.5C10.663 12.5 11.2989 12.7634 11.7678 13.2322C12.2366 13.7011 12.5 14.337 12.5 15C12.5 15.221 12.5878 15.433 12.7441 15.5893C12.9004 15.7455 13.1123 15.8333 13.3333 15.8333C13.5543 15.8333 13.7663 15.7455 13.9226 15.5893C14.0789 15.433 14.1667 15.221 14.1667 15Z"
-                            fill="#1D1E21"
-                          />
-                        </svg>
-                      </div>
-                      <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      {
-             getTranslation(
-              `Agents`,  // -----> Englais
-              `Agents`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-                      </div>
-                    </div>{" "}
-
-
-                  </Link>
+                  <>
+                    {" "}
+                    <Link
+                      to="/defaultgroupagent"
+                      className="nav-content-bttn open-font"
+                    >
+                      {/* <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" /> */}
+                      <div className="flex justify-center items-center gap-4 py-2 px-6">
+                        <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
+                          <svg
+                            width={19}
+                            height={20}
+                            viewBox="0 0 19 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M9.16667 7.5C9.16667 7.27899 9.25447 7.06702 9.41074 6.91074C9.56703 6.75446 9.77899 6.66667 10 6.66667C10.221 6.66667 10.433 6.75446 10.5893 6.91074C10.7455 7.06702 10.8333 7.27899 10.8333 7.5C10.8333 7.72101 10.7455 7.93297 10.5893 8.08926C10.433 8.24554 10.221 8.33333 10 8.33333C9.77899 8.33333 9.56703 8.24554 9.41074 8.08926C9.25447 7.93297 9.16667 7.72101 9.16667 7.5ZM18.3333 4.16667V15.8333C18.332 16.938 17.8926 17.997 17.1115 18.7782C16.3304 19.5593 15.2713 19.9987 14.1667 20H5.83333C5.02353 19.9989 4.23158 19.7619 3.55434 19.3179C2.8771 18.8739 2.34392 18.2422 2.02 17.5H0.833333C0.61232 17.5 0.400358 17.4122 0.244078 17.2559C0.0877973 17.0996 0 16.8877 0 16.6667C0 16.4457 0.0877973 16.2337 0.244078 16.0774C0.400358 15.9211 0.61232 15.8333 0.833333 15.8333H1.66667V14.1667H0.833333C0.61232 14.1667 0.400358 14.0789 0.244078 13.9226C0.0877973 13.7663 0 13.5543 0 13.3333C0 13.1123 0.0877973 12.9004 0.244078 12.7441C0.400358 12.5878 0.61232 12.5 0.833333 12.5H1.66667V10.8333H0.833333C0.61232 10.8333 0.400358 10.7455 0.244078 10.5893C0.0877973 10.433 0 10.221 0 10C0 9.77899 0.0877973 9.56702 0.244078 9.41074C0.400358 9.25446 0.61232 9.16667 0.833333 9.16667H1.66667V7.5H0.833333C0.61232 7.5 0.400358 7.4122 0.244078 7.25592C0.0877973 7.09964 0 6.88768 0 6.66667C0 6.44565 0.0877973 6.23369 0.244078 6.07741C0.400358 5.92113 0.61232 5.83333 0.833333 5.83333H1.66667V4.16667H0.833333C0.61232 4.16667 0.400358 4.07887 0.244078 3.92259C0.0877973 3.76631 0 3.55435 0 3.33333C0 3.11232 0.0877973 2.90036 0.244078 2.74408C0.400358 2.5878 0.61232 2.5 0.833333 2.5H2.02C2.34392 1.7578 2.8771 1.12608 3.55434 0.682083C4.23158 0.238088 5.02353 0.00106531 5.83333 0L14.1667 0C15.2713 0.00132321 16.3304 0.440735 17.1115 1.22185C17.8926 2.00296 18.332 3.062 18.3333 4.16667ZM7.5 7.5C7.5 8.16304 7.76339 8.79893 8.23223 9.26777C8.70107 9.73661 9.33696 10 10 10C10.663 10 11.2989 9.73661 11.7678 9.26777C12.2366 8.79893 12.5 8.16304 12.5 7.5C12.5 6.83696 12.2366 6.20107 11.7678 5.73223C11.2989 5.26339 10.663 5 10 5C9.33696 5 8.70107 5.26339 8.23223 5.73223C7.76339 6.20107 7.5 6.83696 7.5 7.5ZM14.1667 15C13.9908 9.49333 6.0075 9.495 5.83333 15C5.83333 15.221 5.92113 15.433 6.07741 15.5893C6.23369 15.7455 6.44565 15.8333 6.66667 15.8333C6.88768 15.8333 7.09964 15.7455 7.25592 15.5893C7.4122 15.433 7.5 15.221 7.5 15C7.5 14.337 7.76339 13.7011 8.23223 13.2322C8.70107 12.7634 9.33696 12.5 10 12.5C10.663 12.5 11.2989 12.7634 11.7678 13.2322C12.2366 13.7011 12.5 14.337 12.5 15C12.5 15.221 12.5878 15.433 12.7441 15.5893C12.9004 15.7455 13.1123 15.8333 13.3333 15.8333C13.5543 15.8333 13.7663 15.7455 13.9226 15.5893C14.0789 15.433 14.1667 15.221 14.1667 15Z"
+                              fill="#1D1E21"
+                            />
+                          </svg>
+                        </div>
+                        <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
+                          Agents
+                        </div>
+                      </div>{" "}
+                    </Link>
                     <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
                   </>
                 )}
                 {shouldShowForProfile && (
-                  <> <Link to="/defaultbadge" className="nav-content-bttn open-font">
-                    <div className="flex justify-center items-center gap-4 py-2 px-6">
-                      <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g clip-path="url(#clip0_488_16850)">
-                            <path
-                              d="M10.9875 13.3333H9.0125C8.5725 13.334 8.14363 13.195 7.78766 12.9364C7.43169 12.6778 7.16699 12.3128 7.03167 11.8942L6.42167 10.0167C6.28382 9.59778 6.28284 9.14589 6.41887 8.7264C6.55491 8.30692 6.82089 7.94161 7.17834 7.68333L8.775 6.52667C9.13041 6.26715 9.5591 6.12729 9.99917 6.12729C10.4392 6.12729 10.8679 6.26715 11.2233 6.52667L12.8208 7.68667C13.1784 7.94485 13.4444 8.31016 13.5805 8.72968C13.7165 9.14919 13.7155 9.60112 13.5775 10.02L12.9683 11.8975C12.8318 12.3151 12.5666 12.6789 12.2109 12.9368C11.8551 13.1947 11.4269 13.3335 10.9875 13.3333ZM20 10C20 11.9778 19.4135 13.9112 18.3147 15.5557C17.2159 17.2002 15.6541 18.4819 13.8268 19.2388C11.9996 19.9957 9.98891 20.1937 8.0491 19.8079C6.10929 19.422 4.32746 18.4696 2.92894 17.0711C1.53041 15.6725 0.578004 13.8907 0.192152 11.9509C-0.193701 10.0111 0.00433286 8.00043 0.761209 6.17317C1.51809 4.3459 2.79981 2.78412 4.4443 1.6853C6.08879 0.58649 8.02219 0 10 0C12.6513 0.00286757 15.1932 1.05736 17.0679 2.9321C18.9426 4.80684 19.9971 7.34872 20 10ZM10 17.5C10.4315 17.4975 10.862 17.4579 11.2867 17.3817L11.9933 15.0642C12.1537 14.5606 12.4699 14.1211 12.8964 13.8089C13.3228 13.4968 13.8374 13.3282 14.3658 13.3275L16.7133 13.3233C17.0913 12.565 17.3367 11.7477 17.4392 10.9067L15.5658 9.65667C15.1335 9.35323 14.8087 8.92034 14.6383 8.42041C14.4678 7.92047 14.4606 7.37933 14.6175 6.875L15.3283 4.73083C14.7324 4.13169 14.04 3.63702 13.28 3.2675L11.47 4.5225C11.0431 4.83392 10.5284 5.00173 10 5.00173C9.47161 5.00173 8.95687 4.83392 8.53 4.5225L6.76834 3.2425C6.01995 3.60002 5.33574 4.07868 4.74334 4.65917L5.3825 6.87333C5.53944 7.37767 5.53217 7.91881 5.36173 8.41874C5.19129 8.91867 4.8665 9.35156 4.43417 9.655L2.5725 10.9842C2.67956 11.798 2.92089 12.5885 3.28667 13.3233L5.63334 13.3275C6.16184 13.328 6.67653 13.4963 7.10311 13.8083C7.5297 14.1203 7.84611 14.5598 8.00667 15.0633L8.7275 17.3833C9.14754 17.4586 9.57328 17.4977 10 17.5Z"
-                              fill="#1D1E21"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_488_16850">
-                              <rect width="20" height="20" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      {
-             getTranslation(
-              `Player`,  // -----> Englais
-              `Joueur`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            }                       </div>
-                    </div>{" "}
-
-                  </Link>
+                  <>
+                    {" "}
+                    <Link
+                      to="/defaultbadge"
+                      className="nav-content-bttn open-font"
+                    >
+                      <div className="flex justify-center items-center gap-4 py-2 px-6">
+                        <div className="flex justify-center items-center gap-2.5 p-2 rounded-full">
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clip-path="url(#clip0_488_16850)">
+                              <path
+                                d="M10.9875 13.3333H9.0125C8.5725 13.334 8.14363 13.195 7.78766 12.9364C7.43169 12.6778 7.16699 12.3128 7.03167 11.8942L6.42167 10.0167C6.28382 9.59778 6.28284 9.14589 6.41887 8.7264C6.55491 8.30692 6.82089 7.94161 7.17834 7.68333L8.775 6.52667C9.13041 6.26715 9.5591 6.12729 9.99917 6.12729C10.4392 6.12729 10.8679 6.26715 11.2233 6.52667L12.8208 7.68667C13.1784 7.94485 13.4444 8.31016 13.5805 8.72968C13.7165 9.14919 13.7155 9.60112 13.5775 10.02L12.9683 11.8975C12.8318 12.3151 12.5666 12.6789 12.2109 12.9368C11.8551 13.1947 11.4269 13.3335 10.9875 13.3333ZM20 10C20 11.9778 19.4135 13.9112 18.3147 15.5557C17.2159 17.2002 15.6541 18.4819 13.8268 19.2388C11.9996 19.9957 9.98891 20.1937 8.0491 19.8079C6.10929 19.422 4.32746 18.4696 2.92894 17.0711C1.53041 15.6725 0.578004 13.8907 0.192152 11.9509C-0.193701 10.0111 0.00433286 8.00043 0.761209 6.17317C1.51809 4.3459 2.79981 2.78412 4.4443 1.6853C6.08879 0.58649 8.02219 0 10 0C12.6513 0.00286757 15.1932 1.05736 17.0679 2.9321C18.9426 4.80684 19.9971 7.34872 20 10ZM10 17.5C10.4315 17.4975 10.862 17.4579 11.2867 17.3817L11.9933 15.0642C12.1537 14.5606 12.4699 14.1211 12.8964 13.8089C13.3228 13.4968 13.8374 13.3282 14.3658 13.3275L16.7133 13.3233C17.0913 12.565 17.3367 11.7477 17.4392 10.9067L15.5658 9.65667C15.1335 9.35323 14.8087 8.92034 14.6383 8.42041C14.4678 7.92047 14.4606 7.37933 14.6175 6.875L15.3283 4.73083C14.7324 4.13169 14.04 3.63702 13.28 3.2675L11.47 4.5225C11.0431 4.83392 10.5284 5.00173 10 5.00173C9.47161 5.00173 8.95687 4.83392 8.53 4.5225L6.76834 3.2425C6.01995 3.60002 5.33574 4.07868 4.74334 4.65917L5.3825 6.87333C5.53944 7.37767 5.53217 7.91881 5.36173 8.41874C5.19129 8.91867 4.8665 9.35156 4.43417 9.655L2.5725 10.9842C2.67956 11.798 2.92089 12.5885 3.28667 13.3233L5.63334 13.3275C6.16184 13.328 6.67653 13.4963 7.10311 13.8083C7.5297 14.1203 7.84611 14.5598 8.00667 15.0633L8.7275 17.3833C9.14754 17.4586 9.57328 17.4977 10 17.5Z"
+                                fill="#1D1E21"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_488_16850">
+                                <rect width="20" height="20" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                        <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
+                          Joueur
+                        </div>
+                      </div>{" "}
+                    </Link>
                     <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
-
                   </>
-
                 )}
 
                 <div
                   onClick={() => {
-                    setEventTogglerIsOpenned(!eventTogglerIsOpenned)
+                    setEventTogglerIsOpenned(!eventTogglerIsOpenned);
                   }}
-                  className="flex gap-5 justify-between px-6 py-2   w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
+                  className="flex gap-5 justify-between px-6 py-2   w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer"
+                >
                   <div className="flex gap-4 justify-between px-2 py-1.5">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                       className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                     />
-                    <div> {
-             getTranslation(
-              `Events`,  // -----> Englais
-              `Événements`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            }</div>
+                    <div>Événements</div>
                   </div>
                   <img
                     loading="lazy"
@@ -369,9 +324,8 @@ function Entreprise() {
                     className="shrink-0 my-auto w-5 aspect-[2] fill-zinc-900"
                   />
                 </div>
-                {
-                  eventTogglerIsOpenned
-                  && <>
+                {eventTogglerIsOpenned && (
+                  <>
                     <div className="toggler mt-[-15px] ml-10px">
                       <Link to="/defaultgroup">
                         <div className="flex gap-5 justify-between px-6 ml-5 py-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
@@ -392,38 +346,29 @@ function Entreprise() {
                                 fill="#1D1E21"
                               />
                             </svg>
-                            <div>{
-             getTranslation(
-              `Camps`,  // -----> Englais
-              `Camps`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            }</div>
+                            <div>Camps</div>
                           </div>
-
                         </div>
                       </Link>
 
                       <Link to="/challenges  ">
                         <div className="flex gap-5 justify-between px-6 py-2 ml-5 mt-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
                           <div className="flex gap-4 justify-between px-2 py-1.5">
-                            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M15 14.9967C15 17.7542 12.7575 19.9967 10 19.9967C7.2425 19.9967 5 17.7542 5 14.9967C5 12.2392 7.2425 9.99667 10 9.99667C10.46 9.99667 10.8333 10.3692 10.8333 10.83C10.8333 11.2908 10.46 11.6633 10 11.6633C8.16167 11.6633 6.66667 13.1583 6.66667 14.9967C6.66667 16.835 8.16167 18.33 10 18.33C11.8383 18.33 13.3333 16.835 13.3333 14.9967C13.3333 14.5358 13.7067 14.1633 14.1667 14.1633C14.6267 14.1633 15 14.5358 15 14.9967ZM15.3033 12.4967C15.745 12.4967 16.1692 12.3208 16.4817 12.0083L17.2867 11.2033C17.7325 10.7575 17.4167 9.99667 16.7867 9.99667H15V8.21C15 7.58 14.2383 7.26417 13.7933 7.71L12.9883 8.515C12.6758 8.8275 12.5 9.25167 12.5 9.69333V11.3183L10.4317 13.3867C10.2942 13.35 10.1492 13.33 10 13.33C9.07917 13.33 8.33333 14.0758 8.33333 14.9967C8.33333 15.9175 9.07917 16.6633 10 16.6633C10.9208 16.6633 11.6667 15.9175 11.6667 14.9967C11.6667 14.8475 11.6467 14.7025 11.61 14.565L13.6783 12.4967H15.3033ZM12.615 6.53167C13.2967 5.85167 14.3117 5.64917 15.2008 6.0175C15.5558 6.16417 15.86 6.38833 16.0983 6.66667H20.0317L20.0267 5.8075C20.0125 3.51667 18.1517 1.66667 15.86 1.66667H15.0008V0.833333C15 0.373333 14.6267 0 14.1667 0C13.7067 0 13.3333 0.373333 13.3333 0.833333V1.66667H6.66667V0.833333C6.66667 0.373333 6.29333 0 5.83333 0C5.37333 0 5 0.373333 5 0.833333V1.66667H4.16667C1.86583 1.66667 0 3.53167 0 5.83333V6.66667H12.48L12.615 6.53167ZM3.33333 15C3.33333 11.3242 6.32417 8.33333 10 8.33333H0V15.8325C0 18.1325 1.86417 19.9975 4.16417 19.9992H5.59583C4.20917 18.7775 3.33333 16.9892 3.33333 15ZM20 8.33H16.7867C17.7508 8.33 18.6108 8.905 18.98 9.79583C19.3492 10.6867 19.1467 11.7017 18.465 12.3825L17.6608 13.1867C17.3325 13.515 16.9475 13.7667 16.5275 13.9325C16.6133 14.4358 16.6675 14.8233 16.6675 15C16.6675 16.9892 15.7917 18.7775 14.405 20H16.3075C18.3817 19.9975 20.0608 18.3133 20.055 16.2392L20 8.33Z" fill="black" />
+                            <svg
+                              width="21"
+                              height="20"
+                              viewBox="0 0 21 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M15 14.9967C15 17.7542 12.7575 19.9967 10 19.9967C7.2425 19.9967 5 17.7542 5 14.9967C5 12.2392 7.2425 9.99667 10 9.99667C10.46 9.99667 10.8333 10.3692 10.8333 10.83C10.8333 11.2908 10.46 11.6633 10 11.6633C8.16167 11.6633 6.66667 13.1583 6.66667 14.9967C6.66667 16.835 8.16167 18.33 10 18.33C11.8383 18.33 13.3333 16.835 13.3333 14.9967C13.3333 14.5358 13.7067 14.1633 14.1667 14.1633C14.6267 14.1633 15 14.5358 15 14.9967ZM15.3033 12.4967C15.745 12.4967 16.1692 12.3208 16.4817 12.0083L17.2867 11.2033C17.7325 10.7575 17.4167 9.99667 16.7867 9.99667H15V8.21C15 7.58 14.2383 7.26417 13.7933 7.71L12.9883 8.515C12.6758 8.8275 12.5 9.25167 12.5 9.69333V11.3183L10.4317 13.3867C10.2942 13.35 10.1492 13.33 10 13.33C9.07917 13.33 8.33333 14.0758 8.33333 14.9967C8.33333 15.9175 9.07917 16.6633 10 16.6633C10.9208 16.6633 11.6667 15.9175 11.6667 14.9967C11.6667 14.8475 11.6467 14.7025 11.61 14.565L13.6783 12.4967H15.3033ZM12.615 6.53167C13.2967 5.85167 14.3117 5.64917 15.2008 6.0175C15.5558 6.16417 15.86 6.38833 16.0983 6.66667H20.0317L20.0267 5.8075C20.0125 3.51667 18.1517 1.66667 15.86 1.66667H15.0008V0.833333C15 0.373333 14.6267 0 14.1667 0C13.7067 0 13.3333 0.373333 13.3333 0.833333V1.66667H6.66667V0.833333C6.66667 0.373333 6.29333 0 5.83333 0C5.37333 0 5 0.373333 5 0.833333V1.66667H4.16667C1.86583 1.66667 0 3.53167 0 5.83333V6.66667H12.48L12.615 6.53167ZM3.33333 15C3.33333 11.3242 6.32417 8.33333 10 8.33333H0V15.8325C0 18.1325 1.86417 19.9975 4.16417 19.9992H5.59583C4.20917 18.7775 3.33333 16.9892 3.33333 15ZM20 8.33H16.7867C17.7508 8.33 18.6108 8.905 18.98 9.79583C19.3492 10.6867 19.1467 11.7017 18.465 12.3825L17.6608 13.1867C17.3325 13.515 16.9475 13.7667 16.5275 13.9325C16.6133 14.4358 16.6675 14.8233 16.6675 15C16.6675 16.9892 15.7917 18.7775 14.405 20H16.3075C18.3817 19.9975 20.0608 18.3133 20.055 16.2392L20 8.33Z"
+                                fill="black"
+                              />
                             </svg>
 
-                            <div>{
-             getTranslation(
-              `Challenges`,  // -----> Englais
-              `Challenges`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            }</div>
+                            <div>Challenges</div>
                           </div>
-
                         </div>
                       </Link>
 
@@ -436,21 +381,13 @@ function Entreprise() {
                               className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                             />
 
-                            <div>{
-             getTranslation(
-              `ODIN Event`,  // -----> Englais
-              `Evénnement ODIN`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            }</div>
+                            <div>Evénnement ODIN</div>
                           </div>
-
                         </div>
                       </Link>
-                    </div></>
-                }
+                    </div>
+                  </>
+                )}
                 <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
                 <Link to="/homeoffre">
@@ -462,47 +399,33 @@ function Entreprise() {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a7fc5fd676e2d7354f4a7f19b0967db7f2d99a7e161c7c156ac1ce03217cf2c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                       />
-                      <div> {
-             getTranslation(
-              `Jobs Offers`,  // -----> Englais
-              `Offres d’emploi`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            }</div>
+                      <div>Offres d’emploi</div>
                     </div>
-                  </div></Link>
-                <Link to="/entreprise" className="self-center">  {!(
-                  userProfileType === "other" &&
-                  user?.other?.profession === "Fan Football"
-                ) &&
-                  userProfileType !== "player" && (
-                    <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                        className="shrink-0 my-auto w-4 aspect-square fill-white"
-                      />
-                      <div>{
-             getTranslation(
-              `Publish Offer`,  // -----> Englais
-              ` Publier une offre`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            }</div>
-                    </div>
-                  )}</Link>
+                  </div>
+                </Link>
+                <Link to="/entreprise" className="self-center">
+                  {" "}
+                  {!(
+                    userProfileType === "other" &&
+                    user?.other?.profession === "Fan Football"
+                  ) &&
+                    userProfileType !== "player" && (
+                      <div className="flex gap-2 items-center justify-center self-center px-8 py-2 mt-2 text-base font-medium text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                          className="shrink-0 my-auto w-4 aspect-square fill-white"
+                        />
+                        <div>Publier une offre</div>
+                      </div>
+                    )}
+                </Link>
               </div>
             </div>
 
             {/* left menu */}
 
             <div className="flex flex-col ml-5 md:mt-5 w-[76%] max-md:ml-0 max-md:w-full">
-
-
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-col flex-wrap grow gap-y-6 justify-between content-start py-8 pr-4 pl-8 w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
                   <div className="flex justify-center items-center px-16 max-md:px-5 max-md:max-w-full">
@@ -518,10 +441,10 @@ function Entreprise() {
                             />
                           ) : (
                             <img
-                              src={require("../../assets/default.jpg")}
+                              src={require("../../assets/Entreprise.png")}
                               alt="Default"
                               loading="lazy"
-                              className="shrink-0 max-w-full h-[110%] mx-auto rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[180px] h-[180px] max-md:mt-10"
+                              className="shrink-0 max-w-full h-[110%] mx-auto rounded-full object-contain border-4 border-solid aspect-square w-[180px] h-[180px] max-md:mt-10"
                             />
                           )}
                         </div>
@@ -530,16 +453,6 @@ function Entreprise() {
                           <div className="flex flex-col self-stretch text-center my-auto max-md:mt-10">
                             <div className="text-3xl font-bold text-black">
                               Logo de l’entreprise
-
-                              {
-             getTranslation(
-              `Company logo`,  // -----> Englais
-              ` Logo de l’entreprise`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            }
                             </div>
                             <label>
                               <div className="flex flex-col items-center justify-center mt-4">
@@ -557,16 +470,8 @@ function Entreprise() {
                                       .click()
                                   }
                                   className="mt-2 px-4 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]"
-                                > {
-                                  getTranslation(
-                                   `Change photo`,  // -----> Englais
-                                   ` Changer la photo`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                                  
+                                >
+                                  Changer la photo
                                 </button>
                               </div>
                             </label>
@@ -576,10 +481,11 @@ function Entreprise() {
                     </div>
                   </div>
                   <div className="flex gap-3  px-4 -m-5 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap" />
-
+                  {/* lena */}
                   <div className=" max-md:max-w-full">
                     <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                      <div className="flex flex-col w-[55%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col w-[50%] max-md:ml-0 max-md:w-full">
+                        {/* chtar lowel */}
                         <div className="flex flex-col grow text-lg text-zinc-900 max-md:mt-10">
                           <div className="flex gap-3 px-4">
                             <img
@@ -587,24 +493,12 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/a384581add68577a25f4081d8801c28ef67dafd494c0efb9015b701bb68a830a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square"
                             />
-                            <div className="flex-1">
-                            {
-                                  getTranslation(
-                                   `Compagny name`,  // -----> Englais
-                                   ` Nom de l'entreprise`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                              
-                              </div>
+                            <div className="flex-1">Nom de l’entreprise</div>
                           </div>
                           <input
                             type="text"
                             id="EntrepriseName"
                             placeholder="Nom de l’entreprise"
-
                             value={formData.EntrepriseName}
                             onChange={(e) =>
                               setFormData({
@@ -620,24 +514,11 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/43c300d97aa67300893a5a93497e6396899e47deee593690d089df4b9cbfa5d0?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto aspect-[1.1] fill-zinc-900 w-[22px]"
                             />
-                            <div className="flex-1">
-                              
-                            {
-                                  getTranslation(
-                                   `Level of education`,  // -----> Englais
-                                   ` Niveau d’études`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                              
-                              
-                              </div>
+                            <div className="flex-1">Niveau d’études</div>
                           </div>
                           <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
-                                    <select
+                              <select
                                 id="NivET"
                                 className=" w-full bg-transparent"
                                 value={formData.NivET}
@@ -648,49 +529,11 @@ function Entreprise() {
                                   })
                                 }
                               >
-                                <option value="">{
-                                  getTranslation(
-                                   `Level of education`,  // -----> Englais
-                                   ` Niveau d’études`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }</option>
+                                <option value="">Niveau d’études</option>
+                                <option value="Bac">Primaire</option>
+                                <option value="Bac">Secondaire</option>
                                 <option value="Bac">
-                                {
-                                  getTranslation(
-                                   `Primary`,  // -----> Englais
-                                   ` Primaire`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                                  </option>
-                                <option value="Bac">
-                                {
-                                  getTranslation(
-                                   `Secondary`,  // -----> Englais
-                                   ` Secondaire`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                                  </option>
-                                <option value="Bac">  
-                                
-                                {
-                                  getTranslation(
-                                   `Professional training`,  // -----> Englais
-                                   ` Formations professionnelles `, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                                
+                                  Formations professionnelles
                                 </option>
                                 <option value="Bac +1">Bac</option>
                                 <option value="Bac +1">Bac +1</option>
@@ -698,31 +541,10 @@ function Entreprise() {
                                 <option value="Bac +3">Bac +3</option>
                                 <option value="Bac +3">Bac +4</option>
                                 <option value="Bac +3">Bac +5</option>
+                                <option value="Bac +3">Doctorat</option>
                                 <option value="Bac +3">
-                                  
-                                  
-                                {
-                                  getTranslation(
-                                   `Doctorate`,  // -----> Englais
-                                   ` Doctorat `, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                                  </option>
-                                <option value="Bac +3">    
-                                
-                                {
-                                  getTranslation(
-                                   `Expert, Research`,  // -----> Englais
-                                   ` Expert, Recherche  `, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                                   </option>
+                                  Expert, Recherche
+                                </option>
                               </select>
                             </div>
                           </div>
@@ -732,19 +554,139 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/477c1c901e0f413e9df8f00fc3f5c46072ae48e6965170ab72f4b9273202ad32?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square"
                             />
-                            <div className="flex-1">
-                            
-                            {
-                                  getTranslation(
-                                   `Country`,  // -----> Englais
-                                   ` Pays `, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                            
+                            <div className="flex-1">Pays</div>
+                          </div>
+
+                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
+                              <select
+                                className="w-full bg-transparent"
+                                {...register("Experience")}
+                              >
+                                <option value="CDI">CDI</option>
+                                <option value="CDD">CDD</option>
+                                <option value="CVIP">CVIP</option>
+                                <option value="Mission">Mission</option>
+                              </select>
                             </div>
+                          </div>
+                          <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/3466d1b55c7280f975dd0988d2ff14c6cc643c9220fa57af2b5a521d6df0b6cc?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto w-5 aspect-square"
+                            />
+                            <div className="-ml-5" />
+                            Ville
+                          </div>
+                          <input
+                            type="text"
+                            id="villeoffre"
+                            placeholder="ville"
+                            value={formData.villeoffre}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                villeoffre: e.target.value,
+                              })
+                            }
+                            className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
+                          />
+                          <div className="flex gap-3 px-4 mt-6">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/70d817d0342edd76d5dc9a806a14b84b42c2400d315e3aaaec63dc0c39b6e723?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto w-5 aspect-square"
+                            />
+                            <div className="flex-1">Date d’expiration</div>
+                          </div>
+                          <div className="flex flex-col justify-center py-px mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
+                              <DatePicker
+                                className="bg-transparent py-1"
+                                id="date_experie"
+                                selected={formData.date_experie}
+                                onChange={handleDateChange}
+                                dateFormat="yyyy-MM-dd" // Set desired date format
+                              />
+
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d75f863b0c655b0bcba95806148ab72fb50a5add9e54c43611c0b679769c28f?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                className="shrink-0 my-auto aspect-square w-[15px]"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* chtar lekher */}
+                      <div className="flex flex-col ml-5 w-[50%] max-md:ml-0 max-md:w-full">
+                        <div className="flex flex-col grow text-lg text-zinc-900 mt-[-20px]">
+                          <div className="flex gap-3 px-4 -mt-1 md:mt-[20px] whitespace-nowrap">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                            />
+                            <div className="flex-1">Poste</div>
+                          </div>
+                          <input
+                            type="text"
+                            id="postoffre"
+                            placeholder="Poste"
+                            value={formData.postoffre}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                postoffre: e.target.value,
+                              })
+                            }
+                            className="justify-center items-start px-4 py-3.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
+                          />
+
+                          <div className="flex gap-3 px-4 whitespace-nowrap mt-4">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                            />
+                            <div className="flex-1">Niveau d'experience</div>
+                          </div>
+                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
+                              <select
+                                className="w-full bg-transparent"
+                                {...register("NivET")}
+                              >
+                                <option value="Acunne Experience">
+                                  Acunne Experience
+                                </option>
+                                <option value="Moins d'un an">
+                                  Moins d'un an
+                                </option>
+                                <option value="CVIEntre 1 et 2 ansP">
+                                  Entre 1 et 2 ans
+                                </option>
+                                <option value="Entre 2 et 5 ans">
+                                  Entre 2 et 5 ans
+                                </option>
+                                <option value="Entre 5 et 10 ans">
+                                  Entre 5 et 10 ans
+                                </option>
+                                <option value="Plus que 10 ans">
+                                  Plus que 10 ans{" "}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div className="flex gap-3 px-4 mt-6">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e2bb7e6929dfe27f019db31dfba3116f9832133a3a48be3d6af89d34cc463e1?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                              className="shrink-0 my-auto aspect-[0.75] fill-zinc-900 w-[15px]"
+                            />
+                            <div className="flex-1">Type de contrat</div>
                           </div>
 
                           <Select
@@ -763,9 +705,11 @@ function Entreprise() {
                                 backgroundColor: "#fff", // Set the background color
                                 borderWidth: "none",
 
-                                paddingTop: "8px",
-                                paddingBottom: "8px",
+                                paddingTop: "4px",
+                                paddingBottom: "4px",
                                 marginTop: "8px",
+                                paddingLeft: "16px",
+                                paddingRight: "15px",
                                 width: "100%",
 
                                 border: "0.5px solid #E5E5E5",
@@ -777,35 +721,22 @@ function Entreprise() {
                             }}
                             onChange={handleCountryChangePaysOffre}
                             value={optionsPaysOffre.find(
-                              (option) =>
-                                option.value === formData.paysoffre
+                              (option) => option.value === formData.paysoffre
                             )} // Set the value from formData
                           />
-                          <div className="flex gap-3 px-4 mt-8 whitespace-nowrap">
+
+                          <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/8f84db8c65fb787a86b9e66e5c919bc6b81d09c021813ee3ed7d469a0e564d58?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto aspect-[1.1] fill-zinc-900 w-[22px]"
                             />
-                            <div className="flex-1">
-                              
-                            {
-                                  getTranslation(
-                                   `Email`,  // -----> Englais
-                                   ` Email `, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                              
-                              </div>
+                            <div className="flex-1">Email</div>
                           </div>
                           <input
                             type="email"
                             id="email"
                             placeholder="Email"
-
                             value={formData.email}
                             onChange={(e) =>
                               setFormData({
@@ -815,239 +746,6 @@ function Entreprise() {
                             }
                             className="justify-center items-start px-4 py-3.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
                           />
-                        </div>
-                      </div>
-                      <div className="flex flex-col ml-5 w-[45%] max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col grow text-lg text-zinc-900 mt-[-20px]">
-                          <div className="flex gap-3 px-4 mt-4 whitespace-nowrap">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                              className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
-                            />
-                            <div className="flex-1">
-                            {
-                                  getTranslation(
-                                   `Work position`,  // -----> Englais
-                                   ` Poste `, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                              
-                              
-                              </div>
-                          </div>
-                          <input
-                            type="text"
-                            id="postoffre"
-                            placeholder="Poste"
-
-                            value={formData.postoffre}
-                            onChange={(e) =>
-                              setFormData({
-                                ...formData,
-                                postoffre: e.target.value,
-                              })
-                            }
-                            className="justify-center items-start px-4 py-3.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
-                          />
-
-                          <div className="flex gap-3 px-4 whitespace-nowrap mt-3">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                              className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
-                            />
-                            <div className="flex-1">
-                              
-                            {
-                                  getTranslation(
-                                   `Level of experience`,  // -----> Englais
-                                   `  Niveau d'experience `, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                              
-                              
-                             </div>
-                          </div>
-                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
-                            <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
-                              <select className="w-full bg-transparent" {...register("NivET")}>
-                                <option value="CDI">
-                                  
-                                {
-                                  getTranslation(
-                                   `No experience`,  // -----> Englais
-                                   `Acunne Experience `, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                                  
-                                  
-                                  </option>
-                                <option value="CDD">
-                                {
-                                  getTranslation(
-                                   `Less than 1 year`,  // -----> Englais
-                                   `Moins d'un an`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                                  
-                                  </option>
-                                <option value="CVIP">
-                                  
-                                {
-                                  getTranslation(
-                                   `Between 1 and 2 years`,  // -----> Englais
-                                   `Entre 1 et 2 ans`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }
-                                  
-                                  </option>
-                                <option value="CVIP">
-                                  
-                                  
-                                {
-                                  getTranslation(
-                                   `Between 2 and 5 years`,  // -----> Englais
-                                   `Entre 2 et 5 ans`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }</option>
-                                <option value="CVIP"> {
-                                  getTranslation(
-                                   `Between 5 and 10 years`,  // -----> Englais
-                                   `Entre 5 et 10 ans`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }</option>
-                                <option value="Mission"> {
-                                  getTranslation(
-                                   `More than 10 years`,  // -----> Englais
-                                   `Plus que 10 ans`, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 } </option>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div className="flex gap-3 px-4 mt-6">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e2bb7e6929dfe27f019db31dfba3116f9832133a3a48be3d6af89d34cc463e1?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                              className="shrink-0 my-auto aspect-[0.75] fill-zinc-900 w-[15px]"
-                            />
-                            <div className="flex-1">  
-                            {
-                                  getTranslation(
-                                   `Type of contract `,  // -----> Englais
-                                   `Type de contrat  `, //  -----> Francais
-                                 //   ``,  //  -----> Turkey
-                                 //   `` ,  //  -----> Allemagne
-                                   ) 
-                     
-                                 }  </div>
-                          </div>
-                          <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
-                            <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
-                              <select className="w-full bg-transparent" {...register("Experience")}>
-                                <option value="CDI">CDI</option>
-                                <option value="CDD">CDD</option>
-                                <option value="CVIP">CVIP</option>
-                                <option value="Mission">Mission</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/3466d1b55c7280f975dd0988d2ff14c6cc643c9220fa57af2b5a521d6df0b6cc?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                              className="shrink-0 my-auto w-5 aspect-square"
-                            />
-                            <div
-
-                              className="-ml-5"
-                            />
-
-{
-             getTranslation(
-              `City`,  // -----> Englais
-              `Ville`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-
-                            
-                          </div>
-                          <input type="text"
-                            id="villeoffre"
-                            placeholder="ville"
-                            value={formData.villeoffre}
-                            onChange={(e) =>
-                              setFormData({
-                                ...formData,
-                                villeoffre: e.target.value,
-                              })
-                            } className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5" />
-                          <div className="flex gap-3 px-4 mt-6">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/70d817d0342edd76d5dc9a806a14b84b42c2400d315e3aaaec63dc0c39b6e723?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                              className="shrink-0 my-auto w-5 aspect-square"
-                            />
-                            <div className="flex-1">
-                              
-                            {
-             getTranslation(
-              `Expiration date`,  // -----> Englais
-              `  Date d’expiration `, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-                              
-                                 </div>
-                          </div>
-                          <div className="flex flex-col justify-center py-px mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
-                            <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
-                              <DatePicker
-                              className="bg-transparent py-2"
-                                id="date_experie"
-                                selected={formData.date_experie}
-                                onChange={handleDateChange}
-                                dateFormat="yyyy-MM-dd" // Set desired date format
-                              />
-
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d75f863b0c655b0bcba95806148ab72fb50a5add9e54c43611c0b679769c28f?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                className="shrink-0 my-auto aspect-square w-[15px]"
-                              />
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -1066,8 +764,7 @@ function Entreprise() {
                   <input
                     type="text"
                     id="description"
-                            placeholder="Description de taches"
-
+                    placeholder="Description de taches"
                     value={formData.description}
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
@@ -1077,28 +774,16 @@ function Entreprise() {
 
                   {/* buttons */}
                   <div className="flex gap-2 flex-col-reverse  md:flex-row  justify-between items-center py-2  mt-2 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                    <Link to="/home" className="w-full"> 
-                    
-                    <button className="flex w-full  md:w-fit gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
-                      <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/b85bedc4eae672f17d955b80520a5136c05878ae21b3a9e7cc3758d244af61b3?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                        className="shrink-0  w-5 aspect-square"
-                      />
-                      <div>
-                        
-                      {
-             getTranslation(
-              `Cancel`,  // -----> Englais
-              `Annuler`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-                        
-                        </div>
-                    </button></Link>
+                    <Link to="/home" className="w-full">
+                      <button className="flex w-full  md:w-fit gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/b85bedc4eae672f17d955b80520a5136c05878ae21b3a9e7cc3758d244af61b3?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                          className="shrink-0  w-5 aspect-square"
+                        />
+                        <div>Annuler</div>
+                      </button>
+                    </Link>
                     <button
                       type="submit"
                       className="flex gap-2 w-full md:w-fit  justify-center px-8 py-2 text-white  bg-blue-600 rounded-[30px]"
@@ -1108,18 +793,7 @@ function Entreprise() {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5d01c0eee0c5103d74261700846d4597cbbc5efb362e5511402ce42b9f1f3ef?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 w-5 aspect-square"
                       />
-                      <div>
-                        
-                      {
-             getTranslation(
-              `Submit`,  // -----> Englais
-              `Confirmer`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-                        </div>
+                      <div>Confirmer</div>
                     </button>
                   </div>
                 </div>
