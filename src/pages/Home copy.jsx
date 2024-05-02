@@ -45,7 +45,8 @@ import { Link, Navigate, useNavigate, useLocation, json } from "react-router-dom
 import GallerieOdin from "./Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "./HomeSkeletonPost";
-import CreatePost from "../components/CreatePostss";;
+import CreatePost from "../components/CreatePostss";import CreatePostModal from "../components/CreatePostModal";
+;
 function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -466,7 +467,8 @@ function Home() {
 
 
             <div className="flex flex-1 flex-col">
-              <CreatePost setArticles={setData} />
+              {/* <CreatePost setArticles={setData} /> */}
+              <CreatePostModal  />
               {
                 loading ? (
                   // Render skeleton loading effect while data is being fetched

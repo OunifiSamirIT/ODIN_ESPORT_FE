@@ -102,6 +102,7 @@ function Post({ article, setArticles }) {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
+  let _ref_toggelcomment = useRef(null)
 
   const ref = useRef(null);
 
@@ -111,6 +112,7 @@ function Post({ article, setArticles }) {
       console.log(!ref.current.contains(event.target))
       setIsModaldOpen(false)
       fetchArticles()
+      setCommentInputVisible(false);
 
     }
   };
@@ -122,13 +124,32 @@ function Post({ article, setArticles }) {
   }, []);
 
 
+  // const handleEdit = (articleId) => {
+  //   console.log("Editing article with ID:", articleId); // Add this line to debug
+  //   setSelectedArticleId(articleId);
+  //   setIsModaldOpen(true);
+  //   setCommentInputVisible(false);
+  //   if (_ref_toggelcomment.current) {
+  //     _ref_toggelcomment.current.setCommentInputVisible(false);
+  //   } 
+  //  };
   const handleEdit = (articleId) => {
-    console.log("Editing article with ID:", articleId); // Add this line to debug
-    setSelectedArticleId(articleId);
-    setIsModaldOpen(true);
+    console.log("Editing article with ID:", articleId); // Debugging line
+
+    // Close the comment input section
     setCommentInputVisible(false);
 
+    // Select the article and open the modal for editing
+    setSelectedArticleId(articleId);
+    setIsModaldOpen(true);
+    // Optionally, close any other comment input sections if needed
+    if (_ref_toggelcomment.current) {
+      _ref_toggelcomment.current.button
+      console.log("dddddddddddddddddddddddddddggggg", _ref_toggelcomment.current)
+
+    }
   };
+
 
   const handleCloseModal = () => {
     setIsModaldOpen(false);
@@ -149,8 +170,57 @@ function Post({ article, setArticles }) {
 
   const [repliesVisible, setRepliesVisible] = useState({});
 
+  const [likesData, setLikesData] = useState(null); // State to store likes data
+  const storedUserData = JSON.parse(localStorage.getItem("user"));
 
+  //   const fetchLikesForArticle = async (articleId) => {
+  //     const userId = storedUserData.id ? storedUserData.id : null;
 
+  //     try {
+  //         const response = await fetch(
+  //             `${Config.LOCAL_URL}/api/likes/articless/${articleId}/`
+  //         );
+
+  //         if (response.ok) {
+  //             const likeData = await response.json();
+  //             setLikesData(likeData); 
+  //             console.log("dddddddddddddddddd", likesData)
+  //             // Update state with fetched like data
+  //         } else {
+  //             throw new Error("Error fetching like data.");
+  //         }
+  //     } catch (error) {
+  //         console.error("Error fetching like data:", error);
+  //     }
+  // };
+  const fetchLikesForArticle = async (articleId) => {
+    const userId = storedUserData.id ? storedUserData.id : null;
+
+    try {
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/likes/articless/${articleId}/`
+      );
+
+      if (response.ok) {
+        const likeData = await response.json();
+        setLikesData(likeData);
+
+        // Check if userId exists in the fetched data
+        const userLiked = likeData.some(like => like.userId === userId);
+
+        if (userLiked) {
+          console.log("User has liked this article.");
+        } else {
+          console.log("User has not liked this article.");
+        }
+        // Update state with fetched like data
+      } else {
+        throw new Error("Error fetching like data.");
+      }
+    } catch (error) {
+      console.error("Error fetching like data:", error);
+    }
+  };
   const handleLikeClick = async (articleId, emoji) => {
     try {
       const response = await fetch(
@@ -169,7 +239,8 @@ function Post({ article, setArticles }) {
       );
 
       if (response.ok) {
-        const responseData = await response.json();
+        // Fetch the updated likes data for the article
+        await fetchLikesForArticle(articleId);
 
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
@@ -184,22 +255,86 @@ function Post({ article, setArticles }) {
               allLikesData.find((like) => like.articleId === article.id)
                 ?.likesCount || 0;
             return article.id === articleId
-              ? { ...article, likesCount: updatedLikesCount }
+              ? {
+                ...article,
+                likesCount: updatedLikesCount,
+              }
               : article;
           })
         );
       } else {
-        toast.error("Error liking/unliking the article. Please try again.", {
-          position: "top-right",
-        });
+        toast.error(
+          "Error liking/unliking the article. Please try again.",
+          {
+            position: "top-right",
+          }
+        );
       }
     } catch (error) {
       console.error("Error adding like:", error);
-      toast.error("An unexpected error occurred. Please try again later.", {
-        position: "top-right",
-      });
+      toast.error(
+        "An unexpected error occurred. Please try again later.",
+        {
+          position: "top-right",
+        }
+      );
     }
   };
+
+  // const handleLikeClick = async (articleId, emoji) => {
+  //   try {
+  //     const response = await fetch(
+  //       `${Config.LOCAL_URL}/api/likes/article/${articleId}`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           userId: storedUserData.id,
+  //           articleId: articleId,
+  //           emoji: emoji,
+  //         }),
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       const responseData = await response.json();
+
+  //       // Fetch allLikes to get the updated likes counts for all articles
+  //       const allLikesResponse = await fetch(
+  //         `${Config.LOCAL_URL}/api/likes/article/allLikes`
+  //       );
+  //       const allLikesData = await allLikesResponse.json();
+
+  //       // Update the state based on the received likes count
+  //       setArticles((prevArticles) =>
+  //         prevArticles.map((article) => {
+  //           const updatedLikesCount =
+  //             allLikesData.find((like) => like.articleId === article.id)
+  //               ?.likesCount || 0;
+  //           return article.id === articleId
+  //             ? {
+  //                ...article,
+
+  //               likesCount: updatedLikesCount }
+  //             : article;
+  //         })
+  //       );
+  //       fetchLikesForArticle()
+
+  //     } else {
+  //       toast.error("Error liking/unliking the article. Please try again.", {
+  //         position: "top-right",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error adding like:", error);
+  //     toast.error("An unexpected error occurred. Please try again later.", {
+  //       position: "top-right",
+  //     });
+  //   }
+  // };
 
   const handleLikeComment = async (commentId) => {
     try {
@@ -273,7 +408,7 @@ function Post({ article, setArticles }) {
   };
 
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  // const storedUserData = JSON.parse(localStorage.getItem("user"));
 
 
 
@@ -504,6 +639,8 @@ function Post({ article, setArticles }) {
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
+
+    fetchLikesForArticle(article.id);
 
     // fetchArticles();
     // fetchAlbums();
@@ -1089,27 +1226,8 @@ function Post({ article, setArticles }) {
                   </span>
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {formatDate(article?.user?.user?.createdAt)}
-                    {/* {formatDate(article?.user?.user?.createdAt).split(" ")[0]} {" "}
-                                                              
-                    {getTranslation(
-                      formatDate(article?.user?.user?.createdAt).split(" ")[1],
-                      `
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="january" ? "janvier" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="february" ? "février" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="march" ? "mars" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="april" ? "avril" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="may" ? "mai" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="june" ? "juin" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="july" ? "juillet" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="august" ? "aout" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="september" ? "septembre" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="october" ? "octobre" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="november" ? "novembre" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="december" ? "décembre": ""}
-                      `
-                    )
-                    }{"  "}
-                    {formatDate(article?.user?.user?.createdAt).split(" ")[0]} */}
+
+
                   </span>
                 </h4>
                 <div
@@ -1149,9 +1267,12 @@ function Post({ article, setArticles }) {
 
                         <button
                           className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
-                        // onClick={() =>
-                        //   handleEditClick(selectedArticle)
-                        // }
+                          // onClick={() =>
+                          //   handleEditClick(selectedArticle)
+                          // }
+                          ref={_ref_toggelcomment}
+                          onClick={() => handleEdit(article.id)}
+
                         >
 
                           <label
@@ -1170,7 +1291,7 @@ function Post({ article, setArticles }) {
                                 </clipPath>
                               </defs>
                             </svg>
-                            <span onClick={() => handleEdit(article.id)}>Edit</span>
+                            <span  >Edit</span>
 
                             {/* <Link to={`/editPost/${article.id}`}>
                                           <span>Edit</span>
@@ -1208,7 +1329,7 @@ function Post({ article, setArticles }) {
                       <div className="card-body p-0 mb-3  overflow-hidden ">
                         <video
                           controls
-                          className=" w-100 md:max-h-[600px]"
+                          className=" w-100 md:max-h-[600px] max-h-[350px]"
                         >
                           <source
                             src={article.video}
@@ -1228,7 +1349,7 @@ function Post({ article, setArticles }) {
 
                     <div className="col-sm-12 p-1 ">
                       <img
-                        className=" md:h-fit  max-h-[600px]   w-100 object-contain "
+                        className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
                         src={article.image}
                         alt={article.titre}
                       />
@@ -1278,35 +1399,59 @@ function Post({ article, setArticles }) {
 
                 <span className="flex justify-between items-center mb-0 ml-0 p-0 font-bold w-full">
                   <button
-                    onClick={() => {
-                      handleLikeClick(article.id, 1);
+                    onClick={async () => {
+                      await handleLikeClick(article.id, 1);
+                      await fetchLikesForArticle(article.id);
                     }}
                   >
-                    <span
-                      className="flex flex-col md:flex-row gap-2 items-center"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      {article.likesCount === 0 ? (
-                        <BiHeart className="size-6 text-black" />
-                      ) : (
-                        <BiSolidHeart className="size-6 text-black" />
-                      )}
-                      <div className="flex items-center gap-2">
-                        <span
-                          className=""
-                          style={{
-                            marginLeft: "1px",
-                            marginTop: "2px",
-                          }}
-                        >
-                          Jaime
+
+
+
+
+
+
+                    <span className="flex items-center flex-col md:flex-row gap-2 ">
+                      {likesData && likesData.some(like => like.userId === storedUserData.id) ? (
+                        < span className="flex flex-row">  <BiSolidHeart className="size-6 text-orange-500" />
+                          <div className="flex items-center gap-2">
+                            <span
+
+                              style={{
+                                marginLeft: "1px",
+                                marginTop: "2px",
+                                color: "#f97316"
+
+                              }}
+                            >
+
+                              Jaime
+                            </span>
+                          </div>
                         </span>
-                      </div>
+                      ) : (
+                        <span className="flex flex-row"> <BiHeart className="size-6 text-black" />
+                          <div className="flex items-center gap-2">
+                            <span
+
+                              style={{
+                                marginLeft: "1px",
+                                marginTop: "2px",
+                                color: "black"
+
+                              }}
+                            >
+
+                              Jaime
+                            </span>
+                          </div>
+
+                        </span>
+                      )
+                      }
                     </span>
                   </button>{" "}
+
+
                   <button
                     onClick={() => {
                       if (selectedArticleId === article.id) {
@@ -1794,7 +1939,8 @@ function Post({ article, setArticles }) {
 
                     {/* Add Comment Input */}
                     {commentInputVisible && (
-                      <div>
+                      <div
+                      >
                         <div className="flex items-center gap-3 mt-3">
                           <figure className="avatar">
                             <img

@@ -26,6 +26,7 @@ function EditPost({ articleId, onClose }) {
   const [errMsg, setErrMsg] = useState(null);
   const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
   const [originalArticle, setOriginalArticle] = useState(null);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false); // New state
 
   const {
     register,
@@ -111,6 +112,7 @@ const fetchArticle = async () => {
       if (response.ok) {
         const updatedArticle = await response.json();
         setEditArticle(updatedArticle);
+        setIsFormSubmitted(true);
       } else {
         console.error("Error updating article:", response.statusText);
         const errorData = await response.json();
@@ -291,7 +293,11 @@ const fetchArticle = async () => {
           </div>
         </div>
       </div>      
-      
+      {isFormSubmitted && (
+                <div className="flex self-center justify-center items-center text-center px-2.5 py-2 mt-6 md:text-md  text:sm md:mx-12 font-medium text-gray-800 bg-green-200 rounded-lg">
+                  Votre Poste a éte modifie avec succès
+                </div>
+              )}
       
 
 
