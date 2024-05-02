@@ -17,7 +17,10 @@ import { Langue } from "../../assets/data/Langue";
 
 import { Config } from "../../config";
 const Personal = ({ userInfo }) => {
-  const [selectedLanguages, setSelectedLanguages] = useState([]);
+  const [selectedLanguages, setSelectedLanguages] = useState({
+    value : '',
+    label : ''
+  });
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
   const [inputErrors, setInputErrors] = useState({});
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -185,7 +188,7 @@ const Personal = ({ userInfo }) => {
     formDataToUpdate.append("cityresidence", data.cityresidence);
     formDataToUpdate.append("image", file);
     formDataToUpdate.append("prefix", `${data.wats?.label?.props?.children[2]},${data.phoneLength?.label?.props?.children[2]}`);
-    formDataToUpdate.append("langueparlee", data.langueparlee?.map(lang => lang.value).join(','));
+    formDataToUpdate.append("langueparlee", data.langueparlee !== undefined ? data.langueparlee?.map(lang => lang.value).join(',') : '');
 
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${storedUserData.id}`,
@@ -214,7 +217,7 @@ const Personal = ({ userInfo }) => {
   const selectedObject = (countryName) => { return optionsphone.find(item => item.label.props?.children[2] == countryName) || '' };
   const resetForm = async () => {
     setValue('nom', userInfo.user.nom);
-    setValue('discreptionBio', userInfo.user.discreptionBio ?? '');
+    setValue('discreptionBio', userInfo.user.discreptionBio !== '' ? userInfo.user.discreptionBio  : '');
     setValue('prenom', userInfo.user.prenom);
     setValue('country', userInfo.user.country);
     setValue('cityresidence', userInfo.user.cityresidence);
@@ -240,7 +243,7 @@ const Personal = ({ userInfo }) => {
       .then((userData) => {
         setUser(userData.user)
         setValue('nom', userData.user.nom);
-        setValue('discreptionBio', userData.user.discreptionBio);
+        setValue('discreptionBio', userInfo?.user.discreptionBio ?? '');
         setValue('prenom', userData.user.prenom);
         setValue('nationality', defaultValueN(userData.user.nationality));
         setValue('country', defaultValue(userData.user.countryresidence));
@@ -643,7 +646,7 @@ const Personal = ({ userInfo }) => {
               ) : ''}
             </div>
           </div>
-
+          {/* end tel et whatsaspp */}
 
           {/* annee de naissance */}
           <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-base">
@@ -767,7 +770,7 @@ const Personal = ({ userInfo }) => {
               </div>{" "}
             </div>
           </div>
-
+          {/* end date de naissance */}
 
           {/* country */}
           <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-base">
@@ -919,6 +922,9 @@ const Personal = ({ userInfo }) => {
               )}
             </div>
           </div>
+          {/* end Country */}
+
+          {/* city */}
           <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-base">
 
             <div className="lg:flex-1 w-full">
@@ -1025,10 +1031,10 @@ const Personal = ({ userInfo }) => {
 
             </div>
           </div>
+          {/* end city */}
 
 
-
-
+          {/* button */}
           <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
             <div className="hidden md:flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-500 rounded-[30px] max-md:px-5">
               <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1076,7 +1082,7 @@ const Personal = ({ userInfo }) => {
               }</button>
             </div>
           </div>
-
+          {/* end button */}
         </form>
       </div>
     </>

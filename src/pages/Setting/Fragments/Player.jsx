@@ -399,7 +399,6 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                             ``,  //  -----> Turkey
                             ``,  //  -----> Allemagne
                           )
-
                         }</span>}
                             </div>
                         </div>
@@ -713,7 +712,7 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                                                         </clipPath>
                                                     </defs>
                                                 </svg>
-                                                <label className="flex gap-5 items-center cursor-pointer text-ellipsis overflow-hidden w-[250px] ">
+                                                <label className="flex gap-5 items-center cursor-pointer text-ellipsis overflow-hidden w-[200px] ">
                                                     <span className=""> {'Voir votre Licence'}</span>
                                                 </label>
                                             </div>

@@ -47,6 +47,7 @@ import AdminImg from "../../assets/ODIN22.png";
 import SlideMenu from "../../components/SlideMenu";
 import Logo from "../../assets/ODIN22.png";
 import placeholder from "../../assets/placeholder.jpg";
+import { UserTag } from "../../components/UserTag";
 
 const Index = () => {
   const { id } = useParams();
@@ -1021,44 +1022,10 @@ const Index = () => {
                       className="card w-full shadow-xss flex rounded-xxl border-0 p-4 mb-3"
                     >
                       <div className="card-body p-0 d-flex mb-3">
-                        <figure className="avatar me-3">
-                          <img
-                            src={
-                              article?.user?.user?.image
-                                ? article?.user?.user?.image
-                                : PlaceHolder
-                            }
-                            className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
-                            alt="post"
-                          />
-                        </figure>
-                        <div className="flex flex-col">
-                          <span className="text-base text-grey-900">
-                            {article.user.user.nom} {article.user.user.prenom}
-                          </span>
-                          <span className="d-block font-xssss fw-500 text-grey-500">
-                            {article.user.user.profil == "other"
-                              ? article.user.other?.profession
-                              : ""}
-                            {article.user.user.profil == "player"
-                              ? " Joueur"
-                              : ""}
-                            {article.user.user.profil == "agent" &&
-                              article.user.agent?.typeresponsable == "players"
-                              ? "Manager de Joueur"
-                              : ""}
-                            {article.user.user.profil == "agent" &&
-                              article.user.agent?.typeresponsable == "club"
-                              ? "Manager de CLub"
-                              : ""}
-                            {article.user.user.profil == "scout" ? "Scout" : ""}
-                          </span>
-                          <span className="d-block font-xssss fw-500 text-grey-500">
-                            {formatDate(
-                              article.user.user.createdAt
-                            )}
-                          </span>
-                        </div>
+
+                        <UserTag image={article?.user?.user?.image
+                          ? article?.user?.user?.image
+                          : PlaceHolder} />
 
                         {/* <h4 className="">
                       
@@ -1159,8 +1126,8 @@ const Index = () => {
                                 </div> */}
                             <div className="col-sm-12 p-1 ">
                               <img
-className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
-src={article.image}
+                                className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
+                                src={article.image}
                                 alt={article.titre}
                               />
 
@@ -1740,9 +1707,9 @@ src={article.image}
                           <div className="col-sm-12 p-1">
                             {article.video ? (
                               <div className="card-body p-0 mb-3  overflow-hidden">
-                                <video controls 
-                          className=" w-100 md:max-h-[600px] max-h-[350px]"
-                                
+                                <video controls
+                                  className=" w-100 md:max-h-[600px] max-h-[350px]"
+
                                 >
                                   <source
                                     src={article.video}
