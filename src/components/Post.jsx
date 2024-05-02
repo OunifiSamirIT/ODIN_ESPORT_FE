@@ -138,7 +138,7 @@ function Post({ article, setArticles }) {
 
     // Close the comment input section
     setCommentInputVisible(false);
-
+    
     // Select the article and open the modal for editing
     setSelectedArticleId(articleId);
     setIsModaldOpen(true);
@@ -1160,13 +1160,16 @@ function Post({ article, setArticles }) {
 
 
   const handleEditClickreply = async (replyId) => {
-    // const  likesCountResponse = await fetch(
-    //   `${Config.LOCAL_URL}/api/replies/${commentaireId}`
-    // );
+
+    const  likesCountResponse = await fetch(
+      `${Config.LOCAL_URL}/api/repliesss/${replyId}`
+    );
+    const dataresultreplyofcomment = await likesCountResponse.json()
+    console.log("heloo reply", dataresultreplyofcomment )
     const replyToEdit = article?.replys?.find(reply => reply.id === replyId);
     console.log(replyToEdit, "ffff")
     setEditingReplyComment(replyId);
-    setEditedReply(replyToEdit?.description);
+    setEditedReply(dataresultreplyofcomment?.description);
   };
 
 
@@ -1230,6 +1233,9 @@ function Post({ article, setArticles }) {
 
                   </span>
                 </h4>
+                { storedUserData.id == article?.user?.user?.id && 
+
+(
                 <div
                   className="ms-auto relative cursor-pointer"
                   onClick={() => handleMoreClick(article)}
@@ -1312,7 +1318,7 @@ function Post({ article, setArticles }) {
                         </button>
                       </div>
                     )}
-                </div>
+                </div> )}
               </div>
 
               <div class="card-body p-0 me-lg-5 mt-2">
@@ -1395,7 +1401,7 @@ function Post({ article, setArticles }) {
                     </span>
                   </div>
                 </div>
-                <span className="h-[0.5px] block bg-gray-200 w-full mb-2"></span>
+                <span className="h-[0.5px] block bg-gray-200 w-full mb-3"></span>
 
                 <span className="flex justify-between items-center mb-0 ml-0 p-0 font-bold w-full">
                   <button
@@ -1492,7 +1498,7 @@ function Post({ article, setArticles }) {
                 </span>
 
                 {selectedArticleId === article?.id && (
-                  <div className="comments-section ">
+                  <div className="comments-section mt-2 ">
                     {article?.comments &&
                       article?.comments?.map((comment) => (
                         <div key={comment.id} className="comment">
@@ -1548,8 +1554,9 @@ function Post({ article, setArticles }) {
                                   </div>
 
 
+                                  { storedUserData.id == comment?.user?.user?.id && 
 
-                                  <div
+                                 ( <div
                                     className="ms-auto relative cursor-pointer"
                                     onClick={() => handleMoreClickComment(comment)}
                                   >
@@ -1617,7 +1624,7 @@ function Post({ article, setArticles }) {
                                         </div>
                                       )}
 
-                                  </div>
+                                  </div>)}
 
 
 
@@ -1663,16 +1670,10 @@ function Post({ article, setArticles }) {
                                 ) : (
                                   <div className="my-2 flex w-full justify-between">
 
-                                    {/* <button onClick={() => handleEditClickComment(comment.id)}>Edit</button> */}
 
                                   </div>
                                 )}
 
-
-
-                                {/* <div className="mt-2 text-base font-light text-wrap text-break text-zinc-900 px-4 ">
-                                              {comment.description}
-                                            </div> */}
 
                               </div>
 
@@ -1750,13 +1751,16 @@ function Post({ article, setArticles }) {
                                                 )}
                                               </div>
                                               <div className="mt-1 text-xs">
-                                                {new Date(
+                                              {formatDate(
                                                   reply.createdAt
-                                                ).toLocaleDateString()}
+                                                  )}
+                                               
                                               </div>
 
                                             </div>
-                                            <div
+                                            { storedUserData.id == reply?.user?.user?.id && 
+                                           (
+                                             <div
                                               className="ms-auto relative cursor-pointer"
                                               onClick={() => handleMoreClickreply(reply)}
                                             >
@@ -1825,7 +1829,9 @@ function Post({ article, setArticles }) {
                                                   </div>
                                                 )}
 
-                                            </div>
+                                            </div>)
+}
+
                                           </div>
                                           <div className="mt-2 text-break font-light text-zinc-900 px-4" >
                                             {reply.id === editingReplyId ? (
