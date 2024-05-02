@@ -138,15 +138,15 @@ function Post({ article, setArticles }) {
 
     // Close the comment input section
     setCommentInputVisible(false);
-    
+
     // Select the article and open the modal for editing
     setSelectedArticleId(articleId);
     setIsModaldOpen(true);
     // Optionally, close any other comment input sections if needed
     if (_ref_toggelcomment.current) {
-      _ref_toggelcomment.current.button
-      console.log("dddddddddddddddddddddddddddggggg", _ref_toggelcomment.current)
-
+      const button = _ref_toggelcomment.current.button; // Assigning to a variable
+      console.log("dddddddddddddddddddddddddddggggg", button);
+      // Now you can use the button variable or do something else with it
     }
   };
 
@@ -1001,7 +1001,7 @@ function Post({ article, setArticles }) {
     if (confirmDelete) {
       console.log("Deleting article...");
 
-      fetch(`${Config.LOCAL_URL}/api/replies/${id}`, {
+      fetch(`${Config.LOCAL_URL}/api/repliesdelete/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -1161,11 +1161,11 @@ function Post({ article, setArticles }) {
 
   const handleEditClickreply = async (replyId) => {
 
-    const  likesCountResponse = await fetch(
+    const likesCountResponse = await fetch(
       `${Config.LOCAL_URL}/api/repliesss/${replyId}`
     );
     const dataresultreplyofcomment = await likesCountResponse.json()
-    console.log("heloo reply", dataresultreplyofcomment )
+    console.log("heloo reply", dataresultreplyofcomment)
     const replyToEdit = article?.replys?.find(reply => reply.id === replyId);
     console.log(replyToEdit, "ffff")
     setEditingReplyComment(replyId);
@@ -1233,92 +1233,92 @@ function Post({ article, setArticles }) {
 
                   </span>
                 </h4>
-                { storedUserData.id == article?.user?.user?.id && 
+                {storedUserData.id == article?.user?.user?.id &&
 
-(
-                <div
-                  className="ms-auto relative cursor-pointer"
-                  onClick={() => handleMoreClick(article)}
-                >
-                  <svg
-                    width="31"
-                    height="21"
-                    viewBox="0 0 31 21"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                      fill="#1D1E21"
-                    />
-                    <path
-                      d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                      fill="#1D1E21"
-                    />
-                    <path
-                      d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                      fill="#1D1E21"
-                    />
-                  </svg>
+                  (
+                    <div
+                      className="ms-auto relative cursor-pointer"
+                      onClick={() => handleMoreClick(article)}
+                    >
+                      <svg
+                        width="31"
+                        height="21"
+                        viewBox="0 0 31 21"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                          fill="#1D1E21"
+                        />
+                        <path
+                          d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                          fill="#1D1E21"
+                        />
+                        <path
+                          d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                          fill="#1D1E21"
+                        />
+                      </svg>
 
-                  {showDropdown === article.id &&
-                    article.user.user &&
-                    article.user.user.id === storedUserData.id && (
-                      <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
-
-
+                      {showDropdown === article.id &&
+                        article.user.user &&
+                        article.user.user.id === storedUserData.id && (
+                          <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
 
 
 
 
-                        <button
-                          className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
-                          // onClick={() =>
-                          //   handleEditClick(selectedArticle)
-                          // }
-                          ref={_ref_toggelcomment}
-                          onClick={() => handleEdit(article.id)}
 
-                        >
 
-                          <label
-                            className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                          // onClick={() => handleEditClick(article)}
-                          >
+                            <button
+                              className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                              // onClick={() =>
+                              //   handleEditClick(selectedArticle)
+                              // }
+                              ref={_ref_toggelcomment}
+                              onClick={() => handleEdit(article.id)}
 
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_3133_71907)">
-                                <path d="M1.2325 12.4487C0.763627 12.9175 0.500142 13.5533 0.5 14.2163L0.5 15.4994H1.78312C2.44611 15.4992 3.08189 15.2357 3.55062 14.7669L11.89 6.4275L9.57187 4.10938L1.2325 12.4487Z" fill="black" />
-                                <path d="M14.9651 1.03527C14.8129 0.882917 14.6322 0.762055 14.4332 0.679593C14.2343 0.597132 14.0211 0.554688 13.8057 0.554688C13.5904 0.554687 13.3771 0.597132 13.1782 0.679593C12.9793 0.762055 12.7985 0.882917 12.6463 1.03527L10.4551 3.22715L12.7732 5.54527L14.9651 3.35402C15.1174 3.20183 15.2383 3.0211 15.3208 2.82216C15.4032 2.62323 15.4457 2.40999 15.4457 2.19465C15.4457 1.9793 15.4032 1.76606 15.3208 1.56713C15.2383 1.36819 15.1174 1.18746 14.9651 1.03527Z" fill="black" />
-                              </g>
-                              <defs>
-                                <clipPath id="clip0_3133_71907">
-                                  <rect width="15" height="15" fill="black" transform="translate(0.5 0.5)" />
-                                </clipPath>
-                              </defs>
-                            </svg>
-                            <span  >Edit</span>
+                            >
 
-                            {/* <Link to={`/editPost/${article.id}`}>
+                              <label
+                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                              // onClick={() => handleEditClick(article)}
+                              >
+
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <g clip-path="url(#clip0_3133_71907)">
+                                    <path d="M1.2325 12.4487C0.763627 12.9175 0.500142 13.5533 0.5 14.2163L0.5 15.4994H1.78312C2.44611 15.4992 3.08189 15.2357 3.55062 14.7669L11.89 6.4275L9.57187 4.10938L1.2325 12.4487Z" fill="black" />
+                                    <path d="M14.9651 1.03527C14.8129 0.882917 14.6322 0.762055 14.4332 0.679593C14.2343 0.597132 14.0211 0.554688 13.8057 0.554688C13.5904 0.554687 13.3771 0.597132 13.1782 0.679593C12.9793 0.762055 12.7985 0.882917 12.6463 1.03527L10.4551 3.22715L12.7732 5.54527L14.9651 3.35402C15.1174 3.20183 15.2383 3.0211 15.3208 2.82216C15.4032 2.62323 15.4457 2.40999 15.4457 2.19465C15.4457 1.9793 15.4032 1.76606 15.3208 1.56713C15.2383 1.36819 15.1174 1.18746 14.9651 1.03527Z" fill="black" />
+                                  </g>
+                                  <defs>
+                                    <clipPath id="clip0_3133_71907">
+                                      <rect width="15" height="15" fill="black" transform="translate(0.5 0.5)" />
+                                    </clipPath>
+                                  </defs>
+                                </svg>
+                                <span  >Edit</span>
+
+                                {/* <Link to={`/editPost/${article.id}`}>
                                           <span>Edit</span>
                                         </Link>{" "} */}
-                          </label>
-                        </button>
+                              </label>
+                            </button>
 
-                        <button
-                          className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
-                          onClick={() =>
-                            handleDeleteClick(article.id)
-                          }
-                        >
-                          <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M17.5 3.33333H14.0825C13.695 1.43417 12.0125 0 10 0H8.33333C6.32167 0 4.63833 1.43417 4.25083 3.33333H0.833333C0.373333 3.33333 0 3.70583 0 4.16667C0 4.6275 0.373333 5 0.833333 5H1.55L2.63 16.2325C2.83667 18.3808 4.62 20 6.7775 20H11.55C13.7108 20 15.4942 18.3775 15.6983 16.2267L16.7617 5H17.4992C17.9592 5 18.3325 4.6275 18.3325 4.16667C18.3325 3.70583 17.96 3.33333 17.5 3.33333ZM8.33333 1.66667H10C11.085 1.66667 12.0017 2.36583 12.3467 3.33333H5.9875C6.3325 2.36583 7.24833 1.66667 8.33333 1.66667ZM12.2558 13.5775C12.5817 13.9033 12.5817 14.43 12.2558 14.7558C12.0933 14.9183 11.88 15 11.6667 15C11.4533 15 11.24 14.9183 11.0775 14.7558L9.16667 12.845L7.25583 14.7558C7.09333 14.9183 6.88 15 6.66667 15C6.45333 15 6.24 14.9183 6.0775 14.7558C5.75167 14.43 5.75167 13.9033 6.0775 13.5775L7.98833 11.6667L6.0775 9.75583C5.75167 9.43 5.75167 8.90333 6.0775 8.5775C6.40333 8.25167 6.93 8.25167 7.25583 8.5775L9.16667 10.4883L11.0775 8.5775C11.4033 8.25167 11.93 8.25167 12.2558 8.5775C12.5817 8.90333 12.5817 9.43 12.2558 9.75583L10.345 11.6667L12.2558 13.5775Z" fill="black" />
-                          </svg>
-                          <span className="text-base">Delete</span>
-                        </button>
-                      </div>
-                    )}
-                </div> )}
+                            <button
+                              className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                              onClick={() =>
+                                handleDeleteClick(article.id)
+                              }
+                            >
+                              <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.5 3.33333H14.0825C13.695 1.43417 12.0125 0 10 0H8.33333C6.32167 0 4.63833 1.43417 4.25083 3.33333H0.833333C0.373333 3.33333 0 3.70583 0 4.16667C0 4.6275 0.373333 5 0.833333 5H1.55L2.63 16.2325C2.83667 18.3808 4.62 20 6.7775 20H11.55C13.7108 20 15.4942 18.3775 15.6983 16.2267L16.7617 5H17.4992C17.9592 5 18.3325 4.6275 18.3325 4.16667C18.3325 3.70583 17.96 3.33333 17.5 3.33333ZM8.33333 1.66667H10C11.085 1.66667 12.0017 2.36583 12.3467 3.33333H5.9875C6.3325 2.36583 7.24833 1.66667 8.33333 1.66667ZM12.2558 13.5775C12.5817 13.9033 12.5817 14.43 12.2558 14.7558C12.0933 14.9183 11.88 15 11.6667 15C11.4533 15 11.24 14.9183 11.0775 14.7558L9.16667 12.845L7.25583 14.7558C7.09333 14.9183 6.88 15 6.66667 15C6.45333 15 6.24 14.9183 6.0775 14.7558C5.75167 14.43 5.75167 13.9033 6.0775 13.5775L7.98833 11.6667L6.0775 9.75583C5.75167 9.43 5.75167 8.90333 6.0775 8.5775C6.40333 8.25167 6.93 8.25167 7.25583 8.5775L9.16667 10.4883L11.0775 8.5775C11.4033 8.25167 11.93 8.25167 12.2558 8.5775C12.5817 8.90333 12.5817 9.43 12.2558 9.75583L10.345 11.6667L12.2558 13.5775Z" fill="black" />
+                              </svg>
+                              <span className="text-base">Delete</span>
+                            </button>
+                          </div>
+                        )}
+                    </div>)}
               </div>
 
               <div class="card-body p-0 me-lg-5 mt-2">
@@ -1554,77 +1554,77 @@ function Post({ article, setArticles }) {
                                   </div>
 
 
-                                  { storedUserData.id == comment?.user?.user?.id && 
+                                  {storedUserData.id == comment?.user?.user?.id &&
 
-                                 ( <div
-                                    className="ms-auto relative cursor-pointer"
-                                    onClick={() => handleMoreClickComment(comment)}
-                                  >
-
-                                    <svg
-                                      width="31"
-                                      height="21"
-                                      viewBox="0 0 31 21"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
+                                    (<div
+                                      className="ms-auto relative cursor-pointer"
+                                      onClick={() => handleMoreClickComment(comment)}
                                     >
-                                      <path
-                                        d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                        fill="#1D1E21"
-                                      />
-                                      <path
-                                        d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                                        fill="#1D1E21"
-                                      />
-                                      <path
-                                        d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                                        fill="#1D1E21"
-                                      />
-                                    </svg>
 
-                                    {showDropdownComment === comment?.id &&
-                                      comment?.user?.user &&
-                                      comment?.user?.user?.id === storedUserData.id && (
-                                        <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                                          <button
-                                            className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-                                            onClick={() => handleEditClickComment(comment.id)
-                                            }
-                                          >
-                                            <label
-                                              className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                            // onClick={() => handleEditClickComment(comment)}
+                                      <svg
+                                        width="31"
+                                        height="21"
+                                        viewBox="0 0 31 21"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                                          fill="#1D1E21"
+                                        />
+                                        <path
+                                          d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                                          fill="#1D1E21"
+                                        />
+                                        <path
+                                          d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                                          fill="#1D1E21"
+                                        />
+                                      </svg>
+
+                                      {showDropdownComment === comment?.id &&
+                                        comment?.user?.user &&
+                                        comment?.user?.user?.id === storedUserData.id && (
+                                          <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                            <button
+                                              className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                              onClick={() => handleEditClickComment(comment.id)
+                                              }
                                             >
-                                              <BiEditAlt />
-                                              {/* <Link to={`/editPost/${comment.id}`}> */}
-                                              <span>Edit</span>
-                                              {/* </Link>{" "} */}
-                                            </label>
-                                          </button>
+                                              <label
+                                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                              // onClick={() => handleEditClickComment(comment)}
+                                              >
+                                                <BiEditAlt />
+                                                {/* <Link to={`/editPost/${comment.id}`}> */}
+                                                <span>Edit</span>
+                                                {/* </Link>{" "} */}
+                                              </label>
+                                            </button>
 
 
-                                          <button
-                                            className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                            <button
+                                              className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
 
-                                            onClick={() => {
-                                              handleDeleteCommentClick(comment.id)
+                                              onClick={() => {
+                                                handleDeleteCommentClick(comment.id)
 
-                                              setCommentInputVisible(false);
-                                              setSelectedArticleId(null);
+                                                setCommentInputVisible(false);
+                                                setSelectedArticleId(null);
 
-                                            }}
-                                          >
-                                            <label
-                                              className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                            // onClick={() => handleEditClickComment(comment)}
+                                              }}
                                             >
-                                              <BiLogInCircle />
-                                              <span className="text-base">Delete</span></label>
-                                          </button>
-                                        </div>
-                                      )}
+                                              <label
+                                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                              // onClick={() => handleEditClickComment(comment)}
+                                              >
+                                                <BiLogInCircle />
+                                                <span className="text-base">Delete</span></label>
+                                            </button>
+                                          </div>
+                                        )}
 
-                                  </div>)}
+                                    </div>)}
 
 
 
@@ -1751,86 +1751,86 @@ function Post({ article, setArticles }) {
                                                 )}
                                               </div>
                                               <div className="mt-1 text-xs">
-                                              {formatDate(
+                                                {formatDate(
                                                   reply.createdAt
-                                                  )}
-                                               
+                                                )}
+
                                               </div>
 
                                             </div>
-                                            { storedUserData.id == reply?.user?.user?.id && 
-                                           (
-                                             <div
-                                              className="ms-auto relative cursor-pointer"
-                                              onClick={() => handleMoreClickreply(reply)}
-                                            >
+                                            {storedUserData.id == reply?.user?.user?.id &&
+                                              (
+                                                <div
+                                                  className="ms-auto relative cursor-pointer"
+                                                  onClick={() => handleMoreClickreply(reply)}
+                                                >
 
-                                              <svg
-                                                width="31"
-                                                height="21"
-                                                viewBox="0 0 31 21"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                              >
-                                                <path
-                                                  d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                                  fill="#1D1E21"
-                                                />
-                                                <path
-                                                  d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                                                  fill="#1D1E21"
-                                                />
-                                                <path
-                                                  d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                                                  fill="#1D1E21"
-                                                />
-                                              </svg>
+                                                  <svg
+                                                    width="31"
+                                                    height="21"
+                                                    viewBox="0 0 31 21"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                  >
+                                                    <path
+                                                      d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                                                      fill="#1D1E21"
+                                                    />
+                                                    <path
+                                                      d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                                                      fill="#1D1E21"
+                                                    />
+                                                    <path
+                                                      d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                                                      fill="#1D1E21"
+                                                    />
+                                                  </svg>
 
-                                              {showDropdownReply === reply.id &&
-                                                reply?.user?.user &&
-                                                reply?.user?.user?.id === storedUserData.id && (
-                                                  <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                                                    <button
-                                                      className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-                                                      onClick={() => handleEditClickreply(reply.id)
-                                                      }
-                                                    >
-                                                      <label
-                                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                                      // onClick={() => handleEditClickComment(comment)}
-                                                      >
-                                                        <BiEditAlt />
-                                                        {/* <Link to={`/editPost/${comment.id}`}> */}
-                                                        <span>Edit</span>
-                                                        {/* </Link>{" "} */}
-                                                      </label>
-                                                    </button>
-
-
-                                                    <button
-                                                      className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-
-                                                      onClick={() => {
-                                                        handleDeleteReplyClick(reply.id)
-                                                        fetchRepliesForComment(reply.commentaireId)
-                                                        setRepliesVisible(false);
-                                                        setSelectedArticleId(null);
+                                                  {showDropdownReply === reply.id &&
+                                                    reply?.user?.user &&
+                                                    reply?.user?.user?.id === storedUserData.id && (
+                                                      <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                                        <button
+                                                          className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                          onClick={() => handleEditClickreply(reply.id)
+                                                          }
+                                                        >
+                                                          <label
+                                                            className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                          // onClick={() => handleEditClickComment(comment)}
+                                                          >
+                                                            <BiEditAlt />
+                                                            {/* <Link to={`/editPost/${comment.id}`}> */}
+                                                            <span>Edit</span>
+                                                            {/* </Link>{" "} */}
+                                                          </label>
+                                                        </button>
 
 
-                                                      }}
-                                                    >
-                                                      <label
-                                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                                      // onClick={() => handleEditClickComment(comment)}
-                                                      >
-                                                        <BiLogInCircle />
-                                                        <span className="text-base">Delete</span></label>
-                                                    </button>
-                                                  </div>
-                                                )}
+                                                        <button
+                                                          className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
 
-                                            </div>)
-}
+                                                          onClick={() => {
+                                                            handleDeleteReplyClick(reply.id)
+                                                            fetchRepliesForComment(reply.commentaireId)
+                                                            setRepliesVisible(false);
+                                                            setSelectedArticleId(null);
+
+
+                                                          }}
+                                                        >
+                                                          <label
+                                                            className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                          // onClick={() => handleEditClickComment(comment)}
+                                                          >
+                                                            <BiLogInCircle />
+                                                            <span className="text-base">Delete</span></label>
+                                                        </button>
+                                                      </div>
+                                                    )}
+
+                                                </div>)
+                                            }
 
                                           </div>
                                           <div className="mt-2 text-break font-light text-zinc-900 px-4" >
