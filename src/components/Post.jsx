@@ -101,6 +101,7 @@ function Post({ article, setArticles }) {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
+  let _ref_toggelcomment = useRef(null)
 
   const ref = useRef(null);
 
@@ -110,6 +111,7 @@ function Post({ article, setArticles }) {
       console.log(!ref.current.contains(event.target))
       setIsModaldOpen(false)
       fetchArticles()
+      setCommentInputVisible(false);
 
     }
   };
@@ -121,14 +123,33 @@ function Post({ article, setArticles }) {
   }, []);
 
 
+  // const handleEdit = (articleId) => {
+  //   console.log("Editing article with ID:", articleId); // Add this line to debug
+  //   setSelectedArticleId(articleId);
+  //   setIsModaldOpen(true);
+  //   setCommentInputVisible(false);
+  //   if (_ref_toggelcomment.current) {
+  //     _ref_toggelcomment.current.setCommentInputVisible(false);
+  //   } 
+  //  };
   const handleEdit = (articleId) => {
-    console.log("Editing article with ID:", articleId); // Add this line to debug
+    console.log("Editing article with ID:", articleId); // Debugging line
+  
+    // Close the comment input section
+    setCommentInputVisible(false);
+  
+    // Select the article and open the modal for editing
     setSelectedArticleId(articleId);
     setIsModaldOpen(true);
-    setCommentInputVisible(false);
+    // Optionally, close any other comment input sections if needed
+    if (_ref_toggelcomment.current) {
+      _ref_toggelcomment.current.button
+      console.log("dddddddddddddddddddddddddddggggg", _ref_toggelcomment.current)
 
+    }
   };
-
+  
+  
   const handleCloseModal = () => {
     setIsModaldOpen(false);
     fetchArticles()
@@ -199,61 +220,120 @@ const fetchLikesForArticle = async (articleId) => {
       console.error("Error fetching like data:", error);
   }
 };
+const handleLikeClick = async (articleId, emoji) => {
+  try {
+    const response = await fetch(
+      `${Config.LOCAL_URL}/api/likes/article/${articleId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: storedUserData.id,
+          articleId: articleId,
+          emoji: emoji,
+        }),
+      }
+    );
 
+    if (response.ok) {
+      // Fetch the updated likes data for the article
+      await fetchLikesForArticle(articleId);
 
-  const handleLikeClick = async (articleId, emoji) => {
-    try {
-      const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/article/${articleId}`,
+      // Fetch allLikes to get the updated likes counts for all articles
+      const allLikesResponse = await fetch(
+        `${Config.LOCAL_URL}/api/likes/article/allLikes`
+      );
+      const allLikesData = await allLikesResponse.json();
+
+      // Update the state based on the received likes count
+      setArticles((prevArticles) =>
+        prevArticles.map((article) => {
+          const updatedLikesCount =
+            allLikesData.find((like) => like.articleId === article.id)
+              ?.likesCount || 0;
+          return article.id === articleId
+            ? {
+                ...article,
+                likesCount: updatedLikesCount,
+              }
+            : article;
+        })
+      );
+    } else {
+      toast.error(
+        "Error liking/unliking the article. Please try again.",
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: storedUserData.id,
-            articleId: articleId,
-            emoji: emoji,
-          }),
+          position: "top-right",
         }
       );
-
-      if (response.ok) {
-        const responseData = await response.json();
-
-        // Fetch allLikes to get the updated likes counts for all articles
-        const allLikesResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/article/allLikes`
-        );
-        const allLikesData = await allLikesResponse.json();
-
-        // Update the state based on the received likes count
-        setArticles((prevArticles) =>
-          prevArticles.map((article) => {
-            const updatedLikesCount =
-              allLikesData.find((like) => like.articleId === article.id)
-                ?.likesCount || 0;
-            return article.id === articleId
-              ? {
-                 ...article,
-                
-                likesCount: updatedLikesCount }
-              : article;
-          })
-        );
-
-      } else {
-        toast.error("Error liking/unliking the article. Please try again.", {
-          position: "top-right",
-        });
-      }
-    } catch (error) {
-      console.error("Error adding like:", error);
-      toast.error("An unexpected error occurred. Please try again later.", {
-        position: "top-right",
-      });
     }
-  };
+  } catch (error) {
+    console.error("Error adding like:", error);
+    toast.error(
+      "An unexpected error occurred. Please try again later.",
+      {
+        position: "top-right",
+      }
+    );
+  }
+};
+
+  // const handleLikeClick = async (articleId, emoji) => {
+  //   try {
+  //     const response = await fetch(
+  //       `${Config.LOCAL_URL}/api/likes/article/${articleId}`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           userId: storedUserData.id,
+  //           articleId: articleId,
+  //           emoji: emoji,
+  //         }),
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       const responseData = await response.json();
+
+  //       // Fetch allLikes to get the updated likes counts for all articles
+  //       const allLikesResponse = await fetch(
+  //         `${Config.LOCAL_URL}/api/likes/article/allLikes`
+  //       );
+  //       const allLikesData = await allLikesResponse.json();
+
+  //       // Update the state based on the received likes count
+  //       setArticles((prevArticles) =>
+  //         prevArticles.map((article) => {
+  //           const updatedLikesCount =
+  //             allLikesData.find((like) => like.articleId === article.id)
+  //               ?.likesCount || 0;
+  //           return article.id === articleId
+  //             ? {
+  //                ...article,
+                
+  //               likesCount: updatedLikesCount }
+  //             : article;
+  //         })
+  //       );
+  //       fetchLikesForArticle()
+
+  //     } else {
+  //       toast.error("Error liking/unliking the article. Please try again.", {
+  //         position: "top-right",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error adding like:", error);
+  //     toast.error("An unexpected error occurred. Please try again later.", {
+  //       position: "top-right",
+  //     });
+  //   }
+  // };
 
   const handleLikeComment = async (commentId) => {
     try {
@@ -552,7 +632,8 @@ const fetchLikesForArticle = async (articleId) => {
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-    fetchLikesForArticle()
+  
+    fetchLikesForArticle(article.id);
 
     // fetchArticles();
     // fetchAlbums();
@@ -997,27 +1078,8 @@ const fetchLikesForArticle = async (articleId) => {
                   </span>
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {formatDate(article?.user?.user?.createdAt)}
-                    {/* {formatDate(article?.user?.user?.createdAt).split(" ")[0]} {" "}
-                                                              
-                    {getTranslation(
-                      formatDate(article?.user?.user?.createdAt).split(" ")[1],
-                      `
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="january" ? "janvier" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="february" ? "février" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="march" ? "mars" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="april" ? "avril" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="may" ? "mai" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="june" ? "juin" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="july" ? "juillet" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="august" ? "aout" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="september" ? "septembre" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="october" ? "octobre" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="november" ? "novembre" : ""}
-                        ${ formatDate(article?.user?.user?.createdAt).split(" ")[1].toLowerCase() =="december" ? "décembre": ""}
-                      `
-                    )
-                    }{"  "}
-                    {formatDate(article?.user?.user?.createdAt).split(" ")[0]} */}
+                   
+                   
                   </span>
                 </h4>
                 <div
@@ -1060,6 +1122,9 @@ const fetchLikesForArticle = async (articleId) => {
                         // onClick={() =>
                         //   handleEditClick(selectedArticle)
                         // }
+                        ref={_ref_toggelcomment}
+                        onClick={() => handleEdit(article.id)}
+
                         >
 
                           <label
@@ -1078,7 +1143,7 @@ const fetchLikesForArticle = async (articleId) => {
                                 </clipPath>
                               </defs>
                             </svg>
-                            <span onClick={() => handleEdit(article.id)}>Edit</span>
+                            <span  >Edit</span>
 
                             {/* <Link to={`/editPost/${article.id}`}>
                                           <span>Edit</span>
@@ -1202,31 +1267,7 @@ src={article.image}
         await fetchLikesForArticle(article.id);
     }}
     >
-        {/* <span
-            className="flex flex-col md:flex-row gap-2 items-center"
-            style={{
-                display: "flex",
-                alignItems: "center",
-            }}
-        >
-            {likesData && likesData.some(like => like.userId === storedUserData.id) ? (
-                <BiSolidHeart className="size-6 text-black" />
-            ) : (
-                <BiHeart className="size-6 text-black" />
-            )}
-            <div className="flex items-center gap-2">
-                <span
-                    className=""
-                    style={{
-                        marginLeft: "1px",
-                        marginTop: "2px",
-                    }}
-                >
-                    Jaime
-                </span>
-            </div>
-        </span> */}
-
+       
 
 
 
@@ -1638,7 +1679,8 @@ src={article.image}
 
                     {/* Add Comment Input */}
                     {commentInputVisible && (
-                      <div>
+                      <div                 
+                      >
                         <div className="flex items-center gap-3 mt-3">
                           <figure className="avatar">
                             <img
