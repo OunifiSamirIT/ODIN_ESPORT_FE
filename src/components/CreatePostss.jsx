@@ -160,7 +160,7 @@ function CreatePost({ setArticles }) {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("dhaw " , response)
+          // console.log("dhaw " , response)
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
