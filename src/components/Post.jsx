@@ -74,10 +74,11 @@ function Post({ article, setArticles }) {
   const [commentReply, setCommentReply] = useState("");
   const [newComment, setNewComment] = useState(null); // New state for the newly added comment
   const [comments, setComments] = useState([]);
+
   const [user, setUser] = useState([]);
   const [userimg, setUserimg] = useState([]);
   const [commentInputVisible, setCommentInputVisible] = useState(false);
-  const [reply, setReply] = useState("");
+  const [reply, setReply] = useState([]);
   const [replyingToCommentId, setReplyingToCommentId] = useState(null);
   const [latestItemType, setLatestItemType] = useState(null);
   const [replyInput, setReplyInput] = useState("");
@@ -281,12 +282,14 @@ function Post({ article, setArticles }) {
       setLoading(true);
       const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
       const result = await response.json();
-
+      console.log(response, "arttttt")
       const articlesWithPromises = result.rows.map(async (article) => {
         const userId = article.userId;
         const comt = article.id;
+        const rep = article.commentaire[0]
+        console.log(rep, "ssssssssssssssssssssssss")
 
-        const [userDataResponse, commentsResponse, likesCountResponse] =
+        const [userDataResponse, commentsResponse, likesCountResponse, replyresponse] =
           await Promise.all([
             fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
               res.json()
@@ -295,6 +298,9 @@ function Post({ article, setArticles }) {
               (res) => res.json()
             ),
             fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
+              (res) => res.json()
+            ),
+            fetch(`${Config.LOCAL_URL}/api/replies/${rep}`).then(
               (res) => res.json()
             ),
           ]);
@@ -311,6 +317,7 @@ function Post({ article, setArticles }) {
           comments: commentsResponse.commentsData,
           commentsCount: commentsResponse.commentCount,
           likesCount: likesCount ? likesCount.likesCount : 0,
+          replys: replyresponse.replysData
         };
       });
 
@@ -327,7 +334,7 @@ function Post({ article, setArticles }) {
         await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+
     } finally {
       setLoading(false);
     }
@@ -337,17 +344,17 @@ function Post({ article, setArticles }) {
     setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
   };
 
-  const handleReplyClick = async (commentId) => {
+  const handleReplyClick = async (replyId) => {
     setReplyInput(""); // Clear the reply input
-    setReplyingToCommentId(commentId);
+    setReplyingToCommentId(replyId);
     setRepliesVisible((prevVisibility) => ({
       ...prevVisibility,
-      [commentId]: !prevVisibility[commentId],
+      [replyId]: !prevVisibility[replyId],
     }));
 
     // Fetch replies if not already loaded
-    if (!repliesVisible[commentId]) {
-      await fetchRepliesForComment(commentId);
+    if (!repliesVisible[replyId]) {
+      await fetchRepliesForComment(replyId);
     }
   };
   const handlePostSubmit = async (data) => {
@@ -695,6 +702,15 @@ function Post({ article, setArticles }) {
       prevState === article.id ? null : article.id
     );
   };
+  const handleMoreClickreply = (reply) => {
+    console.log("More clicked", reply.id);
+    // setSelectedArticle(article);
+
+    // Toggle the dropdown visibility
+    setShowDropdownReply((prevState) =>
+      prevState === reply.id ? null : reply.id
+    );
+  };
 
   const handleDeleteClick = (id) => {
     const confirmDelete = window.confirm(
@@ -752,10 +768,13 @@ function Post({ article, setArticles }) {
 
   const [selectedComment, setSelectedComment] = useState(null);
   const [showDropdownComment, setShowDropdownComment] = useState(null);
+  const [showDropdownReply, setShowDropdownReply] = useState(null);
 
 
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedComment, setEditedComment] = useState('');
+  const [editingReplyId, setEditingReplyComment] = useState(null);
+  const [editedReply, setEditedReply] = useState('');
 
 
   const handleMoreClickComment = (comment) => {
@@ -788,7 +807,7 @@ function Post({ article, setArticles }) {
         .then(async (response) => {
           const x = await response.json()
           fetchArticles()
-          setArticleComments()
+
           // window.location.reload()
 
           console.log("nedaerr", x)
@@ -800,7 +819,8 @@ function Post({ article, setArticles }) {
           }
 
           else if (!response.ok) {
-            console.log(response)
+
+            setArticleComments()
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           return response.json();
@@ -813,6 +833,74 @@ function Post({ article, setArticles }) {
         })
         .catch((error) => {
           console.error(error.message);
+          // Handle the error or show a notification to the user
+        })
+        .finally(() => {
+          // Close the dropdown after deleting
+          // setShowDropdownComment(null);
+          // fetchCommentsByArticleId()
+          // fetchArticles()
+          // setSelectedComment(false)
+
+
+
+
+        });
+    } else {
+      // User canceled the deletion
+      // setCommentInputVisible()
+
+
+    }
+
+
+  };
+  const handleDeleteReplyClick = (id) => {
+    const confirmDelete = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer cette publication ?",
+
+    );
+
+    if (confirmDelete) {
+      console.log("Deleting article...");
+
+      fetch(`${Config.LOCAL_URL}/api/replies/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          // Add any additional headers if needed
+        },
+      })
+        .then(async (response) => {
+          const x = await response.json()
+
+          console.log("DELLLETTT REPLY", response)
+
+          fetchArticles()
+          setArticleComments()
+          // window.location.reload()
+
+
+          if (response.ok) {
+
+            // setShowDropdownReply();
+
+          }
+
+          else if (!response.ok) {
+            console.log("sssss", response)
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+
+        })
+        .then((data) => {
+
+          console.log(data.message);
+          // Optionally, you can update your UI or state to reflect the deleted article
+        })
+        .catch((error) => {
+
           // Handle the error or show a notification to the user
         })
         .finally(() => {
@@ -879,7 +967,9 @@ function Post({ article, setArticles }) {
 
 
   const handleEditClickComment = (commentId) => {
+
     const commentToEdit = article.comments.find(comment => comment.id === commentId);
+    console.log(commentToEdit, "comment to edit")
     setEditingCommentId(commentId);
     setEditedComment(commentToEdit.description);
   };
@@ -887,6 +977,64 @@ function Post({ article, setArticles }) {
 
   const cancelEdit = () => {
     setEditingCommentId(null);
+  };
+
+
+  const updateReply = async (replyId, updatedText) => {
+    try {
+      const response = await fetch(`${Config.LOCAL_URL}/api/replies/${replyId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ description: updatedText }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update comment');
+      }
+    } catch (error) {
+      throw new Error(`Error updating comment: ${error.message}`);
+    }
+  };
+
+
+  const saveEditedReply = async (replyId) => {
+    try {
+      await updateReply(replyId, editedReply);
+
+      setReply(prevComments => prevComments.map(reply => {
+        if (reply.id === replyId) {
+          return {
+            ...reply,
+            description: editedReply
+          };
+        }
+        return reply;
+      }));
+
+      setEditingReplyComment(null);
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+
+  };
+
+
+
+  const handleEditClickreply = async (replyId) => {
+    // const  likesCountResponse = await fetch(
+    //   `${Config.LOCAL_URL}/api/replies/${commentaireId}`
+    // );
+    const replyToEdit = article?.replys?.find(reply => reply.id === replyId);
+    console.log(replyToEdit, "ffff")
+    setEditingReplyComment(replyId);
+    setEditedReply(replyToEdit?.description);
+  };
+
+
+  const cancelEditreply = () => {
+    setEditingReplyComment(null);
   };
 
 
@@ -920,7 +1068,7 @@ function Post({ article, setArticles }) {
                 <Link to={`/profile/${article.user.user.id}`}>
                   <figure className="avatar me-3">
                     <img
-                                      srcSet={article?.user?.user?.image ? article?.user?.user?.image : placeholder}
+                      srcSet={article?.user?.user?.image ? article?.user?.user?.image : placeholder}
 
                       // src={article.user.user?.image}
                       className="shadow-sm rounded-full  w-10 h-10"
@@ -1047,10 +1195,10 @@ function Post({ article, setArticles }) {
               </div>
 
               <div class="card-body p-0 me-lg-5 mt-2">
-    <p class="rounded-md  break-all  text-base w-full mb-2 text-dark">
-        {article.description}
-    </p>
-</div>
+                <p class="rounded-md  break-all  text-base w-full mb-2 text-dark">
+                  {article.description}
+                </p>
+              </div>
 
 
               {article?.video && (
@@ -1077,7 +1225,7 @@ function Post({ article, setArticles }) {
               {article?.image && (
                 <div className="card-body d-block p-0 mb-3">
                   <div className="row ps-2 pe-2">
-                   
+
                     <div className="col-sm-12 p-1 ">
                       <img
                         className=" md:h-fit  max-h-[600px]   w-100 object-contain "
@@ -1198,20 +1346,20 @@ function Post({ article, setArticles }) {
 
                 </span>
 
-                {selectedArticleId === article.id && (
+                {selectedArticleId === article?.id && (
                   <div className="comments-section ">
-                    {article.comments &&
-                      article.comments.map((comment) => (
+                    {article?.comments &&
+                      article?.comments?.map((comment) => (
                         <div key={comment.id} className="comment">
                           <div className="flex w-full">
                             <figure className="avatar me-3 mb-8">
                               <img
 
-// srcSet={comment?.user?.user?.image ? article?.user?.user?.image : placeholder}
+                                // srcSet={comment?.user?.user?.image ? article?.user?.user?.image : placeholder}
 
                                 src={
                                   comment.user &&
-                                  comment?.user?.user?.image ? comment?.user?.user?.image : placeholder
+                                    comment?.user?.user?.image ? comment?.user?.user?.image : placeholder
                                 }
                                 className="shadow-sm rounded-full w-[64px] aspect-square"
                                 alt="post"
@@ -1235,11 +1383,11 @@ function Post({ article, setArticles }) {
 )} */}
                                       {comment.user && (
                                         <div>
-                                          {comment.user.user.profil === 'other' && comment.user.other?.profession}
-                                          {comment.user.user.profil === 'player' && 'Joueur'}
-                                          {comment.user.user.profil === 'agent' && comment.user.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
-                                          {comment.user.user.profil === 'agent' && comment.user.agent?.typeresponsable === 'club' && 'Manager de Club'}
-                                          {comment.user.user.profil === 'scout' && 'Scout'}
+                                          {comment?.user?.user?.profil === 'other' && comment?.user?.other?.profession}
+                                          {comment?.user?.user?.profil === 'player' && 'Joueur'}
+                                          {comment?.user?.user?.profil === 'agent' && comment?.user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                          {comment?.user?.user?.profil === 'agent' && comment?.user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                          {comment?.user?.user?.profil === 'scout' && 'Scout'}
                                         </div>
                                       )}
 
@@ -1282,7 +1430,7 @@ function Post({ article, setArticles }) {
                                       />
                                     </svg>
 
-                                    {showDropdownComment === comment.id &&
+                                    {showDropdownComment === comment?.id &&
                                       comment?.user?.user &&
                                       comment?.user?.user?.id === storedUserData.id && (
                                         <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
@@ -1334,21 +1482,21 @@ function Post({ article, setArticles }) {
 
                                 </div>
                                 <div className="mt-2 text-break font-light text-zinc-900 px-4" >
-  {comment.id === editingCommentId ? (
-    <textarea
-      className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
-      style={{ resize: 'none' ,  maxHeight: '300px', height: '150px', overflowY: 'auto', scrollbarWidth: 'none' }}
-      value={editedComment}
-      onChange={(e) => setEditedComment(e.target.value)}
-    ></textarea>
-  ) : (
-  <div       style={{ resize: 'none' ,  maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
-  >
+                                  {comment.id === editingCommentId ? (
+                                    <textarea
+                                      className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
+                                      style={{ resize: 'none', maxHeight: '300px', height: '150px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                      value={editedComment}
+                                      onChange={(e) => setEditedComment(e.target.value)}
+                                    ></textarea>
+                                  ) : (
+                                    <div style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                    >
 
-    {comment.description}
-  </div>  
-  )}
-</div>
+                                      {comment.description}
+                                    </div>
+                                  )}
+                                </div>
 
 
 
@@ -1409,25 +1557,25 @@ function Post({ article, setArticles }) {
                           </div>
 
 
-                          {repliesVisible[comment.id] && (
-                            <div className="replies-section ml-16 mt-0">
-                              {articleComments[comment.id] &&
-                                articleComments[comment.id].map(
+                          {repliesVisible[comment?.id] && (
+                            <div className="replies-section ml-10 md:ml-16 mt-0">
+                              {articleComments[comment?.id] &&
+                                articleComments[comment?.id].map(
                                   (reply) => (
                                     <div
                                       key={reply.id}
                                       className="reply mb-0"
                                     >
 
-                                      <div className="flex items-start py-2">
-                                        <figure className="rounded-full overflow-hidden flex-shrink-0">
+                                      <div className="flex space-x-2 items-start py-2">
+                                        <figure className="rounded-full  overflow-hidden flex-shrink-0">
                                           <img
                                             src={
                                               //  reply.user?.user?.image
-                                               reply?.user?.user?.image ? reply?.user?.user?.image : placeholder
+                                              reply?.user?.user?.image ? reply?.user?.user?.image : placeholder
 
-                                              }
-                                            className="shadow-sm w-14 h-14 object-cover object-center"
+                                            }
+                                            className="shadow-sm  w-8 h-8  md:w-14 md:h-14 object-cover object-center"
                                             alt="post"
                                           />
                                         </figure>
@@ -1443,20 +1591,143 @@ function Post({ article, setArticles }) {
                                                     .prenom}
                                               </div>
                                               <div className="mt-1 text-xs">
-                                                {reply.user &&
+                                                {/* {reply.user &&
                                                   reply.user.user
-                                                    .profil}
+                                                    .profil} */}
+                                                {reply.user && (
+                                                  <div>
+                                                    {reply?.user?.user?.profil === 'other' && reply?.user?.other?.profession}
+                                                    {reply?.user?.user?.profil === 'player' && 'Joueur'}
+                                                    {reply?.user?.user?.profil === 'agent' && reply?.user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                                    {reply?.user?.user?.profil === 'agent' && reply?.user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                                    {reply?.user?.user?.profil === 'scout' && 'Scout'}
+                                                  </div>
+                                                )}
                                               </div>
                                               <div className="mt-1 text-xs">
                                                 {new Date(
                                                   reply.createdAt
                                                 ).toLocaleDateString()}
                                               </div>
+
+                                            </div>
+                                            <div
+                                              className="ms-auto relative cursor-pointer"
+                                              onClick={() => handleMoreClickreply(reply)}
+                                            >
+
+                                              <svg
+                                                width="31"
+                                                height="21"
+                                                viewBox="0 0 31 21"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                                                  fill="#1D1E21"
+                                                />
+                                                <path
+                                                  d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                                                  fill="#1D1E21"
+                                                />
+                                                <path
+                                                  d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                                                  fill="#1D1E21"
+                                                />
+                                              </svg>
+
+                                              {showDropdownReply === reply.id &&
+                                                reply?.user?.user &&
+                                                reply?.user?.user?.id === storedUserData.id && (
+                                                  <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                                    <button
+                                                      className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                      onClick={() => handleEditClickreply(reply.id)
+                                                      }
+                                                    >
+                                                      <label
+                                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                      // onClick={() => handleEditClickComment(comment)}
+                                                      >
+                                                        <BiEditAlt />
+                                                        {/* <Link to={`/editPost/${comment.id}`}> */}
+                                                        <span>Edit</span>
+                                                        {/* </Link>{" "} */}
+                                                      </label>
+                                                    </button>
+
+
+                                                    <button
+                                                      className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+
+                                                      onClick={() => {
+                                                        handleDeleteReplyClick(reply.id)
+                                                        fetchRepliesForComment(reply.commentaireId)
+                                                        setRepliesVisible(false);
+                                                        setSelectedArticleId(null);
+
+
+                                                      }}
+                                                    >
+                                                      <label
+                                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                      // onClick={() => handleEditClickComment(comment)}
+                                                      >
+                                                        <BiLogInCircle />
+                                                        <span className="text-base">Delete</span></label>
+                                                    </button>
+                                                  </div>
+                                                )}
+
                                             </div>
                                           </div>
-                                          <div className="mt-2 text-base font-light text-zinc-900 px-4 text-break">
-                                            {reply.description}
+                                          <div className="mt-2 text-break font-light text-zinc-900 px-4" >
+                                            {reply.id === editingReplyId ? (
+                                              <textarea
+                                                className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
+                                                style={{ resize: 'none', maxHeight: '300px', height: '150px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                                value={editedReply}
+                                                onChange={(e) => setEditedReply(e.target.value)}
+                                              ></textarea>
+                                            ) : (
+                                              <div style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                              >
+
+                                                {reply.description}
+                                              </div>
+                                            )}
                                           </div>
+                                          {/* ok */}
+                                          {reply.id === editingReplyId ? (
+                                            <div className="my-2 px-[26px] flex w-full justify-between ">
+                                              <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
+                                                saveEditedReply(reply.id)
+                                                // fetchRepliesForComment(reply.commentaireId)
+
+                                                // setCommentInputVisible(false);
+                                                // setSelectedArticleId(null);
+                                                fetchRepliesForComment(reply.commentaireId)
+                                                setRepliesVisible(false);
+                                                setSelectedArticleId(null);
+                                              }
+
+
+
+                                              }>Modifier</button>
+                                              <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEditreply()}>Annuler</button>
+                                            </div>
+                                          ) : (
+                                            <div className="my-2 flex w-full justify-between">
+
+                                              {/* <button onClick={() => handleEditClickComment(comment.id)}>Edit</button> */}
+
+                                            </div>
+                                          )}
+
+
+
+
                                         </div>
 
                                       </div>
@@ -1469,10 +1740,10 @@ function Post({ article, setArticles }) {
                                   <div className="flex items-center gap-3 mt-1 mb-3">
                                     <figure className="avatar">
                                       <img
-                                      src={
-                                        comment.user &&
-                                        comment?.user?.user?.image ? comment?.user?.user?.image : placeholder
-                                      }
+                                        src={
+                                          comment.user &&
+                                            comment?.user?.user?.image ? comment?.user?.user?.image : placeholder
+                                        }
                                         className="shadow-sm rounded-full w-[52px] aspect-square"
                                         alt="post"
                                       />
@@ -1513,6 +1784,7 @@ function Post({ article, setArticles }) {
                                         </button>
                                       </div>
                                     </div>
+
                                   </div>
                                 )}
                             </div>
