@@ -425,7 +425,6 @@ function Post({ article, setArticles }) {
         console.log(rep, "ssssssssssssssssssssssss")
 
         const [userDataResponse, commentsResponse, likesCountResponse, replyresponse ,likesCountResponseReply ] =
-        const [userDataResponse, commentsResponse, likesCountResponse, replyresponse ,likesCountResponseReply ] =
           await Promise.all([
             fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
               res.json()
@@ -437,9 +436,6 @@ function Post({ article, setArticles }) {
               (res) => res.json()
             ),
             fetch(`${Config.LOCAL_URL}/api/replies/${rep}`).then(
-              (res) => res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/likes/comment/allLikes`).then(
               (res) => res.json()
             ),
             fetch(`${Config.LOCAL_URL}/api/likes/comment/allLikes`).then(
@@ -457,19 +453,12 @@ function Post({ article, setArticles }) {
             count.commentId === article.comments.comm_id ||
             count.commentId === comments.comm_id
         );
-        const likesCountreplys = likesCountResponseReply.find(
-          (count) =>
-            count.commentId === article.comments.comm_id ||
-            count.commentId === comments.comm_id
-        );
         return {
           ...article,
           user: userDataResponse,
           comments: commentsResponse.commentsData,
           commentsCount: commentsResponse.commentCount,
           likesCount: likesCount ? likesCount.likesCount : 0,
-          replys: replyresponse.replysData,
-          likecomentcount : likesCountreplys ? likesCountreplys.likecomentcount : 0,
           replys: replyresponse.replysData,
           likecomentcount : likesCountreplys ? likesCountreplys.likecomentcount : 0,
         };
@@ -660,7 +649,7 @@ function Post({ article, setArticles }) {
     }
 
     fetchLikesForArticle(article.id);
-    console.log("mmmmmmmmmm" , article)
+    // console.log("mmmmmmmmmm" , article)
     // fetchArticles();
     // fetchAlbums();
   }, []);
@@ -1719,9 +1708,6 @@ function Post({ article, setArticles }) {
 
                               </div>
 
-                              <div className="my-2 flex flex-row  w-full justify-between">
-                              <div className="flex flex-row">  <button
-                                className="flex-row"
                               <div className="my-2 flex flex-row  w-full justify-between">
                               <div className="flex flex-row">  <button
                                 className="flex-row"

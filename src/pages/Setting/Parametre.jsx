@@ -23,7 +23,7 @@ import { Context } from "../../index";
 
 
 
-const Parametre = ({ userInfo }) => {
+const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
 
   const ref = useRef(null);
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -36,6 +36,12 @@ const Parametre = ({ userInfo }) => {
   const schema = yup
     .object({
       password: yup.string().required('Le mot de passe est requis')
+        .min(8, 'Le mot de passe doit contenir au moins 6 caractères')
+        .matches(
+          /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!$@%]).*$/,
+          'Le mot de passe doit contenir une combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%)'
+        ),
+      passwordDel: yup.string().required('Le mot de passe est requis')
         .min(8, 'Le mot de passe doit contenir au moins 6 caractères')
         .matches(
           /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!$@%]).*$/,
@@ -57,7 +63,7 @@ const Parametre = ({ userInfo }) => {
           'Le mot de passe de confirmation doit contenir une combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%)'
         ),
     })
-    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
   const navigate = useNavigate();
   const {
@@ -77,6 +83,7 @@ const Parametre = ({ userInfo }) => {
     if (ref.current && !ref.current.contains(event.target)) {
       console.log(!ref.current.contains(event.target))
       setIsPasswordOpen(false)
+      setDeleteModal(false)
       handleClose()
     }
   };
@@ -95,7 +102,7 @@ const Parametre = ({ userInfo }) => {
   }, []);
 
   const handleDeleteUser = (id) => {
-    console.log('delete' , id)
+    console.log('delete', id)
   }
   const onSubmit = async (data) => {
     const formDataToUpdate = new FormData();
@@ -128,57 +135,48 @@ const Parametre = ({ userInfo }) => {
     })
   }
 
-
-
-
-
-
-
-
+  const onDelete = async (data) => console.log('data',data)
 
   return (
     <>
-    
       <div>
         <ToastContainer />
       </div>
-
       {
-        isPasswordOpen &&
+        deleteModal &&
         <div className="bg-black/70  fixed inset-0  z-50  h-full w-full   overflow-auto flex justify-center items-center px-8 ">
           <div ref={ref} className="flex flex-col  overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
 
-            <form onSubmit={handleSubmit(onSubmit)} className=" overflow-auto">
-              <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                  
-
+            <form onSubmit={handleSubmit(onDelete())} className=" overflow-auto">
+              <div className="flex items-center gap-4 text-3xl font-bold text-zinc-900 max-md:max-w-full">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#EB3E3E" stroke-width="1.5" />
+                  <path d="M12 7V13" stroke="#EB3E3E" stroke-width="1.5" stroke-linecap="round" />
+                  <path d="M12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="#EB3E3E" />
+                </svg>
 
                 {
-             getTranslation(
-              `Change password`,  // -----> Englais
-              `Changement de mot de passe`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                  getTranslation(
+                    `Delete Your Account`,  // -----> Englais
+                    `Supprimer ton compte definitivement`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
 
-            } 
+                }
 
               </div>
               <div className="mt-2 text-zinc-900 max-md:max-w-full">
-               
-
-                
 
                 {
-             getTranslation(
-              `Your password must be at least 6 characters long and include a combination of numbers, letters, and special characters (!$@%).`,  // -----> Englais
-              ` Votre mot de passe doit contenir au moins 6 caractères ainsi qu’une
-              combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%).`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                  getTranslation(
+                    `Your password must be at least 6 characters long and include a combination of numbers, letters, and special characters (!$@%).`,  // -----> Englais
+                    ` Nous comprenons que vous souhaitiez supprimer votre compte. Votre expérience utilisateur est importante pour nous, et nous vous assurons un processus simple et transparent pour le faire.`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
 
-            } 
+                }
               </div>
               <div className="flex gap-4 px-6 mt-6 text-lg text-zinc-900  max-md:px-5">
                 <img
@@ -187,18 +185,118 @@ const Parametre = ({ userInfo }) => {
                   className="shrink-0 my-auto w-5 aspect-square"
                 />
                 <div className="flex-auto max-md:max-w-full">
-                  
-                {
-             getTranslation(
-              `Current password`,  // -----> Englais
-              `Mot de passe actuel`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                  
-                  </div>
+                  {
+                    getTranslation(
+                      `Current password`,  // -----> Englais
+                      `Mot de passe actuel`, //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )
+
+                  }
+                </div>
+              </div>
+              <div className="w-full  flex-col flex items-center">
+                <input  {...register('passwordDel')} name='passwordDel' className={`form-control flex grow px-5 py-3.5 w-full flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full ${errors.password ? 'is-invalid !border-red-500' : ''}`} type="password" placeholder="*********" />
+                {errors.passwordDel && <span className="invalid-feedback block py-2 px-2">{errors.passwordDel?.message}</span>}
+
+              </div>
+              <div className="mt-4 flex gap-2 md:gap-5 justify-between mt-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                <button onClick={() => setDeleteModal(false)} className="flex flex-1 gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/36783b2bbc0c4d8acd402a87827fbf522d3e413b9d2fd96d908a05709d3b2242?"
+                    className="shrink-0 w-5 aspect-square"
+                  />
+                  <div className="">{
+                    getTranslation(
+                      `Cancel`,  // -----> Englais
+                      ` Annuler`, //  -----> Francais
+                      ``,  //  -----> Turkey
+                      ``,  //  -----> Allemagne
+                    )
+
+                  }</div>
+                </button>
+                <button type='submit' className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/534a656afb5625680d54ff4ea52bbe985ada0762ba3c4cc382181406f743d9e8?"
+                    className="shrink-0 w-5 aspect-square"
+                  />
+                  <div className="">{
+                    getTranslation(
+                      `Submit`,  // -----> Englais
+                      `Confirmer`, //  -----> Francais
+                      ``,  //  -----> Turkey
+                      ``,  //  -----> Allemagne
+                    )
+
+                  }</div>
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      }
+      {
+        isPasswordOpen &&
+        <div className="bg-black/70  fixed inset-0  z-50  h-full w-full   overflow-auto flex justify-center items-center px-8 ">
+          <div ref={ref} className="flex flex-col  overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
+
+            <form onSubmit={handleSubmit(onSubmit)} className=" overflow-auto">
+              <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
+
+
+
+                {
+                  getTranslation(
+                    `Change password`,  // -----> Englais
+                    `Changement de mot de passe`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
+
+                }
+
+              </div>
+              <div className="mt-2 text-zinc-900 max-md:max-w-full">
+
+
+
+
+                {
+                  getTranslation(
+                    `Your password must be at least 6 characters long and include a combination of numbers, letters, and special characters (!$@%).`,  // -----> Englais
+                    ` Votre mot de passe doit contenir au moins 6 caractères ainsi qu’une
+              combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%).`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
+
+                }
+              </div>
+              <div className="flex gap-4 px-6 mt-6 text-lg text-zinc-900  max-md:px-5">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9b83235dcf72c09520e36abb0c835a12fcc97fd51d2b5644ab1be7e8f2d9094?"
+                  className="shrink-0 my-auto w-5 aspect-square"
+                />
+                <div className="flex-auto max-md:max-w-full">
+
+                  {
+                    getTranslation(
+                      `Current password`,  // -----> Englais
+                      `Mot de passe actuel`, //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )
+
+                  }
+
+                </div>
               </div>
               <div className="w-full  flex-col flex items-center">
                 <input  {...register('password')} name='password' className={`form-control flex grow px-5 py-3.5 w-full flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full ${errors.password ? 'is-invalid !border-red-500' : ''}`} type="password" placeholder="*********" />
@@ -212,17 +310,17 @@ const Parametre = ({ userInfo }) => {
                   className="shrink-0 my-auto w-5 aspect-square"
                 />
                 <div className="flex-auto max-md:max-w-full">
-                
-                {
-             getTranslation(
-              `New password`,  // -----> Englais
-              `Nouveau mot de passe`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                
+                  {
+                    getTranslation(
+                      `New password`,  // -----> Englais
+                      `Nouveau mot de passe`, //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )
+
+                  }
+
                 </div>
               </div>
               <div className="w-full flex flex-col items-center">
@@ -236,17 +334,17 @@ const Parametre = ({ userInfo }) => {
                   className="shrink-0 my-auto w-5 aspect-square"
                 />
                 <div className="flex-auto max-md:max-w-full">
-                  
+
 
                   {
-             getTranslation(
-              `Confirm password`,  // -----> Englais
-              `Confirmer le mot de passe`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                    getTranslation(
+                      `Confirm password`,  // -----> Englais
+                      `Confirmer le mot de passe`, //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )
 
-            } 
+                  }
                 </div>
               </div>
               <div className="w-full flex flex-col items-center">
@@ -261,14 +359,14 @@ const Parametre = ({ userInfo }) => {
                     className="shrink-0 w-5 aspect-square"
                   />
                   <div className="">{
-                                    getTranslation(
-                                      `Cancel`,  // -----> Englais
-                                      ` Annuler`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
-                                    )
+                    getTranslation(
+                      `Cancel`,  // -----> Englais
+                      ` Annuler`, //  -----> Francais
+                      ``,  //  -----> Turkey
+                      ``,  //  -----> Allemagne
+                    )
 
-                                  }</div>
+                  }</div>
                 </button>
                 <button className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
                   <img
@@ -277,14 +375,14 @@ const Parametre = ({ userInfo }) => {
                     className="shrink-0 w-5 aspect-square"
                   />
                   <div className="">{
-                                    getTranslation(
-                                      `Submit`,  // -----> Englais
-                                      `Confirmer`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
-                                    )
+                    getTranslation(
+                      `Submit`,  // -----> Englais
+                      `Confirmer`, //  -----> Francais
+                      ``,  //  -----> Turkey
+                      ``,  //  -----> Allemagne
+                    )
 
-                                  }</div>
+                  }</div>
                 </button>
               </div>
             </form>
@@ -311,18 +409,18 @@ const Parametre = ({ userInfo }) => {
                 />
               </div>
               <div className="mt-4 text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                
 
-                
+
+
                 {
-             getTranslation(
-              `Manage your email addresses`,  // -----> Englais
-              `Gérer vos adresses e-mails`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                  getTranslation(
+                    `Manage your email addresses`,  // -----> Englais
+                    `Gérer vos adresses e-mails`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
 
-            } 
+                }
               </div>
               <div className="flex gap-5 justify-between px-6 py-2 mt-5 w-full text-lg whitespace-nowrap rounded-xl border-blue-600 border-solid border-[0.7px] max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                 <div className="flex gap-4 justify-center py-1">
@@ -342,35 +440,35 @@ const Parametre = ({ userInfo }) => {
                 />
               </div>
               <button onClick={() => { setStep1(true); setStep0(false) }} className="justify-center text-center items-center px-16 py-2 mt-4 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
-                
 
-                
+
+
 
                 {
-             getTranslation(
-              `Add a new email address`,  // -----> Englais
-              `Ajouter une nouvelle adresse e-mail`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                  getTranslation(
+                    `Add a new email address`,  // -----> Englais
+                    `Ajouter une nouvelle adresse e-mail`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
 
-            } 
+                }
               </button>
             </div>}
           {step1 &&
 
             <div ref={ref} className="flex flex-col p-8 mt-72 mb-56 max-w-full bg-white rounded-xl w-[625px] max-md:px-5 max-md:my-10">
               <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                  
-                {
-             getTranslation(
-              `Add an email`,  // -----> Englais
-              `Ajouter un e-mail `, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
+                {
+                  getTranslation(
+                    `Add an email`,  // -----> Englais
+                    `Ajouter un e-mail `, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
+
+                }
               </div>
               <div className="flex gap-4 px-6 mt-6 text-lg text-zinc-900 max-md:flex-wrap max-md:px-5">
                 <img
@@ -379,17 +477,17 @@ const Parametre = ({ userInfo }) => {
                   className="shrink-0 my-auto aspect-[1.1] w-[22px]"
                 />
                 <div className="flex-auto max-md:max-w-full">
-                  
-                {
-             getTranslation(
-              `New email`,  // -----> Englais
-              `Nouveau Email`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-                  </div>
+                  {
+                    getTranslation(
+                      `New email`,  // -----> Englais
+                      `Nouveau Email`, //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )
+
+                  }
+                </div>
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:pr-5 max-md:max-w-full">
                 johndoe@gmail.com
@@ -402,14 +500,14 @@ const Parametre = ({ userInfo }) => {
                     className="shrink-0 w-5 aspect-square"
                   />
                   <div className="grow">{
-                                    getTranslation(
-                                      `Cancel`,  // -----> Englais
-                                      ` Annuler`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
-                                    )
+                    getTranslation(
+                      `Cancel`,  // -----> Englais
+                      ` Annuler`, //  -----> Francais
+                      ``,  //  -----> Turkey
+                      ``,  //  -----> Allemagne
+                    )
 
-                                  }</div>
+                  }</div>
                 </button>
                 <div onClick={() => { setStep2(true); setStep1(false) }} className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                   <img
@@ -418,14 +516,14 @@ const Parametre = ({ userInfo }) => {
                     className="shrink-0 w-5 aspect-square"
                   />
                   <div className="grow">{
-                                    getTranslation(
-                                      `Submit`,  // -----> Englais
-                                      `Confirmer`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
-                                    )
+                    getTranslation(
+                      `Submit`,  // -----> Englais
+                      `Confirmer`, //  -----> Francais
+                      ``,  //  -----> Turkey
+                      ``,  //  -----> Allemagne
+                    )
 
-                                  }</div>
+                  }</div>
                 </div>
               </div>
             </div>
@@ -435,17 +533,17 @@ const Parametre = ({ userInfo }) => {
             step2 &&
             <div ref={ref} className="flex flex-col p-8 mt-72 mb-56 max-w-full bg-white rounded-xl w-[625px] max-md:px-5 max-md:my-10">
               <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                
+
 
                 {
-             getTranslation(
-              `Enter your password`,  // -----> Englais
-              `Saisir votre mot de passe`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                  getTranslation(
+                    `Enter your password`,  // -----> Englais
+                    `Saisir votre mot de passe`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
 
-            } 
+                }
               </div>
               <div className="flex gap-4 px-6 mt-6 text-lg text-zinc-900 max-md:flex-wrap max-md:px-5">
                 <img
@@ -454,14 +552,14 @@ const Parametre = ({ userInfo }) => {
                   className="shrink-0 my-auto w-5 aspect-square"
                 />
                 <div className="flex-auto max-md:max-w-full"> {
-             getTranslation(
-              `Password`,  // -----> Englais
-              `Mot de passe`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                  getTranslation(
+                    `Password`,  // -----> Englais
+                    `Mot de passe`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
 
-            } </div>
+                } </div>
               </div>
               <div className="flex flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full">
                 <div className="flex gap-5 justify-between px-5 py-3.5 rounded-md max-md:flex-wrap max-md:max-w-full">
@@ -481,14 +579,14 @@ const Parametre = ({ userInfo }) => {
                     className="shrink-0 w-5 aspect-square"
                   />
                   <div className="grow">{
-                                    getTranslation(
-                                      `Cancel`,  // -----> Englais
-                                      ` Annuler`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
-                                    )
+                    getTranslation(
+                      `Cancel`,  // -----> Englais
+                      ` Annuler`, //  -----> Francais
+                      ``,  //  -----> Turkey
+                      ``,  //  -----> Allemagne
+                    )
 
-                                  }</div>
+                  }</div>
                 </button>
                 <button onClick={() => { setStep3(true); setStep2(false) }} className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                   <img
@@ -497,14 +595,14 @@ const Parametre = ({ userInfo }) => {
                     className="shrink-0 w-5 aspect-square"
                   />
                   <div className="grow">{
-                                    getTranslation(
-                                      `Submit`,  // -----> Englais
-                                      `Confirmer`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
-                                    )
+                    getTranslation(
+                      `Submit`,  // -----> Englais
+                      `Confirmer`, //  -----> Francais
+                      ``,  //  -----> Turkey
+                      ``,  //  -----> Allemagne
+                    )
 
-                                  }</div>
+                  }</div>
                 </button>
               </div>
             </div>
@@ -530,29 +628,29 @@ const Parametre = ({ userInfo }) => {
               </div>
 
               <div className="self-center mt-6 text-3xl font-bold whitespace-nowrap text-zinc-900">
-              {
-                                    getTranslation(
-                                      `Email sent`,  // -----> Englais
-                                      `Email envoyé`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
-                                    )
+                {
+                  getTranslation(
+                    `Email sent`,  // -----> Englais
+                    `Email envoyé`, //  -----> Francais
+                    ``,  //  -----> Turkey
+                    ``,  //  -----> Allemagne
+                  )
 
-                                  }
+                }
               </div>
               <div className="mt-4 text-2xl text-center text-zinc-900 max-md:max-w-full">
-                
-                
-                {
-             getTranslation(
-              `Check your email and open the link we sent you to finalize the password reset.`,  // -----> Englais
-              `Vérifiez votre e-mail et ouvrez le lien que nous vous avons envoyé pour
-              finaliser la réinitialisation de votre mot de passe.`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
+
+                {
+                  getTranslation(
+                    `Check your email and open the link we sent you to finalize the password reset.`,  // -----> Englais
+                    `Vérifiez votre e-mail et ouvrez le lien que nous vous avons envoyé pour
+              finaliser la réinitialisation de votre mot de passe.`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
+
+                }
               </div>
             </div>}
         </div>
@@ -566,18 +664,18 @@ const Parametre = ({ userInfo }) => {
             className="my-auto aspect-[1.1] w-[22px]"
           />
           <div className="grow">
-            
-          {
-             getTranslation(
-              `Principal Email`,  // -----> Englais
-              `Email Principale`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            } 
-            
-            </div>
+            {
+              getTranslation(
+                `Principal Email`,  // -----> Englais
+                `Email Principale`, //  -----> Francais
+                //   ``,  //  -----> Turkey
+                //   `` ,  //  -----> Allemagne
+              )
+
+            }
+
+          </div>
         </div>
         <div className="justify-center items-start overflow-hidden py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid bg-zinc-100 border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full">
           {userInfo?.user.email}
@@ -600,42 +698,28 @@ const Parametre = ({ userInfo }) => {
             className="my-auto w-5 aspect-square"
           />
           <div className="grow max-md:max-w-full"> {
-             getTranslation(
+            getTranslation(
               `Password`,  // -----> Englais
               `Mot de passe`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+              //   ``,  //  -----> Turkey
+              //   `` ,  //  -----> Allemagne
+            )
 
-            } </div>
+          } </div>
         </div>
         <button onClick={() => setIsPasswordOpen(true)} className="justify-center text-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border !border-blue-500  rounded-[30px] max-md:px-5 max-md:max-w-full">
-           
+
 
           {
-             getTranslation(
+            getTranslation(
               `Change your Password`,  // -----> Englais
               `Changer votre Mot de passe`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+              //   ``,  //  -----> Turkey
+              //   `` ,  //  -----> Allemagne
+            )
 
-            } 
+          }
         </button>
-      </div>
-      <div onClick={()=> handleDeleteUser(storedUserData.id)} className="justify-center text-center hover:bg-red-500 hover:text-white cursor-pointer px-5 py-2 text-base font-medium border-2 border-solid border-red-600 rounded-[30px] text-red-600">
-        
-        
-      {
-             getTranslation(
-              `Delete account`,  // -----> Englais
-              `Supprimer votre compte`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
-
-            } 
-        
       </div>
     </>
   )

@@ -78,6 +78,7 @@ const More = () => {
     if (result.message) {
       navigate("/404");
     } else {
+      console.log(result)
       setCurrentUser(result);
     }
   };
