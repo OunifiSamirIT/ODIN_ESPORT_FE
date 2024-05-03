@@ -45,7 +45,8 @@ import { Link, Navigate, useNavigate, useLocation, json } from "react-router-dom
 import GallerieOdin from "./Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "./HomeSkeletonPost";
-import CreatePost from "../components/CreatePostss";import CreatePostModal from "../components/CreatePostModal";
+import CreatePost from "../components/CreatePostss";
+import CreatePostModal from "../components/CreatePostModal";
 ;
 function Home() {
   const [data, setData] = useState([]);
@@ -217,7 +218,7 @@ function Home() {
 
       <div className="flex flex-col pb-20  bg-zinc-100">
         <Header />
-        <div className="self-center px-3 md:px-2 mt-24 w-full max-w-[1344px] max-md:mt-10 max-md:max-w-full">
+        <div className="self-center px-3 md:px-2 mt-24 w-full max-w-[1380px] max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-2 max-md:flex-col max-md:gap-0">
             {/* left menu */}
             <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
@@ -465,38 +466,41 @@ function Home() {
             {/* create post */}
 
 
+            <div className="flex flex-col">
+              <div className="flex flex-1 flex-col">
+                {/* <CreatePost setArticles={setData} /> */}
+                <CreatePostModal />
 
-            <div className="flex flex-1 flex-col">
-              {/* <CreatePost setArticles={setData} /> */}
-              <CreatePostModal  />
-              {
-                loading ? (
-                  // Render skeleton loading effect while data is being fetched
-                  Array(10).fill().map((_, index) => (
-                    <SkeletonArticleCard key={index} />
-                  ))
-                ) : (
-                  <div>
-                    {
-                      data.map((item, index) => (
-                        <div key={`item-${index}`}>
-                          {
-                            // Conditionally render Albumsadmin or Post component based on the number of keys in the item
-                            Object.keys(item).length <= 7 ? (
-                              <Albumsadmin item={item} />
-                            ) : (
-                              <Post article={item} setArticles={setData} />
-                            )
-                          }
-                        </div>
-                      ))
-                    }
-                  </div>
-                )
-              }
+                {
+                  loading ? (
+                    // Render skeleton loading effect while data is being fetched
+                    Array(10).fill().map((_, index) => (
+                      <SkeletonArticleCard key={index} />
+                    ))
+                  ) : (
+                    <div>
+                      {
+                        data.map((item, index) => (
+                          <div key={`item-${index}`}>
+                            {
+                              // Conditionally render Albumsadmin or Post component based on the number of keys in the item
+                              Object.keys(item).length <= 7 ? (
+                                <Albumsadmin item={item} />
+                              ) : (
+                                <Post article={item} setArticles={setData} />
+                              )
+                            }
+                          </div>
+                        ))
+                      }
+                    </div>
+                  )
+                }
 
+              </div>
             </div>
-            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
+
+            <div className="flex flex-col ml-4 w-3/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow max-md:mt-6">
                 <Friends />
                 <Friendsilder />
@@ -508,7 +512,7 @@ function Home() {
 
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 }
