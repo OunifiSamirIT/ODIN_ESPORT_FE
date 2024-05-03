@@ -134,7 +134,6 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
       }
     })
   }
-
   const onDelete = async (data) => console.log('data',data)
 
   return (
