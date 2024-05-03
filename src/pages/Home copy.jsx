@@ -119,7 +119,7 @@ function Home() {
       // Update state with sorted data
       setData(combinedData);
 
-      console.log("combinedData", combinedData);
+      console.log("combinedData 🚀🚀🚀🚀🚀", combinedData);
       console.log(data, "data-------------------");
 
       setLoading(false);

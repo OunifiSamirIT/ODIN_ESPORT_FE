@@ -2,8 +2,12 @@ import { React,useRef } from 'react';
 import CreatePost from './CreatePostss';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import placeholder from "../assets/placeholder.jpg"
+import { Config } from "../config";
+import Memberslider from './Memberslider';
 
 function CreatePostModal() {
+  const [user, setUser] = useState([]);
 
     const ref = useRef(null);
     const [isModaldOpen, setIsModaldOpen] = useState(false)
@@ -29,6 +33,21 @@ function CreatePostModal() {
       const handleOpenModal = () => {
         setIsModaldOpen(true);
       };
+      useEffect(() => {
+        const storedUserData = JSON.parse(localStorage.getItem("user"));
+        const id = storedUserData ? storedUserData.id : null;
+    
+        if (id) {
+          fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+            .then((response) => response.json())
+            .then((userData) => {
+              setUser(userData);
+              // console.log("dhaw " , response)
+            })
+            .catch((error) => console.error("Error fetching user data:", error));
+        }
+    
+      }, []);
   return (
     <div>
 
@@ -38,9 +57,10 @@ function CreatePostModal() {
           
             <div className="card-body d-flex p-0">
               <div className="flex w-full">
-                <img
+              <img
+                  srcSet={user?.user?.image ? user?.user.image : placeholder}
                   alt="icon"
-                  className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                  className="shadow-sm rounded-full aspect-square w-11 h-11 md:w-16 md:h-16 mr-2"
                 />
                 <div className="flex flex-col w-full gap-y-2">
                   <button
