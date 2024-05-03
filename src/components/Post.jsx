@@ -425,6 +425,7 @@ function Post({ article, setArticles }) {
         console.log(rep, "ssssssssssssssssssssssss")
 
         const [userDataResponse, commentsResponse, likesCountResponse, replyresponse ,likesCountResponseReply ] =
+        const [userDataResponse, commentsResponse, likesCountResponse, replyresponse ,likesCountResponseReply ] =
           await Promise.all([
             fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
               res.json()
@@ -436,6 +437,9 @@ function Post({ article, setArticles }) {
               (res) => res.json()
             ),
             fetch(`${Config.LOCAL_URL}/api/replies/${rep}`).then(
+              (res) => res.json()
+            ),
+            fetch(`${Config.LOCAL_URL}/api/likes/comment/allLikes`).then(
               (res) => res.json()
             ),
             fetch(`${Config.LOCAL_URL}/api/likes/comment/allLikes`).then(
@@ -453,12 +457,19 @@ function Post({ article, setArticles }) {
             count.commentId === article.comments.comm_id ||
             count.commentId === comments.comm_id
         );
+        const likesCountreplys = likesCountResponseReply.find(
+          (count) =>
+            count.commentId === article.comments.comm_id ||
+            count.commentId === comments.comm_id
+        );
         return {
           ...article,
           user: userDataResponse,
           comments: commentsResponse.commentsData,
           commentsCount: commentsResponse.commentCount,
           likesCount: likesCount ? likesCount.likesCount : 0,
+          replys: replyresponse.replysData,
+          likecomentcount : likesCountreplys ? likesCountreplys.likecomentcount : 0,
           replys: replyresponse.replysData,
           likecomentcount : likesCountreplys ? likesCountreplys.likecomentcount : 0,
         };
@@ -1195,7 +1206,20 @@ function Post({ article, setArticles }) {
       year: 'numeric'
     });
   }
-
+  const formatDatearticle = (dateString) => {
+    // Extract year, month, and day from the dateString
+    const [month, year, day] = dateString.split('-');
+  
+    // Create a new Date object with the extracted parts
+    const dateObject = new Date(`${year}-${month}-${day}`);
+  
+    // Format the date object into the desired format
+    return dateObject.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
   return (
     <>
 
@@ -1219,7 +1243,7 @@ function Post({ article, setArticles }) {
                       srcSet={article?.user?.user?.image ? article?.user?.user?.image : placeholder}
 
                       // src={article.user.user?.image}
-                      className="shadow-sm rounded-full  w-10 h-10"
+                      className="shadow-sm rounded-full w-[52px] aspect-square"
                       alt="post"
                     />{" "}
                   </figure>
@@ -1236,7 +1260,7 @@ function Post({ article, setArticles }) {
                     {article.user.user.profil == 'scout' ? 'Scout' : ''}
                   </span>
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {formatDate(article?.user?.user?.createdAt)}
+                    {formatDatearticle(article?.createdAt)}
 
 
                   </span>
@@ -1429,6 +1453,7 @@ function Post({ article, setArticles }) {
                         < span className="flex flex-row">  <BiSolidHeart className="size-6 text-orange-500" />
                           <div className="flex items-center gap-2">
                             <span
+                              className="text-xs md:text-md"
 
                               style={{
                                 marginLeft: "1px",
@@ -1446,7 +1471,7 @@ function Post({ article, setArticles }) {
                         <span className="flex flex-row"> <BiHeart className="size-6 text-black" />
                           <div className="flex items-center gap-2">
                             <span
-
+                              className="text-xs md:text-md"
                               style={{
                                 marginLeft: "1px",
                                 marginTop: "2px",
@@ -1480,22 +1505,22 @@ function Post({ article, setArticles }) {
                     }}
                   >
                     {selectedArticleId === article.id ? (
-                      <div className="flex gap-2 flex-col md:flex-row items-center">
+                      <div className="flex gap-2 flex-row md:flex-row items-center">
                         <img
                           loading="lazy"
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="w-5 aspect-square fill-zinc-900"
                         />
-                        <div className="grow">Commenter</div>
+                        <div className="flex gap-2 text-xs md:text-md">Commenter</div>
                       </div>
                     ) : (
-                      <div className="flex gap-2 flex-col md:flex-row items-center">
+                      <div className="flex gap-2 flex-row md:flex-row items-center">
                         <img
                           loading="lazy"
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="w-5 aspect-square fill-zinc-900"
                         />
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 text-xs md:text-md">
                           {" "}
                           <span>Commenter</span>
                         </div>
@@ -1512,7 +1537,7 @@ function Post({ article, setArticles }) {
                         <div key={comment.id} className="comment">
                           <div className="flex w-full">
                             <figure className="avatar me-3 mb-8">
-                              <img
+                              {/* <img
 
                                 // srcSet={comment?.user?.user?.image ? article?.user?.user?.image : placeholder}
 
@@ -1522,11 +1547,20 @@ function Post({ article, setArticles }) {
                                 }
                                 className="shadow-sm rounded-full w-[64px] aspect-square"
                                 alt="post"
-                              />
+                              /> */}
+                               <img
+                              src={
+                                user.user.image
+                                  ? user.user?.image
+                                  : placeholder
+                              }
+                              className="shadow-sm rounded-full w-[52px] aspect-square"
+                              alt="post"
+                            />
                             </figure>
                             <div className="flex flex-col w-full">
-                              <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
-                                <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                              <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[15px] md:rounded-[20px] max-w-[510px]">
+                                <div className="flex gap-4 justify-between px-3 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                   <div className="flex flex-col py-1 font-light text-zinc-900">
                                     <div className="fw-700 text-grey-900 font-xssss mt-1">
                                       {comment.user &&
@@ -1688,24 +1722,29 @@ function Post({ article, setArticles }) {
                               <div className="my-2 flex flex-row  w-full justify-between">
                               <div className="flex flex-row">  <button
                                 className="flex-row"
+                              <div className="my-2 flex flex-row  w-full justify-between">
+                              <div className="flex flex-row">  <button
+                                className="flex-row"
                                   onClick={() =>
                                     handleLikeComment(comment.id)
                                   }
                                 >
-                                <div className="flex-col">  {comment.likesCount === 0 ? (
-                                    <BiHeart className="size-7 text-black" />
+                                <div className="flex-col">
+                                    
+                                    {comment.likesCount === 0 ? (
+                                    <BiHeart className="size-5 md:size-6 text-black" />
                                   ) : (
-                                    <BiSolidHeart className="size-7 text-black" />
+                                    <BiSolidHeart className="size-5 md:size-6 text-orange-500 " />
                                   )}</div>
                                 </button>
-                                <div className="flex-col mt-1 ml-2"> {comment.likesCount}</div>
+                                <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div>
 
                                 </div>
                                 <button
                                   onClick={() =>
                                     handleReplyClick(comment.id)
                                   }
-                                  className="w-20 font-semibold ml-2"
+                                  className="w-20 font-semibold ml-2  mt-2 flex gap-2 text-xs md:text-md"
                                 >
                                   Répondre
                                 </button>
@@ -1715,7 +1754,7 @@ function Post({ article, setArticles }) {
 
 
                           {repliesVisible[comment?.id] && (
-                            <div className="replies-section ml-10 md:ml-16 mt-0">
+                            <div className="replies-section ml-6 md:ml-16 mt-0">
                               {articleComments[comment?.id] &&
                                 articleComments[comment?.id].map(
                                   (reply) => (
@@ -1725,19 +1764,19 @@ function Post({ article, setArticles }) {
                                     >
 
                                       <div className="flex space-x-2 items-start py-2">
-                                        <figure className="rounded-full  overflow-hidden flex-shrink-0">
+                                        <figure className="avatar me-2 mb-8">
                                           <img
                                             src={
                                               //  reply.user?.user?.image
                                               reply?.user?.user?.image ? reply?.user?.user?.image : placeholder
 
                                             }
-                                            className="shadow-sm  w-8 h-8  md:w-14 md:h-14 object-cover object-center"
+                                            className="shadow-sm rounded-full w-[52px] aspect-square"
                                             alt="post"
                                           />
                                         </figure>
                                         <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
-                                          <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                                          <div className="flex gap-4 justify-between px-2 md:px-6 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
                                             <div className="flex flex-col py-1 font-light text-zinc-900">
                                               <div className="fw-700 text-grey-900 font-xssss mt-1">
                                                 {reply.user &&
@@ -1899,7 +1938,7 @@ function Post({ article, setArticles }) {
                                 )}
                               {replyingToCommentId ==
                                 comment.id && (
-                                  <div className="flex items-center gap-3 mt-1 mb-3">
+                                  <div className="flex items-center gap-3 ">
                                     <figure className="avatar">
                                       <img
                                         src={
@@ -1921,7 +1960,7 @@ function Post({ article, setArticles }) {
                                               e.target.value
                                             )
                                           }
-                                          className="w-full px-2 bg-gray-100 rounded-[30px]  mr-3 h-12"
+                                          className="w-full px-2 bg-gray-100 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
                                         />
                                         <button
                                           onClick={() =>
@@ -1932,8 +1971,7 @@ function Post({ article, setArticles }) {
                                           }
                                         >
                                           <svg
-                                            width="20"
-                                            height="20"
+                                           className="w-4 h-5 md:w-5"
                                             viewBox="0 0 20 20"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -1958,7 +1996,7 @@ function Post({ article, setArticles }) {
                     {commentInputVisible && (
                       <div
                       >
-                        <div className="flex items-center gap-3 mt-3">
+                        <div className="flex items-center gap-2 md:gap-3 mt-3">
                           <figure className="avatar">
                             <img
                               src={
@@ -1979,7 +2017,7 @@ function Post({ article, setArticles }) {
                                 onChange={(e) =>
                                   setComment(e.target.value)
                                 }
-                                className="w-full bg-gray-100 rounded-[30px] px-2 mr-3 h-12"
+                                className="w-full bg-gray-100 rounded-[15px] md:rounded-[30px] px-2 mr-1 md:mr-3 h-12"
                               />
                               <button
                                 onClick={() => {
@@ -1987,11 +2025,12 @@ function Post({ article, setArticles }) {
                                   console.log("🚀 ~ Post ~ article.id:", article.id)
                                 }
                                 }
-                                className="ml-2"
+                                className="ml-1"
                               >
                                 <svg
-                                  width="20"
-                                  height="20"
+                                className="w-4 h-5 md:w-5 "
+                                  // width="20"
+                                  // height="20"
                                   viewBox="0 0 20 20"
                                   fill="none"
                                   xmlns="http://www.w3.org/2000/svg"
