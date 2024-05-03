@@ -55,7 +55,7 @@ function FriendsSlider() {
     };
 
     return (
-        <div className="flex flex-col mt-6 w-full bg-white rounded-md shadow-sm">
+        <div className="flex flex-col mt-6 ml-1 w-full bg-white rounded-md shadow-sm">
             {/* <div className="flex gap-2 justify-between px-6 pt-4 max-md:px-5">
                 <div className="text-lg font-bold text-zinc-900">
                     Personnes que
@@ -64,7 +64,7 @@ function FriendsSlider() {
                 </div>
               
             </div> */}
-            <div className="flex justify-between items-center px-6 pt-0 max-md:px-5">
+            {/* <div className="flex justify-between items-center px-6 pt-0 max-md:px-5">
                 <div className="text-lg font-bold text-zinc-900">
                     Personnes que
                     vous pourriez
@@ -80,8 +80,8 @@ function FriendsSlider() {
                         </a>
                     </div>
                 </div>
-            </div>
-            <div className="flex gap-2 justify-between items-center pr-6 pl-1 mt-8">
+            </div> */}
+            <div className="flex  justify-between items-center pr-2 pl-1 mt-3">
                 <button onClick={prevSlide} className="prev-slide-button text-2xl">&#10094;</button>  <Slider ref={sliderRef} style={{ width: '93%' }} {...friendSettings}>
                     {agents.map((value, index) => (
                         <div key={index} className="card w150 d-block border-0 bg-gray-100  rounded-3 overflow-hidden mb-3 me-3 ">
