@@ -223,7 +223,7 @@ function CreatePost({ setArticles }) {
                 <div className="flex flex-col w-full gap-y-2">
                   
                 <textarea
-                  className="flex max-h-fit px-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[30px] theme-dark-bg"
+                  className="flex max-h-fit px-2 pt-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[30px] theme-dark-bg"
                   placeholder="Quoi de neuf ?"
                   name="description"
                   {...register("description")}

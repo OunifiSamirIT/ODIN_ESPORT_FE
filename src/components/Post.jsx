@@ -171,6 +171,7 @@ function Post({ article, setArticles }) {
   const [repliesVisible, setRepliesVisible] = useState({});
 
   const [likesData, setLikesData] = useState(null); // State to store likes data
+  const [likesDataComment, setLikesDataComment] = useState(null); // State to store likes data
   const storedUserData = JSON.parse(localStorage.getItem("user"));
 
   //   const fetchLikesForArticle = async (articleId) => {
@@ -204,6 +205,37 @@ function Post({ article, setArticles }) {
       if (response.ok) {
         const likeData = await response.json();
         setLikesData(likeData);
+
+        // Check if userId exists in the fetched data
+        const userLiked = likeData.some(like => like.userId === userId);
+
+        if (userLiked) {
+          console.log("User has liked this article.");
+        } else {
+          console.log("User has not liked this article.");
+        }
+        // Update state with fetched like data
+      } else {
+        throw new Error("Error fetching like data.");
+      }
+    } catch (error) {
+      console.error("Error fetching like data:", error);
+    }
+  };
+
+
+
+  const fetchLikesForComment = async (commentId) => {
+    const userId = storedUserData.id ? storedUserData.id : null;
+
+    try {
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/likes/articlesscommentId/${commentId}/`
+      );
+
+      if (response.ok) {
+        const likeData = await response.json();
+        setLikesDataComment(likeData);
 
         // Check if userId exists in the fetched data
         const userLiked = likeData.some(like => like.userId === userId);
@@ -355,6 +387,8 @@ function Post({ article, setArticles }) {
 
       if (response.ok) {
         // Fetch updated likes count after liking
+        await fetchLikesForComment(commentId);
+
         const likesCountResponse = await fetch(
           `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count`
         );
@@ -647,9 +681,9 @@ function Post({ article, setArticles }) {
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-
+    fetchLikesForComment(article.comments.id)
     fetchLikesForArticle(article.id);
-    // console.log("mmmmmmmmmm" , article)
+     console.log("mmmmmmmmmm" , article)
     // fetchArticles();
     // fetchAlbums();
   }, []);
@@ -932,74 +966,119 @@ function Post({ article, setArticles }) {
     );
   };
 
-
-  const handleDeleteCommentClick = (id) => {
-    const confirmDelete = window.confirm(
-      "Êtes-vous sûr de vouloir supprimer cette publication ?",
-
-    );
-
+  const handleDeleteCommentClick = async (id, articleId) => {
+    const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette publication ?");
+  
     if (confirmDelete) {
-      console.log("Deleting article...");
-
-      fetch(`${Config.LOCAL_URL}/api/commentaires/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          // Add any additional headers if needed
-        },
-      })
-        .then(async (response) => {
-          const x = await response.json()
-          fetchArticles()
-
-          // window.location.reload()
-
-          console.log("nedaerr", x)
-          if (response.ok) {
-
-            setShowDropdownComment();
-
-
-          }
-
-          else if (!response.ok) {
-
-            setArticleComments()
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-
-        })
-        .then((data) => {
-
-          console.log(data.message);
-          // Optionally, you can update your UI or state to reflect the deleted article
-        })
-        .catch((error) => {
-          console.error(error.message);
-          // Handle the error or show a notification to the user
-        })
-        .finally(() => {
-          // Close the dropdown after deleting
-          // setShowDropdownComment(null);
-          // fetchCommentsByArticleId()
-          // fetchArticles()
-          // setSelectedComment(false)
-
-
-
-
+      try {
+        await fetch(`${Config.LOCAL_URL}/api/commentaires/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
+  
+        // Update the article count in the state
+        setArticles((prevArticles) => {
+          return prevArticles.map((article) => {
+            if (article.id === articleId) {
+              return {
+                ...article,
+                commentsCount: (article.commentsCount || 0) - 1, // Decrement commentsCount
+              };
+            }
+            return article;
+          });
+        });
+  
+        setShowDropdownComment();
+      } catch (error) {
+        console.error("Error deleting comment:", error);
+      }
     } else {
       // User canceled the deletion
       // setCommentInputVisible()
-
-
     }
-
-
   };
+  // const handleDeleteCommentClick = (id, articleId) => {
+  //   const confirmDelete = window.confirm(
+  //     "Êtes-vous sûr de vouloir supprimer cette publication ?",
+
+  //   );
+
+  //   if (confirmDelete) {
+  //     console.log("Deleting article...");
+
+  //     fetch(`${Config.LOCAL_URL}/api/commentaires/${id}`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // Add any additional headers if needed
+  //       },
+  //     })
+  //       .then(async (response) => {
+  //         const x = await response.json()
+  //         fetchArticles()
+
+  //         // window.location.reload()
+
+  //         console.log("nedaerr", x)
+  //         if (response.ok) {
+  //           setArticles((prevArticles) => {
+  //             return prevArticles.map((article) => {
+  //               if (article.id === articleId) {
+  //                 return {
+  //                   ...article,
+  //                   commentsCount: (article.commentsCount || 0) - 1, 
+  //                 };
+  //               }
+  //               return article;
+  //             });
+  //           });
+  //           setShowDropdownComment();
+
+  //           await fetchCommentsForArticle(articleId);
+
+  //         }
+
+  //         else if (!response.ok) {
+
+  //           setArticleComments()
+            
+  //           throw new Error(`HTTP error! Status: ${response.status}`);
+  //         }
+  //         return response.json();
+
+  //       })
+  //       .then((data) => {
+
+  //         console.log(data.message);
+  //         // Optionally, you can update your UI or state to reflect the deleted article
+  //       })
+  //       .catch((error) => {
+  //         console.error(error.message);
+  //         // Handle the error or show a notification to the user
+  //       })
+  //       .finally(() => {
+  //         // Close the dropdown after deleting
+  //         // setShowDropdownComment(null);
+  //         // fetchCommentsByArticleId()
+  //         // fetchArticles()
+  //         // setSelectedComment(false)
+
+
+
+
+  //       });
+  //   } else {
+  //     // User canceled the deletion
+  //     // setCommentInputVisible()
+
+
+  //   }
+
+
+  // };
   const handleDeleteReplyClick = (id) => {
     const confirmDelete = window.confirm(
       "Êtes-vous sûr de vouloir supprimer cette publication ?",
@@ -1209,6 +1288,10 @@ function Post({ article, setArticles }) {
       year: 'numeric'
     });
   }
+  const [showFullText, setShowFullText] = useState(false);
+  const toggleText = () => {
+    setShowFullText(!showFullText);
+  };
   return (
     <>
 
@@ -1342,10 +1425,20 @@ function Post({ article, setArticles }) {
                     </div>)}
               </div>
 
-              <div class="card-body p-0 me-lg-5 mt-2">
-                <p class="rounded-md  break-all  text-base w-full mb-2 text-dark">
-                  {article.description}
-                </p>
+              <div class=" p-0  mt-2">
+              <p className="rounded-md break-inside-avoid-page text-base w-full mb-2 text-dark">
+          {!showFullText && article.description.length > 295 ? article.description.substring(0, 295) + "..." : article.description}
+          {article.description.length > 295 && (
+          <button
+            onClick={toggleText}
+            className="text-blue-600  hover:text-blue-400 focus:outline-none"
+          >
+            {showFullText ? 'Voir moins' : 'Voir plus'}
+          </button>
+        )}
+      
+        </p>
+        
               </div>
 
 
@@ -1537,12 +1630,11 @@ function Post({ article, setArticles }) {
                                 className="shadow-sm rounded-full w-[64px] aspect-square"
                                 alt="post"
                               /> */}
+                           
+                           
                                <img
-                              src={
-                                user.user.image
-                                  ? user.user?.image
-                                  : placeholder
-                              }
+                                                                      src={comment?.user?.user?.image ? comment?.user?.user?.image : placeholder}
+
                               className="shadow-sm rounded-full w-[52px] aspect-square"
                               alt="post"
                             />
@@ -1638,7 +1730,7 @@ function Post({ article, setArticles }) {
                                               className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
 
                                               onClick={() => {
-                                                handleDeleteCommentClick(comment.id)
+                                                handleDeleteCommentClick(comment.id , article.id )
 
                                                 setCommentInputVisible(false);
                                                 setSelectedArticleId(null);
@@ -1685,6 +1777,8 @@ function Post({ article, setArticles }) {
 
                                 {comment.id === editingCommentId ? (
                                   <div className="my-2 px-[26px] flex w-full justify-between">
+                                   
+                                   <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}>Annuler</button>
                                     <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
                                       saveEditedComment(comment.id)
 
@@ -1696,7 +1790,7 @@ function Post({ article, setArticles }) {
 
 
                                     }>Modifier</button>
-                                    <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}>Annuler</button>
+                                 
                                   </div>
                                 ) : (
                                   <div className="my-2 flex w-full justify-between">
@@ -1711,19 +1805,96 @@ function Post({ article, setArticles }) {
                               <div className="my-2 flex flex-row  w-full justify-between">
                               <div className="flex flex-row">  <button
                                 className="flex-row"
-                                  onClick={() =>
-                                    handleLikeComment(comment.id)
-                                  }
+                                onClick={async () => {
+                                  await fetchLikesForComment(comment.id);
+
+                                  await handleLikeComment(comment.id);
+                                }}
+                                 
                                 >
                                 <div className="flex-col">
-                                    
-                                    {comment.likesCount === 0 ? (
-                                    <BiHeart className="size-5 md:size-6 text-black" />
-                                  ) : (
-                                    <BiSolidHeart className="size-5 md:size-6 text-orange-500 " />
-                                  )}</div>
+        
+
+   
+                                {likesDataComment && (
+    likesDataComment.some(like => like.userId === storedUserData.id && like.commentId === comment.id) ? (
+        <span className="flex flex-row">
+            <BiSolidHeart className="size-6 text-orange-500" />
+            <div className="flex items-center gap-2">
+                <span
+                    className="text-xs md:text-md"
+                    style={{
+                        marginLeft: "1px",
+                        marginTop: "2px",
+                        color: "#f97316"
+                    }}
+                ></span>
+            </div>
+            <div className="flex-col mt-1 ml-2 text-orange-500">{comment.likesCount}</div>
+        </span>
+    ) : (
+        <span className="flex flex-row">
+            <BiHeart className="size-6 text-black" />
+            <div className="flex items-center gap-2">
+                <span
+                    className="text-xs md:text-md"
+                    style={{
+                        marginLeft: "1px",
+                        marginTop: "2px",
+                        color: "black"
+                    }}
+                ></span>
+            </div>
+            <div className="flex-col mt-1 ml-2 text-black">{comment.likesCount}</div>
+        </span>
+    )
+)}
+
+
+{/* {likesDataComment && (likesDataComment.some(like => like.userId === storedUserData.id) && likesDataComment.commentId === comment.id)  ?(
+                        < span className="flex flex-row">  <BiSolidHeart className="size-6 text-orange-500" />
+                          <div className="flex items-center gap-2">
+                            <span
+                              className="text-xs md:text-md"
+
+                              style={{
+                                marginLeft: "1px",
+                                marginTop: "2px",
+                                color: "#f97316"
+
+                              }}
+                            >
+
+                              
+                            </span>
+                          </div>
+                          <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div>
+
+                        </span>
+                      ) : (
+                        <span className="flex flex-row"> <BiHeart className="size-6 text-black" />
+                          <div className="flex items-center gap-2">
+                            <span
+                              className="text-xs md:text-md"
+                              style={{
+                                marginLeft: "1px",
+                                marginTop: "2px",
+                                color: "black"
+
+                              }}
+                            >
+
+                              
+                            </span>
+                          </div>
+                          <div className="flex-col mt-1 ml-2 text-black"> {comment.likesCount}</div>
+
+                        </span>
+                      )
+                      } */}
+                                  </div>
                                 </button>
-                                <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div>
+                                {/* <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
 
                                 </div>
                                 <button
@@ -1888,6 +2059,8 @@ function Post({ article, setArticles }) {
                                           {/* ok */}
                                           {reply.id === editingReplyId ? (
                                             <div className="my-2 px-[26px] flex w-full justify-between ">
+                                                                                            <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEditreply()}>Annuler</button>
+
                                               <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
                                                 saveEditedReply(reply.id)
                                                 // fetchRepliesForComment(reply.commentaireId)
@@ -1902,7 +2075,6 @@ function Post({ article, setArticles }) {
 
 
                                               }>Modifier</button>
-                                              <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEditreply()}>Annuler</button>
                                             </div>
                                           ) : (
                                             <div className="my-2 flex w-full justify-between">
@@ -1928,8 +2100,7 @@ function Post({ article, setArticles }) {
                                     <figure className="avatar">
                                       <img
                                         src={
-                                          comment.user &&
-                                            comment?.user?.user?.image ? comment?.user?.user?.image : placeholder
+                                          user?.user?.image ? user?.user?.image : placeholder
                                         }
                                         className="shadow-sm rounded-full w-[52px] aspect-square"
                                         alt="post"
