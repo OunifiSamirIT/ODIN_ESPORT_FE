@@ -65,7 +65,8 @@ const ProfileLayout = ({ children, onChange, user }) => {
             method: "GET",
         });
         const result = await response.json();
-        setInvitation(result)
+        console.log(result)
+        setInvitation(result.record)
     }
 
     const deleteInviation = async (id) => {
@@ -94,7 +95,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                 {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} />}
                                 {CurrentUser?.user.profil === 'scout' && <Scout userInfo={CurrentUser} />}
 
-                                {Invitation.length > 0 && <div className="flex flex-col flex-wrap justify-center content-start px-3 py-6 mt-6 mb-6 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
+                                {Invitation.length > 0 && <div className="flex flex-col flex-wrap justify-center h-fit content-start px-3 py-6 mt-6 mb-6 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                                     <div className="flex gap-5 justify-between font-medium whitespace-nowrap w-full">
                                         <div className="flex flex-auto gap-4 py-2 text-base text-zinc-900">
                                             <img
@@ -109,16 +110,17 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                         </Link>} */}
                                     </div>
                                     <div className="mt-8 max-md:max-w-full">
-                                        <div className="grid grid-cols-2 flex gap-4 md:gap-8 flex-wrap ">
+                                        <div className="grid grid-cols-2 md:grid-cols-3 flex gap-4 md:gap-8 flex-wrap ">
                                             {Invitation.map((item, index) => {
                                                 return (<div key={index} className="flex flex-col max-sm:flex-1">
-                                                    <a href={`/profile/${item.receiver.id}`} className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">
+                                                    
+                                                    <div href={`/profile/${item.receiver.id}`} className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">
                                                         <img
                                                             loading="lazy"
                                                             srcSet={item.receiver.image ? item.receiver.image : PlaceHolder}
                                                             className="w-50  aspect-square rounded-full"
                                                         />
-                                                        <div className="mt-2 font-bold">{item.receiver.nom}  {item.receiver.prenom}</div>
+                                                        <div onClick={()=>console.log(item.receiver)} className="mt-2 font-bold">{item.receiver.nom}  {item.receiver.prenom}</div>
                                                         <div className="text-sm font-light">
                                                             {/* {item.receiver.profil == 'other' ? item.receiver.profil.profession : ''} */}
                                                             {item.receiver.profil == 'player' ? ' Joueur' : ''}
@@ -133,7 +135,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                         {owner && <div className="hidden md:flex text-center justify-center self-stretch px-7 py-2 mt-2 font-medium mx-3 text-white bg-orange-500 rounded-[30px] max-md:px-5">
                                                             <button onClick={() => deleteInviation(item.receiver.id)}>Supprimer</button>
                                                         </div>}
-                                                    </a>
+                                                    </div>
                                                 </div>)
                                             })}
                                         </div>
