@@ -465,7 +465,6 @@ function Home() {
 
             {/* create post */}
 
-
             <div className="flex flex-col">
               <div className="flex flex-1 flex-col">
                 {/* <CreatePost setArticles={setData} /> */}
@@ -503,10 +502,11 @@ function Home() {
             <div className="flex flex-col ml-4 w-3/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow max-md:mt-6">
                 <Friends />
-                <Friendsilder />
+
 
                 {/* <Group /> */}
                 <Events />
+                <Friendsilder />
               </div>
             </div>
 

@@ -55,7 +55,7 @@ function FriendsSlider() {
     };
 
     return (
-        <div className="flex flex-col mt-6 w-full bg-white rounded-md shadow-sm">
+        <div className="flex flex-col mt-1 w-full bg-white rounded-md shadow-sm">
             {/* <div className="flex gap-2 justify-between px-6 pt-4 max-md:px-5">
                 <div className="text-lg font-bold text-zinc-900">
                     Personnes que
@@ -64,7 +64,7 @@ function FriendsSlider() {
                 </div>
               
             </div> */}
-            <div className="flex justify-between items-center px-6 pt-0 max-md:px-5">
+            <div className="flex justify-between items-center px-6 pt-2 max-md:px-5">
                 <div className="text-lg font-bold text-zinc-900">
                     Personnes que
                     vous pourriez

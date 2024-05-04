@@ -12,6 +12,9 @@ function Events() {
     navigate(`/defaultgroup/${id}`);
   };
 
+
+
+
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
@@ -26,11 +29,23 @@ function Events() {
     fetchAlbums();
   }, []);
 
+  const formatDate = (dateString) => {
+    const dateParts = dateString.split("-");
+    if (dateParts.length === 3) {
+      const year = dateParts[0];
+      const month = dateParts[1].padStart(2, "0"); // Ensure two-digit month
+      const day = dateParts[2].padStart(2, "0"); // Ensure two-digit day
+      return `${day}-${month}-${year}`;
+    } else {
+      return null; // Invalid date string
+    }
+  };
+
   return (
-    <div className="card w-100 shadow-xss mt-3 rounded-md border-0 mb-3">
+    <div className="card w-100 shadow-xss mt-1 rounded-md border-0 mb-3">
       <div className="flex flex-col mt-1 w-full bg-white rounded-md shadow-sm">
 
-        <div className="flex justify-between items-center px-6 pt-0 max-md:px-5">
+        <div className="flex justify-between items-center px-6 pt-2 max-md:px-5">
           <div className="text-lg font-bold text-zinc-900">
             Camps qui pourraient vous intéresser
           </div>
@@ -54,23 +69,26 @@ function Events() {
               <img
                 loading="lazy"
                 src={album.ImagesAlbumcamps[0].image_url} // Assuming at least one image exists
-                alt={album.album_name}
-                className="self-start w-20 aspect-[0.69] rounded-md"
+                // alt={album.album_name}
+                className="self-start w-20 object-cover aspect-[0.69] rounded-md"
               />
-              <div className="flex flex-col flex-1">
-                <div className="text-base font-semibold whitespace-nowrap">
+              <div className="flex flex-col  flex-1">
+                <div className="text-base  font-semibold break-before-avoid-page">
                   {album.album_name}
                 </div>
                 <div className="">Date Début</div>
                 <div className="flex gap-2 self-start mt-1 whitespace-nowrap">
 
 
-                  <div className="grow">{album.date_debut}</div>
+                  <div className="grow">{formatDate(album.date_debut)}</div>
                   <div>-</div>
                   <div className="grow">{album.Duree}</div>
                 </div>
                 <div className="self-start ">{album.payscamps}</div>
-                <div className="mt-2 text-xs">{album.description}</div>
+                <div className="mt-2  text-xs break-before-avoid-page ">{album.description.length > 100 ?
+                  album.description.slice(0, 100) + '...' :
+                  album.description
+                }</div>
               </div>
 
             </div>

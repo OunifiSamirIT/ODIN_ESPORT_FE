@@ -425,7 +425,7 @@ const Album = () => {
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <Link to="/defaultgroup">
                         <button
-                          className="w-full bg-orange-400 rounded-full flex items-center justify-center py-2 mb-3">
+                          className="w-full bg-orange-400 md:hidden rounded-full flex items-center justify-center py-2 mb-3">
 
                           <svg
                             width={20}

@@ -8,7 +8,7 @@ import Pagetitle from "../components/Pagetitle";
 import Load from "../components/Load";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
-import {Context} from "../index"
+import { Context } from "../index"
 import { Config } from "../config";
 
 
@@ -17,7 +17,7 @@ const Album = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
-  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
   const [user, setUser] = useState([]);
 
 
@@ -200,16 +200,16 @@ const Album = () => {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    {
-             getTranslation(
-              `Home`,  // -----> Englais
-              `Acceuil`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                      {
+                        getTranslation(
+                          `Home`,  // -----> Englais
+                          `Acceuil`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
 
-            } 
-                      
+                      }
+
                     </div>
                   </div>
                 </Link>
@@ -245,17 +245,17 @@ const Album = () => {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      
+
 
                       {
-             getTranslation(
-              `Profile`,  // -----> Englais
-              `Profil`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                        getTranslation(
+                          `Profile`,  // -----> Englais
+                          `Profil`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
 
-            } 
+                      }
                     </div>
                   </div>{" "}
                 </Link>
@@ -283,17 +283,17 @@ const Album = () => {
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                        
+
 
                         {
-             getTranslation(
-              `Agents`,  // -----> Englais
-              `Agents`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                          getTranslation(
+                            `Agents`,  // -----> Englais
+                            `Agents`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
 
-            } 
+                        }
                       </div>
                     </div>{" "}
 
@@ -327,16 +327,16 @@ const Album = () => {
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      {
-             getTranslation(
-              `Player`,  // -----> Englais
-              `Joueur`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                        {
+                          getTranslation(
+                            `Player`,  // -----> Englais
+                            `Joueur`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
 
-            } 
-                        
+                        }
+
                       </div>
                     </div>{" "}
 
@@ -360,15 +360,15 @@ const Album = () => {
                       className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                     />
                     <div>
-                    {
-             getTranslation(
-              `Events`,  // -----> Englais
-              `Événements`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                      {
+                        getTranslation(
+                          `Events`,  // -----> Englais
+                          `Événements`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
 
-            } </div>
+                      } </div>
                   </div>
                   <img
                     loading="lazy"
@@ -400,15 +400,15 @@ const Album = () => {
                               />
                             </svg>
                             <div>
-                            {
-             getTranslation(
-              `Camps`,  // -----> Englais
-              `Camps`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              {
+                                getTranslation(
+                                  `Camps`,  // -----> Englais
+                                  `Camps`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
 
-            }</div>
+                              }</div>
                           </div>
 
                         </div>
@@ -422,16 +422,16 @@ const Album = () => {
                             </svg>
 
                             <div>
-                            {
-             getTranslation(
-              `Challenges`,  // -----> Englais
-              `Challenges`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              {
+                                getTranslation(
+                                  `Challenges`,  // -----> Englais
+                                  `Challenges`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
 
-            }
-                              </div>
+                              }
+                            </div>
                           </div>
 
                         </div>
@@ -447,16 +447,16 @@ const Album = () => {
                             />
 
                             <div>
-                            {
-             getTranslation(
-              `ODIN Event`,  // -----> Englais
-              `Evénnement ODIN`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              {
+                                getTranslation(
+                                  `ODIN Event`,  // -----> Englais
+                                  `Evénnement ODIN`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
 
-            }
-                              </div>
+                              }
+                            </div>
                           </div>
 
                         </div>
@@ -475,18 +475,18 @@ const Album = () => {
                         className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                       />
                       <div>
-                        
-                      {
-             getTranslation(
-              `Jobs Offers`,  // -----> Englais
-              `Offres d’emploi`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            }
-                        
-                        </div>
+                        {
+                          getTranslation(
+                            `Jobs Offers`,  // -----> Englais
+                            `Offres d’emploi`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
+
+                        }
+
+                      </div>
                     </div>
                   </div></Link>
                 <Link to="/entreprise" className="self-center">  {!(
@@ -501,16 +501,16 @@ const Album = () => {
                         className="shrink-0 my-auto w-4 aspect-square fill-white"
                       />
                       <div>
-                      {
-             getTranslation(
-              `Publish Offer`,  // -----> Englais
-              ` Publier une offre`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                        {
+                          getTranslation(
+                            `Publish Offer`,  // -----> Englais
+                            ` Publier une offre`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
 
-            }
-                       </div>
+                        }
+                      </div>
                     </div>
                   )}</Link>
               </div>
@@ -534,10 +534,10 @@ const Album = () => {
                     </div>
                     <div className="flex flex-col ml-5 w-[67%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10 max-md:max-w-full">
-                        <div className="text-3xl font-bold max-md:max-w-full">
+                        <div className="text-3xl font-bold text-break max-md:max-w-full">
                           {albumDetails.album_name}
                         </div>
-                        <div className="mt-4 font-light max-md:max-w-full">
+                        <div className="mt-4 font-light text-break max-md:max-w-full">
                           {albumDetails.description}
                         </div>
 
@@ -615,34 +615,34 @@ const Album = () => {
 
 
                             <button className="grow" onClick={handleAlbumButtonClick}>
-                            {
-             getTranslation(
-              `Pre-register`,  // -----> Englais
-              ` Pré-inscrire`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              {
+                                getTranslation(
+                                  `Pre-register`,  // -----> Englais
+                                  ` Pré-inscrire`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
 
-            }
-                              
+                              }
+
                             </button>
 
                           </div>
                         </div>)}
                         {isUserPreinscribed && (
                           <div className="flex justify-center items-center p-4 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
-                           
-                           
-                           {
-             getTranslation(
-              `You are already pre-registered!`,  // -----> Englais
-              ` Vous étes deja pré-inscrit !`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            }
-                            
+
+                            {
+                              getTranslation(
+                                `You are already pre-registered!`,  // -----> Englais
+                                ` Vous étes deja pré-inscrit !`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
+
+                            }
+
                           </div>
                         )}
                       </div>
