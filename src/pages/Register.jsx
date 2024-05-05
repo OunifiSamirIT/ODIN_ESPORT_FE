@@ -5379,7 +5379,7 @@ function Register() {
 
 let [showModal, setShowModal] = useState(false)
 let [wichContent, setWichContent] = useState(1)
-var years = Array.from(Array(new Date().getFullYear() - 1949), (_, i) => (i + 1950).toString())
+var years = Array.from(Array(2012 - 1949), (_, i) => (i + 1950).toString())
 let [isCalenderPopShow, setCalenderShow] = useState(false)
   return (
     <Fragment>
