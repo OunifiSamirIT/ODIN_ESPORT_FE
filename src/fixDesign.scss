@@ -1,5 +1,5 @@
 .switcherLanguageCon {
-  width: 60px;
+  width: 70px;
   height: 30px;
   display: flex;
   justify-content: center;
@@ -12,9 +12,9 @@
     border-radius: 10px;
     padding: 0 5px;
     cursor: pointer;
-    transition: .2s;
+    transition: 0.2s;
     &:hover {
-      background-color: #ffffff30; 
+      background-color: #ffffff30;
     }
     span {
       color: white;
@@ -26,44 +26,200 @@
 
   .togglerCon {
     position: absolute;
-    width: 100px;
-    height: fit-content;
+    width: 180px;
+    height: 60px;
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     z-index: 111;
     display: flex;
     top: 110%;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 7px 0;
+    flex-direction: row;
+    padding: 5px 0;
     transform: translateX(-5px);
     opacity: 0;
     display: none;
+    box-shadow: 0 0 0 1px #11111120;
+    padding: 6px;
     label {
-      margin: 5px 0;
-      border-radius: 3px;
-      transition: .2s;
-      padding: 5px;
+      margin: 2px 2px;
+      border-radius: 8px;
+      flex: 1;
+      background-color: #1d4db710;
+      transition: 0.5s;
       display: flex;
+      padding-top: 2px;
       align-items: center;
       justify-content: space-between;
-      svg {
-        margin-right: 5px;
-        min-width: 20px;
+      color: #333;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      img {
+        width: 20px;
+        height: 20px;
       }
       cursor: pointer;
       width: 90%;
       &:hover {
-        background-color: #1d4db7;
-        color: white;
+        background-color: #1d4db740;
       }
     }
   }
 }
 
-.dark-bg, .dark-light-bg {
+.dark-bg,
+.dark-light-bg {
   background-color: #ffffff;
 }
 
+.hoveredButtonTransparency {
+  padding: 3px 8px;
+  border-radius: 10px;
+  transition: 0.2s;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffffff30;
+  }
+}
 
+.socialMediaIcon {
+  cursor: pointer;
+  &:hover {
+    transition: 0.2s;
+    filter: invert(1);
+  }
+}
+
+.hoveredBtnToWhitebg {
+  cursor: pointer;
+  transition: 0.3s;
+  color: white !important;
+  &:hover {
+    background-color: white !important;
+    color: #333 !important;
+  }
+}
+
+.hoveredBtnToWhitebgWithBorder {
+  cursor: pointer;
+  transition: 0.3s;
+  color: #2563eb !important;
+  border: 1px solid #2563eb;
+  &:hover,
+  &:focus {
+    background-color: #2563eb !important;
+    color: white !important;
+  }
+}
+
+.roleContainer {
+  &:focus {
+    color: white !important;
+  }
+}
+
+.odinAnimation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3070ee;
+  z-index: 444;
+  // display: none;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .animatedImageContainer {
+    transform: scale(1.4);
+    padding-left: 8px;
+    opacity: 0;
+    display: flex;
+    flex-direction: row;
+
+    .odinLogoAnimation {
+      width: calc(100px + 1vw);
+      // transform: translate(50%);
+      z-index: 10;
+      margin-bottom: 15px;
+    }
+    .textContent {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: calc(16px + 2vw);
+      color: #333;
+      opacity: 0;
+    }
+    margin-bottom: 20px;
+  }
+  .odinloader {
+    width: 120px;
+    height: 5px;
+    // background-color: #e8e8e8;
+    .inner {
+      height: 100%;
+      width: 0%;
+      background-color: white;
+    }
+  }
+}
+
+.pdfModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 333;
+  background: #11111140;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  section {
+    height: 80%;
+    border: 10px solid #2563eb;
+    border-radius: 30px 30px 10px 10px;
+    background-color: #2563eb;
+    box-shadow: 0 0 5px 0 #2563eb;
+
+    header {
+      background-color: #2563eb;
+      height: 15%;
+      font-weight: 600;
+
+      img {
+        width: 15px;
+        filter: invert(1);
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.3);
+        }
+      }
+    }
+
+    main {
+      height: 85%;
+      position: relative;
+      overflow-y: scroll;
+      background-color: white;
+      p {
+        text-align: start;
+        padding-left: 10px;
+        text-indent: -5px pre {
+          text-align: start;
+        }
+      }
+    }
+  }
+}
+
+
+.allyearsContainerPopUp {
+
+}

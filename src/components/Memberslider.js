@@ -60,6 +60,8 @@ class Memberslider extends Component {
         return (
             <Slider {...membersettings}>
                 {memberList.map((value , index) => (
+                          <div className="flex flex-col ml-5 w-full md:mt-4 mt-0 max-md:ml-0 max-md:w-full">
+
                 <div key={index} className="card w200 d-block border-0 shadow-xss rounded-xxl overflow-hidden mb-3 me-3">
                     <div className="card-body position-relative h100 bg-image-cover bg-image-center" style={{backgroundImage: `url("assets/images/${value.bgUrl}")`}}></div>
                     <div className="card-body d-block w-100 ps-4 pe-4 pb-4 text-center">
@@ -70,6 +72,7 @@ class Memberslider extends Component {
                         <span className="live-tag mt-2 mb-0 bg-danger p-2 z-index-1 rounded-3 text-white font-xsssss text-uppersace fw-700 ls-3">LIVE</span>
                         <div className="clearfix mb-2"></div>
                     </div>
+                </div>
                 </div>
                 ))}
             </Slider>

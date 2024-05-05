@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
 import gsap from "gsap";
 import { Context } from "../index";
+import frensh from "../assets/france.png"
+import england from "../assets/united-kingdom.png"
 
-export default function LanguageToggler( {color=false, hide=false, color2=false}) {
+export default function LanguageToggler( {color=false, hide=false, color2=false, Right=false}) {
   //start _________ translation context
   const { _currentLang, _setLang } = useContext(Context);
   //end _________ translation context
@@ -23,7 +25,7 @@ export default function LanguageToggler( {color=false, hide=false, color2=false}
         display: "flex",
       })
       .to(".switcherLanguageCon .togglerCon", {
-        y: isOpened ? 0 : -5,
+        y: isOpened ? 7 : -5,
         opacity: isOpened ? 1 : 0,
         duration: 0.2,
       })
@@ -37,7 +39,7 @@ export default function LanguageToggler( {color=false, hide=false, color2=false}
     gsap
       .timeline()
 
-      .to(".tal1", {
+      .to(".tal1, .tal2", {
         x: -5,
         opacity: 0,
         duration: 0.2,
@@ -46,29 +48,13 @@ export default function LanguageToggler( {color=false, hide=false, color2=false}
           setLang(lang);
         },
       })
-      .to(".tal1", {
+      .to(".tal1 , .tal2", {
         x: 0,
         opacity: 1,
         stagger: 0.1,
         duration: 0.2,
       });
 
-    gsap
-      .timeline()
-
-      .to(".tal2", {
-        delay: 0.3,
-        scale: 0.95,
-        opacity: 0.4,
-        duration: 0.2,
-        stagger: 0.1,
-      })
-      .to(".tal2", {
-        scale: 1,
-        opacity: 1,
-        stagger: 0.1,
-        duration: 0.2,
-      });
   };
   return (
     <div 
@@ -126,9 +112,11 @@ export default function LanguageToggler( {color=false, hide=false, color2=false}
                 }
       </label>
 
-      <div className="togglerCon" style={
+      <div className="togglerCon"
+       style={
         {
           color: color2  ? "#111" : "",
+          right: Right ? 0 : "auto"
 
         }
       }>
@@ -137,13 +125,40 @@ export default function LanguageToggler( {color=false, hide=false, color2=false}
             _swichLanguageHandler("Fr");
           }}
         >
+
+{/* <svg id="emoji" className="scale-x-125"  viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="5" y="17" width="62" height="38" fill="#fff"/>
+    <rect x="5" y="17" width="21" height="38" fill="#1e50a0"/>
+    <rect x="46" y="17" width="21" height="38" fill="#d22f27"/>
+  </g>
+  <g id="line">
+    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg> */}
+
+            <img src={frensh} />
+
           Francais
+
         </label>
-        <label
+        <label 
           onClick={() => {
             _swichLanguageHandler("Eng");
           }}
         >
+{/* 
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <g id="color">
+    <rect x="5" y="17" width="62" height="38" fill="#fff"/>
+    <polygon fill="#d22f27" stroke="#d22f27" stroke-miterlimit="10" stroke-width="2" points="67 33 39 33 39 17 33 17 33 33 5 33 5 39 33 39 33 55 39 55 39 39 67 39 67 33"/>
+  </g>
+  <g id="line">
+    <rect x="5" y="17" width="62" height="38" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg> */}
+
+            <img src={england} />
           Englais
         </label>
         {/* <label onClick={() => { _swichLanguageHandler("Tr") }}>Turqey</label> */}

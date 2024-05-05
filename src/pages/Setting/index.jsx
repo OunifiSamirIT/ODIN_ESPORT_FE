@@ -76,13 +76,14 @@ const Index = () => {
     //         })
     //         .catch((error) => console.error(error));
     // }, [])
+    const [deleteModal , setDeleteModal] = useState()
     return (
         <>
             <HomeLayout>
 
-                <SettingsLayout setCurrentTab={setCurrentTab} tab={tab}>
+                <SettingsLayout setCurrentTab={setCurrentTab} setDeleteModal={setDeleteModal} tab={tab}>
                     {currentTab === 'social' && <Social userInfo={userInfo}/>}
-                    {currentTab === 'parametre' && <Parametre userInfo={userInfo} />}
+                    {currentTab === 'parametre' && <Parametre deleteModal={deleteModal} setDeleteModal={setDeleteModal} userInfo={userInfo} />}
                     {currentTab === 'experience' && <Experience userInfo={userInfo} />}
                     {currentTab === 'personal' && <Personal userInfo={userInfo} />}
                     {currentTab === 'information' && <Information userInfo={userInfo} fetchUserInfo={fetchUserInfo} />}

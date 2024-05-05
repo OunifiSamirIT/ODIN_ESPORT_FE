@@ -65,7 +65,8 @@ const ProfileLayout = ({ children, onChange, user }) => {
             method: "GET",
         });
         const result = await response.json();
-        setInvitation(result)
+        console.log(result)
+        setInvitation(result.record)
     }
 
     const deleteInviation = async (id) => {
@@ -94,51 +95,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                 {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} />}
                                 {CurrentUser?.user.profil === 'scout' && <Scout userInfo={CurrentUser} />}
 
-                                {Invitation.length > 0 && <div className="flex flex-col flex-wrap justify-center content-start px-3 py-6 mt-6 mb-6 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
-                                    <div className="flex gap-5 justify-between font-medium whitespace-nowrap w-full">
-                                        <div className="flex flex-auto gap-4 py-2 text-base text-zinc-900">
-                                            <img
-                                                loading="lazy"
-                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/acf026b2812ede237d9ec012ac71ee4afc067d2787b50070a71f03ae3078c0b6?"
-                                                className="shrink-0 w-5 aspect-square"
-                                            />
-                                            <div className="flex-auto max-md:max-w-full">Friends</div>
-                                        </div>
-                                        {/* {owner && <Link to={'/friendsList'} className="my-auto text-sm text-blue-600 underline justify-end">
-                                            Voir Tout
-                                        </Link>} */}
-                                    </div>
-                                    <div className="mt-8 max-md:max-w-full">
-                                        <div className="grid grid-cols-2 flex gap-4 md:gap-8 flex-wrap ">
-                                            {Invitation.map((item, index) => {
-                                                return (<div key={index} className="flex flex-col max-sm:flex-1">
-                                                    <a href={`/profile/${item.receiver.id}`} className="flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px] bg-zinc-100 text-zinc-900">
-                                                        <img
-                                                            loading="lazy"
-                                                            srcSet={item.receiver.image ? item.receiver.image : PlaceHolder}
-                                                            className="w-50  aspect-square rounded-full"
-                                                        />
-                                                        <div className="mt-2 font-bold">{item.receiver.nom}  {item.receiver.prenom}</div>
-                                                        <div className="text-sm font-light">
-                                                            {/* {item.receiver.profil == 'other' ? item.receiver.profil.profession : ''} */}
-                                                            {item.receiver.profil == 'player' ? ' Joueur' : ''}
-                                                            {item.receiver.profil == 'agent' && item.receiver.profil == 'players' ? 'Manager de Joueur' : ''}
-                                                            {item.receiver.profil == 'agent' && item.receiver.profil == 'club' ? 'Manager de CLub' : ''}
-                                                            {item.receiver.profil == 'scout' ? 'Scout' : ''}
-                                                        </div>
 
-                                                        <div className="hidden md:flex text-center justify-center self-stretch px-7 py-2 mt-2 font-medium text-white mx-3  bg-blue-600 rounded-[30px] max-md:px-5">
-                                                            <a href={`/profile/${item.receiver.id}`}> Voir Plus</a>
-                                                        </div>
-                                                        {owner && <div className="hidden md:flex text-center justify-center self-stretch px-7 py-2 mt-2 font-medium mx-3 text-white bg-orange-500 rounded-[30px] max-md:px-5">
-                                                            <button onClick={() => deleteInviation(item.receiver.id)}>Supprimer</button>
-                                                        </div>}
-                                                    </a>
-                                                </div>)
-                                            })}
-                                        </div>
-                                    </div>
-                                </div>}
                             </div>
                         </div>
                         <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full ">

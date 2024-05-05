@@ -33,6 +33,7 @@ const Article = () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/blog/${articleId}`);
         const result = await response.json()
         setArticle(result.blog)
+        console.log('odinesprot')
     }
 
     useEffect(() => {

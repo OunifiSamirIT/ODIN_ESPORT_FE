@@ -150,7 +150,7 @@ const Album = () => {
       const year = dateParts[0];
       const month = dateParts[1].padStart(2, "0"); // Ensure two-digit month
       const day = dateParts[2].padStart(2, "0"); // Ensure two-digit day
-      return `${year}-${month}-${day}`;
+      return `${day}-${month}-${year}`;
     } else {
       return null; // Invalid date string
     }
@@ -689,7 +689,7 @@ const Album = () => {
                             src={value?.ImagesAlbumevents?.length > 0 ? value?.ImagesAlbumevents[0]?.image_url : 'placeholder.jpg'}
                             className="self-stretch w-full aspect-square rounded-t-xl object-cover"
                           />
-                          <div className="mt-4 px-2 self-start text-base font-semibold text-zinc-900">
+                          <div className="mt-4 px-2 self-start text-break font-semibold text-zinc-900">
                             {value.album_name}
                           </div>
                           <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-400 w-[282px]">
@@ -700,8 +700,11 @@ const Album = () => {
                             </div>
                             <div className=" text-xs font-light">{value.payscamps}</div>
                           </div>
-                          <div className="mt-2 text-xs mx-2 font-light text-black">
-                            {value.description}
+                          <div className="mt-2 text-xs mx-2 text-break font-light text-black">
+                            {value.description.length > 100 ?
+                              value.description.slice(0, 100) + '...' :
+                              value.description
+                            }
                           </div>
                           <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
                             <div className="flex flex-col whitespace-nowrap ">

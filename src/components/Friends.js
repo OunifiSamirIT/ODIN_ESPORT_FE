@@ -59,9 +59,9 @@ function Friends() {
       <div className="card-body d-flex align-items-center p-4">
         <h4 className=" mb-0 font-bold text-lg text-grey-900 mr-2">Demandes</h4>
         {/* <span className='ml-2 font-bold text-red-500 bg-slate-300 rounded-full h-8 w-6'><p className='ml-2'>{pendingFriendRequests?.length}</p> </span> */}
-        <a href="/friends" className="fw-600 ms-auto font-xssss te text-primary">Voir Tout</a>
+        <a href="/friends" className=" ms-auto text-sm font-medium text-blue-600">Voir Tout</a>
 
-      </div> <hr className="mb-2 mx-3 bg-black" />
+      </div> 
 
       {FriendRequest.map((item) => (
         <div className="wrap" key={item.receiver.id}>

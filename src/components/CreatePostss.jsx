@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { Config } from "../config";
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import CustomButton from "../components/CustomButton";
 import Loading from './Loading';
 import placeholder from "../assets/placeholder.jpg"
+import { useRef } from 'react';
 
 function CreatePost({ setArticles }) {
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -27,10 +28,6 @@ function CreatePost({ setArticles }) {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-
-  let _ref_previewImage = useRef(null)
-  let _ref_previewVedeo = useRef(null)
-
   const fetchArticles = async () => {
     try {
       setLoading(true);
@@ -140,14 +137,10 @@ function CreatePost({ setArticles }) {
       // Update the list of posts and reset the preview image
       setPostsData(updatedPostsData);
       setPreviewImage(null);
-      setVideoPreviewUrl(null)
       setValue("description", "");
       setPosting(false);
       fetchArticles();
-      setFile('')
-      _ref_previewImage.current.src=""
-      _ref_previewVedeo.current.src=""
-      // window.location.reload()
+      window.location.reload()
 
     } catch (error) {
       console.error("Error submitting post:", error);
@@ -167,53 +160,77 @@ function CreatePost({ setArticles }) {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
+          // console.log("dhaw " , response)
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
 
     fetchArticles();
   }, []);
+  const [textareaHeight, setTextareaHeight] = useState('70px');
+  const textAreaRef = useRef(null);
+
+  // const handleChange = (e) => {
+  //   if (e && textAreaRef.current) {
+  //     const newHeight = `${textAreaRef.current.scrollHeight}px`;
+  //     setTextareaHeight(newHeight);
+  //     setValue("description", e.target.value); // Update the form value
+  //   }
+  // };
+  const handleChange = (e) => {
+    if (e && textAreaRef.current) {
+      const newHeight = e.target.value ? `${textAreaRef.current.scrollHeight}px` : `${textAreaRef.current.scrollHeight}px`;
+      setTextareaHeight(newHeight);
+      setValue("description", e.target.value); // Update the form value
+    }
+  };
+  
+  useEffect(() => {
+    handleChange(); // Initial calculation of height
+  }, []); // Run only once after component mounted
+
   return (
-    <div className="flex flex-col ml-5 w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
+    <div className="flex flex-col ml-5 w-[90%] h-[425px]  md:mt-0  max-md:ml-0 max-md:w-full">
       <div className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-3">
         <div className="card-body p-2 position-relative">
-          {previewImage && (
-            <div className="mb-3">
-              <img
-                ref={_ref_previewImage}
-                src={previewImage}
-                alt="Preview"
-                className="rounded-xxl"
-                style={{ maxWidth: "100%", maxHeight: "200px" }}
-              />
-            </div>
-          )}
-          {videoPreviewUrl && (
-            <div className="mt-3">
-              <video
-                ref={_ref_previewVedeo}
-                controls
-                src={videoPreviewUrl}
-                className="rounded-xxl"
-                style={{ maxWidth: "100%", maxHeight: "200px" }}
-              ></video>
-            </div>
-          )}
-          <form onSubmit={handleSubmit(handlePostSubmit)}>
+         
+          <form className="h-[300px] flex flex-col" onSubmit={handleSubmit(handlePostSubmit)}>
             <div className="card-body d-flex p-0">
-              <div className="flex w-full">
-                <img
+              <div className="flex flex-col w-full">
+              <div className='flex flex-row mb-3 '>
+                 <img
                   srcSet={user?.user?.image ? user?.user.image : placeholder}
                   alt="icon"
-                  className="shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                  className="shadow-sm rounded-full aspect-square w-11 h-11 md:w-16 md:h-16 mr-2"
                 />
+                  <div className='mt-[5px] md:mt-3 text-xs font-bold  '>{
+                                        user?.user?.nom}
+                                    <span></span>  {
+                                        user?.user?.prenom}
+
+                  {
+                                        <div >
+                                          {user?.user?.profil === 'other' && user?.other?.profession}
+                                          {user?.user?.profil === 'player' && 'Joueur'}
+                                          {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                          {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                          {user?.user?.profil === 'scout' && 'Scout'}
+                                        </div>
+                                      }
+                  </div>
+                
+                </div> 
                 <div className="flex flex-col w-full gap-y-2">
-                  <input
-                    className="grow px-2 h-[50px] justify-center  bg-gray-100 rounded-[30px] theme-dark-bg"
-                    placeholder="Quoi de neuf ? "
-                    name="description"
-                    {...register("description")}
-                  />
+                  
+                <textarea
+                  className="flex max-h-fit px-2 pt-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[30px] theme-dark-bg"
+                  placeholder="Quoi de neuf ?"
+                  name="description"
+                  {...register("description")}
+                  ref={textAreaRef}
+                  style={{ height: textareaHeight }} // Set height dynamically
+                  onChange={handleChange} // Handle change
+                ></textarea>
                   {errMsg?.message && (
                     <span
                       role="alert"
@@ -225,84 +242,108 @@ function CreatePost({ setArticles }) {
                       {errMsg?.message}
                     </span>
                   )}
-
-                  <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
-
-                  <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
-                    <div className="flex w-full justify-between mr-3">
-                      <label
-                        htmlFor="imgUpload"
-                        className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
-                      >
-                        <input
-                          type="file"
-                          onChange={handleFileChange}
-                          className="hidden"
-                          id="imgUpload"
-                          accept=".jpg, .png, .jpeg"
-                        />
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                          className="aspect-square w-[25px]"
-                        />
-                        <span className="d-none-xs ml-2">Photo</span>
-                      </label>
-
-                      <label
-                        className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
-                        htmlFor="videoUpload"
-                      >
-                        <input
-                          type="file"
-                          onChange={(e) => handleFileChange(e, "video")}
-                          className="hidden"
-                          id="videoUpload"
-                          accept=".mp4, .wav"
-                        />
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                          className="aspect-square w-[25px]"
-                        />
-                        <span className="d-none-xs ml-2"> Video</span>
-                      </label>
-
-                      <label
-                        className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
-                        htmlFor="vgifUpload"
-                      >
-                        <input
-                          type="file"
-                          onChange={(e) => handleFileChange(e, "gif")}
-                          className="hidden"
-                          id="vgifUpload"
-                          accept=".gif"
-                        />
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                          className="aspect-[1.2] fill-slate-500 w-[30px]"
-                        />{" "}
-                        <span className="d-none-xs ml-2">GIF</span>
-                      </label>
-                    </div>
-
-                    <div>
-                      {posting ? (
-                        <Loading />
-                      ) : (
-                        <CustomButton
-                          type="submit"
-                          title="Publier"
-                          containerStyles="bg-blue-600 text-white mt-1 py-1 px-8 rounded-full font-semibold text-sm"
-                        />
-                      )}
-                    </div>
-                  </div>
+ {previewImage && (
+            <div 
+            className=" mb-3  "
+            >
+              <img
+                src={previewImage}
+                alt="Preview"
+                className="rounded-xxl self-center md:max-h-[600px]   max-h-[350px]   w-100 object-contain"
+                // style={{ maxWidth: "100%", maxHeight: "200px" }}
+              />
+            </div>
+          )}
+          {videoPreviewUrl && (
+            <div className="mt-3">
+              <video
+                controls
+                src={videoPreviewUrl}
+                className="rounded-xxl"
+                style={{ maxWidth: "100%", maxHeight: "200px" }}
+              ></video>
+            </div>
+          )}
+                
                 </div>
               </div>
+
+
+              
             </div>
+            <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
+
+<div className="flex flex-col w-full   mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
+  <div className="flex w-full justify-between  mr-3">
+    <label
+      htmlFor="imgUpload"
+      className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
+    >
+      <input
+        type="file"
+        onChange={handleFileChange}
+        className="hidden"
+        id="imgUpload"
+        accept=".jpg, .png, .jpeg"
+      />
+      <img
+        loading="lazy"
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+        className="aspect-square w-[25px]"
+      />
+      <span className="d-none-xs ml-2">Photo</span>
+    </label>
+
+    <label
+      className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
+      htmlFor="videoUpload"
+    >
+      <input
+        type="file"
+        onChange={(e) => handleFileChange(e, "video")}
+        className="hidden"
+        id="videoUpload"
+        accept=".mp4, .wav"
+      />
+      <img
+        loading="lazy"
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+        className="aspect-square w-[25px]"
+      />
+      <span className="d-none-xs ml-2"> Video</span>
+    </label>
+
+    <label
+      className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
+      htmlFor="vgifUpload"
+    >
+      <input
+        type="file"
+        onChange={(e) => handleFileChange(e, "gif")}
+        className="hidden"
+        id="vgifUpload"
+        accept=".gif"
+      />
+      <img
+        loading="lazy"
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+        className="aspect-[1.2] fill-slate-500 w-[30px]"
+      />{" "}
+      <span className="d-none-xs ml-2">GIF</span>
+    </label>
+  </div>
+
+  <div>
+    {posting ? (
+      <Loading />
+    ) : (
+      <button
+        type="submit"
+        className="bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white mt-3  px-8 rounded-full font-semibold text-sm"
+      > Publier</button>
+    )}
+  </div>
+</div>
           </form>
         </div>
       </div>
