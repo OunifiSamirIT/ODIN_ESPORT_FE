@@ -62,7 +62,7 @@ function CreatePostModal() {
   return (
     <div>
 
-      <div className="flex flex-col ml-2 w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
+      <div className="flex flex-col  w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
         <div className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-3">
           <div className="card-body p-2 position-relative">
 
@@ -142,7 +142,7 @@ function CreatePostModal() {
             </div>
           </div>
         </div>
-        <div className='flex md:w-[705px] mb-2 -mt-2 '><FriendsSlider /></div>
+        <div className='flex md:w-[730px] mb-2 -mt-2 '><FriendsSlider /></div>
       </div>
 
 

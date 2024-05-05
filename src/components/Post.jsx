@@ -1296,7 +1296,7 @@ function Post({ article, setArticles }) {
     <>
 
 
-      <div className="flex flex-col ml-2 w-full md:mt-4 mt-0 max-md:ml-0 max-md:w-full">
+      <div className="flex flex-col  w-full md:mt-4 mt-0 max-md:ml-0 max-md:w-full">
 
 
         {/* show post  */}

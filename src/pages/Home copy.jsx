@@ -221,7 +221,7 @@ function Home() {
         <div className="self-center px-3 md:px-2 mt-24 w-full max-w-[1380px] max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-2 max-md:flex-col max-md:gap-0">
             {/* left menu */}
-            <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
+            <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[23%] max-md:ml-0 max-md:w-full">
               <div className="  flex flex-col items-start gap-3 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
                 <Link to="/home" className="nav-content-bttn open-font">
                   <div className="flex justify-center items-center gap-4 py-2 px-6 ">
@@ -499,7 +499,7 @@ function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col ml-4 w-3/12 max-md:ml-0 max-md:w-full">
+            <div className="flex flex-col  w-3/12 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow max-md:mt-6">
                 <Friends />
 
