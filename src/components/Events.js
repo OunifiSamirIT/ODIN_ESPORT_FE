@@ -63,7 +63,7 @@ function Events() {
 
 
 
-        <div className="flex flex-col flex-wrap content-start p-6 mt-8 w-full bg-white rounded-xl max-md:px-5">
+        <div className="flex flex-col flex-wrap content-start px-4 mt-4 w-full bg-white rounded-xl ">
           {albums.map((album) => (
             <div>  <div key={album.id} className="flex gap-2  justify-between text-xs font-light text-zinc-900">
               <img
@@ -84,7 +84,7 @@ function Events() {
                   <div>-</div>
                   <div className="grow">{album.Duree}</div>
                 </div>
-                <div className="self-start ">{album.payscamps}</div>
+                <p className="self-start text-capitalize ">{album.payscamps}</p>
                 <div className="mt-2  text-xs break-before-avoid-page ">{album.description.length > 100 ?
                   album.description.slice(0, 100) + '...' :
                   album.description

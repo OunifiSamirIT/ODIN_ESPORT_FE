@@ -81,7 +81,7 @@ function FriendsSlider() {
                     </div>
                 </div>
             </div>
-            <div className="flex gap-2 justify-between items-center pr-6 pl-1 mt-8">
+            <div className="flex gap-2 justify-between items-center pr-6 pl-1 mt-2">
                 <button onClick={prevSlide} className="prev-slide-button text-2xl">&#10094;</button>  <Slider ref={sliderRef} style={{ width: '93%' }} {...friendSettings}>
                     {agents.map((value, index) => (
                         <div key={index} className="card w150 d-block border-0 bg-gray-100  rounded-3 overflow-hidden mb-3 me-3 ">
