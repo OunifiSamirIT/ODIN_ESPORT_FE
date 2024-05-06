@@ -46,15 +46,14 @@ const fetchArticle = async () => {
           const article = await response.json();
           setEditArticle(article);
 
-          // Set preview image if there's an existing image
-          if (article.image) {
-              setPreviewImage(article.image);
-          }
+          // if (article.image) {
+          //     setPreviewImage(article.image);
+          // }
 
-          // Set preview video if there's an existing video
-          if (article.video) {
-              setVideoPreviewUrl(article.video);
-          }
+          // // Set preview video if there's an existing video
+          // if (article.video) {
+          //     setVideoPreviewUrl(article.video);
+          // }
       } else {
           // Handle error
       }
@@ -93,13 +92,13 @@ const fetchArticle = async () => {
       setPosting(true);
 
       const formData = new FormData();
-      formData.append("titre", editArticle.titre);
+       formData.append("titre", editArticle.titre);
       formData.append("description", editArticle.description);
 
-      if (file) {
-        formData.append("file", file);
-        formData.append("fileType", fileType || "");
-      }
+      // if (file) {
+      //   formData.append("file", file);
+      //   formData.append("fileType", fileType || "");
+      // }
 
       const response = await fetch(
         `${Config.LOCAL_URL}/api/articles/${editArticle.id}`,
@@ -113,6 +112,8 @@ const fetchArticle = async () => {
         const updatedArticle = await response.json();
         setEditArticle(updatedArticle);
         setIsFormSubmitted(true);
+        window.location.href = "/home"
+
       } else {
         console.error("Error updating article:", response.statusText);
         const errorData = await response.json();
@@ -190,7 +191,7 @@ const fetchArticle = async () => {
 </div>
 
 
-{previewImage && (
+{/* {previewImage && (
                         <div className="mt-3">
                           <img
                             src={previewImage}
@@ -208,7 +209,7 @@ const fetchArticle = async () => {
                             style={{ maxWidth: "100%", maxHeight: "200px" }}
                           ></video>
                         </div>
-                      )}
+                      )} */}
                         {errMsg?.message && (
                           <span
                             role="alert"
@@ -225,7 +226,7 @@ const fetchArticle = async () => {
 
 
 
-       <div className="flex flex-wrap justify-between items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark px-4">
+       {/* <div className="flex flex-wrap justify-between items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark px-4">
     <div className="flex w-full gap-x-2 justify-between mr-3">
         <label
             htmlFor="imgUpload"
@@ -286,7 +287,7 @@ const fetchArticle = async () => {
     </div>
 
     
-</div>
+</div> */}
 
 
 

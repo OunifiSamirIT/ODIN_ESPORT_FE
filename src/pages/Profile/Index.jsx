@@ -48,7 +48,7 @@ import SlideMenu from "../../components/SlideMenu";
 import Logo from "../../assets/ODIN22.png";
 import placeholder from "../../assets/placeholder.jpg";
 import { UserTag } from "../../components/UserTag";
-
+import moment from "moment";
 const Index = () => {
   const { id } = useParams();
   const [profileFeed, SetProfileFeed] = useState("pubs");
@@ -1023,10 +1023,17 @@ const Index = () => {
                     >
                       <div className="card-body p-0 d-flex mb-3">
 
-                        <UserTag image={article?.user?.user?.image
+                        <UserTag 
+                        image={article?.user?.user?.image
                           ? article?.user?.user?.image
-                          : PlaceHolder} />
-
+                          : PlaceHolder} 
+                          
+                          name={article?.user?.user?.nom}
+                          surname={article?.user?.user?.prenom}
+                          profil={article?.user?.user?.profil}
+                          date={moment(article?.createdAt).format('DD MMMM YYYY')}
+                          />
+                          
                         {/* <h4 className="">
                       
                       <span className="d-block font-xssss fw-500 text-grey-500">

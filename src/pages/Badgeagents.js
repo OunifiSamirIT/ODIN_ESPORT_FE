@@ -4625,16 +4625,16 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                     <div className="flex-wrap content-start mt-6 max-md:max-w-full">
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
                         {filteredUsers.map((user, index) => (
-                        <Link key={index} to={`/profile/${user.user.id}`}>     <div  className="flex flex-col w-full">
+                        <Link key={index} to={`/profile/${user?.user?.id}`}>     <div  className="flex flex-col w-full">
                            
                             <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
                              <img
                                 loading="lazy"
-                                src={user.user.image}
+                                src={user?.user?.image}
                                 className="self-center max-w-full rounded-full aspect-square w-[120px]"
                               /> 
                               <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
-                                {user.user.prenom} {user.user.nom}
+                                {user?.user?.prenom} {user?.user?.nom}
                               </div>
 
 
@@ -4649,7 +4649,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                   <div>Profil</div>
                                 </div>
                                 <div className="flex gap-2.5 my-auto font-medium">
-                                <div>{user.typeresponsable === 'club' ? 'Manager de Club' : 'Manager de joueur'}</div>
+                                <div>{user?.typeresponsable === 'club' ? 'Manager de Club' : 'Manager de joueur'}</div>
 
                                   {/* <div> {user.typeresponsable}</div> */}
                                 </div>
@@ -4665,7 +4665,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                 </div>
                                 <div className="flex gap-2.5 my-auto font-medium">
                                
-                                  <div> {user.user.nationality}</div>
+                                  <div> {user?.user?.nationality}</div>
                                 </div>
                               </div>
                               <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
@@ -4679,7 +4679,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                 </div>
                                 <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
                                   <div className="overflow-hidden overflow-ellipsis">
-                                    {user.user.countryresidence}
+                                    {user?.user?.countryresidence}
                                   </div>
                                 </div>
                               </div>

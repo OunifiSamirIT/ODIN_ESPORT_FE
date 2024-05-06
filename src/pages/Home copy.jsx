@@ -72,17 +72,18 @@ function Home() {
       console.error("Error fetching albums:", error);
     }
   };
-  // const formatDate = (date) => {
-  //   const d = new Date(date);
-  //   const year = d.getFullYear();
-  //   const month = String(d.getMonth() + 1).padStart(2, '0');
-  //   const day = String(d.getDate()).padStart(2, '0');
-  //   const hours = String(d.getHours()).padStart(2, '0');
-  //   const minutes = String(d.getMinutes()).padStart(2, '0');
-  //   const seconds = String(d.getSeconds()).padStart(2, '0');
+  const formatDate = (date) => {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    const seconds = String(d.getSeconds()).padStart(2, '0');
 
-  //   return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-  // };
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+  };
+  
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -95,19 +96,33 @@ function Home() {
       // Parse createdAt for articles
       const parsedArticles = articlesResponse.map(article => {
         // Assuming createdAt is in mm-dd-yyyy format, split and rearrange the date
-        const [month, day, year] = article.createdAt.split('-');
+        const [month, day, year] = article.createdAt.split('T');
         const formattedDate = `${day}-${month}-${year}`;
+        let time = article.createdAt.split('T')[1].split('.')[0]
+        let dt = article.createdAt.split('T')[0].split('-')
+        let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
+        // console.log("🚀 ~ parsedArticles ~ formattedDate:", correctDT)
+        console.log("🚀 ~ parsedArticles ~ formattedDate:",  formatDate(article.createdAt))
+
         return {
           ...article,
-          createdAt: formattedDate
+          createdAt: formatDate(article.createdAt),
         };
       });
-
+      
       // Parse createdAt for albums
+      
       const parsedAlbums = albumsResponse.map(album => {
+        let dt = album.createdAt.split('T')[0].split('-')
+        let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
+        let time = album.createdAt.split('T')[1].split('.')[0]
+      
+        // console.log("🚀 ~ parsedAlbums ~ album.createdAt:", correctDT)
+        console.log("🚀 ~ album ~ formattedDate:",  formatDate(album.createdAt))
+
         return {
           ...album,
-          createdAt: album.createdAt
+          createdAt: formatDate(album.createdAt) ,
         };
       });
 
@@ -116,6 +131,9 @@ function Home() {
 
       // Sort the combined array by createdAt
       combinedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      console.log("🚀 ~ fetchData ~ combinedData:", combinedData)
+      // let combinedDataTemps = combinedData.sort((a, b) => new Date(b.temps) - new Date(a.temps));
+      // console.log("🚀 ~ fetchData ~ combinedDataTemps: //////////////////////////", combinedDataTemps)
 
       // Update state with sorted data
       setData(combinedData);
@@ -165,7 +183,7 @@ function Home() {
         };
       });
 
-      const reversedArticlesWithPromises = articlesWithPromises.reverse(); // Reverse the order
+      const reversedArticlesWithPromises = articlesWithPromises; // Reverse the order
       console.log("🚀 ~ fetchArticles ~ reversedArticlesWithPromises:", reversedArticlesWithPromises)
       const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
       console.log("🚀 ~ fetchArticles ~ articlesWithLikesCount:", articlesWithLikesCount)
