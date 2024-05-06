@@ -13,7 +13,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const [user, setUser] = useState({})
   const storedUserData = JSON.parse(localStorage.getItem("user"));
 
-  let {handleDarkModeToggler} = React.useContext(Context)
+  let { handleDarkModeToggler } = React.useContext(Context)
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
     fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
@@ -52,14 +52,14 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
           loading="lazy"
           onClick={() => setHumberger(!Hamburger)}
           srcSet={user?.image ? user?.image : UserImage}
-          className="md:hidden  self-stretch aspect-square rounded-full w-[60px] relative pointer"
+          className="md:hidden  self-stretch aspect-square  rounded-full w-[60px] relative pointer"
         />
         <img
           alt="user iamge"
           onClick={toggleExpand}
           loading="lazy"
           srcSet={user?.image ? user?.image : UserImage}
-          className="hidden md:block self-stretch aspect-square rounded-full w-[60px] z-10 relative pointer"
+          className="hidden  border-2   md:block self-stretch  aspect-square  rounded-full w-[60px] z-10 relative pointer"
         />
         <div className={`hidden md:flex absolute h-[60px] top-0 z-1 flex  gap-4 items-center pl-4 pr-[65px] bg-blue-600 rounded-[80px] max-md:flex-wrap ${expanded ? 'w-fit expand' : 'hide'}`}>
           <div className="flex justify-center items-center self-stretch px-2 my-auto bg-white aspect-square h-[31px] rounded-[50px] w-[31px]">
@@ -71,7 +71,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
             />
           </div>
 
-          <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
+          <div className="flex gap-2  justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e13bde84fa9b2785556220b4a439b162b51401e76b4b6dbacca76198fd0f64c0?"
@@ -101,10 +101,10 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/3fb21d1ad3af303c8fe8ca3c06f84fa81ac2ef681719a85f8aae751c3eb5e1ef?"
               className="aspect-[1.49] w-[30px]"
             />
-          <LanguageToggler hide={true} color2={true}/>
-         
+            <LanguageToggler hide={true} color2={true} />
+
           </div>
-          <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-10 h-10 bg-[#11111120] cursor-pointer rounded-full justify-center items-center -ml-4">
+          {/* <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-10 h-10 bg-[#11111120] cursor-pointer rounded-full justify-center items-center -ml-4">
             <img
               src={Moon}
               className="w-5 h-5 invert moon "
@@ -113,7 +113,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src={Sun}
               className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
             />
-          </div>
+          </div> */}
           <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
               loading="lazy"

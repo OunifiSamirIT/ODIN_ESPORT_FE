@@ -474,7 +474,7 @@ const Album = () => {
                             />
                             <div className="grow">Durée</div>
                           </div>
-                          <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                          <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid  rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
                               <select
                                 onChange={handleDureeChange}
@@ -661,19 +661,25 @@ const Album = () => {
                       </div>
                     </div>
                   </div>
+
+
                   <div className="flex md:gap-3 flex-col md:flex-row items-center justify-between  py-2 mt-4 w-full text-base font-medium ">
-                    <button
-                      className="justify-center px-8 py-2 mt-2 md:mt-0 text-white md:w-fit w-full bg-blue-600 rounded-[30px] px-5"
-                      onClick={handleSearch}
-                    >
-                      Confirmer
-                    </button>
+
+
+
                     <button
                       className="justify-center px-8 py-2 mt-2 md:mt-0 text-white bg-orange-500 md:w-fit w-full rounded-[30px] px-5"
                       onClick={handleReset}
                     >
                       Réinitialiser
                     </button>
+                    <button
+                      className="justify-center px-8 py-2 mt-2 md:mt-0 text-white md:w-fit w-full bg-blue-600 rounded-[30px] px-5"
+                      onClick={handleSearch}
+                    >
+                      Confirmer
+                    </button>
+
                     {/* <div className="flex gap-2 justify-between pl-6">
                     <div
                       className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]  max-sm:px-5"
