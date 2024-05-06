@@ -105,31 +105,80 @@ function CreatePost({ setArticles }) {
       setVideoPreviewUrl(null);
     }
   };
+  // const handlePostSubmit = async (data) => {
+  //   try {
+  //     if (!storedUserData.id) {
+  //       // Handle validation errors or missing user data
+  //       return;
+  //     }
+  //     if (!data.description && !file) {
+  //       // Handle validation errors or missing user data
+  //       return;
+  //     }
+  //     setPosting(true);
+  //     const formData = new FormData();
+  //     formData.append("titre", "Your default title");
+  //     formData.append("description", data.description || ''); // Append empty string if description is null
+  //     formData.append("userId", storedUserData.id);
+  //     formData.append("type", "Your default type");
+  //     formData.append("file", file);
+  //     formData.append("fileType", fileType);
+
+  //     // Make a POST request to create a new article
+  //     await fetch(`${Config.LOCAL_URL}/api/articles/`, {
+  //       method: "POST",
+  //       body: formData,
+  //     });
+
+  //     // After creating the article, fetch the updated list of articles
+  //     const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
+  //     const updatedPostsData = await response.json();
+  //     hendelrest()
+  //     // Update the list of posts and reset the preview image
+  //     setPostsData(updatedPostsData);
+  //     setPreviewImage(null);
+  //     setValue("description", "");
+  //     setPosting(false);
+  //     fetchArticles();
+  //     window.location.reload()
+
+  //   } catch (error) {
+  //     console.error("Error submitting post:", error);
+  //     setPosting(false);
+  //   }
+  // };
   const handlePostSubmit = async (data) => {
     try {
       if (!storedUserData.id) {
         // Handle validation errors or missing user data
         return;
       }
-      if (!data.description && !file) {
-        // Handle validation errors or missing user data
-        return;
+  
+      // Check if neither description nor file is provided
+      if (!data.description && !file && !videoPreviewUrl && !previewImage) {
+        setErrMsg("Ajouter quelques chose pour publier "); // Set error message
+        return; // Exit the function without submitting
       }
+  
       setPosting(true);
       const formData = new FormData();
       formData.append("titre", "Your default title");
-      formData.append("description", data.description);
+      formData.append("description", data.description || ''); // Append empty string if description is null
       formData.append("userId", storedUserData.id);
       formData.append("type", "Your default type");
-      formData.append("file", file);
-      formData.append("fileType", fileType);
-
+  
+      // Append file and fileType if they exist
+      if (file) {
+        formData.append("file", file);
+        formData.append("fileType", fileType);
+      }
+  
       // Make a POST request to create a new article
       await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
       });
-
+  
       // After creating the article, fetch the updated list of articles
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const updatedPostsData = await response.json();
@@ -139,15 +188,16 @@ function CreatePost({ setArticles }) {
       setPreviewImage(null);
       setValue("description", "");
       setPosting(false);
+      setErrMsg(""); // Clear error message
       fetchArticles();
       window.location.reload()
-
+  
     } catch (error) {
       console.error("Error submitting post:", error);
       setPosting(false);
     }
   };
-
+  
   const hendelrest = () => {
     setData("")
   }
@@ -259,7 +309,7 @@ function CreatePost({ setArticles }) {
               <video
                 controls
                 src={videoPreviewUrl}
-                className="rounded-xxl"
+                className="rounded-xxl self-center md:max-h-[600px]   max-h-[350px]   w-100 object-contain"
                 style={{ maxWidth: "100%", maxHeight: "200px" }}
               ></video>
             </div>
@@ -332,7 +382,11 @@ function CreatePost({ setArticles }) {
       <span className="d-none-xs ml-2">GIF</span>
     </label>
   </div>
-
+  {errMsg && (
+        <div className="flex justify-center mt-2">
+          <span className="text-sm text-[#f64949fe]">{errMsg}</span>
+        </div>
+      )}
   <div>
     {posting ? (
       <Loading />

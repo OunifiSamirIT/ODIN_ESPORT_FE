@@ -37,7 +37,7 @@ function Albumsadmin( {item} ) {
         }
       };
   return (
-    <div className="flex flex-col ml-5 w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
+    <div className="flex flex-col  w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
                       <div
                         key={item.id}
                         className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
@@ -53,7 +53,7 @@ function Albumsadmin( {item} ) {
                           <h4 className="fw-700 text-grey-900 font-xssss mt-1">
                             ODIN Sport
                             <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                            {formatDate(item.createdAt)}
+                            {item.createdAt}
                             </span>
                           </h4>
                         </div>

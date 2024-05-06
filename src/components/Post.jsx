@@ -25,7 +25,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../config";
 import Modal from "react-modal";
-
+import moment from "moment/moment";
 
 import {
   BiEditAlt,
@@ -152,8 +152,9 @@ function Post({ article, setArticles }) {
 
 
   const handleCloseModal = () => {
-    setIsModaldOpen(false);
-    fetchArticles()
+     fetchArticles()
+     setIsModaldOpen(false);
+   
     setCommentInputVisible(false);
 
   };
@@ -1331,11 +1332,22 @@ function Post({ article, setArticles }) {
                     {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
                     {article.user.user.profil == 'scout' ? 'Scout' : ''}
                   </span>
-                  <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {formatDatearticle(article?.createdAt)}
+                  {/* <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  {moment(article?.createdAt).format('DD MMMM YYYY')} {' - '} {moment(article?.createdAt).fromNow()}
+
+</span> */}
+<span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+  {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '} 
+  {
+    moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+    moment(article?.createdAt).fromNow(true) :
+    moment(article?.createdAt).fromNow()
+  }
+</span>
 
 
-                  </span>
+
+
                 </h4>
                 {storedUserData.id == article?.user?.user?.id &&
 
@@ -2214,7 +2226,7 @@ function Post({ article, setArticles }) {
             <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
               <div ref={ref} className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
 
-                <EditPost articleId={selectedArticleId} onClose={handleCloseModal} />
+                <EditPost articleId={selectedArticleId} setArticles={setArticles} onClose={handleCloseModal} />
                 <button
                   className=" absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
                   onClick={() => handleCloseModal(true)}> X </button>
