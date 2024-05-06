@@ -28,7 +28,7 @@ import Header from "../components/Header2";
 const schema = yup.object().shape({
   modepaiement: yup
     .string()
-    .required("Ce Champs est obligatoire  xxxxxxxx!"),
+    .required("Ce champs est obligatoire !"),
 
 });
 
@@ -452,6 +452,18 @@ const Album = () => {
 
 
           <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
+
+
+
+
+            <div className="flex gap-3 items-center justify-center  px-4 py-2 text-white  bg-orange-500 rounded-[30px] ">
+
+
+              <button onClick={handelretourform} className="grow md:ml-4">Annuler</button>
+              <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="white" />
+              </svg>
+            </div>
             <div className="flex gap-1 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] ">
               <button className="grow" onClick={handleSubmit}>
                 Confirmer
@@ -462,17 +474,36 @@ const Album = () => {
                 className="w-5 aspect-square"
               />
             </div>
-            <div className="flex gap-3 items-center justify-center  px-4 py-2 text-white  bg-orange-500 rounded-[30px] ">
 
+          </div>
 
+          {/* <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
+
+            <div className="flex gap-3 items-center justify-center px-4 py-2 text-white bg-blue-600 rounded-[30px] md:order-2 md:flex-row md:justify-center md:items-center">
+              <button onClick={handleSubmit} className="grow">Confirmer</button>
+              <div className="md:ml-auto md:order-2">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/baaf729ca2403013e4685351338f1da226bf86e312b0177a0235a267f7f3c2f3?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                  className="w-5 aspect-square md:mb-0"
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-1 items-center justify-center px-4 py-2 text-white bg-orange-500 rounded-[30px] md:order-1">
               <button onClick={handelretourform} className="grow">Annuler</button>
-              <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg" className=" ml-">
                 <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="white" />
               </svg>
             </div>
 
+          </div> */}
 
-          </div>
+
+
+
+
+
         </div>
       </div>
     </>

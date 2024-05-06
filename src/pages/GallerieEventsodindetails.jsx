@@ -589,7 +589,7 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3d803e2aa84cc65dafa06294cf90b747ef51e660e2c45f13da33c1f8a6c4b0e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
                             />
-                            <div className="flex items-center justify-center mt-2">{formatDate(albumDetails.date_fin)}</div>
+                            <div className="flex items-center justify-center mt-2">  {formatDate(albumDetails.date_fin)}</div>
                           </div>
                           <img
                             loading="lazy"

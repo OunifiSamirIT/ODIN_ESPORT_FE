@@ -491,7 +491,7 @@ const Album = () => {
               <DatePicker
                 selected={formData.date_validation}
                 onChange={(date) => setFormData({ ...formData, date_validation: date })}
-                dateFormat="yyyy-MM-dd"
+                dateFormat="dd-MM-yyyy"
 
                 className="flex flex-col justify-center px-2 py-3.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-neutral-500"
               />
