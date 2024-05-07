@@ -93,7 +93,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                 {CurrentUser?.user.profil === 'agent' && <General userInfo={CurrentUser} />}
                                 {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} />}
                                 {CurrentUser?.user.profil === 'scout' && <Scout userInfo={CurrentUser} />}
-                                {Invitation.length > 0 && <div className="flex flex-col flex-wrap justify-center h-fit content-start px-3 py-6 mt-6 mb-6 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
+                                {Invitation && Invitation.length > 0   ? <div className="flex flex-col flex-wrap justify-center h-fit content-start px-3 py-6 mt-6 mb-6 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                                     <div className="flex gap-5 justify-between font-medium whitespace-nowrap w-full">
                                         <div className="flex flex-auto gap-4 py-2 text-base text-zinc-900">
                                             <img
@@ -163,7 +163,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                             })}
                                         </div>
                                     </div>
-                                </div>}
+                                </div> : null}
 
                             </div>
                         </div>

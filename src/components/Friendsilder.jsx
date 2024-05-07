@@ -72,19 +72,18 @@ function FriendsSlider() {
                     vous pourriez
                     connaître
                 </div>
-
             </div>
             <div className="flex gap-2 justify-between items-center pr-6 pl-1 mt-2">
                 <button onClick={prevSlide} className="prev-slide-button text-2xl">&#10094;</button>  <Slider ref={sliderRef} style={{ width: '93%' }} {...friendSettings}>
                     {agents.map((value, index) => (
                         <div key={index} className="card w150 d-block border-0 bg-gray-100  rounded-3 overflow-hidden mb-3 me-3 ">
                             <div className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center">
-                                <Link to={`/profile/${value.user.id}`}>
+                                <Link to={`/profile/${value?.user?.id}`}>
                                     <figure className="avatar mb-1  d-flex justify-content-center align-items-center">
-                                        <img src={value.user.image} alt="avater" className="shadow-sm rounded-circle w-16 h-16" />
+                                        <img src={value?.user?.image} alt="avater" className="shadow-sm rounded-circle w-16 h-16" />
                                     </figure>
                                 </Link>
-                                <h4 className="fw-700 font-xssss mt-3 mb-1 d-block w-100"> {value.user.nom} {value.user.prenom} </h4>
+                                <h4 className="fw-700 font-xssss mt-3 mb-1 d-block w-100"> {value?.user?.nom} {value?.user?.prenom} </h4>
                                 <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-3 lh-2">  {value.user && (
                                     <div>
                                         {value.user?.profil === 'other' && value?.other?.profession}
@@ -94,7 +93,7 @@ function FriendsSlider() {
                                         {value.user?.profil === 'scout' && 'Scout'}
                                     </div>
                                 )}</p>
-                                <a href={`/profile/${value.user.id}`} className=" justify-center px-6 py-2  text-white text-center bg-blue-600 rounded-[30px] max-md:px-5">Voir Profil</a>
+                                <a href={`/profile/${value?.user?.id}`} className=" justify-center px-6 py-2  text-white text-center bg-blue-600 rounded-[30px] max-md:px-5">Voir Profil</a>
                             </div>
                         </div>
                     ))}
