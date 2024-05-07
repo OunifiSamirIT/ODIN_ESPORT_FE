@@ -152,7 +152,7 @@ function Home() {
 
 
 
-  const fetchArticles = async (page = 1, size = 10) => {
+  const fetchArticles = async () => {
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
       const result = await response.json();
@@ -236,10 +236,10 @@ function Home() {
 
       <div className="flex flex-col pb-20  bg-zinc-100">
         <Header />
-        <div className="self-center px-3 md:px-2 mt-24 w-full max-w-[1380px] max-md:mt-10 max-md:max-w-full">
+        <div className="self-center px-3 md:px-2 mt-24 w-full max-w-[1280px] max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-2 max-md:flex-col max-md:gap-0">
             {/* left menu */}
-            <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[23%] max-md:ml-0 max-md:w-full">
+            <div className=" xs:hidden sm:hidden hidden  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
               <div className="  flex flex-col items-start gap-3 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
                 <Link to="/home" className="nav-content-bttn open-font">
                   <div className="flex justify-center items-center gap-4 py-2 px-6 ">
@@ -370,7 +370,7 @@ function Home() {
                   onClick={() => {
                     setEventTogglerIsOpenned(!eventTogglerIsOpenned)
                   }}
-                  className="flex gap-5 justify-between px-6 py-2   w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
+                  className="flex gap-3 justify-between px-6 py-2   w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
                   <div className="flex gap-4 justify-between px-2 py-1.5">
                     <img
                       loading="lazy"
@@ -483,7 +483,7 @@ function Home() {
 
             {/* create post */}
 
-            <div className="flex flex-col">
+            <div className="flex md:w-[50%]  flex-col">
               <div className="flex flex-1 flex-col">
                 {/* <CreatePost setArticles={setData} /> */}
                 <CreatePostModal />
@@ -491,7 +491,7 @@ function Home() {
                 {
                   loading ? (
                     // Render skeleton loading effect while data is being fetched
-                    Array(10).fill().map((_, index) => (
+                    Array(5).fill().map((_, index) => (
                       <SkeletonArticleCard key={index} />
                     ))
                   ) : (
