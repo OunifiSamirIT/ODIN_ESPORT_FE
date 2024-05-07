@@ -99,7 +99,7 @@ const PlayerCard = ({ userInfo }) => {
   // }
   const getCountryFlagFromCountryName = (countryName) => {
     const country = paysAllInfo.find(country => country.name == countryName);
-    return country ? country.iso["alpha-2"].toLowerCase() : null;
+    return countryName;
   }
 
   const copyLinkToClipboard = (articleId) => {
@@ -185,7 +185,7 @@ const PlayerCard = ({ userInfo }) => {
           <div className="flex flex-col justify-between h-full md:w-fit w-full">
             <div className="flex md:justify-end md:pt-[5px]">
               {isOwner ?
-                <div className="w-full md:w-[157px] flex gap-2 justify-center self-start px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
+                <div className="w-full md:w-[157px] flex gap-2 justify-center self-start px-8 py-2 text-base font-medium text-white  bg-blue-600 rounded-[30px] max-md:px-5">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
@@ -256,7 +256,7 @@ const PlayerCard = ({ userInfo }) => {
             </div>
           </div>
         </div>
-        <div className="pl-[16px] grid grid-cols-2   md:gap-x-2 max-md:gap-x-4 md:ml-[125px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between text-sm flex-wrap md:flex-nowrap">
+        <div className="pl-[16px] md:pl-[0px] grid grid-cols-2   md:gap-x-2 max-md:gap-x-4 md:ml-[125px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between text-sm flex-wrap md:flex-nowrap">
           <div className="flex gap-2 justify-left items-center py-2">
             <img
               loading="lazy"
@@ -279,7 +279,7 @@ const PlayerCard = ({ userInfo }) => {
             {userInfo.player?.Licence ? '✔️'
              : '❌'}
           </div>
-          <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
+          <div className="flex gap-2 justify-center p-2 ">
             <span
               className={`flag-icon flag-icon-${getCountryFlagFromCountryName(userInfo.user.countryresidence)}`}
               style={{ marginRight: "8px", width: "25px" }}
@@ -288,7 +288,7 @@ const PlayerCard = ({ userInfo }) => {
             <div className="grow self-start mt-1">{userInfo.user.countryresidence}</div>
           </div>
 
-          <div className="ml-4 flex col-span-2 md:col-span-1  gap-2 justify-center p-2 whitespace-nowrap">
+          <div className="md:ml-0 flex col-span-2 md:col-span-2  gap-2 justify-center py-2">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d609bf65a79e970c6866ad932e5fdd62a603a912852f0024386dcf0730b04895?"
@@ -319,7 +319,7 @@ const PlayerCard = ({ userInfo }) => {
 
         <span className="md:block hidden">
           <div className="flex flex-col justify-center gap-y-4">
-            <div className="flex justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
+            <div className="flex justify-center gap-1 px-4  text-lg  text-zinc-900">
               <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_878_80013)">
                   <path d="M20.1242 17.1658C20.1242 19.0042 18.6292 20.4992 16.7909 20.4992H6.66925L8.37341 18.8325H16.7917C17.7109 18.8325 18.4584 18.085 18.4584 17.1658C18.4584 16.2467 17.7109 15.4992 16.7917 15.4992H12.6251C10.7867 15.4992 9.29175 14.0042 9.29175 12.1658C9.29175 10.56 10.4334 9.21667 11.9476 8.9025L13.5801 10.4992H12.6251C11.7059 10.4992 10.9584 11.2467 10.9584 12.1658C10.9584 13.085 11.7059 13.8325 12.6251 13.8325H16.7917C18.6301 13.8325 20.1242 15.3275 20.1242 17.1658ZM18.9034 7.6125L15.9576 10.4942L13.0176 7.61917C11.3867 5.9875 11.3867 3.345 13.0109 1.72C13.7984 0.933333 14.8451 0.5 15.9576 0.5C17.0701 0.5 18.1167 0.933333 18.9034 1.72C20.5284 3.345 20.5284 5.98833 18.9034 7.6125ZM7.23675 11.72C8.86175 13.345 8.86175 15.9883 7.23675 17.6125L4.29091 20.4942L1.35091 17.6192C-0.279921 15.9875 -0.279921 13.345 1.34425 11.72C2.13175 10.9333 3.17841 10.5 4.29091 10.5C5.40341 10.5 6.45008 10.9333 7.23675 11.72Z" fill="#1D1E21" />
@@ -335,7 +335,7 @@ const PlayerCard = ({ userInfo }) => {
             </div>
             <Terrain positionPlay={userInfo?.player?.positionPlay} positionSecond={userInfo?.player?.positionSecond} />
           </div>
-          <div className=" px-4  hidden   items-center justify-center text-center my-2 text-lg whitespace-nowrap text-zinc-900">
+          <div className=" px-4  hidden   items-center justify-center text-center my-2 text-lg  text-zinc-900">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e9f295deb485341c8ef8867b332b44fca28ea634a4d9e5dd0f127dd63ac23138?"
@@ -353,7 +353,7 @@ const PlayerCard = ({ userInfo }) => {
 
               } </div>
           </div>
-          <div className="flex gap-2  hidden  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+          <div className="flex gap-2  hidden  justify-center text-base font-semibold text-blue-600  flex-wrap">
 
             {userInfo?.player?.skillsInProfile.split(',').filter(item => item.trim() !== '').map((item, index) => {
               return (<div key={index} className=" text-center justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
@@ -369,7 +369,7 @@ const PlayerCard = ({ userInfo }) => {
         {/* social icons */}
 
         <div div className="flex justify-center items-center px-16 py-2  max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5 mr-15" >
-          <div className="flex  gap-16 items-center ">
+          <div className="flex  gap-2 items-center ">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"

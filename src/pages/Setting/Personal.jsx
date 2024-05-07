@@ -175,7 +175,7 @@ const Personal = ({ userInfo }) => {
   const onSubmit = async (data) => {
     console.log(data)
     const formDataToUpdate = new FormData();
-    formDataToUpdate.append("discreptionBio", data.discreptionBio);
+    formDataToUpdate.append("discreptionBio", data.discreptionBio ? data.discreptionBio : '');
     formDataToUpdate.append("nom", data.nom);
     formDataToUpdate.append("prenom", data.prenom);
     formDataToUpdate.append("numWSup", data.numWSup);
@@ -217,7 +217,7 @@ const Personal = ({ userInfo }) => {
   const selectedObject = (countryName) => { return optionsphone.find(item => item.label.props?.children[2] == countryName) || '' };
   const resetForm = async () => {
     setValue('nom', userInfo.user.nom);
-    setValue('discreptionBio', userInfo.user.discreptionBio !== '' ? userInfo.user.discreptionBio  : '');
+    setValue('discreptionBio', userInfo.user.discreptionBio !== null ? userInfo.user.discreptionBio  : '');
     setValue('prenom', userInfo.user.prenom);
     setValue('country', userInfo.user.country);
     setValue('cityresidence', userInfo.user.cityresidence);
@@ -236,14 +236,12 @@ const Personal = ({ userInfo }) => {
   useEffect(() => {
     const defaultValue = (countryName) => { return options.find(option => option.label.props?.children[1] === countryName) };
     const defaultValueN = (countryName) => { return optionsCountry.find(option => option.label.props?.children[1] === countryName) };
-
-
     fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
       .then((response) => response.json())
       .then((userData) => {
         setUser(userData.user)
+        setValue('discreptionBio', userData?.user.discreptionBio != null ? userData?.user?.discreptionBio : '' );
         setValue('nom', userData.user.nom);
-        setValue('discreptionBio', userInfo?.user.discreptionBio ?? '');
         setValue('prenom', userData.user.prenom);
         setValue('nationality', defaultValueN(userData.user.nationality));
         setValue('country', defaultValue(userData.user.countryresidence));
