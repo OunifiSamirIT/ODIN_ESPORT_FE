@@ -33,6 +33,8 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
   const [step0, setStep0] = useState(true)
   const [step2, setStep2] = useState(false)
   const [step3, setStep3] = useState(false)
+  const [passwordDel, setPasswordDel] = useState('')
+  const [deletePasswordError,setDeletePasswordError] = useState(false)
   const schema = yup
     .object({
       password: yup.string().required('Le mot de passe est requis')
@@ -134,7 +136,30 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
       }
     })
   }
-  const onDelete = async (data) => console.log('data',data)
+  const onDeleteAction = async (e) => {
+    e.preventDefault()
+    const form = new FormData()
+    form.append('password',passwordDel)
+    if(passwordDel == ''){
+      setDeletePasswordError(true)
+    }else{
+      const response = await fetch(`${Config.LOCAL_URL}/api/user/delete/${storedUserData.id}`,
+      {
+        method: "DELETE",
+        body: form,
+      }
+     )
+     if(response.status == 200) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+      navigate("/login");
+
+     }else {
+      console.log('error happens')
+     }
+    }
+
+  }
 
   return (
     <>
@@ -146,7 +171,7 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
         <div className="bg-black/70  fixed inset-0  z-50  h-full w-full   overflow-auto flex justify-center items-center px-8 ">
           <div ref={ref} className="flex flex-col  overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
 
-            <form onSubmit={handleSubmit(onDelete())} className=" overflow-auto">
+            <form onSubmit={(e)=>onDeleteAction(e)} className=" overflow-auto">
               <div className="flex items-center gap-4 text-3xl font-bold text-zinc-900 max-md:max-w-full">
                 <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#EB3E3E" stroke-width="1.5" />
@@ -197,8 +222,8 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
                 </div>
               </div>
               <div className="w-full  flex-col flex items-center">
-                <input  {...register('passwordDel')} name='passwordDel' className={`form-control flex grow px-5 py-3.5 w-full flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full ${errors.password ? 'is-invalid !border-red-500' : ''}`} type="password" placeholder="*********" />
-                {errors.passwordDel && <span className="invalid-feedback block py-2 px-2">{errors.passwordDel?.message}</span>}
+                <input onChange={(e)=> setPasswordDel(e.target.value)} name='passwordDel' className={`form-control flex grow px-5 py-3.5 w-full flex-col justify-center mt-2 whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full ${errors.password ? 'is-invalid !border-red-500' : ''}`} type="password" placeholder="*********" />
+                {deletePasswordError && <span className="invalid-feedback block py-2 px-2">Ce champ est obligatoire</span>}
 
               </div>
               <div className="mt-4 flex gap-2 md:gap-5 justify-between mt-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">

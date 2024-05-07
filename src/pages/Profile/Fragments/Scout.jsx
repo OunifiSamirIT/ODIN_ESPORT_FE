@@ -154,7 +154,7 @@ const Scout = ({ userInfo }) => {
                         /> */}
                         <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
                             <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
-                                <p className="break-all">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
+                                <p className="break-all text-pretty">{userInfo?.user.nom} {userInfo?.user.prenom}</p>
                             </div>
                             <div className="text-base font-medium text-blue-600">
                                 Scout
@@ -235,7 +235,7 @@ const Scout = ({ userInfo }) => {
                         </div>
                     </div>
                 </div>
-                <div className="gap-x-8 md:ml-[10px] max:lg-[150px] md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm self-end">
+                <div className="grid grid-cols-2 gap-x-8 md:ml-[10px] max:lg-[150px] md:-mt-12 flex justify-center md:justify-between flex-wrap text-sm">
                     <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                         <img
                             loading="lazy"
@@ -255,7 +255,7 @@ const Scout = ({ userInfo }) => {
                         </div>
                     </div>
 
-                    <div className="flex gap-2 justify-center p-2 whitespace-nowrap items-center">
+                    <div className="flex col-span-2 gap-2 justify-center p-2 whitespace-nowrap items-center">
                         <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_2149_4318)">
                                 <path d="M11.3449 13.8333H9.36993C8.92992 13.834 8.50105 13.695 8.14508 13.4364C7.78911 13.1778 7.52441 12.8128 7.38909 12.3942L6.77909 10.5167C6.64124 10.0978 6.64026 9.64589 6.7763 9.22641C6.91233 8.80692 7.17832 8.44161 7.53576 8.18333L9.13243 7.02667C9.48783 6.76715 9.91652 6.62729 10.3566 6.62729C10.7967 6.62729 11.2254 6.76715 11.5808 7.02667L13.1783 8.18667C13.5358 8.44485 13.8019 8.81016 13.9379 9.22968C14.074 9.64919 14.0729 10.1011 13.9349 10.52L13.3258 12.3975C13.1892 12.8151 12.9241 13.1789 12.5683 13.4368C12.2125 13.6947 11.7843 13.8335 11.3449 13.8333ZM20.3574 10.5C20.3574 12.4778 19.7709 14.4112 18.6721 16.0557C17.5733 17.7002 16.0115 18.9819 14.1843 19.7388C12.357 20.4957 10.3463 20.6937 8.40652 20.3079C6.46671 19.922 4.68488 18.9696 3.28636 17.5711C1.88783 16.1725 0.935426 14.3907 0.549574 12.4509C0.163721 10.5111 0.361755 8.50043 1.11863 6.67317C1.87551 4.8459 3.15723 3.28412 4.80172 2.1853C6.44622 1.08649 8.37961 0.5 10.3574 0.5C13.0087 0.502868 15.5506 1.55736 17.4253 3.4321C19.3001 5.30684 20.3546 7.84872 20.3574 10.5ZM10.3574 18C10.7889 17.9975 11.2194 17.9579 11.6441 17.8817L12.3508 15.5642C12.5111 15.0606 12.8274 14.6211 13.2538 14.3089C13.6802 13.9968 14.1948 13.8282 14.7233 13.8275L17.0708 13.8233C17.4487 13.065 17.6942 12.2477 17.7966 11.4067L15.9233 10.1567C15.4909 9.85323 15.1661 9.42034 14.9957 8.92041C14.8253 8.42048 14.818 7.87933 14.9749 7.375L15.6858 5.23083C15.0898 4.63169 14.3974 4.13702 13.6374 3.7675L11.8274 5.0225C11.4006 5.33392 10.8858 5.50173 10.3574 5.50173C9.82903 5.50173 9.31429 5.33392 8.88743 5.0225L7.12576 3.7425C6.37737 4.10002 5.69316 4.57868 5.10076 5.15917L5.73993 7.37333C5.89687 7.87767 5.88959 8.41881 5.71915 8.91874C5.54872 9.41867 5.22392 9.85156 4.79159 10.155L2.92993 11.4842C3.03698 12.298 3.27832 13.0885 3.64409 13.8233L5.99076 13.8275C6.51926 13.828 7.03395 13.9963 7.46054 14.3083C7.88712 14.6203 8.20353 15.0598 8.36409 15.5633L9.08493 17.8833C9.50496 17.9586 9.9307 17.9977 10.3574 18Z" fill="#1D1E21" />
@@ -268,7 +268,7 @@ const Scout = ({ userInfo }) => {
                         </svg>
 
 
-                        <div className="grow self-start mt-1">
+                        <div className="grow self-start mt-1 ">
                             {userInfo?.scout?.nb_joueurdetecter}
 
 
@@ -320,13 +320,19 @@ const Scout = ({ userInfo }) => {
                 <Social userInfo={userInfo} />
                 {/* social icons */}
 
-                <div className="flex justify-center items-center px-16 py-2 mt-4 max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5">
-                    <div className="flex gap-4 items-center">
-                        <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
-                            className="shrink-0 self-start w-4 aspect-[0.94]"
-                        />
+                <div className="flex items-center justify-center items-center px-16 py-2 mt-4 max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5">
+                    <div className="flex gap-2 items-center">
+                        <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_3390_36610)">
+                                <path d="M8.5 3.35938C4.86364 3.35938 1.75818 5.62119 0.5 8.81392C1.75818 12.0067 4.86364 14.2685 8.5 14.2685C12.1364 14.2685 15.2418 12.0067 16.5 8.81392C15.2418 5.62119 12.1364 3.35938 8.5 3.35938ZM8.5 12.4503C6.49273 12.4503 4.86364 10.8212 4.86364 8.81392C4.86364 6.80665 6.49273 5.17757 8.5 5.17757C10.5073 5.17757 12.1364 6.80665 12.1364 8.81392C12.1364 10.8212 10.5073 12.4503 8.5 12.4503ZM8.5 6.6321C7.29273 6.6321 6.31818 7.60665 6.31818 8.81392C6.31818 10.0212 7.29273 10.9958 8.5 10.9958C9.70727 10.9958 10.6818 10.0212 10.6818 8.81392C10.6818 7.60665 9.70727 6.6321 8.5 6.6321Z" fill="white" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_3390_36610">
+                                    <rect width="16" height="17" fill="white" transform="translate(0.5 0.441406)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+
                         <a href={`/profile/more/${id}`}>{
                             getTranslation(
                                 `See more`,  // -----> Englais

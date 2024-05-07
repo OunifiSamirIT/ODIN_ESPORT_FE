@@ -241,7 +241,7 @@ const General = ({ userInfo }) => {
           </div>
         </div>
         <div className=" grid grid-cols-2 lg:w-9/12  md:gap-x-2 md:ml-[125px] md:-mt-16 flex justify-center md:justify-between text-sm flex-wrap md:flex-nowrap">
-          <div className="self-end flex gap-2 justify-left py-2 whitespace-nowrap">
+          <div className="self-end flex gap-2 justify-left py-2 ">
             <span
               className={`flag-icon flag-icon-${getCountryFlagFromCountryName(userInfo.user.countryresidence)}`}
               style={{
@@ -252,7 +252,7 @@ const General = ({ userInfo }) => {
             <div className="">{userInfo.user.countryresidence}</div>
           </div>
           <div
-            className="self-end flex gap-2 justify-left p-2 whitespace-nowrap">
+            className="self-end h-full items-center flex gap-2 justify-left p-2 ">
             <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M20.0481 1.33333C20.0481 1.11232 19.9603 0.900358 19.804 0.744078C19.6478 0.587797 19.4358 0.5 19.2148 0.5H15.4073C15.2425 0.500035 15.0814 0.548928 14.9444 0.640499C14.8074 0.732069 14.7006 0.862205 14.6375 1.01445C14.5745 1.1667 14.558 1.33423 14.5901 1.49586C14.6223 1.65749 14.7016 1.80596 14.8181 1.9225L15.8423 2.94667L14.1439 4.645C13.2795 4.10723 12.2801 3.82617 11.2621 3.83458C10.244 3.84299 9.24937 4.14052 8.39395 4.6925C7.73089 4.26727 6.98302 3.9919 6.20254 3.88559C5.42205 3.77928 4.62777 3.84461 3.87515 4.07702C3.12252 4.30942 2.42969 4.70329 1.84503 5.23114C1.26037 5.75899 0.797963 6.40809 0.490099 7.13313C0.182235 7.85816 0.0363313 8.64165 0.0625756 9.42891C0.0888198 10.2162 0.286579 10.9882 0.642046 11.6911C0.997513 12.394 1.50212 13.0109 2.12064 13.4986C2.73916 13.9864 3.45668 14.3332 4.22311 14.515V15.5H3.38978C3.05826 15.5 2.74032 15.6317 2.5059 15.8661C2.27148 16.1005 2.13978 16.4185 2.13978 16.75C2.13978 17.0815 2.27148 17.3995 2.5059 17.6339C2.74032 17.8683 3.05826 18 3.38978 18H4.22311V19.25C4.22311 19.5815 4.35481 19.8995 4.58923 20.1339C4.82365 20.3683 5.14159 20.5 5.47311 20.5C5.80463 20.5 6.12258 20.3683 6.357 20.1339C6.59142 19.8995 6.72311 19.5815 6.72311 19.25V18H7.55645C7.88797 18 8.20591 17.8683 8.44033 17.6339C8.67475 17.3995 8.80645 17.0815 8.80645 16.75C8.80645 16.4185 8.67475 16.1005 8.44033 15.8661C8.20591 15.6317 7.88797 15.5 7.55645 15.5H6.72311V14.5075C7.31414 14.3697 7.87764 14.1331 8.38978 13.8075C9.42127 14.4701 10.6473 14.7624 11.8668 14.6366C13.0863 14.5108 14.2268 13.9742 15.1013 13.115C15.9757 12.2557 16.5322 11.1248 16.6794 9.90771C16.8266 8.69061 16.5558 7.45962 15.9114 6.41667L17.6098 4.71833L18.6339 5.7425C18.7508 5.85937 18.8998 5.93883 19.062 5.97079C19.2242 6.00274 19.3922 5.98575 19.5447 5.92197C19.6972 5.85818 19.8273 5.75049 19.9184 5.61258C20.0095 5.47468 20.0576 5.31279 20.0564 5.1475L20.0481 1.33333ZM2.55645 9.25C2.55448 8.76821 2.67238 8.2935 2.89952 7.86861C3.12666 7.44372 3.4559 7.08199 3.85762 6.816C4.25933 6.55001 4.72089 6.38811 5.20074 6.34487C5.68059 6.30164 6.16366 6.37843 6.60645 6.56833C6.13694 7.38408 5.88983 8.30879 5.88983 9.25C5.88983 10.1912 6.13694 11.1159 6.60645 11.9317C6.16366 12.1216 5.68059 12.1984 5.20074 12.1551C4.72089 12.1119 4.25933 11.95 3.85762 11.684C3.4559 11.418 3.12666 11.0563 2.89952 10.6314C2.67238 10.2065 2.55448 9.73179 2.55645 9.25ZM11.3064 12.1667C10.7296 12.1667 10.1657 11.9956 9.68603 11.6751C9.20639 11.3546 8.83255 10.8991 8.6118 10.3662C8.39104 9.83321 8.33328 9.24676 8.44582 8.68099C8.55836 8.11521 8.83615 7.59551 9.24405 7.18761C9.65196 6.7797 10.1717 6.50192 10.7374 6.38938C11.3032 6.27684 11.8897 6.3346 12.4226 6.55535C12.9556 6.77611 13.4111 7.14994 13.7316 7.62959C14.0521 8.10923 14.2231 8.67314 14.2231 9.25C14.2231 10.0235 13.9158 10.7654 13.3688 11.3124C12.8219 11.8594 12.08 12.1667 11.3064 12.1667Z" fill="#1D1E21" />
             </svg>
@@ -294,7 +294,7 @@ const General = ({ userInfo }) => {
           </div>
           {userInfo.agent?.typeresponsable == 'player' &&
             <div
-              className="flex gap-2 justify-center p-2 whitespace-nowrap"> <>
+              className="flex gap-2 justify-center p-2 whitespace-normal"> <>
                 <div className="flex gap-2 justify-center items-center self-stretch py-2">
                   <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_121_29079)">
@@ -329,7 +329,7 @@ const General = ({ userInfo }) => {
             userInfo.agent && userInfo.agent.typeresponsable === 'club' ?
               <div
 
-                className="self-end flex items-center gap-2 justify-center p-2 whitespace-nowrap">
+                className="self-end h-full items-center flex items-center gap-2 justify-center py-2 whitespace-nowrap">
                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_878_79171)">
                     <mask id="mask0_878_79171" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="20">
@@ -347,13 +347,13 @@ const General = ({ userInfo }) => {
                 </svg>
 
                 { }
-                <div className="grow self-start mt-1">{userInfo.agent?.clubCovered}</div>
+                <div className="grow mt-1">{userInfo.agent?.clubCovered}</div>
               </div> : ''}
           {
             userInfo.agent && userInfo.agent.typeresponsable === 'club' ?
               <div
 
-                className="self-end flex gap-2 justify-center p-2 whitespace-nowrap">
+                className="self-end flex gap-2 justify-center p-2 h-full">
                 <span
                   className={`flag-icon flag-icon-${getCountryFlagFromCountryName(userInfo.agent?.paysclub)}`}
                   style={{ marginRight: "8px", width: "25px" }}

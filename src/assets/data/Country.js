@@ -18,6 +18,23 @@ export const paysAllInfo =[
       phoneLength: 6,
     },
     {
+      name: "Algerie",
+      nationalite: "algérienne",
+      region: "Africa",
+      timezones: {
+        "Africa/Algiers": "+01:00"
+      },
+      iso: {
+        "alpha-2": "DZ",
+        "alpha-3": "DZA",
+        numeric: "012"
+      },
+      phone: ["+213"],
+      emoji: "🇩🇿",
+      image: "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/DZ.svg",
+      phoneLength: 9
+    },
+    {
       name: "Emirats arabes unis",
       nationalite: "Emirienne",
       region: "Asie",
