@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client"; // Import createRoot from react-d
 
 import "./main.scss";
 import ScrollToTop from "./components/Scroltop"
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 
 import Profile from './pages/Profile/Index'
 import FriendRequest from './pages/Profile/FriendRequest'
@@ -363,13 +363,13 @@ function Root() {
       localStorage.removeItem('accessToken');
     }
   };
-  const queryClient = new QueryClient();
+
 
   return (
 
     <React.StrictMode>
       <Context.Provider value={{ _currentLang: _currentLang, _setLang: _setLang, getTranslation: getTranslation, handleDarkModeToggler: handleDarkModeToggler, _currentTheme: _currentTheme }} >
-        <QueryClientProvider client={queryClient}>
+       
           <BrowserRouter basename={"/"}>
             <Routes>
               <Route exact path="/" element={<Demo />} />
@@ -532,7 +532,7 @@ function Root() {
 
             </Routes>
           </BrowserRouter>
-        </QueryClientProvider>
+       
       </Context.Provider>
     </React.StrictMode>
 

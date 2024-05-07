@@ -26,11 +26,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../config";
 import Modal from "react-modal";
 import moment from "moment/moment";
-// import 'moment/locale/fr';
-// import 'moment/locale/en';
-import '../../node_modules/moment/locale/fr';
-import '../../node_modules/moment/locale/en-ca';
-
 
 import {
   BiEditAlt,
@@ -52,8 +47,8 @@ import GallerieOdin from "../pages/Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "../pages/HomeSkeletonPost";
 import EditPost from "../pages/EditPost";
-import { Context } from "../index";
-function Post({ article, setArticles }) {
+import { Context } from "../../../index";
+const  Page = ({ article, setArticles }) =>  {
   const {
     register,
     handleSubmit,
@@ -157,9 +152,9 @@ function Post({ article, setArticles }) {
 
 
   const handleCloseModal = () => {
-    fetchArticles()
-    setIsModaldOpen(false);
-
+     fetchArticles()
+     setIsModaldOpen(false);
+   
     setCommentInputVisible(false);
 
   };
@@ -464,7 +459,7 @@ function Post({ article, setArticles }) {
         const rep = article.commentaire[0]
         console.log(rep, "ssssssssssssssssssssssss")
 
-        const [userDataResponse, commentsResponse, likesCountResponse, replyresponse, likesCountResponseReply] =
+        const [userDataResponse, commentsResponse, likesCountResponse, replyresponse ,likesCountResponseReply ] =
           await Promise.all([
             fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
               res.json()
@@ -500,7 +495,7 @@ function Post({ article, setArticles }) {
           commentsCount: commentsResponse.commentCount,
           likesCount: likesCount ? likesCount.likesCount : 0,
           replys: replyresponse.replysData,
-          likecomentcount: likesCountreplys ? likesCountreplys.likecomentcount : 0,
+          likecomentcount : likesCountreplys ? likesCountreplys.likecomentcount : 0,
         };
       });
 
@@ -689,7 +684,7 @@ function Post({ article, setArticles }) {
     }
     fetchLikesForComment(article.comments.id)
     fetchLikesForArticle(article.id);
-    console.log("mmmmmmmmmm", article)
+     console.log("mmmmmmmmmm" , article)
     // fetchArticles();
     // fetchAlbums();
   }, []);
@@ -974,7 +969,7 @@ function Post({ article, setArticles }) {
 
   const handleDeleteCommentClick = async (id, articleId) => {
     const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette publication ?");
-
+  
     if (confirmDelete) {
       try {
         await fetch(`${Config.LOCAL_URL}/api/commentaires/${id}`, {
@@ -983,7 +978,7 @@ function Post({ article, setArticles }) {
             "Content-Type": "application/json",
           },
         });
-
+  
         // Update the article count in the state
         setArticles((prevArticles) => {
           return prevArticles.map((article) => {
@@ -996,7 +991,7 @@ function Post({ article, setArticles }) {
             return article;
           });
         });
-
+  
         setShowDropdownComment();
       } catch (error) {
         console.error("Error deleting comment:", error);
@@ -1050,7 +1045,7 @@ function Post({ article, setArticles }) {
   //         else if (!response.ok) {
 
   //           setArticleComments()
-
+            
   //           throw new Error(`HTTP error! Status: ${response.status}`);
   //         }
   //         return response.json();
@@ -1283,10 +1278,10 @@ function Post({ article, setArticles }) {
   const formatDatearticle = (dateString) => {
     // Extract year, month, and day from the dateString
     const [month, year, day] = dateString.split('-');
-
+  
     // Create a new Date object with the extracted parts
     const dateObject = new Date(`${year}-${month}-${day}`);
-
+  
     // Format the date object into the desired format
     return dateObject.toLocaleDateString('fr-FR', {
       day: 'numeric',
@@ -1298,12 +1293,6 @@ function Post({ article, setArticles }) {
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
-
-  const storedLanguage = localStorage.getItem('language');
-  const language = storedLanguage ? storedLanguage.toLowerCase() : '';
-
-  // Set the locale based on the stored language or default to English
-  moment.locale(language === 'fr' ? 'fr' : 'en');
   return (
     <>
 
@@ -1339,7 +1328,6 @@ function Post({ article, setArticles }) {
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
                     {article.user.user.profil == 'player' ? ' Joueur' : ''}
-                    {article.user.user.profil == 'coach' ? ' Entraîneur' : ''}
                     {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
                     {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
                     {article.user.user.profil == 'scout' ? 'Scout' : ''}
@@ -1348,14 +1336,14 @@ function Post({ article, setArticles }) {
                   {moment(article?.createdAt).format('DD MMMM YYYY')} {' - '} {moment(article?.createdAt).fromNow()}
 
 </span> */}
-                  <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                    {
-                      moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                        moment(article?.createdAt).fromNow(true) :
-                        moment(article?.createdAt).fromNow()
-                    }
-                  </span>
+<span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+  {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '} 
+  {
+    moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+    moment(article?.createdAt).fromNow(true) :
+    moment(article?.createdAt).fromNow()
+  }
+</span>
 
 
 
@@ -1450,19 +1438,19 @@ function Post({ article, setArticles }) {
               </div>
 
               <div class=" p-0  mt-2">
-                <p className="rounded-md break-inside-avoid-page text-base w-full mb-2 text-dark">
-                  {!showFullText && article.description.length > 295 ? article.description.substring(0, 295) + "..." : article.description}
-                  {article.description.length > 295 && (
-                    <button
-                      onClick={toggleText}
-                      className="text-blue-600  hover:text-blue-400 focus:outline-none"
-                    >
-                      {showFullText ? 'Voir moins' : 'Voir plus'}
-                    </button>
-                  )}
-
-                </p>
-
+              <p className="rounded-md break-inside-avoid-page text-base w-full mb-2 text-dark">
+          {!showFullText && article.description.length > 295 ? article.description.substring(0, 295) + "..." : article.description}
+          {article.description.length > 295 && (
+          <button
+            onClick={toggleText}
+            className="text-blue-600  hover:text-blue-400 focus:outline-none"
+          >
+            {showFullText ? 'Voir moins' : 'Voir plus'}
+          </button>
+        )}
+      
+        </p>
+        
               </div>
 
 
@@ -1654,14 +1642,14 @@ function Post({ article, setArticles }) {
                                 className="shadow-sm rounded-full w-[64px] aspect-square"
                                 alt="post"
                               /> */}
+                           
+                           
+                               <img
+                                                                      src={comment?.user?.user?.image ? comment?.user?.user?.image : placeholder}
 
-
-                              <img
-                                src={comment?.user?.user?.image ? comment?.user?.user?.image : placeholder}
-
-                                className="shadow-sm rounded-full w-[52px] aspect-square"
-                                alt="post"
-                              />
+                              className="shadow-sm rounded-full w-[52px] aspect-square"
+                              alt="post"
+                            />
                             </figure>
                             <div className="flex flex-col w-full">
                               <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[15px] md:rounded-[20px] max-w-[510px]">
@@ -1754,7 +1742,7 @@ function Post({ article, setArticles }) {
                                               className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
 
                                               onClick={() => {
-                                                handleDeleteCommentClick(comment.id, article.id)
+                                                handleDeleteCommentClick(comment.id , article.id )
 
                                                 setCommentInputVisible(false);
                                                 setSelectedArticleId(null);
@@ -1801,8 +1789,8 @@ function Post({ article, setArticles }) {
 
                                 {comment.id === editingCommentId ? (
                                   <div className="my-2 px-[26px] flex w-full justify-between">
-
-                                    <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}>Annuler</button>
+                                   
+                                   <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}>Annuler</button>
                                     <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
                                       saveEditedComment(comment.id)
 
@@ -1814,7 +1802,7 @@ function Post({ article, setArticles }) {
 
 
                                     }>Modifier</button>
-
+                                 
                                   </div>
                                 ) : (
                                   <div className="my-2 flex w-full justify-between">
@@ -1827,58 +1815,98 @@ function Post({ article, setArticles }) {
                               </div>
 
                               <div className="my-2 flex flex-row  w-full justify-between">
-                                <div className="flex flex-row">  <button
-                                  className="flex-row"
-                                  onClick={async () => {
-                                    await fetchLikesForComment(comment.id);
+                              <div className="flex flex-row">  <button
+                                className="flex-row"
+                                onClick={async () => {
+                                  await fetchLikesForComment(comment.id);
 
-                                    await handleLikeComment(comment.id);
-                                  }}
-
+                                  await handleLikeComment(comment.id);
+                                }}
+                                 
                                 >
-                                  <div className="flex-col">
+                                <div className="flex-col">
+        
+
+   
+                                {likesDataComment && (
+    likesDataComment.some(like => like.userId === storedUserData.id && like.commentId === comment.id) ? (
+        <span className="flex flex-row">
+            <BiSolidHeart className="size-6 text-orange-500" />
+            <div className="flex items-center gap-2">
+                <span
+                    className="text-xs md:text-md"
+                    style={{
+                        marginLeft: "1px",
+                        marginTop: "2px",
+                        color: "#f97316"
+                    }}
+                ></span>
+            </div>
+            <div className="flex-col mt-1 ml-2 text-orange-500">{comment.likesCount}</div>
+        </span>
+    ) : (
+        <span className="flex flex-row">
+            <BiHeart className="size-6 text-black" />
+            <div className="flex items-center gap-2">
+                <span
+                    className="text-xs md:text-md"
+                    style={{
+                        marginLeft: "1px",
+                        marginTop: "2px",
+                        color: "black"
+                    }}
+                ></span>
+            </div>
+            <div className="flex-col mt-1 ml-2 text-black">{comment.likesCount}</div>
+        </span>
+    )
+)}
 
 
+{/* {likesDataComment && (likesDataComment.some(like => like.userId === storedUserData.id) && likesDataComment.commentId === comment.id)  ?(
+                        < span className="flex flex-row">  <BiSolidHeart className="size-6 text-orange-500" />
+                          <div className="flex items-center gap-2">
+                            <span
+                              className="text-xs md:text-md"
 
-                                    {likesDataComment && (
-                                      likesDataComment.some(like => like.userId === storedUserData.id && like.commentId === comment.id) ? (
-                                        <span className="flex flex-row">
-                                          <BiSolidHeart className="size-6 text-orange-500" />
-                                          <div className="flex items-center gap-2">
-                                            <span
-                                              className="text-xs md:text-md"
-                                              style={{
-                                                marginLeft: "1px",
-                                                marginTop: "2px",
-                                                color: "#f97316"
-                                              }}
-                                            ></span>
-                                          </div>
-                                          <div className="flex-col mt-1 ml-2 text-orange-500">{comment.likesCount}</div>
-                                        </span>
-                                      ) : (
-                                        <span className="flex flex-row">
-                                          <BiHeart className="size-6 text-black" />
-                                          <div className="flex items-center gap-2">
-                                            <span
-                                              className="text-xs md:text-md"
-                                              style={{
-                                                marginLeft: "1px",
-                                                marginTop: "2px",
-                                                color: "black"
-                                              }}
-                                            ></span>
-                                          </div>
-                                          <div className="flex-col mt-1 ml-2 text-black">{comment.likesCount}</div>
-                                        </span>
-                                      )
-                                    )}
+                              style={{
+                                marginLeft: "1px",
+                                marginTop: "2px",
+                                color: "#f97316"
 
+                              }}
+                            >
 
+                              
+                            </span>
+                          </div>
+                          <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div>
 
+                        </span>
+                      ) : (
+                        <span className="flex flex-row"> <BiHeart className="size-6 text-black" />
+                          <div className="flex items-center gap-2">
+                            <span
+                              className="text-xs md:text-md"
+                              style={{
+                                marginLeft: "1px",
+                                marginTop: "2px",
+                                color: "black"
+
+                              }}
+                            >
+
+                              
+                            </span>
+                          </div>
+                          <div className="flex-col mt-1 ml-2 text-black"> {comment.likesCount}</div>
+
+                        </span>
+                      )
+                      } */}
                                   </div>
                                 </button>
-                                  {/* <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
+                                {/* <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
 
                                 </div>
                                 <button
@@ -2043,7 +2071,7 @@ function Post({ article, setArticles }) {
                                           {/* ok */}
                                           {reply.id === editingReplyId ? (
                                             <div className="my-2 px-[26px] flex w-full justify-between ">
-                                              <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEditreply()}>Annuler</button>
+                                                                                            <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEditreply()}>Annuler</button>
 
                                               <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
                                                 saveEditedReply(reply.id)
@@ -2112,7 +2140,7 @@ function Post({ article, setArticles }) {
                                           }
                                         >
                                           <svg
-                                            className="w-4 h-5 md:w-5"
+                                           className="w-4 h-5 md:w-5"
                                             viewBox="0 0 20 20"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -2169,7 +2197,7 @@ function Post({ article, setArticles }) {
                                 className="ml-1"
                               >
                                 <svg
-                                  className="w-4 h-5 md:w-5 "
+                                className="w-4 h-5 md:w-5 "
                                   // width="20"
                                   // height="20"
                                   viewBox="0 0 20 20"
@@ -2214,4 +2242,4 @@ function Post({ article, setArticles }) {
   )
 }
 
-export default Post
+export default Page
