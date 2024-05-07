@@ -616,14 +616,14 @@ function HomeOffre() {
                 <div className=" flex gap-1 mt-3 md:gap-5 w-full justify-between  mt-4ext-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                   <div
                     onClick={handleReset}
-                    className="  flex justify-center px-4 py-2 w-full md:w-fit text-white bg-orange-500 rounded-[30px] max-md:px-5"
+                    className="  flex justify-center cursor-pointer px-4 py-2 w-full md:w-fit text-white bg-orange-500 rounded-[30px] max-md:px-5"
                   >
                     Réinitialiser
                   </div>
                   <div className="   flex gap-1 w-full md:w-fit  justify-between ">
                     <div
                       onClick={handleSearch}
-                      className="   flex  justify-center w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
+                      className="   flex  justify-center cursor-pointer w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
                     >
                       Confirmer
                     </div>
