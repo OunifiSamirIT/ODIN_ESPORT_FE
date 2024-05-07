@@ -634,7 +634,7 @@ const Album = () => {
                           <div className="flex flex-col justify-center my-2 w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
                               <DatePicker
-                                dateFormat="yyyy-MM-dd"
+                                dateFormat="dd-MM-yyyy"
                                 selected={searchDateDB} // Set the selected date from your state
                                 onChange={(date) => handleDateDBChange(date)} // Handle date change
                               />

@@ -506,7 +506,7 @@ const Album = () => {
                             <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
                               <DatePicker
 
-                                dateFormat="yyyy-MM-dd"
+                                dateFormat="dd-MM-yyyy"
                                 selected={searchDateDB} // Set the selected date from your state
                                 onChange={(date) => handleDateDBChange(date)} // Handle date change
                               />
