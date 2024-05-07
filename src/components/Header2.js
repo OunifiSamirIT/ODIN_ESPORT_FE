@@ -76,6 +76,8 @@ function Header() {
       .then((response) => response.json())
       .then((userData) => {
         setUsers(userData)
+        console.log("🚀 ~ .then ~ userData:", userData)
+
       })
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
@@ -93,8 +95,8 @@ function Header() {
       ).map(target => ({ ...target, origin: 'Page' })); // Adding origin property to filtered targets
 
       const filteredUsers = users.filter((user) =>
-        user.nom.toLowerCase().startsWith(searchString.toLowerCase()) || user.nom.toLowerCase().includes(searchString.toLowerCase())
-      ).map(user => ({ ...user, origin: 'Personne' })); // Adding origin property to filtered users
+        user?.user?.nom.toLowerCase().startsWith(searchString.toLowerCase()) || user?.user?.nom.toLowerCase().includes(searchString.toLowerCase())
+      ).map(user => ({ ...user.user, origin: 'Personne' })); // Adding origin property to filtered users
 
       setSearchResults([...filteredTargets, ...filteredUsers]);
     }
@@ -162,7 +164,7 @@ function Header() {
         className={`w-full dark-bg fixed z-50 shadow-xs ${
           Hamburger ? "fixed top-0 h-screen overflow-hidden z-50" : ""
         }`}
-      >      <div className="max-sm:px-4 max-w-[1344px] h-[80px] w-full dark-bg  border-0 flex items-center justify-between mx-auto py-2 ">
+      >      <div className="max-sm:px-4 max-w-[1280px] h-[80px] w-full dark-bg  border-0 flex items-center justify-between mx-auto py-2 ">
           <div className="flex flex-row">
             <a href="/home" className="mt-3">
             {/* <svg

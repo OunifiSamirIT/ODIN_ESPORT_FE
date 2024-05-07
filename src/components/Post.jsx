@@ -26,6 +26,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../config";
 import Modal from "react-modal";
 import moment from "moment/moment";
+// import 'moment/locale/fr';
+// import 'moment/locale/en';
+import '../../node_modules/moment/locale/fr';
+import '../../node_modules/moment/locale/en-ca';
+
 
 import {
   BiEditAlt,
@@ -1293,6 +1298,12 @@ function Post({ article, setArticles }) {
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
+
+  const storedLanguage = localStorage.getItem('language');
+  const language = storedLanguage ? storedLanguage.toLowerCase() : '';
+
+// Set the locale based on the stored language or default to English
+moment.locale(language  === 'fr' ? 'fr' : 'en');
   return (
     <>
 
@@ -1863,47 +1874,7 @@ function Post({ article, setArticles }) {
 )}
 
 
-{/* {likesDataComment && (likesDataComment.some(like => like.userId === storedUserData.id) && likesDataComment.commentId === comment.id)  ?(
-                        < span className="flex flex-row">  <BiSolidHeart className="size-6 text-orange-500" />
-                          <div className="flex items-center gap-2">
-                            <span
-                              className="text-xs md:text-md"
 
-                              style={{
-                                marginLeft: "1px",
-                                marginTop: "2px",
-                                color: "#f97316"
-
-                              }}
-                            >
-
-                              
-                            </span>
-                          </div>
-                          <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div>
-
-                        </span>
-                      ) : (
-                        <span className="flex flex-row"> <BiHeart className="size-6 text-black" />
-                          <div className="flex items-center gap-2">
-                            <span
-                              className="text-xs md:text-md"
-                              style={{
-                                marginLeft: "1px",
-                                marginTop: "2px",
-                                color: "black"
-
-                              }}
-                            >
-
-                              
-                            </span>
-                          </div>
-                          <div className="flex-col mt-1 ml-2 text-black"> {comment.likesCount}</div>
-
-                        </span>
-                      )
-                      } */}
                                   </div>
                                 </button>
                                 {/* <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
