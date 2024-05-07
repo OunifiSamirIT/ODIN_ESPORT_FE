@@ -489,7 +489,7 @@ function HomeOffre() {
                                 <option value="Bac +4">Bac +4</option>
                                 <option value="Bac +5">Bac +5</option>
                                 <option value="Doctorat">Doctorat</option>
-                                <option value="Bac +3">
+                                <option value=" Expert, Recherche">
                                   Expert, Recherche
                                 </option>
                               </select>
