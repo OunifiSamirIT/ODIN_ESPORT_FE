@@ -381,7 +381,7 @@ function Header() {
                         <React.Fragment key={index}>
                           {index === 0 ||
                           searchResults[index - 1].origin !== item.origin ? (
-                            <li className="text-gray-500 text-sm px-2 py-1">
+                            <li className="text-gray-500 gap-y-2 text-sm px-2 py-1">
                               {item.origin === "Page" ? "Pages" : "Personnes"}
                             </li>
                           ) : null}
@@ -404,9 +404,18 @@ function Header() {
                                 className="rounded-full object-fill w-10 h-10"
                               />
                             )}
-                            <a href={`/profile/${item.id}`} className="pr-4">
+                            {/* <a href={`/profile/${item.id}`} className="pr-4">
                               {item.titre || item.nom + " " + item.prenom}
-                            </a>
+                            </a> */}
+                             <a href={`/profile/${item.id}`} className="pr-4 flex flex-row">
+                      <div className="flex pr-2"> {item.titre || item.nom + " " + item.prenom}</div>
+                       {/* <div className="flex text-gray-400 text-xs pt-1 ">
+                         {item.titre || item?.profil == 'other' ? item?.other?.profession : ''}
+                         
+                         
+                         </div> */}
+                     
+                      </a>
                           </li>
                         </React.Fragment>
                       ))}
