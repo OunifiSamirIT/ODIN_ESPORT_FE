@@ -89,6 +89,7 @@ function FriendsSlider() {
                                     <div>
                                         {value.user?.profil === 'other' && value?.other?.profession}
                                         {value.user?.profil === 'player' && 'Joueur'}
+                                        {value.user?.profil == 'coach' ? ' Entraineur' : ''}
                                         {value.user?.profil === 'agent' && value?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
                                         {value.user?.profil === 'agent' && value?.agent?.typeresponsable === 'club' && 'Manager de Club'}
                                         {value.user?.profil === 'scout' && 'Scout'}
