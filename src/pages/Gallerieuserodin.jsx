@@ -634,7 +634,7 @@ const Album = () => {
                           <div className="flex flex-col justify-center my-2 w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
                               <DatePicker
-                                dateFormat="yyyy-MM-dd"
+                                dateFormat="dd-MM-yyyy"
                                 selected={searchDateDB} // Set the selected date from your state
                                 onChange={(date) => handleDateDBChange(date)} // Handle date change
                               />
@@ -716,7 +716,7 @@ const Album = () => {
                                 <div>-</div>
                                 <div className="grow">{value.Duree}</div>
                               </div>
-                              <div className=" text-xs font-light w-35 ml-5 whitespace-pre-line">
+                              <div className=" text-xs font-light text-capitalize w-20 pl-2   whitespace-pre-line">
                                 {value.payscamps}
                               </div>
                             </div>
@@ -735,7 +735,7 @@ const Album = () => {
                                   {value.prix} €
                                 </div>
                               </div>
-                              <div className="flex justify-center items-center w-11 h-7 bg-blue-600 rounded-md aspect-[1.13]">
+                              <div className="flex justify-center items-center mr-7 mt-3 w-11 h-7 bg-blue-600 rounded-md aspect-[1.13]">
                                 <img
                                   loading="lazy"
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/688459f573915c74266dcb5eb0235120d7e93fd088c5102dd26fe0420b9723d9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"

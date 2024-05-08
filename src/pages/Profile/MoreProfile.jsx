@@ -1875,8 +1875,8 @@ const More = () => {
 
                                 {
                                   getTranslation(
-                                    ` Total Transfers made`,  // -----> Englais
-                                    `Total Transferts Effectués`, //  -----> Francais
+                                    ` Total Transfers`,  // -----> Englais
+                                    `Total Transferts`, //  -----> Francais
                                     //   ``,  //  -----> Turkey
                                     //   `` ,  //  -----> Allemagne
                                   )
@@ -2861,7 +2861,7 @@ const More = () => {
                             </defs>
                           </svg>
 
-                          <div className="grow self-start mt-1">
+                          <div className="grow  mt-1">
                             {CurrentUser?.scout?.nb_joueurdetecter}
 
                             {
@@ -2911,6 +2911,18 @@ const More = () => {
                       )
 
                     } </div>
+                  </div>
+                  <div className=" w-full flex flex gap-2  text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+                    {CurrentUser?.scout?.skillsscout
+                      .split(",")
+                      .filter((item) => item !== "")
+                      .map((item) => {
+                        return (
+                          <div className="text-wrap text-center grow justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+                            {item}
+                          </div>
+                        );
+                      })}
                   </div>
                   {/* social icons */}
 

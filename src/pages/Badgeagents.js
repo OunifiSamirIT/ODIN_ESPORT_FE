@@ -4082,18 +4082,32 @@ function Badge({ userpf }) {
   useEffect(() => {
     fetchData();
   }, []);
-
   const fetchData = async () => {
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/allagents`);
       const result = await response.json();
-      setData(result);
-      console.log("agentttttttttttt", data)
+      console.log("Data from API:", result); // Check the received data
+      setData(result); // Update the state
       setFilteredUsers(result);
+      console.log("Data ++++++++++++AGENTS+++++++++from sdsdsdsdsdsdAPI:",filteredUsers.agents);
+console.log("Data+++++++++SCOUTS++++++++++++ from API:",filteredUsers.scouts);
+console.log("Data++++++++++COACH++++++++++++++ from API:",filteredUsers.coaches); // Assuming you want to filter users based on the received data
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(`${Config.LOCAL_URL}/api/allagents`);
+  //     const result = await response.json();
+  //     setData(result);
+  //     console.log("agentttttttttttt", data)
+  //     setFilteredUsers(result);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
   const handleReset = () => {
     setSearchNom("");
@@ -4103,31 +4117,52 @@ function Badge({ userpf }) {
     setFilteredUsers(data);
   };
 
-  // const handleSearch = () => {
-  //   const filteredData = data.filter((user) => {
-  //     return (
-  //       user.user.nom.toLowerCase().includes(searchNom.toLowerCase()) &&
-  //       (searchNationality === "" || user.user.nationality === searchNationality) &&
-  //       (searchTypeProfil === "" || user.typeresponsable === searchTypeProfil) &&
-  //       (searchPaysResidence === "" || user.user.countryresidence === searchPaysResidence)
-  //     );
-  //   });
-
-  //   setFilteredUsers(filteredData);
-  // };
+  
 
   const handleSearch = () => {
-    const filteredData = data.filter((user) => {
-      const fullName = `${user.user.nom} ${user.user.prenom}`.toLowerCase();
-      const searchName = searchNom.toLowerCase();
-      return (
-        fullName.includes(searchName) &&
-        (searchNationality === "" || user.user.nationality === searchNationality) &&
-        (searchTypeProfil === "" || user.typeresponsable === searchTypeProfil) &&
-        (searchPaysResidence === "" || user.user.countryresidence === searchPaysResidence)
-      );
-    });
-  
+    // const filteredData = data.filter((user) => {
+    //   const fullName = `${user.user.nom} ${user.user.prenom}`.toLowerCase();
+    //   const searchName = searchNom.toLowerCase();
+    //   return (
+    //     fullName.includes(searchName) &&
+    //     (searchNationality === "" || user.user.nationality === searchNationality) &&
+    //     (searchTypeProfil === "" || user.typeresponsable === searchTypeProfil) &&
+    //     (searchPaysResidence === "" || user.user.countryresidence === searchPaysResidence)
+    //   );
+    // });
+    const filteredData = {
+      agents: data.agents.filter((agent) => {
+        const fullName = `${agent?.user?.nom} ${agent?.user?.prenom}`.toLowerCase();
+        const searchName = searchNom.toLowerCase();
+        return (
+          fullName.includes(searchName) &&
+          (searchNationality === "" || agent?.user?.nationality === searchNationality) &&
+          (searchTypeProfil === "" || agent?.typeresponsable === searchTypeProfil) &&
+          (searchPaysResidence === "" || agent?.user?.countryresidence === searchPaysResidence)
+        );
+      }),
+      scouts: data.scouts.filter((scout) => {
+        const fullName = `${scout?.user?.nom} ${scout?.user?.prenom}`.toLowerCase();
+        const searchName = searchNom.toLowerCase();
+        return (
+          fullName.includes(searchName) &&
+          (searchNationality === "" || scout?.user?.nationality === searchNationality) &&
+          (searchTypeProfil === "" || scout?.user?.profil === searchTypeProfil) &&
+          (searchPaysResidence === "" || scout?.user?.countryresidence === searchPaysResidence)
+        );    
+        }),
+      coaches: data.coaches.filter((coach) => {
+        const fullName = `${coach?.user?.nom} ${coach?.user?.prenom}`.toLowerCase();
+
+        const searchName = searchNom.toLowerCase();
+
+        return (
+          fullName.includes(searchName) &&
+          (searchNationality === "" || coach?.user?.nationality === searchNationality) &&
+          (searchTypeProfil === "" || coach?.user?.profil === searchTypeProfil) &&
+          (searchPaysResidence === "" || coach?.user?.countryresidence === searchPaysResidence)
+        );          })
+    };
     setFilteredUsers(filteredData);
   };
   
@@ -4150,9 +4185,12 @@ function Badge({ userpf }) {
       ),
     };
   });
-
   const options = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+    const countryCode =
+      country.iso && country.iso["alpha-2"]
+        ? country.iso["alpha-2"].toLowerCase()
+        : null;
+    const nationalite = country.nationalite ? country.nationalite : "";
 
     return {
       value: countryCode,
@@ -4164,11 +4202,29 @@ function Badge({ userpf }) {
               style={{ marginRight: "8px", width: "40px" }}
             ></span>
           )}
-          {country.nationalite}
+          {nationalite}
         </div>
       ),
     };
   });
+  // const options = paysAllInfo.map((country) => {
+  //   const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+
+  //   return {
+  //     value: countryCode,
+  //     label: (
+  //       <div>
+  //         {countryCode && (
+  //           <span
+  //             className={`flag-icon flag-icon-${countryCode}`}
+  //             style={{ marginRight: "8px", width: "40px" }}
+  //           ></span>
+  //         )}
+  //         {country.nationalite}
+  //       </div>
+  //     ),
+  //   };
+  // });
     // for left slide barre ---------------------------------
     const [user, setUser] = useState([]);
 
@@ -4484,33 +4540,49 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                   
 
                                           <div className=" gap-4 w-full flex-1 ">
+                                          <Select
+                        options={options}
+                        placeholder="Nationalité"
+                        styles={{
+                          control: (provided, state) => ({
+                            ...provided,
+                            borderRadius: "0.375rem",
+                            display: "flex",
+                            justifyContent: "center",
+                            borderRadius: "30px",
+                            width: "100%",
+                            fontSize: "1rem",
+                            backgroundColor: "#ffff",
+                            borderWidth: "none",
+                            marginTop: "4px",
+                            border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+                            paddingTop: "6px", // Adjust the top padding as needed
+                            paddingBottom: "6px", // Adjust the bottom padding as needed
+                            paddingLeft: "13px", // Adjust as needed
+                            paddingRight: "13px", // Adjust as needed
+                          }),
+                        }}
+                        onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
+                        value={options.find((option) => option.value === searchNationality)}
 
-                                            <Select
-                                              options={options}
-                                              placeholder="Nationalité"
-                                              styles={{
-                                                control: (provided, state) => ({
-                                                  ...provided,
-                                                  borderRadius: "0.375rem", // You can adjust the radius as needed
-                                                  display: "flex",
-                                                  justifyContent: "center",
-                                                  borderRadius: "30px",
+                        // Enable searching by nationalite
+                        filterOption={(option, inputValue) => {
+                          const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
 
-                                                  width: "100%",
-                                                  fontSize: "1rem", // Set the desired font size
-                                                  backgroundColor: "#ffffff", // Set the background color
-                                                  borderWidth: "none",
-                                                  marginTop: "4px",
-                                                  border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
-                                                  paddingTop: "6px", // Adjust the top padding as needed
-                                                  paddingBottom: "6px", // Adjust the bottom padding as needed
-                                                  paddingLeft: "13px", // Adjust as needed
-                                                    paddingRight: "13px", // Adjust as needed
-                                                }),
-                                              }}
-                                              onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
-                                              value={options.find((option) => option.value === searchNationality)}
-                                            />                  </div>
+                          const nationaliteString =
+                            typeof nationalite === "string"
+                              ? nationalite.toLowerCase()
+                              : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
+
+                          return nationaliteString.includes(
+                            inputValue.toLowerCase()
+                          );
+                        }}
+                        // Ensure that all options are displayed even when filtered
+                        isSearchable
+                      />
+                                                   
+                                                     </div>
                                        
                                   </div>
                                 </div>
@@ -4541,6 +4613,8 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                             </option>
                                             <option value="club">Manager de club</option>
                                             <option value="players">Manager de Joueur</option>
+                                            <option value="scout">Scout</option>
+                                            <option value="coach">Entraineur</option>
                                           </select>
                                         </div>
 
@@ -4560,6 +4634,9 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
 
                                             <div className="flex-auto">
+
+
+                        
                                               <Select
                                                 options={optionsPays}
                                                 placeholder="Pays de résidence"
@@ -4586,6 +4663,20 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                                   setSearchPaysResidence(selectedOption.label.props.children[1])
                                                 }
                                                 value={optionsPays.find((option) => option.value === searchPaysResidence)}
+                                                filterOption={(option, inputValue) => {
+                                                  const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+                        
+                                                  const nationaliteString =
+                                                    typeof nationalite === "string"
+                                                      ? nationalite.toLowerCase()
+                                                      : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
+                        
+                                                  return nationaliteString.includes(
+                                                    inputValue.toLowerCase()
+                                                  );
+                                                }}
+                                                // Ensure that all options are displayed even when filtered
+                                                isSearchable
                                               />
                                             </div>
 
@@ -4624,17 +4715,18 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
                     <div className="flex-wrap content-start mt-6 max-md:max-w-full">
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-                        {filteredUsers.map((user, index) => (
-                        <Link key={index} to={`/profile/${user?.user?.id}`}>     <div  className="flex flex-col w-full">
+                        {filteredUsers?.agents?.map((agents, index) => (
+                        <Link key={index} to={`/profile/${agents?.user?.id}`}>  
+                           <div  className="flex flex-col w-full">
                            
                             <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
                              <img
                                 loading="lazy"
-                                src={user?.user?.image}
+                                src={agents?.user?.image}
                                 className="self-center max-w-full rounded-full aspect-square w-[120px]"
                               /> 
                               <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
-                                {user?.user?.prenom} {user?.user?.nom}
+                                {agents?.user?.prenom} {agents?.user?.nom}
                               </div>
 
 
@@ -4649,9 +4741,8 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                   <div>Profil</div>
                                 </div>
                                 <div className="flex gap-2.5 my-auto font-medium">
-                                <div>{user?.typeresponsable === 'club' ? 'Manager de Club' : 'Manager de joueur'}</div>
+                                <div>{agents?.typeresponsable === 'club' ? 'Manager de Club' : 'Manager de joueur'}</div>
 
-                                  {/* <div> {user.typeresponsable}</div> */}
                                 </div>
                               </div>
                               <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
@@ -4665,7 +4756,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                 </div>
                                 <div className="flex gap-2.5 my-auto font-medium">
                                
-                                  <div> {user?.user?.nationality}</div>
+                                  <div> {agents?.user?.nationality}</div>
                                 </div>
                               </div>
                               <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
@@ -4679,7 +4770,7 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
                                 </div>
                                 <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
                                   <div className="overflow-hidden overflow-ellipsis">
-                                    {user?.user?.countryresidence}
+                                    {agents?.user?.countryresidence}
                                   </div>
                                 </div>
                               </div>
@@ -4690,6 +4781,142 @@ const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
 
                         ))}
+          
+
+
+          {filteredUsers?.scouts?.map((scouts, index) => (
+                        <Link key={index} to={`/profile/${scouts?.user?.id}`}>  
+                           <div  className="flex flex-col w-full">
+                           
+                            <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
+                             <img
+                                loading="lazy"
+                                src={scouts?.user?.image}
+                                className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                              /> 
+                              <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
+                                {scouts?.user?.prenom} {scouts?.user?.nom}
+                              </div>
+
+
+
+                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                                <div className="flex gap-4 justify-between font-light">
+                                <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-3.5 ml-1 aspect-[0.74]"
+                                  />
+                                  <div>Profil</div>
+                                </div>
+                                <div className="flex gap-2.5 my-auto font-medium">
+                                <div>{scouts?.user?.profil}</div>
+
+                                </div>
+                              </div>
+                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                                <div className="flex gap-4 justify-between font-light">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <div>Nationnalité</div>
+                                </div>
+                                <div className="flex gap-2.5 my-auto font-medium">
+                               
+                                  <div> {scouts?.user?.nationality}</div>
+                                </div>
+                              </div>
+                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                                <div className="flex gap-4 justify-between font-light">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <div>Pays de résidence</div>
+                                </div>
+                                <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
+                                  <div className="overflow-hidden overflow-ellipsis">
+                                    {scouts?.user?.countryresidence}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div></Link>
+
+
+
+
+                        ))}
+    
+    {filteredUsers?.coaches?.map((coaches, index) => (
+                        <Link key={index} to={`/profile/${coaches?.user?.id}`}>  
+                           <div  className="flex flex-col w-full">
+                           
+                            <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
+                             <img
+                                loading="lazy"
+                                src={coaches?.user?.image}
+                                className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                              /> 
+                              <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
+                                {coaches?.user?.prenom} {coaches?.user?.nom}
+                              </div>
+
+
+
+                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                                <div className="flex gap-4 justify-between font-light">
+                                <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-3.5 ml-1 aspect-[0.74]"
+                                  />
+                                  <div>Profil</div>
+                                </div>
+                                <div className="flex gap-2.5 my-auto font-medium">
+                                <div>{coaches?.user?.profil === 'coach' ? 'Entraineur ' : 'Entraineur '}</div>
+
+                                </div>
+                              </div>
+                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                                <div className="flex gap-4 justify-between font-light">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <div>Nationnalité</div>
+                                </div>
+                                <div className="flex gap-2.5 my-auto font-medium">
+                               
+                                  <div> {coaches?.user?.nationality}</div>
+                                </div>
+                              </div>
+                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                                <div className="flex gap-4 justify-between font-light">
+                                  <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                    className="w-5 aspect-square"
+                                  />
+                                  <div>Pays de résidence</div>
+                                </div>
+                                <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
+                                  <div className="overflow-hidden overflow-ellipsis">
+                                    {coaches?.user?.countryresidence}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div></Link>
+
+
+
+
+                        ))}   
                       </div>
                     </div>
 

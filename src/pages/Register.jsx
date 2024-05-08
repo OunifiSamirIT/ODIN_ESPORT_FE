@@ -15,7 +15,7 @@ import "./flags.css";
 import Select, { components } from "react-select";
 import * as yup from "yup";
 import { Config } from "../config";
-
+import RP from "../assets/Rolepersonne.png"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -4728,7 +4728,7 @@ function Register() {
     {
       role: "player",
       profile: "player",
-      logo: "https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/198f61552701ef70d54814c5f585892e89b5d9124c26631b6d1e71890d3c355a?apiKey=1233a7f4653a4a1e9373ae2effa8babd&",
+      logo: RP,
       description: "Joueur",
     },
     {

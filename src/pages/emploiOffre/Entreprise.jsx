@@ -82,6 +82,7 @@ function Entreprise() {
     postoffre: "",
     description: "",
     NivET: "",
+    typecontrat: "",
     paysoffre: "",
     villeoffre: "",
     email: "",
@@ -444,7 +445,7 @@ function Entreprise() {
                               src={require("../../assets/Entreprise.png")}
                               alt="Default"
                               loading="lazy"
-                              className="shrink-0 max-w-full h-[110%] mx-auto rounded-full object-contain border-4 border-solid aspect-square w-[180px] h-[180px] max-md:mt-10"
+                              className="shrink-0 max-w-full  mx-auto rounded-full object-contain border-4 border-solid aspect-square  max-md:mt-10"
                             />
                           )}
                         </div>
@@ -535,14 +536,14 @@ function Entreprise() {
                                 <option value="Bac">
                                   Formations professionnelles
                                 </option>
-                                <option value="Bac +1">Bac</option>
+                                <option value="Bac">Bac</option>
                                 <option value="Bac +1">Bac +1</option>
                                 <option value="Bac +2">Bac +2</option>
                                 <option value="Bac +3">Bac +3</option>
-                                <option value="Bac +3">Bac +4</option>
-                                <option value="Bac +3">Bac +5</option>
-                                <option value="Bac +3">Doctorat</option>
-                                <option value="Bac +3">
+                                <option value="Bac +4">Bac +4</option>
+                                <option value="Bac +5">Bac +5</option>
+                                <option value="Doctorat">Doctorat</option>
+                                <option value="Expert, Recherche">
                                   Expert, Recherche
                                 </option>
                               </select>
@@ -554,15 +555,23 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/477c1c901e0f413e9df8f00fc3f5c46072ae48e6965170ab72f4b9273202ad32?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-5 aspect-square"
                             />
-                            <div className="flex-1">Pays</div>
+                            <div className="flex-1">Type de contrat</div>
                           </div>
 
                           <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
                               <select
+                                id="typecontrat"
                                 className="w-full bg-transparent"
-                                {...register("Experience")}
+                                value={formData.typecontrat}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    typecontrat: e.target.value,
+                                  })
+                                }
                               >
+                                <option value="">Type de contrat </option>
                                 <option value="CDI">CDI</option>
                                 <option value="CDD">CDD</option>
                                 <option value="CVIP">CVIP</option>
@@ -607,7 +616,7 @@ function Entreprise() {
                                 id="date_experie"
                                 selected={formData.date_experie}
                                 onChange={handleDateChange}
-                                dateFormat="yyyy-MM-dd" // Set desired date format
+                                dateFormat="dd-MM-yyyy" // Set desired date format
                               />
 
                               <img
@@ -656,7 +665,13 @@ function Entreprise() {
                             <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
                               <select
                                 className="w-full bg-transparent"
-                                {...register("NivET")}
+                                value={formData.Experience}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    Experience: e.target.value,
+                                  })
+                                }
                               >
                                 <option value="Acunne Experience">
                                   Acunne Experience
@@ -664,7 +679,7 @@ function Entreprise() {
                                 <option value="Moins d'un an">
                                   Moins d'un an
                                 </option>
-                                <option value="CVIEntre 1 et 2 ansP">
+                                <option value="Entre 1 et 2 ans">
                                   Entre 1 et 2 ans
                                 </option>
                                 <option value="Entre 2 et 5 ans">
@@ -686,7 +701,7 @@ function Entreprise() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e2bb7e6929dfe27f019db31dfba3116f9832133a3a48be3d6af89d34cc463e1?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto aspect-[0.75] fill-zinc-900 w-[15px]"
                             />
-                            <div className="flex-1">Type de contrat</div>
+                            <div className="flex-1">Pays de résidence</div>
                           </div>
 
                           <Select
@@ -752,7 +767,7 @@ function Entreprise() {
                   </div>
 
                   {/* description */}
-                  <div className="flex gap-3 px-4 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
+                  <div className="flex gap-3 px-4  text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/5f779d8ee0c1bf0e05d7432fa41d675db71640bd2b9c057e88cf4e12605728a6?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -761,7 +776,7 @@ function Entreprise() {
                     <div className="flex-1 max-md:max-w-full">Description</div>
                   </div>
 
-                  <input
+                  <textarea
                     type="text"
                     id="description"
                     placeholder="Description de taches"
@@ -769,7 +784,7 @@ function Entreprise() {
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    className="justify-center py-3 pr-2 pl-4 -mt-3 text-base font-light border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full"
+                    className="justify-center py-3 h-full min-h-32  pr-2 pl-4 -mt-3 text-break   font-light border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full"
                   />
 
                   {/* buttons */}

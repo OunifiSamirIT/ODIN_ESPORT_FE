@@ -25,6 +25,16 @@ const Card = ({ item }) => {
 
     }
     const video = useRef()
+
+    const formatDate = (dateString) => {
+        const dateObject = new Date(dateString);
+        // Format the date object into the desired format
+        return dateObject.toLocaleDateString('fr-FR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    }
     return (
         <Link to={`/challenges/details/${item.id}`} className="cursor-pointer flex flex-col flex-wrap content-start p-6 mx-auto w-full bg-red-500 font-light bg-white rounded-[10px] text-zinc-900">
             <div class="relative">
@@ -51,10 +61,13 @@ const Card = ({ item }) => {
                     </defs>
                 </svg>
 
-                <div>{item.endDate}</div>
+                <div>{formatDate(item.endDate)}</div>
             </div>
             <div className="mt-2 text-xs">
-                {item.description}
+                {item.description.length > 100 ?
+                    item.description.slice(0, 100) + '...' :
+                    item.description
+                }
             </div>
         </Link>
     )

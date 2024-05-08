@@ -76,6 +76,8 @@ function Header() {
       .then((response) => response.json())
       .then((userData) => {
         setUsers(userData)
+        console.log("🚀 ~ .then ~ userData:", userData)
+
       })
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
@@ -93,8 +95,8 @@ function Header() {
       ).map(target => ({ ...target, origin: 'Page' })); // Adding origin property to filtered targets
 
       const filteredUsers = users.filter((user) =>
-        user.nom.toLowerCase().startsWith(searchString.toLowerCase()) || user.nom.toLowerCase().includes(searchString.toLowerCase())
-      ).map(user => ({ ...user, origin: 'Personne' })); // Adding origin property to filtered users
+        user?.user?.nom.toLowerCase().startsWith(searchString.toLowerCase()) || user?.user?.nom.toLowerCase().includes(searchString.toLowerCase())
+      ).map(user => ({ ...user.user, origin: 'Personne' })); // Adding origin property to filtered users
 
       setSearchResults([...filteredTargets, ...filteredUsers]);
     }
@@ -162,7 +164,7 @@ function Header() {
         className={`w-full dark-bg fixed z-50 shadow-xs ${
           Hamburger ? "fixed top-0 h-screen overflow-hidden z-50" : ""
         }`}
-      >      <div className="max-sm:px-4 max-w-[1344px] h-[80px] w-full dark-bg  border-0 flex items-center justify-between mx-auto py-2 ">
+      >      <div className="max-sm:px-4 max-w-[1280px] h-[80px] w-full dark-bg  border-0 flex items-center justify-between mx-auto py-2 ">
           <div className="flex flex-row">
             <a href="/home" className="mt-3">
             {/* <svg
@@ -379,7 +381,7 @@ function Header() {
                         <React.Fragment key={index}>
                           {index === 0 ||
                           searchResults[index - 1].origin !== item.origin ? (
-                            <li className="text-gray-500 text-sm px-2 py-1">
+                            <li className="text-gray-500 gap-y-2 text-sm px-2 py-1">
                               {item.origin === "Page" ? "Pages" : "Personnes"}
                             </li>
                           ) : null}
@@ -402,9 +404,18 @@ function Header() {
                                 className="rounded-full object-fill w-10 h-10"
                               />
                             )}
-                            <a href={`/profile/${item.id}`} className="pr-4">
+                            {/* <a href={`/profile/${item.id}`} className="pr-4">
                               {item.titre || item.nom + " " + item.prenom}
-                            </a>
+                            </a> */}
+                             <a href={`/profile/${item.id}`} className="pr-4 flex flex-row">
+                      <div className="flex pr-2"> {item.titre || item.nom + " " + item.prenom}</div>
+                       {/* <div className="flex text-gray-400 text-xs pt-1 ">
+                         {item.titre || item?.profil == 'other' ? item?.other?.profession : ''}
+                         
+                         
+                         </div> */}
+                     
+                      </a>
                           </li>
                         </React.Fragment>
                       ))}

@@ -223,3 +223,22 @@
 .allyearsContainerPopUp {
 
 }
+
+
+.hiddenScrollRightMenu::-webkit-scrollbar {
+
+  width: 3px;
+}
+
+
+.hiddenScrollRightMenu::-webkit-scrollbar-thumb {
+width: 3px;
+background-color: #aaa;
+
+}
+
+
+.hiddenScrollRightMenu::-webkit-scrollbar-track {
+  width: 3px;
+
+}

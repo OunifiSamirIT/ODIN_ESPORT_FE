@@ -16,7 +16,7 @@ function CreatePostModal() {
     if (ref.current && !ref.current.contains(event.target)) {
       console.log(!ref.current.contains(event.target))
       setIsModaldOpen(false)
-
+      
 
     }
   };
@@ -37,8 +37,9 @@ function CreatePostModal() {
   }, []);
   const handleCloseModal = () => {
     setIsModaldOpen(false);
-
-
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); // 3 seconds delay
   };
   const handleOpenModal = () => {
     setIsModaldOpen(true);
@@ -63,7 +64,7 @@ function CreatePostModal() {
     <div>
 
       <div className="flex flex-col  w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
-        <div className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-3">
+        <div className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-1">
           <div className="card-body p-2 position-relative">
 
             <div className="card-body d-flex p-0">
@@ -142,7 +143,7 @@ function CreatePostModal() {
             </div>
           </div>
         </div>
-        <div className='flex md:w-[730px] mb-2 -mt-2 '><FriendsSlider /></div>
+        <div className='flex md:w-[730px] w-[100%] md:ml-0  mb-3 -mt-2 '><FriendsSlider /></div>
       </div>
 
 

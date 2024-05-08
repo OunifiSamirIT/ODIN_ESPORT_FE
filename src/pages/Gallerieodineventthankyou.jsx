@@ -92,12 +92,10 @@ const Album = () => {
         <div className="flex justify-center items-center px-4 md:px-0 mt-6 w-full bg-white rounded-xl shadow-sm">
           <div className="flex flex-col w-full max-w-[1115px]">
             <div className="flex gap-5 justify-between pt-4">
-              <div className="flex-auto text-lg md:text-3xl font-bold text-zinc-900">
-                Evennement qui pourraient vous intéresser
+              <div className="flex-auto text-lg ml-2 md:text-3xl font-bold text-zinc-900">
+                Evènement qui pourraient vous intéresser
               </div>
-              <div className="self-start mt-3 text-sm font-medium text-blue-600 underline">
-                Voir Tout
-              </div>
+
             </div>
             <div className="px-2 mt-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -107,9 +105,9 @@ const Album = () => {
                       <img
                         loading="lazy"
                         srcSet={value.ImagesAlbumevents[0]?.image_url}
-                        className="self-stretch w-full aspect-square object-cover"
+                        className="self-stretch w-full aspect-square rounded-t-xl object-cover"
                       />
-                      <div className="mt-4 text-base font-semibold text-zinc-900">
+                      <div className="mt-4 text-break font-semibold text-zinc-900">
                         {value.album_name}
                       </div>
                       <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-900 w-[282px]">
@@ -120,8 +118,11 @@ const Album = () => {
                         </div>
                         <div>{value.payscamps}</div>
                       </div>
-                      <div className="mt-2 text-xs mx-2 font-light text-zinc-900">
-                        {value.description}
+                      <div className="mt-2 text-xs text-break mx-2 font-light text-zinc-900">
+                        {value.description.length > 100 ?
+                          value.description.slice(0, 100) + '...' :
+                          value.description
+                        }
                       </div>
                       <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
                         <div className="flex flex-col whitespace-nowrap text-zinc-900">

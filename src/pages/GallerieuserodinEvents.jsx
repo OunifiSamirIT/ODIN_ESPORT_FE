@@ -506,7 +506,7 @@ const Album = () => {
                             <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
                               <DatePicker
 
-                                dateFormat="yyyy-MM-dd"
+                                dateFormat="dd-MM-yyyy"
                                 selected={searchDateDB} // Set the selected date from your state
                                 onChange={(date) => handleDateDBChange(date)} // Handle date change
                               />
@@ -698,7 +698,7 @@ const Album = () => {
                               <div>-</div>
                               <div className="grow">{value.Duree}</div>
                             </div>
-                            <div className=" text-xs font-light">{value.payscamps}</div>
+                            <div className=" text-xs text-capitalize font-light">{value.payscamps}</div>
                           </div>
                           <div className="mt-2 text-xs mx-2 text-break font-light text-black">
                             {value.description.length > 100 ?
@@ -714,7 +714,7 @@ const Album = () => {
                               </div>
 
                             </div>
-                            <div className="flex justify-center items-center p-2.5  bg-blue-600 rounded-md aspect-[1.13]">
+                            <div className="flex justify-center items-center p-2.5 w-11 h-7 mt-3 bg-blue-600 rounded-md aspect-[1.13]">
                               <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/688459f573915c74266dcb5eb0235120d7e93fd088c5102dd26fe0420b9723d9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"

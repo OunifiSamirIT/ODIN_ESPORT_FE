@@ -4138,8 +4138,30 @@ function Badge({ userpf }) {
     setFilteredUsers(filteredData);
   };
 
-  const options = paysAllInfo.map((country) => {
+  const optionsPays = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+
+    return {
+      value: countryCode,
+      label: (
+        <div>
+          {countryCode && (
+            <span
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{ marginRight: "2px", width: "40px" }}
+            ></span>
+          )}
+          {country.name}
+        </div>
+      ),
+    };
+  });
+  const options = paysAllInfo.map((country) => {
+    const countryCode =
+      country.iso && country.iso["alpha-2"]
+        ? country.iso["alpha-2"].toLowerCase()
+        : null;
+    const nationalite = country.nationalite ? country.nationalite : "";
 
     return {
       value: countryCode,
@@ -4151,11 +4173,29 @@ function Badge({ userpf }) {
               style={{ marginRight: "8px", width: "40px" }}
             ></span>
           )}
-          {country.nationalite}
+          {nationalite}
         </div>
       ),
     };
   });
+  // const options = paysAllInfo.map((country) => {
+  //   const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+
+  //   return {
+  //     value: countryCode,
+  //     label: (
+  //       <div>
+  //         {countryCode && (
+  //           <span
+  //             className={`flag-icon flag-icon-${countryCode}`}
+  //             style={{ marginRight: "8px", width: "40px" }}
+  //           ></span>
+  //         )}
+  //         {country.nationalite}
+  //       </div>
+  //     ),
+  //   };
+  // });
 
   // const storedUserData = JSON.parse(localStorage.getItem("user"));
 
@@ -4607,7 +4647,51 @@ function Badge({ userpf }) {
                                       <div className="grow">Nationalité</div>
                                     </div>
                                     <div className="flex flex-col justify-center  mt-2 text-xs font-light whitespace-nowrap  rounded-[30px]">
-                                      <Select
+                                     
+                                    <Select
+                        options={options}
+                        placeholder="Nationalité"
+                        styles={{
+                          control: (provided, state) => ({
+                            ...provided,
+                            borderRadius: "0.375rem", // You can adjust the radius as needed
+                            display: "flex",
+                            justifyContent: "center",
+                            paddingTop: "6px",
+                            paddingBottom: "6px",
+                            borderRadius: "30px",
+                            border:
+                              "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+
+                            width: "100%",
+                            fontSize: "12px", // Set the desired font size
+                            backgroundColor: "#ffffff", // Set the background color
+                            borderWidth: "none",
+                          }),
+                        }}
+                        onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
+                        value={options.find((option) => option.value === searchNationality)}
+
+                        // Enable searching by nationalite
+                        filterOption={(option, inputValue) => {
+                          const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+
+                          const nationaliteString =
+                            typeof nationalite === "string"
+                              ? nationalite.toLowerCase()
+                              : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
+
+                          return nationaliteString.includes(
+                            inputValue.toLowerCase()
+                          );
+                        }}
+                        // Ensure that all options are displayed even when filtered
+                        isSearchable
+                      />
+                                     
+                                     
+                                     
+                                      {/* <Select
                                         options={options}
                                         placeholder="Nationalité"
                                         styles={{
@@ -4638,7 +4722,7 @@ function Badge({ userpf }) {
                                           (option) =>
                                             option.value === searchNationality
                                         )}
-                                      />
+                                      /> */}
                                     </div>
                                   </div>
                                 </div>

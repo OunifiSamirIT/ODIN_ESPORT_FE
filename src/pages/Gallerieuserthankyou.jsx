@@ -90,7 +90,7 @@ const Album = () => {
         <div className="flex justify-center items-center px-4 md:px-0 mt-6 w-full bg-white rounded-xl shadow-sm">
           <div className="flex flex-col w-full max-w-[1115px]">
             <div className="flex gap-5 justify-between pt-4">
-              <div className="flex-auto text-lg md:text-3xl font-bold text-zinc-900">
+              <div className="flex-auto ml-2 text-lg md:text-3xl font-bold text-zinc-900">
                 Camps qui pourraient vous intéresser
               </div>
               {/* <div className="self-start mt-3 text-sm font-medium text-blue-600 underline">
@@ -101,54 +101,57 @@ const Album = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 {album.map((value, index) => (
                   <div key={index} className="flex flex-col">
-                  <div
-                    onClick={() => handleCardClick(value.id)}
-                    className="flex flex-col grow items-start pb-4 mx-auto w-full bg-white rounded-xl"
-                  >
-                    <img
-                      loading="lazy"
-                      srcSet={value.ImagesAlbumcamps[0]?.image_url}
-                      className="self-stretch w-full aspect-square rounded-t-xl object-cover"
-                    />
-                    <div className="pl-3 pr-2">
-                    <div className="mt-4 px-2 self-start text-base font-semibold text-zinc-900">
-                      {value.album_name}
-                    </div>
-                    <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-400 w-[282px]">
-                      <div className="flex self-start gap-2">
-                        <div className="flex self-start">
-                          {value.date_debut}
+                    <div
+                      onClick={() => handleCardClick(value.id)}
+                      className="flex flex-col grow items-start pb-4 mx-auto w-full bg-white rounded-xl"
+                    >
+                      <img
+                        loading="lazy"
+                        srcSet={value.ImagesAlbumcamps[0]?.image_url}
+                        className="self-stretch w-full aspect-square rounded-t-xl object-cover"
+                      />
+                      <div className="pl-3 pr-2">
+                        <div className="mt-4 px-2 self-start text-break font-semibold text-zinc-900">
+                          {value.album_name}
                         </div>
-                        <div>-</div>
-                        <div className="grow">{value.date_fin}</div>
-                      </div>
-                      <div className=" text-xs font-light w-35 ml-5 whitespace-pre-line">
-                        {value.payscamps}
-                      </div>
-                    </div>
-                    <div className="mt-2 text-xs mx-2 font-light text-black">
-                      {value.description}
-                    </div>
-                    <div className="flex gap-5 px-2 justify-between items-center mt-3  max-w-full w-[282px]">
-                      <div className="flex flex-col whitespace-nowrap ">
-                        <div className="text-xs font-light text-zinc-400">
-                          Prix
+                        <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-400 w-[282px]">
+                          <div className="flex self-start gap-2">
+                            <div className="flex self-start">
+                              {value.date_debut}
+                            </div>
+                            <div>-</div>
+                            <div className="grow">{value.date_fin}</div>
+                          </div>
+                          <div className=" text-xs text-break font-light w-35 ml-5 whitespace-pre-line">
+                            {value.payscamps}
+                          </div>
                         </div>
-                        <div className="mt-1 text-base text-zinc-900 font-semibold">
-                          {value.prix} €
+                        <div className="mt-2 text-xs mx-2 font-light text-black">
+                          {value.description.length > 100 ?
+                            value.description.slice(0, 100) + '...' :
+                            value.description
+                          }
+                        </div>
+                        <div className="flex gap-5 px-2 justify-between items-center mt-3  max-w-full w-[282px]">
+                          <div className="flex flex-col whitespace-nowrap ">
+                            <div className="text-xs font-light text-zinc-400">
+                              Prix
+                            </div>
+                            <div className="mt-1 text-base text-zinc-900 font-semibold">
+                              {value.prix} €
+                            </div>
+                          </div>
+                          <div className="flex justify-center items-center w-11 h-7 bg-blue-600 rounded-md aspect-[1.13]">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/688459f573915c74266dcb5eb0235120d7e93fd088c5102dd26fe0420b9723d9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="w-5 h-4 fill-white"
+                            />
+                          </div>
                         </div>
                       </div>
-                      <div className="flex justify-center items-center w-11 h-7 bg-blue-600 rounded-md aspect-[1.13]">
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/688459f573915c74266dcb5eb0235120d7e93fd088c5102dd26fe0420b9723d9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                          className="w-5 h-4 fill-white"
-                        />
-                      </div>
-                    </div>
                     </div>
                   </div>
-                </div>
                 ))}
               </div>
             </div>
