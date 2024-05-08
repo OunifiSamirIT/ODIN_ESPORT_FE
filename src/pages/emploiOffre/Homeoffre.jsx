@@ -563,6 +563,7 @@ function HomeOffre() {
                                 value={selectedExperience}
                                 onChange={handleExperienceChange}
                               >
+                                <option >Expérience</option>
                                 <option value="Acunne Experience">Acunne Experience</option>
                                 <option value="Moins d'un an">Moins d'un an</option>
                                 <option value="Entre 1 et 2 ans">Entre 1 et 2 ans</option>
@@ -598,6 +599,7 @@ function HomeOffre() {
                                   handleContratChange
                                 }
                               >
+                                <option >Type de contrat </option>
                                 <option value="CDI">CDI</option>
                                 <option value="CDD">CDD</option>
 
