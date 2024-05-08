@@ -16,7 +16,7 @@ const CreatePostModal = ({isSlider}) =>  {
     if (ref.current && !ref.current.contains(event.target)) {
       console.log(!ref.current.contains(event.target))
       setIsModaldOpen(false)
-
+      
 
     }
   };
@@ -37,8 +37,9 @@ const CreatePostModal = ({isSlider}) =>  {
   }, []);
   const handleCloseModal = () => {
     setIsModaldOpen(false);
-
-
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); // 3 seconds delay
   };
   const handleOpenModal = () => {
     setIsModaldOpen(true);
