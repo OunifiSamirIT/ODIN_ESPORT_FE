@@ -8,7 +8,7 @@ import Loading from './Loading';
 import placeholder from "../assets/placeholder.jpg"
 import { useRef } from 'react';
 
-function CreatePost({ setArticles }) {
+function CreatePost({ setArticles , onClose}) {
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const {
     register,
@@ -28,62 +28,64 @@ function CreatePost({ setArticles }) {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const fetchArticles = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
-      const result = await response.json();
+  const [uploadProgress, setUploadProgress] = useState(1);
 
-      const articlesWithPromises = result.rows.map(async (article) => {
-        const userId = article.userId;
-        const comt = article.id;
+  // const fetchArticles = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
+  //     const result = await response.json();
 
-        const [userDataResponse, commentsResponse, likesCountResponse] =
-          await Promise.all([
-            fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
-              res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
-              (res) => res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
-              (res) => res.json()
-            ),
-          ]);
+  //     const articlesWithPromises = result.rows.map(async (article) => {
+  //       const userId = article.userId;
+  //       const comt = article.id;
 
-        const likesCount = likesCountResponse.find(
-          (count) =>
-            count.articleId === article.articleId ||
-            count.articleId === article.id
-        );
+  //       const [userDataResponse, commentsResponse, likesCountResponse] =
+  //         await Promise.all([
+  //           fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
+  //             res.json()
+  //           ),
+  //           fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
+  //             (res) => res.json()
+  //           ),
+  //           fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
+  //             (res) => res.json()
+  //           ),
+  //         ]);
 
-        return {
-          ...article,
-          user: userDataResponse,
-          comments: commentsResponse.commentsData,
-          commentsCount: commentsResponse.commentCount,
-          likesCount: likesCount ? likesCount.likesCount : 0,
-        };
-      });
+  //       const likesCount = likesCountResponse.find(
+  //         (count) =>
+  //           count.articleId === article.articleId ||
+  //           count.articleId === article.id
+  //       );
 
-      let newArticles = await Promise.all(articlesWithPromises);
-      newArticles = newArticles.reverse(); // Reverse the order of all articles
-      const initialArticles = newArticles.slice(0, 50); // Get the first 10 articles
-      setArticles(initialArticles);
-      setTotalItems(result.totalItems);
-      setTotalPages(result.totalPages);
+  //       return {
+  //         ...article,
+  //         user: userDataResponse,
+  //         comments: commentsResponse.commentsData,
+  //         commentsCount: commentsResponse.commentCount,
+  //         likesCount: likesCount ? likesCount.likesCount : 0,
+  //       };
+  //     });
 
-      // Load the remaining articles after initial set is loaded
-      const remainingArticles = newArticles.slice(50);
-      if (remainingArticles.length > 0) {
-        await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     let newArticles = await Promise.all(articlesWithPromises);
+  //     newArticles = newArticles.reverse(); // Reverse the order of all articles
+  //     const initialArticles = newArticles.slice(0, 50); // Get the first 10 articles
+  //     setArticles(initialArticles);
+  //     setTotalItems(result.totalItems);
+  //     setTotalPages(result.totalPages);
+
+  //     // Load the remaining articles after initial set is loaded
+  //     const remainingArticles = newArticles.slice(50);
+  //     if (remainingArticles.length > 0) {
+  //       await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const loadRemainingArticles = (remainingArticles) => {
     setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
   };
@@ -105,48 +107,11 @@ function CreatePost({ setArticles }) {
       setVideoPreviewUrl(null);
     }
   };
-  // const handlePostSubmit = async (data) => {
-  //   try {
-  //     if (!storedUserData.id) {
-  //       // Handle validation errors or missing user data
-  //       return;
-  //     }
-  //     if (!data.description && !file) {
-  //       // Handle validation errors or missing user data
-  //       return;
-  //     }
-  //     setPosting(true);
-  //     const formData = new FormData();
-  //     formData.append("titre", "Your default title");
-  //     formData.append("description", data.description || ''); // Append empty string if description is null
-  //     formData.append("userId", storedUserData.id);
-  //     formData.append("type", "Your default type");
-  //     formData.append("file", file);
-  //     formData.append("fileType", fileType);
 
-  //     // Make a POST request to create a new article
-  //     await fetch(`${Config.LOCAL_URL}/api/articles/`, {
-  //       method: "POST",
-  //       body: formData,
-  //     });
+  const _ref_previewImage = useRef(null);
+  const _ref_previewVideo = useRef(null);
 
-  //     // After creating the article, fetch the updated list of articles
-  //     const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
-  //     const updatedPostsData = await response.json();
-  //     hendelrest()
-  //     // Update the list of posts and reset the preview image
-  //     setPostsData(updatedPostsData);
-  //     setPreviewImage(null);
-  //     setValue("description", "");
-  //     setPosting(false);
-  //     fetchArticles();
-  //     window.location.reload()
 
-  //   } catch (error) {
-  //     console.error("Error submitting post:", error);
-  //     setPosting(false);
-  //   }
-  // };
   const handlePostSubmit = async (data) => {
     try {
       if (!storedUserData.id) {
@@ -156,7 +121,7 @@ function CreatePost({ setArticles }) {
   
       // Check if neither description nor file is provided
       if (!data.description && !file && !videoPreviewUrl && !previewImage) {
-        setErrMsg("Ajouter quelques chose pour publier "); // Set error message
+        setErrMsg("Ajouter quelque chose pour publier "); // Set error message
         return; // Exit the function without submitting
       }
   
@@ -173,30 +138,44 @@ function CreatePost({ setArticles }) {
         formData.append("fileType", fileType);
       }
   
-      // Make a POST request to create a new article
-      await fetch(`${Config.LOCAL_URL}/api/articles/`, {
-        method: "POST",
-        body: formData,
-      });
+      // Create a new XMLHttpRequest
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `${Config.LOCAL_URL}/api/articles/`);
+  
+      // Attach event listener to monitor upload progress
+      xhr.upload.onprogress = (event) => {
+        console.log("Progress event triggered:", event.loaded, event.total);
+        const percentage = (event.loaded / event.total) * 100;
+        console.log("Progress percentage:", percentage);
+        setUploadProgress(percentage);
+      };
+  
+      // Send the FormData with XMLHttpRequest
+      xhr.send(formData);
   
       // After creating the article, fetch the updated list of articles
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const updatedPostsData = await response.json();
-      hendelrest()
-      // Update the list of posts and reset the preview image
-      setPostsData(updatedPostsData);
+  
+      // Reset the preview image
       setPreviewImage(null);
       setValue("description", "");
+  
       setPosting(false);
       setErrMsg(""); // Clear error message
-      fetchArticles();
-      window.location.reload()
-  
+
+      setTimeout(() => {
+        onClose();
+      }, 2800);
+      // window.location.reload()
+
     } catch (error) {
       console.error("Error submitting post:", error);
       setPosting(false);
     }
   };
+  
+  
   
   const hendelrest = () => {
     setData("")
@@ -215,18 +194,11 @@ function CreatePost({ setArticles }) {
         .catch((error) => console.error("Error fetching user data:", error));
     }
 
-    fetchArticles();
+    // fetchArticles();
   }, []);
   const [textareaHeight, setTextareaHeight] = useState('70px');
   const textAreaRef = useRef(null);
 
-  // const handleChange = (e) => {
-  //   if (e && textAreaRef.current) {
-  //     const newHeight = `${textAreaRef.current.scrollHeight}px`;
-  //     setTextareaHeight(newHeight);
-  //     setValue("description", e.target.value); // Update the form value
-  //   }
-  // };
   const handleChange = (e) => {
     if (e && textAreaRef.current) {
       const newHeight = e.target.value ? `${textAreaRef.current.scrollHeight}px` : `${textAreaRef.current.scrollHeight}px`;
@@ -238,7 +210,7 @@ function CreatePost({ setArticles }) {
   useEffect(() => {
     handleChange(); // Initial calculation of height
   }, []); // Run only once after component mounted
-
+ 
   return (
     <div className="flex flex-col ml-5 w-[90%] h-[425px]  md:mt-0  max-md:ml-0 max-md:w-full">
       <div className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-3">
@@ -292,18 +264,55 @@ function CreatePost({ setArticles }) {
                       {errMsg?.message}
                     </span>
                   )}
- {previewImage && (
-            <div 
-            className=" mb-3  "
-            >
-              <img
-                src={previewImage}
-                alt="Preview"
-                className="rounded-xxl self-center md:max-h-[600px]   max-h-[350px]   w-100 object-contain"
-                // style={{ maxWidth: "100%", maxHeight: "200px" }}
-              />
-            </div>
-          )}
+ 
+          {previewImage && (
+  <div className="relative mb-3">
+    <button
+       onClick={() => {
+        setPreviewImage(null);
+        setFile(null);
+        setFileType(null);
+        
+      }}
+      className="absolute top-0 right-0 z-10 bg-white rounded-full p-[3px] text-white"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6 bg-orange-500 rounded-full"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+    <img
+      src={previewImage}
+            alt="Preview"
+      className="rounded-xxl self-center md:max-h-[600px] max-h-[350px] w-100 object-contain"
+    />
+  </div>
+)}
+ {videoPreviewUrl && (
+      <div className="w-full bg-gray-200">
+        <div
+          className="bg-green-500 text-xs leading-none py-1 text-center text-white"
+          style={{ width: `${uploadProgress}%` }}
+          role="progressbar"
+          aria-valuenow={uploadProgress}
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          {uploadProgress}%
+        </div>
+      </div>
+    )}
+
           {videoPreviewUrl && (
             <div className="mt-3">
               <video

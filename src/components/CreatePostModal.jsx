@@ -16,7 +16,7 @@ function CreatePostModal() {
     if (ref.current && !ref.current.contains(event.target)) {
       console.log(!ref.current.contains(event.target))
       setIsModaldOpen(false)
-
+      
 
     }
   };
@@ -37,8 +37,9 @@ function CreatePostModal() {
   }, []);
   const handleCloseModal = () => {
     setIsModaldOpen(false);
-
-
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); // 3 seconds delay
   };
   const handleOpenModal = () => {
     setIsModaldOpen(true);
