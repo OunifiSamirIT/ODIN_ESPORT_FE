@@ -445,7 +445,7 @@ function Entreprise() {
                               src={require("../../assets/Entreprise.png")}
                               alt="Default"
                               loading="lazy"
-                              className="shrink-0 max-w-full h-[110%] mx-auto rounded-full object-contain border-4 border-solid aspect-square w-[180px] h-[180px] max-md:mt-10"
+                              className="shrink-0 max-w-full  mx-auto rounded-full object-contain border-4 border-solid aspect-square  max-md:mt-10"
                             />
                           )}
                         </div>
@@ -616,7 +616,7 @@ function Entreprise() {
                                 id="date_experie"
                                 selected={formData.date_experie}
                                 onChange={handleDateChange}
-                                dateFormat="yyyy-MM-dd" // Set desired date format
+                                dateFormat="dd-MM-yyyy" // Set desired date format
                               />
 
                               <img
@@ -767,7 +767,7 @@ function Entreprise() {
                   </div>
 
                   {/* description */}
-                  <div className="flex gap-3 px-4 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
+                  <div className="flex gap-3 px-4  text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/5f779d8ee0c1bf0e05d7432fa41d675db71640bd2b9c057e88cf4e12605728a6?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -776,7 +776,7 @@ function Entreprise() {
                     <div className="flex-1 max-md:max-w-full">Description</div>
                   </div>
 
-                  <input
+                  <textarea
                     type="text"
                     id="description"
                     placeholder="Description de taches"
@@ -784,7 +784,7 @@ function Entreprise() {
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    className="justify-center py-3 pr-2 pl-4 -mt-3 text-base font-light border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full"
+                    className="justify-center py-3 h-full min-h-32  pr-2 pl-4 -mt-3 text-break   font-light border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full"
                   />
 
                   {/* buttons */}
