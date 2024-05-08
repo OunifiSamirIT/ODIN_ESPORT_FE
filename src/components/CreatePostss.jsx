@@ -28,7 +28,7 @@ function CreatePost({ setArticles , onClose}) {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [uploadProgress, setUploadProgress] = useState(1);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   // const fetchArticles = async () => {
   //   try {
@@ -147,7 +147,7 @@ function CreatePost({ setArticles , onClose}) {
         console.log("Progress event triggered:", event.loaded, event.total);
         const percentage = (event.loaded / event.total) * 100;
         console.log("Progress percentage:", percentage);
-        setUploadProgress(percentage);
+        setUploadProgress(Math.trunc(percentage));
       };
   
       // Send the FormData with XMLHttpRequest
@@ -299,9 +299,9 @@ function CreatePost({ setArticles , onClose}) {
   </div>
 )}
  {videoPreviewUrl && (
-      <div className="w-full bg-gray-200">
+      <div className="w-full rounded-xl px-1 bg-gray-200">
         <div
-          className="bg-green-500 text-xs leading-none py-1 text-center text-white"
+          className="bg-blue-600 text-xs rounded-xl leading-none py-1 text-center  text-white"
           style={{ width: `${uploadProgress}%` }}
           role="progressbar"
           aria-valuenow={uploadProgress}
