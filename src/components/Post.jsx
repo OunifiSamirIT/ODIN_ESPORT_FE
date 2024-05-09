@@ -1704,10 +1704,13 @@ function Post({ article, setArticles }) {
                                         comment.user.user.profil} */}
                                     </div>
                                     <div className="mt-1 text-xs">
-
-                                      {formatDate(
-                                        comment.createdAt
-                                      )}
+                                    {moment(comment?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                    {
+                      moment(comment?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                        moment(comment?.createdAt).fromNow(true) :
+                        moment(comment?.createdAt).fromNow()
+                    }
+                                    
                                     </div>
                                   </div>
 
@@ -1795,12 +1798,12 @@ function Post({ article, setArticles }) {
                                   {comment.id === editingCommentId ? (
                                     <textarea
                                       className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
-                                      style={{ resize: 'none', maxHeight: '300px', height: '150px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                      style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
                                       value={editedComment}
                                       onChange={(e) => setEditedComment(e.target.value)}
                                     ></textarea>
                                   ) : (
-                                    <div className="text-wrap" style={{ resize: 'none', height: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                    <div className="text-wrap" style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
                                     >
 
                                       {comment.description} 
@@ -1953,9 +1956,14 @@ function Post({ article, setArticles }) {
                                                 )}
                                               </div>
                                               <div className="mt-1 text-xs">
-                                                {formatDate(
-                                                  reply.createdAt
-                                                )}
+                                              {moment(reply?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                    {
+                      moment(reply?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                        moment(reply?.createdAt).fromNow(true) :
+                        moment(reply?.createdAt).fromNow()
+                    }
+                                               
+                                               
 
                                               </div>
 

@@ -18,13 +18,15 @@ const Album = () => {
 
 
   const [modalHeight, setModalHeight] = useState('70%');
-  const [modalWidth, setModalWidth] = useState('70%');
+  const [modalWidth, setModalWidth] = useState('50%');
+  const [modallef, setModaleft] = useState('40%');
 
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth <= 767;
-      setModalHeight(isMobile ? '50%' : '70%');
-      setModalWidth(isMobile ? '90%' : '70%');
+      setModalHeight(isMobile ? '30%' : '70%');
+      setModalWidth(isMobile ? '90%' : '50%');
+      setModaleft(isMobile ? '50%' : '40%');
     };
 
     window.addEventListener('resize', handleResize);
@@ -536,7 +538,7 @@ const Album = () => {
                             <div className="flex items-center justify-center mt-2">{albumDetails.prix} €</div>
                           </div>
                         </div>
-                        {!isUserPreinscribed && (<div className="flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
+                        {!isUserPreinscribed &&  userProfileType === "player" && (<div className="flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
                           <div className="flex gap-2">
                             <img
                               loading="lazy"
@@ -551,7 +553,7 @@ const Album = () => {
 
                           </div>
                         </div>)}
-                        {isUserPreinscribed && (
+                        {isUserPreinscribed &&  (
                           <div className="flex justify-center items-center p-4 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
                             Vous étes deja pré-inscrit !
                           </div>
@@ -578,7 +580,7 @@ const Album = () => {
 
 
 
-                <div className="px-4 mt-6 max-md:max-w-full">
+                <div className="px-2 mt-6 max-md:max-w-full">
                   <div className="flex flex-wrap gap-1">
                     {albumDetails.ImagesAlbumcamps.slice(1).map((image, index) => (
                       <div key={index} className="ml-3 w-[45%] md:w-[30%] lg:w-[30%] mb-3">
@@ -662,18 +664,19 @@ const Album = () => {
             overflow: 'hidden', // Hide scroll
             position: 'absolute',
             top: '50%', // Center vertically
-            left: '50%', // Center horizontally
+            left: modallef, // Center horizontally
             width: modalWidth,
             height: modalHeight,
             margin: '0', // Remove default margin
             padding: '0', // Remove default padding
+            
           },
           overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.75)', // Add overlay color
           },
         }}
       >
-        <button onClick={closeModal}>Close Modal</button>
+        <button onClick={closeModal} >Close Modal</button>
         {albumDetails.ImagesAlbumcamps[selectedImageIndex] && (
           <img
             loading="lazy"
@@ -686,11 +689,11 @@ const Album = () => {
             }}
           />
         )}
-        <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: '1%', cursor: 'pointer' }} onClick={() => setSelectedImageIndex((prevIndex) => Math.max(prevIndex - 1, 0))}>
-          <p className="bg-amber-500 text-white p-2 rounded-full text-2xl"> {`<`}</p>
+        <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-10%)', left: '1%', cursor: 'pointer' }} onClick={() => setSelectedImageIndex((prevIndex) => Math.max(prevIndex - 1, 0))}>
+          <p className="bg-blue-600 text-white p-2 rounded-full text-2xl"> {`<`}</p>
         </div>
-        <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', right: '1%', cursor: 'pointer' }} onClick={() => setSelectedImageIndex((prevIndex) => Math.min(prevIndex + 1, albumDetails.ImagesAlbumcamps.length - 1))}>
-          <p className="bg-amber-500 text-white p-2 rounded-full text-2xl "> {`>`}</p>
+        <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-10%)', right: '1%', cursor: 'pointer' }} onClick={() => setSelectedImageIndex((prevIndex) => Math.min(prevIndex + 1, albumDetails.ImagesAlbumcamps.length - 1))}>
+          <p className="bg-blue-600 text-white p-2 rounded-full text-2xl "> {`>`}</p>
         </div>
       </Modal>
 
