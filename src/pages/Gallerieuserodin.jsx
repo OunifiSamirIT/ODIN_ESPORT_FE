@@ -68,6 +68,7 @@ const Album = () => {
   }, []);
 
   const dureeOptions = [
+    { value: "", label: "Duree" },
     { value: "3jours", label: "3 jours" },
     { value: "1 semaine", label: "1 Semaine" },
     { value: "2 semaine", label: "2 semaine" },
@@ -105,10 +106,9 @@ const Album = () => {
   const handleDateDBChange = (date) => {
     // Format the date as "yyyy-MM-dd"
     const formattedDate = date.toISOString().split("T")[0];
-
-    // Update the state with the formatted date
     setSearchDateDb(formattedDate);
   };
+  
 
   const handleDateDFChange = (date) => {
     const formattedDate = date.toISOString().split("T")[0];
@@ -121,13 +121,14 @@ const Album = () => {
     const dateParts = dateString.split("-");
     if (dateParts.length === 3) {
       const year = dateParts[0];
-      const month = dateParts[1].padStart(2, "0"); // Ensure two-digit month
-      const day = dateParts[2].padStart(2, "0"); // Ensure two-digit day
-      return `${day}-${month}-${year}`;
+      const month = dateParts[1].padStart(2, "0");
+      const day = dateParts[2].padStart(2, "0");
+      return `${year}-${month}-${day}`;
     } else {
-      return null; // Invalid date string
+      return null;
     }
   };
+  
 
   const handleSearch = () => {
     const filteredData = album.filter((camps) => {

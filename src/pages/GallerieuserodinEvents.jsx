@@ -93,11 +93,11 @@ const Album = () => {
   }, []);
 
   const dureeOptions = [
-    { value: '3jours', label: '3 jours' },
-    { value: 'semaine', label: 'Semaine' },
+    { value: '3 jours', label: '3 jours' },
+    { value: '1 semaine', label: '1 Semaine' },
     { value: '2 semaine', label: '2 semaine' },
-    { value: '3semaines', label: '3 semaines' },
-    { value: '1mois', label: '1 mois' },
+    { value: '3 semaines', label: '3 semaines' },
+    { value: '1 mois', label: '1 mois' },
 
   ];
 
@@ -147,11 +147,11 @@ const Album = () => {
     const dateParts = dateString.split("-");
     if (dateParts.length === 3) {
       const year = dateParts[0];
-      const month = dateParts[1].padStart(2, "0"); // Ensure two-digit month
-      const day = dateParts[2].padStart(2, "0"); // Ensure two-digit day
-      return `${day}-${month}-${year}`;
+      const month = dateParts[1].padStart(2, "0");
+      const day = dateParts[2].padStart(2, "0");
+      return `${year}-${month}-${day}`;
     } else {
-      return null; // Invalid date string
+      return null;
     }
   };
 
