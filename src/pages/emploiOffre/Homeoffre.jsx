@@ -10,11 +10,12 @@ import {
 import { paysAllInfo } from "../../assets/data/Country";
 import "../flags.css";
 import Select from "react-select";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useEffect } from "react";
 import Plus from "../../assets/plus.png"
 
 import { Config } from "../../config";
+import Index from './../Setting/index';
 
 function HomeOffre() {
   const [album, setAlbum] = useState([]);
@@ -34,7 +35,28 @@ function HomeOffre() {
   const [offres, setOffres] = useState([]);
   const [filteredoffres, setFilteredoffres] = useState([]);
 
+  const [offerToDelete, setOfferToDelete] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [offredata, setOffreData] = useState([]);
+  const [showMenu, setShowMenu] = useState(null);
+  const [openMenuId, setOpenMenuId] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(null);
+  const ref = useRef()
+
+
+
   const navigate = useNavigate();
+
+
+
+
+
+
+
+
+
+
+
   const options = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
 
@@ -70,7 +92,47 @@ function HomeOffre() {
     fetchOffres();
   }, []);
 
+  const handleConfirmDelete = (e, id) => {
+    e.preventDefault()
+    fetch(`http://localhost:5000/api/deleteoffre/${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to delete offer');
+        }
+        // Mettre à jour l'état des offres après la suppression réussie si nécessaire
+        // ...
+        setOfferToDelete(null);
+        setShowDeleteModal(false);
+        fetchOffres();
+      })
+      .catch((error) => {
+        console.error('Error deleting offer:', error);
+        // Gérer les erreurs ici
+      });
+  };
+  const handleDeleteClick = (id) => {
+    console.log('Delete button clicked');
+    setOfferToDelete(id);
+    setShowDeleteModal(true);
+    console.log('showDeleteModal:', showDeleteModal); // Assurez-vous que showDeleteModal est bien mis à true
+  };
+  const handleCancelDelete = () => {
+    setOfferToDelete(null);
+    setShowDeleteModal(false);
+  }
 
+  const handleMoreClick = (value) => {
+    console.log("More clicked", value);
+    // setSelectedArticle(article);
+
+    // Toggle the dropdown visibility
+
+    setShowMenu((prevState) =>
+      prevState === value ? null : value
+    );
+  };
   // Function to handle filtering logic
 
   // Function to handle reset button click
@@ -651,30 +713,151 @@ function HomeOffre() {
 
               {/* bbbbb cart */}
 
+
               {filteredoffres.map((value, index) => (
+
+
                 <div
                   key={index}
-                  onClick={() => handleCardClick(value.id)}
+
                   className=" dark-light-bg flex gap-5  p-6 mt-8 text-base font-light  rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 flex-col max-md:px-5"
                 >
-                  <div className=" dark-light-bg   flex flex-row items-center gap-5 md:gap-3 ">
-                    <img
-                      loading="lazy"
-                      src={
-                        value.imagesalbumoffres.length > 0
-                          ? value.imagesalbumoffres[0].image_url
-                          : require("../../assets/offre_icon.png")
-                      } // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
+                  {/* <button onClick={() => handleDeleteClick(value.id)}>Supprimer Une Offre</button>
+                  {
+                    showDeleteModal &&
+                    <div className="bg-black/5  fixed inset-0  z-50  h-full w-full   overflow-auto flex justify-center items-center px-8 ">
+                      <div ref={ref} className="flex flex-col  overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
 
-                      className="   shrink-0 self-start aspect-fit w-[72px]"
-                    />
-                    <div className=" dark-light-bg   flex-col -ml-10">
-                      <div className=" dark-light-bg   self-start">{value.EntrepriseName}</div>
-                      <div className=" dark-light-bg  self-start mt-1 font-semibold ">
-                        {value.postoffre}
+                        <form onSubmit={(e) => handleConfirmDelete(e, value.id)} className=" overflow-auto">
+                          <div className="flex items-center gap-4 text-3xl font-bold text-zinc-900 max-md:max-w-full">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#EB3E3E" stroke-width="1.5" />
+                              <path d="M12 7V13" stroke="#EB3E3E" stroke-width="1.5" stroke-linecap="round" />
+                              <path d="M12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="#EB3E3E" />
+                            </svg>
+                            Vous voulez vraiment supprimer cette Offre d'emploi
+                          </div>
+                          <div className="mt-4 flex gap-2 md:gap-5 justify-between mt-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                            <button onClick={() => setShowDeleteModal(false)} className="flex flex-1 gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/36783b2bbc0c4d8acd402a87827fbf522d3e413b9d2fd96d908a05709d3b2242?"
+                                className="shrink-0 w-5 aspect-square"
+                              />
+                              <div className="">Annuler
+
+
+                              </div>
+                            </button>
+                            <button type='submit' className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/534a656afb5625680d54ff4ea52bbe985ada0762ba3c4cc382181406f743d9e8?"
+                                className="shrink-0 w-5 aspect-square"
+                              />
+                              <div className="">Confirmer</div>
+                            </button>
+                          </div>
+                        </form>
+
                       </div>
                     </div>
+                  } */}
+
+
+
+                  <div className=" dark-light-bg flex w-full justify-between  gap-5 md:gap-3 ">
+                    <div className="flex flex-row gap-x-14 items-center ">
+                      <img
+                        loading="lazy"
+                        src={
+                          value.imagesalbumoffres.length > 0
+                            ? value.imagesalbumoffres[0].image_url
+                            : require("../../assets/offre_icon.png")
+                        } // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
+                        onClick={() => handleCardClick(value.id)}
+                        className="  cursor-pointer  shrink-0 self-start aspect-fit w-[72px]"
+                      />
+                      <div className=" dark-light-bg   flex-col -ml-10" onClick={() => handleCardClick(value.id)}>
+                        <div className=" cursor-pointer dark-light-bg   self-start" onClick={() => handleCardClick(value.id)}> {value.EntrepriseName}</div>
+                        <div className=" cursor-pointer dark-light-bg  self-start mt-1 font-semibold ">
+                          {value.postoffre}
+                        </div>
+
+                      </div>
+                    </div>
+                    <div>
+                      {showDeleteModal && (
+                        <div className="bg-black/5 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+                          <div className="flex flex-col overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
+                            <form onSubmit={(e) => handleConfirmDelete(e, offerToDelete)} className="overflow-auto">
+                              <div className="flex items-center gap-4 text-3xl font-bold text-zinc-900 max-md:max-w-full">
+                                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#EB3E3E" strokeWidth="1.5" />
+                                  <path d="M12 7V13" stroke="#EB3E3E" strokeWidth="1.5" strokeLinecap="round" />
+                                  <path d="M12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="#EB3E3E" />
+                                </svg>
+                                Vous voulez vraiment supprimer cette Offre d'emploi
+                              </div>
+                              <div className="mt-4 flex gap-2 md:gap-5 justify-between mt-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                                <button onClick={handleCancelDelete} className="flex flex-1 gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
+                                  Annuler
+                                </button>
+                                <button type='submit' className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
+                                  Confirmer
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      )}
+
+
+                      {/* <button onClick={() => handleDeleteClick(value.id)}>Supprimer Une Offre</button> */}
+
+
+
+                      <div className="relative " key={value.id}>
+                        {storedUserData.id === value.userId && (
+                          <>
+                            <button className="absolute right-0 px-4 py-1 text-black bg-white rounded-full" onClick={() => handleMoreClick(value.id)}>
+                              <svg
+                                width="31"
+                                height="21"
+                                viewBox="0 0 31 21"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                                  fill="#1D1E21"
+                                />
+                                <path
+                                  d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                                  fill="#1D1E21"
+                                />
+                                <path
+                                  d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                                  fill="#1D1E21"
+                                />
+                              </svg>
+                            </button>
+                            {showMenu === value.id && (
+                              <div className="absolute top-4 right-14  py-2 bg-white rounded-md shadow-xl">
+                                {/* <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Update</button> */}
+                                <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={() => handleDeleteClick(value.id)}>Delete</button>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </div>
+
+
+                    </div>
                   </div>
+
+
+
                   {/* lehna */}
                   <div className=" dark-light-bg   flex flex-col  flex-1 max-md:max-w-full">
                     <div></div>
@@ -730,189 +913,6 @@ function HomeOffre() {
                   </div>
                 </div>
               ))}
-
-              {/* <div className=" dark-bg  flex gap-5 p-6 mt-6 text-base font-light bg-white rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 max-md:flex-wrap max-md:px-5">
-      <img
-        loading="lazy"
-        srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-        className=" dark-bg  shrink-0 self-start aspect-square w-[72px]"
-      />
-      <div className=" dark-bg  flex flex-col flex-1 max-md:max-w-full">
-        <div className=" dark-bg  self-start">Espérance Sportive de Tunis</div>
-        <div className=" dark-bg  self-start mt-1 font-semibold">Entraineur</div>
-        <div className=" dark-bg  flex gap-5 justify-between py-0.5 pr-20 mt-1.5 w-full text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5 text-neutral-900 text-opacity-70">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a56e4a73d8bb393d5a1698aeade75643c094a2060b7a72076dd3f55dff87074a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto aspect-[1.06] fill-neutral-900 fill-opacity-70 w-[17px]"
-            />
-            <div>Bac +3</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/93ebf7629de25de9e4735b72c99d1f2eb2a278e3e5bd77b8c4c3f379bba5b0bd?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
-            />
-            <div>1 à 2 ans</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5 whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7467a2ec806a50bb07e79a6d5e4c6837d5fa5b898f9f135e1842965f2f905480?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-3 aspect-[0.75] fill-neutral-900 fill-opacity-70"
-            />
-            <div>CDI</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/169497047ffb97f2a6bf4f95c6534c9431043e2e6ac9cc05d63cae95c8f9d866?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-3.5 aspect-[0.88] fill-neutral-900 fill-opacity-70"
-            />
-            <div>Tunis, Tunisie</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/10a38c1e9a44cb74467a36e05c308edb03242e37340e793426056a9b44611826?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
-            />
-            <div>Expire le 27/07/2024</div>
-          </div>
-        </div>
-        <div className=" dark-bg  mt-3 text-neutral-900 text-opacity-70 max-md:max-w-full">
-          Nous recherchons un Analyste de Performance motivé et méticuleux pour
-          rejoindre notre équipe de football. En tant qu'Analyste de
-          Performance, vous jouerez un rôle crucial dans l'amélioration des
-          performances de notre équipe...
-        </div>
-      </div>
-    </div>
-
-
-    <div className=" dark-bg  flex gap-5 p-6 mt-8 text-base font-light bg-white rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 max-md:flex-wrap max-md:px-5">
-      <img
-        loading="lazy"
-        srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/e87cf75e02bd9f6f44918c9c195053e1374e160aea8dd313e7faac9f49257708?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e87cf75e02bd9f6f44918c9c195053e1374e160aea8dd313e7faac9f49257708?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e87cf75e02bd9f6f44918c9c195053e1374e160aea8dd313e7faac9f49257708?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e87cf75e02bd9f6f44918c9c195053e1374e160aea8dd313e7faac9f49257708?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e87cf75e02bd9f6f44918c9c195053e1374e160aea8dd313e7faac9f49257708?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e87cf75e02bd9f6f44918c9c195053e1374e160aea8dd313e7faac9f49257708?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e87cf75e02bd9f6f44918c9c195053e1374e160aea8dd313e7faac9f49257708?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e87cf75e02bd9f6f44918c9c195053e1374e160aea8dd313e7faac9f49257708?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-        className=" dark-bg  shrink-0 self-start aspect-square w-[72px]"
-      />
-      <div className=" dark-bg  flex flex-col flex-1 max-md:max-w-full">
-        <div className=" dark-bg  self-start">Linear company</div>
-        <div className=" dark-bg  self-start mt-1 font-semibold">
-          Analyste de performance
-        </div>
-        <div className=" dark-bg  flex gap-4 justify-between py-0.5 pr-20 mt-1.5 text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5 text-neutral-900 text-opacity-70">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a56e4a73d8bb393d5a1698aeade75643c094a2060b7a72076dd3f55dff87074a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto aspect-[1.06] fill-neutral-900 fill-opacity-70 w-[17px]"
-            />
-            <div>Bac +3</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/93ebf7629de25de9e4735b72c99d1f2eb2a278e3e5bd77b8c4c3f379bba5b0bd?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
-            />
-            <div>1 à 2 ans</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5 whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7467a2ec806a50bb07e79a6d5e4c6837d5fa5b898f9f135e1842965f2f905480?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-3 aspect-[0.75] fill-neutral-900 fill-opacity-70"
-            />
-            <div>CDI</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/169497047ffb97f2a6bf4f95c6534c9431043e2e6ac9cc05d63cae95c8f9d866?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-3.5 aspect-[0.88] fill-neutral-900 fill-opacity-70"
-            />
-            <div>Abidjan, Cote d’ivoir</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/10a38c1e9a44cb74467a36e05c308edb03242e37340e793426056a9b44611826?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
-            />
-            <div>Expire le 27/07/2024</div>
-          </div>
-        </div>
-        <div className=" dark-bg  mt-3 text-neutral-900 text-opacity-70 max-md:max-w-full">
-          Nous recherchons un Analyste de Performance motivé et méticuleux pour
-          rejoindre notre équipe de football. En tant qu'Analyste de
-          Performance, vous jouerez un rôle crucial dans l'amélioration des
-          performances de notre équipe...
-        </div>
-      </div>
-    </div>
-
-    <div className=" dark-bg  flex gap-5 p-6 mt-6 text-base font-light bg-white rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 max-md:flex-wrap max-md:px-5">
-      <img
-        loading="lazy"
-        srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/0eaedd6655f57964351054b97d9bee477ccf4d87547c7a966212f19f38280086?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-        className=" dark-bg  shrink-0 self-start aspect-square w-[72px]"
-      />
-      <div className=" dark-bg  flex flex-col flex-1 max-md:max-w-full">
-        <div className=" dark-bg  self-start">Espérance Sportive de Tunis</div>
-        <div className=" dark-bg  self-start mt-1 font-semibold">Entraineur</div>
-        <div className=" dark-bg  flex gap-5 justify-between py-0.5 pr-20 mt-1.5 w-full text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5 text-neutral-900 text-opacity-70">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a56e4a73d8bb393d5a1698aeade75643c094a2060b7a72076dd3f55dff87074a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto aspect-[1.06] fill-neutral-900 fill-opacity-70 w-[17px]"
-            />
-            <div>Bac +3</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/93ebf7629de25de9e4735b72c99d1f2eb2a278e3e5bd77b8c4c3f379bba5b0bd?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
-            />
-            <div>1 à 2 ans</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5 whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7467a2ec806a50bb07e79a6d5e4c6837d5fa5b898f9f135e1842965f2f905480?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-3 aspect-[0.75] fill-neutral-900 fill-opacity-70"
-            />
-            <div>CDI</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/169497047ffb97f2a6bf4f95c6534c9431043e2e6ac9cc05d63cae95c8f9d866?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-3.5 aspect-[0.88] fill-neutral-900 fill-opacity-70"
-            />
-            <div>Tunis, Tunisie</div>
-          </div>
-          <div className=" dark-bg  flex gap-1.5 justify-between px-1 py-0.5">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/10a38c1e9a44cb74467a36e05c308edb03242e37340e793426056a9b44611826?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-              className=" dark-bg  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
-            />
-            <div>Expire le 27/07/2024</div>
-          </div>
-        </div>
-        <div className=" dark-bg  mt-3 text-neutral-900 text-opacity-70 max-md:max-w-full">
-          Nous recherchons un Analyste de Performance motivé et méticuleux pour
-          rejoindre notre équipe de football. En tant qu'Analyste de
-          Performance, vous jouerez un rôle crucial dans l'amélioration des
-          performances de notre équipe...
-        </div>
-      </div>
-    </div> */}
             </div>
           </div>
         </div>
