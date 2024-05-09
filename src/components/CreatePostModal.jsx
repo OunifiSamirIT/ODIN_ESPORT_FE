@@ -143,7 +143,7 @@ function CreatePostModal() {
             </div>
           </div>
         </div>
-        <div className='flex md:w-[730px] w-[100%] md:ml-0  mb-3 -mt-2 '><FriendsSlider /></div>
+        <div className='flex md:w-[735px] w-[100%] md:ml-0  mb-3 -mt-2 '><FriendsSlider /></div>
       </div>
 
 
