@@ -296,7 +296,7 @@ const PlayerCard = ({ userInfo }) => {
                         </svg>
 
                         <div className="grow self-start mt-1">
-                            {userInfo.coach.ClubActuelCoach}
+                            {userInfo?.coach?.ClubActuelCoach}
                         </div>
                     </div>
                 </div>
@@ -465,7 +465,7 @@ const PlayerCard = ({ userInfo }) => {
 
                 {/* social icons */}
 
-                 <Social userInfo={userInfo}/>
+                <Social userInfo={userInfo} />
                 {/* social icons */}
                 <div className="flex justify-center items-center px-16 py-2 mt-4 max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5">
                     <div className="flex gap-4 items-center">
