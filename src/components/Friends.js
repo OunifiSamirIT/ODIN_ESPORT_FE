@@ -2,12 +2,13 @@ import React, { Component, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Config } from '../config';
 import Placeholder from '../assets/placeholder.jpg';
+import FriendRequest from './../pages/Profile/FriendRequest';
 
 function Friends() {
   // const [friendRequests, setFriendRequests] = useState(null);
   const [userpf, setUserpf] = useState(null);
   const storedUserData = JSON.parse(localStorage.getItem("user"));
-  const [FriendRequest, setFriendRequest] = useState([])
+  const [friendRequests, setFriendRequests] = useState([])
   
   const acceptInvitation = async (id) => {
     console.log(`${Config.LOCAL_URL}/api/user/${id}/acceptFriend/${storedUserData.id}`)
@@ -45,8 +46,9 @@ function Friends() {
     const fetchFriendRequest = async () => {
       const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/getPendingFriends`);
       const result = await response.json()
-      setFriendRequest(result.exists)
-      console.log('ffffffffffffffffffffffffffffer',result)
+
+      setFriendRequests(result)
+      console.log('DHIAAAAAAA sssNEDDERRrrrrrff ssssdddSAMIRRR',result)
     }
     
     fetchFriendRequest();
@@ -63,17 +65,26 @@ function Friends() {
 
       </div> 
 
-      {FriendRequest.map((item) => (
-        <div className="wrap" key={item.receiver.id}>
+      {friendRequests.friendRequests?.map((item) => (
+        <>
+       
+       
+        <div className="wrap" key={item?.friendRequest?.receiver?.id}>
           <div className="card-body d-flex pt-0 ps-4 pe-4 pb-0 bor-0">
-            <Link to={`/profile/${item.receiver.id}`}>
-              <figure className="avatar mb-1 me-3"><img src={item.receiver?.image ? item?.receiver.image : Placeholder} alt="avater" className="shadow-sm rounded-circle w-16 h-16" /></figure>
+            <Link to={`/profile/${item?.friendRequest?.receiver?.id}`}>
+              <figure className="avatar mb-1 me-3"><img src={item?.friendRequest?.receiver?.image ? item?.friendRequest?.receiver.image : Placeholder} alt="avater" className="shadow-sm rounded-circle w-16 h-16" /></figure>
             </Link>
             <div>
-              <Link to={`/profile/${item.receiver.id}`}>
-                <h4 className="fw-700 text-grey-900 mb-1 font-xssss mt-4">{item?.receiver?.nom} {item?.receiver?.prenom}</h4>
+              <Link to={`/profile/${item?.friendRequest?.receiver?.id}`}>
+                <h4 className="fw-700 text-grey-900 mb-1 font-xssss mt-4">{item?.friendRequest?.receiver?.nom} {item?.friendRequest?.receiver?.prenom}</h4>
               </Link>
-              <h3 className="fw-700 text-grey-500 mb-1 font-xssss mt-2">{item?.receiver?.profil} </h3>
+              <h3 className="fw-700 text-grey-500 mb-1 font-xssss mt-2"> 
+                                        {item.receiverUserProfile?.user?.profil === 'other' && item?.receiverUserProfile?.other?.profession}
+                                        {item.receiverUserProfile?.user?.profil === 'player' && 'Joueur'}
+                                        {item.receiverUserProfile?.user?.profil == 'coach' ? ' Entraineur' : ''}
+                                        {item.receiverUserProfile?.user?.profil === 'agent' && item?.receiverUserProfile?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                        {item.receiverUserProfile?.user?.profil === 'agent' && item?.receiverUserProfile?.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                        {item.receiverUserProfile?.user?.profil === 'scout' && 'Scout'} </h3>
             </div>
           </div>
 
@@ -82,13 +93,13 @@ function Friends() {
             <button onClick={() => deleteInviation(item.receiver.id)} className="grow justify-center px-6 text-white py-2 text-center bg-orange-500 rounded-[30px] max-md:px-5">Supprimer</button>
           </div>
         </div>
-
+        </>
 
       ))}
 
-
+      
     </div>
-  );
+   );
 
 }
 
