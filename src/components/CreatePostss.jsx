@@ -28,7 +28,7 @@ function CreatePost({ setArticles , onClose}) {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [uploadProgress, setUploadProgress] = useState(1);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   // const fetchArticles = async () => {
   //   try {
@@ -147,7 +147,7 @@ function CreatePost({ setArticles , onClose}) {
         console.log("Progress event triggered:", event.loaded, event.total);
         const percentage = (event.loaded / event.total) * 100;
         console.log("Progress percentage:", percentage);
-        setUploadProgress(percentage);
+        setUploadProgress(Math.trunc(percentage));
       };
   
       // Send the FormData with XMLHttpRequest
@@ -225,13 +225,15 @@ function CreatePost({ setArticles , onClose}) {
                   alt="icon"
                   className="shadow-sm rounded-full aspect-square w-11 h-11 md:w-16 md:h-16 mr-2"
                 />
-                  <div className='mt-[5px] md:mt-3 text-xs font-bold  '>{
-                                        user?.user?.nom}
-                                    <span></span>  {
-                                        user?.user?.prenom}
+                  <div className='mt-[5px] md:mt-3  text-xs  '>
+                  <div className="flex  flex-row"> <div className="font-bold mr-1"> {
+                                        user?.user?.nom}</div>
+                                    <span> {' '}</span>
+                                    <div className="font-bold">  {
+                                        user?.user?.prenom}</div></div>
 
                   {
-                                        <div >
+                                        <div className='text-gray-400 font-sans'>
                                           {user?.user?.profil === 'other' && user?.other?.profession}
                                           {user?.user?.profil === 'player' && 'Joueur'}
                                           {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
@@ -245,7 +247,7 @@ function CreatePost({ setArticles , onClose}) {
                 <div className="flex flex-col w-full gap-y-2">
                   
                 <textarea
-                  className="flex max-h-fit px-2 pt-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[30px] theme-dark-bg"
+                  className="flex max-h-fit px-2 pt-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[10px] theme-dark-bg"
                   placeholder="Quoi de neuf ?"
                   name="description"
                   {...register("description")}
@@ -299,9 +301,9 @@ function CreatePost({ setArticles , onClose}) {
   </div>
 )}
  {videoPreviewUrl && (
-      <div className="w-full bg-gray-200">
+      <div className="w-full rounded-xl px-1 bg-gray-200">
         <div
-          className="bg-green-500 text-xs leading-none py-1 text-center text-white"
+          className="bg-blue-600 text-xs rounded-xl leading-none py-1 text-center  text-white"
           style={{ width: `${uploadProgress}%` }}
           role="progressbar"
           aria-valuenow={uploadProgress}

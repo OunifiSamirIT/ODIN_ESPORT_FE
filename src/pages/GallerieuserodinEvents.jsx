@@ -56,10 +56,8 @@ const Album = () => {
   //     ),
   //   };
   // });
-
-  const optionsPays = paysAllInfo.map((country) => {
+  const options = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
-    const paysRS = country.name ? country.name : '';
 
     return {
       value: countryCode,
@@ -71,11 +69,12 @@ const Album = () => {
               style={{ marginRight: "2px", width: "40px" }}
             ></span>
           )}
-          {paysRS}
+          {country.name}
         </div>
       ),
     };
   });
+
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
@@ -551,65 +550,56 @@ const Album = () => {
                               }}
 
                             /> */}
-                            <Select
-                              options={optionsPays}
-                              // placeholder={
-                              //   getTranslation(
-                              //     `Country of residence`,  // -----> Englais
-                              //     `Pays de résidence`, //  -----> Francais
-                              //     ``,  //  -----> Turkey
-                              //     ``,  //  -----> Allemagne
-                              //   )
 
-                              // }
-                              // onChange={(selectedOption) => console.log(selectedOption)}
+
+
+                            <Select
+                              options={options}
+                              placeholder="Pays Events"
                               styles={{
                                 control: (provided, state) => ({
                                   ...provided,
                                   borderRadius: "0.375rem", // You can adjust the radius as needed
                                   display: "flex",
                                   justifyContent: "center",
-                                  borderRadius: "30px",
-
-                                  fontSize: "14px", // Set the desired font size
-                                  backgroundColor: "#ffffff", // Set the background color
-                                  borderWidth: "none",
-
-
-
                                   paddingTop: "6px",
                                   paddingBottom: "6px",
-                                  // marginTop: "4px",
-                                  width: "100%",
+                                  borderRadius: "30px",
+                                  border:
+                                    "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
 
-                                  border: "0.5px solid #E5E5E5",
-                                }),
-                                menu: (provided, state) => ({
-                                  ...provided,
-                                  width: "100%", // Adjust the width as needed
+                                  width: "100%",
+                                  fontSize: "12px", // Set the desired font size
+                                  backgroundColor: "#ffffff", // Set the background color
+                                  borderWidth: "none",
                                 }),
                               }}
+                              onChange={(selectedOption) => setSearchPays(selectedOption.label.props.children[1])}
+                              value={options.find((option) => option.value === searchPays)}
 
-
-                              onChange={(selectedOption) =>
-                                setSearchPays(
-                                  selectedOption.label.props.children[1]
-                                )
-                              }
-                              value={optionsPays.find(
-                                (option) => option.value === searchPays
-                              )}
-                              placeholder="Pays Camps"
+                              // Enable searching by nationalite
                               filterOption={(option, inputValue) => {
-                                const paysRS = option.label.props.children; // Assuming nationalite is directly the children of label
+                                const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
 
-                                const paysRSString = typeof paysRS === 'string' ? paysRS.toLowerCase() : paysRS.join("").toLowerCase(); // Join children of JSX element if it's an array
+                                const nationaliteString =
+                                  typeof nationalite === "string"
+                                    ? nationalite.toLowerCase()
+                                    : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
 
-                                return paysRSString.includes(inputValue.toLowerCase());
+                                return nationaliteString.includes(
+                                  inputValue.toLowerCase()
+                                );
                               }}
                               // Ensure that all options are displayed even when filtered
                               isSearchable
                             />
+
+
+
+
+
+
+
                           </div>
                         </div>
                       </div>

@@ -19,24 +19,6 @@ import { Config } from "../../config";
 function HomeOffre() {
   const [album, setAlbum] = useState([]);
 
-  const optionsPays = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
-
-    return {
-      value: countryCode,
-      label: (
-        <div>
-          {countryCode && (
-            <span
-              className={`flag-icon flag-icon-${countryCode}`}
-              style={{ marginRight: "2px", width: "40px" }}
-            ></span>
-          )}
-          {country.name}
-        </div>
-      ),
-    };
-  });
 
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -53,7 +35,24 @@ function HomeOffre() {
   const [filteredoffres, setFilteredoffres] = useState([]);
 
   const navigate = useNavigate();
+  const options = paysAllInfo.map((country) => {
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
 
+    return {
+      value: countryCode,
+      label: (
+        <div>
+          {countryCode && (
+            <span
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{ marginRight: "2px", width: "40px" }}
+            ></span>
+          )}
+          {country.name}
+        </div>
+      ),
+    };
+  });
   // Fetch offres from the API
   const fetchOffres = async () => {
     try {
@@ -509,39 +508,50 @@ function HomeOffre() {
 
 
                         <div className=" dark-bg  flex flex-col justify-center mt-2 text-xs font-light whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
-                          <Select
-                            options={optionsPays}
-                            //    onChange={(selectedOption) => setSearchPays(selectedOption.label.props.children[1])}
-                            value={selectedPays}
 
-                            onChange={(selectedOption) =>
-                              setSelectedPays(
-                                selectedOption.label.props.children[1]
-                              )
-                            }
-                            placeholder="Pays Camps"
+
+                          <Select
+                            options={options}
+                            placeholder="Pays"
                             styles={{
                               control: (provided, state) => ({
                                 ...provided,
-                                borderRadius: "0.375rem",
+                                borderRadius: "0.375rem", // You can adjust the radius as needed
                                 display: "flex",
                                 justifyContent: "center",
-                                borderRadius: "30px",
-                                width: "103%",
                                 paddingTop: "6px",
                                 paddingBottom: "6px",
-                                fontSize: "1rem",
-                                borderWidth: "none",
-                                transform: "scale(.8)",
-                                color: "",
-                                backgroundColor: ""
-                              }),
-                              menu: (provided, state) => ({
-                                ...provided,
+                                borderRadius: "30px",
+                                border:
+                                  "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
 
+                                width: "100%",
+                                fontSize: "12px", // Set the desired font size
+                                backgroundColor: "#ffffff", // Set the background color
+                                borderWidth: "none",
                               }),
                             }}
+                            onChange={(selectedOption) => setSelectedPays(selectedOption.label.props.children[1])}
+                            value={options.find((option) => option.value === selectedPays)}
+
+                            // Enable searching by nationalite
+                            filterOption={(option, inputValue) => {
+                              const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+
+                              const nationaliteString =
+                                typeof nationalite === "string"
+                                  ? nationalite.toLowerCase()
+                                  : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
+
+                              return nationaliteString.includes(
+                                inputValue.toLowerCase()
+                              );
+                            }}
+                            // Ensure that all options are displayed even when filtered
+                            isSearchable
                           />
+
+
                         </div>
                       </div>
                     </div>
@@ -563,6 +573,7 @@ function HomeOffre() {
                                 value={selectedExperience}
                                 onChange={handleExperienceChange}
                               >
+                                <option >Expérience</option>
                                 <option value="Acunne Experience">Acunne Experience</option>
                                 <option value="Moins d'un an">Moins d'un an</option>
                                 <option value="Entre 1 et 2 ans">Entre 1 et 2 ans</option>
@@ -598,6 +609,7 @@ function HomeOffre() {
                                   handleContratChange
                                 }
                               >
+                                <option >Type de contrat </option>
                                 <option value="CDI">CDI</option>
                                 <option value="CDD">CDD</option>
 
@@ -642,6 +654,7 @@ function HomeOffre() {
               {filteredoffres.map((value, index) => (
                 <div
                   key={index}
+                  onClick={() => handleCardClick(value.id)}
                   className=" dark-light-bg flex gap-5  p-6 mt-8 text-base font-light  rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 flex-col max-md:px-5"
                 >
                   <div className=" dark-light-bg   flex flex-row items-center gap-5 md:gap-3 ">
@@ -652,7 +665,7 @@ function HomeOffre() {
                           ? value.imagesalbumoffres[0].image_url
                           : require("../../assets/offre_icon.png")
                       } // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
-                      onClick={() => handleCardClick(value.id)}
+
                       className="   shrink-0 self-start aspect-fit w-[72px]"
                     />
                     <div className=" dark-light-bg   flex-col -ml-10">
@@ -709,7 +722,10 @@ function HomeOffre() {
                       </div>
                     </div>
                     <div className=" dark-light-bg  mt-3  md:px-20 text-neutral-900 text-opacity-70 max-md:max-w-full">
-                      {value.description}{" "}
+                      {value.description.length > 100 ?
+                        value.description.slice(0, 300) + '...' :
+                        value.description
+                      }{" "}
                     </div>
                   </div>
                 </div>

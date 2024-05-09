@@ -271,7 +271,6 @@ const PlayerCard = ({ userInfo }) => {
                   //   ``,  //  -----> Turkey
                   //   `` ,  //  -----> Allemagne
                 )
-
               }
 
             </div>

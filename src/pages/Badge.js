@@ -4602,9 +4602,13 @@ function Badge({ userpf }) {
                             </div>
 
                             <div className="mt-1 max-md:max-w-full">
-                              <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
-                                <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-3">
+                              <div className="flex gap-x-2 max-md:flex-col max-md:gap-0 max-md:">
+                             
+                             
+                                <div className="flex flex-col w-[33%] mt-2 max-md:ml-0 max-md:w-full">
+                                  <div className="flex flex-col  text-base text-zinc-900 max-md:mt-3">
+                                  
+                                   {/* pf */}
                                     <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
                                       <img
                                         loading="lazy"
@@ -4613,10 +4617,11 @@ function Badge({ userpf }) {
                                       />
                                       <div className="grow">Pied Fort</div>
                                     </div>
-                                    <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+
+                                    <div className="flex flex-col justify-between mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                                       <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
                                         <select
-                                          class="self-start mt-1"
+                                          class="mt-1 w-full"
                                           value={searchPiedFort}
                                           onChange={(e) =>
                                             setSearchPiedFort(e.target.value)
@@ -4638,6 +4643,7 @@ function Badge({ userpf }) {
                                         </select>
                                       </div>
                                     </div>
+                                   {/* nat */}
                                     <div className="flex gap-4 justify-between px-4 mt-3 whitespace-nowrap">
                                       <img
                                         loading="lazy"
@@ -4724,8 +4730,12 @@ function Badge({ userpf }) {
                                         )}
                                       /> */}
                                     </div>
+
                                   </div>
                                 </div>
+
+
+
                                 <div className="flex flex-col  md:mt-2 mt-[-27px] w-[33%] max-md:ml-0 max-md:w-full">
                                   <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
                                     <div className="flex gap-4 justify-between px-4 text-base">
@@ -4739,13 +4749,13 @@ function Badge({ userpf }) {
                                     <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                                       <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
                                         <select
-                                          class="self-start mt-1"
+                                          class="px-1 w-full mt-1"
                                           value={searchLicence}
                                           onChange={(e) =>
                                             setSearchLicence(e.target.value)
                                           }
                                         >
-                                          <option value="">Licence</option>
+                                          <option value disabled>Licence</option>
                                           <option value="Oui">Oui</option>
                                           <option value="Non">Non</option>
                                         </select>
@@ -4753,8 +4763,12 @@ function Badge({ userpf }) {
                                     </div>
                                   </div>
                                 </div>
-                                <div className="flex flex-col md:mt-2 mt-[-22px]  ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900">
+
+
+
+
+                                <div className="flex flex-col md:mt-2 mt-[-22px]   w-[33%] max-md:ml-0 max-md:w-full">
+                                  <div className="flex flex-col   text-base whitespace-nowrap text-zinc-900">
                                     <div className="flex gap-4 justify-between px-4">
                                       <img
                                         loading="lazy"
@@ -4763,16 +4777,16 @@ function Badge({ userpf }) {
                                       />
                                       <div className="grow">Sexe</div>
                                     </div>
-                                    <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                      <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
+                                    <div className="flex flex-col justify-between    mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                      <div className="flex gap-5  justify-between px-4 py-3.5 rounded-md">
                                         <select
-                                          class="self-start mt-1"
+                                          class=" pr-1 w-full mt-1"
                                           value={searchSexe}
                                           onChange={(e) =>
                                             setSearchSexe(e.target.value)
                                           }
                                         >
-                                          <option value="">Sexe</option>
+                                          <option value disabled>Sexe</option>
                                           <option value="male">Homme</option>
                                           <option value="female">Femme</option>
                                         </select>
@@ -4788,8 +4802,8 @@ function Badge({ userpf }) {
                                         Année de naissance
                                       </div>
                                     </div>
-                                    <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                      <div className="flex gap-5 justify-between px-4 py-3 text-black rounded-md">
+                                    <div className="flex flex-col justify-center ml-2  mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                      <div className="flex gap-5 justify-between   px-4 py-3 text-black rounded-md">
                                         <DatePicker
                                           dateFormat="yyyy"
                                           showYearPicker

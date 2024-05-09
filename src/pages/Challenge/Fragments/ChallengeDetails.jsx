@@ -252,7 +252,7 @@ const ChallengeDetais = () => {
 
                             } </div>
                         </div>
-                        <input type="text" name="description" {...register("description")} className="justify-center p-4 mt-2 font-light rounded-[10px] border border-solid border-neutral-200 max-md:max-w-full" placeholder="📢 Big News! Thrilled to announce my signing with FC Barcelona! Grateful" />
+                        <textarea type="text" name="description" {...register("description")} className="justify-center p-4 mt-2 h-full min-h-4 font-light rounded-[10px] border border-solid border-neutral-200 max-md:max-w-full" placeholder="📢 Big News! Thrilled to announce my signing with FC Barcelona! Grateful" />
                         <div className="flex justify-center items-center px-8 py-10 mt-8 font-medium text-white rounded-[10px] border-2 border-blue-600 border-dashed max-md:px-5 max-md:max-w-full">
                             <div className="relative ">
                                 <div className="w-full flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
@@ -363,9 +363,9 @@ const ChallengeDetais = () => {
                             }
                         </div>
                         <p className="text-center text-gray-500 text-sm md:text-base">
-                        
-                        
-                        {
+
+
+                            {
                                 getTranslation(
                                     `Do you confirm that you want to delete your participation in the challenge?`,  // -----> Englais
                                     `Confimez-vous que vous voulez supprimer votre participation au challenge ?`, //  -----> Francais
@@ -561,20 +561,20 @@ const ChallengeDetais = () => {
                                                 }</button>
                                             </div>
                                             {/* <div className="flex gap-2 py-2"> */}
-                                                <img
-                                                    loading="lazy"
-                                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/798714e6a8ae27d83b62e7cfed800557a2f9db0ea140b04eca4377d04c78b16b?"
-                                                    className="shrink-0 w-5 aspect-square fill-zinc-900"
-                                                />
-                                                <button onClick={() => setCommentShow(!commentShow)}> {
-                                                    getTranslation(
-                                                        `Comment`,  // -----> Englais
-                                                        `Commenter`, //  -----> Francais
-                                                        //   ``,  //  -----> Turkey
-                                                        //   `` ,  //  -----> Allemagne
-                                                    )
+                                            <img
+                                                loading="lazy"
+                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/798714e6a8ae27d83b62e7cfed800557a2f9db0ea140b04eca4377d04c78b16b?"
+                                                className="shrink-0 w-5 aspect-square fill-zinc-900"
+                                            />
+                                            <button onClick={() => setCommentShow(!commentShow)}> {
+                                                getTranslation(
+                                                    `Comment`,  // -----> Englais
+                                                    `Commenter`, //  -----> Francais
+                                                    //   ``,  //  -----> Turkey
+                                                    //   `` ,  //  -----> Allemagne
+                                                )
 
-                                                }</button>
+                                            }</button>
                                             {/* </div> */}
                                         </div>
                                     </div>
@@ -728,16 +728,31 @@ const ChallengeDetais = () => {
                         <circle cx="39.3922" cy="39.3004" r="38.1207" stroke="white" />
                     </svg>}
                 </div>
-                <div className="flex gap-4 justify-between mt-4 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-                    <div className="my-auto text-2xl font-bold">{challenges.name}</div>
-                    <div className="mb-4  flex flex-col justify-center py-2 px-3 text-base whitespace-nowrap rounded-xl border border-solid border-neutral-200">
-                        <div className="flex gap-2 justify-center items-center">
 
+
+
+                <div className="flex flex-wrap items-center  justify-between mt-4 text-zinc-900">
+                    <div className="my-auto text-2xl font-bold px-2">{challenges.name}</div>
+                    <div className="  flex items-center  py-2 px-3 text-base whitespace-nowrap rounded-xl border border-solid border-neutral-200">
+                        <div className="flex gap-2  items-center">
                             {/* <div>{challenges.startDate}</div> */}
                             <Timer startDate={challenges.startDate} endDate={challenges.endDate} setExpired={setExpired} />
                         </div>
                     </div>
                 </div>
+
+
+
+                {/* <div className="flex gap-4  justify-between  mt-4 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                    <div className="my-auto text-2xl font-bold  px-2" >{challenges.name}</div>
+                    <div className="mb-4  flex flex-col justify-center py-2 px-3 text-base whitespace-nowrap rounded-xl border border-solid border-neutral-200">
+                        <div className="flex gap-2 justify-center items-center">
+
+
+                            <Timer startDate={challenges.startDate} endDate={challenges.endDate} setExpired={setExpired} />
+                        </div>
+                    </div>
+                </div> */}
                 {hasParticipated ? <div className="flex justify-center items-center md:mt-4 font-medium">
                     <div onClick={() => setDelete(true)} className=" w-full flex justify-center items-center px-6 py-2 text-base font-medium text-white bg-orange-500  rounded-[30px] max-md:px-5">
                         <button className="flex gap-2" >

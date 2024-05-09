@@ -374,7 +374,7 @@ function AcceuilOffre() {
                         <div className=" md:text-3xl text-base font-bold max-md:max-w-full">
                           {albumDetails?.postoffre}
                         </div>
-                        <div className="  md:flex hidden  gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5 pr-20 mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
+                        <div className="  md:flex hidden w-fit   gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5  mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
                           <div className="flex min-w-fit align-center gap-1.5 justify-between py-px">
                             <img
                               loading="lazy"
@@ -418,8 +418,8 @@ function AcceuilOffre() {
                         </div>
                       </div>
                     </div>
-                    <div className="block flex md:hidden flex-col flex-1 items-center my-auto max-md:max-w-full">
-                      <div className="flex -ml-2 md:-ml-0  text-base  gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5 pr-20 mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
+                    <div className=" flex md:hidden flex-col flex-1 items-center my-auto max-md:max-w-full">
+                      <div className="flex w-fit   md:-ml-0  text-base  gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5 pr-20 mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
                         <div className="flex align-center gap-1.5 justify-between py-px">
                           <img
                             loading="lazy"
@@ -482,9 +482,9 @@ function AcceuilOffre() {
                       ref={emailRef}
                       className="my-auto  w-full md:w-fit text-center  text-lg text-zinc-900"
                     >
-                      {userDetails && (
-                        <p className="md:ml-6"> {userDetails?.user.email} </p>
-                      )}
+
+                      <p className="md:ml-6"> {albumDetails?.email} </p>
+
                     </div>
 
                     <button

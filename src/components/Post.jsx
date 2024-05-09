@@ -1345,7 +1345,7 @@ function Post({ article, setArticles }) {
                     {article.user.user.profil == 'scout' ? 'Scout' : ''}
                   </span>
                   {/* <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                  {moment(article?.createdAt).format('DD MMMM YYYY')} {' - '} {moment(article?.createdAt).fromNow()}
+                  {article?.createdAt}
 
 </span> */}
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">

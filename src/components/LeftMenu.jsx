@@ -1,221 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Header from "../components/Header2";
-// import Leftnav from '../../components/Leftnav';
-// import Rightchat from '../../components/Rightchat';
-import Pagetitle from "../components/Pagetitle";
-// import Appfooter from '../../components/Appfooter';
-// import Popupchat from '../../components/Popupchat';
-import Load from "../components/Load";
-import { Link, useNavigate } from "react-router-dom";
-import Modal from "react-modal";
-import { paysAllInfo } from "../assets/data/Country";
-import "./flags.css";
-import Select from "react-select";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { Config } from "../config";
+import React from 'react'
+import { Link } from "react-router-dom";
 
-const Album = () => {
-  const [album, setAlbum] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(null);
-  const navigate = useNavigate();
-
-  const [searchDuree, setSearchDuree] = useState("");
-  const [searchPays, setSearchPays] = useState("");
-  const [searchTypePrix, setSearchTypePrix] = useState("");
-  const [searchDateDB, setSearchDateDb] = useState("");
-  const [searchDateDF, setSearchDateDF] = useState("");
-  const [filteredCamps, setFilteredCamps] = useState([]);
-
-  const handleCardClick = (id) => {
-    setSelectedCard(id);
-    navigate(`/defaultgroup/${id}`);
-  };
-  const options = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
-
-    return {
-      value: countryCode,
-      label: (
-        <div>
-          {countryCode && (
-            <span
-              className={`flag-icon flag-icon-${countryCode}`}
-              style={{ marginRight: "2px", width: "40px" }}
-            ></span>
-          )}
-          {country.name}
-        </div>
-      ),
-    };
-  });
-
-  useEffect(() => {
-    const fetchAlbums = async () => {
-      try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
-
-        const result = await response.json();
-
-        setAlbum(result.data);
-        setFilteredCamps(result.data);
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-      }
-    };
-    fetchAlbums();
-  }, []);
-
-  const dureeOptions = [
-    { value: "3jours", label: "3 jours" },
-    { value: "1 semaine", label: "1 Semaine" },
-    { value: "2 semaine", label: "2 semaine" },
-    { value: "3semaines", label: "3 semaines" },
-    { value: "1mois", label: "1 mois" },
-    { value: "2mois", label: "2 mois" },
-    { value: "3mois", label: "3 mois" },
-    { value: "4mois", label: "4 mois" },
-    { value: "5mois", label: "5 mois" },
-    { value: "6mois", label: "6 mois" },
-  ];
-
-  const resetSearchCriteria = () => {
-    setSearchDuree("");
-    setSearchPays("");
-    setSearchTypePrix("");
-    setSearchDateDb("");
-    setSearchDateDF("");
-    setFilteredCamps(album);
-  };
-
-  const handleReset = () => {
-    resetSearchCriteria();
-    console.log("After Reset:", searchDuree, searchDateDB);
-  };
-
-  const handleDureeChange = (e) => {
-    setSearchDuree(e.target.value);
-  };
-
-  const handleTypePrixChange = (e) => {
-    setSearchTypePrix(e.target.value);
-  };
-
-  const handleDateDBChange = (date) => {
-    // Format the date as "yyyy-MM-dd"
-    const formattedDate = date.toISOString().split("T")[0];
-
-    // Update the state with the formatted date
-    setSearchDateDb(formattedDate);
-  };
-
-  const handleDateDFChange = (date) => {
-    const formattedDate = date.toISOString().split("T")[0];
-
-    // Update the state with the formatted date
-    setSearchDateDF(formattedDate);
-  };
-
-  const formatDate = (dateString) => {
-    const dateParts = dateString.split("-");
-    if (dateParts.length === 3) {
-      const year = dateParts[0];
-      const month = dateParts[1].padStart(2, "0"); // Ensure two-digit month
-      const day = dateParts[2].padStart(2, "0"); // Ensure two-digit day
-      return `${day}-${month}-${year}`;
-    } else {
-      return null; // Invalid date string
-    }
-  };
-
-  const handleSearch = () => {
-    const filteredData = album.filter((camps) => {
-      console.log("Camp Data:", camps);
-
-      // Format date_debut and date_fin
-      const formattedDateDB = formatDate(camps.date_debut);
-      const formattedDateDF = formatDate(camps.date_fin);
-
-      return (
-        camps.Duree.toLowerCase().includes(searchDuree.toLowerCase()) &&
-        (searchPays === "" || camps.payscamps === searchPays) &&
-        (searchTypePrix === "" || camps.prix === searchTypePrix) &&
-        (searchDateDB === "" || formattedDateDB === searchDateDB) &&
-        (searchDateDF === "" || formattedDateDF === searchDateDF)
-      );
-    });
-    console.log(
-      "Search Criteria:",
-      searchDuree,
-      searchPays,
-      searchTypePrix,
-      searchDateDB,
-      searchDateDF
-    );
-
-    setFilteredCamps(filteredData);
-  };
-
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
-
-  const id = storedUserData.id ? storedUserData.id : null;
-
-  const userProfileType = storedUserData ? storedUserData.profil : null;
-
-  const shouldHideForProfiles = ["other", "player"];
-  const shouldShowAgentItem = ["player"].includes(userProfileType);
-
-  const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
-
-
-
-  // for left slide barre ---------------------------------
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
-    const id = storedUserData ? storedUserData.id : null;
-
-    if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
-        .then((response) => response.json())
-        .then((userData) => {
-          setUser(userData);
-          console.log("user offre", user)
-        })
-        .catch((error) => console.error("Error fetching user data:", error));
-    }
-
-
-  }, []);
-
-  // const storedUserData = JSON.parse(localStorage.getItem("user"));
-
-
-  // const id = storedUserData.id ? storedUserData.id : null;
-
-  // const userProfileType = storedUserData ? storedUserData.profil : null;
-
-  // const shouldHideForProfiles = ["other", "player"];
-  // const shouldShowAgentItem = ["player"].includes(userProfileType);
-
-  // const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
-
-  const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
-
-  // left slide barre ------------------------------
+export default function LeftMenu( { id, shouldShowAgentItem, shouldShowForProfile, setEventTogglerIsOpenned, eventTogglerIsOpenned, userProfileType, user } ) {
   return (
     <>
-      <Header />
+   
 
-
-
-      <div className="flex flex-col pb-12    mt-0 lg:mt-8 bg-zinc-100">
-        <div className="self-center md:mt-20  w-full max-w-[1344px]  max-md:max-w-full">
-          <div className="flex max-md:flex-col max-md:gap-0">
-            {/* left menu */}
-            <div className=" xs:hidden sm:hidden hidden md:mt-5 md:ml-4  md:flex md:flex-col md:w-[24%] max-md:ml-0 max-md:w-full">
+            <div className="   xs:hidden sm:hidden hidden   md:flex md:flex-col md:min-w-[23%] md:-ml-2 md:mr-3 max-md:ml-0 max-md:w-full ">
+            <div className=" fixed xs:hidden sm:hidden hidden  md:flex md:flex-col md:max-w-[23%] max-md:ml-0 max-md:w-full ">
               <div className="  flex flex-col items-start gap-3 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
                 <Link to="/home" className="nav-content-bttn open-font">
                   <div className="flex justify-center items-center gap-4 py-2 px-6 ">
@@ -301,8 +93,6 @@ const Album = () => {
                         Agents
                       </div>
                     </div>{" "}
-
-
                   </Link>
                     <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
                   </>
@@ -343,12 +133,13 @@ const Album = () => {
 
                 )}
 
+
                 <div
                   onClick={() => {
                     setEventTogglerIsOpenned(!eventTogglerIsOpenned)
                   }}
                   className="flex gap-5 justify-between px-6 py-2   w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
-                  <div className="flex gap-4 justify-between px-2 py-1.5">
+                  <div className="flex gap-4 justify-between px-2 py-1.5 ">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -368,7 +159,7 @@ const Album = () => {
                     <div className="toggler mt-[-15px] ml-10px">
                       <Link to="/defaultgroup">
                         <div className="flex gap-5 justify-between px-6 ml-5 py-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
-                          <div className="flex gap-4 justify-between px-2 py-1.5">
+                          <div className="flex gap-4 justify-between px-2 py-1.5 text-base">
                             <svg
                               width="21"
                               height="20"
@@ -393,7 +184,7 @@ const Album = () => {
 
                       <Link to="/challenges  ">
                         <div className="flex gap-5 justify-between px-6 py-2 ml-5 mt-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
-                          <div className="flex gap-4 justify-between px-2 py-1.5">
+                          <div className="flex gap-4 justify-between px-2 py-1.5 text-base">
                             <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M15 14.9967C15 17.7542 12.7575 19.9967 10 19.9967C7.2425 19.9967 5 17.7542 5 14.9967C5 12.2392 7.2425 9.99667 10 9.99667C10.46 9.99667 10.8333 10.3692 10.8333 10.83C10.8333 11.2908 10.46 11.6633 10 11.6633C8.16167 11.6633 6.66667 13.1583 6.66667 14.9967C6.66667 16.835 8.16167 18.33 10 18.33C11.8383 18.33 13.3333 16.835 13.3333 14.9967C13.3333 14.5358 13.7067 14.1633 14.1667 14.1633C14.6267 14.1633 15 14.5358 15 14.9967ZM15.3033 12.4967C15.745 12.4967 16.1692 12.3208 16.4817 12.0083L17.2867 11.2033C17.7325 10.7575 17.4167 9.99667 16.7867 9.99667H15V8.21C15 7.58 14.2383 7.26417 13.7933 7.71L12.9883 8.515C12.6758 8.8275 12.5 9.25167 12.5 9.69333V11.3183L10.4317 13.3867C10.2942 13.35 10.1492 13.33 10 13.33C9.07917 13.33 8.33333 14.0758 8.33333 14.9967C8.33333 15.9175 9.07917 16.6633 10 16.6633C10.9208 16.6633 11.6667 15.9175 11.6667 14.9967C11.6667 14.8475 11.6467 14.7025 11.61 14.565L13.6783 12.4967H15.3033ZM12.615 6.53167C13.2967 5.85167 14.3117 5.64917 15.2008 6.0175C15.5558 6.16417 15.86 6.38833 16.0983 6.66667H20.0317L20.0267 5.8075C20.0125 3.51667 18.1517 1.66667 15.86 1.66667H15.0008V0.833333C15 0.373333 14.6267 0 14.1667 0C13.7067 0 13.3333 0.373333 13.3333 0.833333V1.66667H6.66667V0.833333C6.66667 0.373333 6.29333 0 5.83333 0C5.37333 0 5 0.373333 5 0.833333V1.66667H4.16667C1.86583 1.66667 0 3.53167 0 5.83333V6.66667H12.48L12.615 6.53167ZM3.33333 15C3.33333 11.3242 6.32417 8.33333 10 8.33333H0V15.8325C0 18.1325 1.86417 19.9975 4.16417 19.9992H5.59583C4.20917 18.7775 3.33333 16.9892 3.33333 15ZM20 8.33H16.7867C17.7508 8.33 18.6108 8.905 18.98 9.79583C19.3492 10.6867 19.1467 11.7017 18.465 12.3825L17.6608 13.1867C17.3325 13.515 16.9475 13.7667 16.5275 13.9325C16.6133 14.4358 16.6675 14.8233 16.6675 15C16.6675 16.9892 15.7917 18.7775 14.405 20H16.3075C18.3817 19.9975 20.0608 18.3133 20.055 16.2392L20 8.33Z" fill="black" />
                             </svg>
@@ -406,7 +197,7 @@ const Album = () => {
 
                       <Link to="/defaultgroupEvents">
                         <div className="flex gap-5 justify-between px-6 ml-5 py-2 mt-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
-                          <div className="flex gap-4 justify-between px-2 py-1.5">
+                          <div className="flex gap-4 justify-between px-2 py-1.5 text-base">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -450,267 +241,7 @@ const Album = () => {
                   )}</Link>
               </div>
             </div>
-
-            {/* left menu */}
-
-
-            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow  max-md:max-w-full">
-                <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-                  <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                    Chercher un camp
-                  </div>
-                  <div className="flex-wrap gap-y-4 justify-between content-start mt-2 max-md:max-w-full">
-                    <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0">
-                      <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10">
-                          <div className="flex gap-2 md:gap-4 justify-between px-4 whitespace-nowrap">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/803e02712b2b4c86f9a16b3c2fd85a1f2520ba9fac821299d322e0a17e04e0df?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square"
-                            />
-                            <div className="grow">Durée</div>
-                          </div>
-                          <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid  rounded-[30px]">
-                            <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
-                              <select
-                                onChange={handleDureeChange}
-                                value={searchDuree}
-                                className="w-full"
-                              >
-                                {dureeOptions.map((option) => (
-                                  <option
-                                    key={option.value}
-                                    value={option.value}
-                                  >
-                                    {option.label}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                          </div>
-                          <div className="flex gap-4 mt-3 justify-between px-4">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/50a0695569327f7204d974bc36853e47face4848f228a6c678484e0d7aca8146?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="aspect-[0.9] fill-zinc-900 w-[18px]"
-                            />
-                            <div className="grow">Prix</div>
-                          </div>
-                          <div className="flex flex-col justify-center mt-2 w-full text-xs  border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                            <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
-                              <input
-                                value={searchTypePrix}
-                                onChange={handleTypePrixChange}
-                                type="text"
-                                name="prix"
-                                // id="prix"
-                                className="bg-transparent"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
-                          <div className="flex gap-4 justify-between px-4 text-base">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bfb1d26cb36312136826da85a4c47e65f704f7a4f080f319b159e471c18e5bc?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square"
-                            />
-                            <div className="grow">Pays</div>
-                          </div>
-
-
-
-
-                          <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid rounded-[30px]">
-
-
-                            <Select
-                              options={options}
-                              placeholder="Pays camps"
-                              styles={{
-                                control: (provided, state) => ({
-                                  ...provided,
-                                  borderRadius: "0.375rem", // You can adjust the radius as needed
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  paddingTop: "6px",
-                                  paddingBottom: "6px",
-                                  borderRadius: "30px",
-                                  border:
-                                    "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
-
-                                  width: "100%",
-                                  fontSize: "12px", // Set the desired font size
-                                  backgroundColor: "#ffffff", // Set the background color
-                                  borderWidth: "none",
-                                }),
-                              }}
-                              onChange={(selectedOption) => setSearchPays(selectedOption.label.props.children[1])}
-                              value={options.find((option) => option.value === searchPays)}
-
-                              // Enable searching by nationalite
-                              filterOption={(option, inputValue) => {
-                                const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
-
-                                const nationaliteString =
-                                  typeof nationalite === "string"
-                                    ? nationalite.toLowerCase()
-                                    : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
-
-                                return nationaliteString.includes(
-                                  inputValue.toLowerCase()
-                                );
-                              }}
-                              // Ensure that all options are displayed even when filtered
-                              isSearchable
-                            />
-
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 ">
-                          <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a38d56790789553e5ad61b7be1f1c9794b8856c20bce58844081006640976d32?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square"
-                            />
-                            <div className="grow">Date de début</div>
-                          </div>
-                          <div className="flex flex-col justify-center my-2 w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                            <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
-                              <DatePicker
-                                dateFormat="dd-MM-yyyy"
-                                selected={searchDateDB} // Set the selected date from your state
-                                onChange={(date) => handleDateDBChange(date)} // Handle date change
-                              />
-                            </div>
-                          </div>
-                          {/* <div className="flex gap-4 mt-2 justify-between px-4 md:mt-4">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ebab6160954a2bce21ceaf2e169787de6ab38cfed49192e766553aa8805b259?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square"
-                            />
-                            <div className="grow">Date de fin</div>
-                          </div>
-                          <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                            <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
-                              <DatePicker
-                                dateFormat="yyyy-MM-dd"
-                                selected={searchDateDF} // Set the selected date from your state
-                                onChange={(date) => handleDateDFChange(date)} // Handle date change
-                              />
-                            </div>
-                          </div> */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div className="flex md:gap-3 flex-col md:flex-row items-center justify-between  py-2 mt-4 w-full text-base font-medium ">
-
-
-
-                    <button
-                      className="justify-center px-8 py-2 mt-2 md:mt-0 text-white bg-orange-500 md:w-fit w-full rounded-[30px] px-5"
-                      onClick={handleReset}
-                    >
-                      Réinitialiser
-                    </button>
-                    <button
-                      className="justify-center px-8 py-2 mt-2 md:mt-0 text-white md:w-fit w-full bg-blue-600 rounded-[30px] px-5"
-                      onClick={handleSearch}
-                    >
-                      Confirmer
-                    </button>
-
-                    {/* <div className="flex gap-2 justify-between pl-6">
-                    <div
-                      className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]  max-sm:px-5"
-                      onClick={handleSearch}
-                    >
-                      Confirmer
-                    </div>
-                  </div> */}
-                  </div>
-                </div>
-
-                <div className="px-2 mt-6 max-md:max-w-full">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-md:flex-col max-md:gap-0">
-                    {filteredCamps.map((value, index) => (
-                      <div key={index} className="flex flex-col">
-                        <div
-                          onClick={() => handleCardClick(value.id)}
-                          className="flex flex-col grow items-start pb-4 mx-auto w-full bg-white rounded-xl"
-                        >
-                          <img
-                            loading="lazy"
-                            srcSet={value.ImagesAlbumcamps[0]?.image_url}
-                            className="self-stretch w-full aspect-square rounded-t-xl object-cover"
-                          />
-                          <div className="pl-3 pr-2">
-                            <div className="mt-4 px-2 self-start text-break font-semibold text-zinc-900">
-                              {value.album_name}
-                            </div>
-                            <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-400 w-[282px]">
-                              <div className="flex self-start gap-2">
-                                <div className="flex self-start">
-                                  {formatDate(value.date_debut)}
-                                </div>
-                                <div>-</div>
-                                <div className="grow">{value.Duree}</div>
-                              </div>
-                              <div className=" text-xs font-light text-capitalize w-20 pl-2   whitespace-pre-line">
-                                {value.payscamps}
-                              </div>
-                            </div>
-                            <div className="mt-2 text-xs text-break mx-2 font-light text-black">
-                              {value.description.length > 100 ?
-                                value.description.slice(0, 100) + '...' :
-                                value.description
-                              }
-                            </div>
-                            <div className="flex gap-5 px-2 justify-between items-center mt-3  max-w-full w-[282px]">
-                              <div className="flex flex-col whitespace-nowrap ">
-                                <div className="text-xs font-light text-zinc-400">
-                                  Prix
-                                </div>
-                                <div className="mt-1 text-base text-zinc-900 font-semibold">
-                                  {value.prix} €
-                                </div>
-                              </div>
-                              <div className="flex justify-center items-center mr-7 mt-3 w-11 h-7 bg-blue-600 rounded-md aspect-[1.13]">
-                                <img
-                                  loading="lazy"
-                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/688459f573915c74266dcb5eb0235120d7e93fd088c5102dd26fe0420b9723d9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                  className="w-5 h-4 fill-white"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
             </div>
-
-          </div>
-        </div>
-      </div>
     </>
-  );
-};
-
-export default Album;
+  )
+}
