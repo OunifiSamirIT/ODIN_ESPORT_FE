@@ -51,6 +51,7 @@ import { UserTag } from "../../components/UserTag";
 import moment from "moment";
 import CreatePostModal from "../../components/CreatePostModalProfile";
 import Post from "../../components/Post";
+
 const Index = () => {
   const { id } = useParams();
   const [profileFeed, SetProfileFeed] = useState("pubs");
@@ -854,6 +855,13 @@ const Index = () => {
     // fetchArticles();
     // fetchAlbums();
   }, []);
+
+
+  const storedLanguage = localStorage.getItem('language');
+  const language = storedLanguage ? storedLanguage.toLowerCase() : '';
+
+  // Set the locale based on the stored language or default to English
+  moment.locale(language === 'fr' ? 'fr' : 'en');
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
@@ -930,9 +938,16 @@ const Index = () => {
                             {article.user.user.profil == "scout" ? "Scout" : ""}
                           </span>
                           <span className="d-block font-xssss fw-500 text-grey-500">
-                            {formatDate(
-                              article.user.user.createdAt
-                            )}
+                         
+                          {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                    {
+                      moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                        moment(article?.createdAt).fromNow(true) :
+                        moment(article?.createdAt).fromNow()
+                    }
+                            {/* {formatDate(
+                              article.createdAt
+                            )} */}
                           </span>
                         </div>
                       </div>
@@ -1009,9 +1024,12 @@ const Index = () => {
                             {article.user.user.profil == "scout" ? "Scout" : ""}
                           </span>
                           <span className="d-block font-xssss fw-500 text-grey-500">
-                            {formatDate(
-                              article.user.user.createdAt
-                            )}
+                          {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                    {
+                      moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                        moment(article?.createdAt).fromNow(true) :
+                        moment(article?.createdAt).fromNow()
+                    }
                           </span>
                         </div>
                       </div>

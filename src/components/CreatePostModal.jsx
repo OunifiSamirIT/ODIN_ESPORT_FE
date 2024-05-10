@@ -86,7 +86,8 @@ function CreatePostModal() {
                   <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
                     <div className="flex w-full justify-between mr-3">
                       <label
-                        htmlFor="imgUpload"
+                        onClick={handleOpenModal}
+
                         className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
                       >
 
@@ -100,7 +101,8 @@ function CreatePostModal() {
 
                       <label
                         className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
-                        htmlFor="videoUpload"
+                        onClick={handleOpenModal}
+
                       >
 
                         <img
@@ -113,7 +115,8 @@ function CreatePostModal() {
 
                       <label
                         className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
-                        htmlFor="vgifUpload"
+                        onClick={handleOpenModal}
+
                       >
 
                         <img
