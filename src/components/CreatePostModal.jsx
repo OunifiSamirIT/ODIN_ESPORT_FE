@@ -7,7 +7,7 @@ import placeholder from "../assets/placeholder.jpg"
 import { Config } from "../config";
 
 
-function CreatePostModal() {
+function CreatePostModal({fetchDataOnbegin}) {
   const [user, setUser] = useState([]);
 
   const ref = useRef(null);
@@ -37,9 +37,7 @@ function CreatePostModal() {
   }, []);
   const handleCloseModal = () => {
     setIsModaldOpen(false);
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000); // 3 seconds delay
+    fetchDataOnbegin()
   };
   const handleOpenModal = () => {
     setIsModaldOpen(true);
@@ -156,7 +154,7 @@ function CreatePostModal() {
           <div ref={ref} className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[705px] h-[425px] max-md:px-5 max-md:my-10">
             <h4 className='self-center  text-xl md:text-2xl py-2.5 font-sora font-semibold'>Créer une Publication</h4>
 
-            <CreatePost onClose={handleCloseModal} />
+            <CreatePost onClose={handleCloseModal}  />
 
           </div>
 
