@@ -5581,7 +5581,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           )}
                         />
                         {inputErrors["nom"] && (
-                          <div className="invalid-feedback">
+                          <div className="invalid-feedback text-xs">
                             {inputErrors["nom"]}
                           </div>
                         )}
@@ -5623,7 +5623,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           onChange={handleInputChange}
                         />
                         {inputErrors["prenom"] && (
-                          <div className="invalid-feedback">
+                          <div className="invalid-feedback text-xs">
                             {inputErrors["prenom"]}
                           </div>
                         )}
@@ -5665,7 +5665,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           onChange={handleInputChange}
                         />
                         {inputErrors["login"] && (
-                          <div className="text-red-500 text-sm mt-1">
+                          <div className="invalid-feedback text-xs text-xs">
                             {inputErrors["login"]}
                           </div>
                         )}
@@ -5712,7 +5712,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           required
                         />
                         {inputErrors["email"] && (
-                          <div className="invalid-feedback">
+                          <div className="invalid-feedback text-xs text-xs">
                             {inputErrors["email"]}
                           </div>
                         )}
@@ -5753,7 +5753,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           onChange={handleInputChange}
                         />
                         {validationError ? (
-                          <div className="invalid-feedback">
+                          <div className="invalid-feedback text-xs text-xs">
                             {validationError}
                           </div>
                         ) : (
@@ -5799,7 +5799,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           onChange={handleInputChange}
                         />
                         {validationError && (
-                          <div className="invalid-feedback">
+                          <div className="invalid-feedback text-xs">
                             {validationError}
                           </div>
                         )}
@@ -5914,7 +5914,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                             />
                           </div>
 
-                          <div className="text-red-500 text-sm mt-1">
+                          <div className="text-red-500 text-xs mt-1">
                             {buttonClicked &&
                               !selectedCountryphoneWS &&
                               "Veuillez sélectionner un pays"}
@@ -5922,7 +5922,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         </div>
                       </div>{" "}
                       {inputErrors["numWSup"] && (
-                        <div className="text-red-500 text-sm mt-1">
+                        <div className="text-red-500 text-xs mt-1">
                           {inputErrors["numWSup"]}
                         </div>
                       )}
@@ -6062,7 +6062,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         </div>
                       </div>
                       {inputErrors["tel"] && (
-                        <div className="text-red-500 text-sm mt-1">
+                        <div className="text-red-500 text-xs mt-1">
                           {inputErrors["tel"]}
                         </div>
                       )}
@@ -6160,7 +6160,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         </div>
                       </div>
                       {inputErrors.date_naissance && (
-                        <span className="text-red-500 text-sm">
+                        <span className="text-red-500 text-xs">
                           {inputErrors.date_naissance}
                         </span>
                       )}
@@ -6222,6 +6222,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                               )}
                             </option>
                           </select>
+                          
                           <span className="absolute right-[4px] bottom-0 h-[80%] w-10   flex items-center justify-center">
                                 <span style={{
                                   borderLeft: "2px solid #ddd"
@@ -6234,11 +6235,17 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           </span>
                           </span>
                           {inputErrors["gender"] && (
-                            <div className="invalid-feedback">
+                            <div className="invalid-feedback text-xs mt-2">
                               {inputErrors["gender"]}
                             </div>
                           )}
+                          
                         </div>{" "}
+                        {inputErrors.gender && (
+                        <span className="text-red-500 text-xs mt-1">
+                          {inputErrors.gender}
+                        </span>
+                      )}
                       </div>{" "}
                     </div>{" "}
                     {/* nationalité */}
@@ -6344,7 +6351,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         isSearchable
                       />
                       {inputErrors["nationality"] && (
-                        <div className="text-red-500 text-sm mt-1">
+                        <div className="text-red-500 text-xs mt-1">
                           {inputErrors["nationality"]}
                         </div>
                       )}
@@ -6418,7 +6425,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         isSearchable
                       />
                       {inputErrors["countryresidence"] && (
-                        <div className="text-red-500 text-sm mt-1">
+                        <div className="text-red-500 text-xs mt-1">
                           {inputErrors["countryresidence"]}
                         </div>
                       )}
@@ -6467,7 +6474,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                   onChange={handleInputChange}
                 />
                 {inputErrors["cityresidence"] && (
-                  <div className="invalid-feedback">
+                  <div className="invalid-feedback text-xs">
                     {inputErrors["cityresidence"]}
                   </div>
                 )}
@@ -6799,11 +6806,13 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16 mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-4 ">
-                        <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
-                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-                        <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
-                      </div>
+                    <div className="flex gap-3 justify-between mr-2 ml-2">
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+
+                </div>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-8 md:px-16 mt-8 w-full max-md:px-2 max-md:max-w-full">
@@ -6845,7 +6854,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           />
 
                           {inputErrors["champsoptionelle"] && (
-                            <div className="error-message text-red-600">
+                            <div className="error-message text-red-600 mt-1">
                               {inputErrors["champsoptionelle"]}
                             </div>
                           )}
@@ -7550,11 +7559,13 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16 mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-4 ">
-                        <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
-                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-                        <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
-                      </div>
+                    <div className="flex gap-3 justify-between mr-2 ml-2">
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+
+                </div>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
@@ -7594,7 +7605,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           />
 
                           {inputErrors["ClubActuelCoach"] && (
-                            <div className="error-message text-red-600">
+                            <div className="error-message text-red-600 mt-1">
                               {inputErrors["ClubActuelCoach"]}
                             </div>
                           )}
@@ -7629,7 +7640,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           />
 
                           {inputErrors["totalTeam"] && (
-                            <div className="error-message text-red-600">
+                            <div className="error-message text-red-600 mt-1">
                               {inputErrors["totalTeam"]}
                             </div>
                           )}
@@ -7688,7 +7699,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
 </span>
 </span>
                           {inputErrors["footballTactic"] && (
-                            <div className="error-message text-red-600">
+                            <div className="error-message text-red-600 -mt-1">
                               {inputErrors["footballTactic"]}
                             </div>
                           )}
@@ -7748,7 +7759,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         />
                       </div>{" "}
                       {inputErrors["countryCoachedIn"] && (
-                        <div className="error-message text-red-600">
+                        <div className="error-message text-red-600 mt-1">
                           {inputErrors["countryCoachedIn"]}
                         </div>
                       )}
@@ -8026,11 +8037,13 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16  mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-3 justify-between">
-                        <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
-                        <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-                        <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
-                      </div>
+                    <div className="flex gap-3 justify-between mr-2 ml-2">
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+
+                </div>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
@@ -8093,7 +8106,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                                 </option>
                               </select>
                               {inputErrors["typeresponsable"] && (
-                                <div className="invalid-feedback">
+                                <div className="invalid-feedback text-xs">
                                   {inputErrors["typeresponsable"]}
                                 </div>
                               )}
@@ -8879,11 +8892,13 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         </p>
                       </div>
                       <div className="flex justify-center items-center px-16  mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                        <div className="flex gap-3 justify-between">
-                          <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
-                          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-                          <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
-                        </div>
+                      <div className="flex gap-3 justify-between mr-2 ml-2">
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+
+                </div>
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
@@ -9048,9 +9063,10 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                                       }}
                                       value={selectedRegions}
                                     >
+                                      <option value="">Région</option>
                                       <option value="Europe">Europe</option>
                                       <option value="Asia">Asia</option>
-                                      <option value="Amerique">Amerique</option>
+
                                       <option value="Afrique">Afrique</option>
                                       <option value="Océanie">Océanie</option>
                                       <option value="Amérique">Amérique</option>
@@ -9507,11 +9523,13 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         </p>
                       </div>
                       <div className="flex justify-center items-center px-16  mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                        <div className="flex gap-3 justify-between">
-                          <div className="h-2 bg-blue-300 rounded-md w-[50px]" />
-                          <div className="h-2 bg-blue-300 rounded-md w-[77px]" />
-                          <div className="h-2 bg-blue-600 rounded-md w-[120px]" />
-                        </div>
+                      <div className="flex gap-3 justify-between mr-2 ml-2">
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+
+                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+
+                </div>
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch rounded-3xl px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
@@ -9540,7 +9558,6 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                             }`}
                             onChange={handleInputChange}
                             value={formData.profession}
-                            required
                           >
                             <option value="">
                               {getTranslation(
@@ -9628,7 +9645,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                             </option>
                           </select>
                           {inputErrors["Profession"] && (
-                            <div className="invalid-feedback">
+                            <div className="invalid-feedback text-xs">
                               {inputErrors["Profession"]}
                             </div>
                           )}

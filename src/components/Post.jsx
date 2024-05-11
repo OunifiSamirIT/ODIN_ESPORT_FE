@@ -53,7 +53,7 @@ import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "../pages/HomeSkeletonPost";
 import EditPost from "../pages/EditPost";
 import { Context } from "../index";
-function Post({ article, setArticles }) {
+function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const {
     register,
     handleSubmit,
@@ -901,6 +901,7 @@ function Post({ article, setArticles }) {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
+          onDeleteFromListAcceuillFront(id)
           return response.json();
         })
         .then((data) => {
@@ -1509,14 +1510,14 @@ function Post({ article, setArticles }) {
                     </span> */}
       <div>
   <span
-    className="text-md py-1 px-2 relative"
+    className="text-md py-1 px-2 relative z-[988] "
   >
    <div className=""> {article.likesCount}</div>
    
     {showDropdownlikes && (
-      <div ref={reff} className="absolute overflow-y-scroll hiddenScrollRightMenu left-0 md:left-10 bottom-5 md:bottom-0 h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+      <div ref={reff} className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[999] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
         <div className="py-2 px-4">
-          <h3 className="md:text-lg text-md text-wrap md:w-[300px]  font-semibold">Personne aimé cette publication</h3>
+          <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">Personne aimé cette publication</h3>
           <ul>
             {userslikearticle.map((like, index) => (
               <li key={index} className="mt-1 py-2 flex flex-row  items-center">

@@ -6,8 +6,8 @@ export default function LeftMenu( { id, shouldShowAgentItem, shouldShowForProfil
     <>
    
 
-            <div className="   xs:hidden sm:hidden hidden   md:flex md:flex-col md:min-w-[23%] md:-ml-2 md:mr-3 max-md:ml-0 max-md:w-full ">
-            <div className=" fixed xs:hidden sm:hidden hidden  md:flex md:flex-col md:max-w-[23%] max-md:ml-0 max-md:w-full ">
+            <div className="   xs:hidden sm:hidden hidden  md:flex md:flex-col md:min-w-[23%] md:-ml-2 md:mr-3 max-md:ml-0 max-md:w-full ">
+            <div className=" fixed xs:hidden sm:hidden hidden max-h-[82vh] hiddenScrollLeftMenu overflow-y-scroll overflow-x-hidden md:flex md:flex-col md:max-w-[23%] max-md:ml-0 max-md:w-full ">
               <div className="  flex flex-col items-start gap-3 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
                 <Link to="/home" className="nav-content-bttn open-font">
                   <div className="flex justify-center items-center gap-4 py-2 px-6 ">

@@ -260,3 +260,25 @@
   width: 6px;
 
 }
+
+
+.hiddenScrollLeftMenu::-webkit-scrollbar {
+  opacity: 0;
+
+  width: 6px;
+}
+
+
+.hiddenScrollLeftMenu::-webkit-scrollbar-thumb {
+  width: 6px;
+  background-color: rgb(244 244 245);
+  opacity: 0;
+
+}
+
+
+.hiddenScrollLeftMenu::-webkit-scrollbar-track {
+  width: 6px;
+  opacity: 0;
+
+}

@@ -7,7 +7,7 @@ import placeholder from "../assets/placeholder.jpg"
 import { Config } from "../config";
 
 
-const CreatePostModal = ({isSlider}) =>  {
+function CreatePostModal({fetchDataOnbegin}) {
   const [user, setUser] = useState([]);
   
   const ref = useRef(null);
@@ -37,9 +37,7 @@ const CreatePostModal = ({isSlider}) =>  {
   }, []);
   const handleCloseModal = () => {
     setIsModaldOpen(false);
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000); // 3 seconds delay
+    fetchDataOnbegin()
   };
   const handleOpenModal = () => {
     setIsModaldOpen(true);
@@ -86,7 +84,8 @@ const CreatePostModal = ({isSlider}) =>  {
                   <div className="d-flex w-full mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
                     <div className="flex w-full justify-between mr-3">
                       <label
-                        htmlFor="imgUpload"
+                        onClick={handleOpenModal}
+
                         className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
                       >
 
@@ -100,7 +99,8 @@ const CreatePostModal = ({isSlider}) =>  {
 
                       <label
                         className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
-                        htmlFor="videoUpload"
+                        onClick={handleOpenModal}
+
                       >
 
                         <img
@@ -113,7 +113,8 @@ const CreatePostModal = ({isSlider}) =>  {
 
                       <label
                         className="d-flex align-items-center font-xssss mt-1 fw-600 ls-1 text-grey-700 text-dark"
-                        htmlFor="vgifUpload"
+                        onClick={handleOpenModal}
+
                       >
 
                         <img
@@ -153,7 +154,7 @@ const CreatePostModal = ({isSlider}) =>  {
           <div ref={ref} className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[705px] h-[425px] max-md:px-5 max-md:my-10">
             <h4 className='self-center  text-xl md:text-2xl py-2.5 font-sora font-semibold'>Créer une Publication</h4>
 
-            <CreatePost onClose={handleCloseModal} />
+            <CreatePost onClose={handleCloseModal}  />
 
           </div>
 

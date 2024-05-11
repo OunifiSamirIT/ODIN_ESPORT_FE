@@ -676,7 +676,7 @@ const Album = () => {
           },
         }}
       >
-        <button onClick={closeModal} >Close Modal</button>
+        <button onClick={closeModal} className="px4 text-white font-bold rounded-full float-right bg-orange-500 w-6 h-6 ">X</button>
         {albumDetails.ImagesAlbumcamps[selectedImageIndex] && (
           <img
             loading="lazy"

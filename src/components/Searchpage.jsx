@@ -42,7 +42,7 @@ function Searchpage() {
           .catch((error) => console.error("Error fetching users:", error));
       }, []);
     
-    const handleSearch = (event) => {
+      const handleSearch = (event) => {
         const searchString = event.target.value;
         setSearchTerm(searchString);
         if (searchString.trim() === '') {
@@ -53,8 +53,8 @@ function Searchpage() {
           ).map(target => ({ ...target, origin: 'Page' })); // Adding origin property to filtered targets
     
           const filteredUsers = users.filter((user) =>
-            user.nom.toLowerCase().startsWith(searchString.toLowerCase()) || user.nom.toLowerCase().includes(searchString.toLowerCase())
-          ).map(user => ({ ...user, origin: 'Personne' })); // Adding origin property to filtered users
+            user?.user?.nom.toLowerCase().startsWith(searchString.toLowerCase()) || user?.user?.nom.toLowerCase().includes(searchString.toLowerCase())
+          ).map(user => ({ ...user.user, origin: 'Personne' })); // Adding origin property to filtered users
     
           setSearchResults([...filteredTargets, ...filteredUsers]);
         }
@@ -65,7 +65,7 @@ function Searchpage() {
 <>
              <div className=' '>
                 <Header/>
-   <div className=" md:flex pl-7  pt-4 w-full min-w-[250px]">
+   <div className=" md:flex pl-2 pr-2 pt-4 w-full min-w-[200px]">
         <div className="flex md:hidden items-center mt-16 relative ">
           <div className="flex items-center whitespace-nowrap bg-gray-100 pr-2 pl-2 h-11 w-[250px] rounded-full mr-4 border border-black absolute top-0">
             <input
@@ -90,7 +90,7 @@ function Searchpage() {
           </div>
           <div className="">
             {searchResults.length > 0 && (
-              <ul className="bg-white shadow-md rounded-md mt-1 px-4 py-2 max-h-60 absolute top-[40px]  min-w-[350px] overflow-y-scroll ">
+              <ul className="bg-white shadow-md rounded-md mt-1 px-4 py-2 max-h-[600px] absolute top-[40px]  min-w-[350px] overflow-y-scroll ">
                 {searchResults.map((item, index) => (
                   <React.Fragment key={index}>
                     {index === 0 || searchResults[index - 1].origin !== item.origin ? (

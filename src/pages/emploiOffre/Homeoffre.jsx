@@ -94,7 +94,7 @@ function HomeOffre() {
 
   const handleConfirmDelete = (e, id) => {
     e.preventDefault()
-    fetch(`http://localhost:5000/api/deleteoffre/${id}`, {
+    fetch(`${Config.LOCAL_URL}/api/deleteoffre/${id}`, {
       method: 'DELETE',
     })
       .then((response) => {

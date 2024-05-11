@@ -3,7 +3,9 @@ import { useEffect } from 'react';
 import { Config } from "../config";
 import { useState } from 'react';
 import AdminImg from "../assets/ODIN22.png";
-
+import moment from "moment/moment";
+import '../../node_modules/moment/locale/fr';
+import '../../node_modules/moment/locale/en-ca';
 function Albumsadmin( {item} ) {
     const [album, setAlbum] = useState([]);
     const formatDate = (dateString) => {
@@ -36,6 +38,13 @@ function Albumsadmin( {item} ) {
           console.error("Error fetching albums:", error);
         }
       };
+
+
+      const storedLanguage = localStorage.getItem('language');
+      const language = storedLanguage ? storedLanguage.toLowerCase() : '';
+    
+      // Set the locale based on the stored language or default to English
+      moment.locale(language === 'fr' ? 'fr' : 'en');
   return (
     <div className="flex flex-col  w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
                       <div
@@ -53,7 +62,14 @@ function Albumsadmin( {item} ) {
                           <h4 className="fw-700 text-grey-900 font-xssss mt-1">
                             ODIN Sport
                             <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                            {item.createdAt}
+                            {moment(item?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                    {
+                      moment(item?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                        moment(item?.createdAt).fromNow(true) :
+                        moment(item?.createdAt).fromNow()
+                    }
+                            
+                            {/* {item.createdAt} */}
                             </span>
                           </h4>
                         </div>
