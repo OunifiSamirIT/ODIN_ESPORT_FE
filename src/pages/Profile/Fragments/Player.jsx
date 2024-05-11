@@ -99,7 +99,7 @@ const PlayerCard = ({ userInfo }) => {
   // }
   const getCountryFlagFromCountryName = (countryName) => {
     const country = paysAllInfo.find(country => country.name == countryName);
-    return countryName;
+    return country.iso['alpha-2'].toLowerCase();
   }
 
   const copyLinkToClipboard = (articleId) => {
@@ -256,7 +256,7 @@ const PlayerCard = ({ userInfo }) => {
             </div>
           </div>
         </div>
-        <div className="pl-[16px] md:pl-[0px] grid grid-cols-2   md:gap-x-2 max-md:gap-x-4 md:ml-[125px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between text-sm flex-wrap md:flex-nowrap">
+        <div className="pl-[16px] md:pl-[0px] grid grid-cols-2   md:gap-x-2 max-md:gap-x-4 md:ml-[100px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between text-sm flex-wrap md:flex-nowrap">
           <div className="flex gap-2 justify-left items-center py-2">
             <img
               loading="lazy"

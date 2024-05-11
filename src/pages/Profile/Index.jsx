@@ -866,7 +866,7 @@ const Index = () => {
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
         {owner && (
-          <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3">
+          <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3 mb-3">
             <div className="card-body p-2 position-relative">
             <CreatePostModal/>
 

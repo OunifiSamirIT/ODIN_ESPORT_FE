@@ -329,8 +329,8 @@ const General = ({ userInfo }) => {
             userInfo.agent && userInfo.agent.typeresponsable === 'club' ?
               <div
 
-                className="self-end h-full items-center flex items-center gap-2 justify-center py-2 whitespace-nowrap">
-                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              className="flex gap-2 justify-left flex-row items-center self-stretch py-2">
+              <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_878_79171)">
                     <mask id="mask0_878_79171" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="20">
                       <path d="M20.5 0H0.5V20H20.5V0Z" fill="white" />

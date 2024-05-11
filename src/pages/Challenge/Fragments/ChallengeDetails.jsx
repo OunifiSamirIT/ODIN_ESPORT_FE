@@ -54,7 +54,9 @@ const ChallengeDetais = () => {
             method: 'PUT',
             body: formData,
         })
-        setIsVoted(true)
+        const result = await response.json()
+        setIsVoted(!isVoted)
+        setVote(result.count)
         console.log('voted')
 
     }
@@ -134,7 +136,7 @@ const ChallengeDetais = () => {
         setChallenges(result.challenges)
 
     }
-
+    const [ error , setError] = useState(false)
 
 
     const fetchCommentaire = async () => {
@@ -175,12 +177,14 @@ const ChallengeDetais = () => {
         }
 
     }
+    const [loading , setIsLoading] = useState(false)
     useEffect(() => {
         checkIfParticipate(challenges)
         console.log('changed')
     }, [challenges])
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const onSubmit = async (data) => {
+        setIsLoading(true)
         const formData = new FormData();
         formData.append('challengeId', challengeId)
         formData.append('userId', storedUserData.id)
@@ -207,17 +211,35 @@ const ChallengeDetais = () => {
                 progress: undefined,
                 theme: "light",
             })
+            setIsLoading(false)
             // navigate('/admin/blog')
 
+        }else{
+            setError('vous pouvez participer une suele fois ')
         }
     }
 
     const onDelete = async (data) => {
-      console.log(data)
-            // navigate('/admin/blog')
-
-  
+      console.log('delete')
+      let myParticipants = []
+      
+      challenges?.participants?.map((item) => {
+          if (isOwner(item.userId)) {
+              myParticipants.push(item)
+          }
+        })
+        const response = await fetch(`${Config.LOCAL_URL}/api/participant/delete/${myParticipants[0].id}`, {
+            method: 'DELETE',
+        });
+        if(response.status === 200){
+            window.location.reload()
+             
+        }
+      fetchChallenges()
     }
+    const [likes,setLikes] = useState(0)
+    const [vote,setVote]=useState(0)
+
     const handleCommentaire = async () => {
         const formData = new FormData()
         formData.append('participantId', showCase.id)
@@ -231,8 +253,12 @@ const ChallengeDetais = () => {
         if (response.status === 200) {
             fetchCommentaire()
         }
+        setCommentShow(true)
         setCommentairetext('')
     }
+    useEffect(() => {
+         
+    },[])
 
     const formatDate = (dateString) => {
         const dateObject = new Date(dateString);
@@ -243,7 +269,7 @@ const ChallengeDetais = () => {
             year: 'numeric'
         });
     }
-
+    const [hasLiked , setHasLiked] = useState(false)
     const handleLike = async () => {
         console.log('liked')
         const formData = new FormData()
@@ -254,6 +280,10 @@ const ChallengeDetais = () => {
             method: 'PUT',
             body: formData
         })
+        const result = await response.json()
+        console.log(result)
+        setLikes(result.like)
+        setHasLiked(result.hasLiked ? true : false)
     }
     const openModel = async (item) => {
         console.log(showCase)
@@ -268,10 +298,13 @@ const ChallengeDetais = () => {
         })
         const result = await response.json()
         setIsVoted(result.res)
+        setVote(item.votes)
+        setLikes(item.likes)
         setShowCase(item)
     }
-
+    const [videoName,setVideoName]= useState()
     return (<>
+    
         {
             isOpen && <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
                 <div ref={ref} className="flex flex-col px-4 py-8 max-w-full bg-white rounded-[10px] w-[936px]">
@@ -315,13 +348,16 @@ const ChallengeDetais = () => {
                         <textarea type="text" name="description" {...register("description")} className="justify-center p-4 mt-2 h-full min-h-4 font-light rounded-[10px] border border-solid border-neutral-200 max-md:max-w-full" placeholder="📢 Big News! Thrilled to announce my signing with FC Barcelona! Grateful" />
                         <div className="flex justify-center items-center px-8 py-10 mt-8 font-medium text-white rounded-[10px] border-2 border-blue-600 border-dashed max-md:px-5 max-md:max-w-full">
                             <div className="relative ">
-                                <div className="w-full flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
+                                <div className="w-full   flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
                                     <img
                                         loading="lazy"
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/7123def0a3472b3c80be2e883ea0924a14fd3bb7a77eac6c4c15dc33e92f9d35?"
                                         className="shrink-0 aspect-[1.45] fill-white w-[29px]"
                                     />
-                                    <div>{
+                                    <div className="overflow-hidden">
+                                       
+                                        {
+                                            videoName ? videoName :
                                         getTranslation(
                                             `Import your video`,  // -----> Englais
                                             `Importer votre vidéo`, //  -----> Francais
@@ -331,7 +367,7 @@ const ChallengeDetais = () => {
 
                                     } </div>
                                 </div>
-                                <input type="file" name="video" {...register("video")} className="top-0 opacity-0 absolute flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5" />
+                                <input type="file" name="video" {...register("video")} onChange={(e)=>setVideoName(e.target.files[0].name)} className="top-0 opacity-0 absolute flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5" />
 
                             </div>
                         </div>
@@ -362,10 +398,10 @@ const ChallengeDetais = () => {
 
                             }</div>
                         </div>
-
+                        {error && <p className="text-red-500 text-center">{error}</p>}
                         <div className="flex flex-col">
                             <div className="flex gap-2 justify-center self-center px-8 py-2 mt-8 font-medium bg-blue-500 text-white whitespace-nowrap border-2 border-blue-500 border-solid rounded-[30px] max-md:px-5">
-                                <button type="submit"> {
+                                <button type="submit" disabled={loading}> { loading ? loading :
                                     getTranslation(
                                         `Submit`,  // -----> Englais
                                         `Confirmer`, //  -----> Francais
@@ -438,29 +474,6 @@ const ChallengeDetais = () => {
                             }
                         </p>
 
-                        <div className="flex justify-center items-center px-8 py-10 mt-8 font-medium text-white rounded-[10px] border-2 border-blue-600 border-dashed max-md:px-5 max-md:max-w-full">
-                            <div className="relative ">
-                                {/* <div className="w-full flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                                    <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/7123def0a3472b3c80be2e883ea0924a14fd3bb7a77eac6c4c15dc33e92f9d35?"
-                                        className="shrink-0 aspect-[1.45] fill-white w-[29px]"
-                                    />
-                                    <div>{
-                                        getTranslation(
-                                            `Import your video`,  // -----> Englais
-                                            `Importer votre vidéo`, //  -----> Francais
-                                            //   ``,  //  -----> Turkey
-                                            //   `` ,  //  -----> Allemagne
-                                        )
-
-                                    } </div>
-                                </div> */}
-                                <input type="file" name="video" {...register("video")} className="top-0 opacity-0 absolute flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5" />
-
-                            </div>
-                        </div>
-
                         <div className="flex flex-col">
                             <div className="flex gap-2 justify-center self-center px-4 py-1 md:py-2 mt-8 font-medium bg-blue-500 text-white whitespace-nowrap border-2 border-blue-500 border-solid rounded-[30px]">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -512,7 +525,7 @@ const ChallengeDetais = () => {
                     <div className="overflow-y-scroll overflow-x-hidden">
                         <div className="flex max-md:flex-col max-md:gap-0">
                             <div className="flex flex-col w-[400px] h-[600px] max-md:ml-0 max-md:w-full">
-                                <video preload="metadata" controls class="object-cover size-full"
+                                <video preload="metadata" controls class="object-cover max-md:scale-75 size-full"
                                     src={`${showCase.video}#t=0.2`}
                                 >
                                 </video>
@@ -607,12 +620,8 @@ const ChallengeDetais = () => {
                                     <div className="flex gap-5 justify-between px-4 mt-2 w-full text-base text-zinc-900 max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                         <div className="flex w-full gap-5 justify-between whitespace-nowrap">
                                             <div className="flex gap-2 py-2">
-                                                <img
-                                                    loading="lazy"
-                                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/1607232e818388901807a7c074c396773b9625ee8dc30654ea6f124866840214?"
-                                                    className="shrink-0 aspect-[1.05] w-[21px]"
-                                                />
-                                                <button onClick={handleLike} >{
+                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class={`size-6 ${hasLiked ? 'text-orange-500' : ''}`} height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path></svg>
+                                                <button onClick={handleLike} className={`${hasLiked ? 'text-orange-500' : ''}`}>{
                                                     getTranslation(
                                                         `Like`,  // -----> Englais
                                                         `J’aime`, //  -----> Francais
@@ -623,11 +632,6 @@ const ChallengeDetais = () => {
                                                 }</button>
                                             </div>
                                             {/* <div className="flex gap-2 py-2"> */}
-                                            <img
-                                                loading="lazy"
-                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/798714e6a8ae27d83b62e7cfed800557a2f9db0ea140b04eca4377d04c78b16b?"
-                                                className="shrink-0 w-5 aspect-square fill-zinc-900"
-                                            />
                                             <button onClick={() => setCommentShow(!commentShow)}> {
                                                 getTranslation(
                                                     `Comment`,  // -----> Englais
@@ -647,7 +651,7 @@ const ChallengeDetais = () => {
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/2850b72d42d16c20987b2fcb06ac06c9c7ed810aa09222a1054133ca9af85431?"
                                                 className="shrink-0 aspect-[1.2] fill-neutral-500 w-[18px]"
                                             />
-                                            <div>{showCase.votes}</div>
+                                            <div>{vote}</div>
                                         </div>
                                         <div className="flex gap-2.5 justify-center self-stretch py-2 my-auto">
                                             <img
@@ -655,7 +659,7 @@ const ChallengeDetais = () => {
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/ca900fab50b2b468e8a7b00673066a6615d58962b5c0bcaea8a361061df6419c?"
                                                 className="shrink-0 w-4 aspect-[1.06] fill-neutral-500"
                                             />
-                                            <div>{showCase.likes}</div>
+                                            <div>{likes}</div>
                                         </div>
                                         <div className="flex gap-2.5 justify-center self-stretch py-2.5">
                                             <img
@@ -869,7 +873,7 @@ const ChallengeDetais = () => {
             </div>
         </div>
         <div className="flex flex-col p-6 bg-white rounded-[10px] max-md:px-5 col-span-3">
-            <div className="flex gap-2.5 self-start px-6 text-2xl font-bold text-zinc-900 max-md:flex-wrap max-md:px-5">
+            <div className="flex gap-2.5 self-start px-6 text-xl md:text-2xl font-bold text-zinc-900 max-md:px-5">
                 <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ddda3932af487b599484345d1d0a25b00d284af55f1059e9b684afddb656034?"
