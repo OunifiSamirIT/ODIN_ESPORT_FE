@@ -178,7 +178,7 @@ const Album = () => {
           <div className="flex max-md:flex-col max-md:gap-0">
 
             {/* left menu */}
-            <LeftMenu id={id} classothercomponent={true} shouldShowAgentItem={shouldShowAgentItem} shouldShowForProfile={shouldShowForProfile} setEventTogglerIsOpenned={setEventTogglerIsOpenned}  eventTogglerIsOpenned={eventTogglerIsOpenned}  user={user} userProfileType={userProfileType} />
+            <LeftMenu id={id}  classothercomponent={true} shouldShowAgentItem={shouldShowAgentItem} shouldShowForProfile={shouldShowForProfile} setEventTogglerIsOpenned={setEventTogglerIsOpenned}  eventTogglerIsOpenned={eventTogglerIsOpenned}  user={user} userProfileType={userProfileType} />
 
 
             {/* left menu */}
