@@ -82,7 +82,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e13bde84fa9b2785556220b4a439b162b51401e76b4b6dbacca76198fd0f64c0?"
               className="w-5 aspect-square"
             />
-            <span className="" href={'/home'}>Acceuil</span>
+            <a className="hover:text-white" href={'/home'}>Acceuil</a>
           </div>
           <div className="flex gap-2 slideMenuBtn justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
@@ -90,7 +90,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/fc3698e77abea2c6c7f4158984e72cc84fccffa79005aaacb0a8148c7fc2d112?"
               className="aspect-[0.75] w-[15px]"
             />
-            <span className="grow" href={`/profile/${user?.id}`}>Profil</span>
+            <a className="hover:text-white" href={`/profile/${user?.id}`}>Profil</a>
           </div>
           <div className="flex gap-2 slideMenuBtn justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
@@ -98,7 +98,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/927661d7ec160577838c28e1e039b5d465c8c91f54895e62de4603b16322853d?"
               className="w-5 aspect-square"
             />
-            <span className="grow" href={'/setting/personal'}>Paramètres</span>
+            <a className="hover:text-white" href={'/setting/personal'}>Paramètres</a>
           </div>
           <div className="flex gap-2  justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
