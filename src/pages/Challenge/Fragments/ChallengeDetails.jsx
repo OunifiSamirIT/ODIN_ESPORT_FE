@@ -585,14 +585,14 @@ const ChallengeDetais = () => {
                                     <div className="mx-8 mt-4 text-base font-light text-zinc-900 max-md:mr-2.5 max-md:max-w-full">
                                         {showCase.description}
                                     </div>
-                                    {!isVoted ? <div className="flex justify-center items-center px-8 py-2 mx-8 mt-8 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:mr-2.5 max-md:max-w-full">
+                                    {!isVoted ? <div onClick={handleVote} className="flex cursor-pointer justify-center items-center px-8 py-2 mx-8 mt-8 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:mr-2.5 max-md:max-w-full">
                                         <div className="flex gap-2">
                                             <img
                                                 loading="lazy"
                                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/a71ea75149c9710418976dfe985f413899a5dbaed4d67b4d3d9fb84cadc66712?"
                                                 className="shrink-0 w-6 border-0 border-white border-solid aspect-[1.2] fill-white stroke-[0.4px] stroke-white"
                                             />
-                                            <button onClick={handleVote}>{
+                                            <button >{
                                                 getTranslation(
                                                     `Vote`,  // -----> Englais
                                                     `Voter`, //  -----> Francais
@@ -602,13 +602,13 @@ const ChallengeDetais = () => {
 
                                             }</button>
                                         </div>
-                                    </div> : <div className="flex justify-center items-center px-8 py-2 mx-8 mt-8 text-base font-medium text-blue-600 border-2 border-blue-600 whitespace-nowrap bg-white rounded-[30px] max-md:px-5 max-md:mr-2.5 max-md:max-w-full">
+                                    </div> : <div onClick={handleVote} className="flex cursor-pointer justify-center items-center px-8 py-2 mx-8 mt-8 text-base font-medium text-blue-600 border-2 border-blue-600 whitespace-nowrap bg-white rounded-[30px] max-md:px-5 max-md:mr-2.5 max-md:max-w-full">
                                         <div className="flex gap-2">
                                             <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M15.875 0H9.875C7.665 0 5.875 1.79 5.875 4V14C5.875 14.55 6.325 15 6.875 15H18.875C19.425 15 19.875 14.55 19.875 14V4C19.875 1.79 18.085 0 15.875 0ZM16.585 7.56L13.875 10.27C13.385 10.76 12.745 11 12.105 11C11.465 11 10.825 10.76 10.335 10.27L9.165 9.1C8.775 8.71 8.775 8.08 9.165 7.69C9.555 7.3 10.185 7.3 10.575 7.69L11.745 8.86C11.945 9.06 12.255 9.05 12.455 8.86L15.165 6.15C15.555 5.76 16.185 5.76 16.575 6.15C16.965 6.54 16.965 7.17 16.575 7.56H16.585ZM24.875 14V16C24.875 18.21 23.085 20 20.875 20H4.875C2.665 20 0.875 18.21 0.875 16V14C0.875 12.14 2.155 10.59 3.875 10.14V14C3.875 15.65 5.225 17 6.875 17H18.875C20.525 17 21.875 15.65 21.875 14V10.14C23.595 10.59 24.875 12.14 24.875 14Z" fill="#2E71EB" />
                                             </svg>
 
-                                            <button onClick={handleVote}>{
+                                            <button >{
                                                 getTranslation(
                                                     `Voted`,  // -----> Englais
                                                     `Voté`, //  -----> Francais

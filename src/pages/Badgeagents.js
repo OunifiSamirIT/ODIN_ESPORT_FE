@@ -4090,14 +4090,14 @@ function Badge({ userpf }) {
       console.log("Data from API:", result); // Check the received data
       setData(result); // Update the state
       setFilteredUsers(result);
-      console.log("Data ++++++++++++AGENTS+++++++++from sdsdsdsdsdsdAPI:",filteredUsers.agents);
-console.log("Data+++++++++SCOUTS++++++++++++ from API:",filteredUsers.scouts);
-console.log("Data++++++++++COACH++++++++++++++ from API:",filteredUsers.coaches); // Assuming you want to filter users based on the received data
+      console.log("Data ++++++++++++AGENTS+++++++++from sdsdsdsdsdsdAPI:", filteredUsers.agents);
+      console.log("Data+++++++++SCOUTS++++++++++++ from API:", filteredUsers.scouts);
+      console.log("Data++++++++++COACH++++++++++++++ from API:", filteredUsers.coaches); // Assuming you want to filter users based on the received data
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  
+
   // const fetchData = async () => {
   //   try {
   //     const response = await fetch(`${Config.LOCAL_URL}/api/allagents`);
@@ -4118,7 +4118,7 @@ console.log("Data++++++++++COACH++++++++++++++ from API:",filteredUsers.coaches)
     setFilteredUsers(data);
   };
 
-  
+
 
   const handleSearch = () => {
     // const filteredData = data.filter((user) => {
@@ -4150,8 +4150,8 @@ console.log("Data++++++++++COACH++++++++++++++ from API:",filteredUsers.coaches)
           (searchNationality === "" || scout?.user?.nationality === searchNationality) &&
           (searchTypeProfil === "" || scout?.user?.profil === searchTypeProfil) &&
           (searchPaysResidence === "" || scout?.user?.countryresidence === searchPaysResidence)
-        );    
-        }),
+        );
+      }),
       coaches: data.coaches.filter((coach) => {
         const fullName = `${coach?.user?.nom} ${coach?.user?.prenom}`.toLowerCase();
 
@@ -4162,11 +4162,12 @@ console.log("Data++++++++++COACH++++++++++++++ from API:",filteredUsers.coaches)
           (searchNationality === "" || coach?.user?.nationality === searchNationality) &&
           (searchTypeProfil === "" || coach?.user?.profil === searchTypeProfil) &&
           (searchPaysResidence === "" || coach?.user?.countryresidence === searchPaysResidence)
-        );          })
+        );
+      })
     };
     setFilteredUsers(filteredData);
   };
-  
+
 
   const optionsPays = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
@@ -4226,46 +4227,46 @@ console.log("Data++++++++++COACH++++++++++++++ from API:",filteredUsers.coaches)
   //     ),
   //   };
   // });
-    // for left slide barre ---------------------------------
-    const [user, setUser] = useState([]);
+  // for left slide barre ---------------------------------
+  const [user, setUser] = useState([]);
 
-    useEffect(() => {
-      const storedUserData = JSON.parse(localStorage.getItem("user"));
-      const id = storedUserData ? storedUserData.id : null;
-  
-      if (id) {
-        fetch(`${Config.LOCAL_URL}/api/user/${id}`)
-          .then((response) => response.json())
-          .then((userData) => {
-            setUser(userData);
-            console.log("user offre" , user)
-          })
-          .catch((error) => console.error("Error fetching user data:", error));
-      }
-  
-     
-    }, []);
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const id = storedUserData ? storedUserData.id : null;
 
-const storedUserData = JSON.parse(localStorage.getItem("user"));
+    if (id) {
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+        .then((response) => response.json())
+        .then((userData) => {
+          setUser(userData);
+          console.log("user offre", user)
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
 
 
-const id = storedUserData.id ? storedUserData.id : null;
+  }, []);
 
-const userProfileType = storedUserData ? storedUserData.profil : null;
+  const storedUserData = JSON.parse(localStorage.getItem("user"));
 
-const shouldHideForProfiles = ["other", "player"];
-const shouldShowAgentItem = ["player"].includes(userProfileType);
 
-const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
-const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
+  const id = storedUserData.id ? storedUserData.id : null;
 
-// left slide barre ------------------------------
+  const userProfileType = storedUserData ? storedUserData.profil : null;
+
+  const shouldHideForProfiles = ["other", "player"];
+  const shouldShowAgentItem = ["player"].includes(userProfileType);
+
+  const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
+  const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
+
+  // left slide barre ------------------------------
   return (
     <Fragment>
       <Header />
 
 
-       
+
 
 
 
@@ -4273,455 +4274,455 @@ const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
         <div className="self-center md:mt-20 w-full max-w-[1344px]  max-md:max-w-full">
           <div className="flex max-md:flex-col max-md:gap-0">
 
-{/* left menu */}
-<LeftMenu id={id} classothercomponent={true} shouldShowAgentItem={shouldShowAgentItem} shouldShowForProfile={shouldShowForProfile} setEventTogglerIsOpenned={setEventTogglerIsOpenned}  eventTogglerIsOpenned={eventTogglerIsOpenned}  user={user} userProfileType={userProfileType} />
+            {/* left menu */}
+            <LeftMenu id={id} classothercomponent={true} shouldShowAgentItem={shouldShowAgentItem} shouldShowForProfile={shouldShowForProfile} setEventTogglerIsOpenned={setEventTogglerIsOpenned} eventTogglerIsOpenned={eventTogglerIsOpenned} user={user} userProfileType={userProfileType} />
 
             {/* left menu */}
 
 
             <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex  md:gap-y-3 flex-col grow  max-md:max-w-full">
-                    <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-                        <div className="flex gap-3 md:gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-                          <div className="flex-auto text-2xl md:text-3xl font-bold text-zinc-900">
-                            Chercher Votre Agent
+                <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+                  <div className="flex gap-3 md:gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
+                    <div className="flex-auto text-2xl md:text-3xl font-bold text-zinc-900">
+                      Chercher Votre Agent
+                    </div>
+                    <div
+                      className={`flex gap-2  justify-center self-start px-8 py-2 text-sm md:text-base font-medium ${showFilters ? 'text-white' : 'text-white'
+                        } whitespace-nowrap ${showFilters ? 'bg-black' : 'bg-blue-600'
+                        } rounded-[30px] max-md:px-5`}
+                      onClick={handleToggleFilters}
+                    >
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/338f69c576a3cd879110110b941d2824abc1d5b093ee17b0c389f0f0c415230e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                        className="w-4 md:w-5 aspect-square"
+                      />
+                      {showFilters ? 'Masquer les filtres' : 'Afficher les filtres'}
+                    </div>
+                  </div>
+                </div>
+
+
+
+                {showFilters && (
+                  <>
+                    <div className="flex flex-col px-8 mt-6 md:mt-0 md:pt-8 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+
+                      <div className="flex-wrap gap-y-2 justify-between content-start mt-2 max-md:max-w-full">
+                        <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
+
+
+
+                          <div className="flex flex-col w-full max-md:ml-0 max-md:w-full">
+                            <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-2 max-md:max-w-full">
+                              <div className="flex gap-4 justify-between px-4 max-md:flex-wrap max-md:max-w-full">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/1744eb7a080221807467d8a93b3f90074802cac02f9933e47a9e4e617ca3cdd9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="aspect-[0.71] w-[15px]"
+                                />
+                                <div className="grow  max-md:max-w-full">
+                                  Nom et prénom
+                                </div>
+                              </div>
+                              <input
+                                class="justify-center  w-full items-start py-2.5  pl-4 mt-2 text-md font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
+                                type="text"
+                                placeholder=" nom  ou  prenom"
+                                value={searchNom}
+                                onChange={(e) => setSearchNom(e.target.value)}
+                              />
+                              <div className="flex gap-4 w-full  self-start px-4 mt-4 whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/d53d36790234944104fc9c6c9ab8bb4e63aa1602f99c43a0ce5a3f3c262180f9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-square"
+                                />
+                                <div className="grow">Nationalité</div>
+                              </div>
+
+
+                              <div className=" gap-4 w-full flex-1 ">
+                                <Select
+                                  options={options}
+                                  placeholder="Nationalité"
+                                  styles={{
+                                    control: (provided, state) => ({
+                                      ...provided,
+                                      borderRadius: "0.375rem",
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      borderRadius: "30px",
+                                      width: "100%",
+                                      fontSize: "1rem",
+                                      backgroundColor: "#ffff",
+                                      borderWidth: "none",
+                                      marginTop: "4px",
+                                      border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+                                      paddingTop: "6px", // Adjust the top padding as needed
+                                      paddingBottom: "6px", // Adjust the bottom padding as needed
+                                      paddingLeft: "13px", // Adjust as needed
+                                      paddingRight: "13px", // Adjust as needed
+                                    }),
+                                  }}
+                                  onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
+                                  value={options.find((option) => option.value === searchNationality)}
+
+                                  // Enable searching by nationalite
+                                  filterOption={(option, inputValue) => {
+                                    const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+
+                                    const nationaliteString =
+                                      typeof nationalite === "string"
+                                        ? nationalite.toLowerCase()
+                                        : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
+
+                                    return nationaliteString.includes(
+                                      inputValue.toLowerCase()
+                                    );
+                                  }}
+                                  // Ensure that all options are displayed even when filtered
+                                  isSearchable
+                                />
+
+                              </div>
+
+                            </div>
                           </div>
-                          <div
-                            className={`flex gap-2  justify-center self-start px-8 py-2 text-sm md:text-base font-medium ${showFilters ? 'text-white' : 'text-white'
-                              } whitespace-nowrap ${showFilters ? 'bg-black' : 'bg-blue-600'
-                              } rounded-[30px] max-md:px-5`}
-                            onClick={handleToggleFilters}
-                          >
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/338f69c576a3cd879110110b941d2824abc1d5b093ee17b0c389f0f0c415230e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-4 md:w-5 aspect-square"
-                            />
-                            {showFilters ? 'Masquer les filtres' : 'Afficher les filtres'}
+
+
+
+                          <div className="flex flex-col ml-5 w-full max-md:ml-0 max-md:w-full">
+                            <div className="flex flex-col grow text-base text-zinc-900 ">
+                              <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/706e00f0da2704336a80f4a202ba4e45774fadcb82a16cd4232e130a830ce2cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-3.5 aspect-[0.7]"
+                                />
+                                <div className="grow ">Type de profil</div>
+                              </div>
+                              <div className="flex flex-col justify-center mt-2 w-full text-md font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                <div className="flex gap-5 justify-between px-4 py-1.5 rounded-md">
+                                  <div className="flex-auto self-start mt-1 w-full">
+
+                                    <select
+                                      className="self-start mt-1 w-full"
+                                      value={searchTypeProfil}
+                                      onChange={(e) => setSearchTypeProfil(e.target.value)}
+                                    >
+                                      <option value="" disabled>
+                                        Type de profil
+                                      </option>
+                                      <option value="club">Manager de club</option>
+                                      <option value="players">Manager de Joueur</option>
+                                      <option value="scout">Scout</option>
+                                      <option value="coach">Entraineur</option>
+                                    </select>
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div className="flex gap-4 justify-between px-4 mt-4 whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/f6a58358a69d56964aaea215860418655d19b7498b4ea5e26db448960416d128?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-square"
+                                />
+                                <div className="grow">Pays de résidence</div>
+                              </div>
+
+
+                              <div className="flex-auto">
+
+
+                                <div className="flex-auto">
+
+
+
+                                  <Select
+                                    options={optionsPays}
+                                    placeholder="Pays de résidence"
+                                    styles={{
+                                      control: (provided, state) => ({
+                                        ...provided,
+                                        borderRadius: "0.375rem",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        borderRadius: "30px",
+                                        width: "100%",
+                                        fontSize: "1rem",
+                                        backgroundColor: "#ffff",
+                                        borderWidth: "none",
+                                        marginTop: "4px",
+                                        border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+                                        paddingTop: "6px", // Adjust the top padding as needed
+                                        paddingBottom: "6px", // Adjust the bottom padding as needed
+                                        paddingLeft: "13px", // Adjust as needed
+                                        paddingRight: "13px", // Adjust as needed
+                                      }),
+                                    }}
+                                    onChange={(selectedOption) =>
+                                      setSearchPaysResidence(selectedOption.label.props.children[1])
+                                    }
+                                    value={optionsPays.find((option) => option.value === searchPaysResidence)}
+                                    filterOption={(option, inputValue) => {
+                                      const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+
+                                      const nationaliteString =
+                                        typeof nationalite === "string"
+                                          ? nationalite.toLowerCase()
+                                          : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
+
+                                      return nationaliteString.includes(
+                                        inputValue.toLowerCase()
+                                      );
+                                    }}
+                                    // Ensure that all options are displayed even when filtered
+                                    isSearchable
+                                  />
+                                </div>
+
+                              </div>
+
+
+
+
+                            </div>
                           </div>
                         </div>
                       </div>
 
+                      <div className="flex gap-1 md:gap-5  justify-between flex-col items-center md:flex-row py-2 mt-4 w-full text-base font-medium whitespace-nowrap  max-md:max-w-full">
 
+                        <div className="flex  gap-5 w-full md:w-fit justify-between ">
+                          <button onClick={handleSearch} className="justify-center w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                            Confirmer
+                          </button>
+                        </div>
 
-                      {showFilters && (
-                        <>
-                          <div className="flex flex-col px-8 mt-6 md:mt-0 md:pt-8 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-
-                            <div className="flex-wrap gap-y-2 justify-between content-start mt-2 max-md:max-w-full">
-                              <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
-                               
-                               
-                               
-                                <div className="flex flex-col w-full max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-2 max-md:max-w-full">
-                                    <div className="flex gap-4 justify-between px-4 max-md:flex-wrap max-md:max-w-full">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/1744eb7a080221807467d8a93b3f90074802cac02f9933e47a9e4e617ca3cdd9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="aspect-[0.71] w-[15px]"
-                                      />
-                                      <div className="grow  max-md:max-w-full">
-                                        Nom et prénom
-                                      </div>
-                                    </div>
-                                    <input
-                                      class="justify-center  w-full items-start py-2.5  pl-4 mt-2 text-md font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
-                                      type="text"
-                                      placeholder=" nom  ou  prenom"
-                                      value={searchNom}
-                                      onChange={(e) => setSearchNom(e.target.value)}
-                                    />
-                                    <div className="flex gap-4 w-full  self-start px-4 mt-4 whitespace-nowrap">
-                                    <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d53d36790234944104fc9c6c9ab8bb4e63aa1602f99c43a0ce5a3f3c262180f9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square"
-                                      />
-                                      <div className="grow">Nationalité</div>
-                                    </div>
-                                  
-
-                                          <div className=" gap-4 w-full flex-1 ">
-                                          <Select
-                        options={options}
-                        placeholder="Nationalité"
-                        styles={{
-                          control: (provided, state) => ({
-                            ...provided,
-                            borderRadius: "0.375rem",
-                            display: "flex",
-                            justifyContent: "center",
-                            borderRadius: "30px",
-                            width: "100%",
-                            fontSize: "1rem",
-                            backgroundColor: "#ffff",
-                            borderWidth: "none",
-                            marginTop: "4px",
-                            border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
-                            paddingTop: "6px", // Adjust the top padding as needed
-                            paddingBottom: "6px", // Adjust the bottom padding as needed
-                            paddingLeft: "13px", // Adjust as needed
-                            paddingRight: "13px", // Adjust as needed
-                          }),
-                        }}
-                        onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
-                        value={options.find((option) => option.value === searchNationality)}
-
-                        // Enable searching by nationalite
-                        filterOption={(option, inputValue) => {
-                          const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
-
-                          const nationaliteString =
-                            typeof nationalite === "string"
-                              ? nationalite.toLowerCase()
-                              : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
-
-                          return nationaliteString.includes(
-                            inputValue.toLowerCase()
-                          );
-                        }}
-                        // Ensure that all options are displayed even when filtered
-                        isSearchable
-                      />
-                                                   
-                                                     </div>
-                                       
-                                  </div>
-                                </div>
-
-
-
-                                <div className="flex flex-col ml-5 w-full max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col grow text-base text-zinc-900 ">
-                                    <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/706e00f0da2704336a80f4a202ba4e45774fadcb82a16cd4232e130a830ce2cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-3.5 aspect-[0.7]"
-                                      />
-                                      <div className="grow ">Type de profil</div>
-                                    </div>
-                                    <div className="flex flex-col justify-center mt-2 w-full text-md font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                      <div className="flex gap-5 justify-between px-4 py-1.5 rounded-md">
-                                        <div className="flex-auto self-start mt-1 w-full">
-
-                                          <select
-                                            className="self-start mt-1 w-full"
-                                            value={searchTypeProfil}
-                                            onChange={(e) => setSearchTypeProfil(e.target.value)}
-                                          >
-                                            <option value="" disabled>
-                                              Type de profil
-                                            </option>
-                                            <option value="club">Manager de club</option>
-                                            <option value="players">Manager de Joueur</option>
-                                            <option value="scout">Scout</option>
-                                            <option value="coach">Entraineur</option>
-                                          </select>
-                                        </div>
-
-                                      </div>
-                                    </div>
-                                    <div className="flex gap-4 justify-between px-4 mt-4 whitespace-nowrap">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f6a58358a69d56964aaea215860418655d19b7498b4ea5e26db448960416d128?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square"
-                                      />
-                                      <div className="grow">Pays de résidence</div>
-                                    </div>
-                                     
-                                         
-                                          <div className="flex-auto">
-
-
-                                            <div className="flex-auto">
-
-
-                        
-                                              <Select
-                                                options={optionsPays}
-                                                placeholder="Pays de résidence"
-                                                styles={{
-                                                  control: (provided, state) => ({
-                                                    ...provided,
-                                                    borderRadius: "0.375rem",
-                                                    display: "flex",
-                                                    justifyContent: "center",
-                                                    borderRadius: "30px",
-                                                    width: "100%",
-                                                    fontSize: "1rem",
-                                                    backgroundColor: "#ffff",
-                                                    borderWidth: "none",
-                                                    marginTop: "4px",
-                                                    border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
-                                                    paddingTop: "6px", // Adjust the top padding as needed
-                                                    paddingBottom: "6px", // Adjust the bottom padding as needed
-                                                    paddingLeft: "13px", // Adjust as needed
-                                                    paddingRight: "13px", // Adjust as needed
-                                                  }),
-                                                }}
-                                                onChange={(selectedOption) =>
-                                                  setSearchPaysResidence(selectedOption.label.props.children[1])
-                                                }
-                                                value={optionsPays.find((option) => option.value === searchPaysResidence)}
-                                                filterOption={(option, inputValue) => {
-                                                  const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
-                        
-                                                  const nationaliteString =
-                                                    typeof nationalite === "string"
-                                                      ? nationalite.toLowerCase()
-                                                      : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
-                        
-                                                  return nationaliteString.includes(
-                                                    inputValue.toLowerCase()
-                                                  );
-                                                }}
-                                                // Ensure that all options are displayed even when filtered
-                                                isSearchable
-                                              />
-                                            </div>
-
-                                          </div>
-
-
-
-                                       
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="flex gap-1 md:gap-5  justify-between flex-col items-center md:flex-row py-2 mt-4 w-full text-base font-medium whitespace-nowrap  max-md:max-w-full">
-                            
-                              <div className="flex  gap-5 w-full md:w-fit justify-between ">
-                                <button onClick={handleSearch} className="justify-center w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                                  Confirmer
-                                </button>
-                              </div>
-
-                              <div className="flex gap-5 w-full md:w-fit justify-between ">
-                              <button
-                                onClick={handleReset}
-                                className="justify-center w-full  md:w-fit  px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
-                              >
-                                Réinitialiser
-                              </button></div>
-                            </div>  
-                            
-                            
-                            </div>
-                        </>)}
-
-                    </div>
-
-                    <div className="flex-wrap content-start mt-6 max-md:max-w-full">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-                        {filteredUsers?.agents?.map((agents, index) => (
-                        <Link key={index} to={`/profile/${agents?.user?.id}`}>  
-                           <div  className="flex flex-col w-full">
-                           
-                            <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
-                             <img
-                                loading="lazy"
-                                src={agents?.user?.image}
-                                className="self-center max-w-full rounded-full aspect-square w-[120px]"
-                              /> 
-                              <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
-                                {agents?.user?.prenom} {agents?.user?.nom}
-                              </div>
-
-
-
-                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                                <div className="flex gap-4 justify-between font-light">
-                                <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-3.5 ml-1 aspect-[0.74]"
-                                  />
-                                  <div>Profil</div>
-                                </div>
-                                <div className="flex gap-2.5 my-auto font-medium">
-                                <div>{agents?.typeresponsable === 'club' ? 'Manager de Club' : 'Manager de joueur'}</div>
-
-                                </div>
-                              </div>
-                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                                <div className="flex gap-4 justify-between font-light">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square"
-                                  />
-                                  <div>Nationnalité</div>
-                                </div>
-                                <div className="flex gap-2.5 my-auto font-medium">
-                               
-                                  <div> {agents?.user?.nationality}</div>
-                                </div>
-                              </div>
-                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                                <div className="flex gap-4 justify-between font-light">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square"
-                                  />
-                                  <div>Pays de résidence</div>
-                                </div>
-                                <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
-                                  <div className="overflow-hidden overflow-ellipsis">
-                                    {agents?.user?.countryresidence}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div></Link>
-
-
-
-
-                        ))}
-          
-
-
-          {filteredUsers?.scouts?.map((scouts, index) => (
-                        <Link key={index} to={`/profile/${scouts?.user?.id}`}>  
-                           <div  className="flex flex-col w-full">
-                           
-                            <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
-                             <img
-                                loading="lazy"
-                                src={scouts?.user?.image}
-                                className="self-center max-w-full rounded-full aspect-square w-[120px]"
-                              /> 
-                              <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
-                                {scouts?.user?.prenom} {scouts?.user?.nom}
-                              </div>
-
-
-
-                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                                <div className="flex gap-4 justify-between font-light">
-                                <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-3.5 ml-1 aspect-[0.74]"
-                                  />
-                                  <div>Profil</div>
-                                </div>
-                                <div className="flex gap-2.5 my-auto font-medium">
-                                <div>{scouts?.user?.profil}</div>
-
-                                </div>
-                              </div>
-                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                                <div className="flex gap-4 justify-between font-light">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square"
-                                  />
-                                  <div>Nationnalité</div>
-                                </div>
-                                <div className="flex gap-2.5 my-auto font-medium">
-                               
-                                  <div> {scouts?.user?.nationality}</div>
-                                </div>
-                              </div>
-                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                                <div className="flex gap-4 justify-between font-light">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square"
-                                  />
-                                  <div>Pays de résidence</div>
-                                </div>
-                                <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
-                                  <div className="overflow-hidden overflow-ellipsis">
-                                    {scouts?.user?.countryresidence}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div></Link>
-
-
-
-
-                        ))}
-    
-    {filteredUsers?.coaches?.map((coaches, index) => (
-                        <Link key={index} to={`/profile/${coaches?.user?.id}`}>  
-                           <div  className="flex flex-col w-full">
-                           
-                            <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
-                             <img
-                                loading="lazy"
-                                src={coaches?.user?.image}
-                                className="self-center max-w-full rounded-full aspect-square w-[120px]"
-                              /> 
-                              <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
-                                {coaches?.user?.prenom} {coaches?.user?.nom}
-                              </div>
-
-
-
-                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                                <div className="flex gap-4 justify-between font-light">
-                                <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-3.5 ml-1 aspect-[0.74]"
-                                  />
-                                  <div>Profil</div>
-                                </div>
-                                <div className="flex gap-2.5 my-auto font-medium">
-                                <div>{coaches?.user?.profil === 'coach' ? 'Entraineur ' : 'Entraineur '}</div>
-
-                                </div>
-                              </div>
-                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                                <div className="flex gap-4 justify-between font-light">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square"
-                                  />
-                                  <div>Nationnalité</div>
-                                </div>
-                                <div className="flex gap-2.5 my-auto font-medium">
-                               
-                                  <div> {coaches?.user?.nationality}</div>
-                                </div>
-                              </div>
-                              <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
-                                <div className="flex gap-4 justify-between font-light">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square"
-                                  />
-                                  <div>Pays de résidence</div>
-                                </div>
-                                <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
-                                  <div className="overflow-hidden overflow-ellipsis">
-                                    {coaches?.user?.countryresidence}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div></Link>
-
-
-
-
-                        ))}   
+                        <div className="flex gap-5 w-full md:w-fit justify-between ">
+                          <button
+                            onClick={handleReset}
+                            className="justify-center w-full  md:w-fit  px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
+                          >
+                            Réinitialiser
+                          </button></div>
                       </div>
+
+
                     </div>
+                  </>)}
+
+              </div>
+
+              <div className="flex-wrap content-start mt-6 max-md:max-w-full">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+                  {filteredUsers?.agents?.map((agents, index) => (
+                    <Link key={index} to={`/profile/${agents?.user?.id}`}>
+                      <div className="flex flex-col w-full">
+
+                        <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
+                          <img
+                            loading="lazy"
+                            src={agents?.user?.image}
+                            className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                          />
+                          <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
+                            {agents?.user?.prenom} {agents?.user?.nom}
+                          </div>
+
+
+
+                          <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-4 justify-between font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-3.5 ml-1 aspect-[0.74]"
+                              />
+                              <div>Profil</div>
+                            </div>
+                            <div className="flex gap-2.5 my-auto font-medium">
+                              <div>{agents?.typeresponsable === 'club' ? 'Manager de Club' : 'Manager de joueur'}</div>
+
+                            </div>
+                          </div>
+                          <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-4 justify-between font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-5 aspect-square"
+                              />
+                              <div>Nationnalité</div>
+                            </div>
+                            <div className="flex gap-2.5 my-auto font-medium">
+
+                              <div> {agents?.user?.nationality}</div>
+                            </div>
+                          </div>
+                          <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-4 justify-between font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-5 aspect-square"
+                              />
+                              <div>Pays de résidence</div>
+                            </div>
+                            <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
+                              <div className="overflow-hidden overflow-ellipsis">
+                                {agents?.user?.countryresidence}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div></Link>
+
+
+
+
+                  ))}
+
+
+
+                  {filteredUsers?.scouts?.map((scouts, index) => (
+                    <Link key={index} to={`/profile/${scouts?.user?.id}`}>
+                      <div className="flex flex-col w-full">
+
+                        <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
+                          <img
+                            loading="lazy"
+                            src={scouts?.user?.image}
+                            className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                          />
+                          <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
+                            {scouts?.user?.prenom} {scouts?.user?.nom}
+                          </div>
+
+
+
+                          <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-4 justify-between font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-3.5 ml-1 aspect-[0.74]"
+                              />
+                              <div>Profil</div>
+                            </div>
+                            <div className="flex gap-2.5 my-auto font-medium">
+                              <div>{scouts?.user?.profil}</div>
+
+                            </div>
+                          </div>
+                          <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-4 justify-between font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-5 aspect-square"
+                              />
+                              <div>Nationnalité</div>
+                            </div>
+                            <div className="flex gap-2.5 my-auto font-medium">
+
+                              <div> {scouts?.user?.nationality}</div>
+                            </div>
+                          </div>
+                          <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-4 justify-between font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-5 aspect-square"
+                              />
+                              <div>Pays de résidence</div>
+                            </div>
+                            <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
+                              <div className="overflow-hidden overflow-ellipsis">
+                                {scouts?.user?.countryresidence}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div></Link>
+
+
+
+
+                  ))}
+
+                  {filteredUsers?.coaches?.map((coaches, index) => (
+                    <Link key={index} to={`/profile/${coaches?.user?.id}`}>
+                      <div className="flex flex-col w-full">
+
+                        <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
+                          <img
+                            loading="lazy"
+                            src={coaches?.user?.image}
+                            className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                          />
+                          <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
+                            {coaches?.user?.prenom} {coaches?.user?.nom}
+                          </div>
+
+
+
+                          <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-4 justify-between font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/2396d7f9c56d888c52107d7b3fbd89dbaa845bab9c06eaac4249fff819f8a7f8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-3.5 ml-1 aspect-[0.74]"
+                              />
+                              <div>Profil</div>
+                            </div>
+                            <div className="flex gap-2.5 my-auto font-medium">
+                              <div>{coaches?.user?.profil === 'coach' ? 'Entraineur ' : 'Entraineur '}</div>
+
+                            </div>
+                          </div>
+                          <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-4 justify-between font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-5 aspect-square"
+                              />
+                              <div>Nationnalité</div>
+                            </div>
+                            <div className="flex gap-2.5 my-auto font-medium">
+
+                              <div> {coaches?.user?.nationality}</div>
+                            </div>
+                          </div>
+                          <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-4 justify-between font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-5 aspect-square"
+                              />
+                              <div>Pays de résidence</div>
+                            </div>
+                            <div className="flex gap-2.5 my-auto font-medium overflow-hidden whitespace-nowrap">
+                              <div className="overflow-hidden overflow-ellipsis">
+                                {coaches?.user?.countryresidence}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div></Link>
+
+
+
+
+                  ))}
+                </div>
+              </div>
 
 
 
@@ -4729,10 +4730,10 @@ const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
 
 
 
-                  </div>
-                
+            </div>
+
+          </div>
         </div>
-      </div>
       </div>
     </Fragment>
   );
