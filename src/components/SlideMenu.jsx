@@ -61,7 +61,12 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
           srcSet={user?.image ? user?.image : UserImage}
           className="hidden  border-2   md:block self-stretch  aspect-square  rounded-full w-[60px] z-10 relative pointer"
         />
-        <div className={`hidden md:flex absolute h-[60px] top-0 z-1 flex  gap-4 items-center pl-4 pr-[65px] bg-blue-600 rounded-[80px] max-md:flex-wrap ${expanded ? 'w-fit expand' : 'hide'}`}>
+        <div className={`hidden md:flex absolute  h-[60px] top-0 z-1 flex  gap-4 items-center pl-4 pr-[145px] bg-blue-600 rounded-[80px] max-md:flex-wrap  ${expanded ? 'w-fit expand  pointer-events-auto' : 'w-fit expand pointer-events-none'}`}
+          style={{
+            transition: ".3s",
+            opacity: expanded ? 1: 0
+          }}
+        >  
           <div className="flex justify-center items-center self-stretch px-2 my-auto bg-white aspect-square h-[31px] rounded-[50px] w-[31px]">
             <img
               onClick={toggleExpand}
@@ -71,31 +76,31 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
             />
           </div>
 
-          <div className="flex gap-2  justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
+          <div className="flex gap-2 slideMenuBtn justify-center p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e13bde84fa9b2785556220b4a439b162b51401e76b4b6dbacca76198fd0f64c0?"
               className="w-5 aspect-square"
             />
-            <a className="grow" href={'/home'}>Acceuil</a>
+            <span className="" href={'/home'}>Acceuil</span>
           </div>
-          <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
+          <div className="flex gap-2 slideMenuBtn justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/fc3698e77abea2c6c7f4158984e72cc84fccffa79005aaacb0a8148c7fc2d112?"
               className="aspect-[0.75] w-[15px]"
             />
-            <a className="grow" href={`/profile/${user?.id}`}>Profil</a>
+            <span className="grow" href={`/profile/${user?.id}`}>Profil</span>
           </div>
-          <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
+          <div className="flex gap-2 slideMenuBtn justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/927661d7ec160577838c28e1e039b5d465c8c91f54895e62de4603b16322853d?"
               className="w-5 aspect-square"
             />
-            <a className="grow" href={'/setting/personal'}>Paramètres</a>
+            <span className="grow" href={'/setting/personal'}>Paramètres</span>
           </div>
-          <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
+          <div className="flex gap-2  justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/3fb21d1ad3af303c8fe8ca3c06f84fa81ac2ef681719a85f8aae751c3eb5e1ef?"
@@ -114,7 +119,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
             />
           </div> */}
-          <div className="flex gap-2 justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
+          <div className="flex gap-2 slideMenuBtn justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
               loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/7e89f8c7eb51a481e293bc932ceeb5782dea45f8469a1e16a1753ed7be9f6c3e?"

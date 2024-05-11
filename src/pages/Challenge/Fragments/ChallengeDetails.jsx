@@ -133,6 +133,8 @@ const ChallengeDetais = () => {
         } else {
             console.log('Aucun participant connecté trouvé.');
         }
+
+        //isOwner(connectedParticipant.userId)
         setChallenges(result.challenges)
 
     }

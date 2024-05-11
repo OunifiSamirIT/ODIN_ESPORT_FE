@@ -75,7 +75,7 @@ let sizeOfPostsToget = 10
   // const data = await response.json()
   fetchData(sizeOfPostsToget, p)
   
-  // console.log(data, "New---data__________________è_è")
+  // 
   //   if(data.rows.length == 0)   {
 
   //     setHasMore(false)
@@ -84,19 +84,19 @@ let sizeOfPostsToget = 10
   //   else {
   //       setProduct(prevProducts => [...prevProducts, ...data.rows])
   //       setP(prevPage =>  prevPage + 1)
-  //       console.log(p, "-----------------------page")
-  //   console.log(data.rows , "data.products")
-  //   console.log(product, "product")
+  //       
+  //   
+  //   
 
   //   }
-  //   console.log(p, "-----------------------page2")
+  //   
 
     
   }
   function onIntersection (entries) {
     const firstEntry = entries[0]
     if (firstEntry.isIntersecting && hasMore) {
-    console.log(product, "product")
+    
 
       fetchMoreItems()
     }
@@ -130,9 +130,9 @@ let sizeOfPostsToget = 10
       if (!result.data) {
         
         setEventHasMore(false)
-        console.log("---------------besh nsaker--------", eventHasMore)
+        
       }
-      console.log("----------------_-_admin--------", result)
+      
 
       // setData(prev => [...prev, 
       //   ...result.data.sort(
@@ -160,9 +160,9 @@ let sizeOfPostsToget = 10
   //     setLoading(true);
   //     // Fetch articles (posts) and albums
   //     const articlesResponse = await fetchArticles();
-  //     console.log("🚀 ~ fetchData ~ articlesResponse:", articlesResponse);
+  //     
   //     const albumsResponse = await fetchAlbums();
-  //     console.log('_-_-_-_-_-_', albumsResponse);
+  //     
 
   //     // Parse createdAt for articles
   //     const parsedArticles = articlesResponse.map(article => {
@@ -172,8 +172,8 @@ let sizeOfPostsToget = 10
   //       let time = article.createdAt.split('T')[1].split('.')[0]
   //       let dt = article.createdAt.split('T')[0].split('-')
   //       let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
-  //       // console.log("🚀 ~ parsedArticles ~ formattedDate:", correctDT)
-  //       console.log("🚀 ~ parsedArticles ~ formattedDate:",  formatDate(article.createdAt))
+  //       // 
+  //       
 
   //       return {
   //         ...article,
@@ -188,8 +188,8 @@ let sizeOfPostsToget = 10
   //       let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
   //       let time = album.createdAt.split('T')[1].split('.')[0]
       
-  //       // console.log("🚀 ~ parsedAlbums ~ album.createdAt:", correctDT)
-  //       console.log("🚀 ~ album ~ formattedDate:",  formatDate(album.createdAt))
+  //       // 
+  //       
 
   //       return {
   //         ...album,
@@ -202,15 +202,15 @@ let sizeOfPostsToget = 10
 
   //     // Sort the combined array by createdAt
   //     combinedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  //     console.log("🚀 ~ fetchData ~ combinedData:", combinedData)
+  //     
   //     // let combinedDataTemps = combinedData.sort((a, b) => new Date(b.temps) - new Date(a.temps));
-  //     // console.log("🚀 ~ fetchData ~ combinedDataTemps: //////////////////////////", combinedDataTemps)
+  //     // 
 
   //     // Update state with sorted data
   //     setData(combinedData);
 
-  //     console.log("combinedData 🚀🚀🚀🚀🚀", combinedData);
-  //     console.log(data, "data-------------------");
+  //     
+  //     
 
   //     setLoading(false);
   //   } catch (error) {
@@ -224,20 +224,20 @@ let sizeOfPostsToget = 10
     try {
       // Fetch articles (posts) and albums
       const articlesResponse = await fetchArticles(size, page);
-      console.log("🚀 ~ fetchData ~ articlesResponse:", articlesResponse);
+      
       let albumsResponse = [] ;
       if (eventHasMore) {
 
         albumsResponse = await fetchAlbums(size, page);
-        console.log('mezelt')
+        
       } else  {
          albumsResponse = []
-         console.log('ray msakra')
+         
 
       }
-      console.log("----------eventHasMore-------------", eventHasMore)
+      
 
-      console.log('_-_-_-_-_-_', albumsResponse);
+      
 
       // Parse createdAt for articles
       const parsedArticles = articlesResponse.map(article => {
@@ -247,8 +247,8 @@ let sizeOfPostsToget = 10
         let time = article.createdAt.split('T')[1].split('.')[0]
         let dt = article.createdAt.split('T')[0].split('-')
         let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
-        // console.log("🚀 ~ parsedArticles ~ formattedDate:", correctDT)
-        console.log("🚀 ~ parsedArticles ~ formattedDate:",  formatDate(article.createdAt))
+        // 
+        
 
         return {
           ...article,
@@ -263,8 +263,8 @@ let sizeOfPostsToget = 10
         let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
         let time = album.createdAt.split('T')[1].split('.')[0]
       
-        // console.log("🚀 ~ parsedAlbums ~ album.createdAt:", correctDT)
-        console.log("🚀 ~ album ~ formattedDate:",  formatDate(album.createdAt))
+        // 
+        
 
         return {
           ...album,
@@ -276,18 +276,18 @@ let sizeOfPostsToget = 10
       const combinedData = [...data, ...parsedArticles, ...parsedAlbums];
 
       setP(prevPage =>  prevPage + 1)
-      console.log("pagessèèèè", p)
+      
       // Sort the combined array by createdAt
       // combinedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      console.log("🚀 ~ fetchData ~ combinedData:", combinedData)
+      
       // let combinedDataTemps = combinedData.sort((a, b) => new Date(b.temps) - new Date(a.temps));
-      // console.log("🚀 ~ fetchData ~ combinedDataTemps: //////////////////////////", combinedDataTemps)
+      // 
 
       // Update state with sorted data
       setData(combinedData);
 
-      console.log("combinedData 🚀🚀🚀🚀🚀", combinedData);
-      console.log(data, "data-------------------");
+      
+      
 
       setLoading(false);
     } catch (error) {
@@ -301,7 +301,7 @@ let sizeOfPostsToget = 10
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/articles?size=${size}&page=${page }`);
       const result = await response.json();
-      console.log("🚀 ~ fetchArticles ~ result:", result)
+      
       if(result.rows == 0) {
         setHasMore(false)
       }
@@ -331,9 +331,9 @@ let sizeOfPostsToget = 10
       });
 
       const reversedArticlesWithPromises = articlesWithPromises; // Reverse the order
-      console.log("🚀 ~ fetchArticles ~ reversedArticlesWithPromises:", reversedArticlesWithPromises)
+      
       const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
-      console.log("🚀 ~ fetchArticles ~ articlesWithLikesCount:", articlesWithLikesCount)
+      
 
       
       return articlesWithLikesCount
@@ -354,7 +354,7 @@ let sizeOfPostsToget = 10
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre", user)
+          
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
@@ -393,9 +393,6 @@ let sizeOfPostsToget = 10
             <LeftMenu id={id} shouldShowAgentItem={shouldShowAgentItem} shouldShowForProfile={shouldShowAgentItem} setEventTogglerIsOpenned={setEventTogglerIsOpenned}  eventTogglerIsOpenned={eventTogglerIsOpenned}  user={user} userProfileType={userProfileType} />
 
             {/* left menu */}
-
-
-
 
 
 
@@ -472,9 +469,12 @@ let sizeOfPostsToget = 10
               </div> */}
 
 
+
+
                 {/* start right cont */}
-            <RightMenu />
+                <RightMenu />
                 {/* end right cont */}
+
 
           </div>
         </div>

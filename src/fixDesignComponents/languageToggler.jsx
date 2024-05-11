@@ -4,7 +4,7 @@ import { Context } from "../index";
 import frensh from "../assets/france.png"
 import england from "../assets/united-kingdom.png"
 
-export default function LanguageToggler( {color=false, hide=false, color2=false, Right=false}) {
+export default function LanguageToggler( {color=false, hide=false, color2=false, Right=false, isCenter=false}) {
   //start _________ translation context
   const { _currentLang, _setLang } = useContext(Context);
   //end _________ translation context
@@ -114,7 +114,8 @@ export default function LanguageToggler( {color=false, hide=false, color2=false,
 
       <div className="togglerCon"
        style={
-        {
+        { 
+          top:  isCenter ? -15 : "100%",
           color: color2  ? "#111" : "",
           right: Right ? 0 : "auto"
 
