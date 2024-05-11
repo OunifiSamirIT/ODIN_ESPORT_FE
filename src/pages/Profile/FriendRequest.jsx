@@ -5,11 +5,11 @@ import { Config } from "../../config";
 import { paysAllInfo } from "../../assets/data/Country";
 import { Link } from 'react-router-dom';
 import Header from "../../components/Header2";
-import {Context} from "../../index"
+import { Context } from "../../index"
 const FriendRequest = () => {
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
   const [user, setUser] = useState([]);
-  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
   useEffect(() => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -32,8 +32,8 @@ const FriendRequest = () => {
   const fetchFriendRequest = async () => {
     const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/getPendingFriends`);
     const result = await response.json()
-    setFriendRequest(result.exists)
-    console.log(result)
+    setFriendRequest(result)
+    console.log("aaaaaaaaaaaaaaaaaalooooooooooo", result)
   }
   const deleteInviation = async (id) => {
     const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/delete/${id}`, {
@@ -50,7 +50,7 @@ const FriendRequest = () => {
   }
 
   const getCountryFlagFromCountryName = (countryName) => {
-    const country = paysAllInfo.find(country => country.name == countryName);
+    const country = paysAllInfo?.find(country => country?.name == countryName);
     return country ? country.iso["alpha-2"].toLowerCase() : null;
   }
 
@@ -99,15 +99,15 @@ const FriendRequest = () => {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    {
-             getTranslation(
-              `Home`,  // -----> Englais
-              `Acceuil`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                      {
+                        getTranslation(
+                          `Home`,  // -----> Englais
+                          `Acceuil`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
 
-            } 
+                      }
                     </div>
                   </div>
                 </Link>
@@ -143,15 +143,15 @@ const FriendRequest = () => {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    {
-             getTranslation(
-              `Profile`,  // -----> Englais
-              `Profil`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                      {
+                        getTranslation(
+                          `Profile`,  // -----> Englais
+                          `Profil`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
 
-            }
+                      }
                     </div>
                   </div>{" "}
                 </Link>
@@ -179,15 +179,15 @@ const FriendRequest = () => {
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      {
-             getTranslation(
-              `Agents`,  // -----> Englais
-              `Agents`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                        {
+                          getTranslation(
+                            `Agents`,  // -----> Englais
+                            `Agents`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
 
-            } 
+                        }
                       </div>
                     </div>{" "}
 
@@ -221,15 +221,15 @@ const FriendRequest = () => {
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      {
-             getTranslation(
-              `Player`,  // -----> Englais
-              `Joueur`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                        {
+                          getTranslation(
+                            `Player`,  // -----> Englais
+                            `Joueur`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
 
-            } 
+                        }
                       </div>
                     </div>{" "}
 
@@ -251,14 +251,14 @@ const FriendRequest = () => {
                       className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                     />
                     <div>{
-             getTranslation(
-              `Events`,  // -----> Englais
-              `Événements`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                      getTranslation(
+                        `Events`,  // -----> Englais
+                        `Événements`, //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )
 
-            }</div>
+                    }</div>
                   </div>
                   <img
                     loading="lazy"
@@ -290,14 +290,14 @@ const FriendRequest = () => {
                               />
                             </svg>
                             <div>{
-             getTranslation(
-              `Camps`,  // -----> Englais
-              `Camps`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              getTranslation(
+                                `Camps`,  // -----> Englais
+                                `Camps`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
 
-            }</div>
+                            }</div>
                           </div>
 
                         </div>
@@ -311,14 +311,14 @@ const FriendRequest = () => {
                             </svg>
 
                             <div>{
-             getTranslation(
-              `Challenges`,  // -----> Englais
-              `Challenges`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              getTranslation(
+                                `Challenges`,  // -----> Englais
+                                `Challenges`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
 
-            }</div>
+                            }</div>
                           </div>
 
                         </div>
@@ -334,14 +334,14 @@ const FriendRequest = () => {
                             />
 
                             <div>{
-             getTranslation(
-              `ODIN Event`,  // -----> Englais
-              `Evénnement ODIN`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                              getTranslation(
+                                `ODIN Event`,  // -----> Englais
+                                `Evénnement ODIN`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
 
-            }</div>
+                            }</div>
                           </div>
 
                         </div>
@@ -360,14 +360,14 @@ const FriendRequest = () => {
                         className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                       />
                       <div>{
-             getTranslation(
-              `Jobs Offers`,  // -----> Englais
-              `Offres d’emploi`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                        getTranslation(
+                          `Jobs Offers`,  // -----> Englais
+                          `Offres d’emploi`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
 
-            }</div>
+                      }</div>
                     </div>
                   </div></Link>
                 <Link to="/entreprise" className="self-center">  {!(
@@ -382,14 +382,14 @@ const FriendRequest = () => {
                         className="shrink-0 my-auto w-4 aspect-square fill-white"
                       />
                       <div>{
-             getTranslation(
-              `Publish Offer`,  // -----> Englais
-              ` Publier une offre`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                        getTranslation(
+                          `Publish Offer`,  // -----> Englais
+                          ` Publier une offre`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
 
-            }</div>
+                      }</div>
                     </div>
                   )}</Link>
               </div>
@@ -399,45 +399,45 @@ const FriendRequest = () => {
 
             <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="items-start px-8 py-6 text-3xl md:mt-4 font-bold whitespace-nowrap bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:max-w-full">
-               
-              {
-             getTranslation(
-              `Request`,  // -----> Englais
-              ` Demandes`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
 
-            }
-               
-                
+                {
+                  getTranslation(
+                    `Request`,  // -----> Englais
+                    ` Demandes`, //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )
+
+                }
+
+
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 ">
-                {FriendRequest.length <= 0 && <div className="text-lg text-center col-span-3"> 
-                
-                {
-             getTranslation(
-              `No invitations at the moment!`,  // -----> Englais
-              ` Aucune invitation pour le moment !  `, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                {FriendRequest?.length <= 0 && <div className="text-lg text-center col-span-3">
 
-            }
-                
-                
+                  {
+                    getTranslation(
+                      `No invitations at the moment!`,  // -----> Englais
+                      ` Aucune invitation pour le moment !  `, //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )
+
+                  }
+
+
                 </div>}
-                {FriendRequest.map((item) => {
+                {FriendRequest?.friendRequests?.map((item) => {
                   return (
                     <div className="col-span-1">
                       <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:mt-6">
                         <img
                           loading="lazy"
-                          src={item.receiver?.image ? item?.receiver.image : Placeholder}
+                          src={item?.friendRequest?.receiver?.image ? item?.friendRequest?.receiver.image : Placeholder}
                           className="self-center max-w-full rounded-full aspect-square w-[120px]"
                         />
                         <div className="self-center mt-4 text-xl font-medium text-black">
-                          {item?.receiver?.nom} {item?.receiver?.prenom}
+                          {item?.friendRequest?.receiver?.nom} {item?.friendRequest?.receiver?.prenom}
                         </div>
                         <div className="flex gap-2 justify-between mt-4 w-full">
                           <div className="flex gap-4 justify-between px-1 font-light whitespace-nowrap">
@@ -448,7 +448,12 @@ const FriendRequest = () => {
                             />
                             <div className="my-auto">Profil</div>
                           </div>
-                          <div className="my-auto font-medium">{item?.receiver?.profil}</div>
+                          <div className="my-auto font-medium">  {item.receiverUserProfile?.user?.profil === 'other' && item?.receiverUserProfile?.other?.profession}
+                            {item.receiverUserProfile?.user?.profil === 'player' && 'Joueur'}
+                            {item.receiverUserProfile?.user?.profil == 'coach' ? ' Entraineur' : ''}
+                            {item.receiverUserProfile?.user?.profil === 'agent' && item?.receiverUserProfile?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                            {item.receiverUserProfile?.user?.profil === 'agent' && item?.receiverUserProfile?.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                            {item.receiverUserProfile?.user?.profil === 'scout' && 'Scout'} </div>
                         </div>
                         <div className="flex gap-2 justify-between mt-4 w-full whitespace-nowrap">
                           <div className="flex gap-2 font-light">
@@ -458,22 +463,22 @@ const FriendRequest = () => {
                               className="shrink-0 w-5 aspect-square"
                             />
                             <div className="my-auto">{
-                          getTranslation(
-                            `Nationality`,  // -----> Englais
-                            `Nationalité`, //  -----> Francais
-                            ``,  //  -----> Turkey
-                            ``,  //  -----> Allemagne
-                          )
+                              getTranslation(
+                                `Nationality`,  // -----> Englais
+                                `Nationalité`, //  -----> Francais
+                                ``,  //  -----> Turkey
+                                ``,  //  -----> Allemagne
+                              )
 
-                        }</div>
+                            }</div>
                           </div>
                           <div className="flex font-medium">
                             <div className="flex font-medium whitespace-nowrap">
                               <span
-                                className={`flag-icon flag-icon-${getCountryFlagFromCountryName(item.receiver?.countryresidence)}`}
+                                className={`flag-icon flag-icon-${getCountryFlagFromCountryName(item?.friendRequest?.receiver?.countryresidence)}`}
                                 style={{ marginRight: "8px" }}
                               ></span>
-                              <div>{item.receiver?.nationality}</div>
+                              <div>{item?.friendRequest?.receiver?.nationality}</div>
                             </div>
                           </div>
                         </div>
@@ -485,53 +490,53 @@ const FriendRequest = () => {
                               className="shrink-0 w-5 aspect-square"
                             />
                             <div>
-                            {
-                            getTranslation(
-                              `Country of residence`,  // -----> Englais
-                              `Pays de résidence`, //  -----> Francais
-                              ``,  //  -----> Turkey
-                              ``,  //  -----> Allemagne
-                            )
+                              {
+                                getTranslation(
+                                  `Country of residence`,  // -----> Englais
+                                  `Pays de résidence`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
 
-                          }                            </div>
+                              }                            </div>
                           </div>
                           <div className="flex font-medium whitespace-nowrap">
                             <span
-                              className={`flag-icon flag-icon-${getCountryFlagFromCountryName(item.receiver?.countryresidence)}`}
+                              className={`flag-icon flag-icon-${getCountryFlagFromCountryName(item?.friendRequest?.receiver?.countryresidence)}`}
                               style={{ marginRight: "8px" }}
                             ></span>
-                            <div>{item.receiver?.countryresidence}</div>
+                            <div>{item?.friendRequest?.receiver?.countryresidence}</div>
                           </div>
                         </div>
                         <div className="flex gap-2 justify-between mt-4 text-base font-medium text-white whitespace-nowrap">
-                          <button onClick={() => acceptInvitation(item.receiver.id)} className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-                            
-                          {
-             getTranslation(
-              `Accept`,  // -----> Englais
-              `Accepter`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                          <button onClick={() => acceptInvitation(item?.friendRequest?.receiver?.id)} className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
 
-            } 
+                            {
+                              getTranslation(
+                                `Accept`,  // -----> Englais
+                                `Accepter`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
 
-                            
-                            
+                            }
+
+
+
                           </button>
-                          <button onClick={() => deleteInviation(item.receiver.id)} className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-                           
-                          {
-             getTranslation(
-              `Delete`,  // -----> Englais
-              `Supprimer`, //  -----> Francais
-            //   ``,  //  -----> Turkey
-            //   `` ,  //  -----> Allemagne
-              ) 
+                          <button onClick={() => deleteInviation(item?.friendRequest?.receiver?.id)} className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
 
-            } 
-                           
-                            
+                            {
+                              getTranslation(
+                                `Delete`,  // -----> Englais
+                                `Supprimer`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
+
+                            }
+
+
                           </button>
                         </div>
                       </div>

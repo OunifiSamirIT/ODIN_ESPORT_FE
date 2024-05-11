@@ -351,7 +351,7 @@ function Header() {
               <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0"> </span>
             </a>
 
-            <div className="hidden md:flex pl-7 pt-4 w-full min-w-[250px]">
+            <div className="hidden md:flex pl-2 pt-4 w-full min-w-[250px]">
               <div className="flex items-center relative ">
                 <div className="flex items-center whitespace-nowrap dark-bg pr-2 pl-2 h-11 w-[250px] rounded-full mr-4 border border-black absolute top-0">
                   <input

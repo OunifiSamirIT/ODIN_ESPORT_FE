@@ -121,11 +121,11 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                         <div className="text-xs font-light ">
                                                             {/* {item.receiver.profil == 'other' ? item.receiver.profil.profession : ''} */}
                                                             {item.receiver.profil == 'player' ? ' Joueur' : ''}
-                                                            {item.receiver.profil == 'agent' && 'agent'}
+                                                            {/* {item.receiver.profil == 'agent' && 'agent'} */}
                                                             {item.receiver.profil == 'coach' && 'Entraineur'}
                                                             {item.receiver.profil == 'agent' && 'agent'}
                                                             {item.receiver.profil == 'scout' ? 'Scout' : ''}
-                                                            {item.receiver.profil == 'other' ? item?.receiver?.other_user[0]?.profession  :  ''}
+                                                            {item.receiver.profil == 'other' ? item?.receiver?.other_user[0]?.profession : ''}
                                                         </div>
 
                                                         <div className="hidden md:flex text-center justify-center self-stretch px-7 py-2 mt-2 font-medium text-white mx-3  bg-blue-600 rounded-[30px] max-md:px-5">
@@ -145,11 +145,11 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                         <div className="text-sm font-light">
                                                             {/* {item.receiver.profil == 'other' ? item.receiver.profil.profession : ''} */}
                                                             {item.sender.profil == 'player' ? ' Joueur' : ''}
-                                                            {item.sender.profil == 'agent' && 'Agent'}
+                                                            {/* {item.sender.profil == 'agent' && 'Agent'} */}
                                                             {item.sender.profil == 'coach' && 'Entraineur'}
                                                             {item.sender.profil == 'agent' && 'Agent'}
                                                             {item.sender.profil == 'scout' ? 'Scout' : ''}
-                                                            {item.sender.profil == 'other' ? item?.sender?.other_user[0]?.profession  :  ''}
+                                                            {item.sender.profil == 'other' ? item?.sender?.other_user[0]?.profession : ''}
                                                         </div>
 
                                                         <div className="hidden md:flex text-center justify-center self-stretch px-7 py-2 mt-2 font-medium text-white mx-3  bg-blue-600 rounded-[30px] max-md:px-5">

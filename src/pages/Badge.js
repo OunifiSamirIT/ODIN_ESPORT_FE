@@ -4835,7 +4835,13 @@ function Badge({ userpf }) {
                             </div>
 
                             <div className="flex gap-1 md:gap-5  justify-between flex-col items-center md:flex-row py-2 mt-4 w-full text-base font-medium whitespace-nowrap  max-md:max-w-full">
-                             
+                            <div className="flex gap-5 w-full md:w-fit justify-between ">
+                              <button
+                                onClick={handleReset}
+                                className="justify-center w-full  md:w-fit  px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
+                              >
+                                Réinitialiser
+                              </button></div>
                               <div className="flex gap-5 w-full md:w-fit justify-between ">
                                 <button
                                   onClick={handleSearch}
@@ -4846,13 +4852,7 @@ function Badge({ userpf }) {
                               </div>
 
 
-                              <div className="flex gap-5 w-full md:w-fit justify-between ">
-                              <button
-                                onClick={handleReset}
-                                className="justify-center w-full  md:w-fit  px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
-                              >
-                                Réinitialiser
-                              </button></div>
+                             
                             </div>
                           </div>
                         </div>

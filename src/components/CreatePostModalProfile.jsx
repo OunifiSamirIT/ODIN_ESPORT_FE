@@ -7,9 +7,9 @@ import placeholder from "../assets/placeholder.jpg"
 import { Config } from "../config";
 
 
-const CreatePostModal = ({isSlider}) =>  {
+function CreatePostModal() {
   const [user, setUser] = useState([]);
-  
+
   const ref = useRef(null);
   const [isModaldOpen, setIsModaldOpen] = useState(false)
   const handleClickOutside = (event) => {
@@ -143,7 +143,7 @@ const CreatePostModal = ({isSlider}) =>  {
             </div>
           </div>
         </div>
-        <div className='flex md:w-[735px] w-[100%] md:ml-0  mb-3 -mt-2 '><FriendsSlider /></div>
+        {/* <div className='flex md:w-[730px] w-[100%] md:ml-0  mb-3 -mt-2 '><FriendsSlider /></div> */}
       </div>
 
 
@@ -163,7 +163,5 @@ const CreatePostModal = ({isSlider}) =>  {
     </div >
   )
 }
-CreatePostModal.defaultProps = {
-  isSlider: true // Default value for isSlider is true
-};
+
 export default CreatePostModal

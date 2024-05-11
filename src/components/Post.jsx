@@ -106,6 +106,44 @@ function Post({ article, setArticles }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [userslikearticle, setUserslikearticle] = useState([]);
+  const [showDropdownlikes, setShowDropdownlikes] = useState(false);
+  const reff = useRef(null);
+  const handleClickOutsidelike = (event) => {
+    if (reff.current && !reff.current.contains(event.target)) {
+      console.log(!reff.current.contains(event.target))
+      setShowDropdownlikes(false)
+      
+
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutsidelike);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsidelike);
+    };
+
+  }, []);
+  const handleClicklikeshow = async (articleId) => {
+    try {
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/likes/articlessUser/${articleId}`
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch users who liked the article');
+      }
+      const data = await response.json();
+      console.log("🚀 ~ handleClicklikeshow ~ data:", data)
+      setUserslikearticle(data);
+      
+      setShowDropdownlikes(!showDropdownlikes);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  
 
   let _ref_toggelcomment = useRef(null)
 
@@ -319,60 +357,7 @@ function Post({ article, setArticles }) {
     }
   };
 
-  // const handleLikeClick = async (articleId, emoji) => {
-  //   try {
-  //     const response = await fetch(
-  //       `${Config.LOCAL_URL}/api/likes/article/${articleId}`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           userId: storedUserData.id,
-  //           articleId: articleId,
-  //           emoji: emoji,
-  //         }),
-  //       }
-  //     );
-
-  //     if (response.ok) {
-  //       const responseData = await response.json();
-
-  //       // Fetch allLikes to get the updated likes counts for all articles
-  //       const allLikesResponse = await fetch(
-  //         `${Config.LOCAL_URL}/api/likes/article/allLikes`
-  //       );
-  //       const allLikesData = await allLikesResponse.json();
-
-  //       // Update the state based on the received likes count
-  //       setArticles((prevArticles) =>
-  //         prevArticles.map((article) => {
-  //           const updatedLikesCount =
-  //             allLikesData.find((like) => like.articleId === article.id)
-  //               ?.likesCount || 0;
-  //           return article.id === articleId
-  //             ? {
-  //                ...article,
-
-  //               likesCount: updatedLikesCount }
-  //             : article;
-  //         })
-  //       );
-  //       fetchLikesForArticle()
-
-  //     } else {
-  //       toast.error("Error liking/unliking the article. Please try again.", {
-  //         position: "top-right",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding like:", error);
-  //     toast.error("An unexpected error occurred. Please try again later.", {
-  //       position: "top-right",
-  //     });
-  //   }
-  // };
+ 
 
   const handleLikeComment = async (commentId) => {
     try {
@@ -1333,9 +1318,10 @@ function Post({ article, setArticles }) {
                   </figure>
                 </Link>
 
-                <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                  {article.user.user.nom} {"   "}
-                  {article.user.user.prenom}
+ <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+ <Link to={`/profile/${article?.user?.user?.id}`}>
+   {article.user.user.nom} {"   "} 
+                  {article.user.user.prenom} </Link>
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
                     {article.user.user.profil == 'player' ? ' Joueur' : ''}
@@ -1450,7 +1436,7 @@ function Post({ article, setArticles }) {
               </div>
 
               <div class=" p-0  mt-2">
-                <p className="rounded-md break-inside-avoid-page text-base w-full mb-2 text-dark">
+                <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
                   {!showFullText && article.description.length > 295 ? article.description.substring(0, 295) + "..." : article.description}
                   {article.description.length > 295 && (
                     <button
@@ -1504,7 +1490,8 @@ function Post({ article, setArticles }) {
               )}
               <div className="  rounded-lg">
                 <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
-                  <div className="flex gap-2.5 items-center justify-center py-2.5">
+                  <div     onClick={() => handleClicklikeshow(article.id)}
+ className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5">
                     <svg
                       width="17"
                       height="15"
@@ -1517,9 +1504,42 @@ function Post({ article, setArticles }) {
                         fill="#65676B"
                       />
                     </svg>
-                    <span className="text-md py-1">
+                    {/* <span className="text-md py-1">
                       {article.likesCount}
-                    </span>
+                    </span> */}
+      <div>
+  <span
+    className="text-md py-1 px-2 relative"
+  >
+   <div className=""> {article.likesCount}</div>
+   
+    {showDropdownlikes && (
+      <div ref={reff} className="absolute overflow-y-scroll hiddenScrollRightMenu left-0 md:left-10 bottom-5 md:bottom-0 h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+        <div className="py-2 px-4">
+          <h3 className="md:text-lg text-md text-wrap md:w-[300px]  font-semibold">Personne aimé cette publication</h3>
+          <ul>
+            {userslikearticle.map((like, index) => (
+              <li key={index} className="mt-1 py-2 flex flex-row  items-center">
+                 <Link to={`/profile/${like.userId}`}>
+                  <figure className="avatar me-3">
+                    <img
+                      srcSet={like?.user?.image ? like?.user?.image : placeholder}
+
+                      // src={article.user.user?.image}
+                      className="shadow-sm rounded-full w-[32px] aspect-square"
+                    />{" "}
+                  </figure>
+                </Link>
+                {like?.user?.nom} {like?.user?.prenom}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )}
+  </span>
+</div>
+
                   </div>
                   <div className="flex gap-2.5 items-center justify-center py-2.5">
                     <svg
@@ -1642,18 +1662,8 @@ function Post({ article, setArticles }) {
                       article?.comments?.map((comment) => (
                         <div key={comment.id} className="comment">
                           <div className="flex w-full">
-                            <figure className="avatar me-3 mb-8">
-                              {/* <img
-
-                                // srcSet={comment?.user?.user?.image ? article?.user?.user?.image : placeholder}
-
-                                src={
-                                  comment.user &&
-                                    comment?.user?.user?.image ? comment?.user?.user?.image : placeholder
-                                }
-                                className="shadow-sm rounded-full w-[64px] aspect-square"
-                                alt="post"
-                              /> */}
+                          <Link to={`/profile/${comment?.user?.user?.id}`}>  <figure className="avatar me-3 mb-8">
+                             
 
 
                               <img
@@ -1662,17 +1672,18 @@ function Post({ article, setArticles }) {
                                 className="shadow-sm rounded-full w-[52px] aspect-square"
                                 alt="post"
                               />
-                            </figure>
+                            </figure></Link>
                             <div className="flex flex-col w-full">
                               <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[15px] md:rounded-[20px] max-w-[510px]">
                                 <div className="flex gap-4 justify-between px-3 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                   <div className="flex flex-col py-1 font-light text-zinc-900">
-                                    <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                  <Link to={`/profile/${comment?.user?.user?.id}`}>
+                                   <div className="fw-700 text-grey-900 font-xssss mt-1">
                                       {comment.user &&
                                         comment.user.user.nom}{" "}
                                       {comment.user &&
                                         comment.user.user.prenom}
-                                    </div>
+                                    </div> </Link>
                                     <div className="mt-1 text-xs">
                                       {/* {comment.user && comment.user.user.profil === "other" ? (
     <div>{comment.user.user.profession}</div>
@@ -1693,10 +1704,13 @@ function Post({ article, setArticles }) {
                                         comment.user.user.profil} */}
                                     </div>
                                     <div className="mt-1 text-xs">
-
-                                      {formatDate(
-                                        comment.createdAt
-                                      )}
+                                    {moment(comment?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                    {
+                      moment(comment?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                        moment(comment?.createdAt).fromNow(true) :
+                        moment(comment?.createdAt).fromNow()
+                    }
+                                    
                                     </div>
                                   </div>
 
@@ -1784,15 +1798,15 @@ function Post({ article, setArticles }) {
                                   {comment.id === editingCommentId ? (
                                     <textarea
                                       className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
-                                      style={{ resize: 'none', maxHeight: '300px', height: '150px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                      style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
                                       value={editedComment}
                                       onChange={(e) => setEditedComment(e.target.value)}
                                     ></textarea>
                                   ) : (
-                                    <div style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                    <div className="text-wrap" style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
                                     >
 
-                                      {comment.description}
+                                      {comment.description} 
                                     </div>
                                   )}
                                 </div>
@@ -1942,9 +1956,14 @@ function Post({ article, setArticles }) {
                                                 )}
                                               </div>
                                               <div className="mt-1 text-xs">
-                                                {formatDate(
-                                                  reply.createdAt
-                                                )}
+                                              {moment(reply?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                    {
+                      moment(reply?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                        moment(reply?.createdAt).fromNow(true) :
+                        moment(reply?.createdAt).fromNow()
+                    }
+                                               
+                                               
 
                                               </div>
 
@@ -2033,7 +2052,7 @@ function Post({ article, setArticles }) {
                                                 onChange={(e) => setEditedReply(e.target.value)}
                                               ></textarea>
                                             ) : (
-                                              <div style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                              <div className="text-wrap" style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
                                               >
 
                                                 {reply.description}

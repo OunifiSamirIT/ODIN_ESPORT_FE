@@ -95,7 +95,6 @@ const Album = () => {
 
         if (Array.isArray(result) && result.length > 0) {
           setInscriptions(result);
-
           const userPreinscribed = result.find(
             (inscription) => inscription.userId == userId && inscription.eventodinId == eventodinId
           );
@@ -639,7 +638,8 @@ const Album = () => {
                           </div>
                         </div>
 
-                        {!isUserPreinscribed && (<div className="flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
+                        {!isUserPreinscribed &&  userProfileType === "player" &&
+ (<div className="flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
                           <div className="flex gap-2">
                             <img
                               loading="lazy"
@@ -738,38 +738,7 @@ const Album = () => {
 
 
 
-      {/* <Modal
-  isOpen={modalIsOpen}
-  onRequestClose={closeModal}
-  contentLabel="Image Modal"
-  style={{
-    content: {
-      overflow: 'hidden', // Hide scroll
-      position: 'absolute',
-      top: '50%', // Center vertically
-      left: '50%', // Center horizontally
-      transform: 'translate(-40%, -50%)', // Center the modal
-      width: '50%', // Set width
-      height: '80%', // Set height
-      marginTop: '3%', // Adjust margin top
-      padding: '0', // Remove default padding
-    },
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.75)', // Add overlay color
-    },
-  }}
->
-  <button onClick={closeModal}>Close Modal</button>
-  {albumDetails.ImagesAlbumcamps.slice(selectedImageIndex).map((image, index) => (
-    <img
-      key={index + selectedImageIndex}
-      loading="lazy"
-      src={image.image_url}
-      alt={`Image ${index + selectedImageIndex}`}
-      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-    />
-  ))}
-</Modal> */}
+  
 
 
 
