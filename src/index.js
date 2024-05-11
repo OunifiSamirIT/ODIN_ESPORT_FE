@@ -1,6 +1,5 @@
 import React, { element, useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-
 import { createRoot } from "react-dom/client"; // Import createRoot from react-dom/client
 
 import "./main.scss";
@@ -126,6 +125,8 @@ import ChallengeDetais from "./pages/Challenge/Details.jsx";
 import Searchpage from "./components/Searchpage.jsx";
 import { Professionalprofile } from "./pages/Professionalprofile/Professionalprofile.jsx";
 import HomeBusiness from "./pages/bussinessComponents/HomeBusiness.jsx";
+import AdminLogin from "./pages/Admin/LoginAdmin.jsx"
+import { useLocation } from "react-router-dom";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null)
@@ -134,7 +135,7 @@ function Root() {
 
 
 
-
+  let currentUrl = window.location;
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   // start ________________________translation methods and state
@@ -160,7 +161,7 @@ function Root() {
 
   // start ________________________dark mode methods and state
   let [_currentTheme, setDarkTheme] = useState(false);
-
+  const [isAdmin, setIsAdmin] = useState(false)
 
 
   let handleDarkModeToggler = () => {
@@ -363,176 +364,192 @@ function Root() {
       localStorage.removeItem('accessToken');
     }
   };
-
+  function RootRoutes() {
+    return (
+        <>
+        <Routes>
+          {/* Admin routes */}
+          <Route exact path="/admin/album" element={<Album />} />
+          <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
+          <Route exact path="/admin/albumevents" element={<Albumevents />} />
+          <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
+          <Route exact path="/admin" element={<AdminHome />} />
+          <Route exact path="/admin/users" element={<Users />} />
+          <Route exact path="/admin/users/create" element={<CreateUser />} />
+          <Route exact path="/admin/users/edit/:id" element={<EditUser />} />
+          <Route exact path="admin/events" element={<EventA />} />
+          <Route exact path="/admin/album" element={<Album />} />
+          <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
+          <Route exact path="/admin/albumevents" element={<Albumevents />} />
+          <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
+          <Route exact path="/admin/albumevents/create" element={<AddAlbumEvents />} />
+          <Route exact path="/admin/album/create" element={<AddAlbum />} />
+          <Route exact path="/admin/albumcamps/create" element={<AddAlbumcamps />} />
+          <Route exact path="/admin/blog" element={<AdminBlog />} />
+          <Route exact path="/admin/blog/create" element={<AddArticle />} />
+          <Route exact path="/admin/blog/edit/:articleId" element={<EditBlog />} />
+          <Route exact path="/admin/challenge" element={<AdminChallenges />} />
+          <Route exact path="/admin/challenge/create" element={<AddChallenge />} />
+          <Route exact path="/admin/challenge/update/:articleId" element={<EditBlog />} />
+          <Route exact path="/admin" element={<AdminHome />} />
+          <Route exact path="/admin/users" element={<Users />} />
+          <Route exact path="/admin/users/create" element={<CreateUser />} />
+          <Route exact path="/admin/users/edit/:id" element={<EditUser />} />
+          <Route exact path="admin/events" element={<EventA />} />
+          </Routes>
+        </>
+    );
+  }
 
   return (
 
     <React.StrictMode>
       <Context.Provider value={{ _currentLang: _currentLang, _setLang: _setLang, getTranslation: getTranslation, handleDarkModeToggler: handleDarkModeToggler, _currentTheme: _currentTheme }} >
-       
-          <BrowserRouter basename={"/"}>
-            <Routes>
-              <Route exact path="/" element={<Demo />} />
-              <Route exact path="/Test" element={<Test />} />
-              <Route exact
-                path="/login"
-                element={<Login setAuthStatus={setAuthStatus} />}
-              />
-              <Route exact path="/register" element={<Register />} />
-              <Route exact path="/postview" element={<PostView />} />
+
+        <BrowserRouter basename={"/"}>
+          <Routes>
+            <Route exact path="/" element={<Demo />} />
+            <Route exact path="/Test" element={<Test />} />
+            <Route exact
+              path="/login"
+              element={<Login setAuthStatus={setAuthStatus} />}
+            />
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/postview" element={<PostView />} />
 
 
-              {/* start khedmet IHEB*/}
+            {/* start khedmet IHEB*/}
 
-              <Route exact path="/homeBusiness" element={<HomeBusiness />} />
-              {/* end khedmet IHEB*/}
-
-
-              <Route exact path={"/login/:token"} element={<Loginreset />} />
-              <Route exact path={"/api/auth/verify-email"} element={<Login />} />
-              <Route exact path={"/forgot"} element={<Forgot />} />
-              <Route exact path={`/password`} element={<Password />} />
-
-              {/* Private Routes - Only accessible when authenticated */}
+            <Route exact path="/homeBusiness" element={<HomeBusiness />} />
+            {/* end khedmet IHEB*/}
 
 
-              <Route exact path="/admin" element={<AdminHome />} />
-              <Route exact path="/admin/users" element={<Users />} />
-              <Route exact path="/admin/users/create" element={<CreateUser />} />
-              <Route exact path="/admin/users/edit/:id" element={<EditUser />} />
-              <Route exact path="admin/events" element={<EventA />} />
-              <Route exact path="/gallery/view/:id" element={<ViewAlbum />} />
+            <Route exact path={"/login/:token"} element={<Loginreset />} />
+            <Route exact path={"/api/auth/verify-email"} element={<Login />} />
+            <Route exact path={"/forgot"} element={<Forgot />} />
+            <Route exact path={`/password`} element={<Password />} />
 
-              {/* changement 02/02 */}
-              <Route exact path="/odingallery/view/:id" element={<ViewAlbumodinuser />} />
-              {/* <Route exact  path="/" element={<Demo />} /> */}
-
-              <Route exact path={`/events`} element={<UserEvent />} />
-              <Route exact path={`/bussinse`} element={<Bussinse />} />
-
-              <Route exact path="/admin/album" element={<Album />} />
-              <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
-              <Route exact path="/admin/albumevents" element={<Albumevents />} />
-
-              <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
-
-              {/* 02/02 */}
-              <Route exact path="/odin/album" element={<Galleryuser />} />
-
-              <Route exact path="/admin/albumevents/create" element={<AddAlbumEvents />} />
-              <Route exact path="/admin/album/create" element={<AddAlbum />} />
-              <Route exact path="/admin/albumcamps/create" element={<AddAlbumcamps />} />
-              <Route exact path="/admin/blog" element={<AdminBlog />} />
-              <Route exact path="/admin/blog/create" element={<AddArticle />} />
-              <Route exact path="/admin/blog/edit/:articleId" element={<EditBlog />} />
-
-              <Route exact path="/admin/challenge" element={<AdminChallenges />} />
-              <Route exact path="/admin/challenge/create" element={<AddChallenge />} />
-              <Route exact path="/admin/challenge/update/:articleId" element={<EditBlog />} />
+            {/* Private Routes - Only accessible when authenticated */}
 
 
 
+            <Route exact path="/gallery/view/:id" element={<ViewAlbum />} />
 
-              {isAuthenticated ? (
-                <>
-                  <Route exact path="/home" element={<Homee />} />
-                  <Route exact path={`/defaultsettings`} element={<Settings setAuthStatus={setAuthStatus} />} />
-                  <Route exact path={`/defaultbadge`} element={<Badge />} />
-                  <Route exact path={`/defaultgroupagent`} element={<Badgeagent />} />
-                  <Route exact path={`/defaultgroup/:id`} element={<GalleryDetailscamps />} />
-                  <Route exact path={`/defaultgroupevent/:id`} element={<GalleryDetailsevent />} />
-                  <Route exact path={`/FormCamps/:id`} element={<FormCamps />} />
-                  <Route exact path={`/FormEvent/:id`} element={<FormEvent />} />
-                  <Route exact path={`/thanks/:id`} element={<Thankscamps />} />
-                  <Route exact path={`/thanksevent/:id`} element={<Thanksodinevent />} />
+            {/* changement 02/02 */}
+            <Route exact path="/odingallery/view/:id" element={<ViewAlbumodinuser />} />
+            {/* <Route exact  path="/" element={<Demo />} /> */}
 
-                  {/* <Route exact path={`/professionalprofile`} element={<Professionalprofile />} /> */}
-
-
-                  <Route exact path="/gallery" element={<Gallery />} />
-                  <Route exact path={`/defaultgroup`} element={<Galleryuser />} />
-                  <Route exact path={`/defaultgroupevents`} element={<GalleryuserEvent />} />
-                  <Route exact path={`/defaultstorie`} element={<Storie />} />
-                  <Route exact path={`/defaultemailbox`} element={<Email />} />
-                  <Route exact path={`/defaultemailopen`} element={<Emailopen />} />
-                  <Route exact path={`/defaultvideo`} element={<Videos />} />
-                  {/* <Route exact path="/edit/:articleId" element={<EditPage />} /> */}
-
-                  {/* nader */}
-                  <Route exact path="/setting/:tab?" element={<ProfileSetting />} />
+            <Route exact path={`/events`} element={<UserEvent />} />
+            <Route exact path={`/bussinse`} element={<Bussinse />} />
 
 
 
-                  <Route exact path="/404" element={<Error />} />
-                  {/* Profile routes */}
-                  <Route exact path="/searchpage" element={<Searchpage />} />
-                  <Route exact path="/profile/:id" element={<Profile />} />
-                  <Route exact path="/profile/more/:id" element={<MoreProfile />} />
-                  <Route exact path={`/friends`} element={<FriendRequest />} />
-                  <Route exact path={`/friendsList`} element={<FriendList />} />
-                  {/* blog routes */}
+            {/* 02/02 */}
+            <Route exact path="/odin/album" element={<Galleryuser />} />
+            <Route exact path="/admin/login" element={<AdminLogin />} />
+            <Route path="/sfgsfgsfgsfgsD/*" element={<RootRoutes />} />
 
-                  <Route exact path="/blog" element={<Blog />} />
-                  <Route exact path="/blog/:articleId" element={<SingleArticle />} />
+
+            {isAuthenticated ? (
+              <>
+                <Route exact path="/home" element={<Homee />} />
+                <Route exact path={`/defaultsettings`} element={<Settings setAuthStatus={setAuthStatus} />} />
+                <Route exact path={`/defaultbadge`} element={<Badge />} />
+                <Route exact path={`/defaultgroupagent`} element={<Badgeagent />} />
+                <Route exact path={`/defaultgroup/:id`} element={<GalleryDetailscamps />} />
+                <Route exact path={`/defaultgroupevent/:id`} element={<GalleryDetailsevent />} />
+                <Route exact path={`/FormCamps/:id`} element={<FormCamps />} />
+                <Route exact path={`/FormEvent/:id`} element={<FormEvent />} />
+                <Route exact path={`/thanks/:id`} element={<Thankscamps />} />
+                <Route exact path={`/thanksevent/:id`} element={<Thanksodinevent />} />
+
+                {/* <Route exact path={`/professionalprofile`} element={<Professionalprofile />} /> */}
+
+
+                <Route exact path="/gallery" element={<Gallery />} />
+                <Route exact path={`/defaultgroup`} element={<Galleryuser />} />
+                <Route exact path={`/defaultgroupevents`} element={<GalleryuserEvent />} />
+                <Route exact path={`/defaultstorie`} element={<Storie />} />
+                <Route exact path={`/defaultemailbox`} element={<Email />} />
+                <Route exact path={`/defaultemailopen`} element={<Emailopen />} />
+                <Route exact path={`/defaultvideo`} element={<Videos />} />
+                {/* <Route exact path="/edit/:articleId" element={<EditPage />} /> */}
+
+                {/* nader */}
+                <Route exact path="/setting/:tab?" element={<ProfileSetting />} />
+
+
+
+                <Route exact path="/404" element={<Error />} />
+                {/* Profile routes */}
+                <Route exact path="/searchpage" element={<Searchpage />} />
+                <Route exact path="/profile/:id" element={<Profile />} />
+                <Route exact path="/profile/more/:id" element={<MoreProfile />} />
+                <Route exact path={`/friends`} element={<FriendRequest />} />
+                <Route exact path={`/friendsList`} element={<FriendList />} />
+                {/* blog routes */}
+
+                <Route exact path="/blog" element={<Blog />} />
+                <Route exact path="/blog/:articleId" element={<SingleArticle />} />
 
 
 
 
-                  <Route exact path="/offre_emploi/:id" element={<OffreEmploi />} />
-                  <Route exact path="/entreprise" element={<Entrpriseemploi />} />
-                  <Route exact path="/homeoffre" element={<Homeoffre />} />
+                <Route exact path="/offre_emploi/:id" element={<OffreEmploi />} />
+                <Route exact path="/entreprise" element={<Entrpriseemploi />} />
+                <Route exact path="/homeoffre" element={<Homeoffre />} />
 
-                  <Route exact path="/challenges" element={<Challenges />} />
-                  <Route exact path="/challenges/details/:challengeId" element={<ChallengeDetais />} />
+                <Route exact path="/challenges" element={<Challenges />} />
+                <Route exact path="/challenges/details/:challengeId" element={<ChallengeDetais />} />
 
 
 
 
 
 
-                  <Route exact path="/editPost/:articleId" element={<EditPost />} />
-                  <Route exact path={`/defaultanalytics`} element={<Analytics />} />
+                <Route exact path="/editPost/:articleId" element={<EditPost />} />
+                <Route exact path={`/defaultanalytics`} element={<Analytics />} />
 
-                  <Route exact path={"/accountinformation"} element={<Account />} />
-                  <Route exact path={`/defaultmember`} element={<Member />} />
-                  <Route exact path="/contactinformation" element={<Contactinfo />} />
-                  <Route exact path={`/socialaccount`} element={<Socialaccount />} />
-                  <Route exact path={`/payment`} element={<Payment />} />
-                  <Route exact path={`/defaultnoti`} element={<Notification />} />
-                  <Route exact path={`/helpbox`} element={<Helpbox />} />
-                  {/* <Route exact
+                <Route exact path={"/accountinformation"} element={<Account />} />
+                <Route exact path={`/defaultmember`} element={<Member />} />
+                <Route exact path="/contactinformation" element={<Contactinfo />} />
+                <Route exact path={`/socialaccount`} element={<Socialaccount />} />
+                <Route exact path={`/payment`} element={<Payment />} />
+                <Route exact path={`/defaultnoti`} element={<Notification />} />
+                <Route exact path={`/helpbox`} element={<Helpbox />} />
+                {/* <Route exact
           path={"/login"}
           element={<Login setAuthStatus={setAuthStatus} />}
         /> */}
 
-                  <Route exact path={`/notfound`} element={<Notfound />} />
+                <Route exact path={`/notfound`} element={<Notfound />} />
 
-                  <Route exact path={`/shop1`} element={<ShopOne />} />
-                  <Route exact path={`/shop2`} element={<ShopTwo />} />
-                  <Route exact path={`/shop3`} element={<ShopThree />} />
-                  <Route exact path={`/singleproduct`} element={<Singleproduct />} />
-                  <Route exact path={`/cart`} element={<Cart />} />
-                  <Route exact path={`/checkout`} element={<Checkout />} />
-                  <Route exact path={`/defaultmessage`} element={<Chat />} />
-                  <Route exact path={`/defaultlive`} element={<Live />} />
+                <Route exact path={`/shop1`} element={<ShopOne />} />
+                <Route exact path={`/shop2`} element={<ShopTwo />} />
+                <Route exact path={`/shop3`} element={<ShopThree />} />
+                <Route exact path={`/singleproduct`} element={<Singleproduct />} />
+                <Route exact path={`/cart`} element={<Cart />} />
+                <Route exact path={`/checkout`} element={<Checkout />} />
+                <Route exact path={`/defaultmessage`} element={<Chat />} />
+                <Route exact path={`/defaultlive`} element={<Live />} />
 
-                  <Route exact path={`/defaultjob`} element={<Job />} />
-                  <Route exact path={`/defaultevent`} element={<Event />} />
-                  <Route exact path={`/defaulthotel`} element={<Hotel />} />
-                  <Route exact path={`/grouppage`} element={<Grouppage />} />
-                  <Route exact path="/userpage" element={<Userpage />} />
-                  <Route exact path="PlayerInfo/:iduser" element={<Userpageee />} />
-                  <Route exact path={`/authorpage`} element={<Authorpage />} />
-                  <Route exact path={`/comingsoon`} element={<Comingsoon />} />
-                  <Route exact path={`/defaulthoteldetails`} element={<Hotelsingle />} />
-                </>
-              ) : (
-                <Route exact path="*" element={<Navigate to="/home" replace />} />
-              )}
+                <Route exact path={`/defaultjob`} element={<Job />} />
+                <Route exact path={`/defaultevent`} element={<Event />} />
+                <Route exact path={`/defaulthotel`} element={<Hotel />} />
+                <Route exact path={`/grouppage`} element={<Grouppage />} />
+                <Route exact path="/userpage" element={<Userpage />} />
+                <Route exact path="PlayerInfo/:iduser" element={<Userpageee />} />
+                <Route exact path={`/authorpage`} element={<Authorpage />} />
+                <Route exact path={`/comingsoon`} element={<Comingsoon />} />
+                <Route exact path={`/defaulthoteldetails`} element={<Hotelsingle />} />
+              </>
+            ) : (
+              <Route exact path="*" element={<Navigate to="/home" replace />} />
+            )}
 
-            </Routes>
-          </BrowserRouter>
-       
+          </Routes>
+        </BrowserRouter>
+
       </Context.Provider>
     </React.StrictMode>
 
