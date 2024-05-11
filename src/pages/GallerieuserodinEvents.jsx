@@ -154,7 +154,17 @@ const Album = () => {
       return null;
     }
   };
-
+  const formatDatee = (dateString) => {
+    const dateParts = dateString.split("-");
+    if (dateParts.length === 3) {
+      const year = dateParts[0];
+      const month = dateParts[1].padStart(2, "0");
+      const day = dateParts[2].padStart(2, "0");
+      return `${day}-${month}-${year}`;
+    } else {
+      return null;
+    }
+  };
   const handleSearch = () => {
     const filteredData = album.filter((camps) => {
       console.log('event Camp Data:', camps);
@@ -684,7 +694,7 @@ const Album = () => {
                           </div>
                           <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-400 w-[282px]">
                             <div className="flex self-start gap-2">
-                              <div className="flex self-start">{formatDate(value.date_debut)}</div>
+                              <div className="flex self-start">{formatDatee(value.date_debut)}</div>
                               <div>-</div>
                               <div className="grow">{value.Duree}</div>
                             </div>
