@@ -710,7 +710,7 @@ function Header() {
                 <LanguageToggler isCenter={true} hide={true} color={true} />
               </BurgerMenuLink>
 
-              <div className=" mx-2 flex justify-center items-center px-16 py-2  w-full text-base font-medium text-white whitespace-nowrap bg-orange-500 max-w-[366px] rounded-[30px]">
+              <div className=" mx-2 flex justify-center items-center px-14 py-2  w-[92%] text-base font-medium text-white whitespace-nowrap bg-orange-500 max-w-[358px] rounded-[30px]">
                 <div className="flex gap-4 justify-center px-2">
                   <img
                     loading="lazy"

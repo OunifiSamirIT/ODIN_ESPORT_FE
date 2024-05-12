@@ -1412,7 +1412,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     </clipPath>
                                   </defs>
                                 </svg>
-                                <span  >Edit</span>
+                                <span  >{ getTranslation(
+                                      `Edit`,  // -----> Englais
+                                        `Modifier`, //  -----> Francais
+                                                     )  }</span>
 
                                 {/* <Link to={`/editPost/${article.id}`}>
                                           <span>Edit</span>
@@ -1429,7 +1432,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17.5 3.33333H14.0825C13.695 1.43417 12.0125 0 10 0H8.33333C6.32167 0 4.63833 1.43417 4.25083 3.33333H0.833333C0.373333 3.33333 0 3.70583 0 4.16667C0 4.6275 0.373333 5 0.833333 5H1.55L2.63 16.2325C2.83667 18.3808 4.62 20 6.7775 20H11.55C13.7108 20 15.4942 18.3775 15.6983 16.2267L16.7617 5H17.4992C17.9592 5 18.3325 4.6275 18.3325 4.16667C18.3325 3.70583 17.96 3.33333 17.5 3.33333ZM8.33333 1.66667H10C11.085 1.66667 12.0017 2.36583 12.3467 3.33333H5.9875C6.3325 2.36583 7.24833 1.66667 8.33333 1.66667ZM12.2558 13.5775C12.5817 13.9033 12.5817 14.43 12.2558 14.7558C12.0933 14.9183 11.88 15 11.6667 15C11.4533 15 11.24 14.9183 11.0775 14.7558L9.16667 12.845L7.25583 14.7558C7.09333 14.9183 6.88 15 6.66667 15C6.45333 15 6.24 14.9183 6.0775 14.7558C5.75167 14.43 5.75167 13.9033 6.0775 13.5775L7.98833 11.6667L6.0775 9.75583C5.75167 9.43 5.75167 8.90333 6.0775 8.5775C6.40333 8.25167 6.93 8.25167 7.25583 8.5775L9.16667 10.4883L11.0775 8.5775C11.4033 8.25167 11.93 8.25167 12.2558 8.5775C12.5817 8.90333 12.5817 9.43 12.2558 9.75583L10.345 11.6667L12.2558 13.5775Z" fill="black" />
                               </svg>
-                              <span className="text-base">Delete</span>
+                              <span className="text-base">{ getTranslation(
+            `Delete`,  // -----> Englais
+              `Supprimer`, //  -----> Francais
+                           )  }</span>
                             </button>
                           </div>
                         )}
@@ -1517,7 +1523,15 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     {showDropdownlikes && (
       <div ref={reff} className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
         <div className="py-2 px-4">
-          <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">Personne aimé cette publication</h3>
+          <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold"> {
+             getTranslation(
+              `Who liked this post?`,  // -----> Englais
+              `Qui a aimé cette publication?`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </h3>
           <ul>
             {userslikearticle.map((like, index) => (
               <li key={index} className="mt-1 py-2 flex flex-row  items-center">
@@ -1590,7 +1604,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               }}
                             >
 
-                              Jaime
+{ getTranslation(
+            `Like`,  // -----> Englais
+              `J'aime`, //  -----> Francais
+                           )  } 
                             </span>
                           </div>
                         </span>
@@ -1607,7 +1624,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               }}
                             >
 
-                              Jaime
+{ getTranslation(
+            `Like`,  // -----> Englais
+              `J'aime`, //  -----> Francais
+                           )  } 
                             </span>
                           </div>
 
@@ -1638,7 +1658,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="w-5 aspect-square fill-zinc-900"
                         />
-                        <div className="flex gap-2 text-xs md:text-md">Commenter</div>
+                        <div className="flex gap-2 text-xs md:text-md">{ getTranslation(
+            `Comment`,  // -----> Englais
+              `Commenter`, //  -----> Francais
+                           )  } </div>
                       </div>
                     ) : (
                       <div className="flex gap-2 flex-row md:flex-row items-center">
@@ -1649,7 +1672,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         />
                         <div className="flex gap-2 text-xs md:text-md">
                           {" "}
-                          <span>Commenter</span>
+                          <span>{ getTranslation(
+            `Comment`,  // -----> Englais
+              `Commenter`, //  -----> Francais
+                           )  } </span>
                         </div>
                       </div>
                     )}
@@ -1759,7 +1785,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               >
                                                 <BiEditAlt />
                                                 {/* <Link to={`/editPost/${comment.id}`}> */}
-                                                <span>Edit</span>
+                                                <span>
+                                                   { getTranslation(
+            `Edit`,  // -----> Englais
+              `Modifier`, //  -----> Francais
+                           )  }</span>
                                                 {/* </Link>{" "} */}
                                               </label>
                                             </button>
@@ -1781,7 +1811,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               // onClick={() => handleEditClickComment(comment)}
                                               >
                                                 <BiLogInCircle />
-                                                <span className="text-base">Delete</span></label>
+                                                <span className="text-base"> { getTranslation(
+            `Delete`,  // -----> Englais
+              `Supprimer`, //  -----> Francais
+                           )  }</span></label>
                                             </button>
                                           </div>
                                         )}
@@ -1817,7 +1850,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 {comment.id === editingCommentId ? (
                                   <div className="my-2 px-[26px] flex w-full justify-between">
 
-                                    <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}>Annuler</button>
+                                    <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}> { getTranslation(
+            `Cancel`,  // -----> Englais
+              `Annuler`, //  -----> Francais
+                           )  }</button>
                                     <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
                                       saveEditedComment(comment.id)
 
@@ -1902,7 +1938,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                   }
                                   className="w-20 font-semibold ml-2  mt-2 flex gap-2 text-xs md:text-md"
                                 >
-                                  Répondre
+                                  { getTranslation(
+            `Reply`,  // -----> Englais
+              `Répondre`, //  -----> Francais
+                           )  }
                                 </button>
                               </div>
                             </div>
@@ -2012,7 +2051,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                           >
                                                             <BiEditAlt />
                                                             {/* <Link to={`/editPost/${comment.id}`}> */}
-                                                            <span>Edit</span>
+                                                            <span>{ getTranslation(
+                                      `Edit`,  // -----> Englais
+                                        `Modifier`, //  -----> Francais
+                                                     )  }</span>
                                                             {/* </Link>{" "} */}
                                                           </label>
                                                         </button>
@@ -2035,7 +2077,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                           // onClick={() => handleEditClickComment(comment)}
                                                           >
                                                             <BiLogInCircle />
-                                                            <span className="text-base">Delete</span></label>
+                                                            <span className="text-base">{ getTranslation(
+            `Delete`,  // -----> Englais
+              `Supprimer`, //  -----> Francais
+                           )  }</span></label>
                                                         </button>
                                                       </div>
                                                     )}

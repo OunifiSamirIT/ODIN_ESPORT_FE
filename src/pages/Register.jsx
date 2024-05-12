@@ -4586,7 +4586,11 @@ function Register() {
       // If it exceeds the maximum length, set an error message
       setInputErrors((prevErrors) => ({
         ...prevErrors,
-        tel: `Le Numéro doit être avec ${selectedCountryphone.phoneLength} chiffres.`,
+        tel: getTranslation(
+          `the Number must be with ${selectedCountryphone.phoneLength} caracters.`,
+          `Le Numéro doit être avec ${selectedCountryphone.phoneLength} chiffres.`,
+          ``,``
+        ),
       }));
     }
   };

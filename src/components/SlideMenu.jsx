@@ -12,6 +12,7 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   const [lang, setLang] = useState('Français')
   const [user, setUser] = useState({})
   const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
   let { handleDarkModeToggler } = React.useContext(Context)
   useEffect(() => {
@@ -82,7 +83,10 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e13bde84fa9b2785556220b4a439b162b51401e76b4b6dbacca76198fd0f64c0?"
               className="w-5 aspect-square"
             />
-            <a className="hover:text-white" href={'/home'}>Acceuil</a>
+            <a className="hover:text-white" href={'/home'}> { getTranslation(
+            `Home`,  // -----> Englais
+              `Accueil`, //  -----> Francais
+                           )  } </a>
           </div>
           <div className="flex gap-2 slideMenuBtn justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
@@ -90,7 +94,10 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/fc3698e77abea2c6c7f4158984e72cc84fccffa79005aaacb0a8148c7fc2d112?"
               className="aspect-[0.75] w-[15px]"
             />
-            <a className="hover:text-white" href={`/profile/${user?.id}`}>Profil</a>
+            <a className="hover:text-white" href={`/profile/${user?.id}`}> { getTranslation(
+            `Profile`,  // -----> Englais
+              `Profil`, //  -----> Francais
+                           )  } </a>
           </div>
           <div className="flex gap-2 slideMenuBtn justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
@@ -98,7 +105,10 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/927661d7ec160577838c28e1e039b5d465c8c91f54895e62de4603b16322853d?"
               className="w-5 aspect-square"
             />
-            <a className="hover:text-white" href={'/setting/personal'}>Paramètres</a>
+            <a className="hover:text-white" href={'/setting/personal'}>{ getTranslation(
+            `Settings`,  // -----> Englais
+              `Paramètres`, //  -----> Francais
+                           )  }</a>
           </div>
           <div className="flex gap-2  justify-center self-stretch p-2 my-auto text-base font-medium text-white whitespace-nowrap">
             <img
@@ -125,7 +135,10 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/7e89f8c7eb51a481e293bc932ceeb5782dea45f8469a1e16a1753ed7be9f6c3e?"
               className="w-5 aspect-square"
             />
-            <div className="grow" onClick={handleLogout} >Déconnexion</div>
+            <div className="grow" onClick={handleLogout} >{ getTranslation(
+            `Log Out`,  // -----> Englais
+              `Déconnexion`, //  -----> Francais
+                           )  }</div>
           </div>
         </div>
       </div>
