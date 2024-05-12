@@ -1,9 +1,9 @@
 import React  from "react";
 import { Link , NavLink } from 'react-router-dom';
 import {Context} from "../index";
-const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
 const ProfileSideBar = () => {
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
 return (
     <div className="flex-col px-4 py-5 mt-4 w-full bg-white rounded-xl text-zinc-900 hidden md:flex">

@@ -4504,7 +4504,7 @@ function Badge({ userpf }) {
 
 
 
-                                <div className="flex flex-col  md:mt-2 mt-[-27px] w-[33%] max-md:ml-0 max-md:w-full">
+                                <div className="flex flex-col  md:mt-2 mt-[27px] w-[33%] max-md:ml-0 max-md:w-full">
                                   <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
                                     <div className="flex gap-4 justify-between px-4 text-base">
                                       <img
@@ -4535,7 +4535,7 @@ function Badge({ userpf }) {
 
 
 
-                                <div className="flex flex-col md:mt-2 mt-[-22px]   w-[33%] max-md:ml-0 max-md:w-full">
+                                <div className="flex flex-col md:mt-2 mt-[22px]   w-[33%] max-md:ml-0 max-md:w-full">
                                   <div className="flex flex-col   text-base whitespace-nowrap text-zinc-900">
                                     <div className="flex gap-4 justify-between px-4">
                                       <img

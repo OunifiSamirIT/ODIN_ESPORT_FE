@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import image from "../../../assets/Image.png"
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Config } from "../../../config";
 import { useForm } from "react-hook-form";
 import { toast, ToastContainer } from 'react-toastify';
@@ -769,7 +769,7 @@ const ChallengeDetais = () => {
         }
 
         <div className="col-span-3 flex flex-col gap-y-4">
-            <div className="md:hidden flex gap-2 justify-center px-8 py-2 text-base font-medium text-white bg-orange-500 rounded-[30px]">
+         <Link to="/challenges">   <div className="md:hidden flex gap-2 justify-center px-8 py-2 text-base font-medium text-white bg-orange-500 rounded-[30px]">
                 <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/f4786f6b5c1d397bc7db5824ce7a9ef71cb4fc756bcad073d96bb22ae8dbe08c?"
@@ -784,7 +784,7 @@ const ChallengeDetais = () => {
                     )
 
                 } </div>
-            </div>
+            </div></Link>
             <div className="flex flex-col px-8 py-10  bg-white rounded-[10px]  col-span-2">
                 <div className="flex overflow-hidden relative flex-col justify-center items-center">
                     <video onClick={playVideo} ref={video} class="object-cover w-full h-[320px] aspect-square"

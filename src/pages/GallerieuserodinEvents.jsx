@@ -94,6 +94,7 @@ const Album = () => {
   }, []);
 
   const dureeOptions = [
+    { value: '', label: 'Durée' },
     { value: '3 jours', label: '3 jours' },
     { value: '1 semaine', label: '1 Semaine' },
     { value: '2 semaine', label: '2 semaine' },
