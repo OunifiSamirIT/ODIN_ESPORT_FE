@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 import { Config } from '../config';
 import Other from '../pages/Setting/Fragments/Other';
+import {Context} from "../index";
+
 function FriendsSlider() {
     const [agents, setAgents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -68,10 +71,19 @@ function FriendsSlider() {
             </div> */}
             <div className="flex justify-between items-center px-6 pt-3 max-md:px-5">
                 <div className="text-lg font-bold text-zinc-900">
-                    Personnes que
-                    vous pourriez
-                    connaître
+                     
+                    {
+             getTranslation(
+              ` People you might know`,  // -----> Englais
+              `Personnes que vous pourriez connaître`, //  -----> Francais
+              
+              ) 
+
+            } 
+
+
                 </div>
+
             </div>
             <div className="flex gap-2 justify-between items-center pr-6 pl-1 mt-2">
                 <button onClick={prevSlide} className="prev-slide-button text-2xl">&#10094;</button>  <Slider ref={sliderRef} style={{ width: '93%' }} {...friendSettings}>

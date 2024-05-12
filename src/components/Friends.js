@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import { Config } from '../config';
 import Placeholder from '../assets/placeholder.jpg';
 import FriendRequest from './../pages/Profile/FriendRequest';
+import {Context} from "../index";
 
 function Friends() {
   // const [friendRequests, setFriendRequests] = useState(null);
   const [userpf, setUserpf] = useState(null);
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const [friendRequests, setFriendRequests] = useState([])
-  
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
   const acceptInvitation = async (id) => {
     console.log(`${Config.LOCAL_URL}/api/user/${id}/acceptFriend/${storedUserData.id}`)
     const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}/acceptFriend/${id}`, {
@@ -59,9 +61,21 @@ function Friends() {
   return (
     <div className="card w-100 shadow-xss rounded-md border-0 mb-3">
       <div className="card-body d-flex align-items-center p-4">
-        <h4 className=" mb-0 font-bold text-lg text-grey-900 mr-2">Demandes</h4>
+        <h4 className=" mb-0 font-bold text-lg text-grey-900 mr-2">
+        { getTranslation(
+            `Requests`,  // -----> Englais
+              `Demandes`, //  -----> Francais
+                           )  } 
+
+
+        </h4>
         {/* <span className='ml-2 font-bold text-red-500 bg-slate-300 rounded-full h-8 w-6'><p className='ml-2'>{pendingFriendRequests?.length}</p> </span> */}
-        <a href="/friends" className=" ms-auto text-sm font-medium text-blue-600">Voir Tout</a>
+        <a href="/friends" className=" ms-auto text-sm font-medium text-blue-600">
+        { getTranslation(
+            `See All`,  // -----> Englais
+              `Voir Tout`, //  -----> Francais
+                           )  } 
+        </a>
 
       </div> 
 

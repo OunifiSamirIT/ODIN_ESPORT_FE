@@ -7,6 +7,8 @@ import CustomButton from "../components/CustomButton";
 import Loading from './Loading';
 import placeholder from "../assets/placeholder.jpg"
 import { useRef } from 'react';
+import {Context} from "../index";
+
 
 function CreatePost({ setArticles , onClose}) {
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -29,6 +31,7 @@ function CreatePost({ setArticles , onClose}) {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
   // const fetchArticles = async () => {
   //   try {
@@ -376,7 +379,10 @@ function CreatePost({ setArticles , onClose}) {
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
         className="aspect-square w-[25px]"
       />
-      <span className="d-none-xs ml-2">Photo</span>
+      <span className="d-none-xs ml-2">{ getTranslation(
+            `Photo`,  // -----> Englais
+              `Photo`, //  -----> Francais
+                           )  }</span>
     </label>
 
     <label
@@ -395,7 +401,10 @@ function CreatePost({ setArticles , onClose}) {
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
         className="aspect-square w-[25px]"
       />
-      <span className="d-none-xs ml-2"> Video</span>
+      <span className="d-none-xs ml-2">  { getTranslation(
+            `Video`,  // -----> Englais
+              `Vidéo`, //  -----> Francais
+                           )  }</span>
     </label>
 
     <label
@@ -414,7 +423,13 @@ function CreatePost({ setArticles , onClose}) {
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
         className="aspect-[1.2] fill-slate-500 w-[30px]"
       />{" "}
-      <span className="d-none-xs ml-2">GIF</span>
+      <span className="d-none-xs ml-2">
+      { getTranslation(
+            `GIF`,  // -----> Englais
+              `GIF`, //  -----> Francais
+                           )  }
+
+      </span>
     </label>
   </div>
   {errMsg && (
@@ -429,7 +444,14 @@ function CreatePost({ setArticles , onClose}) {
       <button
         type="submit"
         className="bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white mt-3  px-8 rounded-full font-semibold text-sm"
-      > Publier</button>
+      > 
+      
+      { getTranslation(
+            `Post`,  // -----> Englais
+              `Publier`, //  -----> Francais
+                           )  } 
+
+</button>
     )}
   </div>
 </div>

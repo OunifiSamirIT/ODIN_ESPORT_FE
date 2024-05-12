@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Config } from "../config";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {Context} from "../index";
 
 function Events() {
   const [albums, setAlbums] = useState([]);
@@ -11,6 +12,7 @@ function Events() {
     setSelectedCard(id);
     navigate(`/defaultgroup/${id}`);
   };
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
 
 
@@ -47,15 +49,35 @@ function Events() {
 
         <div className="flex justify-between items-center px-6 pt-2 max-md:px-5">
           <div className="text-lg font-bold text-zinc-900">
-            Camps qui pourraient vous intéresser
+          {
+             getTranslation(
+              `Camps that might interest you.`,  // -----> Englais
+              `Camps qui pourraient vous intéresser`, //  -----> Francais
+             
+              ) 
+
+            } 
+
+           
+           
           </div>
           <div className="flex">
             <div className="text-sm  mx-1 font-medium text-blue-600">
-              <a href="/defaultgroup"> Voir</a>
+              <a href="/defaultgroup"> 
+              { getTranslation(
+            `See`,  // -----> Englais
+              `Voir`, //  -----> Francais
+                           )  } 
+
+              </a>
             </div>
             <div className="text-sm font-medium text-blue-600 ">
               <a href="/defaultgroup">
-                Tout
+              { getTranslation(
+            `All`,  // -----> Englais
+              `Tout`, //  -----> Francais
+                           )  } 
+
               </a>
             </div>
           </div>
@@ -76,7 +98,13 @@ function Events() {
                 <div className="text-base  font-semibold break-before-avoid-page">
                   {album.album_name}
                 </div>
-                <div className="">Date Début</div>
+                <div className="">
+                { getTranslation(
+            `Start Date `,  // -----> Englais
+              `Date Début`, //  -----> Francais
+                           )  } 
+
+</div>
                 <div className="flex gap-2 self-start mt-1 whitespace-nowrap">
 
 
@@ -93,7 +121,11 @@ function Events() {
 
             </div>
               <button onClick={() => handleCardClick(album.id)}>  <div className="justify-center items-center px-16 py-2 mt-4 mb-4 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
-                En Savoir Plus
+              { getTranslation(
+            `Learn More`,  // -----> Englais
+              `En Savoir Plus`, //  -----> Francais
+                           )  } 
+                
               </div></button>
             </div>
           ))}

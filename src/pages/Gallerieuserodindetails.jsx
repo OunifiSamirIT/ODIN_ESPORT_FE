@@ -10,10 +10,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import { Config } from "../config";
 import LeftMenu from "../components/LeftMenu";
+import {Context} from "../index"
 
 const Album = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
 
@@ -219,7 +221,15 @@ const Album = () => {
                                 />
                               </clipPath>
                             </defs>
-                          </svg><span className=" text-white"> Revenir au Camps</span>
+                          </svg><span className=" text-white">   {
+                      getTranslation(
+                        `Back to`,  // -----> Englais
+                        `Revenir au Camps`, //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )
+
+                    }</span>
                         </button>
                       </Link>
                       <img
@@ -315,15 +325,29 @@ const Album = () => {
 
 
                             <button className="grow" onClick={handleAlbumButtonClick}>
-                              Pré-inscrire
-                            </button>
+                            {
+                      getTranslation(
+                        `Pre-register`,  // -----> Englais
+                        `Pré-inscrire`, //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )
+
+                    }                            </button>
 
                           </div>
                         </div>)}
                         {isUserPreinscribed &&  (
                           <div className="flex justify-center items-center p-4 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
-                            Vous étes deja pré-inscrit !
-                          </div>
+    {
+                      getTranslation(
+                        ` You are already pre-registered!`,  // -----> Englais
+                        `Vous étes deja pré-inscrit !`, //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )
+
+                    }                          </div>
                         )}
                       </div>
                     </div>

@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import {Context} from "../index";
 
 const SettingsLayout = ({ children, setCurrentTab, tab , setDeleteModal }) => {
+    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     // const [currentTab, setCurrentTab] = useState('')
     const navigate = useNavigate();
@@ -30,21 +33,43 @@ const SettingsLayout = ({ children, setCurrentTab, tab , setDeleteModal }) => {
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac20d9bf5dc01e69f2a6e82df157e82794a74dd3d3c80d0437777183828a95ba?"
                                 className="my-auto aspect-square w-[15px]"
                             />
-                            <Link to={`/profile/${storedUserData.id}`} className="hover:text-orange-300">Revenir au Profil</Link>
+                            <Link to={`/profile/${storedUserData.id}`} className="hover:text-orange-300"> {
+             getTranslation(
+              `Back to profile`,  // -----> Englais
+              ` Revenir au Profil`, //  -----> Francais
+             
+              ) 
+
+            } </Link>
                         </div>
                         <div className=" flex-col md:px-4 py-1 mt-3 w-full bg-white rounded-[10px] text-zinc-900 hidden md:flex items-left">
                             {/* <div className="text-blue-600">Informations Personnelles</div> */}
-                            <a href={`/setting/personal`} className={`mt-4 text-left`} >Informations Personnelles</a>
+                            <a href={`/setting/personal`} className={`mt-4 text-left`} >{ getTranslation(
+            `Personal Information`,  // -----> Englais
+              `Information Personnelle`, //  -----> Francais
+                           )  } </a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
-                            <a href={`/setting/information`} className="mt-4 text-left">Informations du Profil</a>
+                            <a href={`/setting/information`} className="mt-4 text-left">{ getTranslation(
+            `Profile Information`,  // -----> Englais
+              `Information du Profil`, //  -----> Francais
+                           )  } </a>
                             {storedUserData.profil == 'player' &&
                                 <>
                                     <div className="shrink-0 mt-3 h-px bg-blue-100" />
-                                    <a href={`/setting/experience`} className="mt-4 text-left">Experiences</a></>}
+                                    <a href={`/setting/experience`} className="mt-4 text-left">  { getTranslation(
+            `Experiences`,  // -----> Englais
+              `Expériences`, //  -----> Francais
+                           )  } </a></>}
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
-                            <a href={`/setting/parametre`} className="mt-4 text-left">Paramètres du compte</a>
+                            <a href={`/setting/parametre`} className="mt-4 text-left"> { getTranslation(
+            `Setting Information`,  // -----> Englais
+              `Parametre du Profil`, //  -----> Francais
+                           )  } </a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
-                            <a href={`/setting/social`} className="mt-3 text-left" >Réseaux Sociaux</a>
+                            <a href={`/setting/social`} className="mt-3 text-left" > { getTranslation(
+            `Social Media`,  // -----> Englais
+              `Réseaux Sociaux`, //  -----> Francais
+                           )  } </a>
                             <div className="shrink-0 mt-3 h-px bg-blue-100" />
                             <div className="flex items-center gap-4 px-3.5 py-3 text-orange-500 whitespace-nowrap">
                                 <img
@@ -52,7 +77,10 @@ const SettingsLayout = ({ children, setCurrentTab, tab , setDeleteModal }) => {
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/cded10bad9b00bba1f301a02f5bfc764d8bff607a7af5b3849d13ad9750d0472?"
                                     className="w-5 aspect-square"
                                 />
-                                <button type="submit" onClick={handleLogout} className="">Déconnexion</button>
+                                <button type="submit" onClick={handleLogout} className=""> { getTranslation(
+            `Log Out`,  // -----> Englais
+              `Déconnexion`, //  -----> Francais
+                           )  } </button>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import { Link, useNavigate , useParams } from "react-router-dom";
 import NewsLetter from "../../assets/newsletter.png"
 import banner from "../../assets/banner.png"
 import { Config } from "../../config";
+import {Context} from "../index";
 
 const Article = () => {
     const { articleId } = useParams();
@@ -28,6 +29,8 @@ const Article = () => {
         console.log(result.blog)
         setRecommandation(shuffle(result.blog).slice(0, 3))
     }
+    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+
 
     const fetchBlogArticles = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/blog/${articleId}`);
@@ -65,13 +68,26 @@ const Article = () => {
                     />
                     <div className="flex gap-5 justify-center items-center py-4 max-md:flex-wrap">
                         <div className="self-stretch my-auto text-base font-medium text-zinc-900">
-                            Contact
+                        { getTranslation(
+            `Contact`,  // -----> Englais
+              `Contact`, //  -----> Francais
+                           )  } 
+
+                            
                         </div>
                         <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[10px] max-md:px-5">
-                            Sign Up
+                        { getTranslation(
+            `Sign Up`,  // -----> Englais
+              `S'inscrire`, //  -----> Francais
+                           )  } 
+
+                           
                         </div>
                         <div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-zinc-900 border-opacity-50 rounded-[10px] text-zinc-900 max-md:px-5">
-                            Log In
+                        { getTranslation(
+            `Log In`,  // -----> Englais
+              `Se connecter`, //  -----> Francais
+                           )  }  
                         </div>
                         <div className="flex gap-1 items-center self-stretch px-1 py-0.5 my-auto text-base font-medium whitespace-nowrap text-zinc-900">
                             <img
@@ -150,7 +166,14 @@ const Article = () => {
                                 </div>
                                 <div className="flex flex-col px-8 pt-6 pb-7 mt-8 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                                     <div style={{ backgroundImage: `url(${banner})` }} className="bg-cover relative flex-col justify-center py-14 pr-20 pl-20 text-2xl font-bold text-white min-h-[147px] max-md:pr-8 max-md:pl-5 max-md:mr-2 max-md:max-w-full">
-                                        Elevate Your Game, Seize Your Future!
+                                        
+                                        
+
+                                        { getTranslation(
+            `Elevate Your Game, Seize Your Future!`,  // -----> Englais
+              `Élevez votre jeu, saisissez votre avenir !`, //  -----> Francais
+                           )  } 
+
                                     </div>
                                     <div className="mt-6 max-md:max-w-full">
                                         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
@@ -161,13 +184,29 @@ const Article = () => {
                                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/be60dfa8804dfaf18e18a6cf7a6143279eef50392729252eeffc9aaea26321f1?"
                                                         className="aspect-square w-[30px]"
                                                     />
-                                                    <div className="mt-6 text-xl font-bold">
-                                                        Direct <br />
-                                                        Agent Access
+                                                    <div className="tal2 mt-6 text-xl font-bold">
+                                                          
+                                                        { getTranslation(
+            `Direct`,  // -----> Englais
+              `Accès`, //  -----> Francais
+                           )  } 
+
+                                                        <br />
+
+                                                        { getTranslation(
+            `Agent Access`,  // -----> Englais
+              `direct aux agents`, //  -----> Francais
+                           )  } 
+                                                         
                                                     </div>
                                                     <div className="mt-1 text-xs leading-4">
-                                                        Connect directly with agents for representation and
-                                                        career opportunities.
+
+                                                    { getTranslation(
+            `Connect directly with agents for representation and
+            career opportunities.`,  // -----> Englais
+              `Connectez-vous directement avec des agents pour la représentation et les opportunités de carrière.`, //  -----> Francais
+                           )  } 
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -179,13 +218,42 @@ const Article = () => {
                                                         className="aspect-[1.3] w-[39px]"
                                                     />
                                                     <div className="mt-6 text-xl font-bold">
-                                                        Enhanced
+                                                        
+                                                        
+                                                        {
+             getTranslation(
+              `Enhanced`,  // -----> Englais
+              `Visibilité`, //  -----> Francais
+             
+              ) 
+
+            } 
+
                                                         <br />
-                                                        Visibility
+                                                        
+                                                        {
+             getTranslation(
+              `Visibility`,  // -----> Englais
+              `Améliorée`, //  -----> Francais
+             
+              ) 
+
+            } 
                                                     </div>
-                                                    <div className="mt-1 text-xs leading-4">
-                                                        Showcase skills and achievements to a wide audience of
-                                                        scouts and recruiters.
+                                                    <div className="tal2 mt-1 text-xs leading-4">
+                                                    {
+             getTranslation(
+              `Showcase skills and achievements to a wide audience of
+              scouts and recruiters.`,  // -----> Englais
+              `Exposez vos compétences et réalisations à un large public de recruteurs et de scouts`, //  -----> Francais
+             
+              ) 
+
+            } 
+                                                         
+
+
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -196,53 +264,141 @@ const Article = () => {
                                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/61fdddb91401a6201db15fc40c67998a08f8c69e58b6ae1230e802e1f8ebccc0?"
                                                         className="aspect-[1.14] fill-blue-600 w-[34px]"
                                                     />
-                                                    <div className="mt-6 text-xl font-bold">
-                                                        Community
+                                                    <div className="tal2 mt-6 text-xl font-bold">
+                                                        
+                                                        {
+             getTranslation(
+              `Community`,  // -----> Englais
+              `Communauté`, //  -----> Francais
+             
+              ) 
+
+            } 
                                                         <br />
-                                                        Engagement
+                                                        
+                                                        {
+             getTranslation(
+              `Engagement`,  // -----> Englais
+              `Engagement`, //  -----> Francais
+             
+              ) 
+
+            } 
                                                     </div>
-                                                    <div className="mt-1 text-xs leading-4">
-                                                        Network with fellow players, coaches, and mentors for
-                                                        support and guidance.
+                                                    <div className="tal2 mt-1 text-xs leading-4">
+                                                         
+                                                    
+                                                        {
+             getTranslation(
+              `Network with fellow players, coaches, and mentors for
+              support and guidance.`,  // -----> Englais
+              `Réseau de joueurs, entraîneurs et guides pour obtenir du soutien et des conseils.`, //  -----> Francais
+             
+              ) 
+
+            } 
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="justify-center self-center px-8 py-2 mt-6 text-base font-medium text-white bg-blue-600 rounded-[10px] max-md:px-5">
-                                        Start Your Journey Now!
+                                    <div className="tal2 justify-center self-center px-8 py-2 mt-6 text-base font-medium text-white bg-blue-600 rounded-[10px] max-md:px-5">
+                                    {
+             getTranslation(
+              `Start Your Journey Now!`,  // -----> Englais
+              `Commencez votre aventure!`, //  -----> Francais
+              
+              ) 
+
+            } 
+
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="flex flex-col ml-5 w-[35%] max-md:ml-0 max-md:w-full">
                             <div className="flex flex-col px-5 mt-2.5 max-md:mt-10">
-                                <div className="text-3xl font-bold text-zinc-900">Newsletter</div>
+                                <div className="tal2 text-3xl font-bold text-zinc-900">
+                                {
+             getTranslation(
+              `Newsletter`,  // -----> Englais
+              `Newsletter`, //  -----> Francais
+             
+              ) 
+
+            } 
+
+                                </div>
                                 <div className="text-left flex flex-col justify-center px-4 py-6 mt-2.5 text-base bg-white rounded-[10px] text-zinc-900">
                                     <img
                                         loading="lazy"
                                         srcSet={NewsLetter}
                                         className="w-full aspect-[1.49]"
                                     />
-                                    <div className="mt-6 text-xl font-bold">
-                                        Stay in the Game:
+                                    <div className="tal2 mt-6 text-xl font-bold">
+                                        
+                                        {
+             getTranslation(
+              ` Stay in the Game:`,  // -----> Englais
+              `Restez dans le jeu :`, //  -----> Francais
+             
+              ) 
+
+            } 
                                         <br />
-                                        Subscribe to Our Newsletter!
+                                        {
+             getTranslation(
+              ` Subscribe to Our Newsletter! `,  // -----> Englais
+              `Inscrivez-vous à notre Newsletter!`, //  -----> Francais
+             
+              ) 
+
+            } 
+                                        
                                     </div>
-                                    <div className="mt-2 font-light">
-                                        Don't miss out on the latest football news and updates.
-                                        Subscribe to our newsletter for exclusive content straight to
-                                        your inbox!
+                                    <div className="tal2 mt-2 font-light">
+
+                                    {
+             getTranslation(
+              ` Don't miss out on the latest football news and updates.
+              Subscribe to our newsletter for exclusive content straight to
+              your inbox!`,  // -----> Englais
+              ` Ne manquez pas les dernières nouvelles et mises à jour du football.
+              Inscrivez-vous à notre newsletter pour du contenu exclusif directement dans votre boîte de réception !`, //  -----> Francais
+             
+              ) 
+
+            } 
+                                       
+
                                     </div>
                                     <div className="justify-center items-start px-4 py-2 mt-4 whitespace-nowrap bg-white border border-solid border-stone-300 rounded-[10px] text-neutral-500 max-md:pr-5">
                                         johndoe@gmail.com
                                     </div>
                                     <div className="justify-center text-center items-center px-8 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[10px] max-md:px-5">
-                                        Subscribe
+                                    {
+             getTranslation(
+              `Subscribe`,  // -----> Englais
+              `S'inscrire`, //  -----> Francais
+             
+              ) 
+
+            } 
+                                        
                                     </div>
                                 </div>
                                 <div className="mt-4 text-3xl font-bold text-zinc-900">
-                                    Similar Articles
+                                    
+                                {
+             getTranslation(
+              `Similar Articles`,  // -----> Englais
+              `Articles Similaires`, //  -----> Francais
+             
+              ) 
+
+            } 
+                                    
                                 </div>
                                 {recommandation && recommandation.map((item) => {
                                     return (
@@ -297,17 +453,29 @@ const Article = () => {
                             className="shrink-0 my-auto w-36 max-w-full aspect-[2.78]"
                         />
                         <div className="flex gap-5 justify-center items-center py-4 max-md:flex-wrap">
-                            <div className="self-stretch my-auto text-base font-medium text-white">
-                                Contact
+                            <div className="tal1 self-stretch my-auto text-base font-medium text-white">
+                            { getTranslation(
+            `Contact`,  // -----> Englais
+              `Contact`, //  -----> Francais
+                           )  } 
                             </div>
-                            <div className="self-stretch my-auto text-base font-medium text-white">
-                                Blog
+                            <div className="tal1 self-stretch my-auto text-base font-medium text-white">
+                            { getTranslation(
+            `Blog`,  // -----> Englais
+              `Blog`, //  -----> Francais
+                           )  } 
                             </div>
-                            <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-blue-600 bg-white rounded-[10px] max-md:px-5">
-                                Sign Up
+                            <div className="tal1 justify-center self-stretch px-8 py-2 text-base font-medium text-blue-600 bg-white rounded-[10px] max-md:px-5">
+                            { getTranslation(
+            `Sign Up`,  // -----> Englais
+              `S'inscrire`, //  -----> Francais
+                           )  } 
                             </div>
-                            <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white border-2 border-white border-solid rounded-[10px] max-md:px-5">
-                                Log In
+                            <div className="tal1 justify-center self-stretch px-8 py-2 text-base font-medium text-white border-2 border-white border-solid rounded-[10px] max-md:px-5">
+                            { getTranslation(
+            `Log In`,  // -----> Englais
+              `Se connecter`, //  -----> Francais
+                           )  } 
                             </div>
                             <div className="flex gap-1 items-center self-stretch px-1 py-0.5 my-auto text-base font-medium text-white whitespace-nowrap">
                                 <img
@@ -353,10 +521,20 @@ const Article = () => {
                     </div>
                     <div className="flex gap-5 justify-between py-2 mt-6 max-md:flex-wrap max-md:max-w-full">
                         <div className="my-auto text-xs font-light text-white">
-                            All Rights Reserved © 2024 Odin Esport
+                           
+                        { getTranslation(
+            ` All Rights Reserved © 2024 Odin Esport `,  // -----> Englais
+              `Tous droits réservés © 2024 Odin Esport `, //  -----> Francais
+                           )  } 
+                            
                         </div>
                         <div className="text-base font-medium text-white underline">
-                            Privacy Policy
+                                  
+                        { getTranslation(
+            ` Privacy Policy  `,  // -----> Englais
+              `Politique de confidentialité `, //  -----> Francais
+                           )  } 
+                            
                         </div>
                     </div>
                 </div>

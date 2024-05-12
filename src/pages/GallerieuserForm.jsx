@@ -21,6 +21,7 @@ import { useForm, Controller } from "react-hook-form"
 import { Config } from "../config";
 import Header from "../components/Header2";
 
+import {Context} from "../index"
 
 
 
@@ -48,6 +49,7 @@ const Album = () => {
   const [album, setAlbum] = useState([]);
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
   const handleTermsLinkClick = () => {
     setIsModalOpen(true);
@@ -242,8 +244,12 @@ const Album = () => {
 
       <div className="flex flex-col pt-8 mt-0 md:mt-14 bg-white rounded-xl  max-md:my-10 max-md:max-w-full">
         <div className=" mt-20 md:text-5xl    w-full text-2xl text-center font-bold text-black max-md:max-w-full">
-          Pré-inscription
-        </div>
+        {getTranslation(
+                              ` Pre-registration`, // -----> Englais
+                              `Pré-inscription`, //  -----> Francais
+                              ``, //  -----> Turkey
+                              `` //  -----> Allemagne
+                            )}        </div>
         <div className="flex flex-col flex-wrap gap-y-2 justify-between content-start px-20 py-8 mt-2 md:mt-6 max-md:px-4 max-md:max-w-full">
           <div className="max-md:max-w-full">
             <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0">
@@ -255,7 +261,12 @@ const Album = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/59df83238ff310e910628d8bd3168c058bfa88fb66b3c5c55211fd65db4a7a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                       className="my-auto aspect-[0.75] w-[15px]"
                     />
-                    <div className="grow">Nom</div>
+                    <div className="grow">{getTranslation(
+                              `Last name`, // -----> Englais
+                              `Nom`, //  -----> Francais
+                              ``, //  -----> Turkey
+                              `` //  -----> Allemagne
+                            )}</div>
                   </div>
                   <input
                     value={users?.user?.nom}
@@ -273,7 +284,12 @@ const Album = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/09b6804daf216040b510e3588d74469399244a1b90572a01c90b865359dc5ac0?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                       className="my-auto aspect-[0.75] w-[15px]"
                     />
-                    <div className="grow">Prénom</div>
+                    <div className="grow">{getTranslation(
+                              `First name`, // -----> Englais
+                              `Prénom`, //  -----> Francais
+                              ``, //  -----> Turkey
+                              `` //  -----> Allemagne
+                            )}</div>
                   </div>
                   <input
                     value={users?.user?.prenom}
@@ -291,7 +307,11 @@ const Album = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/60a94d426897782b7365b8c8850daade691e593a3866944a1df0ca4473099960?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                       className="my-auto w-5 aspect-square"
                     />
-                    <div className="grow">Année de naissance</div>
+                    <div className="grow">{getTranslation(
+                              `Year of birth`, // -----> Englais
+                              `Année de naissance`, //  -----> Francais
+                             
+                            )}</div>
                   </div>
                   <input
                     value={users?.user?.date_naissance}
@@ -301,8 +321,11 @@ const Album = () => {
                   />
 
                   <div className="self-center mt-2 text-zinc-800">
-                    Vous devez avoir au moins 13 ans.
-                  </div>
+                  {getTranslation(
+                            `You must be at least 13 years old .`, // -----> Englais
+                            `Vous devez avoir au moins 13 ans .`, //  -----> Francais
+                           
+                          )}                  </div>
                 </div>
               </div>
             </div>
@@ -315,7 +338,12 @@ const Album = () => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/1ecca3927dfc3bd6c59dddb415b118548d59fe896ac45d6ba08dcf9dbb25cc49?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="my-auto w-5 aspect-square"
                 />
-                <div className="grow">Sexe</div>
+                <div className="grow">{getTranslation(
+                              `Gender`, // -----> Englais
+                              `Sexe`, //  -----> Francais
+                              ``, //  -----> Turkey
+                              `` //  -----> Allemagne
+                            )}</div>
               </div>
 
               <input
@@ -332,7 +360,12 @@ const Album = () => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/092f94cce37a29c49e173094ae8127519c329952195acf18c964dff918bd9544?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="my-auto w-5 aspect-square"
                 />
-                <div className="grow">Nationalité</div>
+                <div className="grow">{getTranslation(
+                            `Nationality`, // -----> Englais
+                            `Nationalité`, //  -----> Francais
+                            ``, //  -----> Turkey
+                            `` //  -----> Allemagne
+                          )}</div>
               </div>
               <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                 <div className="flex gap-5 justify-between px-4 py-2 w-full rounded-md">
@@ -365,7 +398,12 @@ const Album = () => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/657b7b4e3e42d05cbea3c45510522b76cf86b06b0a1d47ec41abf0a57ff40cdd?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="my-auto w-5 aspect-square"
                 />
-                <div className="grow">Pays de résidence</div>
+                <div className="grow">{getTranslation(
+                            `Country of residence`, // -----> Englais
+                            `Pays de résidence`, //  -----> Francais
+                            ``, //  -----> Turkey
+                            `` //  -----> Allemagne
+                          )}</div>
               </div>
               <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                 <div className="flex gap-5 justify-between px-4 py-2 w-full rounded-md">
@@ -399,7 +437,11 @@ const Album = () => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/be4ad2608224289b1e42bc2da7f2cc573989cbb43db9b54c7ae9749f3309ff69?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="my-auto w-5 aspect-square"
                 />
-                <div className="flex-auto">Ville de résidence</div>
+                <div className="flex-auto">{getTranslation(
+                      `City of residence`, // -----> Englais
+                      `Ville de résidence`, //  -----> Francais
+                     
+                    )}</div>
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
                 {users?.user?.cityresidence}
@@ -412,7 +454,12 @@ const Album = () => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/84ca92032564e90dd6df0c0ed8bb0f3f4a94a871fdc2b5d33d592d1bfc078fd3?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="my-auto aspect-[1.05] w-[21px]"
                 />
-                <div className="grow">Email</div>
+                <div className="grow"> {getTranslation(
+                              `Email`, // -----> Englais
+                              `Email`, //  -----> Francais
+                              ``, //  -----> Turkey
+                              `` //  -----> Allemagne
+                            )}</div>
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-1 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
                 {users?.user?.email}
@@ -425,7 +472,17 @@ const Album = () => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/fc00c5eaa5821ce5ae54c0d94595d6f32479f2489001ac728b02aebe3f1e1e68?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="my-auto aspect-[1.1] w-[22px]"
                 />
-                <div className="flex-auto">Email Secondaire (Facultative)</div>
+                <div className="flex-auto">{getTranslation(
+                              `Secondary Email`, // -----> Englais
+                              `Email Secondaire`, //  -----> Francais
+                              ``, //  -----> Turkey
+                              `` //  -----> Allemagne
+                            )}
+                 ({getTranslation(
+                      `Optional`, // -----> Englais
+                      `Facultatif`, //  -----> Francais
+
+                    )})</div>
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
                 <input
@@ -462,7 +519,12 @@ const Album = () => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/8bf2ef649448b0d66ed482eea95f865c88a2d95fa6ccdf076dec39eb896daea2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="my-auto w-5 aspect-square"
                 />
-                <div className="grow">Avez-vous un Passport ?</div>
+                <div className="grow">{getTranslation(
+                      `Do you have a passport?`, // -----> Englais
+                      `Avez-vous un Passport ?`, //  -----> Francais
+                      ``, //  -----> Turkey
+                      `` //  -----> Allemagne
+                    )}</div>
               </div>
               <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                 <div htmlFor="passport" className="flex gap-5 justify-between px-4 py-2 rounded-md">
@@ -472,9 +534,24 @@ const Album = () => {
                     onChange={handleChange}
                     className="w-full"
                   >
-                    <option>Oui / Non</option>
-                    <option value="Oui">Oui</option>
-                    <option value="Non">Non</option>
+                    <option>{getTranslation(
+                      `Yes/No`, // -----> Englais
+                      `Oui / Non`, //  -----> Francais
+                      ``, //  -----> Turkey
+                      `` //  -----> Allemagne
+                    )}</option>
+                    <option value="Oui">{getTranslation(
+                      `Yes`, // -----> Englais
+                      `Oui`, //  -----> Francais
+                      ``, //  -----> Turkey
+                      `` //  -----> Allemagne
+                    )}</option>
+                    <option value="Non">{getTranslation(
+                      `No`, // -----> Englais
+                      `Non`, //  -----> Francais
+                      ``, //  -----> Turkey
+                      `` //  -----> Allemagne
+                    )}</option>
                   </select>
                 </div>
               </div>  <p className="text-red text-md">{errors.passport}</p>
@@ -486,7 +563,15 @@ const Album = () => {
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/d25aba1d49146125c002c91e072e49db818d43215feceb4a7555ff8fa612d13d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                   className="my-auto w-5 aspect-square"
                 />
-                <div className="grow">Date d’expiration</div>
+                <div className="grow">{
+             getTranslation(
+              `Expiration Date`,  // -----> Englais
+              `Date d’expiration`, //  -----> Francais
+              ``,  //  -----> Turkey
+              `` ,  //  -----> Allemagne
+              ) 
+
+            } </div>
               </div>
               <DatePicker
                 selected={formData.date_validation}
@@ -499,9 +584,25 @@ const Album = () => {
             </div>
           </div>
           <div className="self-start mt-10 text-xl text-zinc-900 max-md:max-w-full">
-            Je confirme que je peux payer les{" "}
-            <span className="font-bold">frais de participation</span> de ce
-            camp.
+          {getTranslation(
+                      `I confirm that I am able to pay the `, // -----> Englais
+                      ` Je confirme que je peux payer les`, //  -----> Francais
+                      ``, //  -----> Turkey
+                      `` //  -----> Allemagne
+                    )}{" "}
+            <span className="font-bold">
+            {getTranslation(
+                      ` participation fees`, // -----> Englais
+                      ` frais de participation`, //  -----> Francais
+                      ``, //  -----> Turkey
+                      `` //  -----> Allemagne
+                    )}</span> 
+                    {getTranslation(
+                      ` for this camp.`, // -----> Englais
+                      ` de ce camp.`, //  -----> Francais
+                      ``, //  -----> Turkey
+                      `` //  -----> Allemagne
+                    )}   
             <div className="flex gap-5 justify-between self-start mt-2 text-lg leading-7 whitespace-nowrap text-zinc-900 max-md:ml-2">
               <label htmlFor="fraisinscrit">
                 <div>
@@ -514,7 +615,13 @@ const Album = () => {
                       checked={formData.fraisinscrit === "Oui"}
                       onChange={handleChange}
                     />
-                    Oui , je confirme
+                     {getTranslation(
+                              `Yes, I confirm`, // -----> Englais
+                              ` Oui , je confirme`, //  -----> Francais
+                              ``, //  -----> Turkey
+                              `` //  -----> Allemagne
+                            )}
+                   
                   </label>
                   <label>
                     <input
@@ -526,7 +633,12 @@ const Album = () => {
                       checked={formData.fraisinscrit === "Non"}
                       onChange={handleChange}
                     />
-                    Non
+                    {getTranslation(
+                                `No`, // -----> Englais
+                                `Non`, //  -----> Francais
+                                ``, //  -----> Turkey
+                                `` //  -----> Allemagne
+                              )}
                   </label>
                 </div>
 
@@ -545,11 +657,19 @@ const Album = () => {
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/782d8b9c4e26c6ae2faa75f1bad14c148b0b27ad2722daea1be1e990d6d99625?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                 className="my-auto aspect-square fill-white w-[15px]"
               />
-              <button onClick={handelretourform} className="grow">Annuler</button>
+              <button onClick={handelretourform} className="grow">{getTranslation(
+                                `Cancel`, // -----> Englais
+                                `Annuler`, //  -----> Francais
+                                
+                              )}</button>
             </div>
             <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
               <div className="grow" onClick={handleSubmit}>
-                Confirmer
+              {getTranslation(
+                                `Submit`, // -----> Englais
+                                `Confirmer`, //  -----> Francais
+                               
+                              )}
               </div>
               <img
                 loading="lazy"

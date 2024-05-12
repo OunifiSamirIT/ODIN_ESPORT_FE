@@ -5,9 +5,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import SlideMenu from "../components/SlideMenu";
 import { Config } from "../config";
 import Header from "../components/Header2";
+import {Context} from "../index"
 
 const Album = () => {
   const [isActive, setIsActive] = useState(false);
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
   const [album, setAlbum] = useState([]);
   const [users, setUsers] = useState([]);
@@ -71,15 +73,22 @@ const Album = () => {
                     THANK YOU!
                   </div>
                   <div className="text-zinc-900 md:px-0 px-3">
-                    Votre préinscription a l'evennemnt de soccer est enregistrée! N'oubliez pas de vérifier vos e-mails pour la confirmation finale. Nous avons hâte de vous retrouver sur le terrain!
-                  </div>
+                  {getTranslation(
+                              `Your pre-registration for the soccer event is recorded! Don't forget to check your emails for the final confirmation. We look forward to seeing you on the field!`, // -----> Englais
+                              `Votre préinscription a l'evennemnt de soccer est enregistrée! N'oubliez pas de vérifier vos e-mails pour la confirmation finale. Nous avons hâte de vous retrouver sur le terrain!`, //  -----> Francais
+                              
+                            )}                  </div>
                   <div className="flex gap-4 items-center flex-1 justify-center mx-2 px-8 py-2 mt-6 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] ">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9cb7dcd8e4198fc85a3fd9f3a4a89f77f8d22cc38535f84baf50f8089f909e1?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                       className="w-5 aspect-square fill-white"
                     />
-                    <Link to="/home"><div className="flex items-center justify-center flex-1 md:mr-0">Revenir au page d’acceuil</div></Link>
+                    <Link to="/home"><div className="flex items-center justify-center flex-1 md:mr-0">{getTranslation(
+                              `Back to home`, // -----> Englais
+                              `Revenir au page d’accueil`, //  -----> Francais
+                             
+                            )}</div></Link>
                   </div>
                 </div>
               </div>

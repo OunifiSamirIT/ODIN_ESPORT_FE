@@ -15,6 +15,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Config } from "../config";
 import LeftMenu from "../components/LeftMenu";
+import {Context} from "../index"
 
 const Album = () => {
   const [album, setAlbum] = useState([]);
@@ -24,6 +25,7 @@ const Album = () => {
   const [user, setUser] = useState([]);
 
 
+  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
 
   const [searchDuree, setSearchDuree] = useState("");
@@ -241,8 +243,15 @@ const Album = () => {
               <div className="flex flex-col grow  max-md:max-w-full">
                 <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                   <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                    Chercher un Odin Event
+                  {
+                        getTranslation(
+                          `Search for an Event`,  // -----> Englais
+                          ` Chercher un Evènnement`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
 
+                      }
                   </div>
                   <div className="flex-wrap gap-y-4 justify-between content-start mt-2 max-md:max-w-full">
                     <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0">
@@ -254,7 +263,15 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/803e02712b2b4c86f9a16b3c2fd85a1f2520ba9fac821299d322e0a17e04e0df?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square"
                             />
-                            <div className="grow">Durée</div>
+                            <div className="grow"> <div className="grow"> {
+                        getTranslation(
+                          `Duration`,  // -----> Englais
+                          `Durée`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
+
+                      }</div></div>
                           </div>
                           <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
@@ -277,8 +294,15 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/a38d56790789553e5ad61b7be1f1c9794b8856c20bce58844081006640976d32?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square"
                             />
-                            <div className="grow">Date de début</div>
-                          </div>
+ <div className="grow"> {
+                                getTranslation(
+                                  `Start Date `,  // -----> Englais
+                                  `Date de début`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              } </div>                          </div>
                           <div className="flex flex-col justify-center mt-2 w-full text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
                               <DatePicker
@@ -300,8 +324,15 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bfb1d26cb36312136826da85a4c47e65f704f7a4f080f319b159e471c18e5bc?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square"
                             />
-                            <div className="grow">Pays</div>
-                          </div>
+<div className="grow"> {
+                                getTranslation(
+                                  `Country`,  // -----> Englais
+                                  `Pays`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              } </div>                          </div>
                           <div className="flex flex-col justify-center mt-2 mr-1 text-xs font-light border border-solid  rounded-[30px]">
                             {/* <Select
                               options={optionsPays}
@@ -389,8 +420,15 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/50a0695569327f7204d974bc36853e47face4848f228a6c678484e0d7aca8146?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="aspect-[0.9] fill-zinc-900 w-[18px]"
                             />
-                            <div className="grow">Prix</div>
-                          </div>
+ <div className="grow"> {
+                                getTranslation(
+                                  `Price `,  // -----> Englais
+                                  `Prix`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              } </div>                          </div>
                           <div className="flex flex-col justify-center mt-2 w-full text-xs  border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                             <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
                               <input
@@ -433,14 +471,26 @@ const Album = () => {
                       className="justify-center px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-3"
                       onClick={handleReset}
                     >
-                      Réinitialiser
+                       {
+                                getTranslation(
+                                  `Reset`,  // -----> Englais
+                                  `Réinitialiser`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              } 
                     </button>
                     <div className="flex gap-2 justify-between pl-6">
                       <div
                         className="justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
                         onClick={handleSearch}
                       >
-                        Confirmer
+                         {getTranslation(
+                                `Submit`, // -----> Englais
+                                `Confirmer`, //  -----> Francais
+                               
+                              )}
                       </div>
                     </div>
                   </div>
@@ -476,7 +526,15 @@ const Album = () => {
                           </div>
                           <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
                             <div className="flex flex-col whitespace-nowrap ">
-                              <div className="text-xs font-light text-zinc-400">Prix</div>
+                              <div className="text-xs font-light text-zinc-400">{
+                                getTranslation(
+                                  `Price `,  // -----> Englais
+                                  `Prix`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
+
+                              }</div>
                               <div className="mt-1 text-base text-zinc-900 font-semibold">
                                 {value.prix} €
                               </div>
