@@ -1,11 +1,14 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { Context } from "../index"
 
 export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem, shouldShowForProfile, setEventTogglerIsOpenned, eventTogglerIsOpenned, userProfileType, user } ) {
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
+
   return (
     <>
    
-
+  
             <div className={` ${classothercomponent ? "mt-6" : ""} xs:hidden sm:hidden hidden  md:flex md:flex-col md:min-w-[23%] md:-ml-2 md:mr-3 max-md:ml-0 max-md:w-full`  } >
             <div className=" fixed xs:hidden sm:hidden hidden max-h-[82vh] hiddenScrollLeftMenu overflow-y-scroll overflow-x-hidden md:flex md:flex-col md:max-w-[23%] max-md:ml-0 max-md:w-full ">
               <div className="  flex flex-col items-start gap-3 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
@@ -26,7 +29,15 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      Acceuil
+                    {
+                        getTranslation(
+                          `Home`,  // -----> Englais
+                          `Acceuil`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
+
+                      }
                     </div>
                   </div>
                 </Link>
@@ -62,7 +73,15 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      Profil
+                    {
+                        getTranslation(
+                          `Profile`,  // -----> Englais
+                          `Profil`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
+
+                      }
                     </div>
                   </div>{" "}
                 </Link>
@@ -90,7 +109,15 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                        Agents
+                      {
+                          getTranslation(
+                            `Agents`,  // -----> Englais
+                            `Agents`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
+
+                        }
                       </div>
                     </div>{" "}
                   </Link>
@@ -122,7 +149,16 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                        Joueur
+                      {
+                          getTranslation(
+                            `Player`,  // -----> Englais
+                            `Joueur`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
+
+                        }
+
                       </div>
                     </div>{" "}
 
@@ -145,7 +181,15 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                       className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                     />
-                    <div>Événements</div>
+                    <div>  {
+                        getTranslation(
+                          `Events`,  // -----> Englais
+                          `Événements`, //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )
+
+                      }</div>
                   </div>
                   <img
                     loading="lazy"
@@ -176,7 +220,15 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                                 fill="#1D1E21"
                               />
                             </svg>
-                            <div>Camps</div>
+                            <div>  {
+                                getTranslation(
+                                  `Camps`,  // -----> Englais
+                                  `Camps`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              }</div>
                           </div>
 
                         </div>
@@ -189,7 +241,15 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                               <path d="M15 14.9967C15 17.7542 12.7575 19.9967 10 19.9967C7.2425 19.9967 5 17.7542 5 14.9967C5 12.2392 7.2425 9.99667 10 9.99667C10.46 9.99667 10.8333 10.3692 10.8333 10.83C10.8333 11.2908 10.46 11.6633 10 11.6633C8.16167 11.6633 6.66667 13.1583 6.66667 14.9967C6.66667 16.835 8.16167 18.33 10 18.33C11.8383 18.33 13.3333 16.835 13.3333 14.9967C13.3333 14.5358 13.7067 14.1633 14.1667 14.1633C14.6267 14.1633 15 14.5358 15 14.9967ZM15.3033 12.4967C15.745 12.4967 16.1692 12.3208 16.4817 12.0083L17.2867 11.2033C17.7325 10.7575 17.4167 9.99667 16.7867 9.99667H15V8.21C15 7.58 14.2383 7.26417 13.7933 7.71L12.9883 8.515C12.6758 8.8275 12.5 9.25167 12.5 9.69333V11.3183L10.4317 13.3867C10.2942 13.35 10.1492 13.33 10 13.33C9.07917 13.33 8.33333 14.0758 8.33333 14.9967C8.33333 15.9175 9.07917 16.6633 10 16.6633C10.9208 16.6633 11.6667 15.9175 11.6667 14.9967C11.6667 14.8475 11.6467 14.7025 11.61 14.565L13.6783 12.4967H15.3033ZM12.615 6.53167C13.2967 5.85167 14.3117 5.64917 15.2008 6.0175C15.5558 6.16417 15.86 6.38833 16.0983 6.66667H20.0317L20.0267 5.8075C20.0125 3.51667 18.1517 1.66667 15.86 1.66667H15.0008V0.833333C15 0.373333 14.6267 0 14.1667 0C13.7067 0 13.3333 0.373333 13.3333 0.833333V1.66667H6.66667V0.833333C6.66667 0.373333 6.29333 0 5.83333 0C5.37333 0 5 0.373333 5 0.833333V1.66667H4.16667C1.86583 1.66667 0 3.53167 0 5.83333V6.66667H12.48L12.615 6.53167ZM3.33333 15C3.33333 11.3242 6.32417 8.33333 10 8.33333H0V15.8325C0 18.1325 1.86417 19.9975 4.16417 19.9992H5.59583C4.20917 18.7775 3.33333 16.9892 3.33333 15ZM20 8.33H16.7867C17.7508 8.33 18.6108 8.905 18.98 9.79583C19.3492 10.6867 19.1467 11.7017 18.465 12.3825L17.6608 13.1867C17.3325 13.515 16.9475 13.7667 16.5275 13.9325C16.6133 14.4358 16.6675 14.8233 16.6675 15C16.6675 16.9892 15.7917 18.7775 14.405 20H16.3075C18.3817 19.9975 20.0608 18.3133 20.055 16.2392L20 8.33Z" fill="black" />
                             </svg>
 
-                            <div>Challenges</div>
+                            <div> {
+                                getTranslation(
+                                  `Challenges`,  // -----> Englais
+                                  `Challenges`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              }</div>
                           </div>
 
                         </div>
@@ -204,7 +264,15 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                               className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                             />
 
-                            <div>Evénnement ODIN</div>
+                            <div>    {
+                                getTranslation(
+                                  `ODIN Event`,  // -----> Englais
+                                  `Evénnement ODIN`, //  -----> Francais
+                                  //   ``,  //  -----> Turkey
+                                  //   `` ,  //  -----> Allemagne
+                                )
+
+                              }</div>
                           </div>
 
                         </div>
@@ -222,7 +290,15 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a7fc5fd676e2d7354f4a7f19b0967db7f2d99a7e161c7c156ac1ce03217cf2c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                       />
-                      <div>Offres d’emploi</div>
+                      <div> {
+                          getTranslation(
+                            `Jobs Offers`,  // -----> Englais
+                            `Offres d’emploi`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
+
+                        }</div>
                     </div>
                   </div></Link>
                 <Link to="/entreprise" className="self-center">  {!(
@@ -236,7 +312,15 @@ export default function LeftMenu( { id, classothercomponent, shouldShowAgentItem
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 my-auto w-4 aspect-square fill-white"
                       />
-                      <div>Publier une offre</div>
+                      <div> {
+                          getTranslation(
+                            `Post an  Offer`,  // -----> Englais
+                            ` Publier une offre`, //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )
+
+                        }</div>
                     </div>
                   )}</Link>
               </div>
