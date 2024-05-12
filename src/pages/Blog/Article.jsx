@@ -3,7 +3,7 @@ import { Link, useNavigate , useParams } from "react-router-dom";
 import NewsLetter from "../../assets/newsletter.png"
 import banner from "../../assets/banner.png"
 import { Config } from "../../config";
-import {Context} from "../index";
+import {Context} from "../../index";
 
 const Article = () => {
     const { articleId } = useParams();
