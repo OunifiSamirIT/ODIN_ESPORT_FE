@@ -13,16 +13,17 @@ import Select from "react-select";
 import { useState, useRef } from "react";
 import { useEffect } from "react";
 import Plus from "../../assets/plus.png"
-
+import DatePicker from "react-datepicker";
 import { Config } from "../../config";
 import Index from './../Setting/index';
+
 
 function HomeOffre() {
   const [album, setAlbum] = useState([]);
 
 
   const [selectedCard, setSelectedCard] = useState(null);
-
+  const [offerToUpdate, setOfferToUpdate] = useState(null);
   const handleCardClick = (id) => {
     setSelectedCard(id);
     navigate(`/offre_emploi/${id}`);
@@ -42,8 +43,21 @@ function HomeOffre() {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [showDropdown, setShowDropdown] = useState(null);
   const ref = useRef()
-
-
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [value, setValue] = useState(null);
+  const [formData, setFormData] = useState({
+    image_url: value?.imagesalbumoffres?.length > 0 ? value?.imagesalbumoffres[0]?.image_url : "",
+    EntrepriseName: value?.EntrepriseName,
+    postoffre: value?.postoffre,
+    NivET: value?.NivET,
+    Experience: value?.Experience,
+    typecontrat: value?.typecontrat,
+    paysoffre: value?.paysoffre,
+    date_experie: value?.date_experie,
+    description: value?.description
+  });
 
   const navigate = useNavigate();
 
@@ -117,6 +131,12 @@ function HomeOffre() {
     setOfferToDelete(id);
     setShowDeleteModal(true);
     console.log('showDeleteModal:', showDeleteModal); // Assurez-vous que showDeleteModal est bien mis à true
+  };
+  const handleUpdateClickModal = (id) => {
+    console.log('Delete button clicked');
+    setOfferToUpdate(id);
+    setShowUpdateModal(true);
+    console.log('showDeleteModal:', showUpdateModal); // Assurez-vous que showDeleteModal est bien mis à true
   };
   const handleCancelDelete = () => {
     setOfferToDelete(null);
@@ -209,6 +229,165 @@ function HomeOffre() {
   const shouldShowAgentItem = ["player"].includes(userProfileType);
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
+
+
+  const optionsPaysOffre = paysAllInfo.map((country) => {
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+    return {
+      value: countryCode, // Ensure this matches what you expect
+      label: (
+        <div>
+          {countryCode && (
+            <span
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{ marginRight: "2px", width: "40px" }}
+            ></span>
+          )}
+          {country.name}
+        </div>
+      ),
+    };
+  });
+
+  const handleUpdateClick = async (value) => {
+    setValue(value)
+    setShowUpdateModal(true);
+    console.log('this is country from hsdfh', value.paysoffre)
+    console.log(formData, "nezeerrr")
+    setFormData({
+      image_url: value?.imagesalbumoffres?.length > 0 ? value?.imagesalbumoffres[0]?.image_url : "",
+      EntrepriseName: value?.EntrepriseName,
+      postoffre: value?.postoffre,
+      NivET: value?.NivET,
+      Experience: value?.Experience,
+      typecontrat: value.typecontrat,
+      paysoffre: value.paysoffre,
+      date_experie: value.date_experie,
+      description: value.description
+    });
+
+
+
+
+
+
+  };
+
+
+  // const formatDate = (dateString) => {
+  //   const dateParts = dateString?.split("-");
+  //   console.log(dateParts, "hahahahas")
+  //   console.log(dateString, "iheeeb")
+  //   if (dateParts?.length === 3) {
+  //     const year = dateParts[0];
+  //     const month = dateParts[1].padStart(2, "0");
+  //     const day = dateParts[2].padStart(2, "0");
+  //     return `${year}-${month}-${day}`;
+  //   } else {
+  //     return null;
+  //   }
+  // };
+
+  const formatDate = (input) => {
+    if (input instanceof Date) {
+      // Vérifie si l'entrée est un objet Date
+      const year = input.getFullYear();
+      const month = (input.getMonth() + 1).toString().padStart(2, "0"); // Les mois sont de 0 à 11
+      const day = input.getDate().toString().padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    } else if (typeof input === "string") {
+      // Vérifie si l'entrée est une chaîne de caractères
+      const dateParts = input.split("-");
+      if (dateParts.length === 3) {
+        const year = dateParts[0];
+        const month = dateParts[1].padStart(2, "0");
+        const day = dateParts[2].padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      }
+    }
+    return null; // Retourne null si l'entrée n'est ni une Date ni une chaîne valide
+  };
+
+  // Exemples d'utilisation
+
+  const handleDateChange = (date) => {
+    const formattedDate = formatDate(date);
+    console.log(formattedDate, "neeeederrrrr")
+    console.log(formattedDate, "ahwaaaaaaaaaaa")
+    setFormData({
+      ...formData,
+      date_experie: formattedDate,
+    });
+  };
+
+
+  const handleCountryChangePaysOffre = (selectedOption) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      paysoffre: selectedOption ? selectedOption.label.props.children[1] : "", // Set paysoffre to selected option's value
+    }));
+  };
+
+
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        files: file, // Change 'image' to 'files'
+      }));
+      setUploadedFiles([file]);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const handleCancelUpdate = () => {
+    setShowUpdateModal(false);
+  };
+
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault()
+    console.log('formdata from ups  tz', formData)
+    try {
+      const formDataToupdate = new FormData()
+      formDataToupdate.append("image_url", formData.image_url);
+      formDataToupdate.append("EntrepriseName", formData.EntrepriseName);
+      formDataToupdate.append("postoffre", formData.postoffre);
+      formDataToupdate.append("NivET", formData.NivET);
+      formDataToupdate.append("Experience", formData.Experience);
+      formDataToupdate.append("typecontrat", formData.typecontrat);
+      formDataToupdate.append("paysoffre", formData.paysoffre);
+      formDataToupdate.append("date_experie", formData.date_experie);
+      formDataToupdate.append("description", formData.description);
+
+
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/offreemploi/update/${value.id}`,
+        {
+          method: "Put",
+          body: formDataToupdate,
+        }
+
+
+      );
+      console.log("Offre mise à jour :", response.data);
+      const res = await response.json();
+      console.log(res, "aaaappyyyyy")
+
+
+      setShowUpdateModal(false);
+      fetchOffres()
+      setShowMenu(false)
+      // Mettre à jour l'interface utilisateur si nécessaire
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de l'offre :", error);
+      // Gérer l'erreur : afficher un message à l'utilisateur ou effectuer d'autres actions nécessaires
+    }
+  };
 
   return (
     <>
@@ -722,47 +901,7 @@ function HomeOffre() {
 
                   className=" dark-light-bg flex gap-5  p-6 mt-8 text-base font-light  rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 flex-col max-md:px-5"
                 >
-                  {/* <button onClick={() => handleDeleteClick(value.id)}>Supprimer Une Offre</button>
-                  {
-                    showDeleteModal &&
-                    <div className="bg-black/5  fixed inset-0  z-50  h-full w-full   overflow-auto flex justify-center items-center px-8 ">
-                      <div ref={ref} className="flex flex-col  overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
 
-                        <form onSubmit={(e) => handleConfirmDelete(e, value.id)} className=" overflow-auto">
-                          <div className="flex items-center gap-4 text-3xl font-bold text-zinc-900 max-md:max-w-full">
-                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#EB3E3E" stroke-width="1.5" />
-                              <path d="M12 7V13" stroke="#EB3E3E" stroke-width="1.5" stroke-linecap="round" />
-                              <path d="M12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="#EB3E3E" />
-                            </svg>
-                            Vous voulez vraiment supprimer cette Offre d'emploi
-                          </div>
-                          <div className="mt-4 flex gap-2 md:gap-5 justify-between mt-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                            <button onClick={() => setShowDeleteModal(false)} className="flex flex-1 gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/36783b2bbc0c4d8acd402a87827fbf522d3e413b9d2fd96d908a05709d3b2242?"
-                                className="shrink-0 w-5 aspect-square"
-                              />
-                              <div className="">Annuler
-
-
-                              </div>
-                            </button>
-                            <button type='submit' className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
-                              <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/534a656afb5625680d54ff4ea52bbe985ada0762ba3c4cc382181406f743d9e8?"
-                                className="shrink-0 w-5 aspect-square"
-                              />
-                              <div className="">Confirmer</div>
-                            </button>
-                          </div>
-                        </form>
-
-                      </div>
-                    </div>
-                  } */}
 
 
 
@@ -790,7 +929,7 @@ function HomeOffre() {
                       {showDeleteModal && (
                         <div className="bg-black/5 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
                           <div className="flex flex-col overflow-auto md:mt-0 p-8 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
-                            <form onSubmit={(e) => handleConfirmDelete(e, offerToDelete)} className="overflow-auto">
+                            <form onSubmit={(e) => handleConfirmDelete(e, offerToDelete)} className="overflow-auto ">
                               <div className="flex items-center gap-4 text-3xl font-bold text-zinc-900 max-md:max-w-full">
                                 <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#EB3E3E" strokeWidth="1.5" />
@@ -812,8 +951,365 @@ function HomeOffre() {
                         </div>
                       )}
 
+                      {/* offer to update  */}
 
-                      {/* <button onClick={() => handleDeleteClick(value.id)}>Supprimer Une Offre</button> */}
+                      {/* Votre contenu */}
+                      {showUpdateModal && (
+                        <div className="bg-black/10 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+                          <div className="flex flex-col hiddenScrollRightMenu overflow-auto md:mt-0  max-w-full bg-white p-2  rounded-[10px] w-[850px] max-h-[500px] max-md:px-5 max-md:my-10">
+
+                            <div className="flex flex-col flex-wrap  gap-y-6 justify-center content-start py-8  md:pl-20  w-full bg-white rounded-xl ">
+                              <div className="flex justify-center items-center px-16 max-md:px-5 max-md:max-w-full">
+                                <div className="max-w-full w-[555px]">
+                                  <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                                    <div className="flex flex-col  w-[35%] max-md:ml-0 max-md:w-full">
+                                      {imagePreview ? (
+                                        <img
+                                          src={imagePreview}
+                                          alt="Preview"
+                                          loading="lazy"
+                                          className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                                        />
+                                      ) : (
+                                        <img
+                                          src={require("../../assets/Entreprise.png")}
+                                          alt="Default"
+                                          loading="lazy"
+                                          className="shrink-0 max-w-full  mx-auto rounded-full object-contain border-4 border-solid aspect-square  max-md:mt-10"
+                                        />
+                                      )}
+                                    </div>
+
+                                    <div className="flex flex-col ml-5 w-[65%] max-md:ml-0 max-md:w-full">
+                                      <div className="flex flex-col self-stretch text-center my-auto max-md:mt-10">
+                                        <div className="text-3xl font-bold text-black">
+                                          Logo de l’entreprise
+                                        </div>
+                                        <label>
+                                          <div className="flex flex-col items-center justify-center mt-4">
+                                            <input
+                                              type="file"
+                                              accept="image/*"
+                                              onChange={handleFileChange}
+                                              className="hidden"
+                                            />
+                                            <button
+                                              type="button"
+                                              onClick={() =>
+                                                document
+                                                  .querySelector('input[type="file"]')
+                                                  .click()
+                                              }
+                                              className="mt-2 px-4 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]"
+                                            >
+                                              Changer la photo
+                                            </button>
+                                          </div>
+                                        </label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex gap-3  px-4 -m-5 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap" />
+                              {/* lena */}
+                              <div className=" max-md:max-w-full">
+                                <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                                  <div className="flex flex-col w-[50%] max-md:ml-0 max-md:w-full">
+                                    {/* chtar lowel */}
+                                    <div className="flex flex-col grow text-lg text-zinc-900 max-md:mt-10">
+                                      <div className="flex gap-3 px-4">
+                                        <img
+                                          loading="lazy"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/a384581add68577a25f4081d8801c28ef67dafd494c0efb9015b701bb68a830a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto w-5 aspect-square"
+                                        />
+                                        <div className="flex-1">Nom de l’entreprise</div>
+                                      </div>
+                                      <input
+                                        type="text"
+                                        id="EntrepriseName"
+                                        placeholder="Nom de l’entreprise"
+                                        value={formData.EntrepriseName}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            EntrepriseName: e.target.value,
+                                          })
+                                        }
+                                        className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
+                                      ></input>
+                                      <div className="flex gap-3 px-4 mt-6">
+                                        <img
+                                          loading="lazy"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/43c300d97aa67300893a5a93497e6396899e47deee593690d089df4b9cbfa5d0?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto aspect-[1.1] fill-zinc-900 w-[22px]"
+                                        />
+                                        <div className="flex-1">Niveau d’études</div>
+                                      </div>
+                                      <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                                        <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
+                                          <select
+                                            id="NivET"
+                                            className=" w-full bg-transparent"
+                                            value={formData.NivET}
+                                            onChange={(e) =>
+                                              setFormData({
+                                                ...formData,
+                                                NivET: e.target.value,
+                                              })
+                                            }
+                                          >
+                                            <option value="">Niveau d’études</option>
+                                            <option value="Bac">Primaire</option>
+                                            <option value="Bac">Secondaire</option>
+                                            <option value="Bac">
+                                              Formations professionnelles
+                                            </option>
+                                            <option value="Bac">Bac</option>
+                                            <option value="Bac +1">Bac +1</option>
+                                            <option value="Bac +2">Bac +2</option>
+                                            <option value="Bac +3">Bac +3</option>
+                                            <option value="Bac +4">Bac +4</option>
+                                            <option value="Bac +5">Bac +5</option>
+                                            <option value="Doctorat">Doctorat</option>
+                                            <option value="Expert, Recherche">
+                                              Expert, Recherche
+                                            </option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
+                                        <img
+                                          loading="lazy"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/477c1c901e0f413e9df8f00fc3f5c46072ae48e6965170ab72f4b9273202ad32?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto w-5 aspect-square"
+                                        />
+                                        <div className="flex-1">Type de contrat</div>
+                                      </div>
+
+                                      <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                                        <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
+                                          <select
+                                            id="typecontrat"
+                                            className="w-full bg-transparent"
+                                            value={formData.typecontrat}
+                                            onChange={(e) =>
+                                              setFormData({
+                                                ...formData,
+                                                typecontrat: e.target.value,
+                                              })
+                                            }
+                                          >
+                                            <option value="">Type de contrat </option>
+                                            <option value="CDI">CDI</option>
+                                            <option value="CDD">CDD</option>
+                                            <option value="CVIP">CVIP</option>
+                                            <option value="Mission">Mission</option>
+                                          </select>
+                                        </div>
+                                      </div>
+
+                                      <div className="flex gap-3 px-4 mt-6">
+                                        <img
+                                          loading="lazy"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/70d817d0342edd76d5dc9a806a14b84b42c2400d315e3aaaec63dc0c39b6e723?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto w-5 aspect-square"
+                                        />
+                                        <div className="flex-1">Date d’expiration</div>
+                                      </div>
+                                      <div className="flex flex-col justify-center py-px mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                                        <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
+                                          <DatePicker
+                                            className="bg-transparent py-1"
+                                            id="date_experie"
+                                            selected={formatDate(formData.date_experie)}
+
+                                            onChange={handleDateChange}
+                                          // dateFormat="dd-MM-yyyy" // Set desired date format
+                                          />
+
+                                          <img
+                                            loading="lazy"
+                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d75f863b0c655b0bcba95806148ab72fb50a5add9e54c43611c0b679769c28f?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                            className="shrink-0 my-auto aspect-square w-[15px]"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {/* chtar lekher */}
+                                  <div className="flex flex-col ml-5 w-[50%] max-md:ml-0 max-md:w-full">
+                                    <div className="flex flex-col grow text-lg text-zinc-900 mt-[-20px]">
+                                      <div className="flex gap-3 px-4 -mt-1 md:mt-[20px] whitespace-nowrap">
+                                        <img
+                                          loading="lazy"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                                        />
+                                        <div className="flex-1">Poste</div>
+                                      </div>
+                                      <input
+                                        type="text"
+                                        id="postoffre"
+                                        placeholder="Poste"
+                                        value={formData.postoffre}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            postoffre: e.target.value,
+                                          })
+                                        }
+                                        className="justify-center items-start px-4 py-3.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
+                                      />
+
+                                      <div className="flex gap-3 px-4 whitespace-nowrap mt-4">
+                                        <img
+                                          loading="lazy"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                                        />
+                                        <div className="flex-1">Niveau d'experience</div>
+                                      </div>
+                                      <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                                        <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
+                                          <select
+                                            className="w-full bg-transparent"
+                                            value={formData.Experience}
+                                            onChange={(e) =>
+                                              setFormData({
+                                                ...formData,
+                                                Experience: e.target.value,
+                                              })
+                                            }
+                                          >
+                                            <option value="Acunne Experience">
+                                              Acunne Experience
+                                            </option>
+                                            <option value="Moins d'un an">
+                                              Moins d'un an
+                                            </option>
+                                            <option value="Entre 1 et 2 ans">
+                                              Entre 1 et 2 ans
+                                            </option>
+                                            <option value="Entre 2 et 5 ans">
+                                              Entre 2 et 5 ans
+                                            </option>
+                                            <option value="Entre 5 et 10 ans">
+                                              Entre 5 et 10 ans
+                                            </option>
+                                            <option value="Plus que 10 ans">
+                                              Plus que 10 ans{" "}
+                                            </option>
+                                          </select>
+                                        </div>
+                                      </div>
+
+                                      <div className="flex gap-3 px-4 mt-6">
+                                        <img
+                                          loading="lazy"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e2bb7e6929dfe27f019db31dfba3116f9832133a3a48be3d6af89d34cc463e1?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto aspect-[0.75] fill-zinc-900 w-[15px]"
+                                        />
+                                        <div className="flex-1">Pays de résidence</div>
+                                      </div>
+
+                                      <Select
+                                        options={optionsPaysOffre}
+                                        placeholder="Pays de résidence"
+                                        // onChange={(selectedOption) => console.log(selectedOption)}
+                                        styles={{
+                                          control: (provided, state) => ({
+                                            ...provided,
+                                            borderRadius: "0.375rem", // You can adjust the radius as needed
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            borderRadius: "30px",
+
+                                            fontSize: "14px", // Set the desired font size
+                                            backgroundColor: "#fff", // Set the background color
+                                            borderWidth: "none",
+
+                                            paddingTop: "4px",
+                                            paddingBottom: "4px",
+                                            marginTop: "8px",
+                                            paddingLeft: "16px",
+                                            paddingRight: "15px",
+                                            width: "100%",
+
+                                            border: "0.5px solid #E5E5E5",
+                                          }),
+                                          menu: (provided, state) => ({
+                                            ...provided,
+                                            width: "100%", // Adjust the width as needed
+                                          }),
+                                        }}
+                                        onChange={handleCountryChangePaysOffre}
+                                        value={optionsPaysOffre.find((option) => option.value === formData.paysoffre)} // Set the value from formData
+                                      />
+
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* description */}
+                              <div className="flex gap-3 px-4  text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/5f779d8ee0c1bf0e05d7432fa41d675db71640bd2b9c057e88cf4e12605728a6?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                  className="shrink-0 my-auto w-5 aspect-square"
+                                />
+                                <div className="flex-1 max-md:max-w-full">Description</div>
+                              </div>
+
+                              <textarea
+                                type="text"
+                                id="description"
+                                placeholder="Description de taches"
+                                value={formData.description}
+                                onChange={(e) =>
+                                  setFormData({ ...formData, description: e.target.value })
+                                }
+                                className="justify-center py-3 h-full min-h-32  pr-2 pl-4 -mt-3 text-break   font-light border border-solid border-neutral-200 rounded-[30px] text-zinc-900 max-md:max-w-full"
+                              />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
+
+                            <div className="mt-2 md:px-11 flex gap-2 md:gap-5 justify-between py-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                              <button onClick={handleCancelUpdate} className="flex flex-1 gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
+                                Annuler
+                              </button>
+                              <button type='submit' onClick={handleUpdateSubmit} className="flex flex-1 gap-2  justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
+                                Confirmer
+                              </button>
+                            </div>
+
+                          </div>
+                        </div>
+                      )}
+
+
+                      {/* offer to update */}
 
 
 
@@ -844,7 +1340,7 @@ function HomeOffre() {
                             </button>
                             {showMenu === value.id && (
                               <div className="absolute top-4 right-14  py-2 bg-white rounded-md shadow-xl">
-                                {/* <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Update</button> */}
+                                <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={() => handleUpdateClick(value)}>Update</button>
                                 <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={() => handleDeleteClick(value.id)}>Delete</button>
                               </div>
                             )}
@@ -855,6 +1351,9 @@ function HomeOffre() {
 
                     </div>
                   </div>
+
+
+
 
 
 
@@ -904,7 +1403,7 @@ function HomeOffre() {
                         <div>Expire le {value.date_experie}</div>
                       </div>
                     </div>
-                    <div className=" dark-light-bg  mt-3  md:px-20 text-neutral-900 text-opacity-70 max-md:max-w-full">
+                    <div className=" dark-light-bg text-break  mt-3  md:px-20 text-neutral-900 text-opacity-70 max-md:max-w-full">
                       {value.description.length > 100 ?
                         value.description.slice(0, 300) + '...' :
                         value.description
