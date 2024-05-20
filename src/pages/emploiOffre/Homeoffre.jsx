@@ -16,6 +16,7 @@ import Plus from "../../assets/plus.png"
 import DatePicker from "react-datepicker";
 import { Config } from "../../config";
 import Index from './../Setting/index';
+import moment from 'moment';
 
 
 function HomeOffre() {
@@ -55,12 +56,16 @@ function HomeOffre() {
     Experience: value?.Experience,
     typecontrat: value?.typecontrat,
     paysoffre: value?.paysoffre,
+
     date_experie: value?.date_experie,
+
+
     description: value?.description,
     villeoffre: value?.villeoffre
   });
 
   const navigate = useNavigate();
+
 
 
 
@@ -277,52 +282,28 @@ function HomeOffre() {
   };
 
 
-  // const formatDate = (dateString) => {
-  //   const dateParts = dateString?.split("-");
-  //   console.log(dateParts, "hahahahas")
-  //   console.log(dateString, "iheeeb")
-  //   if (dateParts?.length === 3) {
-  //     const year = dateParts[0];
-  //     const month = dateParts[1].padStart(2, "0");
-  //     const day = dateParts[2].padStart(2, "0");
-  //     return `${year}-${month}-${day}`;
-  //   } else {
-  //     return null;
-  //   }
-  // };
 
-  const formatDate = (input) => {
-    if (input instanceof Date) {
-      // Vérifie si l'entrée est un objet Date
-      const year = input.getFullYear();
-      const month = (input.getMonth() + 1).toString().padStart(2, "0"); // Les mois sont de 0 à 11
-      const day = input.getDate().toString().padStart(2, "0");
-      return `${year}-${month}-${day}`;
-    } else if (typeof input === "string") {
-      // Vérifie si l'entrée est une chaîne de caractères
-      const dateParts = input.split("-");
-      if (dateParts.length === 3) {
-        const year = dateParts[0];
-        const month = dateParts[1].padStart(2, "0");
-        const day = dateParts[2].padStart(2, "0");
-        return `${year}-${month}-${day}`;
-      }
+  const formatDate = (date) => {
+    if (moment(date, moment.ISO_8601, true).isValid()) {
+      return moment(date).format('DD-MM-YYYY');
+    } else {
+      console.error('Date invalide :', date);
+      return null;
     }
-    return null; // Retourne null si l'entrée n'est ni une Date ni une chaîne valide
   };
+  const handleDateChangee = (date) => {
 
-  // Exemples d'utilisation
 
-  const handleDateChange = (date) => {
-    const formattedDate = formatDate(date);
-    console.log(formattedDate, "neeeederrrrr")
-    console.log(formattedDate, "ahwaaaaaaaaaaa")
+
+    formatDate(date);
+    console.log(date, "alooooo")
     setFormData({
       ...formData,
-      date_experie: formattedDate,
-    });
-  };
+      date_experie: date,
 
+    });
+    // You can perform any additional actions with the selected date here
+  };
 
   const handleCountryChangePaysOffre = (selectedOption) => {
     setFormData((prevFormData) => ({
@@ -1131,9 +1112,9 @@ function HomeOffre() {
                                           <DatePicker
                                             className="bg-transparent py-1"
                                             id="date_experie"
-                                            selected={formatDate(formData.date_experie)}
-
-                                            onChange={handleDateChange}
+                                            selected={formData.date_experie}
+                                            dateFormat="dd/MM/yyyy"
+                                            onChange={handleDateChangee}
                                           // dateFormat="dd-MM-yyyy" // Set desired date format
                                           />
 
@@ -1429,7 +1410,7 @@ function HomeOffre() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/10a38c1e9a44cb74467a36e05c308edb03242e37340e793426056a9b44611826?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                           className="dark-invert-img  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                         />
-                        <div>Expire le : {value.date_experie}</div>
+                        <div>Expire le : {moment(value.date_experie).format("DD MM YYYY")}</div>
                       </div>
                     </div>
                     <div className=" dark-light-bg text-break  mt-3  md:px-20 text-neutral-900 text-opacity-70 max-md:max-w-full">
