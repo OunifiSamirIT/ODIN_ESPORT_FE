@@ -46,6 +46,7 @@ function HomeOffre() {
   const ref = useRef()
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [value, setValue] = useState(null);
   const [formData, setFormData] = useState({
@@ -64,6 +65,7 @@ function HomeOffre() {
     villeoffre: value?.villeoffre
   });
 
+  console.log(formData.image_url, "aaaaa")
   const navigate = useNavigate();
 
 
@@ -314,21 +316,23 @@ function HomeOffre() {
 
   const [file, setFile] = useState()
   const handleFileChange = async (e) => {
-    const file = e.target.files[0];
+    const file = e?.target?.files[0];
     setFile(file)
     if (file) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        files: file, // Change 'image' to 'files'
+        files: file,
       }));
+      console.log(file, "fffff")
       setUploadedFiles([file]);
+      console.log(setUploadedFiles, "totooo")
       const reader = new FileReader();
       reader.onload = () => {
         setImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
-    console.log(uploadedFiles);
+    console.log(uploadedFiles, "sooooootootootootootootootootootootootootootootoot");
   };
   const handleCancelUpdate = () => {
     setShowUpdateModal(false);
@@ -899,7 +903,7 @@ function HomeOffre() {
                         loading="lazy"
                         src={
                           value.imagesalbumoffres.length > 0
-                            ? value.imagesalbumoffres[value.imagesalbumoffres.length - 1].image_url
+                            ? value?.imagesalbumoffres[0]?.image_url
                             : require("../../assets/offre_icon.png")
                         } // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
                         onClick={() => handleCardClick(value.id)}
@@ -950,10 +954,35 @@ function HomeOffre() {
                               <div className="flex justify-center items-center px-16 max-md:px-5 max-md:max-w-full">
                                 <div className="max-w-full w-[555px]">
                                   <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                                    <div className="flex flex-col  w-[35%] max-md:ml-0 max-md:w-full">
+                                    {/* <div className="flex flex-col  w-[35%] max-md:ml-0 max-md:w-full">
                                       {imagePreview ? (
                                         <img
                                           src={imagePreview}
+                                          alt="Preview"
+                                          loading="lazy"
+                                          className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                                        />
+                                      ) : (
+
+                                        <img
+                                          src={require("../../assets/Entreprise.png")}
+                                          alt="Default"
+                                          loading="lazy"
+                                          className="shrink-0 max-w-full  mx-auto rounded-full object-contain border-4 border-solid aspect-square  max-md:mt-10"
+                                        />
+                                      )}
+                                    </div> */}
+                                    <div className="flex flex-col w-[35%] max-md:ml-0 max-md:w-full">
+                                      {imagePreview ? (
+                                        <img
+                                          src={imagePreview}
+                                          alt="OFFRE IMAGE"
+                                          loading="lazy"
+                                          className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                                        />
+                                      ) : formData.image_url ? (
+                                        <img
+                                          src={formData.image_url}
                                           alt="Preview"
                                           loading="lazy"
                                           className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
@@ -963,10 +992,12 @@ function HomeOffre() {
                                           src={require("../../assets/Entreprise.png")}
                                           alt="Default"
                                           loading="lazy"
-                                          className="shrink-0 max-w-full  mx-auto rounded-full object-contain border-4 border-solid aspect-square  max-md:mt-10"
+                                          className="shrink-0 max-w-full mx-auto rounded-full object-contain border-4 border-solid aspect-square max-md:mt-10"
                                         />
                                       )}
                                     </div>
+
+
 
                                     <div className="flex flex-col ml-5 w-[65%] max-md:ml-0 max-md:w-full">
                                       <div className="flex flex-col self-stretch text-center my-auto max-md:mt-10">
@@ -1110,7 +1141,7 @@ function HomeOffre() {
                                       <div className="flex flex-col justify-center py-px mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                                         <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
                                           <DatePicker
-                                            className="bg-transparent py-1"
+                                            className="bg-transparent py-1 pl-3"
                                             id="date_experie"
                                             selected={formData.date_experie}
                                             dateFormat="dd/MM/yyyy"
