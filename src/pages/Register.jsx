@@ -5349,9 +5349,12 @@ function Register() {
       });
       if (response.ok) {
         const responseData = await response.json();
+        console.log("🚀 ~ handleSubmit ~ responseData:", responseData)
 
         console.log("Server Response Data:", responseData);
-        navigate("/login");
+        const idusercode = responseData.user.id;
+        localStorage.setItem("idusercode", idusercode);
+        navigate("/codeverification");
         console.log("User registered successfully!");
       } else {
         const errorData = await response.json();

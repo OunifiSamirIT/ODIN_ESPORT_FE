@@ -45,20 +45,25 @@ import {
   BiSolidVideo,
   BiLogInCircle,
   BiUndo,
+  BiShare,
 } from "react-icons/bi";
+import Loadingpartage from './Loading';
+
 import Loading from "../components/Loading";
-import { Link, Navigate, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useLocation, useParams, redirect } from "react-router-dom";
 import GallerieOdin from "../pages/Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "../pages/HomeSkeletonPost";
 import EditPost from "../pages/EditPost";
 import { Context } from "../index";
-function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
+function Post({ article, setArticles, onDeleteFromListAcceuillFront  }) {
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
@@ -67,7 +72,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const [isOpen, setIsOpen] = useState(false);
   const [postsData, setPostsData] = useState([]);
   const fileInputRef = useRef(null);
-  //   const [articles, setArticles] = useState([]); // New state for articles
+    const [articlesP, setArticlesP] = useState([]); // New state for articles
   const [isActive, setIsActive] = useState(false);
   const [comment, setComment] = useState("");
   const [selectedArticleId, setSelectedArticleId] = useState(null);
@@ -437,76 +442,78 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
 
 
-  const fetchArticles = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
-      const result = await response.json();
-      console.log(response, "arttttt")
-      const articlesWithPromises = result.rows.map(async (article) => {
-        const userId = article.userId;
-        const comt = article.id;
-        const rep = article.commentaire[0]
-        console.log(rep, "ssssssssssssssssssssssss")
+  // const fetchArticles = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
+  //     const result = await response.json();
+  //     console.log(response, "arttttt")
+  //     const articlesWithPromises = result.rows.map(async (article) => {
+  //       const userId = article.userId;
+  //       const comt = article.id;
+  //       const rep = article.commentaire[0]
+  //       console.log(rep, "ssssssssssssssssssssssss")
 
-        const [userDataResponse, commentsResponse, likesCountResponse, replyresponse, likesCountResponseReply] =
-          await Promise.all([
-            fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
-              res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
-              (res) => res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
-              (res) => res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/replies/${rep}`).then(
-              (res) => res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/likes/comment/allLikes`).then(
-              (res) => res.json()
-            ),
-          ]);
+  //       const [userDataResponse, commentsResponse, likesCountResponse, replyresponse, likesCountResponseReply] =
+  //         await Promise.all([
+  //           fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
+  //             res.json()
+  //           ),
+  //           fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
+  //             (res) => res.json()
+  //           ),
+  //           fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
+  //             (res) => res.json()
+  //           ),
+  //           fetch(`${Config.LOCAL_URL}/api/replies/${rep}`).then(
+  //             (res) => res.json()
+  //           ),
+  //           fetch(`${Config.LOCAL_URL}/api/likes/comment/allLikes`).then(
+  //             (res) => res.json()
+  //           ),
+  //         ]);
 
-        const likesCount = likesCountResponse.find(
-          (count) =>
-            count.articleId === article.articleId ||
-            count.articleId === article.id
-        );
-        const likesCountreplys = likesCountResponseReply.find(
-          (count) =>
-            count.commentId === article.comments.comm_id ||
-            count.commentId === comments.comm_id
-        );
-        return {
-          ...article,
-          user: userDataResponse,
-          comments: commentsResponse.commentsData,
-          commentsCount: commentsResponse.commentCount,
-          likesCount: likesCount ? likesCount.likesCount : 0,
-          replys: replyresponse.replysData,
-          likecomentcount: likesCountreplys ? likesCountreplys.likecomentcount : 0,
-        };
-      });
+  //       const likesCount = likesCountResponse.find(
+  //         (count) =>
+  //           count.articleId === article.articleId ||
+  //           count.articleId === article.id
+  //       );
+  //       const likesCountreplys = likesCountResponseReply.find(
+  //         (count) =>
+  //           count.commentId === article.comments.comm_id ||
+  //           count.commentId === comments.comm_id
+  //       );
+  //       return {
+  //         ...article,
+  //         user: userDataResponse,
+  //         comments: commentsResponse.commentsData,
+  //         commentsCount: commentsResponse.commentCount,
+  //         likesCount: likesCount ? likesCount.likesCount : 0,
+  //         replys: replyresponse.replysData,
+  //         likecomentcount: likesCountreplys ? likesCountreplys.likecomentcount : 0,
+  //       };
+  //     });
 
-      let newArticles = await Promise.all(articlesWithPromises);
-      newArticles = newArticles.reverse(); // Reverse the order of all articles
-      const initialArticles = newArticles.slice(0, 50); // Get the first 10 articles
-      setArticles(initialArticles);
-      setTotalItems(result.totalItems);
-      setTotalPages(result.totalPages);
+  //     let newArticles = await Promise.all(articlesWithPromises);
+  //     newArticles = newArticles.reverse(); // Reverse the order of all articles
+  //     const initialArticles = newArticles.slice(0, 50); // Get the first 10 articles
+  //     console.log("🚀 ~ fetchArticles ~ initialArticles:--------------", initialArticles);
+  //     setArticles(initialArticles);
+  //     setTotalItems(result.totalItems);
+  //     setTotalPages(result.totalPages);
 
-      // Load the remaining articles after initial set is loaded
-      const remainingArticles = newArticles.slice(50);
-      if (remainingArticles.length > 0) {
-        await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
-      }
-    } catch (error) {
+  //     // Load the remaining articles after initial set is loaded
+  //     const remainingArticles = newArticles.slice(50);
+  //     if (remainingArticles.length > 0) {
+  //       await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
+  //     }
+  //   } catch (error) {
 
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   } finally {
+  //     setLoading(false);
+  //   }
+     
+  // };
 
   const loadRemainingArticles = (remainingArticles) => {
     setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
@@ -1257,29 +1264,194 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   };
 
 
-  const formatDate = (dateString) => {
-    const dateObject = new Date(dateString);
-    // Format the date object into the desired format
-    return dateObject.toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-  }
-  const formatDatearticle = (dateString) => {
-    // Extract year, month, and day from the dateString
-    const [month, year, day] = dateString.split('-');
 
-    // Create a new Date object with the extracted parts
-    const dateObject = new Date(`${year}-${month}-${day}`);
 
-    // Format the date object into the desired format
-    return dateObject.toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+
+  const reffPartage = useRef(null);
+
+ const [partage, setPartage] = useState("")
+ let _ref_partage = useRef(null)
+
+ const [isModaldOpenPartage, setIsModaldOpenPartage] = useState(false)
+ const handleClickOutsidePartage = (event) => {
+   if (reffPartage.current && !reffPartage.current.contains(event.target)) {
+     console.log(!reffPartage.current.contains(event.target))
+     setIsModaldOpenPartage(false)
+    
+
+   }
+ };
+ useEffect(() => {
+   document.addEventListener("mousedown", handleClickOutsidePartage);
+   return () => {
+     document.removeEventListener("mousedown", handleClickOutsidePartage);
+   };
+ }, []);
+const partageArticle = async (articleId) => {
+
+   const result = await fetch(`${Config.LOCAL_URL}/api/articles/${articleId}`)
+    setPartage(result);
+    console.log("pppppppppppppppppp",partage)
+    setIsModaldOpenPartage(true);
+    // Optionally, close any other comment input sections if needed
+    if (_ref_partage.current) {
+      const button = _ref_partage.current.button; // Assigning to a variable
+      console.log("dddddddddddddddddddddddddddggggg", button);
+      // Now you can use the button variable or do something else with it
+    }
+};
+
+const fetchArticles = async (size, page) => {
+  try {
+    const response = await fetch(`${Config.LOCAL_URL}/api/articles?size=${size}&page=${page }`);
+    const result = await response.json();
+    
+    if(result.rows == 0) {
+      setHasMore(false)
+    }
+    const articlesWithPromises = result.rows.map(async (article) => {
+      const userId = article.userId;
+      const comt = article.id;
+
+      const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
+        fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
+        fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
+        fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
+      ]);
+
+      const likesCount = likesCountResponse.find(
+        (count) =>
+          count.articleId === article.articleId ||
+          count.articleId === article.id
+      );
+
+      return {
+        ...article,
+        user: userDataResponse,
+        comments: commentsResponse.commentsData,
+        commentsCount: commentsResponse.commentCount,
+        likesCount: likesCount ? likesCount.likesCount : 0,
+      };
     });
+
+    const reversedArticlesWithPromises = articlesWithPromises; // Reverse the order
+    
+    const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
+    
+
+    
+    return articlesWithLikesCount
+  } catch (error) {
+    console.error("Error fetching data:", error);
   }
+};
+
+const [textareaHeight, setTextareaHeight] = useState('70px');
+  const textAreaRef = useRef(null);
+
+  const handleChange = (e) => {
+    if (e && textAreaRef.current) {
+      const newHeight = e.target.value ? `${textAreaRef.current.scrollHeight}px` : `${textAreaRef.current.scrollHeight}px`;
+      setTextareaHeight(newHeight);
+      setValue("description", e.target.value); // Update the form value
+    }
+  };
+  
+  useEffect(() => {
+    handleChange(); // Initial calculation of height
+  }, []); // Run only once after component mounted
+
+
+ 
+  const [originalArticle, setOriginalArticle] = useState(null);
+  const fetchArticleById = async (id) => {
+    // Replace with your API call
+    return fetch(`http://localhost:5000/api/articles/${id}`)
+      .then(response => response.json())
+      .then(data => data);
+  };
+  useEffect(() => {
+    if (article.sharedFrom) {
+      fetchArticleById(article.sharedFrom)
+        .then(data => setOriginalArticle(data))
+        .catch(err => console.error('Error fetching original article:', err));
+    }
+  }, [article.sharedFrom]);
+  const displayArticle = originalArticle || article;
+
+  // const handlePostSubmitPartage = async (data) => {
+  //   try {
+  //     setPosting(true);
+  
+  //     const formData = new FormData();
+  //     formData.append("description", data.description || ""); // Append empty string if description is null
+  //     formData.append("userId", storedUserData.id);
+  
+  //     // Determine the original article to be shared
+  //     if(originalArticle){
+  //             formData.append("sharedFrom", originalArticle.id);
+  //         }else{ formData.append("sharedFrom", article.id); }
+      
+      
+  
+  //     await fetch(`${Config.LOCAL_URL}/api/articles/`, {
+  //       method: "POST",
+  //       body: formData,
+  //     });
+  //     setTimeout(() => {
+  //       setIsModaldOpenPartage(false)
+  //     }, 1000);
+  //     setValue("description", "");
+  //     setPosting(false);
+  //   } catch (error) {
+  //     console.error("Error submitting post:", error);
+  //     setPosting(false);
+  //   }
+  // };
+  
+  const handlePostSubmitPartage = async (data) => {
+    const storedUserData = JSON.parse(localStorage.getItem("user"));
+
+
+  const id = storedUserData.id ? storedUserData.id : null;
+    try {
+      setPosting(true);
+  
+      const formData = new FormData();
+      formData.append("description", data.description || ""); // Append empty string if description is null
+      formData.append("userId", storedUserData.id);
+  
+      // Determine the original article to be shared
+      if (originalArticle) {
+        formData.append("sharedFrom", originalArticle.id);
+      } else {
+        formData.append("sharedFrom", article.id);
+      }
+  
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
+        method: "POST",
+        body: formData,
+      });
+  
+      // const newArticle = await response.json(); 
+      // addNewArticle(newArticle);
+      navigate(`/profile/${id}`)
+  
+      setTimeout(() => {
+        setIsModaldOpenPartage(false);
+      }, 1000);
+      setValue("description", "");
+      setPosting(false);
+    } catch (error) {
+      console.error("Error submitting post:", error);
+      setPosting(false);
+    }
+  };
+
+
+
+
+
   const [showFullText, setShowFullText] = useState(false);
   const toggleText = () => {
     setShowFullText(!showFullText);
@@ -1290,6 +1462,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
   // Set the locale based on the stored language or default to English
   moment.locale(language === 'fr' ? 'fr' : 'en');
+
+
+
   return (
     <>
 
@@ -1307,7 +1482,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
             >
               <div className="card-body p-0 d-flex">
-                <Link to={`/profile/${article.user.user.id}`}>
+                <Link to={`/profile/${article?.user?.user?.id}`}>
                   <figure className="avatar me-3">
                     <img
                       srcSet={article?.user?.user?.image ? article?.user?.user?.image : placeholder}
@@ -1321,15 +1496,15 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
  <h4 className="fw-700 text-grey-900 font-xssss mt-1">
  <Link to={`/profile/${article?.user?.user?.id}`}>
-   {article.user.user.nom} {"   "} 
-                  {article.user.user.prenom} </Link>
+   {article?.user?.user?.nom} {"   "} 
+                  {article?.user?.user?.prenom} </Link>
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
-                    {article.user.user.profil == 'player' ? ' Joueur' : ''}
-                    {article.user.user.profil == 'coach' ? ' Entraîneur' : ''}
-                    {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-                    {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
-                    {article.user.user.profil == 'scout' ? 'Scout' : ''}
+                    {article?.user?.user?.profil == 'other' ? article.user.other?.profession : ''}
+                    {article?.user?.user?.profil == 'player' ? ' Joueur' : ''}
+                    {article?.user?.user?.profil == 'coach' ? ' Entraîneur' : ''}
+                    {article?.user?.user?.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                    {article?.user?.user?.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                    {article?.user?.user?.profil == 'scout' ? 'Scout' : ''}
                   </span>
                   {/* <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                   {article?.createdAt}
@@ -1377,8 +1552,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       </svg>
 
                       {showDropdown === article.id &&
-                        article.user.user &&
-                        article.user.user.id === storedUserData.id && (
+                        article?.user?.user &&
+                        article?.user?.user?.id === storedUserData.id && (
                           <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
 
 
@@ -1444,8 +1619,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
               <div class=" p-0  mt-2">
                 <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
-                  {!showFullText && article.description.length > 295 ? article.description.substring(0, 295) + "..." : article.description}
-                  {article.description.length > 295 && (
+                  {!showFullText && article?.description?.length > 295 ? article?.description?.substring(0, 295) + "..." : article.description}
+                  {article?.description?.length > 295 && (
                     <button
                       onClick={toggleText}
                       className="text-blue-600  hover:text-blue-400 focus:outline-none"
@@ -1480,7 +1655,116 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                   </div>
                 </div>
               )}
+
+
+
+
+
+{/* <div class="bg-white dark:bg-gray-800 h-screen h-full py-6 sm:py-8 lg:py-12">
+    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+       
+
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
+            <a href="#"
+                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
+                <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&q=75&fit=crop&w=600" loading="lazy" alt="Photo by Minh Pham" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+
+                <div
+                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
+                </div>
+
+                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">VR</span>
+            </a>
+        
+            <a href="#"
+                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:col-span-2 md:h-80">
+                <img src="https://images.unsplash.com/photo-1542759564-7ccbb6ac450a?auto=format&q=75&fit=crop&w=1000" loading="lazy" alt="Photo by Magicle" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+
+                <div
+                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
+                </div>
+
+                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Tech</span>
+            </a>
+          
+            <a href="#"
+                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:col-span-2 md:h-80">
+                <img src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=1000" loading="lazy" alt="Photo by Martin Sanchez" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+
+                <div
+                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
+                </div>
+
+                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Dev</span>
+            </a>
+        
+            <a href="#"
+                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600" loading="lazy" alt="Photo by Lorenzo Herrera" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+
+                <div
+                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
+                </div>
+
+                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Retro</span>
+            </a>
+        </div>
+    </div>
+</div> */}
+{/* {article?.image ? (
+  <div class="bg-white dark:bg-gray-800 h-screen h-full py-6 sm:py-8 lg:py-12">
+    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
+        {article.image.split(';').map((imageUrl, index) => (
+          <a key={index} href="#" class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
+            <img src={imageUrl} loading="lazy" alt={`Photo ${index}`} class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
+            <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Image {index + 1}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+) : (
+  <p>No images available</p>
+)} */}
+
+
+{article?.image && (
+  <div className="card-body d-block p-0 mb-3">
+    <div className="row ps-2 pe-2">
+      {article.image.split(';').map((imageUrl, index) => (
+        <div key={index} className="col-sm-12 col-md-6 col-lg-4 p-1">
+          <img
+            className="w-100 h-auto rounded-lg mb-2"
+            src={imageUrl}
+            alt={`Image ${index}`}
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+{/* 
               {article?.image && (
+  <div className="card-body d-block p-0 mb-3">
+    <div className="row ps-2 pe-2">
+      {article.image.split(';').map((imageUrl, index) => (
+        <div key={index} className="col-sm-12 p-1">
+          <img
+            className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
+            src={imageUrl}
+            alt={`Image ${index}`}
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+)} */}
+
+
+
+              {/* {article?.image && (
                 <div className="card-body d-block p-0 mb-3">
                   <div className="row ps-2 pe-2">
 
@@ -1494,7 +1778,93 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
+
+
+
+
+{article?.sharedFrom && article?.sharedArticle && (
+  <div key={article?.sharedArticle?.id} className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 mb-3">
+    <div className="card-body p-0 d-flex">
+      <Link to={`/profile/${article?.sharedArticle?.userspartage?.id}`}>
+        <figure className="avatar me-3">
+          <img
+            srcSet={article?.sharedArticle?.userspartage?.image ? article?.sharedArticle?.userspartage?.image : placeholder}
+            className="shadow-sm rounded-full w-[52px] aspect-square"
+            alt="post"
+          />
+        </figure>
+      </Link>
+      <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+        <Link to={`/profile/${article?.sharedArticle?.userspartage?.id}`}>
+          {article?.sharedArticle?.userspartage?.nom} {article?.sharedArticle?.userspartage?.prenom}
+        </Link>
+        <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+            {article?.sharedArticle?.userspartage?.profil == 'other' ? article?.sharedArticle?.userspartage?.other?.profession : ''}
+            {article?.sharedArticle?.userspartage?.profil == 'player' ? ' Joueur' : ''}
+            {article?.sharedArticle?.userspartage?.profil == 'coach' ? ' Entraîneur' : ''}
+            {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+            {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'club' ? 'Manager de Club' : ''}
+            {article?.sharedArticle?.userspartage?.profil == 'scout' ? 'Scout' : ''}
+          </span>
+        <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+          {moment(article?.sharedArticle?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+          {moment(article?.sharedArticle?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+            moment(article?.sharedArticle?.createdAt).fromNow(true) :
+            moment(article?.sharedArticle?.createdAt).fromNow()}
+        </span>
+      </h4>
+    </div>
+    <div className="p-0 mt-2">
+      <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
+        {!showFullText && article?.sharedArticle?.description?.length > 295 ? article?.sharedArticle?.description.substring(0, 295) + "..." : article.sharedArticle.description}
+        {article.sharedArticle?.description.length > 295 && (
+          <button
+            onClick={toggleText}
+            className="text-blue-600 hover:text-blue-400 focus:outline-none"
+          >
+            {showFullText ? 'Voir moins' : 'Voir plus'}
+          </button>
+        )}
+      </p>
+    </div>
+    {article?.sharedArticle?.image && (
+      <div className="card-body d-block p-0 mb-3">
+        <div className="row ps-2 pe-2">
+          <div className="col-sm-12 p-1">
+            <img
+              className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
+              src={article?.sharedArticle?.image}
+              alt={article?.sharedArticle?.titre}
+            />
+          </div>
+        </div>
+      </div>
+    )}
+    {article?.sharedArticle?.video && (
+      <div className="card-body d-block p-0 mb-3">
+        <div className="row ps-2 pe-2">
+          <div className="col-sm-12 p-1">
+            <div className="card-body p-0 mb-3 overflow-hidden">
+              <video
+                controls
+                className="w-100 md:max-h-[600px] max-h-[350px]"
+              >
+                <source
+                  src={article?.sharedArticle?.video}
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+)}
+
+
               <div className="  rounded-lg">
                 <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
                   <div     onClick={() => handleClicklikeshow(article.id)}
@@ -1540,7 +1910,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     <img
                       srcSet={like?.user?.image ? like?.user?.image : placeholder}
 
-                      // src={article.user.user?.image}
+                      // src={article?.user?.user??.image}
                       className="shadow-sm rounded-full w-[32px] aspect-square"
                     />{" "}
                   </figure>
@@ -1651,6 +2021,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       }
                     }}
                   >
+
+
+
+                    <div className="flex flex-row gap-x-4">
+                   
                     {selectedArticleId === article.id ? (
                       <div className="flex gap-2 flex-row md:flex-row items-center">
                         <img
@@ -1679,8 +2054,67 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         </div>
                       </div>
                     )}
+
+
+</div>
+
+
+
+                    
                   </button>
 
+
+
+
+{/* partage */}
+
+<button
+                    onClick={() => {
+                     
+                        partageArticle(article.id)
+                      
+
+
+                    }}
+                  >
+
+
+
+                    <div className="flex flex-row gap-x-4">
+                   
+                    {selectedArticleId === article.id ? (
+                      <div className="flex gap-2 flex-row md:flex-row items-center">
+                                               <BiShare/>
+
+                        <div className="flex gap-2 text-xs md:text-md">{ getTranslation(
+            `Share`,  // -----> Englais
+              `Partager`, //  -----> Francais
+                           )  } </div>
+                      </div>
+                    ) : (
+                      <div className="flex gap-2 flex-row md:flex-row items-center">
+                                                <BiShare/>
+
+                        <div className="flex gap-2 text-xs md:text-md">
+                          {" "}
+                          <span>{ getTranslation(
+            `Share`,  // -----> Englais
+              `Partager`, //  -----> Francais
+                           )  } </span>
+                        </div>
+                      </div>
+                    )}
+
+</div>
+
+
+
+
+
+                    
+                  </button>
+
+                
                 </span>
 
                 {selectedArticleId === article?.id && (
@@ -2270,7 +2704,402 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               </div>
             </div>
           )}
+{isModaldOpenPartage && (
+            <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+              <div ref={reffPartage} className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
+              
 
+
+
+
+
+
+
+
+
+
+
+
+<div className="flex flex-col">
+
+
+
+
+
+<form className="h-[695px] mb-2 flex flex-col" onSubmit={handleSubmit(handlePostSubmitPartage)}>
+            <div className="card-body flex flex-col  d-flex p-0">
+              <div className="flex flex-col w-full mb-2">
+              <div className='flex flex-row mb-3 '>
+                 <img
+                  srcSet={user?.user?.image ? user?.user.image : placeholder}
+                  alt="icon"
+                  className="shadow-sm rounded-full aspect-square w-11 h-11 md:w-16 md:h-16 mr-2"
+                />
+                  <div className='mt-[5px] md:mt-3  text-xs  '>
+                  <div className="flex  flex-row"> <div className="font-bold mr-1"> {
+                                        user?.user?.nom}</div>
+                                    <span> {' '}</span>
+                                    <div className="font-bold">  {
+                                        user?.user?.prenom}</div></div>
+
+                  {
+                                        <div className='text-gray-400 font-sans'>
+                                          {user?.user?.profil === 'other' && user?.other?.profession}
+                                          {user?.user?.profil === 'player' && 'Joueur'}
+                                          {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                          {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                          {user?.user?.profil === 'scout' && 'Scout'}
+                                        </div>
+                                      }
+                  </div>
+                
+                </div> 
+                <div className="flex flex-col w-full gap-y-2">
+                  
+                <textarea
+                  className="flex max-h-fit px-2 pt-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[10px] theme-dark-bg"
+                  placeholder="Quoi de neuf ?"
+                  name="description"
+                  {...register("description")}
+                  onChange={handleChange} // Handle change
+                ></textarea>
+                  {errMsg?.message && (
+                    <span
+                      role="alert"
+                      className={`text-sm ${errMsg?.status === "failed"
+                        ? "text-[#f64949fe]"
+                        : "text-[#2ba150fe]"
+                        } mt-0.5`}
+                    >
+                      {errMsg?.message}
+                    </span>
+                  )}
+ 
+        
+
+
+          
+                
+                </div>
+              </div>
+              {displayArticle && (
+              <div key={displayArticle.id} className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 mb-3">
+                <div className="card-body p-0 d-flex">
+                  <Link to={`/profile/${displayArticle.user?.user?.id || displayArticle.userspartage?.id}`}>
+                    <figure className="avatar me-3">
+                      <img
+                        srcSet={displayArticle.user?.user?.image || displayArticle.userspartage?.image || placeholder}
+                        className="shadow-sm rounded-full w-[52px] aspect-square"
+                        alt="post"
+                      />
+                    </figure>
+                  </Link>
+                  <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+                    <Link to={`/profile/${displayArticle.user?.user?.id || displayArticle.userspartage?.id}`}>
+                      {displayArticle.user?.user?.nom || displayArticle.userspartage?.nom} {" "}
+                      {displayArticle.user?.user?.prenom || displayArticle.userspartage?.prenom}
+                    </Link>
+                    <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                      {displayArticle.user?.user?.profil === 'other' ? displayArticle.user?.other?.profession : ''}
+                      {displayArticle.user?.user?.profil === 'player' ? ' Joueur' : ''}
+                      {displayArticle.user?.user?.profil === 'coach' ? ' Entraîneur' : ''}
+                      {displayArticle.user?.user?.profil === 'agent' && displayArticle.user?.agent?.typeresponsable === 'players' ? 'Manager de Joueur' : ''}
+                      {displayArticle.user?.user?.profil === 'agent' && displayArticle.user?.agent?.typeresponsable === 'club' ? 'Manager de Club' : ''}
+                      {displayArticle.user?.user?.profil === 'scout' ? 'Scout' : ''}
+                    </span>
+                    <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                      {moment(displayArticle.createdAt).format('DD MMMM YYYY')} {' - '}
+                      {moment(displayArticle.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                        moment(displayArticle.createdAt).fromNow(true) :
+                        moment(displayArticle.createdAt).fromNow()}
+                    </span>
+                  </h4>
+                </div>
+                <div className="p-0 mt-2">
+                  <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
+                    {!showFullText && displayArticle?.description?.length > 295 ? displayArticle?.description?.substring(0, 295) + "..." : displayArticle.description}
+                    {displayArticle?.description?.length > 295 && (
+                      <button
+                        onClick={toggleText}
+                        className="text-blue-600 hover:text-blue-400 focus:outline-none"
+                      >
+                        {showFullText ? 'Voir moins' : 'Voir plus'}
+                      </button>
+                    )}
+                  </p>
+                </div>
+                {displayArticle?.image && (
+                  <div className="card-body d-block p-0 mb-3">
+                    <div className="row ps-2 pe-2">
+                      <div className="col-sm-12 p-1">
+                        <img
+                          className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
+                          src={displayArticle?.image}
+                          alt={displayArticle?.titre}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {displayArticle?.video && (
+                  <div className="card-body d-block p-0 mb-3">
+                    <div className="row ps-2 pe-2">
+                      <div className="col-sm-12 p-1">
+                        <div className="card-body p-0 mb-3 overflow-hidden">
+                          <video
+                            controls
+                            className="w-100 md:max-h-[600px] max-h-[350px]"
+                          >
+                            <source
+                              src={displayArticle?.video}
+                              type="video/mp4"
+                            />
+                            Your browser does not support the video tag.
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          
+{/*           
+              {displayArticle === originalArticle  && (        <div
+      key={displayArticle?.id}
+      className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 mb-3"
+    >
+      <div className="card-body p-0 d-flex">
+        <Link to={`/profile/${displayArticle?.userspartage?.id}`}>
+          <figure className="avatar me-3">
+            <img
+              srcSet={displayArticle?.userspartage?.image ? displayArticle?.userspartage?.image : placeholder}
+              className="shadow-sm rounded-full w-[52px] aspect-square"
+              alt="post"
+            />
+          </figure>
+        </Link>
+
+        <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+          <Link to={`/profile/${displayArticle?.userspartage?.id}`}>
+            {displayArticle?.userspartage?.nom} {"   "}
+            {displayArticle?.userspartage?.prenom}
+          </Link>
+          <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+            {displayArticle?.userspartage?.profil == 'other' ? displayArticle?.userspartage?.other?.profession : ''}
+            {displayArticle?.userspartage?.profil == 'player' ? ' Joueur' : ''}
+            {displayArticle?.userspartage?.profil == 'coach' ? ' Entraîneur' : ''}
+            {displayArticle?.userspartage?.profil == 'agent' && displayArticle?.userspartage?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+            {displayArticle?.userspartage?.profil == 'agent' && displayArticle?.userspartage?.agent?.typeresponsable == 'club' ? 'Manager de Club' : ''}
+            {displayArticle?.userspartage?.profil == 'scout' ? 'Scout' : ''}
+          </span>
+          <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+            {moment(displayArticle?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+            {
+              moment(displayArticle?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                moment(displayArticle?.createdAt).fromNow(true) :
+                moment(displayArticle?.createdAt).fromNow()
+            }
+          </span>
+        </h4>
+      </div>
+
+      <div className="p-0 mt-2">
+        <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
+          {!showFullText && displayArticle?.description?.length > 295 ? displayArticle?.description?.substring(0, 295) + "..." : displayArticle.description}
+          {displayArticle?.description?.length > 295 && (
+            <button
+              onClick={toggleText}
+              className="text-blue-600 hover:text-blue-400 focus:outline-none"
+            >
+              {showFullText ? 'Voir moins' : 'Voir plus'}
+            </button>
+          )}
+        </p>
+      </div>
+
+      {displayArticle?.image && (
+        <div className="card-body d-block p-0 mb-3">
+          <div className="row ps-2 pe-2">
+            <div className="col-sm-12 p-1">
+              <img
+                className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
+                src={displayArticle?.image}
+                alt={displayArticle?.titre}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      {displayArticle?.video && (
+        <div className="card-body d-block p-0 mb-3">
+          <div className="row ps-2 pe-2">
+            <div className="col-sm-12 p-1">
+              <div className="card-body p-0 mb-3 overflow-hidden">
+                <video
+                  controls
+                  className="w-100 md:max-h-[600px] max-h-[350px]"
+                >
+                  <source
+                    src={displayArticle?.video}
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+              )}
+
+
+
+
+{displayArticle === article && (
+              <div
+              key={article.id}
+              className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 mb-3"
+            >
+              <div className="card-body p-0 d-flex">
+                <Link to={`/profile/${article.user.user.id}`}>
+                  <figure className="avatar me-3">
+                    <img
+                      srcSet={article?.user?.user?.image ? article?.user?.user?.image : placeholder}
+
+                      className="shadow-sm rounded-full w-[52px] aspect-square"
+                      alt="post"
+                    />{" "}
+                  </figure>
+                </Link>
+
+ <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+ <Link to={`/profile/${article?.user?.user?.id}`}>
+   {article.user.user.nom} {"   "} 
+                  {article.user.user.prenom} </Link>
+                  <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                    {article.user.user.profil == 'other' ? article.user.other?.profession : ''}
+                    {article.user.user.profil == 'player' ? ' Joueur' : ''}
+                    {article.user.user.profil == 'coach' ? ' Entraîneur' : ''}
+                    {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                    {article.user.user.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                    {article.user.user.profil == 'scout' ? 'Scout' : ''}
+                  </span>
+                
+                  <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                    {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                    {
+                      moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                        moment(article?.createdAt).fromNow(true) :
+                        moment(article?.createdAt).fromNow()
+                    }
+                  </span>
+
+
+
+
+                </h4>
+               
+                   
+              </div>
+
+              <div class=" p-0  mt-2">
+                <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
+                  {!showFullText && article.description.length > 295 ? article.description.substring(0, 295) + "..." : article.description}
+                  {article.description.length > 295 && (
+                    <button
+                      onClick={toggleText}
+                      className="text-blue-600  hover:text-blue-400 focus:outline-none"
+                    >
+                      {showFullText ? 'Voir moins' : 'Voir plus'}
+                    </button>
+                  )}
+
+                </p>
+
+              </div>
+
+              {article?.image && (
+                <div className="card-body d-block p-0 mb-3">
+                  <div className="row ps-2 pe-2">
+
+                    <div className="col-sm-12 p-1 ">
+                      <img
+                        className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
+                        src={article.image}
+                        alt={article.titre}
+                      />
+
+                    </div>
+                  </div>
+                </div>
+              )}
+              {article?.video && (
+                <div className="card-body d-block p-0 mb-3">
+                  <div className="row ps-2 pe-2">
+                    <div className="col-sm-12 p-1">
+                      <div className="card-body p-0 mb-3  overflow-hidden ">
+                        <video
+                          controls
+                          className=" w-100 md:max-h-[600px] max-h-[350px]"
+                        >
+                          <source
+                            src={article.video}
+                            type="video/mp4"
+                          />
+                          Your browser does not support the video
+                          tag.
+                        </video>{" "}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+</div> )} */}
+
+
+{posting ? (
+      <Loadingpartage />
+    ) : (
+      <button
+        type="submit"
+        className="bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white mt-3  px-8 rounded-full font-semibold text-sm"
+      > 
+      
+      { getTranslation(
+            `Share`,  // -----> Englais
+              `Partager`, //  -----> Francais
+                           )  } 
+
+</button>
+    )}
+            </div>
+            </form>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+                <button
+                  className=" absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
+                  onClick={() => handleCloseModal(true)}> Xddddddddddddddddd </button>
+              </div>
+            </div>
+          )}
 
         </div>
 

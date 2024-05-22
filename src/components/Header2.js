@@ -407,13 +407,8 @@ function Header() {
                               {item.titre || item.nom + " " + item.prenom}
                             </a> */}
                             <a href={`/profile/${item.id}`} className="pr-4 flex flex-row">
-                              <div className="flex pr-2"> {item.titre || item.nom + " " + item.prenom}</div>
-                              {/* <div className="flex text-gray-400 text-xs pt-1 ">
-                         {item.titre || item?.profil == 'other' ? item?.other?.profession : ''}
-                         
-                         
-                         </div> */}
-
+                              <div className="flex pr-2" > {item.titre || item.nom + " " + item.prenom}</div>
+                             
                             </a>
                           </li>
                         </React.Fragment>
@@ -443,7 +438,7 @@ function Header() {
                 />
                 <div className="flex flex-col flex-1">
                   <div className="text-lg">{user?.user?.nom + ' ' + user?.user?.prenom}</div>
-                  <Link to={`/profile/${user?.user?.id}`} className="text-sm"> {
+                  <a href={`/profile/${user?.user?.id}`} className="text-sm"> {
                     getTranslation(
                       `Profile`,  // -----> Englais
                       `Profil`, //  -----> Francais
@@ -452,7 +447,7 @@ function Header() {
                     )
 
                   }
-                  </Link>
+                  </a>
                 </div>
               </div>
 
