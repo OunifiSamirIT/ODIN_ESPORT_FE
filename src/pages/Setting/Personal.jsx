@@ -1001,7 +1001,6 @@ const Personal = ({ userInfo }) => {
                 <div className="flex gap-5 justify-between px-2  w-full rounded-md">
                   <div className="flex gap-4 justify-between w-full">
                     <div className="flex-auto">
-
                       <Controller
                         control={control}
                         name="langueparlee"
@@ -1011,7 +1010,7 @@ const Personal = ({ userInfo }) => {
                             isMulti
                             value={selectedLanguages}
                             onChange={handleLanguageChange}
-                            className="w-full"
+                            className="w-full "
                             placeholder="Langue parlée"
                             styles={{ control: (base) => ({ ...base, border: "none" }) }}
 

@@ -138,8 +138,11 @@ const ChallengeDetais = () => {
         setChallenges(result.challenges)
 
     }
-    const [ error , setError] = useState(false)
+    const [error, setError] = useState(false)
 
+    const sortByVote = (vote) => {
+        if (vote) { return vote.sort((a, b) => b.votes - a.votes) }
+    }
 
     const fetchCommentaire = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/fetch/${showCase.id}`)
@@ -179,7 +182,7 @@ const ChallengeDetais = () => {
         }
 
     }
-    const [loading , setIsLoading] = useState(false)
+    const [loading, setIsLoading] = useState(false)
     useEffect(() => {
         checkIfParticipate(challenges)
         console.log('changed')
@@ -216,31 +219,36 @@ const ChallengeDetais = () => {
             setIsLoading(false)
             // navigate('/admin/blog')
 
-        }else{
+        } else {
             setError('vous pouvez participer une suele fois ')
         }
     }
 
+    useEffect(() => {
+        setreRangeParticipants(sortByVote(challenges?.participants))
+        //   console.log(sortByVote(challenges?.participants))
+    }, [challenges])
+
     const onDelete = async (data) => {
-      console.log('delete')
-      let myParticipants = []
-      
-      challenges?.participants?.map((item) => {
-          if (isOwner(item.userId)) {
-              myParticipants.push(item)
-          }
+        console.log('delete')
+        let myParticipants = []
+
+        challenges?.participants?.map((item) => {
+            if (isOwner(item.userId)) {
+                myParticipants.push(item)
+            }
         })
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/delete/${myParticipants[0].id}`, {
             method: 'DELETE',
         });
-        if(response.status === 200){
+        if (response.status === 200) {
             window.location.reload()
-             
+
         }
-      fetchChallenges()
+        fetchChallenges()
     }
-    const [likes,setLikes] = useState(0)
-    const [vote,setVote]=useState(0)
+    const [likes, setLikes] = useState(0)
+    const [vote, setVote] = useState(0)
 
     const handleCommentaire = async () => {
         const formData = new FormData()
@@ -258,10 +266,6 @@ const ChallengeDetais = () => {
         setCommentShow(true)
         setCommentairetext('')
     }
-    useEffect(() => {
-         
-    },[])
-
     const formatDate = (dateString) => {
         const dateObject = new Date(dateString);
         // Format the date object into the desired format
@@ -271,7 +275,7 @@ const ChallengeDetais = () => {
             year: 'numeric'
         });
     }
-    const [hasLiked , setHasLiked] = useState(false)
+    const [hasLiked, setHasLiked] = useState(false)
     const handleLike = async () => {
         console.log('liked')
         const formData = new FormData()
@@ -288,7 +292,7 @@ const ChallengeDetais = () => {
         setHasLiked(result.hasLiked ? true : false)
     }
     const openModel = async (item) => {
-        console.log(showCase)
+        console.log('hello from here' + item)
         const formData = new FormData();
         formData.append('challengesId', challengeId)
         formData.append('userId', storedUserData.id)
@@ -304,9 +308,9 @@ const ChallengeDetais = () => {
         setLikes(item.likes)
         setShowCase(item)
     }
-    const [videoName,setVideoName]= useState()
+    const [videoName, setVideoName] = useState()
     return (<>
-    
+
         {
             isOpen && <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
                 <div ref={ref} className="flex flex-col px-4 py-8 max-w-full bg-white rounded-[10px] w-[936px]">
@@ -357,19 +361,19 @@ const ChallengeDetais = () => {
                                         className="shrink-0 aspect-[1.45] fill-white w-[29px]"
                                     />
                                     <div className="overflow-hidden">
-                                       
+
                                         {
                                             videoName ? videoName :
-                                        getTranslation(
-                                            `Import your video`,  // -----> Englais
-                                            `Importer votre vidéo`, //  -----> Francais
-                                            //   ``,  //  -----> Turkey
-                                            //   `` ,  //  -----> Allemagne
-                                        )
+                                                getTranslation(
+                                                    `Import your video`,  // -----> Englais
+                                                    `Importer votre vidéo`, //  -----> Francais
+                                                    //   ``,  //  -----> Turkey
+                                                    //   `` ,  //  -----> Allemagne
+                                                )
 
-                                    } </div>
+                                        } </div>
                                 </div>
-                                <input type="file" name="video" {...register("video")} onChange={(e)=>setVideoName(e.target.files[0].name)} className="top-0 opacity-0 absolute flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5" />
+                                <input type="file" name="video" {...register("video")} onChange={(e) => setVideoName(e.target.files[0].name)} className="top-0 opacity-0 absolute flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5" />
 
                             </div>
                         </div>
@@ -403,7 +407,7 @@ const ChallengeDetais = () => {
                         {error && <p className="text-red-500 text-center">{error}</p>}
                         <div className="flex flex-col">
                             <div className="flex gap-2 justify-center self-center px-8 py-2 mt-8 font-medium bg-blue-500 text-white whitespace-nowrap border-2 border-blue-500 border-solid rounded-[30px] max-md:px-5">
-                                <button type="submit" disabled={loading}> { loading ? loading :
+                                <button type="submit" disabled={loading}> {loading ? loading :
                                     getTranslation(
                                         `Submit`,  // -----> Englais
                                         `Confirmer`, //  -----> Francais
@@ -523,23 +527,27 @@ const ChallengeDetais = () => {
         }
         {
             showCase && <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-4 md:px-8 ">
-                <div ref={ref} className="flex flex-col md:px-4 py-8 max-w-full h-[700px] bg-white rounded-[10px] w-[936px] overflow-hidden">
-                    <div className="overflow-y-scroll overflow-x-hidden">
-                        <div className="flex max-md:flex-col max-md:gap-0">
-                            <div className="flex flex-col w-[400px] h-[600px] max-md:ml-0 max-md:w-full">
-                                <video preload="metadata" controls class="object-cover max-md:scale-75 size-full"
+                <div ref={ref} className="flex flex-col  max-w-full  bg-white rounded-[10px] w-[936px] overflow-hidden">
+                    <div className="">
+                        <div className="flex max-md:flex-col w-full  relative">
+                            <div className=" flex fixed flex-col w-[400px] h-[600px] max-md:ml-0 max-md:w-full">
+                                <video onClick={playVideo} preload="metadata" class="rounded-s-[10px] bg-gray-900 object-cover max-md:scale-75 size-full"
                                     src={`${showCase.video}#t=0.2`}
                                 >
                                 </video>
+                                {!isPlaying && <svg onClick={playVideo} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 size-[70px]  flex  cursor-pointer" width="79" height="78" viewBox="0 0 79 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M29.1241 55.8515H28.154C28.0849 55.8261 28.0145 55.8045 27.9432 55.7867C26.2758 55.4558 25.0525 54.0157 25.0516 52.331C25.0453 43.6342 25.0453 34.9373 25.0516 26.2405C25.0553 25.678 25.1978 25.1252 25.4663 24.631C26.3302 22.9895 28.5453 22.117 30.5367 23.2824C34.4485 25.5727 38.3828 27.8215 42.3085 30.0875C45.7953 32.1034 49.2824 34.1163 52.7698 36.1264C54.3179 37.0223 55.0065 38.6317 54.5443 40.2732C54.2635 41.2702 53.6259 41.9734 52.7343 42.4874C46.2143 46.2438 39.7055 50.02 33.1777 53.7634C31.8585 54.5202 30.63 55.4575 29.1241 55.8515Z" fill="white" />
+                                    <circle cx="39.3922" cy="39.3004" r="38.1207" stroke="white" />
+                                </svg>}
                             </div>
-                            <div className="flex flex-col ml-5 w-[62%] max-md:ml-0 max-md:w-full">
-                                <div className="flex flex-col grow pt-6 w-full bg-white rounded-none max-md:max-w-full">
-                                    <div className="flex gap-4 justify-between px-8 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                            <div className="flex flex-col justify-self-end w-full">
+                                <div className="h-[600px] overflow-hidden px-2  w-[calc(100%_-_400px)] flex flex-col justify-self-start self-end justify-start  pt-6 rounded-none ">
+                                    <div className="flex gap-4 justify-between  w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                         <div className="flex gap-4 justify-between font-light text-zinc-900">
                                             <img
                                                 loading="lazy"
                                                 srcSet={showCase.user.image}
-                                                className="shrink-0 w-16 aspect-square rounded-full"
+                                                className="shrink-0 w-16 h-16 aspect-square rounded-full"
                                             />
                                             <div className="flex flex-col py-1">
                                                 <div className="text-base font-semibold">{showCase.user.nom} {showCase.user.prenom}</div>
@@ -622,7 +630,7 @@ const ChallengeDetais = () => {
                                     <div className="flex gap-5 justify-between px-4 mt-2 w-full text-base text-zinc-900 max-md:flex-wrap max-md:px-5 max-md:max-w-full">
                                         <div className="flex w-full gap-5 justify-between whitespace-nowrap">
                                             <div className="flex gap-2 py-2">
-                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class={`size-6 ${hasLiked ? 'text-orange-500' : ''}`} height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path></svg>
+                                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class={`size-6 ${hasLiked ? 'text-orange-500' : ''}`} height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path></svg>
                                                 <button onClick={handleLike} className={`${hasLiked ? 'text-orange-500' : ''}`}>{
                                                     getTranslation(
                                                         `Like`,  // -----> Englais
@@ -646,7 +654,7 @@ const ChallengeDetais = () => {
                                             {/* </div> */}
                                         </div>
                                     </div>
-                                    <div className="flex gap-4 justify-between items-center px-8 mt-2 w-full text-xs font-light whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                                    <div className="flex gap-4 justify-between items-center px-4 mt-2 w-full text-xs font-light whitespace-nowrap text-neutral-500 max-md:flex-wrap">
                                         <div className="flex gap-2.5 justify-center self-stretch py-2 my-auto">
                                             <img
                                                 loading="lazy"
@@ -672,72 +680,57 @@ const ChallengeDetais = () => {
                                             <div>{commentaire.length ? commentaire.length : 0}</div>
                                         </div>
                                     </div>
-                                    {commentShow && commentaire && commentaire.map((item, index) => {
-                                        return (<div key={index} className="flex gap-4 ml-4 max-md:flex-wrap mt-2">
-                                            <img
-                                                loading="lazy"
-                                                srcSet={item.user.image}
-                                                className="relative inline-block aspect-square h-[64px] w-[64px] cursor-pointer rounded-full object-fit object-center"
-                                            />
-                                            <div className="flex flex-col py-4 bg-gray-100 rounded-3xl w-full">
-                                                <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
-                                                    <div className="flex flex-col py-1 font-light text-zinc-900">
-                                                        <div className="text-base font-semibold">{item.user.nom} {item.user.prenom}</div>
-                                                        <div className="mt-1 text-xs">{item.user.profil}</div>
-                                                        <div className="mt-1 text-xs">{formatDate(item.user.createdAt)}</div>
+                                    <div className="overflow-x-hidden overflow-y-scroll">
+                                        {commentShow && commentaire && commentaire.map((item, index) => {
+                                            return (<div key={index} className="flex gap-4 ml-4 max-md:flex-wrap mt-2">
+                                                <img
+                                                    loading="lazy"
+                                                    srcSet={item.user.image}
+                                                    className="relative inline-block object-cover aspect-square h-[44px] w-[44px] cursor-pointer rounded-full object-fit object-center"
+                                                />
+                                                <div className="flex flex-col py-2 bg-gray-100 rounded-[10px] w-full">
+                                                    <div className="flex gap-4 justify-between px-6 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+                                                        <div className="flex flex-col py-1 font-light text-zinc-900">
+                                                            <div className="text-sm font-semibold">{item.user.nom} {item.user.prenom}</div>
+                                                            <div className="mt-1 text-xs">{item.user.profil}</div>
+                                                            <div className="mt-1 text-[10px]">{formatDate(item.user.createdAt)}</div>
+                                                        </div>
                                                     </div>
-                                                    {/* <div className="flex gap-2 self-start py-2">
-                                                        <img
-                                                            loading="lazy"
-                                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4e25c79968e2dfcd71e9a014b64aa2ba89a86dff9ac1e6c5dd3cacf6c2a0744a?"
-                                                            className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
-                                                        />
-                                                        <img
-                                                            loading="lazy"
-                                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4e25c79968e2dfcd71e9a014b64aa2ba89a86dff9ac1e6c5dd3cacf6c2a0744a?"
-                                                            className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
-                                                        />
-                                                        <img
-                                                            loading="lazy"
-                                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4e25c79968e2dfcd71e9a014b64aa2ba89a86dff9ac1e6c5dd3cacf6c2a0744a?"
-                                                            className="shrink-0 aspect-square fill-zinc-900 w-[5px]"
-                                                        />
-                                                    </div> */}
+                                                    <div className="mx-6 mt-2 w-full text-sm font-light text-zinc-900 max-md:mr-2.5 max-md:max-w-full">
+                                                        {item.description}
+                                                    </div>
+                                                    <div className="flex gap-4 px-8 mt-2 text-xs font-light whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:px-5">
+                                                        <div className="flex gap-2.5 justify-center py-2 my-auto">
+                                                            <img
+                                                                loading="lazy"
+                                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/6a84afc604ca91e0f00c1288ce83681cac43b37bfbe73017407a307bd527daae?"
+                                                                className="shrink-0 w-4 aspect-[1.06] fill-neutral-500"
+                                                            />
+                                                            <div>248</div>
+                                                        </div>
+                                                        <div className="flex gap-2.5 justify-center py-2.5">
+                                                            <img
+                                                                loading="lazy"
+                                                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba52ed5ec87491c741e3910210198c2bbb8a9fca456b41b985e1508bc5d17982?"
+                                                                className="shrink-0 aspect-square fill-neutral-500 w-[15px]"
+                                                            />
+                                                            <div>12</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="mx-6 mt-2 w-full text-base font-light text-zinc-900 max-md:mr-2.5 max-md:max-w-full">
-                                                    {item.description}
-                                                </div>
-                                                {/* <div className="flex gap-4 px-8 mt-2 text-xs font-light whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:px-5">
-                                                    <div className="flex gap-2.5 justify-center py-2 my-auto">
-                                                        <img
-                                                            loading="lazy"
-                                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/6a84afc604ca91e0f00c1288ce83681cac43b37bfbe73017407a307bd527daae?"
-                                                            className="shrink-0 w-4 aspect-[1.06] fill-neutral-500"
-                                                        />
-                                                        <div>248</div>
-                                                    </div>
-                                                    <div className="flex gap-2.5 justify-center py-2.5">
-                                                        <img
-                                                            loading="lazy"
-                                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/ba52ed5ec87491c741e3910210198c2bbb8a9fca456b41b985e1508bc5d17982?"
-                                                            className="shrink-0 aspect-square fill-neutral-500 w-[15px]"
-                                                        />
-                                                        <div>12</div>
-                                                    </div>
-                                                </div> */}
-                                            </div>
-                                        </div>)
-                                    })}
-                                    <div className="flex items-center gap-3 mt-3">
-                                        <figure className="avatar">
-                                            <img
-                                                src={
-                                                    showCase.user.image ? showCase.user?.image : placeholder
-                                                }
-                                                className="shadow-sm rounded-full w-[52px] aspect-square"
-                                                alt="post"
-                                            />
-                                        </figure>
+                                            </div>)
+                                        })}
+
+                                    </div>
+
+                                    <div className="flex items-center gap-3 px-3 mt-3 py-2">
+                                        <img
+                                            src={
+                                                showCase.user.image ? showCase.user?.image : placeholder
+                                            }
+                                            className="shadow-sm rounded-full w-[44px] h-[44px] object-cover "
+                                            alt="post"
+                                        />
                                         <div className="flex flex-col w-full">
                                             <div className="w-full flex items-center">
                                                 <input
@@ -769,12 +762,11 @@ const ChallengeDetais = () => {
         }
 
         <div className="col-span-3 flex flex-col gap-y-4">
-         <Link to="/challenges">   <div className="md:hidden flex gap-2 justify-center px-8 py-2 text-base font-medium text-white bg-orange-500 rounded-[30px]">
-                <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/f4786f6b5c1d397bc7db5824ce7a9ef71cb4fc756bcad073d96bb22ae8dbe08c?"
-                    className="shrink-0 w-5 aspect-square"
-                />
+            <Link to="/challenges">   <div className="md:hidden flex gap-2 justify-center px-8 py-2 text-base font-medium text-white bg-orange-500 rounded-[30px]">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.9336 18.7504C14.9333 18.419 14.8014 18.1013 14.5669 17.8671L8.17359 11.4738C7.98008 11.2803 7.82657 11.0506 7.72184 10.7978C7.61711 10.545 7.56321 10.2741 7.56321 10.0004C7.56321 9.72679 7.61711 9.45584 7.72184 9.20304C7.82657 8.95024 7.98008 8.72055 8.17359 8.52709L14.5586 2.13792C14.7863 1.90217 14.9123 1.58642 14.9094 1.25867C14.9066 0.930924 14.7751 0.617408 14.5434 0.385648C14.3116 0.153888 13.9981 0.0224265 13.6703 0.0195785C13.3426 0.0167305 13.0268 0.142723 12.7911 0.370421L6.40609 6.75459C5.54756 7.61481 5.06539 8.7805 5.06539 9.99584C5.06539 11.2112 5.54756 12.3769 6.40609 13.2371L12.7994 19.6304C12.974 19.8051 13.1964 19.9242 13.4386 19.9726C13.6807 20.021 13.9318 19.9966 14.1601 19.9024C14.3884 19.8083 14.5837 19.6486 14.7214 19.4436C14.859 19.2386 14.9329 18.9974 14.9336 18.7504Z" fill="white" />
+                </svg>
+
                 <div>{
                     getTranslation(
                         `Back to Challenge`,  // -----> Englais
@@ -791,7 +783,7 @@ const ChallengeDetais = () => {
                         src={`${challenges.video}`}
                     >
                     </video>
-                    {!isPlaying && <svg onClick={playVideo} className="absolute cursor-pointer" width="79" height="78" viewBox="0 0 79 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {!isPlaying && <svg onClick={playVideo} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 size-[40px]  flex  cursor-pointer" width="79" height="78" viewBox="0 0 79 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M29.1241 55.8515H28.154C28.0849 55.8261 28.0145 55.8045 27.9432 55.7867C26.2758 55.4558 25.0525 54.0157 25.0516 52.331C25.0453 43.6342 25.0453 34.9373 25.0516 26.2405C25.0553 25.678 25.1978 25.1252 25.4663 24.631C26.3302 22.9895 28.5453 22.117 30.5367 23.2824C34.4485 25.5727 38.3828 27.8215 42.3085 30.0875C45.7953 32.1034 49.2824 34.1163 52.7698 36.1264C54.3179 37.0223 55.0065 38.6317 54.5443 40.2732C54.2635 41.2702 53.6259 41.9734 52.7343 42.4874C46.2143 46.2438 39.7055 50.02 33.1777 53.7634C31.8585 54.5202 30.63 55.4575 29.1241 55.8515Z" fill="white" />
                         <circle cx="39.3922" cy="39.3004" r="38.1207" stroke="white" />
                     </svg>}
@@ -801,7 +793,7 @@ const ChallengeDetais = () => {
 
                 <div className="flex flex-wrap items-center  justify-between mt-4 text-zinc-900">
                     <div className="my-auto text-2xl font-bold px-2">{challenges.name}</div>
-                    <div className="  flex items-center  py-2 px-3 text-base whitespace-nowrap rounded-xl border border-solid border-neutral-200">
+                    <div className="  flex max-sm:w-full max-sm:mb-2 items-center  py-2 px-3 text-base whitespace-nowrap rounded-xl border border-solid border-neutral-200">
                         <div className="flex gap-2  items-center">
                             {/* <div>{challenges.startDate}</div> */}
                             <Timer startDate={challenges.startDate} endDate={challenges.endDate} setExpired={setExpired} />
@@ -822,13 +814,11 @@ const ChallengeDetais = () => {
                     </div>
                 </div> */}
                 {hasParticipated ? <div className="flex justify-center items-center md:mt-4 font-medium">
-                    <div onClick={() => setDelete(true)} className=" w-full flex justify-center items-center px-6 py-2 text-base font-medium text-white bg-orange-500  rounded-[30px] max-md:px-5">
-                        <button className="flex gap-2" >
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/8e2ce233a8f5cc7f4104d404a451185de9fa78cd9de2c15f089d4faac0185a91?"
-                                className="shrink-0 w-5 aspect-square"
-                            />
+                    <div onClick={() => setDelete(true)} className="w-full flex justify-center items-center px-6 py-2 text-base font-medium text-white bg-orange-500  rounded-[30px] max-md:px-5">
+                        <button className="flex items-center gap-2" >
+                            <svg width="10" height="10" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="white" />
+                            </svg>
                             {
                                 getTranslation(
                                     `Cancel your participation !`,  // -----> Englais
@@ -876,11 +866,17 @@ const ChallengeDetais = () => {
         </div>
         <div className="flex flex-col p-6 bg-white rounded-[10px] max-md:px-5 col-span-3">
             <div className="flex gap-2.5 self-start px-6 text-xl md:text-2xl font-bold text-zinc-900 max-md:px-5">
-                <img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ddda3932af487b599484345d1d0a25b00d284af55f1059e9b684afddb656034?"
-                    className="shrink-0 my-auto aspect-square w-[30px]"
-                />
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_926_65157)">
+                        <path d="M29.6331 2.11844L17.1331 14.6184C16.8894 14.8622 16.5694 14.9847 16.2494 14.9847C15.9294 14.9847 15.6094 14.8622 15.3656 14.6184C14.8769 14.1297 14.8769 13.3397 15.3656 12.8509L27.8656 0.350938C28.3544 -0.137813 29.1444 -0.137813 29.6331 0.350938C30.1219 0.839688 30.1219 1.62969 29.6331 2.11844ZM9.99937 11.2347C10.3194 11.2347 10.6394 11.1122 10.8831 10.8684L17.1331 4.61844C17.6219 4.12969 17.6219 3.33969 17.1331 2.85094C16.6444 2.36219 15.8544 2.36219 15.3656 2.85094L9.11562 9.10094C8.62687 9.58969 8.62687 10.3797 9.11562 10.8684C9.35937 11.1122 9.67937 11.2347 9.99937 11.2347ZM25.3656 12.8509L19.1156 19.1009C18.6269 19.5897 18.6269 20.3797 19.1156 20.8684C19.3594 21.1122 19.6794 21.2347 19.9994 21.2347C20.3194 21.2347 20.6394 21.1122 20.8831 20.8684L27.1331 14.6184C27.6219 14.1297 27.6219 13.3397 27.1331 12.8509C26.6444 12.3622 25.8544 12.3622 25.3656 12.8509ZM13.7494 19.9847H9.99812L8.67062 16.4197C8.48812 15.9309 8.02062 15.6059 7.49937 15.6059C6.97812 15.6059 6.50937 15.9309 6.32812 16.4197L5.00062 19.9847H1.24937C0.725623 19.9847 0.256873 20.3122 0.0768732 20.8034C-0.104377 21.2959 0.0418732 21.8472 0.441873 22.1872L3.41312 24.6047L2.23687 28.3747C2.07812 28.8809 2.25562 29.4322 2.67937 29.7509C2.90062 29.9172 3.16437 30.0009 3.42937 30.0009C3.67187 30.0009 3.91437 29.9309 4.12437 29.7897L7.50937 27.5247L10.9519 29.7659C11.3956 30.0547 11.9756 30.0322 12.3969 29.7084C12.8181 29.3847 12.9881 28.8297 12.8206 28.3259L11.5969 24.6009L14.5544 22.1922C14.9556 21.8534 15.1031 21.3009 14.9231 20.8072C14.7431 20.3134 14.2731 19.9847 13.7494 19.9847Z" fill="#2E71EB" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_926_65157">
+                            <rect width="30" height="30" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+
                 <div>  {
                     getTranslation(
                         `Challenge Showcase`,  // -----> Englais
@@ -902,14 +898,16 @@ const ChallengeDetais = () => {
                 {/* Afficher tous les autres participants */}
                 {(rerangeparticipants && rerangeparticipants?.length > 0) ? rerangeparticipants?.map((item, index) => (
                     <div key={index} className="relative">
-                        <div onClick={() => openModel(item)} className="relative  max-md:flex-col max-md:gap-0 relative">
+                        <div onClick={() => openModel(item)} className="max-md:flex-col max-md:gap-0 relative">
                             <div className="flex flex-col  max-md:ml-0 max-md:w-full rounded-[10px] overflow-hidden">
                                 <div className="relative flex flex-col grow justify-center text-base text-white">
                                     <div className="flex  relative flex-col h-full w-full aspect-[0.78]">
                                         <video preload="metadata" className="h-full object-cover absolute inset-0 size-full" src={`${item.video}#t=0.2`}></video>
                                     </div>
                                 </div>
-                                <div className={`${isOwner(item.userId) ? '' : 'hidden'} border-3 border-orange-new rounded-[10px]  absolute top-0 bg-gradient-to-t from-orange-new from-0%  to-transparent to-30% w-full h-full`}></div>
+                                <div className={`${isOwner(item.userId) && !expired ? '' : 'hidden'} border-3 border-orange-new rounded-[10px]  absolute top-0 bg-gradient-to-t from-orange-new from-0%  to-transparent to-30% w-full h-full`}></div>
+                                <div className={`${expired && index < 3 ? '' : 'hidden'} border-3 border-blue-500 rounded-[10px]  absolute top-0 bg-gradient-to-t from-blue-500 from-0%  to-transparent to-30% w-full h-full`}></div>
+
                                 <div className="absolute bottom-0 p-4 flex items-center gap-2 flex w-full justify-between">
                                     <div className="flex items-center gap-2">
                                         <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
