@@ -41,6 +41,7 @@ import Payment from "./pages/Payment";
 import Notification from "./pages/Notification";
 import Helpbox from "./pages/Helpbox";
 import Login from "./pages/Login";
+import LoginCode from "./pages/Logincode.jsx";
 import Loginreset from "./pages/Loginrestpassword";
 import Loginemail from "./pages/Loginemail";
 import Register from "./pages/Register";
@@ -413,6 +414,10 @@ function Root() {
             <Route exact
               path="/login"
               element={<Login setAuthStatus={setAuthStatus} />}
+            />
+            <Route exact
+              path="/codeverification"
+              element={<LoginCode/>}
             />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/postview" element={<PostView />} />

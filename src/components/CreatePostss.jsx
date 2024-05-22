@@ -21,7 +21,10 @@ function CreatePost({ setArticles , onClose}) {
   const [user, setUser] = useState([]);
   const [errMsg, setErrMsg] = useState("");
   const [data, setData] = useState({ description: "", otherField: "" });
-  const [file, setFile] = useState(null);
+  const [imageFiles, setImageFiles] = useState([]);
+  const [videoFile, setVideoFile] = useState(null);
+  const [mediaFiles, setMediaFiles] = useState([]); // State for storing media files
+
   const [fileType, setFileType] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [posting, setPosting] = useState(false);
@@ -33,87 +36,38 @@ function CreatePost({ setArticles , onClose}) {
   const [uploadProgress, setUploadProgress] = useState(0);
   const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
-  // const fetchArticles = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
-  //     const result = await response.json();
-
-  //     const articlesWithPromises = result.rows.map(async (article) => {
-  //       const userId = article.userId;
-  //       const comt = article.id;
-
-  //       const [userDataResponse, commentsResponse, likesCountResponse] =
-  //         await Promise.all([
-  //           fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
-  //             res.json()
-  //           ),
-  //           fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
-  //             (res) => res.json()
-  //           ),
-  //           fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
-  //             (res) => res.json()
-  //           ),
-  //         ]);
-
-  //       const likesCount = likesCountResponse.find(
-  //         (count) =>
-  //           count.articleId === article.articleId ||
-  //           count.articleId === article.id
-  //       );
-
-  //       return {
-  //         ...article,
-  //         user: userDataResponse,
-  //         comments: commentsResponse.commentsData,
-  //         commentsCount: commentsResponse.commentCount,
-  //         likesCount: likesCount ? likesCount.likesCount : 0,
-  //       };
-  //     });
-
-  //     let newArticles = await Promise.all(articlesWithPromises);
-  //     newArticles = newArticles.reverse(); // Reverse the order of all articles
-  //     const initialArticles = newArticles.slice(0, 50); // Get the first 10 articles
-  //     setArticles(initialArticles);
-  //     setTotalItems(result.totalItems);
-  //     setTotalPages(result.totalPages);
-
-  //     // Load the remaining articles after initial set is loaded
-  //     const remainingArticles = newArticles.slice(50);
-  //     if (remainingArticles.length > 0) {
-  //       await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+ 
   const loadRemainingArticles = (remainingArticles) => {
     setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
   };
 
-  const handleFileChange = (e, type) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    setFileType(type);
-
-    if (type === "video") {
-      const videoPreviewURL = URL.createObjectURL(selectedFile);
+ 
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    
+    // Filter out media files based on type
+    const imageFiles = selectedFiles.filter(file => file.type.startsWith('image/'));
+    const videoFile = selectedFiles.find(file => file.type.startsWith('video/'));
+  
+    // Update state with media files
+    setMediaFiles([...imageFiles, videoFile].filter(Boolean));
+  
+    // Set preview images for each uploaded image
+    const imagePreviewURLs = imageFiles.map(file => URL.createObjectURL(file));
+    setPreviewImage(imagePreviewURLs);
+  
+    // Set video preview URL
+    if (videoFile) {
+      const videoPreviewURL = URL.createObjectURL(videoFile);
       setVideoPreviewUrl(videoPreviewURL);
-      // Clear the image preview if there was one
-      setPreviewImage(null);
     } else {
-      const imagePreviewURL = URL.createObjectURL(selectedFile);
-      setPreviewImage(imagePreviewURL);
-      // Clear the video preview if there was one
       setVideoPreviewUrl(null);
     }
-  };
-
+  }; 
+  
+  
   const _ref_previewImage = useRef(null);
   const _ref_previewVideo = useRef(null);
-
 
   const handlePostSubmit = async (data) => {
     try {
@@ -122,8 +76,8 @@ function CreatePost({ setArticles , onClose}) {
         return;
       }
   
-      // Check if neither description nor file is provided
-      if (!data.description && !file && !videoPreviewUrl && !previewImage) {
+      // Check if neither description nor files are provided
+      if (!data.description && !mediaFiles.length) {
         setErrMsg("Ajouter quelque chose pour publier "); // Set error message
         return; // Exit the function without submitting
       }
@@ -131,17 +85,17 @@ function CreatePost({ setArticles , onClose}) {
       setPosting(true);
       const formData = new FormData();
       formData.append("titre", "Your default title");
-      formData.append("description", data.description || ''); // Append empty string if description is null
+      formData.append("description", data.description || ""); // Append empty string if description is null
       formData.append("userId", storedUserData.id);
       formData.append("type", "Your default type");
   
-      // Append file and fileType if they exist
-      if (file) {
-        formData.append("file", file);
-        formData.append("fileType", fileType);
+      // Append media files if they exist
+      if (mediaFiles.length) {
+        mediaFiles.forEach((file, index) => {
+          formData.append("media", file); // Assuming "file" is the media file
+        });
       }
   
-      // Create a new XMLHttpRequest
       const xhr = new XMLHttpRequest();
       xhr.open("POST", `${Config.LOCAL_URL}/api/articles/`);
   
@@ -156,28 +110,22 @@ function CreatePost({ setArticles , onClose}) {
       // Send the FormData with XMLHttpRequest
       xhr.send(formData);
   
-      // After creating the article, fetch the updated list of articles
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
-      const updatedPostsData = await response.json();
-  
-      // Reset the preview image
-      setPreviewImage(null);
+      // Reset state after successful submission
+      setMediaFiles([]);
       setValue("description", "");
   
       setPosting(false);
       setErrMsg(""); // Clear error message
-
+  
+      // Close the modal after a delay
       setTimeout(() => {
         onClose();
       }, 2800);
-      // window.location.reload()
-
     } catch (error) {
       console.error("Error submitting post:", error);
       setPosting(false);
     }
   };
-  
   
   
   const hendelrest = () => {
@@ -269,8 +217,43 @@ function CreatePost({ setArticles , onClose}) {
                       {errMsg?.message}
                     </span>
                   )}
- 
-          {previewImage && (
+ {previewImage && previewImage.map((image, index) => (
+    <div key={index} className="relative mb-3">
+      <button
+        onClick={() => {
+          const updatedPreviewImages = [...previewImage];
+          updatedPreviewImages.splice(index, 1); // Remove the clicked image from the array
+          setPreviewImage(updatedPreviewImages);
+          const updatedFiles = [...file];
+          updatedFiles.splice(index, 1); // Remove the corresponding file from the array
+          setFile(updatedFiles);
+          setFileType(null); // Clear the fileType when removing images
+        }}
+        className="absolute top-0 right-0 z-10 bg-white rounded-full p-[3px] text-white"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 bg-orange-500 rounded-full"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+      <img
+        src={image}
+        alt="Preview"
+        className="rounded-xxl self-center md:max-h-[600px] max-h-[350px] w-100 object-contain"
+      />
+    </div>
+  ))}
+          {/* {previewImage && (
   <div className="relative mb-3">
     <button
        onClick={() => {
@@ -302,7 +285,7 @@ function CreatePost({ setArticles , onClose}) {
       className="rounded-xxl self-center md:max-h-[600px] max-h-[350px] w-100 object-contain"
     />
   </div>
-)}
+)} */}
  {videoPreviewUrl && (
       <div className="w-full rounded-xl px-1 bg-gray-200">
         <div
@@ -363,7 +346,7 @@ function CreatePost({ setArticles , onClose}) {
 
 <div className="flex flex-col w-full   mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
   <div className="flex w-full justify-between  mr-3">
-    <label
+    {/* <label
       htmlFor="imgUpload"
       className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
     >
@@ -383,8 +366,23 @@ function CreatePost({ setArticles , onClose}) {
             `Photo`,  // -----> Englais
               `Photo`, //  -----> Francais
                            )  }</span>
-    </label>
-
+    </label> */}
+<label htmlFor="imgUpload" className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
+  <input
+    type="file"
+    onChange={(e) => handleFileChange(e, "image")} // Change to "image"
+    className="hidden"
+    id="imgUpload"
+    accept=".jpg, .png, .jpeg"
+    multiple // Enable multiple file selection
+  />
+  <img
+    loading="lazy"
+    src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+    className="aspect-square w-[25px]"
+  />
+  <span className="d-none-xs ml-2">Photo</span>
+</label>
     <label
       className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
       htmlFor="videoUpload"

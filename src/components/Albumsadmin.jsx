@@ -79,9 +79,9 @@ function Albumsadmin( {item} ) {
                             <div className="col-sm-12 p-1">
                               <div
                                 className="card-body position-relative h200 bg-image-cover bg-image-center cover"
-                                style={{
-                                  backgroundImage: `url(${item.ImagesAlbums[0]?.image_url})`,
-                                }}
+                                // style={{
+                                //   backgroundImage: `url(${item?.ImagesAlbums[0]?.image_url})`,
+                                // }}
                               ></div>
                             </div>
                           </div>

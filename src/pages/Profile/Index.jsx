@@ -365,6 +365,7 @@ const Index = () => {
 
   const LocalStorageID = JSON.parse(localStorage.getItem("user"));
   const isOwner = LocalStorageID.id == id;
+  
   const fetchArticles = async () => {
     try {
       const response = await fetch(
@@ -679,17 +680,15 @@ const Index = () => {
 
   const handleEditClick = (article) => {
     setEditArticle(article);
-    // Navigate to the edit page with the article ID
   };
 
   const addReply = async (commentId, replyText) => {
     try {
       if (commentId && replyText) {
-        // Retrieve user information from local storage
         const user = JSON.parse(localStorage.getItem("user"));
 
         const response = await fetch(
-          `${Config.LOCAL_URL}/api/replies`, // Update the endpoint here
+          `${Config.LOCAL_URL}/api/replies`, 
           {
             method: "POST",
             headers: {
@@ -710,18 +709,6 @@ const Index = () => {
           await fetchRepliesForComment(commentId);
         }
         console.log("Reply created:", data);
-
-        // Update the state with the new reply
-        // setArticleComments((prevComments) => {
-        //   const updatedComments = { ...prevComments };
-        //   updatedComments[commentId] = [
-        //     ...(updatedComments[commentId] || []),
-        //     data,
-        //   ];
-        //   return updatedComments;
-        // });
-
-        // Reset the reply input field and replyingToCommentId
         setReplyInput("");
         setReplyingToCommentId(null);
       }

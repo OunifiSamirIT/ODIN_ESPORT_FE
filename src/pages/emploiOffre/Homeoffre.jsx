@@ -16,6 +16,7 @@ import Plus from "../../assets/plus.png"
 import DatePicker from "react-datepicker";
 import { Config } from "../../config";
 import Index from './../Setting/index';
+import moment from 'moment';
 
 
 function HomeOffre() {
@@ -45,6 +46,7 @@ function HomeOffre() {
   const ref = useRef()
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [value, setValue] = useState(null);
   const [formData, setFormData] = useState({
@@ -55,11 +57,17 @@ function HomeOffre() {
     Experience: value?.Experience,
     typecontrat: value?.typecontrat,
     paysoffre: value?.paysoffre,
+
     date_experie: value?.date_experie,
-    description: value?.description
+
+
+    description: value?.description,
+    villeoffre: value?.villeoffre
   });
 
+  console.log(formData.image_url, "aaaaa")
   const navigate = useNavigate();
+
 
 
 
@@ -141,6 +149,7 @@ function HomeOffre() {
   const handleCancelDelete = () => {
     setOfferToDelete(null);
     setShowDeleteModal(false);
+    setShowMenu(false);
   }
 
   const handleMoreClick = (value) => {
@@ -263,7 +272,8 @@ function HomeOffre() {
       typecontrat: value.typecontrat,
       paysoffre: value.paysoffre,
       date_experie: value.date_experie,
-      description: value.description
+      description: value.description,
+      villeoffre: value.villeoffre,
     });
 
 
@@ -274,52 +284,28 @@ function HomeOffre() {
   };
 
 
-  // const formatDate = (dateString) => {
-  //   const dateParts = dateString?.split("-");
-  //   console.log(dateParts, "hahahahas")
-  //   console.log(dateString, "iheeeb")
-  //   if (dateParts?.length === 3) {
-  //     const year = dateParts[0];
-  //     const month = dateParts[1].padStart(2, "0");
-  //     const day = dateParts[2].padStart(2, "0");
-  //     return `${year}-${month}-${day}`;
-  //   } else {
-  //     return null;
-  //   }
-  // };
 
-  const formatDate = (input) => {
-    if (input instanceof Date) {
-      // Vérifie si l'entrée est un objet Date
-      const year = input.getFullYear();
-      const month = (input.getMonth() + 1).toString().padStart(2, "0"); // Les mois sont de 0 à 11
-      const day = input.getDate().toString().padStart(2, "0");
-      return `${year}-${month}-${day}`;
-    } else if (typeof input === "string") {
-      // Vérifie si l'entrée est une chaîne de caractères
-      const dateParts = input.split("-");
-      if (dateParts.length === 3) {
-        const year = dateParts[0];
-        const month = dateParts[1].padStart(2, "0");
-        const day = dateParts[2].padStart(2, "0");
-        return `${year}-${month}-${day}`;
-      }
+  const formatDate = (date) => {
+    if (moment(date, moment.ISO_8601, true).isValid()) {
+      return moment(date).format('DD-MM-YYYY');
+    } else {
+      console.error('Date invalide :', date);
+      return null;
     }
-    return null; // Retourne null si l'entrée n'est ni une Date ni une chaîne valide
   };
+  const handleDateChangee = (date) => {
 
-  // Exemples d'utilisation
 
-  const handleDateChange = (date) => {
-    const formattedDate = formatDate(date);
-    console.log(formattedDate, "neeeederrrrr")
-    console.log(formattedDate, "ahwaaaaaaaaaaa")
+
+    formatDate(date);
+    console.log(date, "alooooo")
     setFormData({
       ...formData,
-      date_experie: formattedDate,
-    });
-  };
+      date_experie: date,
 
+    });
+    // You can perform any additional actions with the selected date here
+  };
 
   const handleCountryChangePaysOffre = (selectedOption) => {
     setFormData((prevFormData) => ({
@@ -328,25 +314,29 @@ function HomeOffre() {
     }));
   };
 
-
-
+  const [file, setFile] = useState()
   const handleFileChange = async (e) => {
-    const file = e.target.files[0];
+    const file = e?.target?.files[0];
+    setFile(file)
     if (file) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        files: file, // Change 'image' to 'files'
+        files: file,
       }));
+      console.log(file, "fffff")
       setUploadedFiles([file]);
+      console.log(setUploadedFiles, "totooo")
       const reader = new FileReader();
       reader.onload = () => {
         setImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
+    console.log(uploadedFiles, "sooooootootootootootootootootootootootootootootoot");
   };
   const handleCancelUpdate = () => {
     setShowUpdateModal(false);
+    setShowMenu(false);
   };
 
   const handleUpdateSubmit = async (e) => {
@@ -354,7 +344,7 @@ function HomeOffre() {
     console.log('formdata from ups  tz', formData)
     try {
       const formDataToupdate = new FormData()
-      formDataToupdate.append("image_url", formData.image_url);
+
       formDataToupdate.append("EntrepriseName", formData.EntrepriseName);
       formDataToupdate.append("postoffre", formData.postoffre);
       formDataToupdate.append("NivET", formData.NivET);
@@ -363,17 +353,19 @@ function HomeOffre() {
       formDataToupdate.append("paysoffre", formData.paysoffre);
       formDataToupdate.append("date_experie", formData.date_experie);
       formDataToupdate.append("description", formData.description);
-
+      formDataToupdate.append("villeoffre", formData.villeoffre);
+      formDataToupdate.append("files", file);
 
       const response = await fetch(
         `${Config.LOCAL_URL}/api/offreemploi/update/${value.id}`,
         {
-          method: "Put",
+          method: "PUT",
           body: formDataToupdate,
+
         }
 
 
-      );
+      )
       console.log("Offre mise à jour :", response.data);
       const res = await response.json();
       console.log(res, "aaaappyyyyy")
@@ -911,15 +903,15 @@ function HomeOffre() {
                         loading="lazy"
                         src={
                           value.imagesalbumoffres.length > 0
-                            ? value.imagesalbumoffres[0].image_url
+                            ? value?.imagesalbumoffres[0]?.image_url
                             : require("../../assets/offre_icon.png")
                         } // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
                         onClick={() => handleCardClick(value.id)}
-                        className="  cursor-pointer  shrink-0 self-start aspect-fit w-[72px]"
+                        className="  cursor-pointer  shrink-0 self-start object-cover rounded-full aspect-fit w-[72px]"
                       />
                       <div className=" dark-light-bg   flex-col -ml-10" onClick={() => handleCardClick(value.id)}>
-                        <div className=" cursor-pointer dark-light-bg   self-start" onClick={() => handleCardClick(value.id)}> {value.EntrepriseName}</div>
-                        <div className=" cursor-pointer dark-light-bg  self-start mt-1 font-semibold ">
+                        <div className="  cursor-pointer dark-light-bg  self-start mt-1 font-semibold " onClick={() => handleCardClick(value.id)}> {value.EntrepriseName}</div>
+                        <div className=" cursor-pointer dark-light-bg  self-start mt-1 font-serif ">
                           {value.postoffre}
                         </div>
 
@@ -939,7 +931,7 @@ function HomeOffre() {
                                 Vous voulez vraiment supprimer cette Offre d'emploi
                               </div>
                               <div className="mt-4 flex gap-2 md:gap-5 justify-between mt-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                                <button onClick={handleCancelDelete} className="flex flex-1 gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
+                                <button onClick={handleCancelDelete} className="flex flex-1 gap-2 justify-center px-12 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] md:px-5">
                                   Annuler
                                 </button>
                                 <button type='submit' className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
@@ -962,10 +954,35 @@ function HomeOffre() {
                               <div className="flex justify-center items-center px-16 max-md:px-5 max-md:max-w-full">
                                 <div className="max-w-full w-[555px]">
                                   <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                                    <div className="flex flex-col  w-[35%] max-md:ml-0 max-md:w-full">
+                                    {/* <div className="flex flex-col  w-[35%] max-md:ml-0 max-md:w-full">
                                       {imagePreview ? (
                                         <img
                                           src={imagePreview}
+                                          alt="Preview"
+                                          loading="lazy"
+                                          className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                                        />
+                                      ) : (
+
+                                        <img
+                                          src={require("../../assets/Entreprise.png")}
+                                          alt="Default"
+                                          loading="lazy"
+                                          className="shrink-0 max-w-full  mx-auto rounded-full object-contain border-4 border-solid aspect-square  max-md:mt-10"
+                                        />
+                                      )}
+                                    </div> */}
+                                    <div className="flex flex-col w-[35%] max-md:ml-0 max-md:w-full">
+                                      {imagePreview ? (
+                                        <img
+                                          src={imagePreview}
+                                          alt="OFFRE IMAGE"
+                                          loading="lazy"
+                                          className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                                        />
+                                      ) : formData.image_url ? (
+                                        <img
+                                          src={formData.image_url}
                                           alt="Preview"
                                           loading="lazy"
                                           className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
@@ -975,10 +992,12 @@ function HomeOffre() {
                                           src={require("../../assets/Entreprise.png")}
                                           alt="Default"
                                           loading="lazy"
-                                          className="shrink-0 max-w-full  mx-auto rounded-full object-contain border-4 border-solid aspect-square  max-md:mt-10"
+                                          className="shrink-0 max-w-full mx-auto rounded-full object-contain border-4 border-solid aspect-square max-md:mt-10"
                                         />
                                       )}
                                     </div>
+
+
 
                                     <div className="flex flex-col ml-5 w-[65%] max-md:ml-0 max-md:w-full">
                                       <div className="flex flex-col self-stretch text-center my-auto max-md:mt-10">
@@ -989,6 +1008,7 @@ function HomeOffre() {
                                           <div className="flex flex-col items-center justify-center mt-4">
                                             <input
                                               type="file"
+                                              name="file"
                                               accept="image/*"
                                               onChange={handleFileChange}
                                               className="hidden"
@@ -1121,11 +1141,11 @@ function HomeOffre() {
                                       <div className="flex flex-col justify-center py-px mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                                         <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
                                           <DatePicker
-                                            className="bg-transparent py-1"
+                                            className="bg-transparent py-1 pl-3"
                                             id="date_experie"
-                                            selected={formatDate(formData.date_experie)}
-
-                                            onChange={handleDateChange}
+                                            selected={formData.date_experie}
+                                            dateFormat="dd/MM/yyyy"
+                                            onChange={handleDateChangee}
                                           // dateFormat="dd-MM-yyyy" // Set desired date format
                                           />
 
@@ -1247,7 +1267,28 @@ function HomeOffre() {
                                         onChange={handleCountryChangePaysOffre}
                                         value={optionsPaysOffre.find((option) => option.value === formData.paysoffre)} // Set the value from formData
                                       />
-
+                                      <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
+                                        <img
+                                          loading="lazy"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/3466d1b55c7280f975dd0988d2ff14c6cc643c9220fa57af2b5a521d6df0b6cc?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto w-5 aspect-square"
+                                        />
+                                        <div className="-ml-5" />
+                                        Ville
+                                      </div>
+                                      <input
+                                        type="text"
+                                        id="villeoffre"
+                                        placeholder="ville"
+                                        value={formData.villeoffre}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            villeoffre: e.target.value,
+                                          })
+                                        }
+                                        className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
+                                      />
 
                                     </div>
                                   </div>
@@ -1296,7 +1337,7 @@ function HomeOffre() {
 
 
                             <div className="mt-2 md:px-11 flex gap-2 md:gap-5 justify-between py-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-                              <button onClick={handleCancelUpdate} className="flex flex-1 gap-2 justify-center px-8 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] max-md:px-5">
+                              <button onClick={handleCancelUpdate} className="flex flex-1 gap-2 justify-center px-20 md:px-7 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] ">
                                 Annuler
                               </button>
                               <button type='submit' onClick={handleUpdateSubmit} className="flex flex-1 gap-2  justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
@@ -1368,7 +1409,7 @@ function HomeOffre() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/a56e4a73d8bb393d5a1698aeade75643c094a2060b7a72076dd3f55dff87074a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                           className="dark-invert-img  shrink-0 my-auto aspect-[1.06] fill-neutral-900 fill-opacity-70 w-[17px]"
                         />
-                        <div>{value.NivET}</div>
+                        <div>{value.NivET} </div>
                       </div>
                       <div className=" dark-light-bg    min-w-fit  flex gap-1.5 justify-between px-1 py-0.5">
                         <img
@@ -1392,7 +1433,7 @@ function HomeOffre() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/169497047ffb97f2a6bf4f95c6534c9431043e2e6ac9cc05d63cae95c8f9d866?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                           className=" dark-invert-img   shrink-0 my-auto w-3.5 aspect-[0.88] fill-neutral-900 fill-opacity-70"
                         />
-                        <div>{value.paysoffre}</div>
+                        <div>{value.paysoffre} , {value.villeoffre}</div>
                       </div>
                       <div className=" dark-light-bg  min-w-fit flex gap-1.5 min-w-fit justify-between px-1 py-0.5">
                         <img
@@ -1400,12 +1441,12 @@ function HomeOffre() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/10a38c1e9a44cb74467a36e05c308edb03242e37340e793426056a9b44611826?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                           className="dark-invert-img  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                         />
-                        <div>Expire le {value.date_experie}</div>
+                        <div>Expire le : {moment(value.date_experie).format("DD MM YYYY")}</div>
                       </div>
                     </div>
                     <div className=" dark-light-bg text-break  mt-3  md:px-20 text-neutral-900 text-opacity-70 max-md:max-w-full">
                       {value.description.length > 100 ?
-                        value.description.slice(0, 300) + '...' :
+                        value.description.slice(0, 100) + '...' :
                         value.description
                       }{" "}
                     </div>

@@ -53,7 +53,11 @@ function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [eventHasMore, setEventHasMore] = useState(true);
-  
+  const [articles, setArticles] = useState([]);
+
+  const addNewArticle = (newArticle) => {
+    setArticles([newArticle, ...articles]);
+  };
  let onDeleteFromListAcceuillFront = function (id) {
    
   setData([])
@@ -68,29 +72,8 @@ const [p, setP] = useState(0)
 let sizeOfPostsToget = 10
   let fetchMoreItems = async () => {
 
-  // const res = await     fetch(`https://dummyjson.com/products?limit=10&skip=${p * 10}`)
-  // const response = await fetch(`${Config.LOCAL_URL}/api/articles?size=1&page=${p * 1}`);
-
   
-  // const data = await response.json()
   fetchData(sizeOfPostsToget, p)
-  
-  // 
-  //   if(data.rows.length == 0)   {
-
-  //     setHasMore(false)
-  //   }
-
-  //   else {
-  //       setProduct(prevProducts => [...prevProducts, ...data.rows])
-  //       setP(prevPage =>  prevPage + 1)
-  //       
-  //   
-  //   
-
-  //   }
-  //   
-
     
   }
   function onIntersection (entries) {
@@ -133,11 +116,6 @@ let sizeOfPostsToget = 10
         
       }
       
-
-      // setData(prev => [...prev, 
-      //   ...result.data.sort(
-      //     (a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-      //   ])
       return result.data
     } catch (error) {
       console.error("Error fetching albums:", error);
@@ -155,69 +133,7 @@ let sizeOfPostsToget = 10
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
   };
   
-  // const fetchData = async () => {
-  //   try {
-  //     setLoading(true);
-  //     // Fetch articles (posts) and albums
-  //     const articlesResponse = await fetchArticles();
-  //     
-  //     const albumsResponse = await fetchAlbums();
-  //     
-
-  //     // Parse createdAt for articles
-  //     const parsedArticles = articlesResponse.map(article => {
-  //       // Assuming createdAt is in mm-dd-yyyy format, split and rearrange the date
-  //       const [month, day, year] = article.createdAt.split('T');
-  //       const formattedDate = `${day}-${month}-${year}`;
-  //       let time = article.createdAt.split('T')[1].split('.')[0]
-  //       let dt = article.createdAt.split('T')[0].split('-')
-  //       let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
-  //       // 
-  //       
-
-  //       return {
-  //         ...article,
-  //         createdAt: formatDate(article.createdAt),
-  //       };
-  //     });
-      
-  //     // Parse createdAt for albums
-      
-  //     const parsedAlbums = albumsResponse.map(album => {
-  //       let dt = album.createdAt.split('T')[0].split('-')
-  //       let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
-  //       let time = album.createdAt.split('T')[1].split('.')[0]
-      
-  //       // 
-  //       
-
-  //       return {
-  //         ...album,
-  //         createdAt: formatDate(album.createdAt) ,
-  //       };
-  //     });
-
-  //     // Combine articles and albums into a single array
-  //     const combinedData = [...parsedArticles, ...parsedAlbums];
-
-  //     // Sort the combined array by createdAt
-  //     combinedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  //     
-  //     // let combinedDataTemps = combinedData.sort((a, b) => new Date(b.temps) - new Date(a.temps));
-  //     // 
-
-  //     // Update state with sorted data
-  //     setData(combinedData);
-
-  //     
-  //     
-
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //     setLoading(false);
-  //   }
-  // };
+ 
 
 
   const fetchData = async (size, page) => {
@@ -225,16 +141,7 @@ let sizeOfPostsToget = 10
       // Fetch articles (posts) and albums
       const articlesResponse = await fetchArticles(size, page);
       
-      let albumsResponse = [] ;
-      if (eventHasMore) {
-
-        albumsResponse = await fetchAlbums(size, page);
-        
-      } else  {
-         albumsResponse = []
-         
-
-      }
+     
       
 
       
@@ -258,22 +165,10 @@ let sizeOfPostsToget = 10
       
       // Parse createdAt for albums
       
-      const parsedAlbums = albumsResponse.map(album => {
-        let dt = album.createdAt.split('T')[0].split('-')
-        let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
-        let time = album.createdAt.split('T')[1].split('.')[0]
       
-        // 
-        
-
-        return {
-          ...album,
-          createdAt: formatDate(album.createdAt) ,
-        };
-      });
 
       // Combine articles and albums into a single array
-      const combinedData = [...data, ...parsedArticles, ...parsedAlbums];
+      const combinedData = [...data, ...parsedArticles];
 
       setP(prevPage =>  prevPage + 1)
       
@@ -342,7 +237,6 @@ let sizeOfPostsToget = 10
     }
   };
 
-  // for left slide barre ---------------------------------
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -377,7 +271,14 @@ let sizeOfPostsToget = 10
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
 
   
+  
+  // const addNewArticle = (newArticleResponse) => {
+  //   const newArticle = newArticleResponse.data;
 
+  //   setData((prevData) => [newArticle, ...prevData]);
+  //   console.log("🚀🚀🚀🚀🚀🚀🚀🚀🚀 ~ addNewArticle ~ setData:", newArticle)
+    
+  // };
 
   return (
     <>
@@ -420,11 +321,9 @@ let sizeOfPostsToget = 10
                         data.map((item, index) => (
                           <div key={`item-${index}`}>
                             {
-                              Object.keys(item).length <= 7 ? (
-                                <Albumsadmin item={item} />
-                              ) : (
+                              
                                 <Post onDeleteFromListAcceuillFront={ () =>{onDeleteFromListAcceuillFront(id)}} article={item} setArticles={setData} />
-                              )
+                              
                             }
                           </div>
                         ))
