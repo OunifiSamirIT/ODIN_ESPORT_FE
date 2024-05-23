@@ -514,11 +514,78 @@ const More = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/d609bf65a79e970c6866ad932e5fdd62a603a912852f0024386dcf0730b04895?"
                             className="w-5 aspect-square"
                           />
-                          <div className="grow self-start mt-1">
+                          <div className="grow  self-start mt-1">
                             {CurrentUser?.player?.champsoptionelle}
                           </div>
                         </div>
-                        <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
+
+                        {CurrentUser?.player?.Licence && (
+                          <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
+                            <svg
+                              width="21"
+                              height="21"
+                              viewBox="0 0 21 21"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g clipPath="url(#clip0_154_38438)">
+                                <mask
+                                  id="mask0_154_38438"
+                                  maskUnits="userSpaceOnUse"
+                                  x="0"
+                                  y="0"
+                                  width="21"
+                                  height="21"
+                                >
+                                  <path
+                                    d="M20.6113 0.109375H0.611328V20.1094H20.6113V0.109375Z"
+                                    fill="white"
+                                  />
+                                </mask>
+                                <g mask="url(#mask0_154_38438)">
+                                  <path
+                                    d="M12.2774 5.94271V0.492708C13.0357 0.784375 13.7357 1.22604 14.3274 1.81771L17.2274 4.72604C17.8191 5.31771 18.2607 6.01771 18.5524 6.77604H13.1024C12.6441 6.77604 12.2691 6.40104 12.2691 5.94271H12.2774ZM15.6107 14.276C15.6107 12.4344 14.1191 10.9427 12.2774 10.9427C10.4357 10.9427 8.94401 12.4344 8.94401 14.276C8.94401 15.5094 9.61068 16.5844 10.6107 17.1594V19.501C10.6107 20.0344 11.2607 20.301 11.6357 19.926L12.2774 19.2844L12.9191 19.926C13.2941 20.301 13.9441 20.0344 13.9441 19.501V17.1594C14.9441 16.5844 15.6107 15.5094 15.6107 14.276ZM18.9274 8.44271H13.1107C11.7357 8.44271 10.6107 7.31771 10.6107 5.94271V0.126042C10.4773 0.117708 10.344 0.109375 10.2023 0.109375H6.44401C4.14401 0.109375 2.27734 1.97604 2.27734 4.27604V15.9427C2.27734 18.2427 4.14401 20.1094 6.44401 20.1094H8.94401V18.001C7.91901 17.0844 7.27734 15.7594 7.27734 14.276C7.27734 11.5177 9.51901 9.27604 12.2774 9.27604C15.0357 9.27604 17.2774 11.5177 17.2774 14.276C17.2774 15.7594 16.6357 17.0844 15.6107 18.001V20.026C17.5107 19.6427 18.9441 17.9594 18.9441 15.9427V8.85104C18.9441 8.71771 18.9357 8.58437 18.9274 8.44271Z"
+                                    fill="#1D1E21"
+                                  />
+                                </g>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_154_38438">
+                                  <rect
+                                    width="20"
+                                    height="21"
+                                    fill="white"
+                                    transform="translate(0.611328)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+
+                            <div className="grow self-start mt-1">
+                              {CurrentUser.player.Licence}
+                              {getTranslation(
+                                `License`,  // -----> English
+                                `Licence`   //  -----> French
+                                // Add other languages if needed
+                              )}
+                            </div>
+
+                            <svg
+                              width="21"
+                              height="15"
+                              viewBox="0 0 21 15"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.70916 15C6.11933 15.0002 5.55366 14.7658 5.13694 14.3484L0.383597 9.59681C-0.127866 9.08518 -0.127866 8.25583 0.383597 7.74421C0.895224 7.23274 1.72457 7.23274 2.2362 7.74421L6.70916 12.2172L18.5427 0.383597C19.0544 -0.127866 19.8837 -0.127866 20.3953 0.383597C20.9068 0.895224 20.9068 1.72457 20.3953 2.2362L8.28138 14.3484C7.86466 14.7658 7.29899 15.0002 6.70916 15Z"
+                                fill="#2E71EB"
+                              />
+                            </svg>
+                          </div>
+                        )}
+
+                        {/* <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                           <svg
                             width="21"
                             height="21"
@@ -560,6 +627,8 @@ const More = () => {
                           </svg>
 
                           <div className="grow self-start mt-1">
+
+                          {CurrentUser?.player?.Licence}
                             {
                               getTranslation(
                                 `License`,  // -----> Englais
@@ -581,7 +650,7 @@ const More = () => {
                               fill="#2E71EB"
                             />
                           </svg>
-                        </div>
+                        </div> */}
 
                         <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                           <svg
@@ -649,7 +718,7 @@ const More = () => {
               </div>
               <span className="h-1 w-full bg-gray-100"></span>
               <div className="max-w-[1110px] gap-8 w-full flex flex-col md:flex-row ">
-                <div className=" gap-y-4 max-w-xl flex flex flex-col justify-center">
+                <div className=" gap-y-4 max-w-xl  flex flex-col justify-center">
                   <div className="flex items-center justify-center gap-1 px-4  text-lg whitespace-nowrap text-zinc-900">
                     <svg
                       width="21"
@@ -2024,351 +2093,351 @@ const More = () => {
           )}
           {CurrentUser?.user.profil === "other" && (
             <div className="flex mt-8 gap-y-8 flex-col items-center px-1 md:px-4 py-6 bg-white rounded-[10px] jusitfy-center ">
-                <div className="max-w-[1110px] flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
-                  <div className="flex flex-col  max-md:ml-0 ">
-                    <img
-                      loading="lazy"
-                      srcSet={
-                        CurrentUser?.user.image
-                          ? CurrentUser?.user.image
-                          : Placeholder
-                      }
-                      className="max-w-full rounded-full aspect-square w-[227px] max-md:mt-4 object-cover"
-                    />
-                  </div>
-                  <div className="lg:min-w-[865px] flex flex-col items-center justify-between gap-y-4">
-                    <div className="flex flex-col w-full ">
-                      <div className="flex gap-2 md:justify-between justify-center w-full max-md:flex-wrap max-md:max-w-full">
-                        <div className="flex flex-col justify-between max-sm:text-center">
-                          <div className="text-xl font-bold text-zinc-900">
-                            {CurrentUser?.user.nom} {CurrentUser?.user.prenom}
-                          </div>
-                          <div className="text-base font-medium text-blue-600">
-                            {CurrentUser?.user?.profil == 'other' ? CurrentUser?.other?.profession : ''}
-                            {CurrentUser?.user?.profil == 'player' ? ' Joueur' : ''}
-                            {CurrentUser?.user?.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-                            {CurrentUser?.user?.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
-                            {CurrentUser?.user?.profil == 'scout' ? 'Scout' : ''}
-                          </div>
-
+              <div className="max-w-[1110px] flex gap-3 justify-center items-center max-md:flex-col max-md:gap-0">
+                <div className="flex flex-col  max-md:ml-0 ">
+                  <img
+                    loading="lazy"
+                    srcSet={
+                      CurrentUser?.user.image
+                        ? CurrentUser?.user.image
+                        : Placeholder
+                    }
+                    className="max-w-full rounded-full aspect-square w-[227px] max-md:mt-4 object-cover"
+                  />
+                </div>
+                <div className="lg:min-w-[865px] flex flex-col items-center justify-between gap-y-4">
+                  <div className="flex flex-col w-full ">
+                    <div className="flex gap-2 md:justify-between justify-center w-full max-md:flex-wrap max-md:max-w-full">
+                      <div className="flex flex-col justify-between max-sm:text-center">
+                        <div className="text-xl font-bold text-zinc-900">
+                          {CurrentUser?.user.nom} {CurrentUser?.user.prenom}
                         </div>
-                        {isOwner ? (
-                          <div className="max-sm:w-full flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
-                              className="shrink-0 my-auto aspect-square w-[15px]"
-                            />
-                            <Link
-                              to={"/setting/personal"}
-                              className="flex items-center"
-                            >
-                              <p>{
-                                getTranslation(
-                                  `Edit`,  // -----> Englais
-                                  `Modifier`, //  -----> Francais
-                                  //   ``,  //  -----> Turkey
-                                  //   `` ,  //  -----> Allemagne
-                                )
+                        <div className="text-base font-medium text-blue-600">
+                          {CurrentUser?.user?.profil == 'other' ? CurrentUser?.other?.profession : ''}
+                          {CurrentUser?.user?.profil == 'player' ? ' Joueur' : ''}
+                          {CurrentUser?.user?.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+                          {CurrentUser?.user?.profil == 'agent' && CurrentUser?.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
+                          {CurrentUser?.user?.profil == 'scout' ? 'Scout' : ''}
+                        </div>
 
-                              }</p>
-                            </Link>
-                          </div>
-                        ) : (
-                          null
-                          // <>
-                          //   <div className="flex items-center gap-3">
-                          //     <div
-                          //       className={`max-sm:w-full items-center flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]`}
-                          //     >
-                          //       <svg
-                          //         width="21"
-                          //         height="20"
-                          //         viewBox="0 0 21 20"
-                          //         fill="none"
-                          //         xmlns="http://www.w3.org/2000/svg"
-                          //       >
-                          //         <g clip-path="url(#clip0_17_12)">
-                          //           <path
-                          //             d="M7.99805 10C10.7595 10 12.998 7.76142 12.998 5C12.998 2.23858 10.7595 0 7.99805 0C5.23662 0 2.99805 2.23858 2.99805 5C2.99805 7.76142 5.23662 10 7.99805 10Z"
-                          //             fill="white"
-                          //           />
-                          //           <path
-                          //             d="M11.3672 11.6667H4.62888C3.53372 11.668 2.4838 12.1036 1.7094 12.878C0.935006 13.6524 0.49937 14.7023 0.498046 15.7975L0.498046 20H15.498V15.7975C15.4967 14.7023 15.0611 13.6524 14.2867 12.878C13.5123 12.1036 12.4624 11.668 11.3672 11.6667Z"
-                          //             fill="white"
-                          //           />
-                          //           <path
-                          //             d="M17.998 8.33334V5.83334H16.3314V8.33334H13.8314V10H16.3314V12.5H17.998V10H20.498V8.33334H17.998Z"
-                          //             fill="white"
-                          //           />
-                          //         </g>
-                          //         <defs>
-                          //           <clipPath id="clip0_17_12">
-                          //             <rect
-                          //               width="20"
-                          //               height="20"
-                          //               fill="white"
-                          //               transform="translate(0.498047)"
-                          //             />
-                          //           </clipPath>
-                          //         </defs>
-                          //       </svg>
-                          //       {acceptedFriend ? (
-                          //         <div className="grow">
-                          //           {acceptedFriend?.status == "pending"
-                          //             ? "En Atente"
-                          //             : "ami(e)"}
-                          //         </div>
-                          //       ) : (
-                          //         <button
-                          //           className="flex items-center "
-                          //           onClick={sendFriendRequest}
-                          //         >
-                          //           <p> {
-                          //             getTranslation(
-                          //               `Add friend`,  // -----> Englais
-                          //               `Ajouter ami(e)`, //  -----> Francais
-                          //               //   ``,  //  -----> Turkey
-                          //               //   `` ,  //  -----> Allemagne
-                          //             )
-
-                          //           } </p>
-                          //         </button>
-                          //       )}
-                          //     </div>
-                          //     {acceptedFriend?.status === "accepted" ? (
-                          //       <div>
-                          //         <button
-                          //           onClick={() => {
-                          //             copyLinkToClipboard();
-                          //             setIsCopyLinkPopupVisible(true);
-                          //             setTimeout(() => {
-                          //               setIsCopyLinkPopupVisible(false);
-                          //             }, 2000); // Hide the popup after 2 seconds
-                          //           }}
-                          //         >
-                          //           <svg
-                          //             className="fill-white"
-                          //             width="37"
-                          //             height="36"
-                          //             viewBox="0 0 37 36"
-                          //             fill="none"
-                          //             xmlns="http://www.w3.org/2000/svg"
-                          //           >
-                          //             <path
-                          //               className={
-                          //                 acceptedFriend?.status === "accepted"
-                          //                   ? "fill-green-500"
-                          //                   : "fill-gray-500"
-                          //               }
-                          //               d="M36.4991 18C36.4991 27.0912 29.7597 34.6069 21.0054 35.8269C20.1865 35.9409 19.349 36 18.4991 36C17.5175 36 16.5546 35.9212 15.6155 35.7699C7.0436 34.3913 0.498047 26.9596 0.498047 18C0.498047 8.05885 8.5569 0 18.498 0C28.4392 0 36.498 8.05885 36.498 18H36.4991Z"
-                          //               fill="#65676B"
-                          //             />
-                          //             <path
-                          //               className={
-                          //                 acceptedFriend?.status === "accepted"
-                          //                   ? "fill-white"
-                          //                   : "fill-gray-200"
-                          //               }
-                          //               d="M21.8418 23.328C17.1785 23.3269 13.3838 19.5323 13.3828 14.8701C13.3849 13.6884 14.3457 12.7266 15.5263 12.7266C15.6476 12.7266 15.7678 12.7369 15.8818 12.7577C16.1347 12.7991 16.3742 12.8852 16.596 13.0137C16.6281 13.0323 16.6499 13.0634 16.6551 13.0997L17.1474 16.2061C17.1536 16.2424 17.1422 16.2787 17.1184 16.3056C16.8458 16.6073 16.4986 16.8239 16.113 16.9327L15.9274 16.9856L15.9979 17.1659C16.6343 18.7839 17.9279 20.0785 19.5469 20.7149L19.7273 20.7854L19.7791 20.5988C19.8879 20.2122 20.1046 19.865 20.4062 19.5934C20.428 19.5737 20.457 19.5623 20.487 19.5623C20.4933 19.5623 20.5005 19.5623 20.5067 19.5644L23.6121 20.0567C23.6494 20.063 23.6795 20.0837 23.6992 20.1158C23.8267 20.3376 23.9127 20.5781 23.9552 20.83C23.9749 20.943 23.9853 21.0611 23.9853 21.1855C23.9853 22.3661 23.0234 23.3269 21.8418 23.329V23.328Z"
-                          //               fill="#D0D0D0"
-                          //             />
-                          //             <path
-                          //               className={
-                          //                 acceptedFriend?.status === "accepted"
-                          //                   ? "fill-white"
-                          //                   : "fill-gray-200"
-                          //               }
-                          //               d="M30.1113 16.9777C29.8594 14.1356 28.5575 11.4997 26.4451 9.55626C24.3203 7.60037 21.5622 6.52344 18.6786 6.52344C12.3497 6.52344 7.20029 11.6728 7.20029 18.0017C7.20029 20.1255 7.78592 22.1954 8.89498 23.9979L6.42188 29.4738L14.3429 28.6301C15.7204 29.1939 17.1788 29.48 18.6786 29.48C19.0735 29.48 19.4777 29.4593 19.883 29.4178C20.2406 29.3795 20.6013 29.3235 20.9568 29.252C26.2575 28.1813 30.1268 23.4766 30.1569 18.0629V18.0017C30.1569 17.6566 30.1413 17.3125 30.1102 16.9787L30.1113 16.9777ZM14.6466 26.2264L10.2642 26.6928L11.5733 23.7937L11.3121 23.4424C11.2924 23.4164 11.2738 23.3905 11.252 23.3615C10.116 21.7933 9.51585 19.94 9.51585 18.0007C9.51585 12.9477 13.6266 8.83796 18.6786 8.83796C23.4123 8.83796 27.4236 12.531 27.8102 17.2451C27.831 17.498 27.8413 17.7519 27.8413 18.0017C27.8413 18.0732 27.8403 18.1437 27.8382 18.2184C27.7408 22.4452 24.7878 26.0347 20.6573 26.9489C20.3422 27.0193 20.0188 27.0722 19.6964 27.1074C19.3616 27.1458 19.0186 27.1645 18.6775 27.1645C17.4638 27.1645 16.2843 26.9292 15.169 26.4648C15.0456 26.4151 14.9244 26.3622 14.8103 26.3073L14.6445 26.2275L14.6466 26.2264Z"
-                          //               fill="#D0D0D0"
-                          //             />
-                          //           </svg>
-                          //         </button>
-                          //         {isCopyLinkPopupVisible && (
-                          //           <div className="text-black copy-link-popup flex items-center">
-                          //             {
-                          //               getTranslation(
-                          //                 `Link copied!`,  // -----> Englais
-                          //                 `  Lien copié!`, //  -----> Francais
-                          //                 //   ``,  //  -----> Turkey
-                          //                 //   `` ,  //  -----> Allemagne
-                          //               )
-
-                          //             }
-                          //           </div>
-                          //         )}
-                          //       </div>
-                          //     ) : (
-                          //       <div>
-                          //         <button onClick={() => { }}>
-                          //           <svg
-                          //             className="fill-white"
-                          //             width="37"
-                          //             height="36"
-                          //             viewBox="0 0 37 36"
-                          //             fill="none"
-                          //             xmlns="http://www.w3.org/2000/svg"
-                          //           >
-                          //             <path
-                          //               className={
-                          //                 acceptedFriend?.status === "accepted"
-                          //                   ? "fill-green-500"
-                          //                   : "fill-gray-500"
-                          //               }
-                          //               d="M36.4991 18C36.4991 27.0912 29.7597 34.6069 21.0054 35.8269C20.1865 35.9409 19.349 36 18.4991 36C17.5175 36 16.5546 35.9212 15.6155 35.7699C7.0436 34.3913 0.498047 26.9596 0.498047 18C0.498047 8.05885 8.5569 0 18.498 0C28.4392 0 36.498 8.05885 36.498 18H36.4991Z"
-                          //               fill="#65676B"
-                          //             />
-                          //             <path
-                          //               className={
-                          //                 acceptedFriend?.status === "accepted"
-                          //                   ? "fill-white"
-                          //                   : "fill-gray-200"
-                          //               }
-                          //               d="M21.8418 23.328C17.1785 23.3269 13.3838 19.5323 13.3828 14.8701C13.3849 13.6884 14.3457 12.7266 15.5263 12.7266C15.6476 12.7266 15.7678 12.7369 15.8818 12.7577C16.1347 12.7991 16.3742 12.8852 16.596 13.0137C16.6281 13.0323 16.6499 13.0634 16.6551 13.0997L17.1474 16.2061C17.1536 16.2424 17.1422 16.2787 17.1184 16.3056C16.8458 16.6073 16.4986 16.8239 16.113 16.9327L15.9274 16.9856L15.9979 17.1659C16.6343 18.7839 17.9279 20.0785 19.5469 20.7149L19.7273 20.7854L19.7791 20.5988C19.8879 20.2122 20.1046 19.865 20.4062 19.5934C20.428 19.5737 20.457 19.5623 20.487 19.5623C20.4933 19.5623 20.5005 19.5623 20.5067 19.5644L23.6121 20.0567C23.6494 20.063 23.6795 20.0837 23.6992 20.1158C23.8267 20.3376 23.9127 20.5781 23.9552 20.83C23.9749 20.943 23.9853 21.0611 23.9853 21.1855C23.9853 22.3661 23.0234 23.3269 21.8418 23.329V23.328Z"
-                          //               fill="#D0D0D0"
-                          //             />
-                          //             <path
-                          //               className={
-                          //                 acceptedFriend?.status === "accepted"
-                          //                   ? "fill-white"
-                          //                   : "fill-gray-200"
-                          //               }
-                          //               d="M30.1113 16.9777C29.8594 14.1356 28.5575 11.4997 26.4451 9.55626C24.3203 7.60037 21.5622 6.52344 18.6786 6.52344C12.3497 6.52344 7.20029 11.6728 7.20029 18.0017C7.20029 20.1255 7.78592 22.1954 8.89498 23.9979L6.42188 29.4738L14.3429 28.6301C15.7204 29.1939 17.1788 29.48 18.6786 29.48C19.0735 29.48 19.4777 29.4593 19.883 29.4178C20.2406 29.3795 20.6013 29.3235 20.9568 29.252C26.2575 28.1813 30.1268 23.4766 30.1569 18.0629V18.0017C30.1569 17.6566 30.1413 17.3125 30.1102 16.9787L30.1113 16.9777ZM14.6466 26.2264L10.2642 26.6928L11.5733 23.7937L11.3121 23.4424C11.2924 23.4164 11.2738 23.3905 11.252 23.3615C10.116 21.7933 9.51585 19.94 9.51585 18.0007C9.51585 12.9477 13.6266 8.83796 18.6786 8.83796C23.4123 8.83796 27.4236 12.531 27.8102 17.2451C27.831 17.498 27.8413 17.7519 27.8413 18.0017C27.8413 18.0732 27.8403 18.1437 27.8382 18.2184C27.7408 22.4452 24.7878 26.0347 20.6573 26.9489C20.3422 27.0193 20.0188 27.0722 19.6964 27.1074C19.3616 27.1458 19.0186 27.1645 18.6775 27.1645C17.4638 27.1645 16.2843 26.9292 15.169 26.4648C15.0456 26.4151 14.9244 26.3622 14.8103 26.3073L14.6445 26.2275L14.6466 26.2264Z"
-                          //               fill="#D0D0D0"
-                          //             />
-                          //           </svg>
-                          //         </button>
-                          //         {isCopyLinkPopupVisible && (
-                          //           <div className="text-black copy-link-popup flex items-center">
-                          //             {
-                          //               getTranslation(
-                          //                 `Link copied!`,  // -----> Englais
-                          //                 `  Lien copié!`, //  -----> Francais
-                          //                 //   ``,  //  -----> Turkey
-                          //                 //   `` ,  //  -----> Allemagne
-                          //               )
-
-                          //             }
-                          //           </div>
-                          //         )}
-                          //       </div>
-                          //     )}
-                          //   </div>
-                          // </>
-                        )}
                       </div>
-
-                      {/* khnafis2 */}
-                      <div className="flex mt-2 gap-x-4 gap-y-2 justify-center md:justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap">
-                        <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
-                          <span
-                            className={`flag-icon flag-icon-${getCountryFlagFromCountryName(
-                              CurrentUser.user.countryresidence
-                            )}`}
-                            style={{ marginRight: "8px", width: "25px" }}
-                          ></span>
-                          <div className="grow self-start mt-1">
-                            {CurrentUser.user?.countryresidence}
-                          </div>
-                        </div>
-                        {CurrentUser.user.langueparlee && <div className="flex gap-2   justify-center p-2 whitespace-nowrap">
-                          <svg className="size-6" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5C11.1463 5.00005 11.2893 5.04286 11.4115 5.12317C11.5338 5.20348 11.6299 5.31778 11.688 5.452L14.938 12.952C14.98 13.0428 15.0035 13.1411 15.007 13.2411C15.0105 13.3411 14.9939 13.4408 14.9583 13.5343C14.9226 13.6278 14.8686 13.7133 14.7995 13.7856C14.7303 13.8579 14.6474 13.9157 14.5555 13.9554C14.4637 13.9952 14.3649 14.0162 14.2648 14.0172C14.1647 14.0182 14.0655 13.9991 13.9729 13.9611C13.8803 13.9232 13.7962 13.8671 13.7257 13.7961C13.6551 13.7252 13.5995 13.6408 13.562 13.548L12.89 12H9.10899L8.43899 13.548C8.35996 13.7306 8.21162 13.8743 8.02662 13.9476C7.84161 14.0208 7.63509 14.0175 7.45249 13.9385C7.26989 13.8595 7.12616 13.7111 7.05293 13.5261C6.9797 13.3411 6.98296 13.1346 7.06199 12.952L10.312 5.452C10.3701 5.31778 10.4662 5.20348 10.5884 5.12317C10.7107 5.04286 10.8537 5.00005 11 5ZM9.75999 10.5H12.24L11 7.636L9.75999 10.5ZM4.99999 1C5.1989 1 5.38967 1.07902 5.53032 1.21967C5.67097 1.36032 5.74999 1.55109 5.74999 1.75V3.011C6.61904 3.03659 7.4862 3.10702 8.34799 3.222C8.54518 3.24852 8.72376 3.35229 8.84444 3.51048C8.96512 3.66866 9.01801 3.86831 8.99149 4.0655C8.96497 4.26269 8.8612 4.44127 8.70301 4.56195C8.54483 4.68262 8.34518 4.73552 8.14799 4.709C7.92799 4.679 7.70799 4.653 7.48599 4.629C7.13418 5.84232 6.60659 6.99758 5.91999 8.058C6.15699 8.362 6.40799 8.653 6.67199 8.931C6.80924 9.07501 6.88366 9.26765 6.87888 9.46653C6.8741 9.66541 6.7905 9.85425 6.64649 9.9915C6.50248 10.1288 6.30984 10.2032 6.11096 10.1984C5.91208 10.1936 5.72324 10.11 5.58599 9.966C5.3833 9.75299 5.18786 9.53319 4.99999 9.307C4.18263 10.2901 3.22543 11.1479 2.15899 11.853C1.9931 11.9575 1.79287 11.993 1.60119 11.9517C1.40951 11.9104 1.24162 11.7956 1.13349 11.6321C1.02535 11.4685 0.985581 11.2691 1.02268 11.0766C1.05979 10.884 1.17082 10.7137 1.33199 10.602C2.38018 9.9086 3.30835 9.049 4.07999 8.057C3.88229 7.75222 3.69746 7.43928 3.52599 7.119C3.43224 6.94356 3.41202 6.73806 3.46978 6.54771C3.52754 6.35736 3.65855 6.19775 3.83399 6.104C4.00943 6.01025 4.21493 5.99003 4.40528 6.04779C4.59563 6.10555 4.75524 6.23656 4.84899 6.412C4.89799 6.502 4.94799 6.593 4.99899 6.683C5.38699 6.003 5.70699 5.278 5.95099 4.519C4.58141 4.46485 3.2097 4.52842 1.85099 4.709C1.6538 4.73552 1.45415 4.68262 1.29597 4.56195C1.13778 4.44127 1.03401 4.26269 1.00749 4.0655C0.98097 3.86831 1.03387 3.66866 1.15455 3.51048C1.27523 3.35229 1.4538 3.24852 1.65099 3.222C2.50399 3.108 3.37099 3.037 4.24899 3.011V1.75C4.24899 1.65143 4.26842 1.55382 4.30618 1.46276C4.34393 1.3717 4.39926 1.28897 4.46901 1.21932C4.53876 1.14966 4.62156 1.09444 4.71267 1.0568C4.80378 1.01917 4.90142 0.999869 4.99999 1Z" fill="black" />
-                          </svg>
-                          <div className=" self-start mt-1">
-                            {CurrentUser.user.langueparlee}
-                          </div>
-                        </div>}
-                        <div className="flex gap-2 justify-center items-center self-stretch py-2">
-                          <svg
-                            width="21"
-                            height="21"
-                            viewBox="0 0 21 21"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                      {isOwner ? (
+                        <div className="max-sm:w-full flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7d9a4939e54a7ca6f05fbd6e6afe23371f01555ddc659faf9ced6ddeab6710b?"
+                            className="shrink-0 my-auto aspect-square w-[15px]"
+                          />
+                          <Link
+                            to={"/setting/personal"}
+                            className="flex items-center"
                           >
+                            <p>{
+                              getTranslation(
+                                `Edit`,  // -----> Englais
+                                `Modifier`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
+
+                            }</p>
+                          </Link>
+                        </div>
+                      ) : (
+                        null
+                        // <>
+                        //   <div className="flex items-center gap-3">
+                        //     <div
+                        //       className={`max-sm:w-full items-center flex gap-2 max-sm:justify-center justify-between px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]`}
+                        //     >
+                        //       <svg
+                        //         width="21"
+                        //         height="20"
+                        //         viewBox="0 0 21 20"
+                        //         fill="none"
+                        //         xmlns="http://www.w3.org/2000/svg"
+                        //       >
+                        //         <g clip-path="url(#clip0_17_12)">
+                        //           <path
+                        //             d="M7.99805 10C10.7595 10 12.998 7.76142 12.998 5C12.998 2.23858 10.7595 0 7.99805 0C5.23662 0 2.99805 2.23858 2.99805 5C2.99805 7.76142 5.23662 10 7.99805 10Z"
+                        //             fill="white"
+                        //           />
+                        //           <path
+                        //             d="M11.3672 11.6667H4.62888C3.53372 11.668 2.4838 12.1036 1.7094 12.878C0.935006 13.6524 0.49937 14.7023 0.498046 15.7975L0.498046 20H15.498V15.7975C15.4967 14.7023 15.0611 13.6524 14.2867 12.878C13.5123 12.1036 12.4624 11.668 11.3672 11.6667Z"
+                        //             fill="white"
+                        //           />
+                        //           <path
+                        //             d="M17.998 8.33334V5.83334H16.3314V8.33334H13.8314V10H16.3314V12.5H17.998V10H20.498V8.33334H17.998Z"
+                        //             fill="white"
+                        //           />
+                        //         </g>
+                        //         <defs>
+                        //           <clipPath id="clip0_17_12">
+                        //             <rect
+                        //               width="20"
+                        //               height="20"
+                        //               fill="white"
+                        //               transform="translate(0.498047)"
+                        //             />
+                        //           </clipPath>
+                        //         </defs>
+                        //       </svg>
+                        //       {acceptedFriend ? (
+                        //         <div className="grow">
+                        //           {acceptedFriend?.status == "pending"
+                        //             ? "En Atente"
+                        //             : "ami(e)"}
+                        //         </div>
+                        //       ) : (
+                        //         <button
+                        //           className="flex items-center "
+                        //           onClick={sendFriendRequest}
+                        //         >
+                        //           <p> {
+                        //             getTranslation(
+                        //               `Add friend`,  // -----> Englais
+                        //               `Ajouter ami(e)`, //  -----> Francais
+                        //               //   ``,  //  -----> Turkey
+                        //               //   `` ,  //  -----> Allemagne
+                        //             )
+
+                        //           } </p>
+                        //         </button>
+                        //       )}
+                        //     </div>
+                        //     {acceptedFriend?.status === "accepted" ? (
+                        //       <div>
+                        //         <button
+                        //           onClick={() => {
+                        //             copyLinkToClipboard();
+                        //             setIsCopyLinkPopupVisible(true);
+                        //             setTimeout(() => {
+                        //               setIsCopyLinkPopupVisible(false);
+                        //             }, 2000); // Hide the popup after 2 seconds
+                        //           }}
+                        //         >
+                        //           <svg
+                        //             className="fill-white"
+                        //             width="37"
+                        //             height="36"
+                        //             viewBox="0 0 37 36"
+                        //             fill="none"
+                        //             xmlns="http://www.w3.org/2000/svg"
+                        //           >
+                        //             <path
+                        //               className={
+                        //                 acceptedFriend?.status === "accepted"
+                        //                   ? "fill-green-500"
+                        //                   : "fill-gray-500"
+                        //               }
+                        //               d="M36.4991 18C36.4991 27.0912 29.7597 34.6069 21.0054 35.8269C20.1865 35.9409 19.349 36 18.4991 36C17.5175 36 16.5546 35.9212 15.6155 35.7699C7.0436 34.3913 0.498047 26.9596 0.498047 18C0.498047 8.05885 8.5569 0 18.498 0C28.4392 0 36.498 8.05885 36.498 18H36.4991Z"
+                        //               fill="#65676B"
+                        //             />
+                        //             <path
+                        //               className={
+                        //                 acceptedFriend?.status === "accepted"
+                        //                   ? "fill-white"
+                        //                   : "fill-gray-200"
+                        //               }
+                        //               d="M21.8418 23.328C17.1785 23.3269 13.3838 19.5323 13.3828 14.8701C13.3849 13.6884 14.3457 12.7266 15.5263 12.7266C15.6476 12.7266 15.7678 12.7369 15.8818 12.7577C16.1347 12.7991 16.3742 12.8852 16.596 13.0137C16.6281 13.0323 16.6499 13.0634 16.6551 13.0997L17.1474 16.2061C17.1536 16.2424 17.1422 16.2787 17.1184 16.3056C16.8458 16.6073 16.4986 16.8239 16.113 16.9327L15.9274 16.9856L15.9979 17.1659C16.6343 18.7839 17.9279 20.0785 19.5469 20.7149L19.7273 20.7854L19.7791 20.5988C19.8879 20.2122 20.1046 19.865 20.4062 19.5934C20.428 19.5737 20.457 19.5623 20.487 19.5623C20.4933 19.5623 20.5005 19.5623 20.5067 19.5644L23.6121 20.0567C23.6494 20.063 23.6795 20.0837 23.6992 20.1158C23.8267 20.3376 23.9127 20.5781 23.9552 20.83C23.9749 20.943 23.9853 21.0611 23.9853 21.1855C23.9853 22.3661 23.0234 23.3269 21.8418 23.329V23.328Z"
+                        //               fill="#D0D0D0"
+                        //             />
+                        //             <path
+                        //               className={
+                        //                 acceptedFriend?.status === "accepted"
+                        //                   ? "fill-white"
+                        //                   : "fill-gray-200"
+                        //               }
+                        //               d="M30.1113 16.9777C29.8594 14.1356 28.5575 11.4997 26.4451 9.55626C24.3203 7.60037 21.5622 6.52344 18.6786 6.52344C12.3497 6.52344 7.20029 11.6728 7.20029 18.0017C7.20029 20.1255 7.78592 22.1954 8.89498 23.9979L6.42188 29.4738L14.3429 28.6301C15.7204 29.1939 17.1788 29.48 18.6786 29.48C19.0735 29.48 19.4777 29.4593 19.883 29.4178C20.2406 29.3795 20.6013 29.3235 20.9568 29.252C26.2575 28.1813 30.1268 23.4766 30.1569 18.0629V18.0017C30.1569 17.6566 30.1413 17.3125 30.1102 16.9787L30.1113 16.9777ZM14.6466 26.2264L10.2642 26.6928L11.5733 23.7937L11.3121 23.4424C11.2924 23.4164 11.2738 23.3905 11.252 23.3615C10.116 21.7933 9.51585 19.94 9.51585 18.0007C9.51585 12.9477 13.6266 8.83796 18.6786 8.83796C23.4123 8.83796 27.4236 12.531 27.8102 17.2451C27.831 17.498 27.8413 17.7519 27.8413 18.0017C27.8413 18.0732 27.8403 18.1437 27.8382 18.2184C27.7408 22.4452 24.7878 26.0347 20.6573 26.9489C20.3422 27.0193 20.0188 27.0722 19.6964 27.1074C19.3616 27.1458 19.0186 27.1645 18.6775 27.1645C17.4638 27.1645 16.2843 26.9292 15.169 26.4648C15.0456 26.4151 14.9244 26.3622 14.8103 26.3073L14.6445 26.2275L14.6466 26.2264Z"
+                        //               fill="#D0D0D0"
+                        //             />
+                        //           </svg>
+                        //         </button>
+                        //         {isCopyLinkPopupVisible && (
+                        //           <div className="text-black copy-link-popup flex items-center">
+                        //             {
+                        //               getTranslation(
+                        //                 `Link copied!`,  // -----> Englais
+                        //                 `  Lien copié!`, //  -----> Francais
+                        //                 //   ``,  //  -----> Turkey
+                        //                 //   `` ,  //  -----> Allemagne
+                        //               )
+
+                        //             }
+                        //           </div>
+                        //         )}
+                        //       </div>
+                        //     ) : (
+                        //       <div>
+                        //         <button onClick={() => { }}>
+                        //           <svg
+                        //             className="fill-white"
+                        //             width="37"
+                        //             height="36"
+                        //             viewBox="0 0 37 36"
+                        //             fill="none"
+                        //             xmlns="http://www.w3.org/2000/svg"
+                        //           >
+                        //             <path
+                        //               className={
+                        //                 acceptedFriend?.status === "accepted"
+                        //                   ? "fill-green-500"
+                        //                   : "fill-gray-500"
+                        //               }
+                        //               d="M36.4991 18C36.4991 27.0912 29.7597 34.6069 21.0054 35.8269C20.1865 35.9409 19.349 36 18.4991 36C17.5175 36 16.5546 35.9212 15.6155 35.7699C7.0436 34.3913 0.498047 26.9596 0.498047 18C0.498047 8.05885 8.5569 0 18.498 0C28.4392 0 36.498 8.05885 36.498 18H36.4991Z"
+                        //               fill="#65676B"
+                        //             />
+                        //             <path
+                        //               className={
+                        //                 acceptedFriend?.status === "accepted"
+                        //                   ? "fill-white"
+                        //                   : "fill-gray-200"
+                        //               }
+                        //               d="M21.8418 23.328C17.1785 23.3269 13.3838 19.5323 13.3828 14.8701C13.3849 13.6884 14.3457 12.7266 15.5263 12.7266C15.6476 12.7266 15.7678 12.7369 15.8818 12.7577C16.1347 12.7991 16.3742 12.8852 16.596 13.0137C16.6281 13.0323 16.6499 13.0634 16.6551 13.0997L17.1474 16.2061C17.1536 16.2424 17.1422 16.2787 17.1184 16.3056C16.8458 16.6073 16.4986 16.8239 16.113 16.9327L15.9274 16.9856L15.9979 17.1659C16.6343 18.7839 17.9279 20.0785 19.5469 20.7149L19.7273 20.7854L19.7791 20.5988C19.8879 20.2122 20.1046 19.865 20.4062 19.5934C20.428 19.5737 20.457 19.5623 20.487 19.5623C20.4933 19.5623 20.5005 19.5623 20.5067 19.5644L23.6121 20.0567C23.6494 20.063 23.6795 20.0837 23.6992 20.1158C23.8267 20.3376 23.9127 20.5781 23.9552 20.83C23.9749 20.943 23.9853 21.0611 23.9853 21.1855C23.9853 22.3661 23.0234 23.3269 21.8418 23.329V23.328Z"
+                        //               fill="#D0D0D0"
+                        //             />
+                        //             <path
+                        //               className={
+                        //                 acceptedFriend?.status === "accepted"
+                        //                   ? "fill-white"
+                        //                   : "fill-gray-200"
+                        //               }
+                        //               d="M30.1113 16.9777C29.8594 14.1356 28.5575 11.4997 26.4451 9.55626C24.3203 7.60037 21.5622 6.52344 18.6786 6.52344C12.3497 6.52344 7.20029 11.6728 7.20029 18.0017C7.20029 20.1255 7.78592 22.1954 8.89498 23.9979L6.42188 29.4738L14.3429 28.6301C15.7204 29.1939 17.1788 29.48 18.6786 29.48C19.0735 29.48 19.4777 29.4593 19.883 29.4178C20.2406 29.3795 20.6013 29.3235 20.9568 29.252C26.2575 28.1813 30.1268 23.4766 30.1569 18.0629V18.0017C30.1569 17.6566 30.1413 17.3125 30.1102 16.9787L30.1113 16.9777ZM14.6466 26.2264L10.2642 26.6928L11.5733 23.7937L11.3121 23.4424C11.2924 23.4164 11.2738 23.3905 11.252 23.3615C10.116 21.7933 9.51585 19.94 9.51585 18.0007C9.51585 12.9477 13.6266 8.83796 18.6786 8.83796C23.4123 8.83796 27.4236 12.531 27.8102 17.2451C27.831 17.498 27.8413 17.7519 27.8413 18.0017C27.8413 18.0732 27.8403 18.1437 27.8382 18.2184C27.7408 22.4452 24.7878 26.0347 20.6573 26.9489C20.3422 27.0193 20.0188 27.0722 19.6964 27.1074C19.3616 27.1458 19.0186 27.1645 18.6775 27.1645C17.4638 27.1645 16.2843 26.9292 15.169 26.4648C15.0456 26.4151 14.9244 26.3622 14.8103 26.3073L14.6445 26.2275L14.6466 26.2264Z"
+                        //               fill="#D0D0D0"
+                        //             />
+                        //           </svg>
+                        //         </button>
+                        //         {isCopyLinkPopupVisible && (
+                        //           <div className="text-black copy-link-popup flex items-center">
+                        //             {
+                        //               getTranslation(
+                        //                 `Link copied!`,  // -----> Englais
+                        //                 `  Lien copié!`, //  -----> Francais
+                        //                 //   ``,  //  -----> Turkey
+                        //                 //   `` ,  //  -----> Allemagne
+                        //               )
+
+                        //             }
+                        //           </div>
+                        //         )}
+                        //       </div>
+                        //     )}
+                        //   </div>
+                        // </>
+                      )}
+                    </div>
+
+                    {/* khnafis2 */}
+                    <div className="flex mt-2 gap-x-4 gap-y-2 justify-center md:justify-between items-start mt-1 text-xs font-light text-center text-zinc-900 flex-wrap">
+                      <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
+                        <span
+                          className={`flag-icon flag-icon-${getCountryFlagFromCountryName(
+                            CurrentUser.user.countryresidence
+                          )}`}
+                          style={{ marginRight: "8px", width: "25px" }}
+                        ></span>
+                        <div className="grow self-start mt-1">
+                          {CurrentUser.user?.countryresidence}
+                        </div>
+                      </div>
+                      {CurrentUser.user.langueparlee && <div className="flex gap-2   justify-center p-2 whitespace-nowrap">
+                        <svg className="size-6" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M11 5C11.1463 5.00005 11.2893 5.04286 11.4115 5.12317C11.5338 5.20348 11.6299 5.31778 11.688 5.452L14.938 12.952C14.98 13.0428 15.0035 13.1411 15.007 13.2411C15.0105 13.3411 14.9939 13.4408 14.9583 13.5343C14.9226 13.6278 14.8686 13.7133 14.7995 13.7856C14.7303 13.8579 14.6474 13.9157 14.5555 13.9554C14.4637 13.9952 14.3649 14.0162 14.2648 14.0172C14.1647 14.0182 14.0655 13.9991 13.9729 13.9611C13.8803 13.9232 13.7962 13.8671 13.7257 13.7961C13.6551 13.7252 13.5995 13.6408 13.562 13.548L12.89 12H9.10899L8.43899 13.548C8.35996 13.7306 8.21162 13.8743 8.02662 13.9476C7.84161 14.0208 7.63509 14.0175 7.45249 13.9385C7.26989 13.8595 7.12616 13.7111 7.05293 13.5261C6.9797 13.3411 6.98296 13.1346 7.06199 12.952L10.312 5.452C10.3701 5.31778 10.4662 5.20348 10.5884 5.12317C10.7107 5.04286 10.8537 5.00005 11 5ZM9.75999 10.5H12.24L11 7.636L9.75999 10.5ZM4.99999 1C5.1989 1 5.38967 1.07902 5.53032 1.21967C5.67097 1.36032 5.74999 1.55109 5.74999 1.75V3.011C6.61904 3.03659 7.4862 3.10702 8.34799 3.222C8.54518 3.24852 8.72376 3.35229 8.84444 3.51048C8.96512 3.66866 9.01801 3.86831 8.99149 4.0655C8.96497 4.26269 8.8612 4.44127 8.70301 4.56195C8.54483 4.68262 8.34518 4.73552 8.14799 4.709C7.92799 4.679 7.70799 4.653 7.48599 4.629C7.13418 5.84232 6.60659 6.99758 5.91999 8.058C6.15699 8.362 6.40799 8.653 6.67199 8.931C6.80924 9.07501 6.88366 9.26765 6.87888 9.46653C6.8741 9.66541 6.7905 9.85425 6.64649 9.9915C6.50248 10.1288 6.30984 10.2032 6.11096 10.1984C5.91208 10.1936 5.72324 10.11 5.58599 9.966C5.3833 9.75299 5.18786 9.53319 4.99999 9.307C4.18263 10.2901 3.22543 11.1479 2.15899 11.853C1.9931 11.9575 1.79287 11.993 1.60119 11.9517C1.40951 11.9104 1.24162 11.7956 1.13349 11.6321C1.02535 11.4685 0.985581 11.2691 1.02268 11.0766C1.05979 10.884 1.17082 10.7137 1.33199 10.602C2.38018 9.9086 3.30835 9.049 4.07999 8.057C3.88229 7.75222 3.69746 7.43928 3.52599 7.119C3.43224 6.94356 3.41202 6.73806 3.46978 6.54771C3.52754 6.35736 3.65855 6.19775 3.83399 6.104C4.00943 6.01025 4.21493 5.99003 4.40528 6.04779C4.59563 6.10555 4.75524 6.23656 4.84899 6.412C4.89799 6.502 4.94799 6.593 4.99899 6.683C5.38699 6.003 5.70699 5.278 5.95099 4.519C4.58141 4.46485 3.2097 4.52842 1.85099 4.709C1.6538 4.73552 1.45415 4.68262 1.29597 4.56195C1.13778 4.44127 1.03401 4.26269 1.00749 4.0655C0.98097 3.86831 1.03387 3.66866 1.15455 3.51048C1.27523 3.35229 1.4538 3.24852 1.65099 3.222C2.50399 3.108 3.37099 3.037 4.24899 3.011V1.75C4.24899 1.65143 4.26842 1.55382 4.30618 1.46276C4.34393 1.3717 4.39926 1.28897 4.46901 1.21932C4.53876 1.14966 4.62156 1.09444 4.71267 1.0568C4.80378 1.01917 4.90142 0.999869 4.99999 1Z" fill="black" />
+                        </svg>
+                        <div className=" self-start mt-1">
+                          {CurrentUser.user.langueparlee}
+                        </div>
+                      </div>}
+                      <div className="flex gap-2 justify-center items-center self-stretch py-2">
+                        <svg
+                          width="21"
+                          height="21"
+                          viewBox="0 0 21 21"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M20.0481 1.33333C20.0481 1.11232 19.9603 0.900358 19.804 0.744078C19.6478 0.587797 19.4358 0.5 19.2148 0.5H15.4073C15.2425 0.500035 15.0814 0.548928 14.9444 0.640499C14.8074 0.732069 14.7006 0.862205 14.6375 1.01445C14.5745 1.1667 14.558 1.33423 14.5901 1.49586C14.6223 1.65749 14.7016 1.80596 14.8181 1.9225L15.8423 2.94667L14.1439 4.645C13.2795 4.10723 12.2801 3.82617 11.2621 3.83458C10.244 3.84299 9.24937 4.14052 8.39395 4.6925C7.73089 4.26727 6.98302 3.9919 6.20254 3.88559C5.42205 3.77928 4.62777 3.84461 3.87515 4.07702C3.12252 4.30942 2.42969 4.70329 1.84503 5.23114C1.26037 5.75899 0.797963 6.40809 0.490099 7.13313C0.182235 7.85816 0.0363313 8.64165 0.0625756 9.42891C0.0888198 10.2162 0.286579 10.9882 0.642046 11.6911C0.997513 12.394 1.50212 13.0109 2.12064 13.4986C2.73916 13.9864 3.45668 14.3332 4.22311 14.515V15.5H3.38978C3.05826 15.5 2.74032 15.6317 2.5059 15.8661C2.27148 16.1005 2.13978 16.4185 2.13978 16.75C2.13978 17.0815 2.27148 17.3995 2.5059 17.6339C2.74032 17.8683 3.05826 18 3.38978 18H4.22311V19.25C4.22311 19.5815 4.35481 19.8995 4.58923 20.1339C4.82365 20.3683 5.14159 20.5 5.47311 20.5C5.80463 20.5 6.12258 20.3683 6.357 20.1339C6.59142 19.8995 6.72311 19.5815 6.72311 19.25V18H7.55645C7.88797 18 8.20591 17.8683 8.44033 17.6339C8.67475 17.3995 8.80645 17.0815 8.80645 16.75C8.80645 16.4185 8.67475 16.1005 8.44033 15.8661C8.20591 15.6317 7.88797 15.5 7.55645 15.5H6.72311V14.5075C7.31414 14.3697 7.87764 14.1331 8.38978 13.8075C9.42127 14.4701 10.6473 14.7624 11.8668 14.6366C13.0863 14.5108 14.2268 13.9742 15.1013 13.115C15.9757 12.2557 16.5322 11.1248 16.6794 9.90771C16.8266 8.69061 16.5558 7.45962 15.9114 6.41667L17.6098 4.71833L18.6339 5.7425C18.7508 5.85937 18.8998 5.93883 19.062 5.97079C19.2242 6.00274 19.3922 5.98575 19.5447 5.92197C19.6972 5.85818 19.8273 5.75049 19.9184 5.61258C20.0095 5.47468 20.0576 5.31279 20.0564 5.1475L20.0481 1.33333ZM2.55645 9.25C2.55448 8.76821 2.67238 8.2935 2.89952 7.86861C3.12666 7.44372 3.4559 7.08199 3.85762 6.816C4.25933 6.55001 4.72089 6.38811 5.20074 6.34487C5.68059 6.30164 6.16366 6.37843 6.60645 6.56833C6.13694 7.38408 5.88983 8.30879 5.88983 9.25C5.88983 10.1912 6.13694 11.1159 6.60645 11.9317C6.16366 12.1216 5.68059 12.1984 5.20074 12.1551C4.72089 12.1119 4.25933 11.95 3.85762 11.684C3.4559 11.418 3.12666 11.0563 2.89952 10.6314C2.67238 10.2065 2.55448 9.73179 2.55645 9.25ZM11.3064 12.1667C10.7296 12.1667 10.1657 11.9956 9.68603 11.6751C9.20639 11.3546 8.83255 10.8991 8.6118 10.3662C8.39104 9.83321 8.33328 9.24676 8.44582 8.68099C8.55836 8.11521 8.83615 7.59551 9.24405 7.18761C9.65196 6.7797 10.1717 6.50192 10.7374 6.38938C11.3032 6.27684 11.8897 6.3346 12.4226 6.55535C12.9556 6.77611 13.4111 7.14994 13.7316 7.62959C14.0521 8.10923 14.2231 8.67314 14.2231 9.25C14.2231 10.0235 13.9158 10.7654 13.3688 11.3124C12.8219 11.8594 12.08 12.1667 11.3064 12.1667Z"
+                            fill="#1D1E21"
+                          />
+                        </svg>
+                        <div className="self-stretch my-auto">
+                          {CurrentUser.user.gender == "male"
+                            ? "Homme"
+                            : "Femme"}
+                        </div>
+                      </div>
+                      <div className="flex gap-2 justify-center items-center self-stretch py-2">
+                        <svg
+                          width="21"
+                          height="21"
+                          viewBox="0 0 21 21"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clip-path="url(#clip0_87_12064)">
                             <path
-                              d="M20.0481 1.33333C20.0481 1.11232 19.9603 0.900358 19.804 0.744078C19.6478 0.587797 19.4358 0.5 19.2148 0.5H15.4073C15.2425 0.500035 15.0814 0.548928 14.9444 0.640499C14.8074 0.732069 14.7006 0.862205 14.6375 1.01445C14.5745 1.1667 14.558 1.33423 14.5901 1.49586C14.6223 1.65749 14.7016 1.80596 14.8181 1.9225L15.8423 2.94667L14.1439 4.645C13.2795 4.10723 12.2801 3.82617 11.2621 3.83458C10.244 3.84299 9.24937 4.14052 8.39395 4.6925C7.73089 4.26727 6.98302 3.9919 6.20254 3.88559C5.42205 3.77928 4.62777 3.84461 3.87515 4.07702C3.12252 4.30942 2.42969 4.70329 1.84503 5.23114C1.26037 5.75899 0.797963 6.40809 0.490099 7.13313C0.182235 7.85816 0.0363313 8.64165 0.0625756 9.42891C0.0888198 10.2162 0.286579 10.9882 0.642046 11.6911C0.997513 12.394 1.50212 13.0109 2.12064 13.4986C2.73916 13.9864 3.45668 14.3332 4.22311 14.515V15.5H3.38978C3.05826 15.5 2.74032 15.6317 2.5059 15.8661C2.27148 16.1005 2.13978 16.4185 2.13978 16.75C2.13978 17.0815 2.27148 17.3995 2.5059 17.6339C2.74032 17.8683 3.05826 18 3.38978 18H4.22311V19.25C4.22311 19.5815 4.35481 19.8995 4.58923 20.1339C4.82365 20.3683 5.14159 20.5 5.47311 20.5C5.80463 20.5 6.12258 20.3683 6.357 20.1339C6.59142 19.8995 6.72311 19.5815 6.72311 19.25V18H7.55645C7.88797 18 8.20591 17.8683 8.44033 17.6339C8.67475 17.3995 8.80645 17.0815 8.80645 16.75C8.80645 16.4185 8.67475 16.1005 8.44033 15.8661C8.20591 15.6317 7.88797 15.5 7.55645 15.5H6.72311V14.5075C7.31414 14.3697 7.87764 14.1331 8.38978 13.8075C9.42127 14.4701 10.6473 14.7624 11.8668 14.6366C13.0863 14.5108 14.2268 13.9742 15.1013 13.115C15.9757 12.2557 16.5322 11.1248 16.6794 9.90771C16.8266 8.69061 16.5558 7.45962 15.9114 6.41667L17.6098 4.71833L18.6339 5.7425C18.7508 5.85937 18.8998 5.93883 19.062 5.97079C19.2242 6.00274 19.3922 5.98575 19.5447 5.92197C19.6972 5.85818 19.8273 5.75049 19.9184 5.61258C20.0095 5.47468 20.0576 5.31279 20.0564 5.1475L20.0481 1.33333ZM2.55645 9.25C2.55448 8.76821 2.67238 8.2935 2.89952 7.86861C3.12666 7.44372 3.4559 7.08199 3.85762 6.816C4.25933 6.55001 4.72089 6.38811 5.20074 6.34487C5.68059 6.30164 6.16366 6.37843 6.60645 6.56833C6.13694 7.38408 5.88983 8.30879 5.88983 9.25C5.88983 10.1912 6.13694 11.1159 6.60645 11.9317C6.16366 12.1216 5.68059 12.1984 5.20074 12.1551C4.72089 12.1119 4.25933 11.95 3.85762 11.684C3.4559 11.418 3.12666 11.0563 2.89952 10.6314C2.67238 10.2065 2.55448 9.73179 2.55645 9.25ZM11.3064 12.1667C10.7296 12.1667 10.1657 11.9956 9.68603 11.6751C9.20639 11.3546 8.83255 10.8991 8.6118 10.3662C8.39104 9.83321 8.33328 9.24676 8.44582 8.68099C8.55836 8.11521 8.83615 7.59551 9.24405 7.18761C9.65196 6.7797 10.1717 6.50192 10.7374 6.38938C11.3032 6.27684 11.8897 6.3346 12.4226 6.55535C12.9556 6.77611 13.4111 7.14994 13.7316 7.62959C14.0521 8.10923 14.2231 8.67314 14.2231 9.25C14.2231 10.0235 13.9158 10.7654 13.3688 11.3124C12.8219 11.8594 12.08 12.1667 11.3064 12.1667Z"
+                              d="M0.112793 16.332C0.114116 17.4367 0.553528 18.4957 1.33464 19.2768C2.11576 20.058 3.1748 20.4974 4.27946 20.4987H15.9461C17.0508 20.4974 18.1098 20.058 18.8909 19.2768C19.6721 18.4957 20.1115 17.4367 20.1128 16.332V8.83203H0.112793V16.332ZM14.2795 12.582C14.5267 12.582 14.7684 12.6553 14.9739 12.7927C15.1795 12.93 15.3397 13.1253 15.4343 13.3537C15.5289 13.5821 15.5537 13.8334 15.5054 14.0759C15.4572 14.3184 15.3382 14.5411 15.1633 14.7159C14.9885 14.8907 14.7658 15.0098 14.5233 15.058C14.2808 15.1062 14.0295 15.0815 13.8011 14.9869C13.5727 14.8923 13.3775 14.7321 13.2401 14.5265C13.1028 14.3209 13.0295 14.0793 13.0295 13.832C13.0295 13.5005 13.1612 13.1826 13.3956 12.9481C13.63 12.7137 13.9479 12.582 14.2795 12.582ZM10.1128 12.582C10.36 12.582 10.6017 12.6553 10.8073 12.7927C11.0128 12.93 11.173 13.1253 11.2676 13.3537C11.3623 13.5821 11.387 13.8334 11.3388 14.0759C11.2905 14.3184 11.1715 14.5411 10.9967 14.7159C10.8219 14.8907 10.5991 15.0098 10.3567 15.058C10.1142 15.1062 9.86285 15.0815 9.63444 14.9869C9.40603 14.8923 9.21081 14.7321 9.07346 14.5265C8.9361 14.3209 8.86279 14.0793 8.86279 13.832C8.86279 13.5005 8.99449 13.1826 9.22891 12.9481C9.46333 12.7137 9.78127 12.582 10.1128 12.582ZM5.94613 12.582C6.19335 12.582 6.43503 12.6553 6.64059 12.7927C6.84615 12.93 7.00637 13.1253 7.10098 13.3537C7.19559 13.5821 7.22034 13.8334 7.17211 14.0759C7.12388 14.3184 7.00483 14.5411 6.83001 14.7159C6.65519 14.8907 6.43247 15.0098 6.18999 15.058C5.94751 15.1062 5.69618 15.0815 5.46777 14.9869C5.23936 14.8923 5.04414 14.7321 4.90679 14.5265C4.76944 14.3209 4.69613 14.0793 4.69613 13.832C4.69613 13.5005 4.82782 13.1826 5.06224 12.9481C5.29666 12.7137 5.61461 12.582 5.94613 12.582Z"
                               fill="#1D1E21"
                             />
-                          </svg>
-                          <div className="self-stretch my-auto">
-                            {CurrentUser.user.gender == "male"
-                              ? "Homme"
-                              : "Femme"}
-                          </div>
-                        </div>
-                        <div className="flex gap-2 justify-center items-center self-stretch py-2">
-                          <svg
-                            width="21"
-                            height="21"
-                            viewBox="0 0 21 21"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g clip-path="url(#clip0_87_12064)">
-                              <path
-                                d="M0.112793 16.332C0.114116 17.4367 0.553528 18.4957 1.33464 19.2768C2.11576 20.058 3.1748 20.4974 4.27946 20.4987H15.9461C17.0508 20.4974 18.1098 20.058 18.8909 19.2768C19.6721 18.4957 20.1115 17.4367 20.1128 16.332V8.83203H0.112793V16.332ZM14.2795 12.582C14.5267 12.582 14.7684 12.6553 14.9739 12.7927C15.1795 12.93 15.3397 13.1253 15.4343 13.3537C15.5289 13.5821 15.5537 13.8334 15.5054 14.0759C15.4572 14.3184 15.3382 14.5411 15.1633 14.7159C14.9885 14.8907 14.7658 15.0098 14.5233 15.058C14.2808 15.1062 14.0295 15.0815 13.8011 14.9869C13.5727 14.8923 13.3775 14.7321 13.2401 14.5265C13.1028 14.3209 13.0295 14.0793 13.0295 13.832C13.0295 13.5005 13.1612 13.1826 13.3956 12.9481C13.63 12.7137 13.9479 12.582 14.2795 12.582ZM10.1128 12.582C10.36 12.582 10.6017 12.6553 10.8073 12.7927C11.0128 12.93 11.173 13.1253 11.2676 13.3537C11.3623 13.5821 11.387 13.8334 11.3388 14.0759C11.2905 14.3184 11.1715 14.5411 10.9967 14.7159C10.8219 14.8907 10.5991 15.0098 10.3567 15.058C10.1142 15.1062 9.86285 15.0815 9.63444 14.9869C9.40603 14.8923 9.21081 14.7321 9.07346 14.5265C8.9361 14.3209 8.86279 14.0793 8.86279 13.832C8.86279 13.5005 8.99449 13.1826 9.22891 12.9481C9.46333 12.7137 9.78127 12.582 10.1128 12.582ZM5.94613 12.582C6.19335 12.582 6.43503 12.6553 6.64059 12.7927C6.84615 12.93 7.00637 13.1253 7.10098 13.3537C7.19559 13.5821 7.22034 13.8334 7.17211 14.0759C7.12388 14.3184 7.00483 14.5411 6.83001 14.7159C6.65519 14.8907 6.43247 15.0098 6.18999 15.058C5.94751 15.1062 5.69618 15.0815 5.46777 14.9869C5.23936 14.8923 5.04414 14.7321 4.90679 14.5265C4.76944 14.3209 4.69613 14.0793 4.69613 13.832C4.69613 13.5005 4.82782 13.1826 5.06224 12.9481C5.29666 12.7137 5.61461 12.582 5.94613 12.582Z"
-                                fill="#1D1E21"
+                            <path
+                              d="M15.9461 2.16667H15.1128V1.33333C15.1128 1.11232 15.025 0.900358 14.8687 0.744078C14.7124 0.587797 14.5005 0.5 14.2795 0.5C14.0584 0.5 13.8465 0.587797 13.6902 0.744078C13.5339 0.900358 13.4461 1.11232 13.4461 1.33333V2.16667H6.77946V1.33333C6.77946 1.11232 6.69166 0.900358 6.53538 0.744078C6.3791 0.587797 6.16714 0.5 5.94613 0.5C5.72511 0.5 5.51315 0.587797 5.35687 0.744078C5.20059 0.900358 5.11279 1.11232 5.11279 1.33333V2.16667H4.27946C3.1748 2.16799 2.11576 2.6074 1.33464 3.38852C0.553528 4.16963 0.114116 5.22867 0.112793 6.33333L0.112793 7.16667H20.1128V6.33333C20.1115 5.22867 19.6721 4.16963 18.8909 3.38852C18.1098 2.6074 17.0508 2.16799 15.9461 2.16667Z"
+                              fill="#1D1E21"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_87_12064">
+                              <rect
+                                width="20"
+                                height="20"
+                                fill="white"
+                                transform="translate(0.112793 0.5)"
                               />
-                              <path
-                                d="M15.9461 2.16667H15.1128V1.33333C15.1128 1.11232 15.025 0.900358 14.8687 0.744078C14.7124 0.587797 14.5005 0.5 14.2795 0.5C14.0584 0.5 13.8465 0.587797 13.6902 0.744078C13.5339 0.900358 13.4461 1.11232 13.4461 1.33333V2.16667H6.77946V1.33333C6.77946 1.11232 6.69166 0.900358 6.53538 0.744078C6.3791 0.587797 6.16714 0.5 5.94613 0.5C5.72511 0.5 5.51315 0.587797 5.35687 0.744078C5.20059 0.900358 5.11279 1.11232 5.11279 1.33333V2.16667H4.27946C3.1748 2.16799 2.11576 2.6074 1.33464 3.38852C0.553528 4.16963 0.114116 5.22867 0.112793 6.33333L0.112793 7.16667H20.1128V6.33333C20.1115 5.22867 19.6721 4.16963 18.8909 3.38852C18.1098 2.6074 17.0508 2.16799 15.9461 2.16667Z"
-                                fill="#1D1E21"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_87_12064">
-                                <rect
-                                  width="20"
-                                  height="20"
-                                  fill="white"
-                                  transform="translate(0.112793 0.5)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                          <div className="self-stretch my-auto">
-                            {CurrentUser.user.date_naissance}
-                          </div>
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <div className="self-stretch my-auto">
+                          {CurrentUser.user.date_naissance}
                         </div>
-                        <div className="flex gap-2 justify-center items-center self-stretch py-2">
-                          <svg
-                            width="21"
-                            height="21"
-                            viewBox="0 0 21 21"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g clip-path="url(#clip0_87_12069)">
-                              <path
-                                d="M15.1689 5.5C15.1689 2.7425 12.9264 0.5 10.1689 0.5C7.41145 0.5 5.16895 2.7425 5.16895 5.5C5.16895 7.9725 6.97478 10.0258 9.33561 10.425V20.5H11.0023V10.425C13.3631 10.0267 15.1689 7.97333 15.1689 5.5Z"
-                                fill="black"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_87_12069">
-                                <rect
-                                  width="20"
-                                  height="20"
-                                  fill="white"
-                                  transform="translate(0.168945 0.5)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
-                          <div className="self-stretch my-auto">
-                            {CurrentUser.user.countryresidence} ,
-                            {CurrentUser?.user?.cityresidence}{" "}
-                          </div>
-                        </div>
-
                       </div>
-                    </div>
-                    <div className="flex text-base font-light max-sm:text-center text-neutral-900">
-                      {CurrentUser?.user.discreptionBio}
+                      <div className="flex gap-2 justify-center items-center self-stretch py-2">
+                        <svg
+                          width="21"
+                          height="21"
+                          viewBox="0 0 21 21"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g clip-path="url(#clip0_87_12069)">
+                            <path
+                              d="M15.1689 5.5C15.1689 2.7425 12.9264 0.5 10.1689 0.5C7.41145 0.5 5.16895 2.7425 5.16895 5.5C5.16895 7.9725 6.97478 10.0258 9.33561 10.425V20.5H11.0023V10.425C13.3631 10.0267 15.1689 7.97333 15.1689 5.5Z"
+                              fill="black"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_87_12069">
+                              <rect
+                                width="20"
+                                height="20"
+                                fill="white"
+                                transform="translate(0.168945 0.5)"
+                              />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <div className="self-stretch my-auto">
+                          {CurrentUser.user.countryresidence} ,
+                          {CurrentUser?.user?.cityresidence}{" "}
+                        </div>
+                      </div>
+
                     </div>
                   </div>
+                  <div className="flex text-base font-light max-sm:text-center text-neutral-900">
+                    {CurrentUser?.user.discreptionBio}
+                  </div>
                 </div>
+              </div>
               <span className="h-1 w-full bg-gray-100"></span>
               <div className="max-w-[1110px] gap-8 w-full flex flex-col md:flex-row ">
                 {/* <div className=" gap-y-4 max-w-xl flex flex flex-col justify-center">
