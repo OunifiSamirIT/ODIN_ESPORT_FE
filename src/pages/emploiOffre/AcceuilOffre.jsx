@@ -376,7 +376,7 @@ function AcceuilOffre() {
                           {albumDetails?.postoffre}
                         </div>
                         <div className="  md:flex hidden w-fit   gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5  mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
-                          <div className="flex min-w-fit align-center gap-1.5 justify-between  md:-ml-14">
+                          <div className="flex min-w-fit align-center gap-1.5 justify-between  md:-ml-20">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/bbe2d67ac99b0e08d3e27b575e6b31b1a19a587662414d4c0f4a15bcacd8152f?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
