@@ -269,7 +269,7 @@ const Scout = ({ userInfo }) => {
 
 
                         <div className="grow self-start mt-1 ">
-                            {userInfo?.scout?.nb_joueurdetecter}
+                            {userInfo?.scout?.nb_joueurdetecter}{"   "}
 
 
                             {

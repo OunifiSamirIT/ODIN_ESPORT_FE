@@ -259,8 +259,10 @@ function HomeOffre() {
   });
 
   const handleUpdateClick = async (value) => {
-    setValue(value)
+    setOffres()
+    setValue(value);
     setShowUpdateModal(true);
+
     console.log('this is country from hsdfh', value.paysoffre)
     console.log(formData, "nezeerrr")
     setFormData({
@@ -274,6 +276,7 @@ function HomeOffre() {
       date_experie: value.date_experie,
       description: value.description,
       villeoffre: value.villeoffre,
+      email: value.email
     });
 
 
@@ -338,6 +341,10 @@ function HomeOffre() {
     setShowUpdateModal(false);
     setShowMenu(false);
   };
+  const handleclosemodal = () => {
+    setShowUpdateModal(false)
+    setShowMenu(false)
+  }
 
   const handleUpdateSubmit = async (e) => {
     e.preventDefault()
@@ -354,6 +361,7 @@ function HomeOffre() {
       formDataToupdate.append("date_experie", formData.date_experie);
       formDataToupdate.append("description", formData.description);
       formDataToupdate.append("villeoffre", formData.villeoffre);
+      formDataToupdate.append("email", formData.email);
       formDataToupdate.append("files", file);
 
       const response = await fetch(
@@ -374,12 +382,15 @@ function HomeOffre() {
       setShowUpdateModal(false);
       fetchOffres()
       setShowMenu(false)
+      setImagePreview(null)
       // Mettre à jour l'interface utilisateur si nécessaire
     } catch (error) {
       console.error("Erreur lors de la mise à jour de l'offre :", error);
       // Gérer l'erreur : afficher un message à l'utilisateur ou effectuer d'autres actions nécessaires
     }
+
   };
+
 
   return (
     <>
@@ -891,7 +902,7 @@ function HomeOffre() {
                 <div
                   key={index}
 
-                  className=" dark-light-bg flex gap-5  p-6 mt-8 text-base font-light  rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 flex-col max-md:px-5"
+                  className=" dark-light-bg flex gap-5  p-6 mt-8 text-break font-light  rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 flex-col max-md:px-5"
                 >
 
 
@@ -907,7 +918,7 @@ function HomeOffre() {
                             : require("../../assets/offre_icon.png")
                         } // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
                         onClick={() => handleCardClick(value.id)}
-                        className="  cursor-pointer  shrink-0 self-start object-cover rounded-full aspect-fit w-[72px]"
+                        className="  cursor-pointer  shrink-0 self-start object-cover rounded-full aspect-fit h-14 w-14"
                       />
                       <div className=" dark-light-bg   flex-col -ml-10" onClick={() => handleCardClick(value.id)}>
                         <div className="  cursor-pointer dark-light-bg  self-start mt-1 font-semibold " onClick={() => handleCardClick(value.id)}> {value.EntrepriseName}</div>
@@ -947,13 +958,44 @@ function HomeOffre() {
 
                       {/* Votre contenu */}
                       {showUpdateModal && (
-                        <div className="bg-black/10 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+                        <div className="bg-black/5 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
                           <div className="flex flex-col hiddenScrollRightMenu overflow-auto md:mt-0  max-w-full bg-white p-2  rounded-[10px] w-[850px] max-h-[500px] max-md:px-5 max-md:my-10">
+                            <div className="flex  relative mb-3">
 
-                            <div className="flex flex-col flex-wrap  gap-y-6 justify-center content-start py-8  md:pl-20  w-full bg-white rounded-xl ">
-                              <div className="flex justify-center items-center px-16 max-md:px-5 max-md:max-w-full">
+                              <button
+                                onClick={() => {
+                                  handleclosemodal()
+
+                                }}
+                                className="absolute top-0 right-0 z-10 bg-white rounded-full p-[3px] text-white"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-6 w-6 bg-orange-500 rounded-full"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M6 18L18 6M6 6l12 12"
+                                  />
+                                </svg>
+                              </button>
+
+                            </div>
+
+
+                            <div className="flex flex-col flex-wrap  gap-y-7 justify-center content-start py-8  md:pl-20  w-full bg-white rounded-xl ">
+
+
+                              <div className="flex justify-center items-center mt-0 px-16 max-md:px-5 max-md:max-w-full">
+
                                 <div className="max-w-full w-[555px]">
-                                  <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+
+                                  <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0">
                                     {/* <div className="flex flex-col  w-[35%] max-md:ml-0 max-md:w-full">
                                       {imagePreview ? (
                                         <img
@@ -972,20 +1014,21 @@ function HomeOffre() {
                                         />
                                       )}
                                     </div> */}
-                                    <div className="flex flex-col w-[35%] max-md:ml-0 max-md:w-full">
+
+                                    <div className="flex flex-col items-center mt-0 w-[35%] max-md:ml-0   max-md:w-full">
                                       {imagePreview ? (
                                         <img
                                           src={imagePreview}
                                           alt="OFFRE IMAGE"
                                           loading="lazy"
-                                          className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                                          className="shrink-0 max-w-full rounded-full  object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
                                         />
                                       ) : formData.image_url ? (
                                         <img
                                           src={formData.image_url}
                                           alt="Preview"
                                           loading="lazy"
-                                          className="shrink-0 max-w-full rounded-full object-contain border-4 border-blue-600 border-solid aspect-square w-[178px] max-md:mt-10"
+                                          className="shrink-0 md:max-w-full rounded-full w-[80px] mt-0  object-contain border-4 border-blue-600 border-solid aspect-square md:w-[178px] max-md:mt-10"
                                         />
                                       ) : (
                                         <img
@@ -1001,11 +1044,11 @@ function HomeOffre() {
 
                                     <div className="flex flex-col ml-5 w-[65%] max-md:ml-0 max-md:w-full">
                                       <div className="flex flex-col self-stretch text-center my-auto max-md:mt-10">
-                                        <div className="text-3xl font-bold text-black">
+                                        <div className="md:text-3xl  mt-0 text-sm   font-bold text-black">
                                           Logo de l’entreprise
                                         </div>
-                                        <label>
-                                          <div className="flex flex-col items-center justify-center mt-4">
+                                        <label >
+                                          <div className="flex flex-col items-center justify-center md:mt-4">
                                             <input
                                               type="file"
                                               name="file"
@@ -1020,7 +1063,7 @@ function HomeOffre() {
                                                   .querySelector('input[type="file"]')
                                                   .click()
                                               }
-                                              className="mt-2 px-4 py-2 text-base font-medium text-white bg-blue-600 rounded-[30px]"
+                                              className="mt-2 px-4 py-2 md:text-base font-medium text-white bg-blue-600 rounded-[30px]"
                                             >
                                               Changer la photo
                                             </button>
@@ -1033,18 +1076,18 @@ function HomeOffre() {
                               </div>
                               <div className="flex gap-3  px-4 -m-5 text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap" />
                               {/* lena */}
-                              <div className=" max-md:max-w-full">
-                                <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                                  <div className="flex flex-col w-[50%] max-md:ml-0 max-md:w-full">
+                              <div className=" max-md:max-w-full  md:mt-2  ">
+                                <div className="flex md:mt-0  max-md:flex-col max-md:gap-0">
+                                  <div className="flex flex-col  w-[50%] max-md:ml-0 max-md:w-full">
                                     {/* chtar lowel */}
-                                    <div className="flex flex-col grow text-lg text-zinc-900 max-md:mt-10">
-                                      <div className="flex gap-3 px-4">
+                                    <div className="flex flex-col mt-0  grow text-sm md:text-lg text-zinc-900 max-md:mt-10">
+                                      <div className="flex gap-3 px-4 ">
                                         <img
                                           loading="lazy"
                                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/a384581add68577a25f4081d8801c28ef67dafd494c0efb9015b701bb68a830a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                          className="shrink-0 my-auto w-5 aspect-square"
+                                          className="shrink-0 my-auto md:w-5 w-3 aspect-square"
                                         />
-                                        <div className="flex-1">Nom de l’entreprise</div>
+                                        <div className="md:flex-1">Nom de l’entreprise</div>
                                       </div>
                                       <input
                                         type="text"
@@ -1057,13 +1100,13 @@ function HomeOffre() {
                                             EntrepriseName: e.target.value,
                                           })
                                         }
-                                        className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
+                                        className="justify-center items-start px-4 py-3.5  mt-2 text-base border border-solid border-neutral-200 rounded-[30px] "
                                       ></input>
-                                      <div className="flex gap-3 px-4 mt-6">
+                                      <div className="flex gap-3 px-4 md:mt-6 mt-6">
                                         <img
                                           loading="lazy"
                                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/43c300d97aa67300893a5a93497e6396899e47deee593690d089df4b9cbfa5d0?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                          className="shrink-0 my-auto aspect-[1.1] fill-zinc-900 w-[22px]"
+                                          className="shrink-0 my-auto aspect-[1.1] fill-zinc-900   mt-1 md:w-5 w-3"
                                         />
                                         <div className="flex-1">Niveau d’études</div>
                                       </div>
@@ -1103,7 +1146,7 @@ function HomeOffre() {
                                         <img
                                           loading="lazy"
                                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/477c1c901e0f413e9df8f00fc3f5c46072ae48e6965170ab72f4b9273202ad32?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                          className="shrink-0 my-auto w-5 aspect-square"
+                                          className="shrink-0 my-auto md:w-5 w-3 aspect-square"
                                         />
                                         <div className="flex-1">Type de contrat</div>
                                       </div>
@@ -1129,19 +1172,40 @@ function HomeOffre() {
                                           </select>
                                         </div>
                                       </div>
-
+                                      <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
+                                        <img
+                                          loading="lazy"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/3466d1b55c7280f975dd0988d2ff14c6cc643c9220fa57af2b5a521d6df0b6cc?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto md:w-5 w-3 aspect-square"
+                                        />
+                                        <div className="-ml-5" />
+                                        Ville
+                                      </div>
+                                      <input
+                                        type="text"
+                                        id="villeoffre"
+                                        placeholder="ville"
+                                        value={formData.villeoffre}
+                                        onChange={(e) =>
+                                          setFormData({
+                                            ...formData,
+                                            villeoffre: e.target.value,
+                                          })
+                                        }
+                                        className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
+                                      />
                                       <div className="flex gap-3 px-4 mt-6">
                                         <img
                                           loading="lazy"
                                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/70d817d0342edd76d5dc9a806a14b84b42c2400d315e3aaaec63dc0c39b6e723?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                          className="shrink-0 my-auto w-5 aspect-square"
+                                          className="shrink-0 my-auto md:w-5 w-3 aspect-square"
                                         />
                                         <div className="flex-1">Date d’expiration</div>
                                       </div>
-                                      <div className="flex flex-col justify-center py-px mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
-                                        <div className="flex gap-5 justify-between px-4 py-2 rounded-md max-md:pr-5">
+                                      <div className="flex flex-col justify-center   w-full  mt-2 py-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
+                                        <div className="flex  justify-between px-4 py-2 rounded-md ">
                                           <DatePicker
-                                            className="bg-transparent py-1 pl-3"
+                                            className="bg-transparent"
                                             id="date_experie"
                                             selected={formData.date_experie}
                                             dateFormat="dd/MM/yyyy"
@@ -1160,12 +1224,12 @@ function HomeOffre() {
                                   </div>
                                   {/* chtar lekher */}
                                   <div className="flex flex-col ml-5 w-[50%] max-md:ml-0 max-md:w-full">
-                                    <div className="flex flex-col grow text-lg text-zinc-900 mt-[-20px]">
-                                      <div className="flex gap-3 px-4 -mt-1 md:mt-[20px] whitespace-nowrap">
+                                    <div className="flex flex-col grow text-lg text-zinc-900 md:mt-[-20px]">
+                                      <div className="flex gap-3  md:text-lg text-sm px-4 mt-6 md:mt-[20px] whitespace-nowrap">
                                         <img
                                           loading="lazy"
                                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                          className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                                          className="shrink-0 my-auto md:w-5 w-3 aspect-square fill-zinc-900"
                                         />
                                         <div className="flex-1">Poste</div>
                                       </div>
@@ -1183,11 +1247,11 @@ function HomeOffre() {
                                         className="justify-center items-start px-4 py-3.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
                                       />
 
-                                      <div className="flex gap-3 px-4 whitespace-nowrap mt-4">
+                                      <div className="flex gap-3  md:text-lg text-sm px-4 whitespace-nowrap mt-4">
                                         <img
                                           loading="lazy"
                                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                          className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
+                                          className="shrink-0 my-auto md:w-5 w-3 aspect-square fill-zinc-900"
                                         />
                                         <div className="flex-1">Niveau d'experience</div>
                                       </div>
@@ -1225,11 +1289,11 @@ function HomeOffre() {
                                         </div>
                                       </div>
 
-                                      <div className="flex gap-3 px-4 mt-6">
+                                      <div className="flex gap-3  md:text-lg text-sm px-4 mt-6">
                                         <img
                                           loading="lazy"
                                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e2bb7e6929dfe27f019db31dfba3116f9832133a3a48be3d6af89d34cc463e1?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                          className="shrink-0 my-auto aspect-[0.75] fill-zinc-900 w-[15px]"
+                                          className="shrink-0 my-auto aspect-[0.75] fill-zinc-900  md:w-5 w-3"
                                         />
                                         <div className="flex-1">Pays de résidence</div>
                                       </div>
@@ -1267,28 +1331,29 @@ function HomeOffre() {
                                         onChange={handleCountryChangePaysOffre}
                                         value={optionsPaysOffre.find((option) => option.value === formData.paysoffre)} // Set the value from formData
                                       />
-                                      <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
+
+                                      <div className="flex gap-3  md:text-lg text-sm px-4 mt-6 whitespace-nowrap">
                                         <img
                                           loading="lazy"
-                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/3466d1b55c7280f975dd0988d2ff14c6cc643c9220fa57af2b5a521d6df0b6cc?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                          className="shrink-0 my-auto w-5 aspect-square"
+                                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/8f84db8c65fb787a86b9e66e5c919bc6b81d09c021813ee3ed7d469a0e564d58?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
+                                          className="shrink-0 my-auto  aspect-[1.1] fill-zinc-900 md:w-5 w-3"
                                         />
-                                        <div className="-ml-5" />
-                                        Ville
+                                        <div className="flex-1">Email</div>
                                       </div>
                                       <input
-                                        type="text"
-                                        id="villeoffre"
-                                        placeholder="ville"
-                                        value={formData.villeoffre}
+
+                                        id="email"
+                                        placeholder="Email"
+                                        value={formData.email}
                                         onChange={(e) =>
                                           setFormData({
                                             ...formData,
-                                            villeoffre: e.target.value,
+                                            email: e.target.value,
                                           })
                                         }
                                         className="justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5"
                                       />
+
 
                                     </div>
                                   </div>
@@ -1296,11 +1361,11 @@ function HomeOffre() {
                               </div>
 
                               {/* description */}
-                              <div className="flex gap-3 px-4  text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
+                              <div className="flex gap-3 px-4  text-sm md:text-lg whitespace-nowrap text-zinc-900 max-md:flex-wrap">
                                 <img
                                   loading="lazy"
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/5f779d8ee0c1bf0e05d7432fa41d675db71640bd2b9c057e88cf4e12605728a6?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
-                                  className="shrink-0 my-auto w-5 aspect-square"
+                                  className="shrink-0 my-auto md:w-5 w-3 aspect-square"
                                 />
                                 <div className="flex-1 max-md:max-w-full">Description</div>
                               </div>
@@ -1380,7 +1445,7 @@ function HomeOffre() {
                               </svg>
                             </button>
                             {showMenu === value.id && (
-                              <div className="absolute top-4 right-14  py-2 bg-white rounded-md shadow-xl">
+                              <div className="absolute top-4 right-14  py-2 bg-white rounded-md whitespace-nowrap shadow-xl">
                                 <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={() => handleUpdateClick(value)}>Update</button>
                                 <button className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" onClick={() => handleDeleteClick(value.id)}>Delete</button>
                               </div>
@@ -1400,8 +1465,8 @@ function HomeOffre() {
 
                   {/* lehna */}
                   <div className=" dark-light-bg   flex flex-col  flex-1 max-md:max-w-full">
-                    <div></div>
-                    <div className=" dark-light-bg  flex   md:justify-between items-center md:-mt-10 -mt-8  md:px-20  text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5 md:gap-4 ">
+
+                    <div className=" dark-light-bg  flex  md:justify-between items-center md:-mt-10 -mt-8  md:px-20  text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5 md:gap-4 ">
                       <div className=" dark-light-bg   min-w-fit flex gap-1.5 justify-between px-1 py-0.5 text-neutral-900 text-opacity-70">
                         <img
                           loading="lazy"
@@ -1427,13 +1492,13 @@ function HomeOffre() {
                         />
                         <div>{value.typecontrat}</div>
                       </div>
-                      <div className="dark-light-bg   min-w-fit flex gap-1.5 justify-between px-1 py-0.5">
+                      <div className="dark-light-bg text-wrap md:text-nowrap  min-w-fit flex gap-1.5 justify-between px-1 py-0.5">
                         <img
                           loading="lazy"
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/169497047ffb97f2a6bf4f95c6534c9431043e2e6ac9cc05d63cae95c8f9d866?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                           className=" dark-invert-img   shrink-0 my-auto w-3.5 aspect-[0.88] fill-neutral-900 fill-opacity-70"
                         />
-                        <div>{value.paysoffre} , {value.villeoffre}</div>
+                        <div >{value.paysoffre} , {value.villeoffre}</div>
                       </div>
                       <div className=" dark-light-bg  min-w-fit flex gap-1.5 min-w-fit justify-between px-1 py-0.5">
                         <img
@@ -1441,7 +1506,7 @@ function HomeOffre() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/10a38c1e9a44cb74467a36e05c308edb03242e37340e793426056a9b44611826?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                           className="dark-invert-img  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                         />
-                        <div>Expire le : {moment(value.date_experie).format("DD MM YYYY")}</div>
+                        <div>Expire le:{moment(value.date_experie).format("DD-MM-YYYY")}</div>
                       </div>
                     </div>
                     <div className=" dark-light-bg text-break  mt-3  md:px-20 text-neutral-900 text-opacity-70 max-md:max-w-full">

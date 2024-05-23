@@ -11,6 +11,7 @@ import {
 import { useEffect } from "react";
 
 import { Config } from "../../config";
+import moment from "moment";
 
 function AcceuilOffre() {
   const emailRef = useRef(null);
@@ -365,17 +366,17 @@ function AcceuilOffre() {
                             ? albumDetails?.imagesalbumoffres[0].image_url
                             : require("../../assets/offre_icon.png")
                         } // Update placeholder.jpg with a placeholder image URL or use a conditional check to handle cases where no image is available
-                        className="shrink-0 self-start rounded-full aspect-fit w-[72px] md:w-[100px]"
+                        className="shrink-0 self-start rounded-full aspect-fit h-14 w-14 "
                       />
                       <div className="flex flex-col  ml-4 ">
-                        <div className="dark-light-bg text-break self-start mt-1 font-semibold ">
+                        <div className="dark-light-bg text-break mt-1 font-semibold ">
                           {albumDetails?.EntrepriseName}
                         </div>
                         <div className="  dark-light-bg  self-start mt-1 font-serif ">
                           {albumDetails?.postoffre}
                         </div>
                         <div className="  md:flex hidden w-fit   gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5  mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
-                          <div className="flex min-w-fit align-center gap-1.5 justify-between py-px">
+                          <div className="flex min-w-fit align-center gap-1.5 justify-between  md:-ml-14">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/bbe2d67ac99b0e08d3e27b575e6b31b1a19a587662414d4c0f4a15bcacd8152f?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -413,13 +414,13 @@ function AcceuilOffre() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/388d7e4e6c54c7e6d1d362363c9431f612d2af0605696aed9b1bc3f3f607f965?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                             />
-                            <div>Expire le : {albumDetails?.date_experie}</div>
+                            <div>Expire le:{moment(albumDetails?.date_experie).format("DD-MM-YYYY")}</div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className=" flex md:hidden flex-col flex-1 items-center my-auto max-md:max-w-full">
-                      <div className="flex w-fit   md:-ml-0 ml-0  text-base  gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5 pr-20 mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
+                    <div className=" flex md:hidden   flex-col flex-1 items-center my-auto max-md:max-w-full">
+                      <div className="flex w-fit   md:-ml-0 ml-0  gap-2 md:gap-4 md:justify-center justify-start items-center self-stretch py-0.5 pr-20 mt-2 font-light text-neutral-900 text-opacity-70 max-md:flex-wrap max-md:pr-5">
                         <div className="flex align-center gap-1.5 justify-between py-px">
                           <img
                             loading="lazy"
@@ -458,7 +459,7 @@ function AcceuilOffre() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/388d7e4e6c54c7e6d1d362363c9431f612d2af0605696aed9b1bc3f3f607f965?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                             className="shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                           />
-                          <div>Expire le : {albumDetails?.date_experie}</div>
+                          <div>Expire le:{moment(albumDetails?.date_experie).format("DD-MM-YYYY")}</div>
                         </div>
                       </div>
                     </div>
