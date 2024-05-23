@@ -1366,7 +1366,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
   const [originalArticle, setOriginalArticle] = useState(null);
   const fetchArticleById = async (id) => {
     // Replace with your API call
-    return fetch(`http://localhost:5000/api/articles/${id}`)
+    return fetch(`${Config.LOCAL_URL}/api/articles/${id}`)
       .then(response => response.json())
       .then(data => data);
   };
@@ -1432,14 +1432,26 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
         method: "POST",
         body: formData,
       });
-  
+      if (response.status === 200) {
+        toast.success('Partager avec success voir votre profile  !', {
+          position: "top-right",
+          autoClose: 5000,
+          type: 'success',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      }
       // const newArticle = await response.json(); 
       // addNewArticle(newArticle);
-      navigate(`/profile/${id}`)
+      // navigate(`/profile/${id}`)
   
       setTimeout(() => {
         setIsModaldOpenPartage(false);
-      }, 1000);
+      }, 4800);
       setValue("description", "");
       setPosting(false);
     } catch (error) {
@@ -1501,6 +1513,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {article?.user?.user?.profil == 'other' ? article.user.other?.profession : ''}
                     {article?.user?.user?.profil == 'player' ? ' Joueur' : ''}
+                    {article?.user?.user?.profil == 'admin' ? ' Admin' : ''}
                     {article?.user?.user?.profil == 'coach' ? ' Entraîneur' : ''}
                     {article?.user?.user?.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
                     {article?.user?.user?.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
@@ -1828,6 +1841,24 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
         )}
       </p>
     </div>
+
+
+{/* hedhi lel album
+ */}
+    {/* {article?.sharedArticle?.image && (
+      <div className="card-body d-block p-0 mb-3">
+        <div className="row ps-2 pe-2">
+        <div className="card-body d-block p-0 mb-3">
+    <div className="row ps-2 pe-2">
+    {article?.sharedArticle?.image.split(';').map((imageUrl, index) => (
+        <div key={index} className="col-sm-12 col-md-6 col-lg-4 p-1">
+          <img
+            className="w-100 h-auto rounded-lg mb-2"
+            src={imageUrl}
+            alt={`Image ${index}`}
+          />
+        </div>
+      ))} */}
     {article?.sharedArticle?.image && (
       <div className="card-body d-block p-0 mb-3">
         <div className="row ps-2 pe-2">
@@ -2802,6 +2833,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                     <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                       {displayArticle.user?.user?.profil === 'other' ? displayArticle.user?.other?.profession : ''}
                       {displayArticle.user?.user?.profil === 'player' ? ' Joueur' : ''}
+                      {displayArticle.user?.user?.profil === 'admin' ? ' admin' : ''}
                       {displayArticle.user?.user?.profil === 'coach' ? ' Entraîneur' : ''}
                       {displayArticle.user?.user?.profil === 'agent' && displayArticle.user?.agent?.typeresponsable === 'players' ? 'Manager de Joueur' : ''}
                       {displayArticle.user?.user?.profil === 'agent' && displayArticle.user?.agent?.typeresponsable === 'club' ? 'Manager de Club' : ''}
@@ -2831,13 +2863,22 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                 {displayArticle?.image && (
                   <div className="card-body d-block p-0 mb-3">
                     <div className="row ps-2 pe-2">
-                      <div className="col-sm-12 p-1">
+                      {/* <div className="col-sm-12 p-1">
                         <img
                           className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
                           src={displayArticle?.image}
                           alt={displayArticle?.titre}
                         />
-                      </div>
+                      </div> */}
+                       {displayArticle?.image.split(';').map((imageUrl, index) => (
+        <div key={index} className="col-sm-12 p-1">
+          <img
+            className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
+            src={imageUrl}
+            alt={`Image ${index}`}
+          />
+        </div>
+      ))}
                     </div>
                   </div>
                 )}
@@ -3098,7 +3139,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                   className=" absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
                   onClick={() => handleCloseModal(true)}> Xddddddddddddddddd </button>
               </div>
+              <ToastContainer />
+
             </div>
+            
           )}
 
         </div>

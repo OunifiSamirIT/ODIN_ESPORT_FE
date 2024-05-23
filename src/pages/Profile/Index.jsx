@@ -110,6 +110,21 @@ const Index = () => {
     setShowMenu(!showMenu);
   };
 
+  const [originalArticle, setOriginalArticle] = useState(null);
+  const fetchArticleById = async (id) => {
+    // Replace with your API call
+    return fetch(`${Config.LOCAL_URL}/api/articles/${id}`)
+      .then(response => response.json())
+      .then(data => data);
+  };
+  useEffect(() => {
+    if (articles.sharedFrom) {
+      fetchArticleById(articles.sharedFrom)
+        .then(data => setOriginalArticle(data))
+        .catch(err => console.error('Error fetching original article:', err));
+    }
+  }, [articles.sharedFrom]);
+  const displayArticle = originalArticle || articles;
   useEffect(() => {
     if (LocalStorageID.id == id) {
       setOwner(true);
@@ -117,14 +132,15 @@ const Index = () => {
   }, [id]);
   useEffect(() => {
     setArticleWithPhoto(
-      articles.filter((item) => {
+      displayArticle.filter((item) => {
         return item.image !== null && item.userId == id;
       })
+
     );
+    console.log("Article-------------------***************------------------", articlesWithPhoto);
     setArticleWithVideo(
-      articles.filter((item) => {
-        return item.video !== null && item.userId == id;
-      })
+      articles.filter((item) => item.video !== null && item.video !== "" && item.userId == id)
+
     );
   }, [profileFeed, articles, id]);
   const toggleActive = () => setIsActive(!isActive);
@@ -365,7 +381,7 @@ const Index = () => {
 
   const LocalStorageID = JSON.parse(localStorage.getItem("user"));
   const isOwner = LocalStorageID.id == id;
-  
+
   const fetchArticles = async () => {
     try {
       const response = await fetch(
@@ -849,6 +865,7 @@ const Index = () => {
 
   // Set the locale based on the stored language or default to English
   moment.locale(language === 'fr' ? 'fr' : 'en');
+
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
@@ -885,7 +902,8 @@ const Index = () => {
           <div className="w-full mt-3">
             <div>
               <div>
-                {articles.length > 0 ? (
+                {articles.length > 0 ? 
+                (
                   articlesWithPhoto.map((article) => (
                     <div
                       key={article.id}
@@ -944,13 +962,15 @@ const Index = () => {
                           <div className="col-sm-12 p-1">
                             <div className="card-body d-block p-0 mb-3">
                               <div className="row ps-2 pe-2">
-                                <div className="col-sm-12 p-1">
-                                  <img
-                                    className=" h-96 w-100 object-cover"
-                                    src={article.image}
-                                    alt={article.titre}
-                                  />
-                                </div>
+                              {article?.sharedArticle?.image.split(';').map((imageUrl, index) => (
+        <div key={index} className="col-sm-12 col-md-6 col-lg-4 p-1">
+          <img
+            className="w-100 h-auto rounded-lg mb-2"  
+            src={imageUrl}
+            alt={`Image ${index}`}
+          />
+        </div>
+      ))}
                               </div>
                             </div>
                           </div>
@@ -958,6 +978,8 @@ const Index = () => {
                       </div>
                     </div>
                   ))
+               
+               
                 ) : (
                   <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
                     Aucun Photo pour le moment
@@ -967,7 +989,7 @@ const Index = () => {
             </div>
           </div>
         )}
-        {profileFeed === "video" && (
+        {/* {profileFeed === "video" && (
           <div className="w-full mt-4 text-center">
             <div>
               <div>
@@ -1058,7 +1080,87 @@ const Index = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
+        {profileFeed === "video" && (
+      <div className="w-full mt-4 text-center">
+        <div>
+          <div>
+            {articlesWithVideo.length > 0 ? (
+              articlesWithVideo.map((article) => (
+                <div
+                  key={article.id}
+                  className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
+                >
+                  <div className="card-body p-0 d-flex">
+                    <figure className="avatar me-3">
+                      <img
+                        src={
+                          article?.user?.user.image
+                            ? article?.user?.user.image
+                            : PlaceHolder
+                        }
+                        className="avatar me-3 shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                        alt="post"
+                      />
+                    </figure>
+                    <div className="flex flex-col">
+                      <span className="text-base text-grey-900">
+                        {article.user.user.nom} {article.user.user.prenom}
+                      </span>
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {article.user.user.profil === "other"
+                          ? article.user.other?.profession
+                          : ""}
+                        {article.user.user.profil === "player"
+                          ? " Joueur"
+                          : ""}
+                        {article.user.user.profil === "agent" &&
+                          article.user.agent?.typeresponsable === "players"
+                          ? "Manager de Joueur"
+                          : ""}
+                        {article.user.user.profil === "agent" &&
+                          article.user.agent?.typeresponsable === "club"
+                          ? "Manager de CLub"
+                          : ""}
+                        {article.user.user.profil === "scout"
+                          ? "Scout"
+                          : ""}
+                      </span>
+                      <span className="d-block font-xssss fw-500 text-grey-500">
+                        {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                        {
+                          moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
+                            ? moment(article?.createdAt).fromNow(true)
+                            : moment(article?.createdAt).fromNow()
+                        }
+                      </span>
+                    </div>
+                  </div>
+                  <div className="card-body d-block p-0 mb-3">
+                    <div className="row ps-2 pe-2">
+                      <div className="col-sm-12 p-1">
+                        {article.video && (
+                          <div className="card-body p-0 mb-3 overflow-hidden">
+                            <video controls className="w-100 md:max-h-[600px] max-h-[350px]">
+                              <source src={article.video} type="video/mp4" />
+                              Your browser does not support the video tag.
+                            </video>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+                Aucun Video pour le moment
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )}
       </ProfileLayout>
     </>
   );

@@ -80,7 +80,7 @@ function CreatePost({ setArticles , onClose}) {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/articles');
+        const response = await fetch('${Config.LOCAL_URL}/api/articles');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -95,7 +95,7 @@ function CreatePost({ setArticles , onClose}) {
   }, []);
   const fetchArticleById = async (id) => {
     // Replace with your API call
-    return fetch(`http://localhost:5000/api/articles/${id}`)
+    return fetch(`${Config.LOCAL_URL}/api/articles/${id}`)
       .then(response => response.json())
       .then(data => data);
   };
