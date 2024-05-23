@@ -1513,7 +1513,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {article?.user?.user?.profil == 'other' ? article.user.other?.profession : ''}
                     {article?.user?.user?.profil == 'player' ? ' Joueur' : ''}
-                    {article?.user?.user?.profil == 'admin' ? ' Admin' : ''}
                     {article?.user?.user?.profil == 'coach' ? ' Entraîneur' : ''}
                     {article?.user?.user?.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
                     {article?.user?.user?.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
