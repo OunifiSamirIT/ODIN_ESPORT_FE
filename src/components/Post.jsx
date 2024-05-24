@@ -2087,7 +2087,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
                       {selectedArticleId === article.id ? (
                         <div className="flex gap-2 flex-row md:flex-row items-center">
-                          <BiShare />
+                          <BiShare className="size-6"/>
 
                           <div className="flex gap-2 text-xs md:text-md">{getTranslation(
                             `Share`,  // -----> Englais
@@ -2096,7 +2096,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         </div>
                       ) : (
                         <div className="flex gap-2 flex-row md:flex-row items-center">
-                          <BiShare />
+                          <BiShare className="size-6"/>
 
                           <div className="flex gap-2 text-xs md:text-md">
                             {" "}
