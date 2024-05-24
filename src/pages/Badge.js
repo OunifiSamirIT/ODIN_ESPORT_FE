@@ -4135,8 +4135,12 @@ function Badge({ userpf }) {
             selectedBirthYear)
       );
     });
+console.log(searchPosition,"serchpisionhahahahahah")
+console.log(filteredData,"aloo dhia")
 
     setFilteredUsers(filteredData);
+   
+
   };
 
   const optionsPays = paysAllInfo.map((country) => {
@@ -4325,42 +4329,44 @@ function Badge({ userpf }) {
                                     <select
                                       class="w-full   self-start mt-1"
                                       value={searchPosition}
+
                                       onChange={(e) =>
                                         setSearchPosition(e.target.value)
                                       }
+                                     
                                     >
-                                      <option value="" disabled>
-                                        {" "}
-                                        postion
+                                      <option value="" >
+                                       
+                                        position
                                       </option>
-                                      <option value="Gardien de but">
+                                      <option value="Gardien de but (GK)">
                                         Gardien de but (GK)
                                       </option>
-                                      <option value="Arrière droit">
+                                      <option value="Arrière droit (RB)">
                                         Arrière droit (RB)
                                       </option>
-                                      <option value="Arrière gauche">
+                                      <option value="Arrière gauche( LB)">
                                         Arrière gauche( LB)
                                       </option>
-                                      <option value="Défenseur central">
+                                      <option value="Défenseur central (CB)">
                                         Défenseur central (CB)
                                       </option>
-                                      <option value="Milieu défensif">
+                                      <option value="Milieu défensif (CDM)">
                                         Milieu défensif (CDM)
                                       </option>
-                                      <option value="Milieu central">
+                                      <option value="Milieu central ( CM)">
                                         Milieu central ( CM)
                                       </option>
-                                      <option value="Milieu offensif">
+                                      <option value="Milieu offensif ( CAM)">
                                         Milieu offensif ( CAM)
                                       </option>
-                                      <option value="Ailier droit">
+                                      <option value="Ailier droit (RW)">
                                         Ailier droit (RW)
                                       </option>
-                                      <option value="Ailier gauche">
-                                        Ailier gauche ( LW)
+                                      <option value="Ailier gauche ( LW)">
+                                      Ailier gauche ( LW)
                                       </option>
-                                      <option value="Avant-centre">
+                                      <option value="Avant-centre ">
                                         Avant-centre ( ST)
                                       </option>
                                     </select>
@@ -4406,7 +4412,7 @@ function Badge({ userpf }) {
                                             Pied Droit
                                           </option>
                                           <option value="DeuxPieds">
-                                            Les deux pieds
+                                          DeuxPieds
                                           </option>
                                         </select>
                                       </div>

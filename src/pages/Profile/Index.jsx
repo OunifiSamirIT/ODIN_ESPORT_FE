@@ -704,7 +704,7 @@ const Index = () => {
         const user = JSON.parse(localStorage.getItem("user"));
 
         const response = await fetch(
-          `${Config.LOCAL_URL}/api/replies`, 
+          `${Config.LOCAL_URL}/api/replies`,
           {
             method: "POST",
             headers: {
@@ -872,29 +872,29 @@ const Index = () => {
         {owner && (
           <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3 mb-3">
             <div className="card-body p-2 position-relative">
-            <CreatePostModal/>
+              <CreatePostModal />
 
             </div>
           </div>
 
         )}
         {profileFeed === "pubs" && (
-          <div className="w-full">
+          <div className="w-full ">
             <div>
-              
-            {
-                        articles.map((item, index) => (
-                          <div key={`item-${index}`}>
-                            {
-                            <>
-                                <Post article={item} setArticles={setArticles}   /> 
-                              </>
-                            }
-                          </div>
-                        ))
-                      }
-               
-             
+
+              {
+                articles.map((item, index) => (
+                  <div key={`item-${index}`}>
+                    {
+                      <>
+                        <Post article={item} setArticles={setArticles} />
+                      </>
+                    }
+                  </div>
+                ))
+              }
+
+
             </div>
           </div>
         )}
@@ -902,102 +902,103 @@ const Index = () => {
           <div className="w-full mt-3">
             <div>
               <div>
-                {articles.length > 0 ? 
-                (
-                  articlesWithPhoto.map((article) => (
-                    <div
-                      key={article.id}
-                      className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2 mt-3"
-                    >
-                      <div className="card-body p-0 d-flex">
-                        <figure className="avatar me-3">
-                          <img
-                            src={
-                              article?.user?.user?.image
-                                ? article?.user?.user?.image
-                                : PlaceHolder
-                            }
-                            className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
-                            alt="post"
-                          />
-                        </figure>
-                        <div className="flex flex-col">
-                          <span className="text-base text-grey-900">
-                            {article.user.user.nom} {article.user.user.prenom}
-                          </span>
-                          <span className="d-block font-xssss fw-500 text-grey-500">
-                            {article.user.user.profil == "other"
-                              ? article.user.other?.profession
-                              : ""}
-                            {article.user.user.profil == "player"
-                              ? " Joueur"
-                              : ""}
-                            {article.user.user.profil == "agent" &&
-                              article.user.agent?.typeresponsable == "players"
-                              ? "Manager de Joueur"
-                              : ""}
-                            {article.user.user.profil == "agent" &&
-                              article.user.agent?.typeresponsable == "club"
-                              ? "Manager de CLub"
-                              : ""}
-                            {article.user.user.profil == "scout" ? "Scout" : ""}
-                          </span>
-                          <span className="d-block font-xssss fw-500 text-grey-500">
-                         
-                          {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                    {
-                      moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                        moment(article?.createdAt).fromNow(true) :
-                        moment(article?.createdAt).fromNow()
-                    }
-                            {/* {formatDate(
+                {articles.length > 0 ?
+                  (
+                    articlesWithPhoto.map((article) => (
+                      <div
+                        key={article.id}
+                        className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2 mt-3"
+                      >
+                        <div className="card-body p-0 d-flex">
+                          <figure className="avatar me-3">
+                            <img
+                              src={
+                                article?.user?.user?.image
+                                  ? article?.user?.user?.image
+                                  : PlaceHolder
+                              }
+                              className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                              alt="post"
+                            />
+                          </figure>
+                          <div className="flex flex-col">
+                            <span className="text-base text-grey-900">
+                              {article.user.user.nom} {article.user.user.prenom}
+                            </span>
+                            <span className="d-block font-xssss fw-500 text-grey-500">
+                              {article.user.user.profil == "other"
+                                ? article.user.other?.profession
+                                : ""}
+                              {article.user.user.profil == "player"
+                                ? " Joueur"
+                                : ""}
+                              {article.user.user.profil == "agent" &&
+                                article.user.agent?.typeresponsable == "players"
+                                ? "Manager de Joueur"
+                                : ""}
+                              {article.user.user.profil == "agent" &&
+                                article.user.agent?.typeresponsable == "club"
+                                ? "Manager de CLub"
+                                : ""}
+                              {article.user.user.profil == "scout" ? "Scout" : ""}
+                            </span>
+                            <span className="d-block font-xssss fw-500 text-grey-500">
+
+                              {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                              {
+                                moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                                  moment(article?.createdAt).fromNow(true) :
+                                  moment(article?.createdAt).fromNow()
+                              }
+                              {/* {formatDate(
                               article.createdAt
                             )} */}
-                          </span>
+                            </span>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="card-body d-block p-0 mb-3">
-                        <div className="row ps-2 pe-2">
-                          <div className="col-sm-12 p-1">
-                            <div className="card-body d-block p-0 mb-3">
-                              <div className="row ps-2 pe-2">
-                              {article?.sharedArticle?.image.split(';').map((imageUrl, index) => (
-        <div key={index} className="col-sm-12 col-md-6 col-lg-4 p-1">
-          <img
-            className="w-100 h-auto rounded-lg mb-2"  
-            src={imageUrl}
-            alt={`Image ${index}`}
-          />
-        </div>
-      ))}
+                        <div className="card-body d-block p-0 mb-3">
+                          <div className="row ps-2 pe-2">
+                            <div className="col-sm-12 p-1">
+                              <div className="card-body d-block p-0 mb-3">
+                                <div className="row ps-2 pe-2">
+                                  {article?.image.split(';').map((imageUrl, index) => (
+                                    <div key={index} className="col-sm-12 col-md-6 col-lg-4 p-1">
+                                      <img
+                                        className="w-100 h-auto rounded-lg mb-2"
+                                        src={imageUrl}
+                                        alt={`Image ${index}`}
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                    ))
+
+
+                  ) : (
+                    <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+                      Aucun Photo pour le moment
                     </div>
-                  ))
-               
-               
-                ) : (
-                  <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-                    Aucun Photo pour le moment
-                  </div>
-                )}
+                  )}
               </div>
             </div>
           </div>
         )}
-        {/* {profileFeed === "video" && (
+
+        {profileFeed === "video" && (
           <div className="w-full mt-4 text-center">
             <div>
               <div>
-                {articles.length > 0 ? (
+                {articlesWithVideo.length > 0 ? (
                   articlesWithVideo.map((article) => (
                     <div
                       key={article.id}
-                      className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
+                      className="card w-100 shadow-xss rounded-xxl  border-0 p-4 mb-3"
                     >
                       <div className="card-body p-0 d-flex">
                         <figure className="avatar me-3">
@@ -1007,64 +1008,85 @@ const Index = () => {
                                 ? article?.user?.user.image
                                 : PlaceHolder
                             }
-                            className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
+                            className="shadow-sm rounded-full w-[52px] aspect-square"
                             alt="post"
                           />
                         </figure>
-                        <div className="flex flex-col">
+                        <div className="flex flex-col items-start space-y-1">
+                          <span className="text-base text-grey-900 font-semibold">
+                            {article.user.user.nom} {article.user.user.prenom}
+                          </span>
+                          <span className="text-sm text-grey-500">
+                            {article.user.user.profil === "other"
+                              ? article.user.other?.profession
+                              : ""}
+                            {article.user.user.profil === "player"
+                              ? " Joueur"
+                              : ""}
+                            {article.user.user.profil === "agent" &&
+                              article.user.agent?.typeresponsable === "players"
+                              ? "Manager de Joueur"
+                              : ""}
+                            {article.user.user.profil === "agent" &&
+                              article.user.agent?.typeresponsable === "club"
+                              ? "Manager de Club"
+                              : ""}
+                            {article.user.user.profil === "scout"
+                              ? "Scout"
+                              : ""}
+                          </span>
+                          <span className="text-sm text-grey-500">
+                            {moment(article?.createdAt).format('DD MMMM YYYY')} {' - '}
+                            {
+                              moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
+                                ? moment(article?.createdAt).fromNow(true)
+                                : moment(article?.createdAt).fromNow()
+                            }
+                          </span>
+                        </div>
+
+                        {/* <div className=" flex flex-col">
                           <span className="text-base text-grey-900">
                             {article.user.user.nom} {article.user.user.prenom}
                           </span>
                           <span className="d-block font-xssss fw-500 text-grey-500">
-                            {article.user.user.profil == "other"
+                            {article.user.user.profil === "other"
                               ? article.user.other?.profession
                               : ""}
-                            {article.user.user.profil == "player"
+                            {article.user.user.profil === "player"
                               ? " Joueur"
                               : ""}
-                            {article.user.user.profil == "agent" &&
-                              article.user.agent?.typeresponsable == "players"
+                            {article.user.user.profil === "agent" &&
+                              article.user.agent?.typeresponsable === "players"
                               ? "Manager de Joueur"
                               : ""}
-                            {article.user.user.profil == "agent" &&
-                              article.user.agent?.typeresponsable == "club"
+                            {article.user.user.profil === "agent" &&
+                              article.user.agent?.typeresponsable === "club"
                               ? "Manager de CLub"
                               : ""}
-                            {article.user.user.profil == "scout" ? "Scout" : ""}
+                            {article.user.user.profil === "scout"
+                              ? "Scout"
+                              : ""}
                           </span>
                           <span className="d-block font-xssss fw-500 text-grey-500">
-                          {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                    {
-                      moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                        moment(article?.createdAt).fromNow(true) :
-                        moment(article?.createdAt).fromNow()
-                    }
+                            {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                            {
+                              moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
+                                ? moment(article?.createdAt).fromNow(true)
+                                : moment(article?.createdAt).fromNow()
+                            }
                           </span>
-                        </div>
+                        </div> */}
                       </div>
-                      <div className="card-body d-block p-0 mb-3">
+                      <div className="card-body d-block mt-2 p-0 mb-3">
                         <div className="row ps-2 pe-2">
                           <div className="col-sm-12 p-1">
-                            {article.video ? (
-                              <div className="card-body p-0 mb-3  overflow-hidden">
-                                <video controls
-                                  className=" w-100 md:max-h-[600px] max-h-[350px]"
-
-                                >
-                                  <source
-                                    src={article.video}
-                                    type="video/mp4"
-                                  />
+                            {article.video && (
+                              <div className="card-body p-0 mb-3 overflow-hidden">
+                                <video controls className="w-100 md:max-h-[600px] max-h-[350px]">
+                                  <source src={article.video} type="video/mp4" />
                                   Your browser does not support the video tag.
-                                </video>{" "}
-                              </div>
-                            ) : (
-                              <div className="card-body d-block p-0 mb-3">
-                                <div className="row ps-2 pe-2">
-                                  <div className="col-sm-12 p-1">
-                                    Aucun Video Pour Le Moment
-                                  </div>
-                                </div>
+                                </video>
                               </div>
                             )}
                           </div>
@@ -1080,87 +1102,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-        )} */}
-        {profileFeed === "video" && (
-      <div className="w-full mt-4 text-center">
-        <div>
-          <div>
-            {articlesWithVideo.length > 0 ? (
-              articlesWithVideo.map((article) => (
-                <div
-                  key={article.id}
-                  className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
-                >
-                  <div className="card-body p-0 d-flex">
-                    <figure className="avatar me-3">
-                      <img
-                        src={
-                          article?.user?.user.image
-                            ? article?.user?.user.image
-                            : PlaceHolder
-                        }
-                        className="avatar me-3 shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
-                        alt="post"
-                      />
-                    </figure>
-                    <div className="flex flex-col">
-                      <span className="text-base text-grey-900">
-                        {article.user.user.nom} {article.user.user.prenom}
-                      </span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
-                        {article.user.user.profil === "other"
-                          ? article.user.other?.profession
-                          : ""}
-                        {article.user.user.profil === "player"
-                          ? " Joueur"
-                          : ""}
-                        {article.user.user.profil === "agent" &&
-                          article.user.agent?.typeresponsable === "players"
-                          ? "Manager de Joueur"
-                          : ""}
-                        {article.user.user.profil === "agent" &&
-                          article.user.agent?.typeresponsable === "club"
-                          ? "Manager de CLub"
-                          : ""}
-                        {article.user.user.profil === "scout"
-                          ? "Scout"
-                          : ""}
-                      </span>
-                      <span className="d-block font-xssss fw-500 text-grey-500">
-                        {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                        {
-                          moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
-                            ? moment(article?.createdAt).fromNow(true)
-                            : moment(article?.createdAt).fromNow()
-                        }
-                      </span>
-                    </div>
-                  </div>
-                  <div className="card-body d-block p-0 mb-3">
-                    <div className="row ps-2 pe-2">
-                      <div className="col-sm-12 p-1">
-                        {article.video && (
-                          <div className="card-body p-0 mb-3 overflow-hidden">
-                            <video controls className="w-100 md:max-h-[600px] max-h-[350px]">
-                              <source src={article.video} type="video/mp4" />
-                              Your browser does not support the video tag.
-                            </video>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-                Aucun Video pour le moment
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    )}
+        )}
       </ProfileLayout>
     </>
   );

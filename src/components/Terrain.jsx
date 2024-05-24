@@ -1,7 +1,7 @@
 import React from "react";
 import terrain from "../assets/terrain.png";
 
-const Terrain = ({positionPlay , positionSecond }) => {
+const Terrain = ({ positionPlay, positionSecond }) => {
     const position = [];
     const position2 = [];
     switch (positionPlay) {
@@ -14,7 +14,7 @@ const Terrain = ({positionPlay , positionSecond }) => {
         case "Arrière droit (RB)":
             position.push('RB')
             break;
-        case "Arrière gauche (LB)":
+        case "Arrière gauche( LB)":
             position.push('LB')
             break;
         case "Milieu défensif (CDM)":
@@ -29,10 +29,10 @@ const Terrain = ({positionPlay , positionSecond }) => {
         case "Ailier droit (RW)":
             position.push('RW')
             break;
-        case "Ailier gauche (LW)":
+        case "Ailier gauche ( LW)":
             position.push('LW')
             break;
-        case "Attaquant de pointe (ST)":
+        case "Avant-centre ":
             position.push('ST')
             break;
         case "Attaquant polyvalent (ST)":
@@ -42,7 +42,7 @@ const Terrain = ({positionPlay , positionSecond }) => {
             position.push('NAN')
     }
 
-    
+
     switch (positionSecond) {
         case "Gardien de but (GK)":
             position2.push('GK')
@@ -53,7 +53,7 @@ const Terrain = ({positionPlay , positionSecond }) => {
         case "Arrière droit (RB)":
             position2.push('RB')
             break;
-        case "Arrière gauche (LB)":
+        case "Arrière gauche( LB)":
             position2.push('LB')
             break;
         case "Milieu défensif (CDM)":
@@ -68,7 +68,7 @@ const Terrain = ({positionPlay , positionSecond }) => {
         case "Ailier droit (RW)":
             position2.push('RW')
             break;
-        case "Ailier gauche (LW)":
+        case "Ailier gauche ( LW)":
             position2.push('LW')
             break;
         case "Attaquant de pointe (ST)":
@@ -83,7 +83,7 @@ const Terrain = ({positionPlay , positionSecond }) => {
 
 
 
-    const existPosition = (pos,pos2) => {
+    const existPosition = (pos, pos2) => {
         return position.includes(pos) || position2.includes(pos)
     }
 
@@ -100,7 +100,7 @@ const Terrain = ({positionPlay , positionSecond }) => {
                     <div className={`absolute left-[7px] top-[105px] flex justify-center items-center self-start text-center rounded-full aspect-square ${existPosition('GK') ? 'bg-orange-500' : 'bg-neutral-500'} h-[35px]`}>
                         GK
                     </div>
-                    <div className={`absolute left-14 flex justify-center items-center self-start text-center rounded-full aspect-square ${existPosition('LB') ? 'bg-orange-500 pointer' : 'bg-neutral-500'} h-[35px]`}>
+                    <div className={`absolute left-14 flex justify-center items-center self-start text-center rounded-full aspect-square ${existPosition('LB') ? 'bg-orange-500 ' : 'bg-neutral-500'} h-[35px]`}>
                         LB
                     </div>
                     <div className={`absolute left-14 top-[105px] flex justify-center items-center self-start text-center rounded-full aspect-square ${existPosition('CB') ? 'bg-orange-500' : 'bg-neutral-500'} h-[35px]`}>
