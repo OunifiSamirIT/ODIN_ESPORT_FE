@@ -5,6 +5,7 @@ import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
+import Slider from "react-slick";
 
 import Friends from "../components/Friends";
 import Contacts from "../components/Contacts";
@@ -56,7 +57,7 @@ import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "../pages/HomeSkeletonPost";
 import EditPost from "../pages/EditPost";
 import { Context } from "../index";
-function Post({ article, setArticles, onDeleteFromListAcceuillFront  }) {
+function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const {
     register,
     setValue,
@@ -72,7 +73,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront  }) {
   const [isOpen, setIsOpen] = useState(false);
   const [postsData, setPostsData] = useState([]);
   const fileInputRef = useRef(null);
-    const [articlesP, setArticlesP] = useState([]); // New state for articles
+  const [articlesP, setArticlesP] = useState([]); // New state for articles
   const [isActive, setIsActive] = useState(false);
   const [comment, setComment] = useState("");
   const [selectedArticleId, setSelectedArticleId] = useState(null);
@@ -119,7 +120,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront  }) {
     if (reff.current && !reff.current.contains(event.target)) {
       console.log(!reff.current.contains(event.target))
       setShowDropdownlikes(false)
-      
+
 
     }
   };
@@ -141,20 +142,52 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront  }) {
       const data = await response.json();
       console.log("🚀 ~ handleClicklikeshow ~ data:", data)
       setUserslikearticle(data);
-      
+
       setShowDropdownlikes(!showDropdownlikes);
     } catch (error) {
       console.error(error);
     }
   };
 
-  
+
 
   let _ref_toggelcomment = useRef(null)
 
   const ref = useRef(null);
 
   const [isModaldOpen, setIsModaldOpen] = useState(false)
+
+  const refGallery = useRef(null);
+
+  const [isModaldOpenGallery, setIsModaldOpenGallery] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleClickOutsideGallery = (event) => {
+    if (refGallery.current && !refGallery.current.contains(event.target)) {
+      console.log(!refGallery.current.contains(event.target))
+      setIsModaldOpenGallery(false)
+     
+
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutsideGallery);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideGallery);
+    };
+    
+  }, []);
+  const handlePlusClick = () => {
+    setIsModaldOpenGallery(true);
+  };
+
+  const handleCloseModalGallery = () => {
+    setIsModaldOpenGallery(false);
+    setCurrentImageIndex(0); // Reset current image index when closing the modal
+
+  };
+
+
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
       console.log(!ref.current.contains(event.target))
@@ -362,7 +395,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront  }) {
     }
   };
 
- 
+
 
   const handleLikeComment = async (commentId) => {
     try {
@@ -512,7 +545,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront  }) {
   //   } finally {
   //     setLoading(false);
   //   }
-     
+
   // };
 
   const loadRemainingArticles = (remainingArticles) => {
@@ -1269,29 +1302,29 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront  }) {
 
   const reffPartage = useRef(null);
 
- const [partage, setPartage] = useState("")
- let _ref_partage = useRef(null)
+  const [partage, setPartage] = useState("")
+  let _ref_partage = useRef(null)
 
- const [isModaldOpenPartage, setIsModaldOpenPartage] = useState(false)
- const handleClickOutsidePartage = (event) => {
-   if (reffPartage.current && !reffPartage.current.contains(event.target)) {
-     console.log(!reffPartage.current.contains(event.target))
-     setIsModaldOpenPartage(false)
-    
+  const [isModaldOpenPartage, setIsModaldOpenPartage] = useState(false)
+  const handleClickOutsidePartage = (event) => {
+    if (reffPartage.current && !reffPartage.current.contains(event.target)) {
+      console.log(!reffPartage.current.contains(event.target))
+      setIsModaldOpenPartage(false)
 
-   }
- };
- useEffect(() => {
-   document.addEventListener("mousedown", handleClickOutsidePartage);
-   return () => {
-     document.removeEventListener("mousedown", handleClickOutsidePartage);
-   };
- }, []);
-const partageArticle = async (articleId) => {
 
-   const result = await fetch(`${Config.LOCAL_URL}/api/articles/${articleId}`)
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutsidePartage);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsidePartage);
+    };
+  }, []);
+  const partageArticle = async (articleId) => {
+
+    const result = await fetch(`${Config.LOCAL_URL}/api/articles/${articleId}`)
     setPartage(result);
-    console.log("pppppppppppppppppp",partage)
+    console.log("pppppppppppppppppp", partage)
     setIsModaldOpenPartage(true);
     // Optionally, close any other comment input sections if needed
     if (_ref_partage.current) {
@@ -1299,54 +1332,54 @@ const partageArticle = async (articleId) => {
       console.log("dddddddddddddddddddddddddddggggg", button);
       // Now you can use the button variable or do something else with it
     }
-};
+  };
 
-const fetchArticles = async (size, page) => {
-  try {
-    const response = await fetch(`${Config.LOCAL_URL}/api/articles?size=${size}&page=${page }`);
-    const result = await response.json();
-    
-    if(result.rows == 0) {
-      setHasMore(false)
+  const fetchArticles = async (size, page) => {
+    try {
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles?size=${size}&page=${page}`);
+      const result = await response.json();
+
+      if (result.rows == 0) {
+        setHasMore(false)
+      }
+      const articlesWithPromises = result.rows.map(async (article) => {
+        const userId = article.userId;
+        const comt = article.id;
+
+        const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
+          fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
+          fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
+          fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
+        ]);
+
+        const likesCount = likesCountResponse.find(
+          (count) =>
+            count.articleId === article.articleId ||
+            count.articleId === article.id
+        );
+
+        return {
+          ...article,
+          user: userDataResponse,
+          comments: commentsResponse.commentsData,
+          commentsCount: commentsResponse.commentCount,
+          likesCount: likesCount ? likesCount.likesCount : 0,
+        };
+      });
+
+      const reversedArticlesWithPromises = articlesWithPromises; // Reverse the order
+
+      const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
+
+
+
+      return articlesWithLikesCount
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-    const articlesWithPromises = result.rows.map(async (article) => {
-      const userId = article.userId;
-      const comt = article.id;
+  };
 
-      const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
-        fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
-        fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
-        fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
-      ]);
-
-      const likesCount = likesCountResponse.find(
-        (count) =>
-          count.articleId === article.articleId ||
-          count.articleId === article.id
-      );
-
-      return {
-        ...article,
-        user: userDataResponse,
-        comments: commentsResponse.commentsData,
-        commentsCount: commentsResponse.commentCount,
-        likesCount: likesCount ? likesCount.likesCount : 0,
-      };
-    });
-
-    const reversedArticlesWithPromises = articlesWithPromises; // Reverse the order
-    
-    const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
-    
-
-    
-    return articlesWithLikesCount
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
-
-const [textareaHeight, setTextareaHeight] = useState('70px');
+  const [textareaHeight, setTextareaHeight] = useState('70px');
   const textAreaRef = useRef(null);
 
   const handleChange = (e) => {
@@ -1356,17 +1389,17 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
       setValue("description", e.target.value); // Update the form value
     }
   };
-  
+
   useEffect(() => {
     handleChange(); // Initial calculation of height
   }, []); // Run only once after component mounted
 
 
- 
+
   const [originalArticle, setOriginalArticle] = useState(null);
   const fetchArticleById = async (id) => {
     // Replace with your API call
-    return fetch(`http://localhost:5000/api/articles/${id}`)
+    return fetch(`${Config.LOCAL_URL}/api/articles/${id}`)
       .then(response => response.json())
       .then(data => data);
   };
@@ -1382,18 +1415,18 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
   // const handlePostSubmitPartage = async (data) => {
   //   try {
   //     setPosting(true);
-  
+
   //     const formData = new FormData();
   //     formData.append("description", data.description || ""); // Append empty string if description is null
   //     formData.append("userId", storedUserData.id);
-  
+
   //     // Determine the original article to be shared
   //     if(originalArticle){
   //             formData.append("sharedFrom", originalArticle.id);
   //         }else{ formData.append("sharedFrom", article.id); }
-      
-      
-  
+
+
+
   //     await fetch(`${Config.LOCAL_URL}/api/articles/`, {
   //       method: "POST",
   //       body: formData,
@@ -1408,38 +1441,49 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
   //     setPosting(false);
   //   }
   // };
-  
+
   const handlePostSubmitPartage = async (data) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
 
 
-  const id = storedUserData.id ? storedUserData.id : null;
+    const id = storedUserData.id ? storedUserData.id : null;
     try {
       setPosting(true);
-  
+
       const formData = new FormData();
-      formData.append("description", data.description || ""); // Append empty string if description is null
+      formData.append("description", data.description || ""); 
       formData.append("userId", storedUserData.id);
   
-      // Determine the original article to be shared
       if (originalArticle) {
         formData.append("sharedFrom", originalArticle.id);
       } else {
         formData.append("sharedFrom", article.id);
       }
-  
+
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
       });
-  
+      if (response.status === 200) {
+        toast.success('Partager avec success voir votre profile  !', {
+          position: "top-right",
+          autoClose: 5000,
+          type: 'success',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      }
       // const newArticle = await response.json(); 
       // addNewArticle(newArticle);
-      navigate(`/profile/${id}`)
-  
+      // navigate(`/profile/${id}`)
+
       setTimeout(() => {
         setIsModaldOpenPartage(false);
-      }, 1000);
+      }, 4800);
       setValue("description", "");
       setPosting(false);
     } catch (error) {
@@ -1464,12 +1508,53 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
   moment.locale(language === 'fr' ? 'fr' : 'en');
 
 
+  const images = article?.image?.split(';') || [];
+  const imageCount = images.length ;
+  const friendsettings = {
+    arrows: true,
+    dots: false,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 1,
+    centerMode: false,
+    variableWidth: false,
+    autoplay: false,
+    autoplaySpeed: 3500,
+    adaptiveHeight: true,
+  };
 
+
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+
+    if (videoElement) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              videoElement.pause();
+            }
+          });
+        },
+        {
+          threshold: 0.25,
+        }
+      );
+
+      observer.observe(videoElement);
+
+      return () => {
+        observer.unobserve(videoElement);
+      };
+    }
+  }, []);
   return (
     <>
 
 
-      <div className="flex flex-col  w-full md:mt-4 mt-0 max-md:ml-0 max-md:w-full">
+      <div className="flex flex-col  w-full -mt-2   max-md:ml-0 max-md:w-full">
 
 
         {/* show post  */}
@@ -1479,7 +1564,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
 
             <div
               key={article.id}
-              className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
+              className="card w-100 shadow-xss rounded-xxl border-0 mt-4 -px-4  p-4 "
             >
               <div className="card-body p-0 d-flex">
                 <Link to={`/profile/${article?.user?.user?.id}`}>
@@ -1494,10 +1579,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                   </figure>
                 </Link>
 
- <h4 className="fw-700 text-grey-900 font-xssss mt-1">
- <Link to={`/profile/${article?.user?.user?.id}`}>
-   {article?.user?.user?.nom} {"   "} 
-                  {article?.user?.user?.prenom} </Link>
+                <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+                  <Link to={`/profile/${article?.user?.user?.id}`}>
+                    {article?.user?.user?.nom} {"   "}
+                    {article?.user?.user?.prenom} </Link>
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {article?.user?.user?.profil == 'other' ? article.user.other?.profession : ''}
                     {article?.user?.user?.profil == 'player' ? ' Joueur' : ''}
@@ -1554,7 +1639,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                       {showDropdown === article.id &&
                         article?.user?.user &&
                         article?.user?.user?.id === storedUserData.id && (
-                          <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                          <div className="absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
 
 
 
@@ -1562,7 +1647,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
 
 
                             <button
-                              className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                              className="block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
                               // onClick={() =>
                               //   handleEditClick(selectedArticle)
                               // }
@@ -1587,10 +1672,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                     </clipPath>
                                   </defs>
                                 </svg>
-                                <span  >{ getTranslation(
-                                      `Edit`,  // -----> Englais
-                                        `Modifier`, //  -----> Francais
-                                                     )  }</span>
+                                <span  >{getTranslation(
+                                  `Edit`,  // -----> Englais
+                                  `Modifier`, //  -----> Francais
+                                )}</span>
 
                                 {/* <Link to={`/editPost/${article.id}`}>
                                           <span>Edit</span>
@@ -1607,10 +1692,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                               <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17.5 3.33333H14.0825C13.695 1.43417 12.0125 0 10 0H8.33333C6.32167 0 4.63833 1.43417 4.25083 3.33333H0.833333C0.373333 3.33333 0 3.70583 0 4.16667C0 4.6275 0.373333 5 0.833333 5H1.55L2.63 16.2325C2.83667 18.3808 4.62 20 6.7775 20H11.55C13.7108 20 15.4942 18.3775 15.6983 16.2267L16.7617 5H17.4992C17.9592 5 18.3325 4.6275 18.3325 4.16667C18.3325 3.70583 17.96 3.33333 17.5 3.33333ZM8.33333 1.66667H10C11.085 1.66667 12.0017 2.36583 12.3467 3.33333H5.9875C6.3325 2.36583 7.24833 1.66667 8.33333 1.66667ZM12.2558 13.5775C12.5817 13.9033 12.5817 14.43 12.2558 14.7558C12.0933 14.9183 11.88 15 11.6667 15C11.4533 15 11.24 14.9183 11.0775 14.7558L9.16667 12.845L7.25583 14.7558C7.09333 14.9183 6.88 15 6.66667 15C6.45333 15 6.24 14.9183 6.0775 14.7558C5.75167 14.43 5.75167 13.9033 6.0775 13.5775L7.98833 11.6667L6.0775 9.75583C5.75167 9.43 5.75167 8.90333 6.0775 8.5775C6.40333 8.25167 6.93 8.25167 7.25583 8.5775L9.16667 10.4883L11.0775 8.5775C11.4033 8.25167 11.93 8.25167 12.2558 8.5775C12.5817 8.90333 12.5817 9.43 12.2558 9.75583L10.345 11.6667L12.2558 13.5775Z" fill="black" />
                               </svg>
-                              <span className="text-base">{ getTranslation(
-            `Delete`,  // -----> Englais
-              `Supprimer`, //  -----> Francais
-                           )  }</span>
+                              <span className="text-base">{getTranslation(
+                                `Delete`,  // -----> Englais
+                                `Supprimer`, //  -----> Francais
+                              )}</span>
                             </button>
                           </div>
                         )}
@@ -1642,6 +1727,8 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                         <video
                           controls
                           className=" w-100 md:max-h-[600px] max-h-[350px]"
+                          ref={videoRef}
+
                         >
                           <source
                             src={article.video}
@@ -1657,128 +1744,30 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
               )}
 
 
-
-
-
-{/* <div class="bg-white dark:bg-gray-800 h-screen h-full py-6 sm:py-8 lg:py-12">
-    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-       
-
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-            <a href="#"
-                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
-                <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&q=75&fit=crop&w=600" loading="lazy" alt="Photo by Minh Pham" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-
-                <div
-                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
-                </div>
-
-                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">VR</span>
-            </a>
-        
-            <a href="#"
-                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:col-span-2 md:h-80">
-                <img src="https://images.unsplash.com/photo-1542759564-7ccbb6ac450a?auto=format&q=75&fit=crop&w=1000" loading="lazy" alt="Photo by Magicle" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-
-                <div
-                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
-                </div>
-
-                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Tech</span>
-            </a>
-          
-            <a href="#"
-                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:col-span-2 md:h-80">
-                <img src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=1000" loading="lazy" alt="Photo by Martin Sanchez" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-
-                <div
-                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
-                </div>
-
-                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Dev</span>
-            </a>
-        
-            <a href="#"
-                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600" loading="lazy" alt="Photo by Lorenzo Herrera" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-
-                <div
-                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
-                </div>
-
-                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Retro</span>
-            </a>
-        </div>
-    </div>
-</div> */}
-{/* {article?.image ? (
-  <div class="bg-white dark:bg-gray-800 h-screen h-full py-6 sm:py-8 lg:py-12">
-    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-        {article.image.split(';').map((imageUrl, index) => (
-          <a key={index} href="#" class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
-            <img src={imageUrl} loading="lazy" alt={`Photo ${index}`} class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-            <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Image {index + 1}</span>
-          </a>
-        ))}
+<div className="card-body d-block p-0 mb-1">
+  <div onClick={handlePlusClick} className={`grid ${imageCount === 1 ? 'grid-cols-1' : imageCount === 2 ? 'grid-cols-2' : imageCount === 3 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
+    {images.slice(0, 4).map((imageUrl, index) => (
+      <div key={index} className={`p-1 relative ${imageCount === 3 && index === 0 ? 'col-span-2' : ''}`}>
+        {imageUrl && (  
+          <img
+            className={`w-full ${article?.image?.split(';').length === 1 ? 'md:max-h-[600px] h-[350px] object-contain ' : article?.image?.split(';').length === 2 ? 'h-full md:h-44' : 'h-44'} ${index === 0 && article?.image?.split(';').length === 3 ? 'h-full md:h-56 object-cover' : 'h-44'} ${index === 3 && images.length > 4 ? 'opacity-50' : ''}`}
+            src={imageUrl}
+            alt={`Image ${index + 1}`}  // Adjust the alt text to start from "Image 1"
+            style={{ marginBottom: '0', borderRadius: '0' }}
+          />
+        )}
+        {index === 3 && images.length > 4 && (
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl" onClick={handlePlusClick}>
+            +{images.length - 4}
+          </div>
+        )}
       </div>
-    </div>
+    ))}
   </div>
-) : (
-  <p>No images available</p>
-)} */}
-
-
-{article?.image && (
-  <div className="card-body d-block p-0 mb-3">
-    <div className="row ps-2 pe-2">
-      {article.image.split(';').map((imageUrl, index) => (
-        <div key={index} className="col-sm-12 col-md-6 col-lg-4 p-1">
-          <img
-            className="w-100 h-auto rounded-lg mb-2"
-            src={imageUrl}
-            alt={`Image ${index}`}
-          />
-        </div>
-      ))}
-    </div>
-  </div>
-)}
-{/* 
-              {article?.image && (
-  <div className="card-body d-block p-0 mb-3">
-    <div className="row ps-2 pe-2">
-      {article.image.split(';').map((imageUrl, index) => (
-        <div key={index} className="col-sm-12 p-1">
-          <img
-            className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
-            src={imageUrl}
-            alt={`Image ${index}`}
-          />
-        </div>
-      ))}
-    </div>
-  </div>
-)} */}
+</div>
 
 
 
-              {/* {article?.image && (
-                <div className="card-body d-block p-0 mb-3">
-                  <div className="row ps-2 pe-2">
-
-                    <div className="col-sm-12 p-1 ">
-                      <img
-                        className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
-                        src={article.image}
-                        alt={article.titre}
-                      />
-
-                    </div>
-                  </div>
-                </div>
-              )} */}
 
 
 
@@ -1800,13 +1789,13 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
           {article?.sharedArticle?.userspartage?.nom} {article?.sharedArticle?.userspartage?.prenom}
         </Link>
         <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-            {article?.sharedArticle?.userspartage?.profil == 'other' ? article?.sharedArticle?.userspartage?.other?.profession : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'player' ? ' Joueur' : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'coach' ? ' Entraîneur' : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'club' ? 'Manager de Club' : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'scout' ? 'Scout' : ''}
-          </span>
+          {article?.sharedArticle?.userspartage?.profil == 'other' ? article?.sharedArticle?.userspartage?.other?.profession : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'player' ? ' Joueur' : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'coach' ? ' Entraîneur' : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'club' ? 'Manager de Club' : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'scout' ? 'Scout' : ''}
+        </span>
         <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
           {moment(article?.sharedArticle?.createdAt).format('DD MMMM YYYY')} {'  -  '}
           {moment(article?.sharedArticle?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
@@ -1828,16 +1817,27 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
         )}
       </p>
     </div>
+
     {article?.sharedArticle?.image && (
       <div className="card-body d-block p-0 mb-3">
-        <div className="row ps-2 pe-2">
-          <div className="col-sm-12 p-1">
-            <img
-              className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
-              src={article?.sharedArticle?.image}
-              alt={article?.sharedArticle?.titre}
-            />
-          </div>
+        <div className={`grid ${article?.sharedArticle?.image.split(';').length === 1 ? 'grid-cols-1' : article?.sharedArticle?.image.split(';').length === 2 ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
+          {article?.sharedArticle?.image.split(';').slice(0, 4).map((imageUrl, index) => (
+            <div key={index} className="p-1 relative">
+              {imageUrl && (
+                <img
+                  className={`w-full ${article?.sharedArticle?.image.split(';').length === 1 ? 'md:max-h-[600px] max-h-[350px] w-100 object-contain' : article?.sharedArticle?.image.split(';').length === 2 ? 'h-full md:h-44' : 'h-44'} ${index === 3 && article?.sharedArticle?.image.split(';').length > 4 ? 'opacity-50' : ''}`}
+                  src={imageUrl}
+                  alt={`Image ${index + 1}`}
+                  style={{ marginBottom: '0', borderRadius: '0' }}
+                />
+              )}
+              {index === 3 && article?.sharedArticle?.image.split(';').length > 4 && (
+                <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl">
+                  +{article?.sharedArticle?.image.split(';').length - 4}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     )}
@@ -1865,10 +1865,13 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
 )}
 
 
-              <div className="  rounded-lg">
+
+
+
+              <div className="  rounded-lg -mt-4">
                 <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
-                  <div     onClick={() => handleClicklikeshow(article.id)}
- className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5">
+                  <div onClick={() => handleClicklikeshow(article.id)}
+                    className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5">
                     <svg
                       width="17"
                       height="15"
@@ -1884,46 +1887,46 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                     {/* <span className="text-md py-1">
                       {article.likesCount}
                     </span> */}
-      <div>
-  <span
-    className="text-md py-1 px-2 relative z-[2] "
-  >
-   <div className=""> {article.likesCount}</div>
-   
-    {showDropdownlikes && (
-      <div ref={reff} className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
-        <div className="py-2 px-4">
-          <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold"> {
-             getTranslation(
-              `Who liked this post?`,  // -----> Englais
-              `Qui a aimé cette publication?`, //  -----> Francais
-              ``,  //  -----> Turkey
-              `` ,  //  -----> Allemagne
-              ) 
+                    <div>
+                      <span
+                        className="text-md py-1 px-2 relative z-[2] "
+                      >
+                        <div className=""> {article.likesCount}</div>
 
-            } </h3>
-          <ul>
-            {userslikearticle.map((like, index) => (
-              <li key={index} className="mt-1 py-2 flex flex-row  items-center">
-                 <Link to={`/profile/${like.userId}`}>
-                  <figure className="avatar me-3">
-                    <img
-                      srcSet={like?.user?.image ? like?.user?.image : placeholder}
+                        {showDropdownlikes && (
+                          <div ref={reff} className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+                            <div className="py-2 px-4">
+                              <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold"> {
+                                getTranslation(
+                                  `Who liked this post?`,  // -----> Englais
+                                  `Qui a aimé cette publication?`, //  -----> Francais
+                                  ``,  //  -----> Turkey
+                                  ``,  //  -----> Allemagne
+                                )
 
-                      // src={article?.user?.user??.image}
-                      className="shadow-sm rounded-full w-[32px] aspect-square"
-                    />{" "}
-                  </figure>
-                </Link>
-                {like?.user?.nom} {like?.user?.prenom}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    )}
-  </span>
-</div>
+                              } </h3>
+                              <ul>
+                                {userslikearticle.map((like, index) => (
+                                  <li key={index} className="mt-1 py-2 flex flex-row  items-center">
+                                    <Link to={`/profile/${like.userId}`}>
+                                      <figure className="avatar me-3">
+                                        <img
+                                          srcSet={like?.user?.image ? like?.user?.image : placeholder}
+
+                                          // src={article?.user?.user??.image}
+                                          className="shadow-sm rounded-full w-[32px] aspect-square"
+                                        />{" "}
+                                      </figure>
+                                    </Link>
+                                    {like?.user?.nom} {like?.user?.prenom}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        )}
+                      </span>
+                    </div>
 
                   </div>
                   <div className="flex gap-2.5 items-center justify-center py-2.5">
@@ -1946,7 +1949,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                 </div>
                 <span className="h-[0.5px] block bg-gray-200 w-full mb-3"></span>
 
-                <span className="flex justify-between items-center mb-0 ml-0 p-0 font-bold w-full">
+                <span className="flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
                   <button
                     onClick={async () => {
                       await handleLikeClick(article.id, 1);
@@ -1974,10 +1977,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                               }}
                             >
 
-{ getTranslation(
-            `Like`,  // -----> Englais
-              `J'aime`, //  -----> Francais
-                           )  } 
+                              {getTranslation(
+                                `Like`,  // -----> Englais
+                                `J'aime`, //  -----> Francais
+                              )}
                             </span>
                           </div>
                         </span>
@@ -1994,10 +1997,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                               }}
                             >
 
-{ getTranslation(
-            `Like`,  // -----> Englais
-              `J'aime`, //  -----> Francais
-                           )  } 
+                              {getTranslation(
+                                `Like`,  // -----> Englais
+                                `J'aime`, //  -----> Francais
+                              )}
                             </span>
                           </div>
 
@@ -2025,54 +2028,54 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
 
 
                     <div className="flex flex-row gap-x-4">
-                   
-                    {selectedArticleId === article.id ? (
-                      <div className="flex gap-2 flex-row md:flex-row items-center">
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                          className="w-5 aspect-square fill-zinc-900"
-                        />
-                        <div className="flex gap-2 text-xs md:text-md">{ getTranslation(
-            `Comment`,  // -----> Englais
-              `Commenter`, //  -----> Francais
-                           )  } </div>
-                      </div>
-                    ) : (
-                      <div className="flex gap-2 flex-row md:flex-row items-center">
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                          className="w-5 aspect-square fill-zinc-900"
-                        />
-                        <div className="flex gap-2 text-xs md:text-md">
-                          {" "}
-                          <span>{ getTranslation(
-            `Comment`,  // -----> Englais
-              `Commenter`, //  -----> Francais
-                           )  } </span>
+
+                      {selectedArticleId === article.id ? (
+                        <div className="flex gap-2 flex-row md:flex-row items-center">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square fill-zinc-900"
+                          />
+                          <div className="flex gap-2 text-xs md:text-md">{getTranslation(
+                            `Comment`,  // -----> Englais
+                            `Commenter`, //  -----> Francais
+                          )} </div>
                         </div>
-                      </div>
-                    )}
+                      ) : (
+                        <div className="flex gap-2 flex-row md:flex-row items-center">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-5 aspect-square fill-zinc-900"
+                          />
+                          <div className="flex gap-2 text-xs md:text-md">
+                            {" "}
+                            <span>{getTranslation(
+                              `Comment`,  // -----> Englais
+                              `Commenter`, //  -----> Francais
+                            )} </span>
+                          </div>
+                        </div>
+                      )}
 
 
-</div>
+                    </div>
 
 
 
-                    
+
                   </button>
 
 
 
 
-{/* partage */}
+                  {/* partage */}
 
-<button
+                  <button
                     onClick={() => {
-                     
-                        partageArticle(article.id)
-                      
+
+                      partageArticle(article.id)
+
 
 
                     }}
@@ -2081,40 +2084,40 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
 
 
                     <div className="flex flex-row gap-x-4">
-                   
-                    {selectedArticleId === article.id ? (
-                      <div className="flex gap-2 flex-row md:flex-row items-center">
-                                               <BiShare/>
 
-                        <div className="flex gap-2 text-xs md:text-md">{ getTranslation(
-            `Share`,  // -----> Englais
-              `Partager`, //  -----> Francais
-                           )  } </div>
-                      </div>
-                    ) : (
-                      <div className="flex gap-2 flex-row md:flex-row items-center">
-                                                <BiShare/>
+                      {selectedArticleId === article.id ? (
+                        <div className="flex gap-2 flex-row md:flex-row items-center">
+                          <BiShare className="size-6"/>
 
-                        <div className="flex gap-2 text-xs md:text-md">
-                          {" "}
-                          <span>{ getTranslation(
-            `Share`,  // -----> Englais
-              `Partager`, //  -----> Francais
-                           )  } </span>
+                          <div className="flex gap-2 text-xs md:text-md">{getTranslation(
+                            `Share`,  // -----> Englais
+                            `Partager`, //  -----> Francais
+                          )} </div>
                         </div>
-                      </div>
-                    )}
+                      ) : (
+                        <div className="flex gap-2 flex-row md:flex-row items-center">
+                          <BiShare className="size-6"/>
 
-</div>
+                          <div className="flex gap-2 text-xs md:text-md">
+                            {" "}
+                            <span>{getTranslation(
+                              `Share`,  // -----> Englais
+                              `Partager`, //  -----> Francais
+                            )} </span>
+                          </div>
+                        </div>
+                      )}
+
+                    </div>
 
 
 
 
 
-                    
+
                   </button>
 
-                
+
                 </span>
 
                 {selectedArticleId === article?.id && (
@@ -2123,8 +2126,8 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                       article?.comments?.map((comment) => (
                         <div key={comment.id} className="comment">
                           <div className="flex w-full">
-                          <Link to={`/profile/${comment?.user?.user?.id}`}>  <figure className="avatar me-3 mb-8">
-                             
+                            <Link to={`/profile/${comment?.user?.user?.id}`}>  <figure className="avatar me-3 mb-8">
+
 
 
                               <img
@@ -2135,22 +2138,33 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                               />
                             </figure></Link>
                             <div className="flex flex-col w-full">
+
+
+
                               <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[15px] md:rounded-[20px] max-w-[510px]">
-                                <div className="flex gap-4 justify-between px-3 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+
+
+
+
+                                <div className="flex gap-4 justify-between px-3 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
+
+
+
+
                                   <div className="flex flex-col py-1 font-light text-zinc-900">
-                                  <Link to={`/profile/${comment?.user?.user?.id}`}>
-                                   <div className="fw-700 text-grey-900 font-xssss mt-1">
-                                      {comment.user &&
-                                        comment.user.user.nom}{" "}
-                                      {comment.user &&
-                                        comment.user.user.prenom}
-                                    </div> </Link>
+
+
+
+
+                                    <Link to={`/profile/${comment?.user?.user?.id}`}>
+                                      <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                        {comment.user &&
+                                          comment.user.user.nom}{" "}
+                                        {comment.user &&
+                                          comment.user.user.prenom}
+                                      </div> </Link>
                                     <div className="mt-1 text-xs">
-                                      {/* {comment.user && comment.user.user.profil === "other" ? (
-    <div>{comment.user.user.profession}</div>
-) : (
-    <div>{comment.user.user.profil}</div>
-)} */}
+
                                       {comment.user && (
                                         <div>
                                           {comment?.user?.user?.profil === 'other' && comment?.user?.other?.profession}
@@ -2165,21 +2179,25 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                         comment.user.user.profil} */}
                                     </div>
                                     <div className="mt-1 text-xs">
-                                    {moment(comment?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                    {
-                      moment(comment?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                        moment(comment?.createdAt).fromNow(true) :
-                        moment(comment?.createdAt).fromNow()
-                    }
-                                    
+                                      {moment(comment?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                                      {
+                                        moment(comment?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                                          moment(comment?.createdAt).fromNow(true) :
+                                          moment(comment?.createdAt).fromNow()
+                                      }
+
                                     </div>
+
                                   </div>
+
+
+
 
 
                                   {storedUserData.id == comment?.user?.user?.id &&
 
                                     (<div
-                                      className="ms-auto relative cursor-pointer"
+                                      className=" relative cursor-pointer"
                                       onClick={() => handleMoreClickComment(comment)}
                                     >
 
@@ -2220,10 +2238,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                                 <BiEditAlt />
                                                 {/* <Link to={`/editPost/${comment.id}`}> */}
                                                 <span>
-                                                   { getTranslation(
-            `Edit`,  // -----> Englais
-              `Modifier`, //  -----> Francais
-                           )  }</span>
+                                                  {getTranslation(
+                                                    `Edit`,  // -----> Englais
+                                                    `Modifier`, //  -----> Francais
+                                                  )}</span>
                                                 {/* </Link>{" "} */}
                                               </label>
                                             </button>
@@ -2245,17 +2263,15 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                               // onClick={() => handleEditClickComment(comment)}
                                               >
                                                 <BiLogInCircle />
-                                                <span className="text-base"> { getTranslation(
-            `Delete`,  // -----> Englais
-              `Supprimer`, //  -----> Francais
-                           )  }</span></label>
+                                                <span className="text-base"> {getTranslation(
+                                                  `Delete`,  // -----> Englais
+                                                  `Supprimer`, //  -----> Francais
+                                                )}</span></label>
                                             </button>
                                           </div>
                                         )}
 
                                     </div>)}
-
-
 
 
 
@@ -2274,7 +2290,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                     <div className="text-wrap" style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
                                     >
 
-                                      {comment.description} 
+                                      {comment.description}
                                     </div>
                                   )}
                                 </div>
@@ -2284,10 +2300,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                 {comment.id === editingCommentId ? (
                                   <div className="my-2 px-[26px] flex w-full justify-between">
 
-                                    <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}> { getTranslation(
-            `Cancel`,  // -----> Englais
-              `Annuler`, //  -----> Francais
-                           )  }</button>
+                                    <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}> {getTranslation(
+                                      `Cancel`,  // -----> Englais
+                                      `Annuler`, //  -----> Francais
+                                    )}</button>
                                     <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
                                       saveEditedComment(comment.id)
 
@@ -2372,10 +2388,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                   }
                                   className="w-20 font-semibold ml-2  mt-2 flex gap-2 text-xs md:text-md"
                                 >
-                                  { getTranslation(
-            `Reply`,  // -----> Englais
-              `Répondre`, //  -----> Francais
-                           )  }
+                                  {getTranslation(
+                                    `Reply`,  // -----> Englais
+                                    `Répondre`, //  -----> Francais
+                                  )}
                                 </button>
                               </div>
                             </div>
@@ -2430,14 +2446,14 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                                 )}
                                               </div>
                                               <div className="mt-1 text-xs">
-                                              {moment(reply?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                    {
-                      moment(reply?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                        moment(reply?.createdAt).fromNow(true) :
-                        moment(reply?.createdAt).fromNow()
-                    }
-                                               
-                                               
+                                                {moment(reply?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+                                                {
+                                                  moment(reply?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
+                                                    moment(reply?.createdAt).fromNow(true) :
+                                                    moment(reply?.createdAt).fromNow()
+                                                }
+
+
 
                                               </div>
 
@@ -2485,10 +2501,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                                           >
                                                             <BiEditAlt />
                                                             {/* <Link to={`/editPost/${comment.id}`}> */}
-                                                            <span>{ getTranslation(
-                                      `Edit`,  // -----> Englais
-                                        `Modifier`, //  -----> Francais
-                                                     )  }</span>
+                                                            <span>{getTranslation(
+                                                              `Edit`,  // -----> Englais
+                                                              `Modifier`, //  -----> Francais
+                                                            )}</span>
                                                             {/* </Link>{" "} */}
                                                           </label>
                                                         </button>
@@ -2511,10 +2527,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                                                           // onClick={() => handleEditClickComment(comment)}
                                                           >
                                                             <BiLogInCircle />
-                                                            <span className="text-base">{ getTranslation(
-            `Delete`,  // -----> Englais
-              `Supprimer`, //  -----> Francais
-                           )  }</span></label>
+                                                            <span className="text-base">{getTranslation(
+                                                              `Delete`,  // -----> Englais
+                                                              `Supprimer`, //  -----> Francais
+                                                            )}</span></label>
                                                         </button>
                                                       </div>
                                                     )}
@@ -2704,10 +2720,30 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
               </div>
             </div>
           )}
+
+
+{isModaldOpenGallery && (
+        <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+          <div ref={refGallery} className="relative  flex flex-col  md:mt-0 p-2   rounded-[10px] md:w-[725px] w-[425px] max-md:px-5 max-md:my-10">
+            <Slider {...friendsettings} initialSlide={currentImageIndex} afterChange={setCurrentImageIndex}>
+              {images.map((imageUrl, index) => (
+                 <div key={index} className="md:h-full md:w-full h-[70%] w-[70%] flex justify-center items-center">
+                 <img src={imageUrl} alt={`Image ${index}`} className="max-w-full max-h-full" />
+               </div>
+              ))}
+            </Slider>
+            <button
+              className="absolute bottom-6 right-11 opacity-0 w-36 h-10 py-2 text-white rounded-full"
+              onClick={handleCloseModal}>
+              X
+            </button>
+          </div>
+        </div>
+      )}
+
 {isModaldOpenPartage && (
             <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
               <div ref={reffPartage} className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
-              
 
 
 
@@ -2720,62 +2756,63 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
 
 
 
-<div className="flex flex-col">
+
+                <div className="flex flex-col">
 
 
 
 
 
-<form className="h-[695px] mb-2 flex flex-col" onSubmit={handleSubmit(handlePostSubmitPartage)}>
-            <div className="card-body flex flex-col  d-flex p-0">
-              <div className="flex flex-col w-full mb-2">
-              <div className='flex flex-row mb-3 '>
-                 <img
-                  srcSet={user?.user?.image ? user?.user.image : placeholder}
-                  alt="icon"
-                  className="shadow-sm rounded-full aspect-square w-11 h-11 md:w-16 md:h-16 mr-2"
-                />
-                  <div className='mt-[5px] md:mt-3  text-xs  '>
-                  <div className="flex  flex-row"> <div className="font-bold mr-1"> {
-                                        user?.user?.nom}</div>
-                                    <span> {' '}</span>
-                                    <div className="font-bold">  {
-                                        user?.user?.prenom}</div></div>
+                  <form className="h-[695px] mb-2 flex flex-col" onSubmit={handleSubmit(handlePostSubmitPartage)}>
+                    <div className="card-body flex flex-col  d-flex p-0">
+                      <div className="flex flex-col w-full mb-2">
+                        <div className='flex flex-row mb-3 '>
+                          <img
+                            srcSet={user?.user?.image ? user?.user.image : placeholder}
+                            alt="icon"
+                            className="shadow-sm rounded-full aspect-square w-11 h-11 md:w-16 md:h-16 mr-2"
+                          />
+                          <div className='mt-[5px] md:mt-3  text-xs  '>
+                            <div className="flex  flex-row"> <div className="font-bold mr-1"> {
+                              user?.user?.nom}</div>
+                              <span> {' '}</span>
+                              <div className="font-bold">  {
+                                user?.user?.prenom}</div></div>
 
-                  {
-                                        <div className='text-gray-400 font-sans'>
-                                          {user?.user?.profil === 'other' && user?.other?.profession}
-                                          {user?.user?.profil === 'player' && 'Joueur'}
-                                          {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
-                                          {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
-                                          {user?.user?.profil === 'scout' && 'Scout'}
-                                        </div>
-                                      }
-                  </div>
-                
-                </div> 
-                <div className="flex flex-col w-full gap-y-2">
-                  
-                <textarea
-                  className="flex max-h-fit px-2 pt-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[10px] theme-dark-bg"
-                  placeholder="Quoi de neuf ?"
-                  name="description"
-                  {...register("description")}
-                  onChange={handleChange} // Handle change
-                ></textarea>
-                  {errMsg?.message && (
-                    <span
-                      role="alert"
-                      className={`text-sm ${errMsg?.status === "failed"
-                        ? "text-[#f64949fe]"
-                        : "text-[#2ba150fe]"
-                        } mt-0.5`}
-                    >
-                      {errMsg?.message}
-                    </span>
-                  )}
- 
-        
+                            {
+                              <div className='text-gray-400 font-sans'>
+                                {user?.user?.profil === 'other' && user?.other?.profession}
+                                {user?.user?.profil === 'player' && 'Joueur'}
+                                {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
+                                {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
+                                {user?.user?.profil === 'scout' && 'Scout'}
+                              </div>
+                            }
+                          </div>
+
+                        </div>
+                        <div className="flex flex-col w-full gap-y-2">
+
+                          <textarea
+                            className="flex max-h-fit px-2 pt-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[10px] theme-dark-bg"
+                            placeholder="Quoi de neuf ?"
+                            name="description"
+                            {...register("description")}
+                            onChange={handleChange} // Handle change
+                          ></textarea>
+                          {errMsg?.message && (
+                            <span
+                              role="alert"
+                              className={`text-sm ${errMsg?.status === "failed"
+                                ? "text-[#f64949fe]"
+                                : "text-[#2ba150fe]"
+                                } mt-0.5`}
+                            >
+                              {errMsg?.message}
+                            </span>
+                          )}
+
+
 
 
           
@@ -2783,7 +2820,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                 </div>
               </div>
               {displayArticle && (
-              <div key={displayArticle.id} className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 mb-3">
+              <div key={displayArticle.id} className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 ">
                 <div className="card-body p-0 d-flex">
                   <Link to={`/profile/${displayArticle.user?.user?.id || displayArticle.userspartage?.id}`}>
                     <figure className="avatar me-3">
@@ -2802,6 +2839,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                     <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                       {displayArticle.user?.user?.profil === 'other' ? displayArticle.user?.other?.profession : ''}
                       {displayArticle.user?.user?.profil === 'player' ? ' Joueur' : ''}
+                      {displayArticle.user?.user?.profil === 'admin' ? ' admin' : ''}
                       {displayArticle.user?.user?.profil === 'coach' ? ' Entraîneur' : ''}
                       {displayArticle.user?.user?.profil === 'agent' && displayArticle.user?.agent?.typeresponsable === 'players' ? 'Manager de Joueur' : ''}
                       {displayArticle.user?.user?.profil === 'agent' && displayArticle.user?.agent?.typeresponsable === 'club' ? 'Manager de Club' : ''}
@@ -2828,19 +2866,33 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                     )}
                   </p>
                 </div>
+               
                 {displayArticle?.image && (
-                  <div className="card-body d-block p-0 mb-3">
-                    <div className="row ps-2 pe-2">
-                      <div className="col-sm-12 p-1">
-                        <img
-                          className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
-                          src={displayArticle?.image}
-                          alt={displayArticle?.titre}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
+                        <div className="card-body d-block p-0 mb-3">
+                          <div className={`grid ${imageCount === 1 ? 'grid-cols-1' : imageCount === 2 ? 'grid-cols-2' : imageCount === 3 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
+                            {images.slice(0, 4).map((imageUrl, index) => (
+                              <div key={index} className={`p-1 relative ${imageCount === 3 && index === 0 ? 'col-span-2' : ''}`}>
+                                {imageUrl && (
+                                  <img
+                                    className={`w-full ${imageCount === 1 ? 'h-full' : imageCount === 2 ? 'h-full md:h-44' : 'h-44'} ${index === 0 && article?.image?.split(';').length === 3 ? 'h-full md:h-56 object-cover' : 'h-44'} ${index === 3 && images.length > 4 ? 'opacity-50' : ''}`}
+                                    src={imageUrl}
+                                    alt={`Image ${index + 1}`}
+                                    style={{ marginBottom: '0', borderRadius: '0' }}
+                                  />
+                                )}
+                                {index === 3 && images.length > 4 && (
+                                  <div className="absolute inset-0 flex items-center justify-center  bg-opacity-50 rounded-md text-black">
+                                    <button  className="flex items-center text-lg">
+                                      +{images.length - 4}
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                  
                 {displayArticle?.video && (
                   <div className="card-body d-block p-0 mb-3">
                     <div className="row ps-2 pe-2">
@@ -3065,7 +3117,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
     ) : (
       <button
         type="submit"
-        className="bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white mt-3  px-8 rounded-full font-semibold text-sm"
+        className="bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white   px-8 rounded-full font-semibold text-sm"
       > 
       
       { getTranslation(
@@ -3073,10 +3125,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
               `Partager`, //  -----> Francais
                            )  } 
 
-</button>
-    )}
-            </div>
-            </form>
+                        </button>
+                      )}
+                    </div>
+                  </form>
 
 
 
@@ -3084,7 +3136,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
 
 
 
-</div>
+                </div>
 
 
 
@@ -3098,7 +3150,10 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                   className=" absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
                   onClick={() => handleCloseModal(true)}> Xddddddddddddddddd </button>
               </div>
+              <ToastContainer />
+
             </div>
+
           )}
 
         </div>

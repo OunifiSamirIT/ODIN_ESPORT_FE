@@ -120,7 +120,7 @@ function Events() {
               </div>
 
             </div>
-              <button onClick={() => handleCardClick(album.id)}>  <div className="justify-center items-center px-16 py-2 mt-4 mb-4 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
+              <button onClick={() => handleCardClick(album.id)}>  <div className="justify-center items-center px-16 md:ml-0 ml-20 py-2 mt-4 mb-4 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
               { getTranslation(
             `Learn More`,  // -----> Englais
               `En Savoir Plus`, //  -----> Francais
