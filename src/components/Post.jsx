@@ -6,6 +6,17 @@ import Rightchat from "../components/Rightchat";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
 import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+// import './styles.css';
+import { Pagination, Navigation } from 'swiper/modules';
 
 import Friends from "../components/Friends";
 import Contacts from "../components/Contacts";
@@ -1550,6 +1561,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       };
     }
   }, []);
+  
   return (
     <>
 
@@ -2723,22 +2735,35 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
 
 {isModaldOpenGallery && (
+        
         <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
-          <div ref={refGallery} className="relative  flex flex-col  md:mt-0 p-2   rounded-[10px] md:w-[725px] w-[425px] max-md:px-5 max-md:my-10">
-            <Slider {...friendsettings} initialSlide={currentImageIndex} afterChange={setCurrentImageIndex}>
-              {images.map((imageUrl, index) => (
-                 <div key={index} className="md:h-full md:w-full h-[70%] w-[70%] flex justify-center items-center">
-                 <img src={imageUrl} alt={`Image ${index}`} className="max-w-full max-h-full" />
-               </div>
-              ))}
-            </Slider>
-            <button
-              className="absolute bottom-6 right-11 opacity-0 w-36 h-10 py-2 text-white rounded-full"
-              onClick={handleCloseModal}>
-              X
-            </button>
-          </div>
+        <div ref={refGallery} className="relative flex flex-col p-2 rounded-[10px] md:w-[725px] w-[425px] max-md:px-5 max-md:my-10">
+          <Swiper
+            modules={[Pagination, Navigation]}
+            navigation={true}
+
+            initialSlide={currentImageIndex}
+            onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
+            centeredSlides={true}
+            spaceBetween={80}
+            className="mySwiper"
+          >
+            {images.map((imageUrl, index) => (
+              <SwiperSlide key={index} className="flex justify-center items-center">
+                <div className="imageswiper-container">
+                  <img src={imageUrl} alt={`Image ${index}`} className="imageswiper md:ml-[200px]" />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <button
+            className="absolute bottom-6 right-11 opacity-0 w-36 h-10 py-2 text-white rounded-full hover:opacity-100"
+            onClick={handleCloseModal}
+          >
+            X
+          </button>
         </div>
+      </div>
       )}
 
 {isModaldOpenPartage && (
