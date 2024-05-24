@@ -24,7 +24,7 @@ function CreatePost({ setArticles , onClose}) {
   const [imageFiles, setImageFiles] = useState([]);
   const [videoFile, setVideoFile] = useState(null);
   const [mediaFiles, setMediaFiles] = useState([]); // State for storing media files
-
+ const [file,setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [posting, setPosting] = useState(false);
