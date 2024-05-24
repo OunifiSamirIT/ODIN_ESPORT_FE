@@ -519,7 +519,7 @@ const More = () => {
                           </div>
                         </div>
 
-                        {CurrentUser?.player?.Licence && (
+                        {/* {CurrentUser?.player?.Licence && (
                           <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                             <svg
                               width="21"
@@ -583,8 +583,28 @@ const More = () => {
                               />
                             </svg>
                           </div>
-                        )}
+                        )} */}
+                        <div className="flex gap-2 justify-left items-center py-2">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/a2ad5d0e7c1cc757b7d699a58b21f17f4dfeb3117bc9f1e3f4d361257cb7cc63?"
+                            className="self-stretch w-5 aspect-[1.3]"
+                          />
+                          <div className="my-auto">
+                            {
+                              getTranslation(
+                                `License :`,  // -----> Englais
+                                `Licence :`, //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )
+                            }
 
+                          </div>
+
+                          {CurrentUser?.player?.Licence ? '✔️'
+                            : '❌'}
+                        </div>
                         {/* <div className="flex gap-2 justify-center p-2 whitespace-nowrap">
                           <svg
                             width="21"
