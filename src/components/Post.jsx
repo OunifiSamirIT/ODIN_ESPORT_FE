@@ -5,6 +5,7 @@ import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
+import Slider from "react-slick";
 
 import Friends from "../components/Friends";
 import Contacts from "../components/Contacts";
@@ -155,6 +156,38 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront  }) {
   const ref = useRef(null);
 
   const [isModaldOpen, setIsModaldOpen] = useState(false)
+
+  const refGallery = useRef(null);
+
+  const [isModaldOpenGallery, setIsModaldOpenGallery] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleClickOutsideGallery = (event) => {
+    if (refGallery.current && !refGallery.current.contains(event.target)) {
+      console.log(!refGallery.current.contains(event.target))
+      setIsModaldOpenGallery(false)
+     
+
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutsideGallery);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideGallery);
+    };
+    
+  }, []);
+  const handlePlusClick = () => {
+    setIsModaldOpenGallery(true);
+  };
+
+  const handleCloseModalGallery = () => {
+    setIsModaldOpenGallery(false);
+    setCurrentImageIndex(0); // Reset current image index when closing the modal
+
+  };
+
+
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
       console.log(!ref.current.contains(event.target))
@@ -1418,10 +1451,9 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
       setPosting(true);
   
       const formData = new FormData();
-      formData.append("description", data.description || ""); // Append empty string if description is null
+      formData.append("description", data.description || ""); 
       formData.append("userId", storedUserData.id);
   
-      // Determine the original article to be shared
       if (originalArticle) {
         formData.append("sharedFrom", originalArticle.id);
       } else {
@@ -1476,7 +1508,48 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
   moment.locale(language === 'fr' ? 'fr' : 'en');
 
 
+  const images = article?.image?.split(';') || [];
+  const imageCount = images.length ;
+  const friendsettings = {
+    arrows: true,
+    dots: false,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 1,
+    centerMode: false,
+    variableWidth: false,
+    autoplay: false,
+    autoplaySpeed: 3500,
+    adaptiveHeight: true,
+  };
 
+
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+
+    if (videoElement) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              videoElement.pause();
+            }
+          });
+        },
+        {
+          threshold: 0.25,
+        }
+      );
+
+      observer.observe(videoElement);
+
+      return () => {
+        observer.unobserve(videoElement);
+      };
+    }
+  }, []);
   return (
     <>
 
@@ -1491,7 +1564,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
 
             <div
               key={article.id}
-              className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-3"
+              className="card w-100 shadow-xss rounded-xxl border-0 p-4 mb-2"
             >
               <div className="card-body p-0 d-flex">
                 <Link to={`/profile/${article?.user?.user?.id}`}>
@@ -1566,7 +1639,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                       {showDropdown === article.id &&
                         article?.user?.user &&
                         article?.user?.user?.id === storedUserData.id && (
-                          <div className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                          <div className="absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
 
 
 
@@ -1574,7 +1647,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
 
 
                             <button
-                              className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                              className="block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
                               // onClick={() =>
                               //   handleEditClick(selectedArticle)
                               // }
@@ -1654,6 +1727,8 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                         <video
                           controls
                           className=" w-100 md:max-h-[600px] max-h-[350px]"
+                          ref={videoRef}
+
                         >
                           <source
                             src={article.video}
@@ -1669,128 +1744,30 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
               )}
 
 
-
-
-
-{/* <div class="bg-white dark:bg-gray-800 h-screen h-full py-6 sm:py-8 lg:py-12">
-    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-       
-
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-            <a href="#"
-                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
-                <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&q=75&fit=crop&w=600" loading="lazy" alt="Photo by Minh Pham" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-
-                <div
-                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
-                </div>
-
-                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">VR</span>
-            </a>
-        
-            <a href="#"
-                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:col-span-2 md:h-80">
-                <img src="https://images.unsplash.com/photo-1542759564-7ccbb6ac450a?auto=format&q=75&fit=crop&w=1000" loading="lazy" alt="Photo by Magicle" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-
-                <div
-                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
-                </div>
-
-                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Tech</span>
-            </a>
-          
-            <a href="#"
-                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:col-span-2 md:h-80">
-                <img src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=1000" loading="lazy" alt="Photo by Martin Sanchez" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-
-                <div
-                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
-                </div>
-
-                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Dev</span>
-            </a>
-        
-            <a href="#"
-                class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600" loading="lazy" alt="Photo by Lorenzo Herrera" class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-
-                <div
-                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50">
-                </div>
-
-                <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Retro</span>
-            </a>
-        </div>
-    </div>
-</div> */}
-{/* {article?.image ? (
-  <div class="bg-white dark:bg-gray-800 h-screen h-full py-6 sm:py-8 lg:py-12">
-    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-        {article.image.split(';').map((imageUrl, index) => (
-          <a key={index} href="#" class="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80">
-            <img src={imageUrl} loading="lazy" alt={`Photo ${index}`} class="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110" />
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-            <span class="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">Image {index + 1}</span>
-          </a>
-        ))}
+<div className="card-body d-block p-0 mb-1">
+  <div onClick={handlePlusClick} className={`grid ${imageCount === 1 ? 'grid-cols-1' : imageCount === 2 ? 'grid-cols-2' : imageCount === 3 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
+    {images.slice(0, 4).map((imageUrl, index) => (
+      <div key={index} className={`p-1 relative ${imageCount === 3 && index === 0 ? 'col-span-2' : ''}`}>
+        {imageUrl && (  
+          <img
+            className={`w-full ${article?.image?.split(';').length === 1 ? 'md:max-h-[600px] h-[350px] object-contain ' : article?.image?.split(';').length === 2 ? 'h-full md:h-44' : 'h-44'} ${index === 0 && article?.image?.split(';').length === 3 ? 'h-full md:h-56 object-cover' : 'h-44'} ${index === 3 && images.length > 4 ? 'opacity-50' : ''}`}
+            src={imageUrl}
+            alt={`Image ${index + 1}`}  // Adjust the alt text to start from "Image 1"
+            style={{ marginBottom: '0', borderRadius: '0' }}
+          />
+        )}
+        {index === 3 && images.length > 4 && (
+          <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl" onClick={handlePlusClick}>
+            +{images.length - 4}
+          </div>
+        )}
       </div>
-    </div>
+    ))}
   </div>
-) : (
-  <p>No images available</p>
-)} */}
-
-
-{article?.image && (
-  <div className="card-body d-block p-0 mb-3">
-    <div className="row ps-2 pe-2">
-      {article.image.split(';').map((imageUrl, index) => (
-        <div key={index} className="col-sm-12 col-md-6 col-lg-4 p-1">
-          <img
-            className="w-100 h-auto rounded-lg mb-2"
-            src={imageUrl}
-            alt={`Image ${index}`}
-          />
-        </div>
-      ))}
-    </div>
-  </div>
-)}
-{/* 
-              {article?.image && (
-  <div className="card-body d-block p-0 mb-3">
-    <div className="row ps-2 pe-2">
-      {article.image.split(';').map((imageUrl, index) => (
-        <div key={index} className="col-sm-12 p-1">
-          <img
-            className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
-            src={imageUrl}
-            alt={`Image ${index}`}
-          />
-        </div>
-      ))}
-    </div>
-  </div>
-)} */}
+</div>
 
 
 
-              {/* {article?.image && (
-                <div className="card-body d-block p-0 mb-3">
-                  <div className="row ps-2 pe-2">
-
-                    <div className="col-sm-12 p-1 ">
-                      <img
-                        className=" md:max-h-[600px]   max-h-[350px]   w-100 object-contain "
-                        src={article.image}
-                        alt={article.titre}
-                      />
-
-                    </div>
-                  </div>
-                </div>
-              )} */}
 
 
 
@@ -1812,13 +1789,13 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
           {article?.sharedArticle?.userspartage?.nom} {article?.sharedArticle?.userspartage?.prenom}
         </Link>
         <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-            {article?.sharedArticle?.userspartage?.profil == 'other' ? article?.sharedArticle?.userspartage?.other?.profession : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'player' ? ' Joueur' : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'coach' ? ' Entraîneur' : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'club' ? 'Manager de Club' : ''}
-            {article?.sharedArticle?.userspartage?.profil == 'scout' ? 'Scout' : ''}
-          </span>
+          {article?.sharedArticle?.userspartage?.profil == 'other' ? article?.sharedArticle?.userspartage?.other?.profession : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'player' ? ' Joueur' : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'coach' ? ' Entraîneur' : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'club' ? 'Manager de Club' : ''}
+          {article?.sharedArticle?.userspartage?.profil == 'scout' ? 'Scout' : ''}
+        </span>
         <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
           {moment(article?.sharedArticle?.createdAt).format('DD MMMM YYYY')} {'  -  '}
           {moment(article?.sharedArticle?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
@@ -1841,33 +1818,26 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
       </p>
     </div>
 
-
-{/* hedhi lel album
- */}
-    {/* {article?.sharedArticle?.image && (
-      <div className="card-body d-block p-0 mb-3">
-        <div className="row ps-2 pe-2">
-        <div className="card-body d-block p-0 mb-3">
-    <div className="row ps-2 pe-2">
-    {article?.sharedArticle?.image.split(';').map((imageUrl, index) => (
-        <div key={index} className="col-sm-12 col-md-6 col-lg-4 p-1">
-          <img
-            className="w-100 h-auto rounded-lg mb-2"
-            src={imageUrl}
-            alt={`Image ${index}`}
-          />
-        </div>
-      ))} */}
     {article?.sharedArticle?.image && (
       <div className="card-body d-block p-0 mb-3">
-        <div className="row ps-2 pe-2">
-          <div className="col-sm-12 p-1">
-            <img
-              className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
-              src={article?.sharedArticle?.image}
-              alt={article?.sharedArticle?.titre}
-            />
-          </div>
+        <div className={`grid ${article?.sharedArticle?.image.split(';').length === 1 ? 'grid-cols-1' : article?.sharedArticle?.image.split(';').length === 2 ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
+          {article?.sharedArticle?.image.split(';').slice(0, 4).map((imageUrl, index) => (
+            <div key={index} className="p-1 relative">
+              {imageUrl && (
+                <img
+                  className={`w-full ${article?.sharedArticle?.image.split(';').length === 1 ? 'md:max-h-[600px] max-h-[350px] w-100 object-contain' : article?.sharedArticle?.image.split(';').length === 2 ? 'h-full md:h-44' : 'h-44'} ${index === 3 && article?.sharedArticle?.image.split(';').length > 4 ? 'opacity-50' : ''}`}
+                  src={imageUrl}
+                  alt={`Image ${index + 1}`}
+                  style={{ marginBottom: '0', borderRadius: '0' }}
+                />
+              )}
+              {index === 3 && article?.sharedArticle?.image.split(';').length > 4 && (
+                <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl">
+                  +{article?.sharedArticle?.image.split(';').length - 4}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     )}
@@ -1893,6 +1863,9 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
     )}
   </div>
 )}
+
+
+
 
 
               <div className="  rounded-lg">
@@ -2734,6 +2707,27 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
               </div>
             </div>
           )}
+
+
+{isModaldOpenGallery && (
+        <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+          <div ref={refGallery} className="relative  flex flex-col  md:mt-0 p-2   rounded-[10px] md:w-[725px] w-[425px] max-md:px-5 max-md:my-10">
+            <Slider {...friendsettings} initialSlide={currentImageIndex} afterChange={setCurrentImageIndex}>
+              {images.map((imageUrl, index) => (
+                 <div key={index} className="md:h-full md:w-full h-[70%] w-[70%] flex justify-center items-center">
+                 <img src={imageUrl} alt={`Image ${index}`} className="max-w-full max-h-full" />
+               </div>
+              ))}
+            </Slider>
+            <button
+              className="absolute bottom-6 right-11 opacity-0 w-36 h-10 py-2 text-white rounded-full"
+              onClick={handleCloseModal}>
+              X
+            </button>
+          </div>
+        </div>
+      )}
+
 {isModaldOpenPartage && (
             <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
               <div ref={reffPartage} className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
@@ -2813,7 +2807,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                 </div>
               </div>
               {displayArticle && (
-              <div key={displayArticle.id} className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 mb-3">
+              <div key={displayArticle.id} className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 ">
                 <div className="card-body p-0 d-flex">
                   <Link to={`/profile/${displayArticle.user?.user?.id || displayArticle.userspartage?.id}`}>
                     <figure className="avatar me-3">
@@ -2859,28 +2853,33 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
                     )}
                   </p>
                 </div>
+               
                 {displayArticle?.image && (
-                  <div className="card-body d-block p-0 mb-3">
-                    <div className="row ps-2 pe-2">
-                      {/* <div className="col-sm-12 p-1">
-                        <img
-                          className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
-                          src={displayArticle?.image}
-                          alt={displayArticle?.titre}
-                        />
-                      </div> */}
-                       {displayArticle?.image.split(';').map((imageUrl, index) => (
-        <div key={index} className="col-sm-12 p-1">
-          <img
-            className="md:max-h-[600px] max-h-[350px] w-100 object-contain"
-            src={imageUrl}
-            alt={`Image ${index}`}
-          />
-        </div>
-      ))}
-                    </div>
-                  </div>
-                )}
+                        <div className="card-body d-block p-0 mb-3">
+                          <div className={`grid ${imageCount === 1 ? 'grid-cols-1' : imageCount === 2 ? 'grid-cols-2' : imageCount === 3 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
+                            {images.slice(0, 4).map((imageUrl, index) => (
+                              <div key={index} className={`p-1 relative ${imageCount === 3 && index === 0 ? 'col-span-2' : ''}`}>
+                                {imageUrl && (
+                                  <img
+                                    className={`w-full ${imageCount === 1 ? 'h-full' : imageCount === 2 ? 'h-full md:h-44' : 'h-44'} ${index === 0 && article?.image?.split(';').length === 3 ? 'h-full md:h-56 object-cover' : 'h-44'} ${index === 3 && images.length > 4 ? 'opacity-50' : ''}`}
+                                    src={imageUrl}
+                                    alt={`Image ${index + 1}`}
+                                    style={{ marginBottom: '0', borderRadius: '0' }}
+                                  />
+                                )}
+                                {index === 3 && images.length > 4 && (
+                                  <div className="absolute inset-0 flex items-center justify-center  bg-opacity-50 rounded-md text-black">
+                                    <button  className="flex items-center text-lg">
+                                      +{images.length - 4}
+                                    </button>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                  
                 {displayArticle?.video && (
                   <div className="card-body d-block p-0 mb-3">
                     <div className="row ps-2 pe-2">
@@ -3105,7 +3104,7 @@ const [textareaHeight, setTextareaHeight] = useState('70px');
     ) : (
       <button
         type="submit"
-        className="bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white mt-3  px-8 rounded-full font-semibold text-sm"
+        className="bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white   px-8 rounded-full font-semibold text-sm"
       > 
       
       { getTranslation(

@@ -224,35 +224,11 @@ useEffect(() => {
               <h1 className="text-5xl font-bold text-zinc-900">
                 {getTranslation("Welcome!", "Bienvenue!", "Hoş geldin")}
               </h1>
+              <h3 className="text-xl font-bold text-zinc-800">
+                {getTranslation("Check your mailbox and insert the verification code received!", "Vérifiez votre boite Mail et Insérez Le code de Verification reçu!", "Hoş geldin")}
+              </h3>
             </div>
-            {/* <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-4">
-                <label className="block text-lg text-zinc-900 mb-2">
-                  {getTranslation("Confirmation Code", "Code de Confirmation")}
-                </label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-                  placeholder={getTranslation("Your Code here", "Inserer le Code de Confirmation")}
-                  {...register("verificationToken", { required: "Verification code is required" })}
-                />
-                {errors.verificationToken && <p className="text-red-600 mt-1">{errors.verificationToken.message}</p>}
-              </div>
-
-              {errMsg && (
-                <div className="bg-red-100 text-red-700 text-sm p-2 rounded-md mb-4">
-                  {errMsg}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-150"
-                disabled={isSubmitting}
-              >
-                {getTranslation("Confirm", "Confirmer")}
-              </button>
-            </form> */}
+         
           <form id="otp-form" onSubmit={handleSubmit(onSubmit)}>
   <div className="flex items-center justify-center gap-5">
     <input
@@ -277,7 +253,7 @@ useEffect(() => {
   {errors.input1 && errors.input2 && errors.input3 && <span className="text-red-500">Champs est obligatoire</span>}
   
   {errMsg && (
-                <div className="bg-red-100 text-red-700 text-sm p-2 rounded-md mb-4">
+                <div className="bg-red-100 mt-4 text-red-700 text-sm p-2 rounded-md mb-4">
                   {errMsg}
                 </div>
               )}
@@ -287,7 +263,7 @@ useEffect(() => {
       className="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-blue-600 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150"
       disabled={isSubmitting}
     >
-      Verifié votre compte
+      Verifier votre compte
     </button>
   </div>
 </form>
