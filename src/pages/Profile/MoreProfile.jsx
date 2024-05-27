@@ -802,7 +802,7 @@ const More = () => {
 
                       } </div>
                   </div>
-                  <div className="flex flex gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+                  <div className="flex  gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.player?.skillsInProfile
                       .split(",")
                       .filter((item) => item !== "")
@@ -819,7 +819,7 @@ const More = () => {
               <span className="h-1 w-full bg-gray-100"></span>
               <div className="max-w-[1110px] justify-between w-full flex flex-col md:flex-row gap-4">
                 <div className="w-full">
-                  <div className=" flex-1 items-center max-w-xl flex flex gap-4 px-4  text-lg whitespace-nowrap text-zinc-900">
+                  <div className=" flex-1 items-center max-w-xl  flex gap-4 px-4  text-lg whitespace-nowrap text-zinc-900">
                     <svg
                       width="20"
                       height="21"
