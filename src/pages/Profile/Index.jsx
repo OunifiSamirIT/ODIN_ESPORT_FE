@@ -3,7 +3,18 @@ import Header from "../../components/Header";
 import Terrain from "../../components/Terrain";
 import ProfileLayout from "../../Layout/ProfileLayout";
 import PlaceHolder from "../../assets/placeholder.jpg";
+import Modal from 'react-modal';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore from 'swiper';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
+// import './styles.css';
+import { Pagination, Navigation } from 'swiper/modules';
 import { useForm } from "react-hook-form";
 import Leftnav from "../../components/Leftnav";
 import Rightchat from "../../components/Rightchat";
@@ -94,6 +105,11 @@ const Index = () => {
   const [replyInput, setReplyInput] = useState("");
   //02/02
   const [album, setAlbum] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isModaldOpenGallery, setIsModaldOpenGallery] = useState(false)
+
+  const [isModaldOpenGalleryvideo, setIsModaldOpenGalleryVideo] = useState(false)
+  const [currentImageIndexvideo, setCurrentImageIndexvideo] = useState(0);
   // const [albums, setAlbums] = useState([]);
   const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
   const [emojiValue, setEmojiValue] = useState(1);
@@ -103,9 +119,53 @@ const Index = () => {
   const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
+
   // const [isActive, setIsActive] = useState()
   const [owner, setOwner] = useState(false);
+  const refGallery = useRef(null);
+  const refGalleryVideo = useRef(null);
+  const handlePlusClick = (index) => {
+    setCurrentImageIndex(index)
+    setIsModaldOpenGallery(true);
+  };
+  const handleClickOutsideGallery = (event) => {
+    if (refGallery.current && !refGallery.current.contains(event.target)) {
+      console.log(!refGallery.current.contains(event.target), "ahlaa wasahla")
 
+      setIsModaldOpenGallery(false)
+
+
+    }
+  };
+
+  const handlePlusClickvideo = (index) => {
+    setCurrentImageIndexvideo(index)
+    setIsModaldOpenGalleryVideo(true);
+  };
+  // const handleClickOutsideGalleryvideo = (event) => {
+  //   if (refGalleryVideo.current && !refGalleryVideo.current.contains(event.target)) {
+  //     console.log(!refGalleryVideo.current.contains(event.target), "ahlaa wasahla")
+
+  //     setIsModaldOpenGalleryVideo(false)
+
+
+  //   }
+  // };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutsideGallery);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideGallery);
+    };
+
+  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleClickOutsideGalleryvideo);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutsideGalleryvideo);
+  //   };
+
+  // }, []);
   const handleClick = () => {
     setShowMenu(!showMenu);
   };
@@ -117,6 +177,7 @@ const Index = () => {
       .then(response => response.json())
       .then(data => data);
   };
+
   useEffect(() => {
     if (articles.sharedFrom) {
       fetchArticleById(articles.sharedFrom)
@@ -132,12 +193,10 @@ const Index = () => {
   }, [id]);
   useEffect(() => {
     setArticleWithPhoto(
-      displayArticle.filter((item) => {
-        return item.image !== null && item.userId == id;
-      })
+      // displayArticle.filter((item) => {        return item.image !== null && item.userId == id;      })
+      articles.filter((item) => item.image !== null && item.image !== "" && item.userId == id)
 
     );
-    console.log("Article-------------------***************------------------", articlesWithPhoto);
     setArticleWithVideo(
       articles.filter((item) => item.video !== null && item.video !== "" && item.userId == id)
 
@@ -866,6 +925,271 @@ const Index = () => {
   // Set the locale based on the stored language or default to English
   moment.locale(language === 'fr' ? 'fr' : 'en');
 
+  // const PhotoGrid = ({ articlesWithPhoto }) => {
+  //   // Extract all photos from the articles
+  //   const allPhotos = [];
+  //   articlesWithPhoto.forEach((article) => {
+  //     article.image.split(';').forEach((imageUrl) => {
+  //       allPhotos.push({ url: imageUrl });
+  //     });
+  //   });
+
+  //   // Sort the photos by date in descending order
+  //   allPhotos.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  //   return (
+  //     <div className="flex flex-wrap -m-1">
+  //       {allPhotos.map((photo, index) => (
+  //         <div key={index} className="w-1/3 p-1">
+  //           <img src={photo.url} alt={`Photo ${index}`} className="w-full h-auto rounded-lg" />
+  //         </div>
+  //       ))}
+  //     </div>
+  //   );
+  // };
+  // SwiperCore.use([Navigation]);
+
+  Modal.setAppElement('#root');
+
+  const PhotoGrid = ({ articlesWithPhoto }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    // Extract all photos from the articles
+    const allPhotos = [];
+    console.log(articlesWithPhoto, "aloo")
+    articlesWithPhoto.forEach((article) => {
+      article.image.split(';').forEach((imageUrl) => {
+        allPhotos.push({ url: imageUrl });
+      });
+    });
+
+    // Sort the photos by date in descending order
+    allPhotos.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+
+    return (
+      <div>
+        <div className="flex flex-wrap md:gap-x-3 md:gap-y-3 md:m-4 gap-3 m-2 md:pl-2 pt-4 md:pt-4 ">
+          {allPhotos.map((photo, index) => (
+            <div key={index} className="w-[30%] md:w-[31%]  h-48  md:h-72 ">
+              <img
+                src={photo.url}
+                alt={`Photo ${index}`}
+                className="  w-full h-full object-cover  rounded-lg cursor-pointer"
+                onClick={() => handlePlusClick(index)} />
+            </div>
+          ))}
+        </div>
+
+        {isModaldOpenGallery && (
+
+          <div className="bg-black/70 fixed inset-0 z-50 h-full w-full  overflow-auto flex justify-center items-center ">
+            <div ref={refGallery} className="relative flex flex-col p-2 rounded-[10px]   md:w-[725px] w-[400px] max-md:px-5 max-md:my-10">
+
+
+              <Swiper
+                modules={[Pagination, Navigation]}
+                navigation={true}
+
+                initialSlide={currentImageIndex}
+                onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
+                centeredSlides={true}
+                spaceBetween={80}
+                className="mySwiper"
+              >
+
+
+                {allPhotos.map((photo, index) => (
+                  <SwiperSlide key={index} className="flex justify-center items-center">
+                    <div className="imageswiper-container">
+                      <img src={photo.url} alt={`Image ${index}`} className=" -ml-28 w-[60%] md:w-full md:ml-[200px]" />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+
+
+              <button
+                className="absolute bottom-6 right-11 opacity-0 w-36 h-10 py-2 text-white rounded-full hover:opacity-100"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+
+
+  Modal.setAppElement('#root');
+
+  // const VideoGrid = ({ articlesWithVideo }) => {
+
+
+  //   // Extract all photos from the articles
+  //   const allVideos = [];
+  //   articlesWithVideo.forEach((article) => {
+  //     article.video.split(';').forEach((videoUrl) => {
+  //       allVideos.push({ url: videoUrl });
+  //     });
+  //   });
+
+  //   // Sort the photos by date in descending order
+  //   allVideos.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+
+  //   return (
+  //     <div>
+  //       <div className="flex flex-wrap md:gap-x-3 md:gap-y-3 md:m-4 gap-3 m-2 md:pl-2 pt-4 md:pt-4">
+  //         {allVideos.map((video, index) => (
+  //           <div key={index} className=" w-[30%] md:w-[31%]  h-48  md:h-72">
+  //             <video
+  //               src={video.url}
+
+  //               alt={`Photo ${index}`}
+  //               className="  w-full h-full object-cover  rounded-lg cursor-pointer"
+  //               onClick={() => handlePlusClick(index)} />
+  //           </div>
+  //         ))}
+  //       </div>
+
+  //       {isModaldOpenGallery && (
+
+  //         <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+  //           <div ref={refGallery} className="relative flex flex-col p-2 rounded-[10px] md:w-[725px] w-[425px] max-md:px-5 max-md:my-10">
+
+
+  //             <Swiper
+  //               modules={[Pagination, Navigation]}
+  //               navigation={true}
+
+  //               initialSlide={currentImageIndex}
+  //               onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
+  //               centeredSlides={true}
+  //               spaceBetween={80}
+  //               className="mySwiper"
+  //             >
+
+
+  //               {allVideos.map((video, index) => (
+  //                 <SwiperSlide key={index} className="flex justify-center items-center">
+  //                   <div className="imageswiper-container">
+  //                     <video src={video.url} alt={`Image ${index}`} className="imageswipe md:ml-[200px]" />
+  //                   </div>
+  //                 </SwiperSlide>
+  //               ))}
+  //             </Swiper>
+
+
+  //             <button
+  //               className="absolute bottom-6 right-11 opacity-0 w-36 h-10 py-2 text-white rounded-full hover:opacity-100"
+  //             >
+  //               X
+  //             </button>
+  //           </div>
+  //         </div>
+  //       )}
+  //     </div>
+  //   );
+  // };
+  SwiperCore.use([Pagination, Navigation]);
+
+  const VideoGrid = ({ articlesWithVideo }) => {
+    const [isModaldOpenGalleryVideo, setIsModaldOpenGalleryVideo] = useState(false);
+    const [currentImageIndexVideo, setCurrentImageIndexVideo] = useState(0);
+    const refGalleryVideo = useRef(null);
+
+    const handlePlusClickVideo = (index, event) => {
+      event.preventDefault();
+      console.log('Video clicked:', index);
+      setCurrentImageIndexVideo(index);
+      setIsModaldOpenGalleryVideo(true);
+    };
+
+    const handleClickOutsideGalleryVideo = (event) => {
+      if (refGalleryVideo.current && !refGalleryVideo.current.contains(event.target)) {
+        setIsModaldOpenGalleryVideo(false);
+      }
+    };
+
+    useEffect(() => {
+      document.addEventListener('mousedown', handleClickOutsideGalleryVideo);
+      document.addEventListener('touchstart', handleClickOutsideGalleryVideo);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutsideGalleryVideo);
+        document.removeEventListener('touchstart', handleClickOutsideGalleryVideo);
+      };
+    }, []);
+
+    // Extract and sort all videos by date
+    const allVideos = [];
+    articlesWithVideo.forEach((article) => {
+      article.video.split(';').forEach((videoUrl) => {
+        allVideos.push({ url: videoUrl, date: article.date }); // assuming article has a date field
+      });
+    });
+    allVideos.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    return (
+      <div>
+        <div className="flex flex-wrap md:gap-x-2 md:gap-y-3 md:m-3 gap-3 m-2 md:pl-2 pt-3 md:pt-4 rounded-2xl">
+          {allVideos.map((video, index) => (
+            <div key={index} className="relative w-[30%] md:w-[31.2%]   md:h-30">
+              {/* <video
+                src={video.url}
+                controls
+                className="w-full h-full object-cover rounded-lg cursor-pointer"
+                onClick={(event) => handlePlusClickVideo(index, event)}
+              /> */}
+              <video class="object-cover md:w-full md:h-72 h-40 rounded-md aspect-square"
+                src={video.url}
+              >
+
+              </video>
+              <svg onClick={(event) => handlePlusClickVideo(index, event)} className="absolute flex cursor-pointer  md:top-[37%]  md:left-[32%] md:w-20 md:h-20  top-[37%] left-[32%] w-10 max:h-10" viewBox="0 0 79 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M29.1241 55.8515H28.154C28.0849 55.8261 28.0145 55.8045 27.9432 55.7867C26.2758 55.4558 25.0525 54.0157 25.0516 52.331C25.0453 43.6342 25.0453 34.9373 25.0516 26.2405C25.0553 25.678 25.1978 25.1252 25.4663 24.631C26.3302 22.9895 28.5453 22.117 30.5367 23.2824C34.4485 25.5727 38.3828 27.8215 42.3085 30.0875C45.7953 32.1034 49.2824 34.1163 52.7698 36.1264C54.3179 37.0223 55.0065 38.6317 54.5443 40.2732C54.2635 41.2702 53.6259 41.9734 52.7343 42.4874C46.2143 46.2438 39.7055 50.02 33.1777 53.7634C31.8585 54.5202 30.63 55.4575 29.1241 55.8515Z" fill="white" />
+                <circle cx="39.3922" cy="39.3004" r="38.1207" stroke="white" />
+              </svg>
+
+            </div>
+          ))}
+        </div>
+
+        {isModaldOpenGalleryVideo && (
+          <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+            <div ref={refGalleryVideo} className="relative flex flex-col p-2 rounded-[10px] md:w-[725px] w-[385px] max-md:px-5 max-md:my-10">
+              <Swiper
+                modules={[Pagination, Navigation]}
+                navigation={true}
+                initialSlide={currentImageIndexVideo}
+                onSlideChange={(swiper) => setCurrentImageIndexVideo(swiper.activeIndex)}
+                centeredSlides={true}
+                spaceBetween={80}
+                className="mySwiper"
+              >
+                {allVideos.map((video, index) => (
+                  <SwiperSlide key={index} className="flex justify-center items-center">
+                    <div className="imageswiper-container">
+                      <video src={video.url} controls className="imageswipe -ml-32 md:w-full w-[50%] md:ml-[230px]" />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              {/* <button
+                className="absolute bottom-6 right-11 opacity-100 w-36 h-10 py-2 text-white rounded-full hover:opacity-100"
+                onClick={() => setIsModaldOpenGalleryVideo(false)}
+              >
+                Close
+              </button> */}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
@@ -898,7 +1222,7 @@ const Index = () => {
             </div>
           </div>
         )}
-        {profileFeed === "photo" && (
+        {/* {profileFeed === "photo" && (
           <div className="w-full mt-3">
             <div>
               <div>
@@ -950,9 +1274,7 @@ const Index = () => {
                                   moment(article?.createdAt).fromNow(true) :
                                   moment(article?.createdAt).fromNow()
                               }
-                              {/* {formatDate(
-                              article.createdAt
-                            )} */}
+
                             </span>
                           </div>
                         </div>
@@ -988,121 +1310,173 @@ const Index = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
-        {profileFeed === "video" && (
-          <div className="w-full mt-4 text-center">
-            <div>
-              <div>
-                {articlesWithVideo.length > 0 ? (
-                  articlesWithVideo.map((article) => (
-                    <div
-                      key={article.id}
-                      className="card w-100 shadow-xss rounded-xxl  border-0 p-4 mb-3"
-                    >
-                      <div className="card-body p-0 d-flex">
-                        <figure className="avatar me-3">
-                          <img
-                            src={
-                              article?.user?.user.image
-                                ? article?.user?.user.image
-                                : PlaceHolder
-                            }
-                            className="shadow-sm rounded-full w-[52px] aspect-square"
-                            alt="post"
-                          />
-                        </figure>
-                        <div className="flex flex-col items-start space-y-1">
-                          <span className="text-base text-grey-900 font-semibold">
-                            {article.user.user.nom} {article.user.user.prenom}
-                          </span>
-                          <span className="text-sm text-grey-500">
-                            {article.user.user.profil === "other"
-                              ? article.user.other?.profession
-                              : ""}
-                            {article.user.user.profil === "player"
-                              ? " Joueur"
-                              : ""}
-                            {article.user.user.profil === "agent" &&
-                              article.user.agent?.typeresponsable === "players"
-                              ? "Manager de Joueur"
-                              : ""}
-                            {article.user.user.profil === "agent" &&
-                              article.user.agent?.typeresponsable === "club"
-                              ? "Manager de Club"
-                              : ""}
-                            {article.user.user.profil === "scout"
-                              ? "Scout"
-                              : ""}
-                          </span>
-                          <span className="text-sm text-grey-500">
-                            {moment(article?.createdAt).format('DD MMMM YYYY')} {' - '}
-                            {
-                              moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
-                                ? moment(article?.createdAt).fromNow(true)
-                                : moment(article?.createdAt).fromNow()
-                            }
-                          </span>
-                        </div>
-
-                        {/* <div className=" flex flex-col">
-                          <span className="text-base text-grey-900">
-                            {article.user.user.nom} {article.user.user.prenom}
-                          </span>
-                          <span className="d-block font-xssss fw-500 text-grey-500">
-                            {article.user.user.profil === "other"
-                              ? article.user.other?.profession
-                              : ""}
-                            {article.user.user.profil === "player"
-                              ? " Joueur"
-                              : ""}
-                            {article.user.user.profil === "agent" &&
-                              article.user.agent?.typeresponsable === "players"
-                              ? "Manager de Joueur"
-                              : ""}
-                            {article.user.user.profil === "agent" &&
-                              article.user.agent?.typeresponsable === "club"
-                              ? "Manager de CLub"
-                              : ""}
-                            {article.user.user.profil === "scout"
-                              ? "Scout"
-                              : ""}
-                          </span>
-                          <span className="d-block font-xssss fw-500 text-grey-500">
-                            {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                            {
-                              moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
-                                ? moment(article?.createdAt).fromNow(true)
-                                : moment(article?.createdAt).fromNow()
-                            }
-                          </span>
-                        </div> */}
-                      </div>
-                      <div className="card-body d-block mt-2 p-0 mb-3">
-                        <div className="row ps-2 pe-2">
-                          <div className="col-sm-12 p-1">
-                            {article.video && (
-                              <div className="card-body p-0 mb-3 overflow-hidden">
-                                <video controls className="w-100 md:max-h-[600px] max-h-[350px]">
-                                  <source src={article.video} type="video/mp4" />
-                                  Your browser does not support the video tag.
-                                </video>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-                    Aucun Video pour le moment
-                  </div>
-                )}
-              </div>
+        {/* <div>
+          {profileFeed === "photo" && (
+            <div className="w-full mt-3">
+              {articlesWithPhoto.length > 0 ? (
+                <PhotoGrid articlesWithPhoto={articlesWithPhoto} />
+              ) : (
+                <div className="w-full mt-4 text-center">
+                  Aucun Photo pour le moment
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          )}
+        </div> */}
+        <div>
+          {profileFeed === "photo" && (
+            <div className="w-full bg-white mt-3 rounded-[12px] flex ">
+              {articlesWithPhoto.length > 0 ? (
+                <PhotoGrid articlesWithPhoto={articlesWithPhoto} />
+              ) : (
+                <div className="w-full mt-4 text-center">
+                  Aucun Photo pour le moment
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+
+
+
+
+
+        <div>
+
+          {profileFeed === "video" && (
+            // <div className="w-full mt-4 text-center">
+            //   <div>
+            //     <div>
+            //       {articlesWithVideo.length > 0 ? (
+            //         articlesWithVideo.map((article) => (
+            //           <div
+            //             key={article.id}
+            //             className="card w-100 shadow-xss rounded-xxl  border-0 p-4 mb-3"
+            //           >
+            //             <div className="card-body p-0 d-flex">
+            //               <figure className="avatar me-3">
+            //                 <img
+            //                   src={
+            //                     article?.user?.user.image
+            //                       ? article?.user?.user.image
+            //                       : PlaceHolder
+            //                   }
+            //                   className="shadow-sm rounded-full w-[52px] aspect-square"
+            //                   alt="post"
+            //                 />
+            //               </figure>
+            //               <div className="flex flex-col items-start space-y-1">
+            //                 <span className="text-base text-grey-900 font-semibold">
+            //                   {article.user.user.nom} {article.user.user.prenom}
+            //                 </span>
+            //                 <span className="text-sm text-grey-500">
+            //                   {article.user.user.profil === "other"
+            //                     ? article.user.other?.profession
+            //                     : ""}
+            //                   {article.user.user.profil === "player"
+            //                     ? " Joueur"
+            //                     : ""}
+            //                   {article.user.user.profil === "agent" &&
+            //                     article.user.agent?.typeresponsable === "players"
+            //                     ? "Manager de Joueur"
+            //                     : ""}
+            //                   {article.user.user.profil === "agent" &&
+            //                     article.user.agent?.typeresponsable === "club"
+            //                     ? "Manager de Club"
+            //                     : ""}
+            //                   {article.user.user.profil === "scout"
+            //                     ? "Scout"
+            //                     : ""}
+            //                 </span>
+            //                 <span className="text-sm text-grey-500">
+            //                   {moment(article?.createdAt).format('DD MMMM YYYY')} {' - '}
+            //                   {
+            //                     moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
+            //                       ? moment(article?.createdAt).fromNow(true)
+            //                       : moment(article?.createdAt).fromNow()
+            //                   }
+            //                 </span>
+            //               </div>
+
+            //               {/* <div className=" flex flex-col">
+            //               <span className="text-base text-grey-900">
+            //                 {article.user.user.nom} {article.user.user.prenom}
+            //               </span>
+            //               <span className="d-block font-xssss fw-500 text-grey-500">
+            //                 {article.user.user.profil === "other"
+            //                   ? article.user.other?.profession
+            //                   : ""}
+            //                 {article.user.user.profil === "player"
+            //                   ? " Joueur"
+            //                   : ""}
+            //                 {article.user.user.profil === "agent" &&
+            //                   article.user.agent?.typeresponsable === "players"
+            //                   ? "Manager de Joueur"
+            //                   : ""}
+            //                 {article.user.user.profil === "agent" &&
+            //                   article.user.agent?.typeresponsable === "club"
+            //                   ? "Manager de CLub"
+            //                   : ""}
+            //                 {article.user.user.profil === "scout"
+            //                   ? "Scout"
+            //                   : ""}
+            //               </span>
+            //               <span className="d-block font-xssss fw-500 text-grey-500">
+            //                 {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
+            //                 {
+            //                   moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
+            //                     ? moment(article?.createdAt).fromNow(true)
+            //                     : moment(article?.createdAt).fromNow()
+            //                 }
+            //               </span>
+            //             </div> */}
+            //             </div>
+            //             <div className="card-body d-block mt-2 p-0 mb-3">
+            //               <div className="row ps-2 pe-2">
+            //                 <div className="col-sm-12 p-1">
+            //                   {article.video && (
+            //                     <div className="card-body p-0 mb-3 overflow-hidden">
+            //                       <video controls className="w-100 md:max-h-[600px] max-h-[350px]">
+            //                         <source src={article.video} type="video/mp4" />
+            //                         Your browser does not support the video tag.
+            //                       </video>
+            //                     </div>
+            //                   )}
+            //                 </div>
+            //               </div>
+            //             </div>
+            //           </div>
+            //         ))
+            //       ) : (
+            //         <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
+            //           Aucun Video pour le moment
+            //         </div>
+            //       )}
+            //     </div>
+            //   </div>
+            // </div>
+
+
+            <div className="w-full bg-white mt-3 rounded-[12px] flex ">
+              {articlesWithVideo.length > 0 ? (
+                <VideoGrid articlesWithVideo={articlesWithVideo} />
+              ) : (
+                <div className="w-full mt-4 text-center">
+                  Aucun Video pour le moment
+                </div>
+              )}
+            </div>
+
+
+
+          )}
+
+
+        </div>
+
       </ProfileLayout>
     </>
   );
