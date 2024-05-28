@@ -4,6 +4,7 @@ import "./demo.css";
 import Hero from "../assets/Frame 182.png";
 import Hero1 from "../assets/Frame 183.png";
 import Hero2 from "../assets/Frame 18.png";
+import jr from "../assets/jr.png";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { toast, ToastContainer } from "react-toastify";
@@ -277,8 +278,20 @@ function Demo() {
     }
   };
 
+  // const friendsettings = {
+  //   arrows: true,
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 400,
+  //   slidesToShow: 1,
+  //   centerMode: false,
+  //   variableWidth: false,
+  //   autoplay: true,
+  //   autoplaySpeed: 3500,
+  //   adaptiveHeight: true,
+  // };
   const friendsettings = {
-    arrows: false,
+    arrows: true,
     dots: true,
     infinite: true,
     speed: 400,
@@ -288,6 +301,11 @@ function Demo() {
     autoplay: true,
     autoplaySpeed: 3500,
     adaptiveHeight: true,
+    appendDots: dots => (
+      <div className="absolute bottom-[-80px] w-full flex justify-center">
+        <ul> {dots} </ul>
+      </div>
+    ),
   };
 
   const [Hamburger, setHumberger] = useState(false);
@@ -559,8 +577,8 @@ function Demo() {
                       {" "}
                       <div className="tal1 self-stretch my-auto text-base font-medium text-white">
                         {getTranslation(
-                          `BLOG`, // -----> Englais
-                          `BLOG ` //  -----> Francais
+                          `Blog`, // -----> Englais
+                          `Blog ` //  -----> Francais
                         )}
                       </div>
                     </a>
@@ -720,8 +738,8 @@ function Demo() {
                     {" "}
                     <div className="tal1 self-stretch hoveredButtonTransparency my-auto text-base font-medium text-white">
                       {getTranslation(
-                        `BLOG`, // -----> Englais
-                        `BLOG` //  -----> Francais
+                        `Blog`, // -----> Englais
+                        `Blog` //  -----> Francais
                       )}
                     </div>
                   </a>
@@ -770,7 +788,7 @@ function Demo() {
                     </div>
                   </Link>
                   <Link to="login">
-                    <div className="tal2 justify-center hoveredBtnToWhitebg self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
+                    <div className="tal2  justify-center hoveredBtnToWhitebg self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-white border-opacity-50 rounded-[30px] text-white max-md:px-5">
                       {getTranslation(
                         `Log In`, // -----> Englais
                         `Se connecter ` //  -----> Francais
@@ -905,7 +923,7 @@ function Demo() {
           >
             <div className=" tal1 self-stretch mt-28 text-5xl text-center  font-bold max-md:mt-10 max-md:max-w-full max-md:text-2xl">
               {getTranslation(
-                `RAISE YOUR GAME, SEIZE YOUR FUTURE`,
+                `ELEVATE YOUR GAME, SEIZE YOUR FUTURE`,
                 ` ÉLEVEZ VOTRE JEU, SAISISSEZ VOTRE AVENIR`
               )}
             </div>
@@ -1019,24 +1037,27 @@ function Demo() {
             <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
               <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col self-stretch my-auto text-white max-md:mt-10">
-                  <div className="tal1 text-3xl md:text-5xl font-bold max-md:max-w-full">
-                    {getTranslation(
-                      `Who are we ?`, // -----> Englais
-                      `Qui Sommes-Nous? ` //  -----> Francais
-                      // ``,  //  -----> Turkey
-                      // `` ,  //  -----> Allemagne
-                    )}
 
-                    <br />
-
-                    {getTranslation(
-                      `Unlocking Football Dreams`, // -----> Englais
-                      `Débloquez vos rêves de football ` //  -----> Francais
-                      // ``,  //  -----> Turkey
-                      // `` ,  //  -----> Allemagne
-                    )}
+                  <div className="tal1 text-2xl md:text-3xl space-y-1 font-bold max-md:max-w-full">
+                    <div>
+                      {getTranslation(
+                        `Who are we ?`, // -----> Anglais
+                        `Qui Sommes-Nous?` //  -----> Français
+                        // ``,  //  -----> Turc
+                        // `` ,  //  -----> Allemand
+                      )}
+                    </div>
+                    <div className="mt-2"> {/* Utiliser mt-4 pour ajouter une marge supérieure */}
+                      {getTranslation(
+                        `Unlocking Football Dreams`, // -----> Anglais
+                        `Débloquez vos rêves de football` //  -----> Français
+                        // ``,  //  -----> Turc
+                        // `` ,  //  -----> Allemand
+                      )}
+                    </div>
                   </div>
-                  <div className="tal1 mt-2 text-2xl font-light max-md:max-w-full">
+
+                  <div className="tal1 mt-2  text-2xl font-light max-md:max-w-full">
                     {getTranslation(
                       `A Comprehensive Experience for All`, // -----> Englais
                       `Une Expérience Exceptionnelle Pour Tous` //  -----> Francais
@@ -1044,7 +1065,7 @@ function Demo() {
                       // `` ,  //  -----> Allemagne
                     )}
                   </div>
-                  <div className="tal1 mt-12 text-lg max-md:mt-10 max-md:max-w-full">
+                  <div className="tal1 mt-8 text-lg  max-md:max-w-full">
                     {getTranslation(
                       `ODIN E-SPORT offers a comprehensive experience for all stakeholders 
               in the football ecosystem, from young talents to player agents, coaches, 
@@ -1076,9 +1097,8 @@ function Demo() {
               </div>{" "}
               <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
                 <img
-                  loading="lazy"
-                  srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/14eca3b22cadb072d1d657fddadc00a1caf359a25c5f8a86810634853a27e0ab?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/14eca3b22cadb072d1d657fddadc00a1caf359a25c5f8a86810634853a27e0ab?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/14eca3b22cadb072d1d657fddadc00a1caf359a25c5f8a86810634853a27e0ab?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/14eca3b22cadb072d1d657fddadc00a1caf359a25c5f8a86810634853a27e0ab?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/14eca3b22cadb072d1d657fddadc00a1caf359a25c5f8a86810634853a27e0ab?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/14eca3b22cadb072d1d657fddadc00a1caf359a25c5f8a86810634853a27e0ab?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/14eca3b22cadb072d1d657fddadc00a1caf359a25c5f8a86810634853a27e0ab?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/14eca3b22cadb072d1d657fddadc00a1caf359a25c5f8a86810634853a27e0ab?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="grow w-full aspect-[0.78] max-md:mt-10 max-md:max-w-full"
+                  src={jr}
+                  className="grow w-full aspect-[0.78] max-md:mt-8 max-md:max-w-full"
                 />
               </div>
             </div>
@@ -1089,7 +1109,7 @@ function Demo() {
             <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
               <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col justify-center self-stretch my-auto text-white max-md:mt-10 max-md:max-w-full">
-                  <div className="tal1 text-4xl md:text-5xl font-bold max-md:max-w-full">
+                  <div className="tal1 text-2xl md:text-3xl font-bold max-md:max-w-full">
                     {getTranslation(
                       `Who is `, // -----> Englais
                       `Pour qui est ` //  -----> Francais
@@ -1107,7 +1127,7 @@ function Demo() {
                     )}
                     <br />
                   </div>{" "}
-                  <div className="tal1 mt-2 text-lg max-md:max-w-full">
+                  <div className="tal1 mt-8 text-lg max-md:max-w-full">
                     {getTranslation(
                       `ODIN E-SPORT welcomes football enthusiasts of all levels,
                from aspiring young talents to seasoned professionals. 
@@ -1183,7 +1203,7 @@ function Demo() {
                     srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/cfe1a6e577c03b6dce3c2ef7036d1538a488f92a22efd339161f01b185c84a84?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                     className="max-w-full aspect-square w-[161px]"
                   />
-                  <div className="tal1 mt-8 text-4xl md:text-5xl font-bold max-md:max-w-full">
+                  <div className="tal1 mt-8 text-2xl md:text-4xl font-bold max-md:max-w-full">
                     {getTranslation(
                       `How can we help?`, // -----> Englais
                       `Comment on peut vous aider?` //  -----> Francais
@@ -1376,8 +1396,8 @@ function Demo() {
                   {" "}
                   <div className="tal2 hoveredButtonTransparency self-stretch my-auto text-base font-medium text-white">
                     {getTranslation(
-                      `BLOG`, // -----> Englais
-                      `BLOG ` //  -----> Francais
+                      `Blog`, // -----> Englais
+                      `Blog ` //  -----> Francais
                       // ``,  //  -----> Turkey
                       // `` ,  //  -----> Allemagne
                     )}

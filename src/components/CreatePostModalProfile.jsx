@@ -64,7 +64,7 @@ function CreatePostModal() {
   return (
     <div>
 
-      <div className="flex flex-col  w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
+      <div className="flex flex-col  w-full md:mt-0 mt-3 max-md:ml-0 max-md:w-full">
         <div className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-1">
           <div className="card-body p-2 position-relative">
 
