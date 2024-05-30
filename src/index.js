@@ -314,9 +314,6 @@ function Root() {
     }
   };
 
-
-
-  }
   // console.log = console.warn = console.error = () => {};
   // end ________________________dark mode methods and state
   useEffect(() => {
