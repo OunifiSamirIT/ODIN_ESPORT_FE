@@ -1246,7 +1246,7 @@ const Personal = ({ userInfo }) => {
                             isMulti
                             value={selectedLanguages}
                             onChange={handleLanguageChange}
-                            className="w-full"
+                            className="w-full "
                             placeholder="Langue parlée"
                             styles={{
                               control: (base) => ({ ...base, border: "none" }),

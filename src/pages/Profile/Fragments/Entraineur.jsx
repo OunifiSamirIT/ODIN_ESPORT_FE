@@ -469,11 +469,17 @@ const PlayerCard = ({ userInfo }) => {
                 {/* social icons */}
                 <div className="flex justify-center items-center px-16 py-2 mt-4 max-w-full text-base font-medium text-white bg-zinc-900 rounded-[30px] w-[363px] max-md:px-5">
                     <div className="flex gap-4 items-center">
-                        <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2fbc01810223be1770f84ab0be35b3b52448631192553972949fcfd687661f3?"
-                            className="shrink-0 self-start w-4 aspect-[0.94]"
-                        />
+                        <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_3636_1921)">
+                                <path d="M8.5 3.41797C4.86364 3.41797 1.75818 5.67979 0.5 8.87252C1.75818 12.0653 4.86364 14.3271 8.5 14.3271C12.1364 14.3271 15.2418 12.0653 16.5 8.87252C15.2418 5.67979 12.1364 3.41797 8.5 3.41797ZM8.5 12.5089C6.49273 12.5089 4.86364 10.8798 4.86364 8.87252C4.86364 6.86525 6.49273 5.23616 8.5 5.23616C10.5073 5.23616 12.1364 6.86525 12.1364 8.87252C12.1364 10.8798 10.5073 12.5089 8.5 12.5089ZM8.5 6.6907C7.29273 6.6907 6.31818 7.66525 6.31818 8.87252C6.31818 10.0798 7.29273 11.0544 8.5 11.0544C9.70727 11.0544 10.6818 10.0798 10.6818 8.87252C10.6818 7.66525 9.70727 6.6907 8.5 6.6907Z" fill="white" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_3636_1921">
+                                    <rect width="16" height="17" fill="white" transform="translate(0.5 0.5)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+
                         <a href={`/profile/more/${id}`}>
 
 

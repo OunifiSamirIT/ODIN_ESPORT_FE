@@ -314,6 +314,10 @@ function Root() {
     }
   };
 
+
+
+  }
+  // console.log = console.warn = console.error = () => {};
   // end ________________________dark mode methods and state
   useEffect(() => {
     // Check if there's a valid token in localStorage

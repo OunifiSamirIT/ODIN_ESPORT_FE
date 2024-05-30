@@ -43,7 +43,7 @@ const Timer = ({ startDate, endDate, setExpired }) => {
   const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
 
   return (
-    <div className='flex items-center w-full text-center  text-xs'>
+    <div className='flex items-center w-full text-center  gap-2 text-xs'>
 
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_171_1894)">
