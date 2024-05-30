@@ -20,8 +20,6 @@ function Forgot() {
   });
 
   const onSubmit = async (data) => {
-    console.log("Form submitted!", data);
-
     try {
       setIsSubmitting(true);
 
@@ -43,7 +41,6 @@ function Forgot() {
 
       // Check if the request was successful
       if (response.ok) {
-        console.log("Password reset email sent successfully:", result.message);
         setVerificationMessage(
           <div className="flex items-center justify-between bg-primary text-xl mt-8 animate-bounce">
             Please verify your email before logging in.
@@ -65,7 +62,7 @@ function Forgot() {
       }
     } catch (error) {
       // Handle errors (display error message to the user)
-      console.error("Error sending password reset email:", error);
+
       setErrMsg({
         status: "failed",
         message: error.message || "An unexpected error occurred.",
@@ -76,69 +73,6 @@ function Forgot() {
   };
   return (
     <Fragment>
-      {/* <div className="main-wrap">
-        <div className="nav-header bg-transparent shadow-none border-0">
-        <div className="flex gap-5 justify-between py-6 w-full text-base font-medium text-white whitespace-nowrap max-w-[1184px] max-md:flex-wrap max-md:max-w-full">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/0413e8a01fde75a6e85ca564684bc6f7a566ec32588ee9716634efb33c5b73df?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-          className="ml-9 w-36 max-w-full aspect-[2.7]"
-        />
-        <div className="justify-center px-8 py-2 my-auto mr-5 bg-zinc-900 rounded-[30px] max-md:px-5">
-          Log In
-        </div>
-      </div>
-        </div>
-
-        <div className="row">
-          <div
-            className="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat"
-            style={{
-              backgroundImage: `url("https://via.placeholder.com/800x950.png")`,
-            }}
-          ></div>
-
-          <div className="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
-            <div className="card shadow-none border-0 ms-auto me-auto login-card">
-              <div className="card-body rounded-0 text-left">
-                <h2 className="fw-700 display1-size display2-md-size mb-4">
-                  Forgot Password
-                </h2>
-                <span className="text-sm text-ascent-2">Enter Your Email</span>
-               
-<form onSubmit={handleSubmit(onSubmit)}>
-  <div className="form-group icon-input mb-3">
-    <input
-      name="email"
-      label="Email"
-      placeholder="Email"
-      type="email"
-      {...register("email", {
-        required: "Email is required!",
-      })}
-      className="style2-input ps-5 form-control text-grey-900 font-xss ls-3"
-    />
-    <i className="font-sm ti-email text-grey-500 pe-0"></i>
-  </div>
-  
-  {errors.email && (
-    <span className="text-sm text-[#f64949fe] mt-0.5">
-      {errors.email.message}
-    </span>
-  )}
-
-  <button type="submit" title="Submit" className="w-40 h-10 rounded-md  bg-blue-500 ">
-    Submit
-  </button>
-</form>
-
-              
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
       <div className="flex flex-col justify-center text-base bg-zinc-100">
         <div className="flex overflow-hidden relative flex-col justify-center items-center md:px-16  px-2 py-0 w-full min-h-[1024px] max-md:px-5 max-md:max-w-full">
           <img
@@ -173,18 +107,17 @@ function Forgot() {
                   />
                   <div className="">Email</div>
                 </div>
-                
               </div>
               <input
-                  name="email"
-                  label="Email"
-                  placeholder="Insérer votre email"
-                  type="email"
-                  {...register("email", {
-                    required: "Ce champ est obligatoire",
-                  })}
-                  className="py-3.5 pr-16 pl-4 mt-2 whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 max-md:pr-5 mx-auto w-full md:w-fit"
-                />
+                name="email"
+                label="Email"
+                placeholder="Insérer votre email"
+                type="email"
+                {...register("email", {
+                  required: "Ce champ est obligatoire",
+                })}
+                className="py-3.5 pr-16 pl-4 mt-2 whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 max-md:pr-5 mx-auto w-full md:w-fit"
+              />
               {errors.email && (
                 <span className="text-sm text-[#f64949fe] mt-0.5">
                   {errors.email.message}
@@ -204,8 +137,10 @@ function Forgot() {
                 </div>
               )}
               <Link to="/login" className="w-full text-center">
-                <button className="justify-center items-center px-16 py-2 mt-3 font-medium text-blue-600 whitespace-nowrap border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5  w-full md:w-fit md:bg-transparent hover:bg-blue-200 bg-blue-200 
-                duration-150 ">
+                <button
+                  className="justify-center items-center px-16 py-2 mt-3 font-medium text-blue-600 whitespace-nowrap border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5  w-full md:w-fit md:bg-transparent hover:bg-blue-200 bg-blue-200 
+                duration-150 "
+                >
                   Se connecter
                 </button>
               </Link>

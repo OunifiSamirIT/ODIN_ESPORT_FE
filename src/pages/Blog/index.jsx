@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import image from '../../assets/Image.png'
-import { Config } from '../../config'
+import image from "../../assets/Image.png";
+import { Config } from "../../config";
 import LanguageToggler from "../../fixDesignComponents/languageToggler";
 
 // // wehed
-import { Context } from "../../index"
+import { Context } from "../../index";
 import { Link } from "react-router-dom";
 import PdfModal from "../PdfModal";
 const Index = () => {
-  const [article, setArticle] = useState([])
+  const [article, setArticle] = useState([]);
   const rect1Ref = useRef(null);
   const rect2Ref = useRef(null);
   const rect3Ref = useRef(null);
@@ -19,7 +19,7 @@ const Index = () => {
       behavior: "smooth",
     });
   };
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const [Hamburger, setHumberger] = useState(false);
 
   let [showModal, setShowModal] = useState(false);
@@ -40,38 +40,42 @@ const Index = () => {
   };
 
   const fetchBlogArticles = async () => {
-    const response = await fetch(`${Config.LOCAL_URL}/api/blog`)
-    const result = await response.json()
-    console.log(result.blog)
-    setArticle(result.blog)
-  }
+    const response = await fetch(`${Config.LOCAL_URL}/api/blog`);
+    const result = await response.json();
+
+    setArticle(result.blog);
+  };
   useEffect(() => {
-    fetchBlogArticles()
-    console.log(Config.LOCAL_URL)
-  }, [])
+    fetchBlogArticles();
+  }, []);
 
   const formatDate = (dateTime) => {
     const date = new Date(dateTime);
     const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
     const month = monthNames[date.getMonth()];
     const day = date.getDate();
     const year = date.getFullYear();
     return `${month} ${day}, ${year}`;
-
-  }
-
+  };
 
   const contactUsRef = useRef();
   return (
     <div className="flex flex-col justify-center w-full  space-y-7">
       <div className="w-full flex justify-center bg-blue-600 ">
-        <div
-          className="flex relative flex-col items-center px-16 pb-3 w-full  max-md:px-5 max-md:max-w-full"
-
-        >
+        <div className="flex relative flex-col items-center px-16 pb-3 w-full  max-md:px-5 max-md:max-w-full">
           <div className="w-full flex justify-center bg-transparent ">
             <div className="max-w-[1344px] flex gap-5 justify-between w-full  max-md:flex-wrap max-md:max-w-full">
               <div className="pt-2 max-sm:flex max-sm:justify-between max-sm:items-center max-sm:w-full">
@@ -131,7 +135,6 @@ const Index = () => {
                     </g>
                   </svg>
                 </a>
-
 
                 {/* toggel */}
                 <div className="md:hidden">
@@ -511,11 +514,12 @@ const Index = () => {
           />
           <div className="flex relative z-10 flex-col p-10 mt-72 -mb-6 max-w-full bg-white rounded-[10px] border border-gray-200 border-solid shadow-lg w-[628px] max-md:px-5 max-md:mt-10 max-md:mb-2.5">
             <div className="flex gap-4 justify-between flex-wrap max-w-full">
-
-              {article[0]?.tags.split(',').map((e) => {
-                return (<div className="justify-center px-4 py-1 text-base font-medium text-white bg-blue-600 rounded-2xl">
-                  {e}
-                </div>)
+              {article[0]?.tags.split(",").map((e) => {
+                return (
+                  <div className="justify-center px-4 py-1 text-base font-medium text-white bg-blue-600 rounded-2xl">
+                    {e}
+                  </div>
+                );
               })}
               <div className="my-auto text-sm text-blue-600">NEW ARTICLE</div>
             </div>
@@ -531,7 +535,9 @@ const Index = () => {
                 />
                 <div className="my-auto">Admin</div>
               </div>
-              <div className="my-auto text-xs font-light">{formatDate(article[0]?.createdAt)}</div>
+              <div className="my-auto text-xs font-light">
+                {formatDate(article[0]?.createdAt)}
+              </div>
             </div>
           </div>
         </div>
@@ -552,10 +558,12 @@ const Index = () => {
                         <div className="flex flex-col py-2 mt-4 text-left">
                           <div className="flex gap-4 items-center justify-between text-sm text-blue-600 max-md:mr-1">
                             <div className="flex flex-wrap gap-1 py-2 max-w-[155px]">
-                              {item?.tags.split(',').map((e) => {
-                                return (<div className="justify-center items-center px-2 py-1 rounded-2xl bg-blue-600 bg-opacity-10">
-                                  {e}
-                                </div>)
+                              {item?.tags.split(",").map((e) => {
+                                return (
+                                  <div className="justify-center items-center px-2 py-1 rounded-2xl bg-blue-600 bg-opacity-10">
+                                    {e}
+                                  </div>
+                                );
                               })}
                             </div>
                             <div className="py-2">NEW ARTICLE</div>
@@ -573,14 +581,16 @@ const Index = () => {
                                 />
                                 <div className="my-auto">Admin | odine </div>
                               </div>
-                              <div className="my-auto text-xs font-light">{formatDate(item.createdAt)}</div>
+                              <div className="my-auto text-xs font-light">
+                                {formatDate(item.createdAt)}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </a>
-                )
+                );
               })}
             </div>
           </div>
@@ -858,6 +868,6 @@ const Index = () => {
         </div>
       </div>
     </div>
-  )
-}
-export default Index
+  );
+};
+export default Index;

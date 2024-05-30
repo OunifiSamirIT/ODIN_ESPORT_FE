@@ -10,13 +10,6 @@ import { Config } from "../config";
 import Select, { components } from "react-select";
 import LeftMenu from "../components/LeftMenu";
 
-
-
-
-
-
-
-
 const paysAllInfo = [
   {
     name: "Andorre",
@@ -2982,7 +2975,6 @@ const paysAllInfo = [
     phoneLength: 9,
   },
 
-
   {
     name: "Poto Rico",
     nationalite: "Américaine",
@@ -4063,7 +4055,6 @@ const paysAllInfo = [
   },
 ];
 function Badge({ userpf }) {
-
   const [searchNom, setSearchNom] = useState("");
   const [searchNationality, setSearchNationality] = useState("");
   const [searchTypeProfil, setSearchTypeProfil] = useState("");
@@ -4077,9 +4068,6 @@ function Badge({ userpf }) {
     setShowFilters(!showFilters);
   };
 
-
-
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -4087,28 +4075,13 @@ function Badge({ userpf }) {
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/allagents`);
       const result = await response.json();
-      console.log("Data from API:", result); // Check the received data
+
       setData(result); // Update the state
       setFilteredUsers(result);
-      console.log("Data ++++++++++++AGENTS+++++++++from sdsdsdsdsdsdAPI:", filteredUsers.agents);
-      console.log("Data+++++++++SCOUTS++++++++++++ from API:", filteredUsers.scouts);
-      console.log("Data++++++++++COACH++++++++++++++ from API:", filteredUsers.coaches); // Assuming you want to filter users based on the received data
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch(`${Config.LOCAL_URL}/api/allagents`);
-  //     const result = await response.json();
-  //     setData(result);
-  //     console.log("agentttttttttttt", data)
-  //     setFilteredUsers(result);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
 
   const handleReset = () => {
     setSearchNom("");
@@ -4117,8 +4090,6 @@ function Badge({ userpf }) {
     setSearchPaysResidence("");
     setFilteredUsers(data);
   };
-
-
 
   const handleSearch = () => {
     // const filteredData = data.filter((user) => {
@@ -4133,41 +4104,52 @@ function Badge({ userpf }) {
     // });
     const filteredData = {
       agents: data.agents.filter((agent) => {
-        const fullName = `${agent?.user?.nom} ${agent?.user?.prenom}`.toLowerCase();
+        const fullName =
+          `${agent?.user?.nom} ${agent?.user?.prenom}`.toLowerCase();
         const searchName = searchNom.toLowerCase();
         return (
           fullName.includes(searchName) &&
-          (searchNationality === "" || agent?.user?.nationality === searchNationality) &&
-          (searchTypeProfil === "" || agent?.typeresponsable === searchTypeProfil) &&
-          (searchPaysResidence === "" || agent?.user?.countryresidence === searchPaysResidence)
+          (searchNationality === "" ||
+            agent?.user?.nationality === searchNationality) &&
+          (searchTypeProfil === "" ||
+            agent?.typeresponsable === searchTypeProfil) &&
+          (searchPaysResidence === "" ||
+            agent?.user?.countryresidence === searchPaysResidence)
         );
       }),
       scouts: data.scouts.filter((scout) => {
-        const fullName = `${scout?.user?.nom} ${scout?.user?.prenom}`.toLowerCase();
+        const fullName =
+          `${scout?.user?.nom} ${scout?.user?.prenom}`.toLowerCase();
         const searchName = searchNom.toLowerCase();
         return (
           fullName.includes(searchName) &&
-          (searchNationality === "" || scout?.user?.nationality === searchNationality) &&
-          (searchTypeProfil === "" || scout?.user?.profil === searchTypeProfil) &&
-          (searchPaysResidence === "" || scout?.user?.countryresidence === searchPaysResidence)
+          (searchNationality === "" ||
+            scout?.user?.nationality === searchNationality) &&
+          (searchTypeProfil === "" ||
+            scout?.user?.profil === searchTypeProfil) &&
+          (searchPaysResidence === "" ||
+            scout?.user?.countryresidence === searchPaysResidence)
         );
       }),
       coaches: data.coaches.filter((coach) => {
-        const fullName = `${coach?.user?.nom} ${coach?.user?.prenom}`.toLowerCase();
+        const fullName =
+          `${coach?.user?.nom} ${coach?.user?.prenom}`.toLowerCase();
 
         const searchName = searchNom.toLowerCase();
 
         return (
           fullName.includes(searchName) &&
-          (searchNationality === "" || coach?.user?.nationality === searchNationality) &&
-          (searchTypeProfil === "" || coach?.user?.profil === searchTypeProfil) &&
-          (searchPaysResidence === "" || coach?.user?.countryresidence === searchPaysResidence)
+          (searchNationality === "" ||
+            coach?.user?.nationality === searchNationality) &&
+          (searchTypeProfil === "" ||
+            coach?.user?.profil === searchTypeProfil) &&
+          (searchPaysResidence === "" ||
+            coach?.user?.countryresidence === searchPaysResidence)
         );
-      })
+      }),
     };
     setFilteredUsers(filteredData);
   };
-
 
   const optionsPays = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
@@ -4239,16 +4221,12 @@ function Badge({ userpf }) {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre", user)
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-
-
   }, []);
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
-
 
   const id = storedUserData.id ? storedUserData.id : null;
 
@@ -4265,20 +4243,22 @@ function Badge({ userpf }) {
     <Fragment>
       <Header />
 
-
-
-
-
-
       <div className="flex flex-col pb-12   mt-0 lg:mt-8 bg-zinc-100">
         <div className="self-center md:mt-20 w-full max-w-[1344px]  max-md:max-w-full">
           <div className="flex max-md:flex-col max-md:gap-0">
+            {/* left menu */}
+            <LeftMenu
+              id={id}
+              classothercomponent={true}
+              shouldShowAgentItem={shouldShowAgentItem}
+              shouldShowForProfile={shouldShowForProfile}
+              setEventTogglerIsOpenned={setEventTogglerIsOpenned}
+              eventTogglerIsOpenned={eventTogglerIsOpenned}
+              user={user}
+              userProfileType={userProfileType}
+            />
 
             {/* left menu */}
-            <LeftMenu id={id} classothercomponent={true} shouldShowAgentItem={shouldShowAgentItem} shouldShowForProfile={shouldShowForProfile} setEventTogglerIsOpenned={setEventTogglerIsOpenned} eventTogglerIsOpenned={eventTogglerIsOpenned} user={user} userProfileType={userProfileType} />
-
-            {/* left menu */}
-
 
             <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex  md:gap-y-3 flex-col grow  max-md:max-w-full">
@@ -4288,9 +4268,11 @@ function Badge({ userpf }) {
                       Chercher Votre Agent
                     </div>
                     <div
-                      className={`flex gap-2  justify-center self-start px-8 py-2 text-sm md:text-base font-medium ${showFilters ? 'text-white' : 'text-white'
-                        } whitespace-nowrap ${showFilters ? 'bg-black' : 'bg-blue-600'
-                        } rounded-[30px] max-md:px-5`}
+                      className={`flex gap-2  justify-center self-start px-8 py-2 text-sm md:text-base font-medium ${
+                        showFilters ? "text-white" : "text-white"
+                      } whitespace-nowrap ${
+                        showFilters ? "bg-black" : "bg-blue-600"
+                      } rounded-[30px] max-md:px-5`}
                       onClick={handleToggleFilters}
                     >
                       <img
@@ -4298,22 +4280,18 @@ function Badge({ userpf }) {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/338f69c576a3cd879110110b941d2824abc1d5b093ee17b0c389f0f0c415230e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                         className="w-4 md:w-5 aspect-square"
                       />
-                      {showFilters ? 'Masquer les filtres' : 'Afficher les filtres'}
+                      {showFilters
+                        ? "Masquer les filtres"
+                        : "Afficher les filtres"}
                     </div>
                   </div>
                 </div>
 
-
-
                 {showFilters && (
                   <>
                     <div className="flex flex-col px-8 mt-6 md:mt-0 md:pt-8 pb-4 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-
                       <div className="flex-wrap gap-y-2 justify-between content-start mt-2 max-md:max-w-full">
                         <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
-
-
-
                           <div className="flex flex-col w-full max-md:ml-0 max-md:w-full">
                             <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-2 max-md:max-w-full">
                               <div className="flex gap-4 justify-between px-4 max-md:flex-wrap max-md:max-w-full">
@@ -4342,7 +4320,6 @@ function Badge({ userpf }) {
                                 <div className="grow">Nationalité</div>
                               </div>
 
-
                               <div className=" gap-4 w-full flex-1 ">
                                 <Select
                                   options={options}
@@ -4359,19 +4336,27 @@ function Badge({ userpf }) {
                                       backgroundColor: "#ffff",
                                       borderWidth: "none",
                                       marginTop: "4px",
-                                      border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+                                      border:
+                                        "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
                                       paddingTop: "6px", // Adjust the top padding as needed
                                       paddingBottom: "6px", // Adjust the bottom padding as needed
                                       paddingLeft: "13px", // Adjust as needed
                                       paddingRight: "13px", // Adjust as needed
                                     }),
                                   }}
-                                  onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
-                                  value={options.find((option) => option.value === searchNationality)}
-
+                                  onChange={(selectedOption) =>
+                                    setSearchNationality(
+                                      selectedOption.label.props.children[1]
+                                    )
+                                  }
+                                  value={options.find(
+                                    (option) =>
+                                      option.value === searchNationality
+                                  )}
                                   // Enable searching by nationalite
                                   filterOption={(option, inputValue) => {
-                                    const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+                                    const nationalite =
+                                      option.label.props.children; // Assuming nationalite is directly the children of label
 
                                     const nationaliteString =
                                       typeof nationalite === "string"
@@ -4385,13 +4370,9 @@ function Badge({ userpf }) {
                                   // Ensure that all options are displayed even when filtered
                                   isSearchable
                                 />
-
                               </div>
-
                             </div>
                           </div>
-
-
 
                           <div className="flex flex-col ml-5 w-full max-md:ml-0 max-md:w-full">
                             <div className="flex flex-col grow text-base text-zinc-900 ">
@@ -4406,22 +4387,26 @@ function Badge({ userpf }) {
                               <div className="flex flex-col justify-center mt-2 w-full text-md font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                                 <div className="flex gap-5 justify-between px-4 py-1.5 rounded-md">
                                   <div className="flex-auto self-start mt-1 w-full">
-
                                     <select
                                       className="self-start mt-1 w-full"
                                       value={searchTypeProfil}
-                                      onChange={(e) => setSearchTypeProfil(e.target.value)}
+                                      onChange={(e) =>
+                                        setSearchTypeProfil(e.target.value)
+                                      }
                                     >
                                       <option value="" disabled>
                                         Type de profil
                                       </option>
-                                      <option value="club">Manager de club</option>
-                                      <option value="players">Manager de Joueur</option>
+                                      <option value="club">
+                                        Manager de club
+                                      </option>
+                                      <option value="players">
+                                        Manager de Joueur
+                                      </option>
                                       <option value="scout">Scout</option>
                                       <option value="coach">Entraineur</option>
                                     </select>
                                   </div>
-
                                 </div>
                               </div>
                               <div className="flex gap-4 justify-between px-4 mt-4 whitespace-nowrap">
@@ -4433,14 +4418,8 @@ function Badge({ userpf }) {
                                 <div className="grow">Pays de résidence</div>
                               </div>
 
-
                               <div className="flex-auto">
-
-
                                 <div className="flex-auto">
-
-
-
                                   <Select
                                     options={optionsPays}
                                     placeholder="Pays de résidence"
@@ -4456,7 +4435,8 @@ function Badge({ userpf }) {
                                         backgroundColor: "#ffff",
                                         borderWidth: "none",
                                         marginTop: "4px",
-                                        border: "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+                                        border:
+                                          "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
                                         paddingTop: "6px", // Adjust the top padding as needed
                                         paddingBottom: "6px", // Adjust the bottom padding as needed
                                         paddingLeft: "13px", // Adjust as needed
@@ -4464,11 +4444,17 @@ function Badge({ userpf }) {
                                       }),
                                     }}
                                     onChange={(selectedOption) =>
-                                      setSearchPaysResidence(selectedOption.label.props.children[1])
+                                      setSearchPaysResidence(
+                                        selectedOption.label.props.children[1]
+                                      )
                                     }
-                                    value={optionsPays.find((option) => option.value === searchPaysResidence)}
+                                    value={optionsPays.find(
+                                      (option) =>
+                                        option.value === searchPaysResidence
+                                    )}
                                     filterOption={(option, inputValue) => {
-                                      const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
+                                      const nationalite =
+                                        option.label.props.children; // Assuming nationalite is directly the children of label
 
                                       const nationaliteString =
                                         typeof nationalite === "string"
@@ -4483,21 +4469,18 @@ function Badge({ userpf }) {
                                     isSearchable
                                   />
                                 </div>
-
                               </div>
-
-
-
-
                             </div>
                           </div>
                         </div>
                       </div>
 
                       <div className="flex gap-1 md:gap-5  justify-between flex-col items-center md:flex-row py-2 mt-4 w-full text-base font-medium whitespace-nowrap  max-md:max-w-full">
-
                         <div className="flex  gap-5 w-full md:w-fit justify-between ">
-                          <button onClick={handleSearch} className="justify-center w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                          <button
+                            onClick={handleSearch}
+                            className="justify-center w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
+                          >
                             Confirmer
                           </button>
                         </div>
@@ -4508,13 +4491,12 @@ function Badge({ userpf }) {
                             className="justify-center w-full  md:w-fit  px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
                           >
                             Réinitialiser
-                          </button></div>
+                          </button>
+                        </div>
                       </div>
-
-
                     </div>
-                  </>)}
-
+                  </>
+                )}
               </div>
 
               <div className="flex-wrap content-start mt-6 max-md:max-w-full">
@@ -4522,7 +4504,6 @@ function Badge({ userpf }) {
                   {filteredUsers?.agents?.map((agents, index) => (
                     <Link key={index} to={`/profile/${agents?.user?.id}`}>
                       <div className="flex flex-col w-full">
-
                         <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
                           <img
                             loading="lazy"
@@ -4532,8 +4513,6 @@ function Badge({ userpf }) {
                           <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
                             {agents?.user?.prenom} {agents?.user?.nom}
                           </div>
-
-
 
                           <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
                             <div className="flex gap-4 justify-between font-light">
@@ -4545,8 +4524,11 @@ function Badge({ userpf }) {
                               <div>Profil</div>
                             </div>
                             <div className="flex gap-2.5 my-auto font-medium">
-                              <div>{agents?.typeresponsable === 'club' ? 'Manager de Club' : 'Manager de joueur'}</div>
-
+                              <div>
+                                {agents?.typeresponsable === "club"
+                                  ? "Manager de Club"
+                                  : "Manager de joueur"}
+                              </div>
                             </div>
                           </div>
                           <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
@@ -4559,7 +4541,6 @@ function Badge({ userpf }) {
                               <div>Nationnalité</div>
                             </div>
                             <div className="flex gap-2.5 my-auto font-medium">
-
                               <div> {agents?.user?.nationality}</div>
                             </div>
                           </div>
@@ -4579,19 +4560,13 @@ function Badge({ userpf }) {
                             </div>
                           </div>
                         </div>
-                      </div></Link>
-
-
-
-
+                      </div>
+                    </Link>
                   ))}
-
-
 
                   {filteredUsers?.scouts?.map((scouts, index) => (
                     <Link key={index} to={`/profile/${scouts?.user?.id}`}>
                       <div className="flex flex-col w-full">
-
                         <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
                           <img
                             loading="lazy"
@@ -4601,8 +4576,6 @@ function Badge({ userpf }) {
                           <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
                             {scouts?.user?.prenom} {scouts?.user?.nom}
                           </div>
-
-
 
                           <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
                             <div className="flex gap-4 justify-between font-light">
@@ -4615,7 +4588,6 @@ function Badge({ userpf }) {
                             </div>
                             <div className="flex gap-2.5 my-auto font-medium">
                               <div>{scouts?.user?.profil}</div>
-
                             </div>
                           </div>
                           <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
@@ -4628,7 +4600,6 @@ function Badge({ userpf }) {
                               <div>Nationnalité</div>
                             </div>
                             <div className="flex gap-2.5 my-auto font-medium">
-
                               <div> {scouts?.user?.nationality}</div>
                             </div>
                           </div>
@@ -4648,17 +4619,13 @@ function Badge({ userpf }) {
                             </div>
                           </div>
                         </div>
-                      </div></Link>
-
-
-
-
+                      </div>
+                    </Link>
                   ))}
 
                   {filteredUsers?.coaches?.map((coaches, index) => (
                     <Link key={index} to={`/profile/${coaches?.user?.id}`}>
                       <div className="flex flex-col w-full">
-
                         <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
                           <img
                             loading="lazy"
@@ -4668,8 +4635,6 @@ function Badge({ userpf }) {
                           <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
                             {coaches?.user?.prenom} {coaches?.user?.nom}
                           </div>
-
-
 
                           <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
                             <div className="flex gap-4 justify-between font-light">
@@ -4681,8 +4646,11 @@ function Badge({ userpf }) {
                               <div>Profil</div>
                             </div>
                             <div className="flex gap-2.5 my-auto font-medium">
-                              <div>{coaches?.user?.profil === 'coach' ? 'Entraineur ' : 'Entraineur '}</div>
-
+                              <div>
+                                {coaches?.user?.profil === "coach"
+                                  ? "Entraineur "
+                                  : "Entraineur "}
+                              </div>
                             </div>
                           </div>
                           <div className="flex gap-5 justify-between mt-4 w-full whitespace-nowrap">
@@ -4695,7 +4663,6 @@ function Badge({ userpf }) {
                               <div>Nationnalité</div>
                             </div>
                             <div className="flex gap-2.5 my-auto font-medium">
-
                               <div> {coaches?.user?.nationality}</div>
                             </div>
                           </div>
@@ -4715,23 +4682,12 @@ function Badge({ userpf }) {
                             </div>
                           </div>
                         </div>
-                      </div></Link>
-
-
-
-
+                      </div>
+                    </Link>
                   ))}
                 </div>
               </div>
-
-
-
-
-
-
-
             </div>
-
           </div>
         </div>
       </div>
@@ -4740,12 +4696,3 @@ function Badge({ userpf }) {
 }
 
 export default Badge;
-
-
-
-
-
-
-
-
-

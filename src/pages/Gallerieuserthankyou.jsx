@@ -5,11 +5,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import SlideMenu from "../components/SlideMenu";
 import { Config } from "../config";
 import Header from "../components/Header2";
-import {Context} from "../index"
+import { Context } from "../index";
 
 const Album = () => {
   const [isActive, setIsActive] = useState(false);
-  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const [album, setAlbum] = useState([]);
   const [users, setUsers] = useState([]);
@@ -36,11 +36,11 @@ const Album = () => {
         const numericId = parseInt(id, 10);
 
         // Filter out the current camp based on the numeric id from useParams
-        const filteredAlbums = result.data.filter(value => value.id !== numericId);
+        const filteredAlbums = result.data.filter(
+          (value) => value.id !== numericId
+        );
 
         setAlbum(filteredAlbums);
-
-        console.log(filteredAlbums);
       } catch (error) {
         console.error("Error fetching articles:", error);
       }
@@ -53,7 +53,6 @@ const Album = () => {
     <>
       <Header />
 
-
       <div className="flex flex-col items-center pb-9 px-2 bg-zinc-100">
         <div className="flex justify-center items-center px-2 mx-4 md:mx-0 md:px-10 py-10 mt-24  md:mt-24 w-full bg-white rounded-xl">
           <div className="w-full max-w-[1120px]">
@@ -64,22 +63,25 @@ const Album = () => {
                     THANK YOU!
                   </div>
                   <div className="text-zinc-900 md:px-0 px-3">
-                  {getTranslation(
-                              `Votre préinscription au camp de soccer est enregistrée! N'oubliez pas de vérifier vos e-mails pour la confirmation finale. Nous avons hâte de vous retrouver sur le terrain!`, // -----> Englais
-                              `Your pre-registration for the soccer camp is recorded! Don't forget to check your emails for the final confirmation. We look forward to seeing you on the field!`, //  -----> Francais
-                             
-                            )}                  </div>
+                    {getTranslation(
+                      `Votre préinscription au camp de soccer est enregistrée! N'oubliez pas de vérifier vos e-mails pour la confirmation finale. Nous avons hâte de vous retrouver sur le terrain!`, // -----> Englais
+                      `Your pre-registration for the soccer camp is recorded! Don't forget to check your emails for the final confirmation. We look forward to seeing you on the field!` //  -----> Francais
+                    )}{" "}
+                  </div>
                   <div className="flex gap-1 md:gap-4 max-md:max-w-[250px] items-center flex-1 justify-center  mx-2 px-8 py-2 mt-6 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] ">
                     <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9cb7dcd8e4198fc85a3fd9f3a4a89f77f8d22cc38535f84baf50f8089f909e1?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                       className="w-5 aspect-square fill-white"
                     />
-                    <Link to="/home"><div className="flex items-center max-md:scale-90 justify-center flex-1 md:mr-0">{getTranslation(
-                              `Back to home`, // -----> Englais
-                              `Revenir au page d’accueil`, //  -----> Francais
-                             
-                            )}</div></Link>
+                    <Link to="/home">
+                      <div className="flex items-center max-md:scale-90 justify-center flex-1 md:mr-0">
+                        {getTranslation(
+                          `Back to home`, // -----> Englais
+                          `Revenir au page d’accueil` //  -----> Francais
+                        )}
+                      </div>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -94,20 +96,15 @@ const Album = () => {
           </div>
         </div>
 
-
-
         <div className="flex justify-center items-center px-4 md:px-0 mt-6 w-full bg-white rounded-xl shadow-sm">
           <div className="flex flex-col w-full max-w-[1115px]">
             <div className="flex gap-5 justify-between pt-4">
               <div className="flex-auto ml-2 text-lg md:text-3xl font-bold text-zinc-900">
-              {getTranslation(
-                              `Camps that might interest you`, // -----> Englais
-                              `Camps qui pourraient vous intéresser`, //  -----> Francais
-                             
-                            )}                     </div>
-              {/* <div className="self-start mt-3 text-sm font-medium text-blue-600 underline">
-                Voir Tout
-              </div> */}
+                {getTranslation(
+                  `Camps that might interest you`, // -----> Englais
+                  `Camps qui pourraient vous intéresser` //  -----> Francais
+                )}{" "}
+              </div>
             </div>
             <div className="px-2 mt-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -139,19 +136,17 @@ const Album = () => {
                           </div>
                         </div>
                         <div className="mt-2 text-xs mx-2 font-light text-black">
-                          {value.description.length > 100 ?
-                            value.description.slice(0, 100) + '...' :
-                            value.description
-                          }
+                          {value.description.length > 100
+                            ? value.description.slice(0, 100) + "..."
+                            : value.description}
                         </div>
                         <div className="flex gap-5 px-2 justify-between items-center mt-3  max-w-full w-[282px]">
                           <div className="flex flex-col whitespace-nowrap ">
                             <div className="text-xs font-light text-zinc-400">
-                            {getTranslation(
-                              `Price`, // -----> Englais
-                              `Prix`, //  -----> Francais
-                             
-                            )}       
+                              {getTranslation(
+                                `Price`, // -----> Englais
+                                `Prix` //  -----> Francais
+                              )}
                             </div>
                             <div className="mt-1 text-base text-zinc-900 font-semibold">
                               {value.prix} €
@@ -174,7 +169,6 @@ const Album = () => {
           </div>
         </div>
       </div>
-
     </>
   );
 };

@@ -1,4 +1,11 @@
-const CustomButton = ({ title, containerStyles, iconRight, type, onClick ,onClose }) => {
+const CustomButton = ({
+  title,
+  containerStyles,
+  iconRight,
+  type,
+  onClick,
+  onClose,
+}) => {
   return (
     <button
       onClick={onClick}
@@ -7,7 +14,7 @@ const CustomButton = ({ title, containerStyles, iconRight, type, onClick ,onClos
     >
       {title}
 
-      {iconRight && <div className='ml-2'>{iconRight}</div>}
+      {iconRight && <div className="ml-2">{iconRight}</div>}
     </button>
   );
 };

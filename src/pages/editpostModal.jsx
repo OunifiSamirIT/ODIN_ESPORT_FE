@@ -1,5 +1,5 @@
-import React from 'react';
-import EditPost from './EditPost';
+import React from "react";
+import EditPost from "./EditPost";
 
 const Modal = ({ isOpen, onClose, articleId }) => {
   return (

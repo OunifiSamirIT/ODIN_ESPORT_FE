@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from "react";
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 function Login({ setAuthStatus }) {
@@ -48,7 +48,7 @@ function Login({ setAuthStatus }) {
 
       if (response.ok) {
         localStorage.setItem("user", JSON.stringify(result));
-        localStorage.setItem('accessToken', result.accessToken);
+        localStorage.setItem("accessToken", result.accessToken);
 
         // Call the setAuthStatus function with the token
         setAuthStatus(true, result.accessToken);
@@ -76,10 +76,8 @@ function Login({ setAuthStatus }) {
           setErrMsg({ status: "failed", message: result.message });
           setLoginError(true); // Set loginError to true for other login errors
         }
-
       }
     } catch (error) {
-      console.error("Error during login:", error);
       setErrMsg({
         status: "failed",
         message: "An error occurred during login.",
@@ -134,10 +132,10 @@ function Login({ setAuthStatus }) {
                     <i className="font-sm ti-lock text-grey-500 pe-0"></i>
                   </div>
                   {loginError && (
-            <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
-              User not found. Please check your credentials.
-            </div>
-          )}
+                    <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
+                      User not found. Please check your credentials.
+                    </div>
+                  )}
                   <div className="form-check text-left mb-3">
                     <input
                       type="checkbox"
@@ -158,10 +156,11 @@ function Login({ setAuthStatus }) {
                   {/* Display verification message if email is not verified */}
                   {!isEmailVerified && verificationMessage}
                   {invalidPassword && (
-            <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
-              Invalid password. Please check your password and try again.
-            </div>
-          )}
+                    <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
+                      Invalid password. Please check your password and try
+                      again.
+                    </div>
+                  )}
                   <div className="col-sm-12 p-0 text-left">
                     <div className="form-group mb-1">
                       <button
@@ -211,9 +210,8 @@ function Login({ setAuthStatus }) {
                     </div>
                   </div>
                 </form>
-             
-                </div>
               </div>
+            </div>
           </div>
         </div>
       </div>

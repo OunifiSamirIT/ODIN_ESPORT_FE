@@ -42,13 +42,18 @@ import {
   BiUndo,
 } from "react-icons/bi";
 import Loading from "../components/Loading";
-import { Link, Navigate, useNavigate, useLocation, json } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  useNavigate,
+  useLocation,
+  json,
+} from "react-router-dom";
 import GallerieOdin from "./Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "./HomeSkeletonPost";
 import CreatePost from "../components/CreatePostss";
 import CreatePostModal from "../components/CreatePostModal";
-;
 function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -58,65 +63,54 @@ function Home() {
   const addNewArticle = (newArticle) => {
     setArticles([newArticle, ...articles]);
   };
- let onDeleteFromListAcceuillFront = function (id) {
-   
-  setData([])
-  setP(0)
-  fetchData(sizeOfPostsToget, p)
-  }
+  let onDeleteFromListAcceuillFront = function (id) {
+    setData([]);
+    setP(0);
+    fetchData(sizeOfPostsToget, p);
+  };
 
-  let elementRef = useRef(null)
-const [product, setProduct] = useState([])
-const [hasMore, setHasMore] = useState(true)
-const [p, setP] = useState(0)
-let sizeOfPostsToget = 10
+  let elementRef = useRef(null);
+  const [product, setProduct] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [p, setP] = useState(0);
+  let sizeOfPostsToget = 10;
   let fetchMoreItems = async () => {
-
-  
-  fetchData(sizeOfPostsToget, p)
-    
-  }
-  function onIntersection (entries) {
-    const firstEntry = entries[0]
+    fetchData(sizeOfPostsToget, p);
+  };
+  function onIntersection(entries) {
+    const firstEntry = entries[0];
     if (firstEntry.isIntersecting && hasMore) {
-    
-
-      fetchMoreItems()
+      fetchMoreItems();
     }
   }
   useEffect(() => {
+    const observer = new IntersectionObserver(onIntersection);
 
-    const observer = new IntersectionObserver(onIntersection) 
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
 
-    setTimeout(()=> {
-      setLoading(false)
-
-    }, 500)
-
-
-    
     if (observer && elementRef.current) {
-      observer.observe(elementRef.current)
+      observer.observe(elementRef.current);
     }
     return () => {
       if (observer) {
-        observer.disconnect()
+        observer.disconnect();
       }
-    }
-  }, [data])
-
+    };
+  }, [data]);
 
   const fetchAlbums = async (size, page) => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/album?size=${size}&page=${page }`);
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/album?size=${size}&page=${page}`
+      );
       const result = await response.json();
       if (!result.data) {
-        
-        setEventHasMore(false)
-        
+        setEventHasMore(false);
       }
-      
-      return result.data
+
+      return result.data;
     } catch (error) {
       console.error("Error fetching albums:", error);
     }
@@ -124,91 +118,84 @@ let sizeOfPostsToget = 10
   const formatDate = (date) => {
     const d = new Date(date);
     const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const hours = String(d.getHours()).padStart(2, '0');
-    const minutes = String(d.getMinutes()).padStart(2, '0');
-    const seconds = String(d.getSeconds()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    const hours = String(d.getHours()).padStart(2, "0");
+    const minutes = String(d.getMinutes()).padStart(2, "0");
+    const seconds = String(d.getSeconds()).padStart(2, "0");
 
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
   };
-  
- 
-
 
   const fetchData = async (size, page) => {
     try {
       // Fetch articles (posts) and albums
       const articlesResponse = await fetchArticles(size, page);
-      
-     
-      
-
-      
 
       // Parse createdAt for articles
-      const parsedArticles = articlesResponse.map(article => {
+      const parsedArticles = articlesResponse.map((article) => {
         // Assuming createdAt is in mm-dd-yyyy format, split and rearrange the date
-        const [month, day, year] = article.createdAt.split('T');
+        const [month, day, year] = article.createdAt.split("T");
         const formattedDate = `${day}-${month}-${year}`;
-        let time = article.createdAt.split('T')[1].split('.')[0]
-        let dt = article.createdAt.split('T')[0].split('-')
-        let correctDT = dt[2] + "-" + dt[1] + "-" +  dt[0]
-        // 
-        
+        let time = article.createdAt.split("T")[1].split(".")[0];
+        let dt = article.createdAt.split("T")[0].split("-");
+        let correctDT = dt[2] + "-" + dt[1] + "-" + dt[0];
+        //
 
         return {
           ...article,
           createdAt: formatDate(article.createdAt),
         };
       });
-      
+
       // Parse createdAt for albums
-      
-      
 
       // Combine articles and albums into a single array
       const combinedData = [...data, ...parsedArticles];
 
-      setP(prevPage =>  prevPage + 1)
-      
+      setP((prevPage) => prevPage + 1);
+
       // Sort the combined array by createdAt
       // combinedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      
+
       // let combinedDataTemps = combinedData.sort((a, b) => new Date(b.temps) - new Date(a.temps));
-      // 
+      //
 
       // Update state with sorted data
       setData(combinedData);
 
-      
-      
-
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching data:", error);
       setLoading(false);
     }
   };
 
-
   const fetchArticles = async (size, page) => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles?size=${size}&page=${page }`);
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/articles?size=${size}&page=${page}`
+      );
       const result = await response.json();
-      
-      if(result.rows == 0) {
-        setHasMore(false)
+
+      if (result.rows == 0) {
+        setHasMore(false);
       }
       const articlesWithPromises = result.rows.map(async (article) => {
         const userId = article.userId;
         const comt = article.id;
 
-        const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
-          fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
-          fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
-          fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
-        ]);
+        const [userDataResponse, commentsResponse, likesCountResponse] =
+          await Promise.all([
+            fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
+              res.json()
+            ),
+            fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
+              (res) => res.json()
+            ),
+            fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
+              (res) => res.json()
+            ),
+          ]);
 
         const likesCount = likesCountResponse.find(
           (count) =>
@@ -226,12 +213,12 @@ let sizeOfPostsToget = 10
       });
 
       const reversedArticlesWithPromises = articlesWithPromises; // Reverse the order
-      
-      const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
-      
 
-      
-      return articlesWithLikesCount
+      const articlesWithLikesCount = await Promise.all(
+        reversedArticlesWithPromises
+      );
+
+      return articlesWithLikesCount;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -248,16 +235,12 @@ let sizeOfPostsToget = 10
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-
-
   }, []);
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
-
 
   const id = storedUserData.id ? storedUserData.id : null;
 
@@ -270,16 +253,6 @@ let sizeOfPostsToget = 10
 
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
 
-  
-  
-  // const addNewArticle = (newArticleResponse) => {
-  //   const newArticle = newArticleResponse.data;
-
-  //   setData((prevData) => [newArticle, ...prevData]);
-  //   console.log("🚀🚀🚀🚀🚀🚀🚀🚀🚀 ~ addNewArticle ~ setData:", newArticle)
-    
-  // };
-
   return (
     <>
       {/* <Header />
@@ -291,95 +264,68 @@ let sizeOfPostsToget = 10
           <div className="flex relative gap-3 max-md:flex-col max-md:gap-0 ">
             {/* left menu */}
 
-            <LeftMenu id={id} shouldShowAgentItem={shouldShowAgentItem} shouldShowForProfile={shouldShowForProfile} setEventTogglerIsOpenned={setEventTogglerIsOpenned}  eventTogglerIsOpenned={eventTogglerIsOpenned}  user={user} userProfileType={userProfileType} />
+            <LeftMenu
+              id={id}
+              shouldShowAgentItem={shouldShowAgentItem}
+              shouldShowForProfile={shouldShowForProfile}
+              setEventTogglerIsOpenned={setEventTogglerIsOpenned}
+              eventTogglerIsOpenned={eventTogglerIsOpenned}
+              user={user}
+              userProfileType={userProfileType}
+            />
 
             {/* left menu */}
-
-
 
             {/* create post */}
             <div className="flex md:w-[50%]  flex-col">
               <div className="flex flex-1 flex-col">
                 <CreatePostModal
- fetchDataOnbegin ={() => {
-  setData([])
-  setP(0)
-  fetchData(sizeOfPostsToget, p)
- }}  />
+                  fetchDataOnbegin={() => {
+                    setData([]);
+                    setP(0);
+                    fetchData(sizeOfPostsToget, p);
+                  }}
+                />
 
-                { 
+                {loading &&
+                  // Render skeleton loading effect while data is being fetched
+                  Array(10)
+                    .fill()
+                    .map((_, index) => <SkeletonArticleCard key={index} />)}
 
-                  loading && (
-                    // Render skeleton loading effect while data is being fetched
-                    Array(10).fill().map((_, index) => (
-                      <SkeletonArticleCard key={index} />
-                    )))
-                  }
-                  
-                    <div>
+                <div>
+                  {data.map((item, index) => (
+                    <div key={`item-${index}`}>
                       {
-                        data.map((item, index) => (
-                          <div key={`item-${index}`}>
-                            {
-                              
-                                <Post onDeleteFromListAcceuillFront={ () =>{onDeleteFromListAcceuillFront(id)}} article={item} setArticles={setData} />
-                              
-                            }
-                          </div>
-                        ))
+                        <Post
+                          onDeleteFromListAcceuillFront={() => {
+                            onDeleteFromListAcceuillFront(id);
+                          }}
+                          article={item}
+                          setArticles={setData}
+                        />
                       }
-                        {hasMore ?
-         
-         (<div ref={elementRef}> 
-
-<Load/>         </div>) :(
-  <div className=" w-6 h-1 bg-blue-600 rounded-full mt-3 mx-auto">
-
-  </div>
-)
-                       }
                     </div>
-            
-
-                
-
+                  ))}
+                  {hasMore ? (
+                    <div ref={elementRef}>
+                      <Load />{" "}
+                    </div>
+                  ) : (
+                    <div className=" w-6 h-1 bg-blue-600 rounded-full mt-3 mx-auto"></div>
+                  )}
+                </div>
               </div>
             </div>
 
-              {/* <div style={{
-                display: "flex"
-                ,flexDirection: "column"
-              }}>
-
-              {product.map((item) => 
-                <p
-                style={{minHeight: 150}}>
-                  {item.description} sdfsdfsdfsd
-                </p>
-              )}     
-                            {hasMore &&
-         
-              <div ref={elementRef}> 
-
-              Load more items ...
-              </div>
-                            }
-
-              </div> */}
-
-
-
-
-                {/* start right cont */}
-                <RightMenu />
-                {/* end right cont */}
-
-
+            {/* start right cont */}
+            <RightMenu />
+            {/* end right cont */}
           </div>
         </div>
-      </div >
-    </>
-  );
+      </div>
+    </>
+  );
 }
 
 export default Home;

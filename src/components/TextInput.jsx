@@ -6,7 +6,7 @@ const TextInput = React.forwardRef(
     ref
   ) => {
     return (
-      <div className='w-full flex flex-col mt-2'>
+      <div className="w-full flex flex-col mt-2">
         {label && (
           <p className={`text-ascent-2 text-sm mb-2 ${labelStyles}`}>{label}</p>
         )}
@@ -25,7 +25,7 @@ const TextInput = React.forwardRef(
           />
         </div>
         {error && (
-          <span className='text-xs text-[#f64949fe] mt-0.5 '>{error}</span>
+          <span className="text-xs text-[#f64949fe] mt-0.5 ">{error}</span>
         )}
       </div>
     );

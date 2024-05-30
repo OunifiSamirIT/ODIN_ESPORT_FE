@@ -1,8 +1,8 @@
 // Createpost.js
 
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Config } from '../config';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Config } from "../config";
 import Userdefault from "../assets/userdefault.jpg";
 
 const Createpost = ({ setPostsData, storedUserData }) => {
@@ -55,14 +55,13 @@ const Createpost = ({ setPostsData, storedUserData }) => {
       // After creating the article, fetch the updated list of articles
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
       const updatedPostsData = await response.json();
-      console.log('hegfgfgsdddddddddddddddddddelo', response)
+
       // Update the list of posts and reset the preview image
       setPostsData(updatedPostsData);
       setPreviewImage(null);
       formData.remove("gdhssssssssssssssssssssssssghdfhdfhdfhdfhdfhdfh", file);
       setPosting(false);
     } catch (error) {
-      console.error("Error submitting post:", error);
       setPosting(false);
     }
   };
@@ -81,7 +80,6 @@ const Createpost = ({ setPostsData, storedUserData }) => {
               src={localStorage.getItem("user").image || Userdefault}
               className="rounded-full object-fill w-10 h-10"
             />
-
           }
         </figure>
         <form onSubmit={handleSubmit(handlePostSubmit)}>
@@ -93,29 +91,47 @@ const Createpost = ({ setPostsData, storedUserData }) => {
             placeholder="What's on your mind?"
           ></textarea>
 
-          <input
-            type="file"
-            onChange={(e) => handleFileChange(e, "image")}
-          />
+          <input type="file" onChange={(e) => handleFileChange(e, "image")} />
 
           <button type="submit">Create Post</button>
         </form>
       </div>
       <div className="card-body d-flex p-0 mt-0">
         {/* ... other elements in card-body */}
-        <a href="#video" className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
-          <i className="font-md text-danger feather-video me-2"></i><span className="d-none-xs">Live Video</span>
+        <a
+          href="#video"
+          className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+        >
+          <i className="font-md text-danger feather-video me-2"></i>
+          <span className="d-none-xs">Live Video</span>
         </a>
-        <a href="#photo" className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
-          <i className="font-md text-success feather-image me-2"></i><span className="d-none-xs">Photo/Video</span>
+        <a
+          href="#photo"
+          className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+        >
+          <i className="font-md text-success feather-image me-2"></i>
+          <span className="d-none-xs">Photo/Video</span>
         </a>
-        <a href="#activity" className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4">
-          <i className="font-md text-warning feather-camera me-2"></i><span className="d-none-xs">Feeling/Activity</span>
+        <a
+          href="#activity"
+          className="d-flex align-items-center font-xssss fw-600 ls-1 text-grey-700 text-dark pe-4"
+        >
+          <i className="font-md text-warning feather-camera me-2"></i>
+          <span className="d-none-xs">Feeling/Activity</span>
         </a>
-        <div className={`ms-auto pointer ${menuClass}`} id="dropdownMenu4" data-bs-toggle="dropdown" aria-expanded="false" onClick={toggleOpen}>
+        <div
+          className={`ms-auto pointer ${menuClass}`}
+          id="dropdownMenu4"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          onClick={toggleOpen}
+        >
           <i className="ti-more-alt text-grey-900 btn-round-md bg-greylight font-xss"></i>
         </div>
-        <div className={`dropdown-menu p-4 right-0 rounded-xxl border-0 shadow-lg ${menuClass}`} aria-labelledby="dropdownMenu4">
+        <div
+          className={`dropdown-menu p-4 right-0 rounded-xxl border-0 shadow-lg ${menuClass}`}
+          aria-labelledby="dropdownMenu4"
+        >
           {/* ... other elements in dropdown-menu */}
         </div>
       </div>

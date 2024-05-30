@@ -1,20 +1,25 @@
 /* styles.css */
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-@import 'tailwindcss/utilities'; 
+@import 'tailwindcss/utilities';
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 @import "./fixFrontendManager.scss";
 @import "./fixDesign.scss";
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
 @layer base {
-  html , * {
+
+  html,
+  * {
     font-family: "Sora", system-ui, sans-serif;
   }
 }
 
 @layer base {
-  html , * {
+
+  html,
+  * {
     font-family: "Sora", system-ui, sans-serif !important;
   }
 }
@@ -22,87 +27,95 @@
 
 body {
   scroll-behavior: auto;
-	background-color: rgb(226 232 240);
+  background-color: rgb(226 232 240);
 }
+
 .expand {
-  transition: all 1s ease-in-out; /* Adjust timing and easing as needed */
+  transition: all 1s ease-in-out;
+  /* Adjust timing and easing as needed */
   // transform: translateX(200%);
   transform-origin: right;
   opacity: 1;
 }
 
 .hide {
-  transition: opacity 1s ease; /* Adjust timing and easing as needed */
+  transition: opacity 1s ease;
+  /* Adjust timing and easing as needed */
 
   opacity: 0;
-  pointer-events: none; /* Ensure clicks are ignored when hidden */
+  pointer-events: none;
+  /* Ensure clicks are ignored when hidden */
 }
 
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Responsive styles for small screens (sm) */
+@media (max-width: 576px) {
+  .close-button {
+    font-size: 20px;
   }
-  
-  /* Responsive styles for small screens (sm) */
-  @media (max-width: 576px) {
-    .close-button {
-      font-size: 20px;
-    }
+}
+
+/* Responsive styles for extra-small screens (xs) */
+@media (max-width: 480px) {
+  .close-button {
+    font-size: 16px;
   }
-  
-  /* Responsive styles for extra-small screens (xs) */
-  @media (max-width: 480px) {
-    .close-button {
-      font-size: 16px;
-    }
-  }
-  
-  /* Add more media queries as needed for other screen sizes */
-  .menu {
-    display: flex;
-    gap: 20px;
-    overflow: hidden;
-    transition: margin-inline-start 1s ease; /* Change margin-left to margin-inline-start for RTL support */
-    
-  }
-  
-  .menu-trigger {
-    cursor: pointer;
-  }
-  
-  .menu-item {
-    opacity: 1;
-    transform: translateX(10px);
-    transition:  transform 1.5s ease;
-  }
-  
-  .menu-item.show {
-    opacity: 1;
-    transform: translateX(10);
-    
-  }
-  
-  .menu-trigger.initial-position {
-    margin-inline-start: 0; /* Set initial position to 0 when trigger is clicked */
-    
-  }
-  
-  .menu-hidden {
-    margin-inline-start: -120%; /* Hide the menu by moving it to -100% */
-  }
-  
+}
+
+/* Add more media queries as needed for other screen sizes */
+.menu {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  transition: margin-inline-start 1s ease;
+  /* Change margin-left to margin-inline-start for RTL support */
+
+}
+
+.menu-trigger {
+  cursor: pointer;
+}
+
+.menu-item {
+  opacity: 1;
+  transform: translateX(10px);
+  transition: transform 1.5s ease;
+}
+
+.menu-item.show {
+  opacity: 1;
+  transform: translateX(10);
+
+}
+
+.menu-trigger.initial-position {
+  margin-inline-start: 0;
+  /* Set initial position to 0 when trigger is clicked */
+
+}
+
+.menu-hidden {
+  margin-inline-start: -120%;
+  /* Hide the menu by moving it to -100% */
+}
 
 
 
-  //for modal image camps
 
-  /* Default styles for md, lg, and xl screens */
+//for modal image camps
+
+/* Default styles for md, lg, and xl screens */
 @media (min-width: 768px) {
   .custom-modalCamps.ReactModal__Content {
-    transform: translate(-30%, -35%); /* Center the modal */
+    transform: translate(-30%, -35%);
+    /* Center the modal */
   }
 }
 
@@ -120,17 +133,26 @@ body {
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
+
 input[type="number"] {
   -moz-appearance: textfield;
 }
 
 /* Swiper container */
-.mySwiper {
+.mySwiperprofile {
   width: 100%;
   height: 100%;
+
+  @media (max-width: 768px) {
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      display: none;
+    }
+  }
 }
 
 /* Image container */
@@ -140,6 +162,9 @@ input[type="number"] {
   align-items: center;
   width: 100%;
   height: 100%;
+
+
+
 }
 
 /* Image styling */
@@ -153,52 +178,96 @@ input[type="number"] {
 
 /* Fixed height and width for images */
 .imageswiper-container {
-  width: 500px; /* Adjust as needed */
-  height: 600px; /* Adjust as needed */
+  width: 500px;
+  /* Adjust as needed */
+  height: 600px;
+
+  /* Adjust as needed */
+
+
 }
 
-/* Hide navigation arrows on mobile */
 @media (max-width: 767px) {
   .image {
-    width: 70%;  /* Ensure image takes full width on mobile */
+    width: 70%;
+    /* Ensure image takes full width on mobile */
     height: auto;
   }
+
   .swiper-button-prev,
   .swiper-button-next {
-    display: none;
-  };
+    display: hidden;
+  }
 }
+
+
+
 
 /* Optional: Style for the modal close button */
 .absolute {
   position: absolute;
 }
+
 .bottom-6 {
   bottom: 1.5rem;
 }
+
 .right-11 {
   right: 2.75rem;
 }
+
 .opacity-0 {
   opacity: 0;
   transition: opacity 0.3s;
 }
+
 .opacity-0:hover {
   opacity: 1;
 }
+
 .w-36 {
   width: 9rem;
 }
+
 .h-10 {
   height: 2.5rem;
 }
+
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+
 .text-white {
   color: white;
 }
+
 .rounded-full {
   border-radius: 9999px;
+}
+
+/* Custom Swiper Navigation Styles */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+
+
+
+
+  /* Change arrow color to white */
+}
+
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: white;
+  font-size: 20px;
+  /* Optional: adjust the size of the arrows */
+}
+
+/* Optionally, you can add more styles to customize the navigation buttons further */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #ffffff;
+  /* Ensures the color remains white on hover */
 }

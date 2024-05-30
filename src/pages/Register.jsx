@@ -15,7 +15,7 @@ import "./flags.css";
 import Select, { components } from "react-select";
 import * as yup from "yup";
 import { Config } from "../config";
-import RP from "../assets/Rolepersonne.png"
+import RP from "../assets/Rolepersonne.png";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -24,7 +24,7 @@ import Header from "../components/Header3";
 import { Context } from "../index";
 // import "react-modal/styles.css";
 import checkedMark from "../assets/check-mark.png";
-import PdfModal from '../pages/PdfModal';
+import PdfModal from "../pages/PdfModal";
 
 const paysAllInfo = [
   {
@@ -4141,7 +4141,7 @@ function Register() {
   };
 
   const onSelect = (code) => setSelect(code);
-  console.log("SELECT", select);
+
   const allCountries = [
     "Ad",
     "Ae",
@@ -4420,7 +4420,6 @@ function Register() {
     const selectedNationalityValue = selectedOption
       ? selectedOption.label.props.children[1]
       : null;
-    console.log("Selected Nationality:", selectedNationalityValue);
   };
 
   const optionsPays = paysAllInfo.map((country) => {
@@ -4456,7 +4455,6 @@ function Register() {
     const selectedValue = selectedOption
       ? selectedOption.label.props.children[1]
       : null;
-    console.log("Selected residence:", selectedValue);
   };
 
   ///////////////////////////////////////region
@@ -4502,7 +4500,6 @@ function Register() {
     const selectedValue = selectedOption
       ? selectedOption.label.props.children[1]
       : null;
-    console.log("Selected pays club:", selectedValue);
   };
   /////////coach*******************/
   const handleCountryPaysEntrainement = (selectedOptions) => {
@@ -4589,7 +4586,8 @@ function Register() {
         tel: getTranslation(
           `the Number must be with ${selectedCountryphone.phoneLength} caracters.`,
           `Le Numéro doit être avec ${selectedCountryphone.phoneLength} chiffres.`,
-          ``,``
+          ``,
+          ``
         ),
       }));
     }
@@ -5073,8 +5071,6 @@ function Register() {
       return;
     }
     if (errorFound) {
-      console.log("formData:", formData);
-      console.log("errors:", errors);
       setButtonClicked(true);
       return;
     }
@@ -5124,11 +5120,6 @@ function Register() {
       (field) => formData[field] !== ""
     );
 
-    console.log("Selected Profile:", selectedProfile);
-    console.log("Form Data:", formData);
-    console.log("Are All Fields Filled:", areAllFieldsFilled);
-    console.log("Is Profile Selected:", isProfileSelected);
-
     if (areAllFieldsFilled && isProfileSelected) {
       if (
         selectedProfile === "player" ||
@@ -5160,7 +5151,6 @@ function Register() {
       setInputErrors(errors);
 
       // Alert the user or provide feedback that some fields are missing
-      console.log("Please fill in all required fields.");
     }
   };
 
@@ -5349,16 +5339,12 @@ function Register() {
       });
       if (response.ok) {
         const responseData = await response.json();
-        console.log("🚀 ~ handleSubmit ~ responseData:", responseData)
 
-        console.log("Server Response Data:", responseData);
         const idusercode = responseData.user.id;
         localStorage.setItem("idusercode", idusercode);
         navigate("/codeverification");
-        console.log("User registered successfully!");
       } else {
         const errorData = await response.json();
-        console.error("Server Error Message:", errorData.message);
 
         // Check for specific error messages related to email or login
         if (errorData.message.includes("Email")) {
@@ -5376,18 +5362,16 @@ function Register() {
         }
       }
     } catch (error) {
-      console.error("An error occurred:", error);
-
       // Handle generic registration failure
       // setEmailError("Registration failed.");
       setLoginError("");
     }
   };
 
-let [showModal, setShowModal] = useState(false)
-let [wichContent, setWichContent] = useState(1)
-var years = Array.from(Array(2012 - 1949), (_, i) => (i + 1950).toString())
-let [isCalenderPopShow, setCalenderShow] = useState(false)
+  let [showModal, setShowModal] = useState(false);
+  let [wichContent, setWichContent] = useState(1);
+  var years = Array.from(Array(2012 - 1949), (_, i) => (i + 1950).toString());
+  let [isCalenderPopShow, setCalenderShow] = useState(false);
   return (
     <Fragment>
       <div
@@ -5395,7 +5379,11 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
         style={{ margin: 0, padding: 0 }}
       >
         <Header />
-     <PdfModal showModal={showModal} setShowModal={setShowModal} wichContent={wichContent}/>
+        <PdfModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          wichContent={wichContent}
+        />
 
         <div className="bg-white px-10 flex justify-center items-center w-full ">
           <div className="flex gap-4 justify-between max-w-[1200px]  py-2 w-full text-base font-medium text-white whitespace-nowrap   ">
@@ -5538,15 +5526,13 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           className="flex absolute opacity-0"
                         />
                         <span className="tal2">
-                          
-                        {getTranslation(
-                          `Import a photo`, // -----> Englais
-                          `Importer une photo`, //  -----> Francais
-                          ``, //  -----> Turkey
-                          `` //  -----> Allemagne
-                        )}
+                          {getTranslation(
+                            `Import a photo`, // -----> Englais
+                            `Importer une photo`, //  -----> Francais
+                            ``, //  -----> Turkey
+                            `` //  -----> Allemagne
+                          )}
                         </span>
-
                       </div>
                     </label>
                   </div>
@@ -5935,9 +5921,9 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                       )}
                     </div>{" "}
                     {/* num tel  */}
-                   <div className="flex  gap-1 flex-col w-[33%] max-md:ml-0 max-md:w-full">
+                    <div className="flex  gap-1 flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6 w-full">
-                          <div className="flex gap-2 px-4 text-lg">
+                        <div className="flex gap-2 px-4 text-lg">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8b3f9f9ce91abda956cebd8c4890e6a17fde7ecb10f630388688447199195a8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -6035,7 +6021,6 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                               position: "relative",
                               marginTop: "5px",
                               width: "100%",
-                              
                             }}
                           >
                             {" "}
@@ -6054,7 +6039,6 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                                 `` //  -----> Allemagne
                               )}
                               disabled={!selectedCountryphone}
-
                               value={phoneNumber.slice(
                                 0,
                                 phoneNumber
@@ -6076,7 +6060,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                     </div>{" "}
                     <div className="flex bg-white-400 gap-1 flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6 w-full">
-                       <div className="flex gap-4 justify-between px-4 text-lg">
+                        <div className="flex gap-4 justify-between px-4 text-lg">
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/424750770a24c4c2e5f786593b06fdc9d9137ae4f454f3cda3580afabec0922e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -6091,43 +6075,62 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                             )}
                           </div>
                         </div>{" "}
-
-                        
                         <div className="flex flex-col justify-center items-center relative py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] form-control  rounded-[30px] flex flex-col justify-center w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                         <span onClick={() => {setCalenderShow(!isCalenderPopShow)}} className="flex cursor-pointer h-full flex-row   items-center w-full">
-                         <img src='https://cdn-icons-png.flaticon.com/512/9926/9926396.png' className="w-6 mr-5 h-6 absolute right-2"/>
-                         <span>
-                          {formData.date_naissance
+                          <span
+                            onClick={() => {
+                              setCalenderShow(!isCalenderPopShow);
+                            }}
+                            className="flex cursor-pointer h-full flex-row   items-center w-full"
+                          >
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/512/9926/9926396.png"
+                              className="w-6 mr-5 h-6 absolute right-2"
+                            />
+                            <span>
+                              {formData.date_naissance
                                 ? formData.date_naissance
-                                :" Your year of birth" }
-                         </span>
-                         </span>
+                                : " Your year of birth"}
+                            </span>
+                          </span>
 
-                         <div style={{
-                          opacity: !isCalenderPopShow ? "0" :"1",
-                          scale: !isCalenderPopShow ? ".9" :"1",
-                          pointerEvents: !isCalenderPopShow ? "none" :"all"
-                         }} className="allyearsContainerPopUp border-1 overflow-hidden duration-100 z-50 zindex-111 w-[70%]  rounded-2xl border-blue-600 absolute top-[120%] ">
-                              <header className="min-h-10 bg-blue-600 flex items-center justify-center">
-                              <img className="w-6 h-6 invert" src={require("../assets/calendar.png")}/>
-                              </header>
-                              <main className="overflow-y-scroll items-center justify-center bg-white flex flex-wrap max-h-40">
-                                {
-                                  years.map( (year) => {
-                                    return <span onClick={() => {
-                                      console.log(year, "y")
+                          <div
+                            style={{
+                              opacity: !isCalenderPopShow ? "0" : "1",
+                              scale: !isCalenderPopShow ? ".9" : "1",
+                              pointerEvents: !isCalenderPopShow
+                                ? "none"
+                                : "all",
+                            }}
+                            className="allyearsContainerPopUp border-1 overflow-hidden duration-100 z-50 zindex-111 w-[70%]  rounded-2xl border-blue-600 absolute top-[120%] "
+                          >
+                            <header className="min-h-10 bg-blue-600 flex items-center justify-center">
+                              <img
+                                className="w-6 h-6 invert"
+                                src={require("../assets/calendar.png")}
+                              />
+                            </header>
+                            <main className="overflow-y-scroll items-center justify-center bg-white flex flex-wrap max-h-40">
+                              {years.map((year) => {
+                                return (
+                                  <span
+                                    onClick={() => {
                                       handleYearChange(year);
-                                      setCalenderShow(false)
+                                      setCalenderShow(false);
                                       // Update border color here
                                       setInputErrors({
                                         ...inputErrors,
                                         date_naissance: "", // Clear any existing error
                                       });
-                                    }} style={{border: "2px solid #2563eb"}} className="py-2 px-3 hover:bg-blue-600 hover:text-white cursor-pointer duration-500  my-2 mx-2  rounded-full text-blue-600  ">{year}</span>
-                                  } )
-                                }
-                              </main>
-                         </div>
+                                    }}
+                                    style={{ border: "2px solid #2563eb" }}
+                                    className="py-2 px-3 hover:bg-blue-600 hover:text-white cursor-pointer duration-500  my-2 mx-2  rounded-full text-blue-600  "
+                                  >
+                                    {year}
+                                  </span>
+                                );
+                              })}
+                            </main>
+                          </div>
                           {/* <DatePicker
                             selected={
                               formData.date_naissance
@@ -6196,63 +6199,65 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         </div>{" "}
                         <div className="w-full">
                           <span className="relative ">
-                          <select
-                            name="gender"
-                            value={formData.gender}
-                            onChange={handleInputChange}
-                            className={`form-control flex flex-col  justify-center pl-3 pt-3 pr-2  py-1.5 mt-2 w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
-                              inputErrors["gender"] ? "is-invalid" : ""
-                            }`}
-                          >
-                            <option value="">
-                              {getTranslation(
-                                `Your gender`, // -----> Englais
-                                `Votre sexe`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
-                            </option>
-                            <option value="male">
-                              {getTranslation(
-                                `Male`, // -----> Englais
-                                `Homme`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
-                            </option>
-                            <option value="female">
-                              {getTranslation(
-                                `Female`, // -----> Englais
-                                `Femme`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
-                            </option>
-                          </select>
-                          
-                          <span className="absolute right-[4px] bottom-0 h-[80%] w-10   flex items-center justify-center">
-                                <span style={{
-                                  borderLeft: "2px solid #ddd"
-                                }} className="pl-1 h-5 ">
-                                <img src={require("../assets/down.png")} 
+                            <select
+                              name="gender"
+                              value={formData.gender}
+                              onChange={handleInputChange}
+                              className={`form-control flex flex-col  justify-center pl-3 pt-3 pr-2  py-1.5 mt-2 w-full text-sm border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+                                inputErrors["gender"] ? "is-invalid" : ""
+                              }`}
+                            >
+                              <option value="">
+                                {getTranslation(
+                                  `Your gender`, // -----> Englais
+                                  `Votre sexe`, //  -----> Francais
+                                  ``, //  -----> Turkey
+                                  `` //  -----> Allemagne
+                                )}
+                              </option>
+                              <option value="male">
+                                {getTranslation(
+                                  `Male`, // -----> Englais
+                                  `Homme`, //  -----> Francais
+                                  ``, //  -----> Turkey
+                                  `` //  -----> Allemagne
+                                )}
+                              </option>
+                              <option value="female">
+                                {getTranslation(
+                                  `Female`, // -----> Englais
+                                  `Femme`, //  -----> Francais
+                                  ``, //  -----> Turkey
+                                  `` //  -----> Allemagne
+                                )}
+                              </option>
+                            </select>
+
+                            <span className="absolute right-[4px] bottom-0 h-[80%] w-10   flex items-center justify-center">
+                              <span
+                                style={{
+                                  borderLeft: "2px solid #ddd",
+                                }}
+                                className="pl-1 h-5 "
+                              >
+                                <img
+                                  src={require("../assets/down.png")}
                                   className="w-5  invert-[.8]"
                                 />
-                                </span>
-
-                          </span>
+                              </span>
+                            </span>
                           </span>
                           {inputErrors["gender"] && (
                             <div className="invalid-feedback text-xs mt-2">
                               {inputErrors["gender"]}
                             </div>
                           )}
-                          
                         </div>{" "}
                         {inputErrors.gender && (
-                        <span className="text-red-500 text-xs mt-1">
-                          {inputErrors.gender}
-                        </span>
-                      )}
+                          <span className="text-red-500 text-xs mt-1">
+                            {inputErrors.gender}
+                          </span>
+                        )}
                       </div>{" "}
                     </div>{" "}
                     {/* nationalité */}
@@ -6387,7 +6392,6 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           ``, //  -----> Turkey
                           `` //  -----> Allemagne
                         )}
-                        // onChange={(selectedOption) => console.log(selectedOption)}
                         styles={{
                           control: (provided, state) => ({
                             ...provided,
@@ -6599,16 +6603,11 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                     <div className="justify-center mt-4 mx-2 sm:mx-0 max-w-full md:mx-6 ">
                       <div className="flex flex-col sm:flex-row gap-4 max-md:flex-col max-md:gap-0 focus hover:scale-[.96]     duration-500 pointer">
                         <div className="flex w-full ">
-                          <div 
-             
-                          className="flex flex-col bg-white max-md:ml-0 w-full rounded-l-3xl duration-300">
-                            
+                          <div className="flex flex-col bg-white max-md:ml-0 w-full rounded-l-3xl duration-300">
                             <img
                               loading="lazy"
                               srcSet={data.logo}
-                              style={{
-  
-                              }}
+                              style={{}}
                               className="grow max-w-full aspect-[1.3] object-cover  rounded-l-3xl duration-300 "
                             />
                           </div>
@@ -6619,15 +6618,16 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                                   selectedProfile === data.role
                                     ? "#2E71EB"
                                     : "white",
-                                  borderLeft: "3px solid #2E71EB30 "
+                                borderLeft: "3px solid #2E71EB30 ",
                               }}
-                              className={` ${ selectedProfile === data.role ?  "text-white" : "text-zinc-900"} relative overflow-hidden flex flex-col grow justify-center focus:bg-[#2E71EB]   duration-500  items-center  w-full text-xl md:text-2xl text-center rounded-r-3xl  `}
+                              className={` ${
+                                selectedProfile === data.role
+                                  ? "text-white"
+                                  : "text-zinc-900"
+                              } relative overflow-hidden flex flex-col grow justify-center focus:bg-[#2E71EB]   duration-500  items-center  w-full text-xl md:text-2xl text-center rounded-r-3xl  `}
                               onClick={() => {
                                 const selectedProfileValue = data.role;
-                                console.log(
-                                  "Selected Profile Value:",
-                                  selectedProfileValue
-                                );
+
                                 setSelectedProfile(selectedProfileValue);
                                 handleInputChange({
                                   target: {
@@ -6645,7 +6645,6 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                                     ``, //  -----> Turkey
                                     `` //  -----> Allemagne
                                   )}
-
                                 </React.Fragment>
                               )}
                               {data.role === "coach" && (
@@ -6688,11 +6687,14 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                                   )}
                                 </React.Fragment>
                               )}
-                             <img src={checkedMark}
-                              style= {{
-                                bottom: selectedProfile === data.role ? "15%" : "-25%"
-
-                              }}
+                              <img
+                                src={checkedMark}
+                                style={{
+                                  bottom:
+                                    selectedProfile === data.role
+                                      ? "15%"
+                                      : "-25%",
+                                }}
                                 className="absolute invert  w-5 h-5 md:w-10 md:h-10  opacity-80 delay-200 duration-200"
                               />
                             </div>
@@ -6813,13 +6815,12 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16 mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                    <div className="flex gap-3 justify-between mr-2 ml-2">
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                      <div className="flex gap-3 justify-between mr-2 ml-2">
+                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
 
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
-
-                </div>
+                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-8 md:px-16 mt-8 w-full max-md:px-2 max-md:max-w-full">
@@ -7159,27 +7160,27 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           </div>
 
                           <div className="bg-zinc-100 rounded-[30px] h-12 md:pr-4 pr-5   mt-2  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] ">
-                          <select
-                            className=" px-2  flex flex-col  bg-transparent  justify-center px-4 py-3.5  text-base border-solid  w-full rounded-[30px]"
-                            onChange={(e) => handleSelection(e.target.value)}
-                          >
-                            <option className=" w-full" value="Non">
-                              {getTranslation(
-                                `No`, // -----> Englais
-                                `Non`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
-                            </option>
-                            <option value="Oui">
-                              {getTranslation(
-                                `Yes`, // -----> Englais
-                                `Oui`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}{" "}
-                            </option>
-                          </select>
+                            <select
+                              className=" px-2  flex flex-col  bg-transparent  justify-center px-4 py-3.5  text-base border-solid  w-full rounded-[30px]"
+                              onChange={(e) => handleSelection(e.target.value)}
+                            >
+                              <option className=" w-full" value="Non">
+                                {getTranslation(
+                                  `No`, // -----> Englais
+                                  `Non`, //  -----> Francais
+                                  ``, //  -----> Turkey
+                                  `` //  -----> Allemagne
+                                )}
+                              </option>
+                              <option value="Oui">
+                                {getTranslation(
+                                  `Yes`, // -----> Englais
+                                  `Oui`, //  -----> Francais
+                                  ``, //  -----> Turkey
+                                  `` //  -----> Allemagne
+                                )}{" "}
+                              </option>
+                            </select>
                           </div>
 
                           {inputErrors["Licence"] && (
@@ -7249,9 +7250,7 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                           )}
                           {!isUploadEnabled && (
                             <div>
-                              <div
-                                className="flex w-full h-12 mt-2  gap-4 justify-center items-center w-full"
-                              >
+                              <div className="flex w-full h-12 mt-2  gap-4 justify-center items-center w-full">
                                 <div
                                   style={{
                                     backgroundColor: "#B3B3B3",
@@ -7434,24 +7433,25 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                                 />
                               </label>
                             </div>
-                            <div
-                              className="flex flex-row  gap-2 md:gap-3  flex-wrap underline mb-2 sm:mb-0 sm:order-1"
-                                                     >
+                            <div className="flex flex-row  gap-2 md:gap-3  flex-wrap underline mb-2 sm:mb-0 sm:order-1">
                               J'accepte les{" "}
-                              <span  onClick={() => {
-                                setWichContent(1)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
+                              <span
+                                onClick={() => {
+                                  setWichContent(1);
+                                  setShowModal(true);
+                                }}
+                                className="text-blue-600 cursor-pointer block"
+                              >
                                 Termes & Conditions
-                              </span>
-                               {" "}
-                              et
-                              {" "}
-
-                              <span  onClick={() => {
-                                setWichContent(2)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
+                              </span>{" "}
+                              et{" "}
+                              <span
+                                onClick={() => {
+                                  setWichContent(2);
+                                  setShowModal(true);
+                                }}
+                                className="text-blue-600 cursor-pointer block"
+                              >
                                 politique de confidentialité
                               </span>
                             </div>
@@ -7566,13 +7566,12 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16 mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                    <div className="flex gap-3 justify-between mr-2 ml-2">
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                      <div className="flex gap-3 justify-between mr-2 ml-2">
+                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
 
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
-
-                </div>
+                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
@@ -7669,42 +7668,46 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                             </div>
                           </div>
                           <span className="relative ">
+                            <select
+                              name="footballTactic"
+                              value={formData.footballTactic}
+                              className={`form-control flex gap-5 justify-between  px-4 pb-2 pt-0 border-[0.5px]  mb-2 rounded-xl bg-zinc-100 ${
+                                inputErrors["footballTactic"]
+                                  ? "is-invalid"
+                                  : ""
+                              }`}
+                              onChange={handleInputChange}
+                            >
+                              <option value="" disabled>
+                                {getTranslation(
+                                  `Preferred tactic`, // -----> Englais
+                                  `Tactique préférée`, //  -----> Francais
+                                  ``, //  -----> Turkey
+                                  `` //  -----> Allemagne
+                                )}
+                              </option>
+                              <option value="4-4-2">4-4-2</option>
+                              <option value="4-3-3">4-3-3</option>
+                              <option value="4-2-3-1">4-2-3-1</option>
+                              <option value="5-3-2">5-3-2</option>
+                              <option value="5-4-1">5-4-1</option>
+                              <option value="catenaccio">3-4-3</option>
+                            </select>
 
-                          <select
-                            name="footballTactic"
-                            value={formData.footballTactic}
-                            className={`form-control flex gap-5 justify-between  px-4 pb-2 pt-0 border-[0.5px]  mb-2 rounded-xl bg-zinc-100 ${
-                              inputErrors["footballTactic"] ? "is-invalid" : ""
-                            }`}
-                            onChange={handleInputChange}
-                          >
-                            <option value="" disabled>
-                              {getTranslation(
-                                `Preferred tactic`, // -----> Englais
-                                `Tactique préférée`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
-                            </option>
-                            <option value="4-4-2">4-4-2</option>
-                            <option value="4-3-3">4-3-3</option>
-                            <option value="4-2-3-1">4-2-3-1</option>
-                            <option value="5-3-2">5-3-2</option>
-                            <option value="5-4-1">5-4-1</option>
-                            <option value="catenaccio">3-4-3</option>
-                          </select>
-
-                          <span className="absolute right-[12px] bottom-[13%] h-[80%] w-10   flex items-center justify-center">
-      <span style={{
-        borderLeft: "2px solid #ddd"
-      }} className="pl-2 h-5 ">
-      <img src={require("../assets/down.png")} 
-        className="w-5  invert-[.7]"
-      />
-      </span>
-
-</span>
-</span>
+                            <span className="absolute right-[12px] bottom-[13%] h-[80%] w-10   flex items-center justify-center">
+                              <span
+                                style={{
+                                  borderLeft: "2px solid #ddd",
+                                }}
+                                className="pl-2 h-5 "
+                              >
+                                <img
+                                  src={require("../assets/down.png")}
+                                  className="w-5  invert-[.7]"
+                                />
+                              </span>
+                            </span>
+                          </span>
                           {inputErrors["footballTactic"] && (
                             <div className="error-message text-red-600 -mt-1">
                               {inputErrors["footballTactic"]}
@@ -7913,25 +7916,28 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                             <div
                               className="flex flex-row gap-2  md:gap-3 flex-wrap  underline mb-2 sm:mb-0 sm:order-1"
                               onClick={() => {
-                                setWichContent(1)
-                                setShowModal(true)
-                              }}                            >
+                                setWichContent(1);
+                                setShowModal(true);
+                              }}
+                            >
                               J'accepte les{" "}
-                              <span  onClick={() => {
-                                setWichContent(1)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
+                              <span
+                                onClick={() => {
+                                  setWichContent(1);
+                                  setShowModal(true);
+                                }}
+                                className="text-blue-600 cursor-pointer block"
+                              >
                                 Termes & Conditions
-                              </span>
-                              {" "}
-
-                              et
-                              {" "}
-
-                              <span  onClick={() => {
-                                setWichContent(2)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
+                              </span>{" "}
+                              et{" "}
+                              <span
+                                onClick={() => {
+                                  setWichContent(2);
+                                  setShowModal(true);
+                                }}
+                                className="text-blue-600 cursor-pointer block"
+                              >
                                 politique de confidentialité
                               </span>
                             </div>
@@ -8044,13 +8050,12 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                       </p>
                     </div>
                     <div className="flex justify-center items-center px-16  mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                    <div className="flex gap-3 justify-between mr-2 ml-2">
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                      <div className="flex gap-3 justify-between mr-2 ml-2">
+                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
 
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
-
-                </div>
+                        <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                        <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
@@ -8397,27 +8402,30 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                                     <div
                                       className="flex flex-row gap-2  md:gap-3 flex-wrap underline mb-2 sm:mb-0 sm:order-1"
                                       onClick={() => {
-                                        setWichContent(1)
-                                        setShowModal(true)
-                                      }}                                      >
+                                        setWichContent(1);
+                                        setShowModal(true);
+                                      }}
+                                    >
                                       J'accepte les{" "}
-                                      <span  onClick={() => {
-                                setWichContent(1)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
-                                Termes & Conditions
-                              </span>
-                              {" "}
-
-                              et
-                              {" "}
-
-                              <span  onClick={() => {
-                                setWichContent(2)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
-                                politique de confidentialité
-                              </span>
+                                      <span
+                                        onClick={() => {
+                                          setWichContent(1);
+                                          setShowModal(true);
+                                        }}
+                                        className="text-blue-600 cursor-pointer block"
+                                      >
+                                        Termes & Conditions
+                                      </span>{" "}
+                                      et{" "}
+                                      <span
+                                        onClick={() => {
+                                          setWichContent(2);
+                                          setShowModal(true);
+                                        }}
+                                        className="text-blue-600 cursor-pointer block"
+                                      >
+                                        politique de confidentialité
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
@@ -8756,27 +8764,30 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                                     <div
                                       className="flex flex-row gap-2 md:gap-3 flex-wrap underline mb-2 sm:mb-0 sm:order-1"
                                       onClick={() => {
-                                        setWichContent(1)
-                                        setShowModal(true)
-                                      }}                                      >
+                                        setWichContent(1);
+                                        setShowModal(true);
+                                      }}
+                                    >
                                       J'accepte les{" "}
-                                      <span  onClick={() => {
-                                setWichContent(1)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
-                                Termes & Conditions
-                              </span>
-                              {" "}
-
-                              et
-                              {" "}
-
-                              <span  onClick={() => {
-                                setWichContent(2)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
-                                politique de confidentialité
-                              </span>
+                                      <span
+                                        onClick={() => {
+                                          setWichContent(1);
+                                          setShowModal(true);
+                                        }}
+                                        className="text-blue-600 cursor-pointer block"
+                                      >
+                                        Termes & Conditions
+                                      </span>{" "}
+                                      et{" "}
+                                      <span
+                                        onClick={() => {
+                                          setWichContent(2);
+                                          setShowModal(true);
+                                        }}
+                                        className="text-blue-600 cursor-pointer block"
+                                      >
+                                        politique de confidentialité
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
@@ -8899,13 +8910,12 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         </p>
                       </div>
                       <div className="flex justify-center items-center px-16  mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-3 justify-between mr-2 ml-2">
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                        <div className="flex gap-3 justify-between mr-2 ml-2">
+                          <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
 
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
-
-                </div>
+                          <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                          <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 mb-40 w-full max-md:px-5 max-md:max-w-full">
@@ -8928,64 +8938,66 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                               </div>
                             </div>
                             <span className="relative ">
+                              <select
+                                name="engagement"
+                                value={formData.engagement}
+                                className={`form-control flex justify-between border-[0.5px] px-4 pb-3 mb-2 bg-zinc-100 rounded-[30px] ${
+                                  inputErrors["engagement"] ? "is-invalid" : ""
+                                }`}
+                                style={{
+                                  paddingTop: "1px",
+                                  paddingBottom: "10px",
+                                }} // Adjust padding as needed
+                                onChange={handleInputChange}
+                              >
+                                <option value="" disabled>
+                                  {getTranslation(
+                                    `Your type of commitment`, // -----> Englais
+                                    `Votre type d’engagement`, //  -----> Francais
+                                    ``, //  -----> Turkey
+                                    `` //  -----> Allemagne
+                                  )}
+                                </option>
+                                <option value="plein-temps">
+                                  {getTranslation(
+                                    `Full-Time`, // -----> Englais
+                                    `Plein Temps`, //  -----> Francais
+                                    ``, //  -----> Turkey
+                                    `` //  -----> Allemagne
+                                  )}
+                                </option>
+                                <option value="mi-temps">
+                                  {getTranslation(
+                                    `Part-Time`, // -----> Englais
+                                    `Mi-Temps`, //  -----> Francais
+                                    ``, //  -----> Turkey
+                                    `` //  -----> Allemagne
+                                  )}{" "}
+                                </option>
+                                <option value="volontaire">
+                                  {getTranslation(
+                                    `Volunteer`, // -----> Englais
+                                    `Volontaire`, //  -----> Francais
+                                    ``, //  -----> Turkey
+                                    `` //  -----> Allemagne
+                                  )}
+                                </option>
+                              </select>
 
-                            <select
-                              name="engagement"
-                              value={formData.engagement}
-                              className={`form-control flex justify-between border-[0.5px] px-4 pb-3 mb-2 bg-zinc-100 rounded-[30px] ${
-                                inputErrors["engagement"] ? "is-invalid" : ""
-                              }`}
-                              style={{
-                                paddingTop: "1px",
-                                paddingBottom: "10px",
-                              }} // Adjust padding as needed
-                              onChange={handleInputChange}
-                            >
-                              <option value="" disabled>
-                                {getTranslation(
-                                  `Your type of commitment`, // -----> Englais
-                                  `Votre type d’engagement`, //  -----> Francais
-                                  ``, //  -----> Turkey
-                                  `` //  -----> Allemagne
-                                )}
-                              </option>
-                              <option value="plein-temps">
-                                {getTranslation(
-                                  `Full-Time`, // -----> Englais
-                                  `Plein Temps`, //  -----> Francais
-                                  ``, //  -----> Turkey
-                                  `` //  -----> Allemagne
-                                )}
-                              </option>
-                              <option value="mi-temps">
-                                {getTranslation(
-                                  `Part-Time`, // -----> Englais
-                                  `Mi-Temps`, //  -----> Francais
-                                  ``, //  -----> Turkey
-                                  `` //  -----> Allemagne
-                                )}{" "}
-                              </option>
-                              <option value="volontaire">
-                                {getTranslation(
-                                  `Volunteer`, // -----> Englais
-                                  `Volontaire`, //  -----> Francais
-                                  ``, //  -----> Turkey
-                                  `` //  -----> Allemagne
-                                )}
-                              </option>
-                            </select>
-
-                            <span className="absolute right-[4px] bottom-[13%] h-[80%] w-10   flex items-center justify-center">
-      <span style={{
-        borderLeft: "2px solid #ddd"
-      }} className="pl-1 h-5 ">
-      <img src={require("../assets/down.png")} 
-        className="w-5  invert-[.8]"
-      />
-      </span>
-
-</span>
-</span>
+                              <span className="absolute right-[4px] bottom-[13%] h-[80%] w-10   flex items-center justify-center">
+                                <span
+                                  style={{
+                                    borderLeft: "2px solid #ddd",
+                                  }}
+                                  className="pl-1 h-5 "
+                                >
+                                  <img
+                                    src={require("../assets/down.png")}
+                                    className="w-5  invert-[.8]"
+                                  />
+                                </span>
+                              </span>
+                            </span>
                             {inputErrors["engagement"] && (
                               <div className="error-message text-red-600">
                                 {inputErrors["engagement"]}
@@ -9395,27 +9407,30 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                               <div
                                 className="flex flex-row gap-2 md:gap-3 flex-wrap underline mb-2 sm:mb-0 sm:order-1"
                                 onClick={() => {
-                                  setWichContent(1)
-                                  setShowModal(true)
-                                }}                               >
+                                  setWichContent(1);
+                                  setShowModal(true);
+                                }}
+                              >
                                 J'accepte les{" "}
-                                <span  onClick={() => {
-                                setWichContent(1)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
-                                Termes & Conditions
-                              </span>
-                              {" "}
-
-                              et
-                              {" "}
-
-                              <span  onClick={() => {
-                                setWichContent(2)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
-                                politique de confidentialité
-                              </span>
+                                <span
+                                  onClick={() => {
+                                    setWichContent(1);
+                                    setShowModal(true);
+                                  }}
+                                  className="text-blue-600 cursor-pointer block"
+                                >
+                                  Termes & Conditions
+                                </span>{" "}
+                                et{" "}
+                                <span
+                                  onClick={() => {
+                                    setWichContent(2);
+                                    setShowModal(true);
+                                  }}
+                                  className="text-blue-600 cursor-pointer block"
+                                >
+                                  politique de confidentialité
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -9530,13 +9545,12 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                         </p>
                       </div>
                       <div className="flex justify-center items-center px-16  mt-2 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-                      <div className="flex gap-3 justify-between mr-2 ml-2">
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                        <div className="flex gap-3 justify-between mr-2 ml-2">
+                          <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
 
-                  <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
-                  <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
-
-                </div>
+                          <div className="h-2 bg-blue-300 rounded-md w-[45px] sm:w-[50px] lg:w-[67px] xl:w-[100px] xxl:w-[120px]" />
+                          <div className="h-2 bg-blue-600 rounded-md w-[150px] sm:w-[120px] lg:w-[158px] xl:w-[200px] xxl:w-[250px]" />
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch rounded-3xl px-16 mt-8 mb-52 w-full text-lg max-md:px-5 max-md:max-w-full">
@@ -10353,27 +10367,30 @@ let [isCalenderPopShow, setCalenderShow] = useState(false)
                               <div
                                 className="flex flex-row gap-2 md:gap-3 flex-wrap  underline mb-2 sm:mb-0 sm:order-1"
                                 onClick={() => {
-                                  setWichContent(1)
-                                  setShowModal(true)
-                                }}                               >
+                                  setWichContent(1);
+                                  setShowModal(true);
+                                }}
+                              >
                                 J'accepte les{" "}
-                                <span  onClick={() => {
-                                setWichContent(1)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
-                                Termes & Conditions
-                              </span>
-                              {" "}
-
-                              et
-                              {" "}
-
-                              <span  onClick={() => {
-                                setWichContent(2)
-                                setShowModal(true)
-                              }}     className="text-blue-600 cursor-pointer block">
-                                politique de confidentialité
-                              </span>
+                                <span
+                                  onClick={() => {
+                                    setWichContent(1);
+                                    setShowModal(true);
+                                  }}
+                                  className="text-blue-600 cursor-pointer block"
+                                >
+                                  Termes & Conditions
+                                </span>{" "}
+                                et{" "}
+                                <span
+                                  onClick={() => {
+                                    setWichContent(2);
+                                    setShowModal(true);
+                                  }}
+                                  className="text-blue-600 cursor-pointer block"
+                                >
+                                  politique de confidentialité
+                                </span>
                               </div>
                             </div>
                           </div>
