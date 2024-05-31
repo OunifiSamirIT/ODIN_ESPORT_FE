@@ -2871,7 +2871,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
                 <div className="flex flex-col md:flex-row h-screen w-screen  bg-black md:pr-0">
                   <div className="bg-black  ">
-                    <svg onClick={handleCloseModalSHOWGallery} className="ml-1 fixed z-50 -mr-[50px] cursor-pointer  mt-2 md:size-14 size-14  " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 62" width="62" height="62" fill="#fff">
+                    <svg onClick={handleCloseModalSHOWGallery} className="ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 md:size-14 size-14  " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 62" width="62" height="62" fill="#fff">
                       <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
                     </svg>
                   </div>
