@@ -23,7 +23,7 @@ function AcceuilOffre() {
       .writeText(email)
       .then(() => {
         setCopied(true);
-        console.log("Email copied to clipboard:", email);
+
         // Reset the copied state after a few seconds
         setTimeout(() => {
           setCopied(false);
@@ -73,7 +73,6 @@ function AcceuilOffre() {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre", user);
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
@@ -406,7 +405,11 @@ function AcceuilOffre() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/fad9cfd1318d01185e1076aead7632d3237157b031a0a7a014a227eba086bb6a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-3.5 aspect-[0.88] fill-neutral-900 fill-opacity-70"
                             />
-                            <div className=" text-break"> {albumDetails?.paysoffre},{albumDetails?.villeoffre}</div>
+                            <div className=" text-break">
+                              {" "}
+                              {albumDetails?.paysoffre},
+                              {albumDetails?.villeoffre}
+                            </div>
                           </div>
                           <div className="flex min-w-fit gap-1.5 justify-between px-1 py-0.5 text-base text-neutral-900 text-opacity-70">
                             <img
@@ -414,7 +417,12 @@ function AcceuilOffre() {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/388d7e4e6c54c7e6d1d362363c9431f612d2af0605696aed9b1bc3f3f607f965?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                               className="shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                             />
-                            <div>Expire le:{moment(albumDetails?.date_experie).format("DD-MM-YYYY")}</div>
+                            <div>
+                              Expire le:
+                              {moment(albumDetails?.date_experie).format(
+                                "DD-MM-YYYY"
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -451,7 +459,11 @@ function AcceuilOffre() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/fad9cfd1318d01185e1076aead7632d3237157b031a0a7a014a227eba086bb6a?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                             className="shrink-0 my-auto w-3.5 aspect-[0.88] fill-neutral-900 fill-opacity-70"
                           />
-                          <div> {albumDetails?.paysoffre} ,{albumDetails?.villeoffre}</div>
+                          <div>
+                            {" "}
+                            {albumDetails?.paysoffre} ,
+                            {albumDetails?.villeoffre}
+                          </div>
                         </div>
                         <div className="flex gap-1.5 justify-between  py-0.5 text-base text-neutral-900 text-opacity-70">
                           <img
@@ -459,7 +471,12 @@ function AcceuilOffre() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/388d7e4e6c54c7e6d1d362363c9431f612d2af0605696aed9b1bc3f3f607f965?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                             className="shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                           />
-                          <div>Expire le:{moment(albumDetails?.date_experie).format("DD-MM-YYYY")}</div>
+                          <div>
+                            Expire le:
+                            {moment(albumDetails?.date_experie).format(
+                              "DD-MM-YYYY"
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -468,8 +485,7 @@ function AcceuilOffre() {
                     Description :
                   </div>
                   <div className="mt-2 text-lg text-neutral-900 text-break text-opacity-70 max-md:max-w-full">
-                    {albumDetails?.description
-                    }{" "}
+                    {albumDetails?.description}{" "}
                   </div>
                   <div className="flex gap-2 self-start ml-1 mt-6 text-xl font-serif whitespace-nowrap text-zinc-900">
                     <img
@@ -484,9 +500,7 @@ function AcceuilOffre() {
                       ref={emailRef}
                       className="my-auto  w-full md:w-fit text-center  text-lg text-zinc-900"
                     >
-
                       <p className="md:ml-6"> {albumDetails?.email} </p>
-
                     </div>
 
                     <button

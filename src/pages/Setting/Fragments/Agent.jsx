@@ -29,7 +29,7 @@ const Agent = ({ userInfo }) => {
             ),
         };
     });
-    const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+    const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const MultiValueContainer = ({ children, ...props }) => {
@@ -80,7 +80,7 @@ const Agent = ({ userInfo }) => {
                 .required('Vous pouvez selectionner au maximum 10 compétences !'),
         })
         .required()
-   
+
     const [selectedSkills, setSelectedSkills] = useState(userInfo.agent?.skillsagent.split(',').filter((item) => item !== ''))
     // const [selectedSkills, setSelectedSkills] = useState(['Négociation']);
     const [baseSkills, setBaseSkills] = useState(userInfo.agent.skillsagent?.split(',').filter((item) => item !== ''))
@@ -94,10 +94,10 @@ const Agent = ({ userInfo }) => {
             const updatedSkills = selectedSkills.filter((selectedSkill) => selectedSkill !== skill);
             setSelectedSkills(updatedSkills);
         }
-        if(selectedSkills.length >= 10){
+        if (selectedSkills.length >= 10) {
             setSelectedSkillsError(true)
         }
-        if(selectedSkills.length < 10){
+        if (selectedSkills.length < 10) {
             setSelectedSkillsError(false)
         }
     };
@@ -168,16 +168,16 @@ const Agent = ({ userInfo }) => {
     }, [selectedSkills]);
 
     const handleChange = (event) => {
-        console.log(event.target.name)
+
         const input = event.target.value;
         // Ensure the input is a valid number, non-negative, and has at most 3 digits
         if (/^\d*$/.test(input) && input.length <= 3 && input >= 0) {
-          setValue(event.target.name , input);
-        }else{
-            setValue(event.target.name , 0);
+            setValue(event.target.name, input);
+        } else {
+            setValue(event.target.name, 0);
         }
-      };
-    
+    };
+
     const onSubmit = async (data) => {
 
         if (selectedSkills.length > 0) {
@@ -188,7 +188,7 @@ const Agent = ({ userInfo }) => {
             formDataToUpdate.append("totalCareerTransfers", data.totalCareerTransfers);
             formDataToUpdate.append("skills", selectedSkills);
             formDataToUpdate.append("totalTeam", data.totalTeam);
-            console.log('formdata', formDataToUpdate)
+
             const response = await fetch(
                 `${Config.LOCAL_URL}/api/agents/${storedUserData.id}`,
                 {
@@ -196,7 +196,7 @@ const Agent = ({ userInfo }) => {
                     body: formDataToUpdate,
                 }
             ).then((r) => {
-                console.log(r)
+
                 if (r.status === 200) {
                     toast.success('Vos modifications ont été enregistrées !', {
                         position: "top-right",
@@ -237,14 +237,14 @@ const Agent = ({ userInfo }) => {
                                         </defs>
                                     </svg>
                                     <div className="grow text-md md:text-lg">{
-                                          getTranslation(
+                                        getTranslation(
                                             `Number of managed players`,  // -----> Englais
                                             ` Nombre de joueurs gérés`, //  -----> Francais
                                             ``,  //  -----> Turkey
                                             ``,  //  -----> Allemagne
-                                          )
+                                        )
 
-                                        }</div>
+                                    }</div>
                                 </div>
                                 <input {...register('totalPlayer')} onChange={handleChange} name='totalPlayer' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalPlayer ? 'is-invalid !border-red-500' : ''}`} />
                                 {errors.totalPlayer && <span className="invalid-feedback block py-2 px-2">{errors.totalPlayer.message}</span>}
@@ -263,14 +263,14 @@ const Agent = ({ userInfo }) => {
                                         </defs>
                                     </svg>
                                     <div className="grow text-md md:text-lg">{
-                                          getTranslation(
+                                        getTranslation(
                                             `Number of transfers made `,  // -----> Englais
                                             ` Nombre de transferts effectués`, //  -----> Francais
                                             ``,  //  -----> Turkey
                                             ``,  //  -----> Allemagne
-                                          )
+                                        )
 
-                                        }</div>
+                                    }</div>
                                 </div>
                                 <input {...register('totalCareerTransfers')} onChange={handleChange} name='totalCareerTransfers' type='number' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.totalCareerTransfers ? 'is-invalid !border-red-500' : ''}`} />
 
@@ -287,14 +287,14 @@ const Agent = ({ userInfo }) => {
                                         className="my-auto w-5 aspect-square"
                                     />
                                     <div className="grow text-md md:text-lg">{
-                                    getTranslation(
-                                      `Skills!`,  // -----> Englais
-                                      `Compétences !`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
-                                    )
+                                        getTranslation(
+                                            `Skills!`,  // -----> Englais
+                                            `Compétences !`, //  -----> Francais
+                                            ``,  //  -----> Turkey
+                                            ``,  //  -----> Allemagne
+                                        )
 
-                                  }</div>
+                                    }</div>
                                 </div>
                             </div>
                             <div className="form-group icon-input  mb-3">
@@ -317,7 +317,7 @@ const Agent = ({ userInfo }) => {
                                         </label>
                                     </div>
                                 ))}
-                            </div> 
+                            </div>
                             {errors.skills && <span className="invalid-feedback block py-2 px-2">{errors.skills?.message}</span>}
                             {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">Vous pouvez selectionner au maximum 10 compétences !</span> : null}
                         </div>
@@ -330,13 +330,13 @@ const Agent = ({ userInfo }) => {
                                 />
                                 <a onClick={resetForm} className="grow">{
                                     getTranslation(
-                                      `Cancel`,  // -----> Englais
-                                      ` Annuler`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
+                                        `Cancel`,  // -----> Englais
+                                        ` Annuler`, //  -----> Francais
+                                        ``,  //  -----> Turkey
+                                        ``,  //  -----> Allemagne
                                     )
 
-                                  }</a>
+                                }</a>
                             </div>
                             <div className="flex gap-2  px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
                                 <img
@@ -346,13 +346,13 @@ const Agent = ({ userInfo }) => {
                                 />
                                 <button type='submit' className="grow">{
                                     getTranslation(
-                                      `Submit`,  // -----> Englais
-                                      `Confirmer`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
+                                        `Submit`,  // -----> Englais
+                                        `Confirmer`, //  -----> Francais
+                                        ``,  //  -----> Turkey
+                                        ``,  //  -----> Allemagne
                                     )
 
-                                  }</button>
+                                }</button>
                             </div>
                         </div>
                     </form>
@@ -371,14 +371,14 @@ const Agent = ({ userInfo }) => {
                                         <path d="M11.483 9.2711L19.1399 15.6698L13.7165 19.7378C12.3621 20.7541 10.4991 20.7541 9.14466 19.7378L3.30316 15.3564C2.80883 14.9859 2.20687 14.7849 1.58872 14.7849H0.953422C0.426706 14.7849 0 14.3582 0 13.8325V3.29531C0 2.81145 0.360986 2.40856 0.841983 2.35427C2.13448 2.21044 3.2984 1.69135 4.48899 0.997952C6.20153 0.116918 8.4484 0.431232 9.83806 1.73326L10.4257 2.29807L6.60918 6.02318C5.58719 7.04423 5.42431 8.65866 6.2301 9.774C6.72539 10.4626 7.62166 10.9732 8.55794 10.9732C9.31324 10.9732 10.0381 10.676 10.5619 10.1512L11.483 9.27015V9.2711ZM19.0056 0.997952C17.3959 0.193115 15.3881 0.402658 13.9499 1.5199L7.94645 7.3795C7.59309 7.73382 7.51308 8.30053 7.77405 8.66247C7.9455 8.90059 8.19409 9.04346 8.47793 9.06727C8.75891 9.09108 9.03131 8.98917 9.22848 8.79106L12.6745 5.52504C13.5784 4.66686 14.888 6.03651 13.9918 6.90136L12.8669 7.94622L21.0515 14.7859H21.9058C22.4316 14.7859 22.8583 14.3592 22.8583 13.8334V3.26292C22.8583 2.79621 22.5173 2.41046 22.0573 2.3276C20.4438 2.03614 19.0046 0.998904 19.0046 0.998904L19.0056 0.997952Z" fill="#1D1E21" />
                                     </svg>
                                     <div className="grow text-lg">{
-                                getTranslation(
-                                  `Current Club`,  // -----> Englais
-                                  ` Club Actuel`, //  -----> Francais
-                                  ``,  //  -----> Turkey
-                                  ``,  //  -----> Allemagne
-                                )
+                                        getTranslation(
+                                            `Current Club`,  // -----> Englais
+                                            ` Club Actuel`, //  -----> Francais
+                                            ``,  //  -----> Turkey
+                                            ``,  //  -----> Allemagne
+                                        )
 
-                              }</div>
+                                    }</div>
                                 </div>
                                 <input {...register('club')} name='club' type='text' className={`form-control w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.club ? 'is-invalid !border-red-500' : ''}`} />
                                 {errors.club && <span className="invalid-feedback block py-2 px-2">{errors.club.message}</span>}
@@ -393,13 +393,13 @@ const Agent = ({ userInfo }) => {
                                     />
                                     <div className="grow text-lg">{
                                         getTranslation(
-                                          `Club's country`,  // -----> Englais
-                                          `Pays du Club`, //  -----> Francais
-                                          ``,  //  -----> Turkey
-                                          ``,  //  -----> Allemagne
+                                            `Club's country`,  // -----> Englais
+                                            `Pays du Club`, //  -----> Francais
+                                            ``,  //  -----> Turkey
+                                            ``,  //  -----> Allemagne
                                         )
 
-                                      }</div>
+                                    }</div>
                                 </div>
                                 <div className={`flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${errors.country ? 'border !border-red-500' : ''}`}>
                                     <div className="flex gap-5 justify-between px-4  w-full rounded-md">
@@ -455,14 +455,14 @@ const Agent = ({ userInfo }) => {
                                         className="my-auto w-5 aspect-square"
                                     />
                                     <div className="grow text-md md:text:lg">{
-                                  getTranslation(
-                                    `Skills`,  // -----> Englais
-                                    `Compétences`, //  -----> Francais
-                                    ``,  //  -----> Turkey
-                                    ``,  //  -----> Allemagne
-                                  )
+                                        getTranslation(
+                                            `Skills`,  // -----> Englais
+                                            `Compétences`, //  -----> Francais
+                                            ``,  //  -----> Turkey
+                                            ``,  //  -----> Allemagne
+                                        )
 
-                                }</div>
+                                    }</div>
                                 </div>
                             </div>
                             <div className="form-group icon-input  mb-3">
@@ -485,66 +485,66 @@ const Agent = ({ userInfo }) => {
                                         </label>
                                     </div>
                                 ))}
-                                 {errors.skills && <span className="invalid-feedback block  px-2">{errors.skills?.message}</span>}
-                                 {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">{
+                                {errors.skills && <span className="invalid-feedback block  px-2">{errors.skills?.message}</span>}
+                                {selectedSkillsError && !errors.skills ? <span className="invalid-feedback block py-2 px-2">{
                                     getTranslation(
-                                      `You can select up to 10 skills!`,  // -----> Englais
-                                      `Vous pouvez selectionner au maximum 10 compétences !`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
+                                        `You can select up to 10 skills!`,  // -----> Englais
+                                        `Vous pouvez selectionner au maximum 10 compétences !`, //  -----> Francais
+                                        ``,  //  -----> Turkey
+                                        ``,  //  -----> Allemagne
                                     )
 
-                                  }</span> : null}
+                                }</span> : null}
                             </div>
-                           
+
                         </div>
                         <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
-                        <div className="hidden md:flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
-                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
-                            </svg>
-                            <button onClick={resetForm} className="">{
+                            <div className="hidden md:flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
+                                <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
+                                </svg>
+                                <button onClick={resetForm} className="">{
                                     getTranslation(
-                                      `Cancel`,  // -----> Englais
-                                      ` Annuler`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
+                                        `Cancel`,  // -----> Englais
+                                        ` Annuler`, //  -----> Francais
+                                        ``,  //  -----> Turkey
+                                        ``,  //  -----> Allemagne
                                     )
 
-                                  }</button>
-                        </div>
-                        <div className="flex gap-2 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
-                                className="w-5 aspect-square"
-                            />
-                            <button type='submit' className="">{
+                                }</button>
+                            </div>
+                            <div className="flex gap-2 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                                <img
+                                    loading="lazy"
+                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
+                                    className="w-5 aspect-square"
+                                />
+                                <button type='submit' className="">{
                                     getTranslation(
-                                      `Submit`,  // -----> Englais
-                                      `Confirmer`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
+                                        `Submit`,  // -----> Englais
+                                        `Confirmer`, //  -----> Francais
+                                        ``,  //  -----> Turkey
+                                        ``,  //  -----> Allemagne
                                     )
 
-                                  }</button>
-                        </div>
-                        <div className="md:hidden flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
-                            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
-                            </svg>
+                                }</button>
+                            </div>
+                            <div className="md:hidden flex gap-2 items-center justify-center  px-4 py-2 text-orange-600 border-2 border-solid border-orange-600 rounded-[30px] max-md:px-5">
+                                <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="#FF7F00" />
+                                </svg>
 
-                            <button onClick={resetForm} className="">{
+                                <button onClick={resetForm} className="">{
                                     getTranslation(
-                                      `Cancel`,  // -----> Englais
-                                      ` Annuler`, //  -----> Francais
-                                      ``,  //  -----> Turkey
-                                      ``,  //  -----> Allemagne
+                                        `Cancel`,  // -----> Englais
+                                        ` Annuler`, //  -----> Francais
+                                        ``,  //  -----> Turkey
+                                        ``,  //  -----> Allemagne
                                     )
 
-                                  }</button>
+                                }</button>
+                            </div>
                         </div>
-                    </div>
                     </form>
 
                 </div>}

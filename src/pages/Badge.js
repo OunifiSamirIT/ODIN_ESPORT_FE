@@ -4135,12 +4135,8 @@ function Badge({ userpf }) {
             selectedBirthYear)
       );
     });
-console.log(searchPosition,"serchpisionhahahahahah")
-console.log(filteredData,"aloo dhia")
 
     setFilteredUsers(filteredData);
-   
-
   };
 
   const optionsPays = paysAllInfo.map((country) => {
@@ -4225,16 +4221,12 @@ console.log(filteredData,"aloo dhia")
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre", user)
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-
-
   }, []);
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
-
 
   const id = storedUserData.id ? storedUserData.id : null;
 
@@ -4245,233 +4237,230 @@ console.log(filteredData,"aloo dhia")
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
-
   // left slide barre ------------------------------
   return (
-    <Fragment >
+    <Fragment>
       <Header />
-     
+
       <div className="flex flex-col pb-12    mt-0 lg:mt-8 bg-zinc-100">
         <div className="self-center md:mt-20  w-full max-w-[1344px]  max-md:max-w-full">
           <div className="flex max-md:flex-col max-md:gap-0">
-            
-  {/* left menu */}
-  <LeftMenu id={id} classothercomponent={true} shouldShowAgentItem={shouldShowAgentItem} shouldShowForProfile={shouldShowForProfile} setEventTogglerIsOpenned={setEventTogglerIsOpenned}  eventTogglerIsOpenned={eventTogglerIsOpenned}  user={user} userProfileType={userProfileType} />
-
+            {/* left menu */}
+            <LeftMenu
+              id={id}
+              classothercomponent={true}
+              shouldShowAgentItem={shouldShowAgentItem}
+              shouldShowForProfile={shouldShowForProfile}
+              setEventTogglerIsOpenned={setEventTogglerIsOpenned}
+              eventTogglerIsOpenned={eventTogglerIsOpenned}
+              user={user}
+              userProfileType={userProfileType}
+            />
 
             {/* left menu */}
-
-
-
 
             <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow  max-md:max-w-full">
                 <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-                        <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-                          <div className="flex-auto text-2xl md:text-3xl font-bold text-zinc-900">
-                            Chercher un talent
-                          </div>
-                          <div
-                            className={`flex gap-2 justify-center self-start px-8 py-2 text-base font-medium ${
-                              showFilters ? "text-white" : "text-white"
-                            } whitespace-nowrap ${
-                              showFilters ? "bg-black" : "bg-blue-600"
-                            } rounded-[30px] max-md:px-5`}
-                            onClick={handleToggleFilters}
-                          >
+                  <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
+                    <div className="flex-auto text-2xl md:text-3xl font-bold text-zinc-900">
+                      Chercher un talent
+                    </div>
+                    <div
+                      className={`flex gap-2 justify-center self-start px-8 py-2 text-base font-medium ${
+                        showFilters ? "text-white" : "text-white"
+                      } whitespace-nowrap ${
+                        showFilters ? "bg-black" : "bg-blue-600"
+                      } rounded-[30px] max-md:px-5`}
+                      onClick={handleToggleFilters}
+                    >
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/338f69c576a3cd879110110b941d2824abc1d5b093ee17b0c389f0f0c415230e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                        className="w-5 aspect-square"
+                      />
+                      {showFilters
+                        ? "Masquer les filtres"
+                        : "Afficher les filtres"}
+                    </div>
+                  </div>
+                </div>
+
+                {showFilters && (
+                  <div className="flex flex-col pt-2 pb-4 rounded-2xl bg-white mt-4 md:px-2 px-2 max-md:max-w-full">
+                    <div className="flex flex-col bg-white rounded-xl md:px-5 px-2  max-md:max-w-full">
+                      <div className="flex md:flex-row flex-col gap-3 md:gap-5 justify-between mt-4 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                        <div className="flex flex-col flex-1 max-md:max-w-full">
+                          <div className="flex gap-4 justify-between px-4 text-base max-md:flex-wrap max-md:max-w-full">
                             <img
                               loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/338f69c576a3cd879110110b941d2824abc1d5b093ee17b0c389f0f0c415230e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/080ece4ee7118b9891f8d234fa9e9a92582727726e69a60afc0681bca66e7005?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                              className="aspect-[0.71] w-[15px]"
+                            />
+                            <div className="grow max-md:max-w-full">
+                              Nom et prénom
+                            </div>
+                          </div>
+                          <input
+                            class="justify-center md:w[80%] w-full items-start py-3  pl-4 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
+                            type="text"
+                            placeholder=" nom  ou  prenom"
+                            value={searchNom}
+                            onChange={(e) => setSearchNom(e.target.value)}
+                          />
+                        </div>
+
+                        <div className="flex flex-col w-full md:w-[30%]">
+                          <div className="flex gap-4 justify-between px-4 text-base whitespace-nowrap">
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/ebe6a1e0ff5a1655967632966a4646929ccda95cb90486b2af5620ec25c294e4?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square"
                             />
-                            {showFilters
-                              ? "Masquer les filtres"
-                              : "Afficher les filtres"}
+                            <div className="grow">Position</div>
+                          </div>
+                          <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                            <div className="flex gap-5 justify-between px-3 py-3.5 rounded-md">
+                              <select
+                                class="w-full   self-start mt-1"
+                                value={searchPosition}
+                                onChange={(e) =>
+                                  setSearchPosition(e.target.value)
+                                }
+                              >
+                                <option value="">position</option>
+                                <option value="Gardien de but (GK)">
+                                  Gardien de but (GK)
+                                </option>
+                                <option value="Arrière droit (RB)">
+                                  Arrière droit (RB)
+                                </option>
+                                <option value="Arrière gauche( LB)">
+                                  Arrière gauche( LB)
+                                </option>
+                                <option value="Défenseur central (CB)">
+                                  Défenseur central (CB)
+                                </option>
+                                <option value="Milieu défensif (CDM)">
+                                  Milieu défensif (CDM)
+                                </option>
+                                <option value="Milieu central ( CM)">
+                                  Milieu central ( CM)
+                                </option>
+                                <option value="Milieu offensif ( CAM)">
+                                  Milieu offensif ( CAM)
+                                </option>
+                                <option value="Ailier droit (RW)">
+                                  Ailier droit (RW)
+                                </option>
+                                <option value="Ailier gauche ( LW)">
+                                  Ailier gauche ( LW)
+                                </option>
+                                <option value="Avant-centre ">
+                                  Avant-centre ( ST)
+                                </option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                       </div>
 
-                      {showFilters && (
-                        <div className="flex flex-col pt-2 pb-4 rounded-2xl bg-white mt-4 md:px-2 px-2 max-md:max-w-full">
-                          <div className="flex flex-col bg-white rounded-xl md:px-5 px-2  max-md:max-w-full">
-                            <div className="flex md:flex-row flex-col gap-3 md:gap-5 justify-between mt-4 text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-                              <div className="flex flex-col flex-1 max-md:max-w-full">
-                                <div className="flex gap-4 justify-between px-4 text-base max-md:flex-wrap max-md:max-w-full">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/080ece4ee7118b9891f8d234fa9e9a92582727726e69a60afc0681bca66e7005?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="aspect-[0.71] w-[15px]"
-                                  />
-                                  <div className="grow max-md:max-w-full">
-                                    Nom et prénom
-                                  </div>
-                                </div>
-                                <input
-                                  class="justify-center md:w[80%] w-full items-start py-3  pl-4 mt-2 text-xs font-light whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full"
-                                  type="text"
-                                  placeholder=" nom  ou  prenom"
-                                  value={searchNom}
-                                  onChange={(e) => setSearchNom(e.target.value)}
+                      <div className="mt-1 max-md:max-w-full">
+                        <div className="flex gap-x-2 max-md:flex-col max-md:gap-0 max-md:">
+                          <div className="flex flex-col w-[33%] mt-2 max-md:ml-0 max-md:w-full">
+                            <div className="flex flex-col  text-base text-zinc-900 max-md:mt-3">
+                              {/* pf */}
+                              <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/367677fedbca35f02d5c290a824aa763f461c514d32a6949757d3cdf5addae52?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="aspect-[1.54] w-[31px]"
                                 />
+                                <div className="grow">Pied Fort</div>
                               </div>
 
-                              <div className="flex flex-col w-full md:w-[30%]">
-                                <div className="flex gap-4 justify-between px-4 text-base whitespace-nowrap">
-                                  <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/ebe6a1e0ff5a1655967632966a4646929ccda95cb90486b2af5620ec25c294e4?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                    className="w-5 aspect-square"
-                                  />
-                                  <div className="grow">Position</div>
-                                </div>
-                                <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                  <div className="flex gap-5 justify-between px-3 py-3.5 rounded-md">
-                                    <select
-                                      class="w-full   self-start mt-1"
-                                      value={searchPosition}
-
-                                      onChange={(e) =>
-                                        setSearchPosition(e.target.value)
-                                      }
-                                     
-                                    >
-                                      <option value="" >
-                                       
-                                        position
-                                      </option>
-                                      <option value="Gardien de but (GK)">
-                                        Gardien de but (GK)
-                                      </option>
-                                      <option value="Arrière droit (RB)">
-                                        Arrière droit (RB)
-                                      </option>
-                                      <option value="Arrière gauche( LB)">
-                                        Arrière gauche( LB)
-                                      </option>
-                                      <option value="Défenseur central (CB)">
-                                        Défenseur central (CB)
-                                      </option>
-                                      <option value="Milieu défensif (CDM)">
-                                        Milieu défensif (CDM)
-                                      </option>
-                                      <option value="Milieu central ( CM)">
-                                        Milieu central ( CM)
-                                      </option>
-                                      <option value="Milieu offensif ( CAM)">
-                                        Milieu offensif ( CAM)
-                                      </option>
-                                      <option value="Ailier droit (RW)">
-                                        Ailier droit (RW)
-                                      </option>
-                                      <option value="Ailier gauche ( LW)">
-                                      Ailier gauche ( LW)
-                                      </option>
-                                      <option value="Avant-centre ">
-                                        Avant-centre ( ST)
-                                      </option>
-                                    </select>
-                                  </div>
+                              <div className="flex flex-col justify-between mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
+                                  <select
+                                    class="mt-1 w-full"
+                                    value={searchPiedFort}
+                                    onChange={(e) =>
+                                      setSearchPiedFort(e.target.value)
+                                    }
+                                  >
+                                    <option value="" disabled>
+                                      {" "}
+                                      Pied Forte
+                                    </option>
+                                    <option value="PiedGauche">
+                                      Pied Gauche
+                                    </option>
+                                    <option value="PiedDroit">
+                                      Pied Droit
+                                    </option>
+                                    <option value="DeuxPieds">DeuxPieds</option>
+                                  </select>
                                 </div>
                               </div>
-                            </div>
+                              {/* nat */}
+                              <div className="flex gap-4 justify-between px-4 mt-3 whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/d53d36790234944104fc9c6c9ab8bb4e63aa1602f99c43a0ce5a3f3c262180f9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 ml-1 mr-[-2px] aspect-square"
+                                />
+                                <div className="grow">Nationalité</div>
+                              </div>
+                              <div className="flex flex-col justify-center  mt-2 text-xs font-light whitespace-nowrap  rounded-[30px]">
+                                <Select
+                                  options={options}
+                                  placeholder="Nationalité"
+                                  styles={{
+                                    control: (provided, state) => ({
+                                      ...provided,
+                                      borderRadius: "0.375rem", // You can adjust the radius as needed
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      paddingTop: "6px",
+                                      paddingBottom: "6px",
+                                      borderRadius: "30px",
+                                      border:
+                                        "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
 
-                            <div className="mt-1 max-md:max-w-full">
-                              <div className="flex gap-x-2 max-md:flex-col max-md:gap-0 max-md:">
-                             
-                             
-                                <div className="flex flex-col w-[33%] mt-2 max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col  text-base text-zinc-900 max-md:mt-3">
-                                  
-                                   {/* pf */}
-                                    <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/367677fedbca35f02d5c290a824aa763f461c514d32a6949757d3cdf5addae52?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="aspect-[1.54] w-[31px]"
-                                      />
-                                      <div className="grow">Pied Fort</div>
-                                    </div>
+                                      width: "100%",
+                                      fontSize: "12px", // Set the desired font size
+                                      backgroundColor: "#ffffff", // Set the background color
+                                      borderWidth: "none",
+                                    }),
+                                  }}
+                                  onChange={(selectedOption) =>
+                                    setSearchNationality(
+                                      selectedOption.label.props.children[1]
+                                    )
+                                  }
+                                  value={options.find(
+                                    (option) =>
+                                      option.value === searchNationality
+                                  )}
+                                  // Enable searching by nationalite
+                                  filterOption={(option, inputValue) => {
+                                    const nationalite =
+                                      option.label.props.children; // Assuming nationalite is directly the children of label
 
-                                    <div className="flex flex-col justify-between mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                      <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
-                                        <select
-                                          class="mt-1 w-full"
-                                          value={searchPiedFort}
-                                          onChange={(e) =>
-                                            setSearchPiedFort(e.target.value)
-                                          }
-                                        >
-                                          <option value="" disabled>
-                                            {" "}
-                                            Pied Forte
-                                          </option>
-                                          <option value="PiedGauche">
-                                            Pied Gauche
-                                          </option>
-                                          <option value="PiedDroit">
-                                            Pied Droit
-                                          </option>
-                                          <option value="DeuxPieds">
-                                          DeuxPieds
-                                          </option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                   {/* nat */}
-                                    <div className="flex gap-4 justify-between px-4 mt-3 whitespace-nowrap">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d53d36790234944104fc9c6c9ab8bb4e63aa1602f99c43a0ce5a3f3c262180f9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 ml-1 mr-[-2px] aspect-square"
-                                      />
-                                      <div className="grow">Nationalité</div>
-                                    </div>
-                                    <div className="flex flex-col justify-center  mt-2 text-xs font-light whitespace-nowrap  rounded-[30px]">
-                                     
-                                    <Select
-                        options={options}
-                        placeholder="Nationalité"
-                        styles={{
-                          control: (provided, state) => ({
-                            ...provided,
-                            borderRadius: "0.375rem", // You can adjust the radius as needed
-                            display: "flex",
-                            justifyContent: "center",
-                            paddingTop: "6px",
-                            paddingBottom: "6px",
-                            borderRadius: "30px",
-                            border:
-                              "1px solid var(--black-100-e-5-e-5-e-5, #E5E5E5)", // Border style
+                                    const nationaliteString =
+                                      typeof nationalite === "string"
+                                        ? nationalite.toLowerCase()
+                                        : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
 
-                            width: "100%",
-                            fontSize: "12px", // Set the desired font size
-                            backgroundColor: "#ffffff", // Set the background color
-                            borderWidth: "none",
-                          }),
-                        }}
-                        onChange={(selectedOption) => setSearchNationality(selectedOption.label.props.children[1])}
-                        value={options.find((option) => option.value === searchNationality)}
+                                    return nationaliteString.includes(
+                                      inputValue.toLowerCase()
+                                    );
+                                  }}
+                                  // Ensure that all options are displayed even when filtered
+                                  isSearchable
+                                />
 
-                        // Enable searching by nationalite
-                        filterOption={(option, inputValue) => {
-                          const nationalite = option.label.props.children; // Assuming nationalite is directly the children of label
-
-                          const nationaliteString =
-                            typeof nationalite === "string"
-                              ? nationalite.toLowerCase()
-                              : nationalite.join("").toLowerCase(); // Join children of JSX element if it's an array
-
-                          return nationaliteString.includes(
-                            inputValue.toLowerCase()
-                          );
-                        }}
-                        // Ensure that all options are displayed even when filtered
-                        isSearchable
-                      />
-                                     
-                                     
-                                     
-                                      {/* <Select
+                                {/* <Select
                                         options={options}
                                         placeholder="Nationalité"
                                         styles={{
@@ -4503,257 +4492,244 @@ console.log(filteredData,"aloo dhia")
                                             option.value === searchNationality
                                         )}
                                       /> */}
-                                    </div>
+                              </div>
+                            </div>
+                          </div>
 
-                                  </div>
-                                </div>
-
-
-
-                                <div className="flex flex-col  md:mt-2 mt-[27px] w-[33%] max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
-                                    <div className="flex gap-4 justify-between px-4 text-base">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/e91b528e4b26162dba541f70babf927ae835a59746db1dc68f5b19fa4e8cc74f?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="aspect-[0.95] ml-2 w-[19px]"
-                                      />
-                                      <div className="grow">Licence</div>
-                                    </div>
-                                    <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                      <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
-                                        <select
-                                          class="px-1 w-full mt-1"
-                                          value={searchLicence}
-                                          onChange={(e) =>
-                                            setSearchLicence(e.target.value)
-                                          }
-                                        >
-                                          <option value disabled>Licence</option>
-                                          <option value="Oui">Oui</option>
-                                          <option value="Non">Non</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-
-
-
-
-                                <div className="flex flex-col md:mt-2 mt-[22px]   w-[33%] max-md:ml-0 max-md:w-full">
-                                  <div className="flex flex-col   text-base whitespace-nowrap text-zinc-900">
-                                    <div className="flex gap-4 justify-between px-4">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/e0479323beec727c918e77fd268c664a46b7698d1717bd2bd5399991b37f1bb3?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 ml-2 aspect-square"
-                                      />
-                                      <div className="grow">Sexe</div>
-                                    </div>
-                                    <div className="flex flex-col justify-between    mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                      <div className="flex gap-5  justify-between px-4 py-3.5 rounded-md">
-                                        <select
-                                          class=" pr-1 w-full mt-1"
-                                          value={searchSexe}
-                                          onChange={(e) =>
-                                            setSearchSexe(e.target.value)
-                                          }
-                                        >
-                                          <option value disabled>Sexe</option>
-                                          <option value="male">Homme</option>
-                                          <option value="female">Femme</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div className="flex gap-4 justify-between px-4 mt-3">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/8e263672fa8f696da86f22ed9f856f6a770ea43186b2c7e48c292c1e1c56927b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 ml-2 aspect-square"
-                                      />
-                                      <div className="grow">
-                                        Année de naissance
-                                      </div>
-                                    </div>
-                                    <div className="flex flex-col justify-center ml-2  mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                                      <div className="flex gap-5 justify-between   px-4 py-3 text-black rounded-md">
-                                        <DatePicker
-                                          dateFormat="yyyy"
-                                          showYearPicker
-                                          yearDropdownItemNumber={10}
-                                          maxDate={new Date(2012, 0, 1)}
-                                          selected={
-                                            selectedBirthYear
-                                              ? new Date(
-                                                  selectedBirthYear,
-                                                  0,
-                                                  1
-                                                )
-                                              : null
-                                          }
-                                          onChange={(date) =>
-                                            setSelectedBirthYear(
-                                              date
-                                                ? new Date(date).getFullYear()
-                                                : null
-                                            )
-                                          }
-                                          className="ml-4 text-black"
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
+                          <div className="flex flex-col  md:mt-2 mt-[27px] w-[33%] max-md:ml-0 max-md:w-full">
+                            <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
+                              <div className="flex gap-4 justify-between px-4 text-base">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/e91b528e4b26162dba541f70babf927ae835a59746db1dc68f5b19fa4e8cc74f?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="aspect-[0.95] ml-2 w-[19px]"
+                                />
+                                <div className="grow">Licence</div>
+                              </div>
+                              <div className="flex flex-col justify-center mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                <div className="flex gap-5 justify-between px-4 py-3.5 rounded-md">
+                                  <select
+                                    class="px-1 w-full mt-1"
+                                    value={searchLicence}
+                                    onChange={(e) =>
+                                      setSearchLicence(e.target.value)
+                                    }
+                                  >
+                                    <option value disabled>
+                                      Licence
+                                    </option>
+                                    <option value="Oui">Oui</option>
+                                    <option value="Non">Non</option>
+                                  </select>
                                 </div>
                               </div>
                             </div>
+                          </div>
 
-                            <div className="flex gap-1 md:gap-5  justify-between flex-col items-center md:flex-row py-2 mt-4 w-full text-base font-medium whitespace-nowrap  max-md:max-w-full">
-                            <div className="flex gap-5 w-full md:w-fit justify-between ">
-                              <button
-                                onClick={handleReset}
-                                className="justify-center w-full  md:w-fit  px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
-                              >
-                                Réinitialiser
-                              </button></div>
-                              <div className="flex gap-5 w-full md:w-fit justify-between ">
-                                <button
-                                  onClick={handleSearch}
-                                  className="justify-center w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
-                                >
-                                  Confirmer
-                                </button>
+                          <div className="flex flex-col md:mt-2 mt-[22px]   w-[33%] max-md:ml-0 max-md:w-full">
+                            <div className="flex flex-col   text-base whitespace-nowrap text-zinc-900">
+                              <div className="flex gap-4 justify-between px-4">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/e0479323beec727c918e77fd268c664a46b7698d1717bd2bd5399991b37f1bb3?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 ml-2 aspect-square"
+                                />
+                                <div className="grow">Sexe</div>
                               </div>
-
-
-                             
+                              <div className="flex flex-col justify-between    mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                <div className="flex gap-5  justify-between px-4 py-3.5 rounded-md">
+                                  <select
+                                    class=" pr-1 w-full mt-1"
+                                    value={searchSexe}
+                                    onChange={(e) =>
+                                      setSearchSexe(e.target.value)
+                                    }
+                                  >
+                                    <option value disabled>
+                                      Sexe
+                                    </option>
+                                    <option value="male">Homme</option>
+                                    <option value="female">Femme</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div className="flex gap-4 justify-between px-4 mt-3">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8e263672fa8f696da86f22ed9f856f6a770ea43186b2c7e48c292c1e1c56927b?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 ml-2 aspect-square"
+                                />
+                                <div className="grow">Année de naissance</div>
+                              </div>
+                              <div className="flex flex-col justify-center ml-2  mt-2 w-full text-xs font-light border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                                <div className="flex gap-5 justify-between   px-4 py-3 text-black rounded-md">
+                                  <DatePicker
+                                    dateFormat="yyyy"
+                                    showYearPicker
+                                    yearDropdownItemNumber={10}
+                                    maxDate={new Date(2012, 0, 1)}
+                                    selected={
+                                      selectedBirthYear
+                                        ? new Date(selectedBirthYear, 0, 1)
+                                        : null
+                                    }
+                                    onChange={(date) =>
+                                      setSelectedBirthYear(
+                                        date
+                                          ? new Date(date).getFullYear()
+                                          : null
+                                      )
+                                    }
+                                    className="ml-4 text-black"
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      )}
+                      </div>
 
-                      {/* card joueur */}
-                      <div className="flex-wrap content-start mt-6 max-md:max-w-full">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-                          {filteredUsers.map((user, index) => (
-                            <Link key={index} to={`/profile/${user.user.id}`}>
-                              {" "}
-                              <div className="flex flex-col w-full">
-                                <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
-                                  <img
-                                    loading="lazy"
-                                    src={user.user.image}
-                                    className="self-center max-w-full rounded-full aspect-square w-[120px]"
-                                  />
-                                  <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
-                                    {user.user.prenom} {user.user.nom}
-                                  </div>
-                                  <div className="flex gap-5 justify-between mt-4 w-full">
-                                    <div className="flex gap-4 justify-between font-light whitespace-nowrap">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/04e4a5da92314fd2d16dc3f07e320c8b7304ca7406e9c13759b5392a85b9dd4e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square"
-                                      />
-                                      <div>Position</div>
-                                    </div>
-                                    <div className="font-medium">
-                                      {user.positionPlay}
-                                    </div>
-                                  </div>
-                                  <div className="flex gap-5 justify-between mt-3 w-full">
-                                    <div className="flex gap-4 justify-between font-light">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/c98cbd47601fa5cb55c7c2c43e29bfee4ba5d6c44487d76f2aa7271fb876159d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="self-start w-5 aspect-[1.54]"
-                                      />
-                                      <div>Pied Fort</div>
-                                    </div>
-                                    <div className="font-medium">
-                                      {" "}
-                                      {user.PiedFort}
-                                    </div>
-                                  </div>
-                                  <div className="flex gap-5 justify-between mt-3 w-full whitespace-nowrap">
-                                    <div className="flex gap-4 justify-between font-light">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/b48411f554b318427ba689867ef0279d7e5234646d924e0c7a4e1a860633fbb9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-[0.95]"
-                                      />
-                                      <div className="my-auto">Licence</div>
-                                    </div>
-                                    <div className="my-auto font-medium">
-                                      {" "}
-                                      {user.Licence && "Oui"}
-                                      {!user.Licence && "Non"}
-                                    </div>
-                                  </div>
-                                  <div className="flex gap-5 justify-between mt-3 w-full whitespace-nowrap">
-                                    <div className="flex gap-4 justify-between font-light">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/71499c3c3ef7e28f5c9bae81e6a2dccba39344ba65504a3889d63a9151b4e7c5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square"
-                                      />
-                                      <div>Sexe</div>
-                                    </div>
-                                    <div className="font-medium">
-                                      {user.user.gender}
-                                    </div>
-                                  </div>
-                                  <div className="flex gap-5 justify-between mt-3 w-full whitespace-nowrap">
-                                    <div className="flex gap-4 justify-between font-light">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square"
-                                      />
-                                      <div>Nationnalité</div>
-                                    </div>
-                                    <div className="flex gap-2.5 my-auto font-medium">
-                                      {/* <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4c5f54f84c558024f118d5e81ca0de6ba64d47d21dd8ea384226e5d3654ccde5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="self-start w-5 aspect-[1.43]"
-                          /> */}
-                                      <div> {user.user.nationality}</div>
-                                    </div>
-                                  </div>
-                                  <div className="flex gap-5 justify-between mt-3 w-full">
-                                    <div className="flex gap-4 justify-between font-light">
-                                      <img
-                                        loading="lazy"
-                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/dc8a531711ebb49e47b853868fb011f7d13340e0fcd3aa2e7e4a0d55eaa084c7?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                        className="w-5 aspect-square"
-                                      />
-                                      <div className="flex-auto">
-                                        Année de naissance
-                                      </div>
-                                    </div>
-                                    <div className="font-medium">
-                                      {new Date(
-                                        user.user.date_naissance
-                                      ).getFullYear()}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </Link>
-                          ))}
+                      <div className="flex gap-1 md:gap-5  justify-between flex-col items-center md:flex-row py-2 mt-4 w-full text-base font-medium whitespace-nowrap  max-md:max-w-full">
+                        <div className="flex gap-5 w-full md:w-fit justify-between ">
+                          <button
+                            onClick={handleReset}
+                            className="justify-center w-full  md:w-fit  px-8 py-2 text-white bg-orange-500 rounded-[30px] max-md:px-5"
+                          >
+                            Réinitialiser
+                          </button>
+                        </div>
+                        <div className="flex gap-5 w-full md:w-fit justify-between ">
+                          <button
+                            onClick={handleSearch}
+                            className="justify-center w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
+                          >
+                            Confirmer
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-              
-        </div>
+                )}
+
+                {/* card joueur */}
+                <div className="flex-wrap content-start mt-6 max-md:max-w-full">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+                    {filteredUsers.map((user, index) => (
+                      <Link key={index} to={`/profile/${user.user.id}`}>
+                        {" "}
+                        <div className="flex flex-col w-full">
+                          <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
+                            <img
+                              loading="lazy"
+                              src={user.user.image}
+                              className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                            />
+                            <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
+                              {user.user.prenom} {user.user.nom}
+                            </div>
+                            <div className="flex gap-5 justify-between mt-4 w-full">
+                              <div className="flex gap-4 justify-between font-light whitespace-nowrap">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/04e4a5da92314fd2d16dc3f07e320c8b7304ca7406e9c13759b5392a85b9dd4e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-square"
+                                />
+                                <div>Position</div>
+                              </div>
+                              <div className="font-medium">
+                                {user.positionPlay}
+                              </div>
+                            </div>
+                            <div className="flex gap-5 justify-between mt-3 w-full">
+                              <div className="flex gap-4 justify-between font-light">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/c98cbd47601fa5cb55c7c2c43e29bfee4ba5d6c44487d76f2aa7271fb876159d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="self-start w-5 aspect-[1.54]"
+                                />
+                                <div>Pied Fort</div>
+                              </div>
+                              <div className="font-medium">
+                                {" "}
+                                {user.PiedFort}
+                              </div>
+                            </div>
+                            <div className="flex gap-5 justify-between mt-3 w-full whitespace-nowrap">
+                              <div className="flex gap-4 justify-between font-light">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b48411f554b318427ba689867ef0279d7e5234646d924e0c7a4e1a860633fbb9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-[0.95]"
+                                />
+                                <div className="my-auto">Licence</div>
+                              </div>
+                              <div className="my-auto font-medium">
+                                {" "}
+                                {user.Licence && "Oui"}
+                                {!user.Licence && "Non"}
+                              </div>
+                            </div>
+                            <div className="flex gap-5 justify-between mt-3 w-full whitespace-nowrap">
+                              <div className="flex gap-4 justify-between font-light">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/71499c3c3ef7e28f5c9bae81e6a2dccba39344ba65504a3889d63a9151b4e7c5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-square"
+                                />
+                                <div>Sexe</div>
+                              </div>
+                              <div className="font-medium">
+                                {user.user.gender}
+                              </div>
+                            </div>
+                            <div className="flex gap-5 justify-between mt-3 w-full whitespace-nowrap">
+                              <div className="flex gap-4 justify-between font-light">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e268577315843aadb58b6fde92110eb3f42d8de30c4040a3648567bded76ac?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-square"
+                                />
+                                <div>Nationnalité</div>
+                              </div>
+                              <div className="flex gap-2.5 my-auto font-medium">
+                                {/* <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4c5f54f84c558024f118d5e81ca0de6ba64d47d21dd8ea384226e5d3654ccde5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-[1.43]"
+                          /> */}
+                                <div> {user.user.nationality}</div>
+                              </div>
+                            </div>
+                            <div className="flex gap-5 justify-between mt-3 w-full">
+                              <div className="flex gap-4 justify-between font-light">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/dc8a531711ebb49e47b853868fb011f7d13340e0fcd3aa2e7e4a0d55eaa084c7?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-square"
+                                />
+                                <div className="flex-auto">
+                                  Année de naissance
+                                </div>
+                              </div>
+                              <div className="font-medium">
+                                {new Date(
+                                  user.user.date_naissance
+                                ).getFullYear()}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-
       {/* ... (other components) */}
-      
     </Fragment>
   );
 }

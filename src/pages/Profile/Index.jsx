@@ -3,18 +3,18 @@ import Header from "../../components/Header";
 import Terrain from "../../components/Terrain";
 import ProfileLayout from "../../Layout/ProfileLayout";
 import PlaceHolder from "../../assets/placeholder.jpg";
-import Modal from 'react-modal';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore from 'swiper';
+import Modal from "react-modal";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore from "swiper";
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 // import './styles.css';
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation } from "swiper/modules";
 import { useForm } from "react-hook-form";
 import Leftnav from "../../components/Leftnav";
 import Rightchat from "../../components/Rightchat";
@@ -77,7 +77,7 @@ const Index = () => {
   const [fileType, setFileType] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const [posting, setPosting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -106,9 +106,10 @@ const Index = () => {
   //02/02
   const [album, setAlbum] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isModaldOpenGallery, setIsModaldOpenGallery] = useState(false)
+  const [isModaldOpenGallery, setIsModaldOpenGallery] = useState(false);
 
-  const [isModaldOpenGalleryvideo, setIsModaldOpenGalleryVideo] = useState(false)
+  const [isModaldOpenGalleryvideo, setIsModaldOpenGalleryVideo] =
+    useState(false);
   const [currentImageIndexvideo, setCurrentImageIndexvideo] = useState(0);
   // const [albums, setAlbums] = useState([]);
   const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
@@ -125,39 +126,25 @@ const Index = () => {
   const refGallery = useRef(null);
   const refGalleryVideo = useRef(null);
   const handlePlusClick = (index) => {
-    setCurrentImageIndex(index)
+    setCurrentImageIndex(index);
     setIsModaldOpenGallery(true);
   };
   const handleClickOutsideGallery = (event) => {
     if (refGallery.current && !refGallery.current.contains(event.target)) {
-      console.log(!refGallery.current.contains(event.target), "ahlaa wasahla")
-
-      setIsModaldOpenGallery(false)
-
-
+      setIsModaldOpenGallery(false);
     }
   };
 
   const handlePlusClickvideo = (index) => {
-    setCurrentImageIndexvideo(index)
+    setCurrentImageIndexvideo(index);
     setIsModaldOpenGalleryVideo(true);
   };
-  // const handleClickOutsideGalleryvideo = (event) => {
-  //   if (refGalleryVideo.current && !refGalleryVideo.current.contains(event.target)) {
-  //     console.log(!refGalleryVideo.current.contains(event.target), "ahlaa wasahla")
-
-  //     setIsModaldOpenGalleryVideo(false)
-
-
-  //   }
-  // };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutsideGallery);
     return () => {
       document.removeEventListener("mousedown", handleClickOutsideGallery);
     };
-
   }, []);
   // useEffect(() => {
   //   document.addEventListener("mousedown", handleClickOutsideGalleryvideo);
@@ -174,15 +161,15 @@ const Index = () => {
   const fetchArticleById = async (id) => {
     // Replace with your API call
     return fetch(`${Config.LOCAL_URL}/api/articles/${id}`)
-      .then(response => response.json())
-      .then(data => data);
+      .then((response) => response.json())
+      .then((data) => data);
   };
 
   useEffect(() => {
     if (articles.sharedFrom) {
       fetchArticleById(articles.sharedFrom)
-        .then(data => setOriginalArticle(data))
-        .catch(err => console.error('Error fetching original article:', err));
+        .then((data) => setOriginalArticle(data))
+        .catch((err) => console.error("Error fetching original article:", err));
     }
   }, [articles.sharedFrom]);
   const displayArticle = originalArticle || articles;
@@ -194,12 +181,14 @@ const Index = () => {
   useEffect(() => {
     setArticleWithPhoto(
       // displayArticle.filter((item) => {        return item.image !== null && item.userId == id;      })
-      articles.filter((item) => item.image !== null && item.image !== "" && item.userId == id)
-
+      articles.filter(
+        (item) => item.image !== null && item.image !== "" && item.userId == id
+      )
     );
     setArticleWithVideo(
-      articles.filter((item) => item.video !== null && item.video !== "" && item.userId == id)
-
+      articles.filter(
+        (item) => item.video !== null && item.video !== "" && item.userId == id
+      )
     );
   }, [profileFeed, articles, id]);
   const toggleActive = () => setIsActive(!isActive);
@@ -264,7 +253,6 @@ const Index = () => {
         });
       }
     } catch (error) {
-      console.error("Error adding like:", error);
       toast.error("An unexpected error occurred. Please try again later.", {
         position: "top-right",
       });
@@ -315,7 +303,6 @@ const Index = () => {
         });
       }
     } catch (error) {
-      console.error("Error adding like to comment:", error);
       toast.error("An unexpected error occurred. Please try again later.", {
         position: "top-right",
       });
@@ -336,13 +323,10 @@ const Index = () => {
             replyId: replyId,
             emoji: 1, // Assuming 1 for liking
           }),
-
         }
-
       );
 
       if (response.ok) {
-        console.log("aaaaaadhia", response)
         // Fetch updated replies after liking
         fetchRepliesForComment(replyId);
       } else {
@@ -540,10 +524,9 @@ const Index = () => {
 
       setPosting(false);
       setValue("description", "");
-      window.location.reload()
+      window.location.reload();
       fetchArticles();
     } catch (error) {
-      console.error("Error submitting post:", error);
       setPosting(false);
     }
   };
@@ -561,7 +544,6 @@ const Index = () => {
       const commentsData = await response.json();
       return commentsData;
     } catch (error) {
-      console.error(`Error fetching comments for article ${articleId}:`, error);
       throw error;
     }
   };
@@ -711,7 +693,6 @@ const Index = () => {
         });
 
         const newComment = await response.json();
-        console.log("Comment created:", newComment);
 
         // Update the state with the new comment immediately
         setArticleComments((prevComments) => {
@@ -747,11 +728,7 @@ const Index = () => {
     }
   };
 
-
-  useEffect(() => {
-    console.log(articleComments)
-
-  }, [articleComments])
+  useEffect(() => {}, [articleComments]);
 
   const handleEditClick = (article) => {
     setEditArticle(article);
@@ -762,28 +739,25 @@ const Index = () => {
       if (commentId && replyText) {
         const user = JSON.parse(localStorage.getItem("user"));
 
-        const response = await fetch(
-          `${Config.LOCAL_URL}/api/replies`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              description: replyText,
-              userId: user.id,
-              nom: user.login,
-              imageuser: user.image,
-              commentaireId: commentId,
-            }),
-          }
-        );
+        const response = await fetch(`${Config.LOCAL_URL}/api/replies`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            description: replyText,
+            userId: user.id,
+            nom: user.login,
+            imageuser: user.image,
+            commentaireId: commentId,
+          }),
+        });
 
         const data = await response.json();
         if (response.ok) {
           await fetchRepliesForComment(commentId);
         }
-        console.log("Reply created:", data);
+
         setReplyInput("");
         setReplyingToCommentId(null);
       }
@@ -849,8 +823,6 @@ const Index = () => {
     );
 
     if (confirmDelete) {
-      console.log("Deleting article...");
-
       fetch(`${Config.LOCAL_URL}/api/articles/${id}`, {
         method: "DELETE",
         headers: {
@@ -873,7 +845,7 @@ const Index = () => {
           // Handle the error or show a notification to the user
         })
         .finally(() => {
-          window.location.reload()
+          window.location.reload();
           // Close the dropdown after deleting
           setShowDropdown(null);
         });
@@ -885,21 +857,18 @@ const Index = () => {
   const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
     // Format the date object into the desired format
-    return dateObject.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+    return dateObject.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
     });
-  }
+  };
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm();
-
-
-
 
   useEffect(() => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -918,272 +887,337 @@ const Index = () => {
     // fetchAlbums();
   }, []);
 
-
-  const storedLanguage = localStorage.getItem('language');
-  const language = storedLanguage ? storedLanguage.toLowerCase() : '';
+  const storedLanguage = localStorage.getItem("language");
+  const language = storedLanguage ? storedLanguage.toLowerCase() : "";
 
   // Set the locale based on the stored language or default to English
-  moment.locale(language === 'fr' ? 'fr' : 'en');
+  moment.locale(language === "fr" ? "fr" : "en");
 
-  // const PhotoGrid = ({ articlesWithPhoto }) => {
-  //   // Extract all photos from the articles
-  //   const allPhotos = [];
-  //   articlesWithPhoto.forEach((article) => {
-  //     article.image.split(';').forEach((imageUrl) => {
-  //       allPhotos.push({ url: imageUrl });
-  //     });
-  //   });
-
-  //   // Sort the photos by date in descending order
-  //   allPhotos.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  //   return (
-  //     <div className="flex flex-wrap -m-1">
-  //       {allPhotos.map((photo, index) => (
-  //         <div key={index} className="w-1/3 p-1">
-  //           <img src={photo.url} alt={`Photo ${index}`} className="w-full h-auto rounded-lg" />
-  //         </div>
-  //       ))}
-  //     </div>
-  //   );
-  // };
-  // SwiperCore.use([Navigation]);
-
-  Modal.setAppElement('#root');
+  Modal.setAppElement("#root");
 
   const PhotoGrid = ({ articlesWithPhoto }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    // Extract all photos from the articles
     const allPhotos = [];
-    console.log(articlesWithPhoto, "aloo")
     articlesWithPhoto.forEach((article) => {
-      article.image.split(';').forEach((imageUrl) => {
+      article.image.split(";").forEach((imageUrl) => {
         allPhotos.push({ url: imageUrl });
       });
     });
 
-    // Sort the photos by date in descending order
     allPhotos.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+    const handlePlusClick = (index) => {
+      setCurrentImageIndex(index);
+
+      setIsOpen(true);
+    };
+
+    const closeModal = () => {
+      setIsOpen(false);
+    };
 
     return (
       <div>
         <div className="flex flex-wrap md:gap-x-3 md:gap-y-3 md:m-4 gap-3 m-2 md:pl-2 pt-4 md:pt-4 ">
           {allPhotos.map((photo, index) => (
-            <div key={index} className="w-[30%] md:w-[31%]  h-48  md:h-72 ">
+            <div key={index} className="w-[30%] md:w-[31%] h-48 md:h-72">
               <img
                 src={photo.url}
                 alt={`Photo ${index}`}
-                className="  w-full h-full object-cover  rounded-lg cursor-pointer"
-                onClick={() => handlePlusClick(index)} />
+                className="w-full h-full object-cover rounded-lg cursor-pointer"
+                onClick={() => handlePlusClick(index)}
+              />
             </div>
           ))}
         </div>
 
-        {isModaldOpenGallery && (
+        {isOpen && (
+          // <div className="bg-black/95 fixed inset-0 z-50 h-full w-full  flex justify-center items-center">
+          //   <button
+          //     onClick={closeModal}
+          //     className=" hidden absolute md:top-5 top-2     md:right-0 right-6  text-white rounded-full w-12 h-12 md:flex items-center justify-center"
+          //   >
+          //     <svg
+          //       className="  mt-2 float-right "
+          //       xmlns="http://www.w3.org/2000/svg"
+          //       viewBox="0 0 62 62"
+          //       width="150"
+          //       height="150"
+          //       fill="#fff"
+          //     >
+          //       <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
+          //     </svg>
+          //   </button>
+          //   <div className="relative flex flex-col w-full   bg-black    -py-10 ">
+          //     {" "}
+          //     <Swiper
+          //         navigation
+          //         initialSlide={currentImageIndex}
+          //         onSlideChange={(swiper) => {
+          //           setCurrentImageIndex(swiper.activeIndex);
+          //         }}
+          //         centeredSlides
+          //         spaceBetween={80}
+          //         className="mySwiper  !h-screen flex justify-center items-center"
+          //       >
+          //         {allPhotos.map((photo, index) => (
+          //           <SwiperSlide
+          //             key={index}
+          //             className="flex justify-center items-center relative"
+          //           >
+          //             <div className="imageswiper-container mt-28">
+          //               <img
+          //                 src={photo.url}
+          //                 alt={`Image ${index}`}
+          //                 className=" self-center -ml-28 -mt-52 md:mt-12 md:ml-[780px]  w-[59%]  max-h-[1200px] md:w-full "
+          //               />
+          //               <button
+          //                 onClick={closeModal}
+          //                 className="md:hidden absolute md:top-5 top-4     md:right-0 right-6  text-white rounded-full w-12 h-12 flex items-center justify-center"
+          //               >
+          //                 <svg
+          //                   className="   mt-2 float-right  "
+          //                   xmlns="http://www.w3.org/2000/svg"
+          //                   viewBox="0 0 62 62"
+          //                   width="150"
+          //                   height="150"
+          //                   fill="#fff"
+          //                 >
+          //                   <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
+          //                 </svg>
+          //               </button>
+          //             </div>
+          //           </SwiperSlide>
+          //         ))}
+          //       </Swiper>
 
-          <div className="bg-black/70 fixed inset-0 z-50 h-full w-full  overflow-auto flex justify-center items-center ">
-            <div ref={refGallery} className="relative flex flex-col p-2 rounded-[10px]   md:w-[725px] w-[400px] max-md:px-5 max-md:my-10">
+          //   </div>
+          // </div>
 
-
-              <Swiper
-                modules={[Pagination, Navigation]}
-                navigation={true}
-
-                initialSlide={currentImageIndex}
-                onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
-                centeredSlides={true}
-                spaceBetween={80}
-                className="mySwiper"
-              >
-
-
-                {allPhotos.map((photo, index) => (
-                  <SwiperSlide key={index} className="flex justify-center items-center">
-                    <div className="imageswiper-container">
-                      <img src={photo.url} alt={`Image ${index}`} className=" -ml-28 w-[60%] md:w-full md:ml-[200px]" />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-
-
-              <button
-                className="absolute bottom-6 right-11 opacity-0 w-36 h-10 py-2 text-white rounded-full hover:opacity-100"
-              >
-                X
-              </button>
+          <div className="bg-black/70 fixed inset-0 z-50 h-full w-full   flex justify-center items-center ">
+            {/* <button
+             className=" float-left "
+          >
+             
+          </button> */}
+            <div
+              ref={refGallery}
+              className="relative flex flex-col py-2    rounded-[10px] md:w-full w-[425px]  max-md:my-10"
+            >
+              <div className="flex flex-row h-screen pr-[90px] bg-black md:pr-0">
+                <div className="bg-black  ">
+                  <svg
+                    onClick={closeModal}
+                    className=" ml-10 md:mx-0 -mr-8 cursor-pointer  mt-2 md:size-14 size-14  "
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 62 62"
+                    width="80"
+                    height="80"
+                    fill="#fff"
+                  >
+                    <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
+                              
+                  </svg>
+                            
+                </div>
+                <div className="flex flex-col w-[90%] md:ml-4    md:w-[95%] bg-black    -py-10">
+                  <Swiper
+                    navigation={true}
+                    initialSlide={currentImageIndex}
+                    onSlideChange={(swiper) =>
+                      setCurrentImageIndex(swiper.activeIndex)
+                    }
+                    centeredSlides={true}
+                    spaceBetween={80}
+                    className=" mySwiperprofile flex items-center justify-between w-full h-full my-2"
+                  >
+                    {allPhotos.map((photo, index) => (
+                      <SwiperSlide
+                        key={index}
+                        className="flex justify-center items-center "
+                      >
+                        <div className="flex justify-between items-center w-full h-full ">
+                          <img
+                            src={photo.url}
+                            alt={`Image ${index}`}
+                            className="  w-full h-full object-contain      "
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </div>
             </div>
+             
           </div>
         )}
       </div>
     );
   };
 
-
-
-  Modal.setAppElement('#root');
-
-  // const VideoGrid = ({ articlesWithVideo }) => {
-
-
-  //   // Extract all photos from the articles
-  //   const allVideos = [];
-  //   articlesWithVideo.forEach((article) => {
-  //     article.video.split(';').forEach((videoUrl) => {
-  //       allVideos.push({ url: videoUrl });
-  //     });
-  //   });
-
-  //   // Sort the photos by date in descending order
-  //   allVideos.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-
-  //   return (
-  //     <div>
-  //       <div className="flex flex-wrap md:gap-x-3 md:gap-y-3 md:m-4 gap-3 m-2 md:pl-2 pt-4 md:pt-4">
-  //         {allVideos.map((video, index) => (
-  //           <div key={index} className=" w-[30%] md:w-[31%]  h-48  md:h-72">
-  //             <video
-  //               src={video.url}
-
-  //               alt={`Photo ${index}`}
-  //               className="  w-full h-full object-cover  rounded-lg cursor-pointer"
-  //               onClick={() => handlePlusClick(index)} />
-  //           </div>
-  //         ))}
-  //       </div>
-
-  //       {isModaldOpenGallery && (
-
-  //         <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
-  //           <div ref={refGallery} className="relative flex flex-col p-2 rounded-[10px] md:w-[725px] w-[425px] max-md:px-5 max-md:my-10">
-
-
-  //             <Swiper
-  //               modules={[Pagination, Navigation]}
-  //               navigation={true}
-
-  //               initialSlide={currentImageIndex}
-  //               onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
-  //               centeredSlides={true}
-  //               spaceBetween={80}
-  //               className="mySwiper"
-  //             >
-
-
-  //               {allVideos.map((video, index) => (
-  //                 <SwiperSlide key={index} className="flex justify-center items-center">
-  //                   <div className="imageswiper-container">
-  //                     <video src={video.url} alt={`Image ${index}`} className="imageswipe md:ml-[200px]" />
-  //                   </div>
-  //                 </SwiperSlide>
-  //               ))}
-  //             </Swiper>
-
-
-  //             <button
-  //               className="absolute bottom-6 right-11 opacity-0 w-36 h-10 py-2 text-white rounded-full hover:opacity-100"
-  //             >
-  //               X
-  //             </button>
-  //           </div>
-  //         </div>
-  //       )}
-  //     </div>
-  //   );
-  // };
   SwiperCore.use([Pagination, Navigation]);
 
   const VideoGrid = ({ articlesWithVideo }) => {
-    const [isModaldOpenGalleryVideo, setIsModaldOpenGalleryVideo] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const [currentImageIndexVideo, setCurrentImageIndexVideo] = useState(0);
     const refGalleryVideo = useRef(null);
+    const videoRefs = useRef([]);
 
     const handlePlusClickVideo = (index, event) => {
       event.preventDefault();
-      console.log('Video clicked:', index);
       setCurrentImageIndexVideo(index);
-      setIsModaldOpenGalleryVideo(true);
+      setIsOpen(true);
     };
 
     const handleClickOutsideGalleryVideo = (event) => {
-      if (refGalleryVideo.current && !refGalleryVideo.current.contains(event.target)) {
-        setIsModaldOpenGalleryVideo(false);
+      if (
+        refGalleryVideo.current &&
+        !refGalleryVideo.current.contains(event.target)
+      ) {
+        setIsOpen(false);
       }
     };
 
     useEffect(() => {
-      document.addEventListener('mousedown', handleClickOutsideGalleryVideo);
-      document.addEventListener('touchstart', handleClickOutsideGalleryVideo);
+      document.addEventListener("mousedown", handleClickOutsideGalleryVideo);
+      document.addEventListener("touchstart", handleClickOutsideGalleryVideo);
       return () => {
-        document.removeEventListener('mousedown', handleClickOutsideGalleryVideo);
-        document.removeEventListener('touchstart', handleClickOutsideGalleryVideo);
+        document.removeEventListener(
+          "mousedown",
+          handleClickOutsideGalleryVideo
+        );
+        document.removeEventListener(
+          "touchstart",
+          handleClickOutsideGalleryVideo
+        );
       };
     }, []);
 
-    // Extract and sort all videos by date
+    const closeModalVideo = () => {
+      setIsOpen(false);
+    };
+
     const allVideos = [];
     articlesWithVideo.forEach((article) => {
-      article.video.split(';').forEach((videoUrl) => {
-        allVideos.push({ url: videoUrl, date: article.date }); // assuming article has a date field
+      article.video.split(";").forEach((videoUrl) => {
+        allVideos.push({ url: videoUrl, date: article.date });
       });
     });
     allVideos.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const handleVideoPlay = (index) => {
+      videoRefs.current.forEach((videoRef, idx) => {
+        if (videoRef) {
+          if (idx === index) {
+            videoRef.play();
+          } else {
+            videoRef.pause();
+          }
+        }
+      });
+    };
+
+    const handleSlideChange = (swiper) => {
+      setCurrentImageIndexVideo(swiper.activeIndex);
+      handleVideoPlay(swiper.activeIndex);
+    };
 
     return (
       <div>
         <div className="flex flex-wrap md:gap-x-2 md:gap-y-3 md:m-3 gap-3 m-2 md:pl-2 pt-3 md:pt-4 rounded-2xl">
           {allVideos.map((video, index) => (
-            <div key={index} className="relative w-[30%] md:w-[31.2%]   md:h-30">
-              {/* <video
+            <div key={index} className="relative w-[30%] md:w-[31.2%] md:h-30">
+              <video
+                className="object-cover md:w-full md:h-72 h-40 rounded-md aspect-square"
                 src={video.url}
-                controls
-                className="w-full h-full object-cover rounded-lg cursor-pointer"
                 onClick={(event) => handlePlusClickVideo(index, event)}
-              /> */}
-              <video class="object-cover md:w-full md:h-72 h-40 rounded-md aspect-square"
-                src={video.url}
+              />
+              <svg
+                onClick={(event) => handlePlusClickVideo(index, event)}
+                className="absolute flex cursor-pointer md:top-[37%] md:left-[32%] md:w-20 md:h-20 top-[37%] left-[32%] w-10 max:h-10"
+                viewBox="0 0 79 78"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-
-              </video>
-              <svg onClick={(event) => handlePlusClickVideo(index, event)} className="absolute flex cursor-pointer  md:top-[37%]  md:left-[32%] md:w-20 md:h-20  top-[37%] left-[32%] w-10 max:h-10" viewBox="0 0 79 78" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M29.1241 55.8515H28.154C28.0849 55.8261 28.0145 55.8045 27.9432 55.7867C26.2758 55.4558 25.0525 54.0157 25.0516 52.331C25.0453 43.6342 25.0453 34.9373 25.0516 26.2405C25.0553 25.678 25.1978 25.1252 25.4663 24.631C26.3302 22.9895 28.5453 22.117 30.5367 23.2824C34.4485 25.5727 38.3828 27.8215 42.3085 30.0875C45.7953 32.1034 49.2824 34.1163 52.7698 36.1264C54.3179 37.0223 55.0065 38.6317 54.5443 40.2732C54.2635 41.2702 53.6259 41.9734 52.7343 42.4874C46.2143 46.2438 39.7055 50.02 33.1777 53.7634C31.8585 54.5202 30.63 55.4575 29.1241 55.8515Z" fill="white" />
+                <path
+                  d="M29.1241 55.8515H28.154C28.0849 55.8261 28.0145 55.8045 27.9432 55.7867C26.2758 55.4558 25.0525 54.0157 25.0516 52.331C25.0453 43.6342 25.0453 34.9373 25.0516 26.2405C25.0553 25.678 25.1978 25.1252 25.4663 24.631C26.3302 22.9895 28.5453 22.117 30.5367 23.2824C34.4485 25.5727 38.3828 27.8215 42.3085 30.0875C45.7953 32.1034 49.2824 34.1163 52.7698 36.1264C54.3179 37.0223 55.0065 38.6317 54.5443 40.2732C54.2635 41.2702 53.6259 41.9734 52.7343 42.4874C46.2143 46.2438 39.7055 50.02 33.1777 53.7634C31.8585 54.5202 30.63 55.4575 29.1241 55.8515Z"
+                  fill="white"
+                />
                 <circle cx="39.3922" cy="39.3004" r="38.1207" stroke="white" />
               </svg>
-
             </div>
           ))}
         </div>
 
-        {isModaldOpenGalleryVideo && (
-          <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
-            <div ref={refGalleryVideo} className="relative flex flex-col p-2 rounded-[10px] md:w-[725px] w-[385px] max-md:px-5 max-md:my-10">
+        {isOpen && (
+          <div className="bg-black/100 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+            <button
+              onClick={closeModalVideo}
+              className="hidden absolute md:top-5 top-2 md:right-0 right-6 text-white rounded-full w-12 h-12 md:flex items-center justify-center"
+            >
+              <svg
+                className="mt-2 float-right"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 62 62"
+                width="150"
+                height="150"
+                fill="#fff"
+              >
+                <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
+              </svg>
+            </button>
+            <div
+              ref={refGalleryVideo}
+              className="relative flex flex-col p-2 rounded-[10px] md:w-[725px] w-[385px] max-md:px-5 max-md:my-10"
+            >
               <Swiper
-                modules={[Pagination, Navigation]}
                 navigation={true}
                 initialSlide={currentImageIndexVideo}
-                onSlideChange={(swiper) => setCurrentImageIndexVideo(swiper.activeIndex)}
+                onSlideChange={handleSlideChange}
                 centeredSlides={true}
-                spaceBetween={80}
-                className="mySwiper"
+                slidesPerView={1}
+                spaceBetween={10}
+                className="mySwiperprofile"
               >
                 {allVideos.map((video, index) => (
-                  <SwiperSlide key={index} className="flex justify-center items-center">
-                    <div className="imageswiper-container">
-                      <video src={video.url} controls className="imageswipe -ml-32 md:w-full w-[50%] md:ml-[230px]" />
+                  <SwiperSlide
+                    key={index}
+                    className="flex justify-center items-center relative"
+                  >
+                    <div className="imageswiper-container -mt-8">
+                      <video
+                        src={video.url}
+                        controls
+                        ref={(el) => {
+                          videoRefs.current[index] = el;
+                        }}
+                        className="imageswipe -ml-[127px] max-h-[450px] md:w-full w-[50%] h-full md:ml-[212px]"
+                        onLoadedMetadata={() =>
+                          handleVideoPlay(currentImageIndexVideo)
+                        }
+                      />
+                      <button
+                        onClick={closeModalVideo}
+                        className="md:hidden absolute md:top-5 top-2 md:right-0 right-6 text-white rounded-full w-12 h-12 flex items-center justify-center"
+                      >
+                        <svg
+                          className="mt-2 float-right"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 62 62"
+                          width="150"
+                          height="150"
+                          fill="#fff"
+                        >
+                          <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
+                        </svg>
+                      </button>
                     </div>
                   </SwiperSlide>
                 ))}
               </Swiper>
-              {/* <button
-                className="absolute bottom-6 right-11 opacity-100 w-36 h-10 py-2 text-white rounded-full hover:opacity-100"
-                onClick={() => setIsModaldOpenGalleryVideo(false)}
-              >
-                Close
-              </button> */}
             </div>
           </div>
         )}
@@ -1197,28 +1231,22 @@ const Index = () => {
           <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3 mb-3">
             <div className="card-body p-2 position-relative">
               <CreatePostModal />
-
             </div>
           </div>
-
         )}
+
         {profileFeed === "pubs" && (
           <div className="w-full ">
             <div>
-
-              {
-                articles.map((item, index) => (
-                  <div key={`item-${index}`}>
-                    {
-                      <>
-                        <Post article={item} setArticles={setArticles} />
-                      </>
-                    }
-                  </div>
-                ))
-              }
-
-
+              {articles.map((item, index) => (
+                <div key={`item-${index}`}>
+                  {
+                    <>
+                      <Post article={item} setArticles={setArticles} />
+                    </>
+                  }
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -1339,13 +1367,7 @@ const Index = () => {
           )}
         </div>
 
-
-
-
-
-
         <div>
-
           {profileFeed === "video" && (
             // <div className="w-full mt-4 text-center">
             //   <div>
@@ -1459,7 +1481,6 @@ const Index = () => {
             //   </div>
             // </div>
 
-
             <div className="w-full bg-white mt-3 rounded-[12px] flex ">
               {articlesWithVideo.length > 0 ? (
                 <VideoGrid articlesWithVideo={articlesWithVideo} />
@@ -1469,14 +1490,8 @@ const Index = () => {
                 </div>
               )}
             </div>
-
-
-
           )}
-
-
         </div>
-
       </ProfileLayout>
     </>
   );

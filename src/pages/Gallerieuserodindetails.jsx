@@ -10,33 +10,32 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import { Config } from "../config";
 import LeftMenu from "../components/LeftMenu";
-import {Context} from "../index"
+import { Context } from "../index";
 
 const Album = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
 
-
-  const [modalHeight, setModalHeight] = useState('70%');
-  const [modalWidth, setModalWidth] = useState('50%');
-  const [modallef, setModaleft] = useState('40%');
+  const [modalHeight, setModalHeight] = useState("70%");
+  const [modalWidth, setModalWidth] = useState("50%");
+  const [modallef, setModaleft] = useState("40%");
 
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth <= 767;
-      setModalHeight(isMobile ? '30%' : '70%');
-      setModalWidth(isMobile ? '90%' : '50%');
-      setModaleft(isMobile ? '50%' : '40%');
+      setModalHeight(isMobile ? "30%" : "70%");
+      setModalWidth(isMobile ? "90%" : "50%");
+      setModaleft(isMobile ? "50%" : "40%");
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize(); // Initial setup
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
   const handleCardClick = (index) => {
@@ -52,7 +51,7 @@ const Album = () => {
   const [inscriptions, setInscriptions] = useState([]);
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const userId = storedUserData ? storedUserData.id : null;
-  const [isUserPreinscribed, setIsUserPreinscribed] = useState(false);  // Add this line
+  const [isUserPreinscribed, setIsUserPreinscribed] = useState(false); // Add this line
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -64,17 +63,16 @@ const Album = () => {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre", user)
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-
-
   }, []);
   useEffect(() => {
     const fetchAlbumDetails = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc/${campsId}`);
+        const response = await fetch(
+          `${Config.LOCAL_URL}/api/albumc/${campsId}`
+        );
 
         const result = await response.json();
 
@@ -98,7 +96,9 @@ const Album = () => {
           setInscriptions(result);
 
           const userPreinscribed = result.find(
-            (inscription) => inscription.userId === userId && inscription.campsId === parseInt(campsId)
+            (inscription) =>
+              inscription.userId === userId &&
+              inscription.campsId === parseInt(campsId)
           );
 
           if (userPreinscribed) {
@@ -120,84 +120,57 @@ const Album = () => {
     return <div>Loading...</div>;
   }
 
-
-
-
   const handleAlbumButtonClick = () => {
-
     navigate(`/FormCamps/${campsId}`);
-
   };
-
-
-
-
-
-
-
 
   const id = storedUserData.id ? storedUserData.id : null;
 
   const userProfileType = storedUserData ? storedUserData.profil : null;
-
 
   const shouldHideForProfiles = ["other", "player"];
   const shouldShowAgentItem = ["player"].includes(userProfileType);
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
-
-
-  // const formatDateForDisplay = (dateString) => {
-  //   const parts = dateString.split('-');
-  //   if (parts.length === 3) {
-  //     return `${parts[2]}-${parts[1]}-${parts[0]}`;
-  //   } else {
-  //     return dateString; // Return the original string if it's not in the expected format
-  //   }
-  // };
   const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
     // Format the date object into the desired format
-    return dateObject.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+    return dateObject.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
     });
-  }
-
-
-
+  };
 
   return (
     <>
       <Header />
 
-
-
       <div className="flex flex-col pb-12    mt-0 lg:mt-8 bg-zinc-100">
         <div className="self-center md:mt-20  w-full max-w-[1344px]  max-md:max-w-full">
           <div className="flex max-md:flex-col max-md:gap-0">
+            {/* left menu */}
+            <LeftMenu
+              id={id}
+              classothercomponent={true}
+              shouldShowAgentItem={shouldShowAgentItem}
+              shouldShowForProfile={shouldShowForProfile}
+              setEventTogglerIsOpenned={setEventTogglerIsOpenned}
+              eventTogglerIsOpenned={eventTogglerIsOpenned}
+              user={user}
+              userProfileType={userProfileType}
+            />
 
             {/* left menu */}
-            <LeftMenu id={id}  classothercomponent={true} shouldShowAgentItem={shouldShowAgentItem} shouldShowForProfile={shouldShowForProfile} setEventTogglerIsOpenned={setEventTogglerIsOpenned}  eventTogglerIsOpenned={eventTogglerIsOpenned}  user={user} userProfileType={userProfileType} />
-
-
-            {/* left menu */}
-
-
-
 
             <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
                 <div className="justify-between px-8 py-6 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
-
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <Link to="/defaultgroup">
-                        <button
-                          className="w-full bg-orange-400 md:hidden rounded-full flex items-center justify-center py-2 mb-3">
-
+                        <button className="w-full bg-orange-400 md:hidden rounded-full flex items-center justify-center py-2 mb-3">
                           <svg
                             width={20}
                             height={21}
@@ -221,15 +194,16 @@ const Album = () => {
                                 />
                               </clipPath>
                             </defs>
-                          </svg><span className=" text-white">   {
-                      getTranslation(
-                        `Back to`,  // -----> Englais
-                        `Revenir au Camps`, //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )
-
-                    }</span>
+                          </svg>
+                          <span className=" text-white">
+                            {" "}
+                            {getTranslation(
+                              `Back to`, // -----> Englais
+                              `Revenir au Camps` //  -----> Francais
+                              //   ``,  //  -----> Turkey
+                              //   `` ,  //  -----> Allemagne
+                            )}
+                          </span>
                         </button>
                       </Link>
                       <img
@@ -247,8 +221,6 @@ const Album = () => {
                           {albumDetails.description}
                         </div>
 
-
-
                         <div className="flex gap-2 justify-between py-3  mt-4 whitespace-nowrap rounded-xl border border-solid border-neutral-200 max-md:flex-wrap max-md:max-w-full">
                           <div className="flex flex-col flex-1">
                             <img
@@ -256,7 +228,9 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/28072299919cd6610830b1b847db76fa736c975769fafa1e967a25837aa2c386?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
                             />
-                            <div className="flex items-center justify-center mt-2">{albumDetails.Duree}</div>
+                            <div className="flex items-center justify-center mt-2">
+                              {albumDetails.Duree}
+                            </div>
                           </div>
                           <img
                             loading="lazy"
@@ -269,7 +243,9 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e7fe0f54388243cde5eda2567d634e20fcaedc6593a7e131847cf26794a55f35?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
                             />
-                            <div className="flex items-center justify-center mt-2">{albumDetails.payscamps}</div>
+                            <div className="flex items-center justify-center mt-2">
+                              {albumDetails.payscamps}
+                            </div>
                           </div>
                           <img
                             loading="lazy"
@@ -282,7 +258,10 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/545e939511a47d6db83d17be743c494bcd9b7824f609f0def7b7a0a0da2ac415?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
                             />
-                            <div className="flex items-center justify-center mt-2">  {formatDate(albumDetails.date_debut)}</div>
+                            <div className="flex items-center justify-center mt-2">
+                              {" "}
+                              {formatDate(albumDetails.date_debut)}
+                            </div>
                           </div>
                           <img
                             loading="lazy"
@@ -299,7 +278,6 @@ const Album = () => {
                             <div className="flex items-center justify-center mt-2">
                               {formatDate(albumDetails.date_fin)}
                             </div>
-
                           </div>
                           <img
                             loading="lazy"
@@ -312,184 +290,151 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/dff4dfbc9781a939e5690bf8f047fdfc420dbf36c9e00ec905ac56bf410a2e14?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center aspect-[0.9] fill-zinc-900 w-[18px] mr-3"
                             />
-                            <div className="flex items-center justify-center mt-2">{albumDetails.prix} €</div>
+                            <div className="flex items-center justify-center mt-2">
+                              {albumDetails.prix} €
+                            </div>
                           </div>
                         </div>
-                        {!isUserPreinscribed &&  userProfileType === "player" && (<div className="flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
-                          <div className="flex gap-2">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4185b5905b50428887ea8bc5135f9d41832f7a4a61c88cd3baa7301b1591ace2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="w-5 aspect-square"
-                            />
+                        {!isUserPreinscribed &&
+                          userProfileType === "player" && (
+                            <div className="flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
+                              <div className="flex gap-2">
+                                <img
+                                  loading="lazy"
+                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4185b5905b50428887ea8bc5135f9d41832f7a4a61c88cd3baa7301b1591ace2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                  className="w-5 aspect-square"
+                                />
 
-
-                            <button className="grow" onClick={handleAlbumButtonClick}>
-                            {
-                      getTranslation(
-                        `Pre-register`,  // -----> Englais
-                        `Pré-inscrire`, //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )
-
-                    }                            </button>
-
-                          </div>
-                        </div>)}
-                        {isUserPreinscribed &&  (
+                                <button
+                                  className="grow"
+                                  onClick={handleAlbumButtonClick}
+                                >
+                                  {getTranslation(
+                                    `Pre-register`, // -----> Englais
+                                    `Pré-inscrire` //  -----> Francais
+                                    //   ``,  //  -----> Turkey
+                                    //   `` ,  //  -----> Allemagne
+                                  )}{" "}
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                        {isUserPreinscribed && (
                           <div className="flex justify-center items-center p-4 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
-    {
-                      getTranslation(
-                        ` You are already pre-registered!`,  // -----> Englais
-                        `Vous étes deja pré-inscrit !`, //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )
-
-                    }                          </div>
+                            {getTranslation(
+                              ` You are already pre-registered!`, // -----> Englais
+                              `Vous étes deja pré-inscrit !` //  -----> Francais
+                              //   ``,  //  -----> Turkey
+                              //   `` ,  //  -----> Allemagne
+                            )}{" "}
+                          </div>
                         )}
                       </div>
                     </div>
                   </div>
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <div className="px-2 mt-6 max-md:max-w-full">
                   <div className="flex flex-wrap gap-1">
-                    {albumDetails.ImagesAlbumcamps.slice(1).map((image, index) => (
-                      <div key={index} className="ml-3 w-[45%] md:w-[30%] lg:w-[30%] mb-3">
-                        <img
-                          loading="lazy"
-                          src={image.image_url}
-                          className="w-full aspect-square  rounded-lg"
-                          onClick={() => handleCardClick(index)}
-
-                        />
-                      </div>
-                    ))}
+                    {albumDetails.ImagesAlbumcamps.slice(1).map(
+                      (image, index) => (
+                        <div
+                          key={index}
+                          className="ml-3 w-[45%] md:w-[30%] lg:w-[30%] mb-3"
+                        >
+                          <img
+                            loading="lazy"
+                            src={image.image_url}
+                            className="w-full aspect-square  rounded-lg"
+                            onClick={() => handleCardClick(index)}
+                          />
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
-
-
-
-      {/* <Modal
-  isOpen={modalIsOpen}
-  onRequestClose={closeModal}
-  contentLabel="Image Modal"
-  style={{
-    content: {
-      overflow: 'hidden', // Hide scroll
-      position: 'absolute',
-      top: '50%', // Center vertically
-      left: '50%', // Center horizontally
-      transform: 'translate(-40%, -50%)', // Center the modal
-      width: '50%', // Set width
-      height: '80%', // Set height
-      marginTop: '3%', // Adjust margin top
-      padding: '0', // Remove default padding
-    },
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.75)', // Add overlay color
-    },
-  }}
->
-  <button onClick={closeModal}>Close Modal</button>
-  {albumDetails.ImagesAlbumcamps.slice(selectedImageIndex).map((image, index) => (
-    <img
-      key={index + selectedImageIndex}
-      loading="lazy"
-      src={image.image_url}
-      alt={`Image ${index + selectedImageIndex}`}
-      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-    />
-  ))}
-</Modal> */}
-
-
 
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Image Modal"
         className="custom-modalCamps" // Add the desired class name
-
         style={{
           content: {
-            overflow: 'hidden', // Hide scroll
-            position: 'absolute',
-            top: '50%', // Center vertically
+            overflow: "hidden", // Hide scroll
+            position: "absolute",
+            top: "50%", // Center vertically
             left: modallef, // Center horizontally
             width: modalWidth,
             height: modalHeight,
-            margin: '0', // Remove default margin
-            padding: '0', // Remove default padding
-            
+            margin: "0", // Remove default margin
+            padding: "0", // Remove default padding
           },
           overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.75)', // Add overlay color
+            backgroundColor: "rgba(0, 0, 0, 0.75)", // Add overlay color
           },
         }}
       >
-        <button onClick={closeModal} className="px4 text-white font-bold rounded-full float-right bg-orange-500 w-6 h-6 ">X</button>
+        <button
+          onClick={closeModal}
+          className="px4 text-white font-bold rounded-full float-right bg-orange-500 w-6 h-6 "
+        >
+          X
+        </button>
         {albumDetails.ImagesAlbumcamps[selectedImageIndex] && (
           <img
             loading="lazy"
             src={albumDetails.ImagesAlbumcamps[selectedImageIndex].image_url}
             alt={`Image ${selectedImageIndex}`}
             style={{
-              width: '100%', // Set width to 100% for responsiveness
-              height: '100%', // Set height to 100% for responsiveness
-              objectFit: 'contain', // Maintain aspect ratio and cover the container
+              width: "100%", // Set width to 100% for responsiveness
+              height: "100%", // Set height to 100% for responsiveness
+              objectFit: "contain", // Maintain aspect ratio and cover the container
             }}
           />
         )}
-        <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-10%)', left: '1%', cursor: 'pointer' }} onClick={() => setSelectedImageIndex((prevIndex) => Math.max(prevIndex - 1, 0))}>
-          <p className="bg-blue-600 text-white p-2 rounded-full text-2xl"> {`<`}</p>
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            transform: "translateY(-10%)",
+            left: "1%",
+            cursor: "pointer",
+          }}
+          onClick={() =>
+            setSelectedImageIndex((prevIndex) => Math.max(prevIndex - 1, 0))
+          }
+        >
+          <p className="bg-blue-600 text-white p-2 rounded-full text-2xl">
+            {" "}
+            {`<`}
+          </p>
         </div>
-        <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-10%)', right: '1%', cursor: 'pointer' }} onClick={() => setSelectedImageIndex((prevIndex) => Math.min(prevIndex + 1, albumDetails.ImagesAlbumcamps.length - 1))}>
-          <p className="bg-blue-600 text-white p-2 rounded-full text-2xl "> {`>`}</p>
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            transform: "translateY(-10%)",
+            right: "1%",
+            cursor: "pointer",
+          }}
+          onClick={() =>
+            setSelectedImageIndex((prevIndex) =>
+              Math.min(prevIndex + 1, albumDetails.ImagesAlbumcamps.length - 1)
+            )
+          }
+        >
+          <p className="bg-blue-600 text-white p-2 rounded-full text-2xl ">
+            {" "}
+            {`>`}
+          </p>
         </div>
       </Modal>
-
-
-
     </>
   );
 };

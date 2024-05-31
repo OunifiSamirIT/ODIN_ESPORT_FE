@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useEffect, useState ,} from "react";
+import React, { Component, Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
@@ -5329,7 +5329,7 @@ const paysAllInfo = [
 ];
 
 const Information = () => {
-  const [role, SetRole] = useState('player')
+  const [role, SetRole] = useState("player");
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [picture, setPicture] = useState(null);
@@ -5342,10 +5342,10 @@ const Information = () => {
   const [file, setFile] = useState(null);
   const [phoneNumberWS, setPhoneNumberWS] = useState("");
   const [inputErrors, setInputErrors] = useState({});
-  const [profile , setUserProfile] = useState([]);
-  const [CurrentUser , setCurrentUser] = useState([]);
-  const [PlayerData , setPlyerData] = useState([]);
-  const [ManagerRole , setManagerRole] = useState([]);
+  const [profile, setUserProfile] = useState([]);
+  const [CurrentUser, setCurrentUser] = useState([]);
+  const [PlayerData, setPlyerData] = useState([]);
+  const [ManagerRole, setManagerRole] = useState([]);
   const isPasswordValid = () => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/;
     return passwordRegex.test(formData.password);
@@ -5368,24 +5368,22 @@ const Information = () => {
       ),
     };
   });
-  
-  
-useEffect(() => {
-  fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
-  .then((response) => response.json())
-  .then((data) => {
-    setCurrentUser(data);
-    fetch(`https://odine-sport.com/api/player/${storedUserData.id}`).then(
-      (resp) => resp.json()
-    ).then(setPlyerData)
-    setUserProfile(data.profil)
-    if(data.profil === 'agent'){
-      setManagerRole('club')
-    }
-    console.log('manager Role',ManagerRole)
-  })
-  .catch((error) => console.error(error));
-},[])
+
+  useEffect(() => {
+    fetch(`https://odine-sport.com/api/user/${storedUserData.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCurrentUser(data);
+        fetch(`https://odine-sport.com/api/player/${storedUserData.id}`)
+          .then((resp) => resp.json())
+          .then(setPlyerData);
+        setUserProfile(data.profil);
+        if (data.profil === "agent") {
+          setManagerRole("club");
+        }
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   const handleCountryChange = (selectedOption) => {
     // Update the formData state with the selected nationality
@@ -5398,7 +5396,6 @@ useEffect(() => {
     const selectedNationalityValue = selectedOption
       ? selectedOption.label.props.children[1]
       : null;
-    console.log("Selected Nationality:", selectedNationalityValue);
   };
   const openModal = () => {
     setIsModalOpen(true);
@@ -5447,7 +5444,7 @@ useEffect(() => {
     // Additional fields for player
     height: "",
     weight: "",
-    club:  "FC bayern",
+    club: "FC bayern",
     strongSkill: "",
     positionPlay: "",
     positionSecond: "",
@@ -5464,13 +5461,17 @@ useEffect(() => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch(`https://odine-sport.com/api/user/${storedUserData.id}`);
+        const response = await fetch(
+          `https://odine-sport.com/api/user/${storedUserData.id}`
+        );
         const data = await response.json();
         setUserInfo(data);
-        console.log("eeeeeeeeeeeeeee", userInfo);
+
         setFormData({
           nom: data.nom || "",
-          discreptionBio: data.discreptionBio | "Passionate forward with a knack for finding the back of the net! Currently shining at Esperance Sportif, known for speed, agility, and deadly finishing. 5 years pro experience, proudly represented Tunisia National Team. Dedicated to pushing boundaries on and off the field. Let's make every match memorable! 💥",
+          discreptionBio:
+            data.discreptionBio |
+            "Passionate forward with a knack for finding the back of the net! Currently shining at Esperance Sportif, known for speed, agility, and deadly finishing. 5 years pro experience, proudly represented Tunisia National Team. Dedicated to pushing boundaries on and off the field. Let's make every match memorable! 💥",
           prenom: data.prenom || "",
           date_naissance: data.date_naissance || "",
           gender: data.gender || "",
@@ -5504,13 +5505,14 @@ useEffect(() => {
       setFormData({ ...formData, tel: inputValue });
     }
   };
-  const regionOptions = Array.from(new Set(paysAllInfo.map(country => country.region))).map(region => ({
+  const regionOptions = Array.from(
+    new Set(paysAllInfo.map((country) => country.region))
+  ).map((region) => ({
     value: region,
     label: region,
   }));
-  const handleChangeregion = selectedOptions => {
-    const selectedRegions = selectedOptions.map(option => option.value);
-    console.log('Selected Region:', selectedRegions);
+  const handleChangeregion = (selectedOptions) => {
+    const selectedRegions = selectedOptions.map((option) => option.value);
   };
 
   const optionsphone = paysAllInfo.map((country) => {
@@ -5534,395 +5536,425 @@ useEffect(() => {
     };
   });
   const ManagerPlayer = () => {
-    return (<>
-      <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/d48be6745725217387de9710be0a193a4d08011e72ce73951c9268683bb1b223?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="grow">Club Actuelle</div>
-          </div>
-          <input name='club' type='text' value={formData.club} onChange={handleInputChange} className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"/>
-        </div>
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/67cc44c5147e294e812e8e6e60b5a03612a46374164925d1ed48b3daf7f65514?"
-              className="my-auto aspect-[0.85] w-[17px]"
-            />
-            <div className="grow">Taille</div>
-          </div>
-            <input name='taille' type='number' value={PlayerData.height} onChange={handleInputChange} className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"/>
-         </div>
-      </div>
-      <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/b051312f4e1495e14e7b1235b0b1ebab3cae89f347c699d855c048d1aa427fb4?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="grow">Position Principale</div>
-          </div>
-          <div className="w-full flex justify-between items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-            <div>77</div>
-            <div>Kg</div>
-          </div>
-        </div>
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/0429914b2011b359d596fb98535f53efdbc45dbc0fdd5f58a08f96ed307459cd?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="grow">Position Secondaire</div>
-          </div>
-          <input name="tel" value={formData.tel} className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5" />
-        </div>
-      </div>
-      <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 mt-4">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a7a97c9bcd4cc04810a57119703304622116c26ca19187ab06a1368043f945f4?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="grow">Avez-vous une licence ?</div>
-          </div>
-          <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-            <div className="flex gap-5 justify-between px-4 py-2 rounded-md">
-              <div>Non</div>
+    return (
+      <>
+        <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4">
               <img
                 loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/17613e5125ee28f71efb6665a4cee8c790a613d3c1f79cd5acc64a659b6c789a?"
-                className="w-5 aspect-square"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/d48be6745725217387de9710be0a193a4d08011e72ce73951c9268683bb1b223?"
+                className="my-auto w-5 aspect-square"
               />
+              <div className="grow">Club Actuelle</div>
             </div>
+            <input
+              name="club"
+              type="text"
+              value={formData.club}
+              onChange={handleInputChange}
+              className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"
+            />
+          </div>
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/67cc44c5147e294e812e8e6e60b5a03612a46374164925d1ed48b3daf7f65514?"
+                className="my-auto aspect-[0.85] w-[17px]"
+              />
+              <div className="grow">Taille</div>
+            </div>
+            <input
+              name="taille"
+              type="number"
+              value={PlayerData.height}
+              onChange={handleInputChange}
+              className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"
+            />
           </div>
         </div>
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 mt-4 whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/1167eae3b6b16f83e66096ab229d2e04aed326df1a5330feafcb893b9d81c8b8?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="grow">Licence</div>
+        <div className="mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/b051312f4e1495e14e7b1235b0b1ebab3cae89f347c699d855c048d1aa427fb4?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="grow">Position Principale</div>
+            </div>
+            <div className="w-full flex justify-between items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+              <div>77</div>
+              <div>Kg</div>
+            </div>
           </div>
-          <div className="relative w-full group  ">
-            <div className="flex justify-center items-center px-16 py-2 mt-2 w-full text-base font-medium text-blue-600 whitespace-nowrap bg-white border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
-              <div className="flex gap-2">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/0429914b2011b359d596fb98535f53efdbc45dbc0fdd5f58a08f96ed307459cd?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="grow">Position Secondaire</div>
+            </div>
+            <input
+              name="tel"
+              value={formData.tel}
+              className="w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5"
+            />
+          </div>
+        </div>
+        <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap items-center items-baseline">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 mt-4">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/a7a97c9bcd4cc04810a57119703304622116c26ca19187ab06a1368043f945f4?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="grow">Avez-vous une licence ?</div>
+            </div>
+            <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+              <div className="flex gap-5 justify-between px-4 py-2 rounded-md">
+                <div>Non</div>
                 <img
                   loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/754d9b1e9220484384cd04f241e4367356d246873f56eeb4ccf136ed0bfb5998?"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/17613e5125ee28f71efb6665a4cee8c790a613d3c1f79cd5acc64a659b6c789a?"
                   className="w-5 aspect-square"
                 />
-                <div className="grow">Upload File</div>
+              </div>
+            </div>
+          </div>
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 mt-4 whitespace-nowrap">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/1167eae3b6b16f83e66096ab229d2e04aed326df1a5330feafcb893b9d81c8b8?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="grow">Licence</div>
+            </div>
+            <div className="relative w-full group  ">
+              <div className="flex justify-center items-center px-16 py-2 mt-2 w-full text-base font-medium text-blue-600 whitespace-nowrap bg-white border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+                <div className="flex gap-2">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/754d9b1e9220484384cd04f241e4367356d246873f56eeb4ccf136ed0bfb5998?"
+                    className="w-5 aspect-square"
+                  />
+                  <div className="grow">Upload File</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex gap-4 self-start px-4 mt-4 text-lg whitespace-nowrap text-zinc-900">
-        <div className="flex gap-4 self-start px-4 mt-4 text-lg text-black whitespace-nowrap">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/7a53452f15bd5895da162bb03bb52c137da8fbcc9d687ab358a7d4d0a05729b5?"
-            className="my-auto w-5 aspect-square"
-          />
-          <div className="flex-auto">Compétences</div>
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
-        <div className="flex gap-4 justify-center px-4 py-2 text-lg text-white whitespace-nowrap bg-blue-600 rounded-[30px]">
-          <div>Rapidité</div>
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/09ece0a1e3dd80cc0549e668dcc68aa01e293da5831d687f01ce521851e6e78c?"
-            className="my-auto w-5 aspect-[20]"
-          />
-        </div>
-        <div className="flex gap-4 justify-center px-4 py-2 text-lg text-white whitespace-nowrap bg-blue-600 rounded-[30px]">
-          <div>Rapidité</div>
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/09ece0a1e3dd80cc0549e668dcc68aa01e293da5831d687f01ce521851e6e78c?"
-            className="my-auto w-5 aspect-[20]"
-          />
-        </div>
-        <div className="flex gap-4 justify-between px-4 py-2 bg-gray-100 rounded-[30px]">
-          <div className="grow">Contrôle du ballon</div>
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/395456325771eef7825f8748995f8f34b5ba82b5d1593352969ce17d32bd7057?"
-            className="my-auto w-5 aspect-square"
-          />
-        </div>
-        <div className="flex gap-4 justify-between px-4 py-2 bg-gray-100 rounded-[30px]">
-          <div className="grow">Evaluation des risques sur le terrain</div>
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/a379c2b679c64aa79966cfe1f4da9abaac640108e27fb1c1f195a427ede08f54?"
-            className="my-auto w-5 aspect-square"
-          />
-        </div>
-        <div className="flex gap-4 justify-between px-4 py-2 bg-gray-100 rounded-[30px]">
-          <div>Endurance</div>
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/100e7fd13f80be37546e7b065bd86a35d283f0b416a26c657fb2e1b905910718?"
-            className="my-auto w-5 aspect-square"
-          />
-        </div>
-      </div>
-      <div className="flex gap-5 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
-        <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
-            className="w-5 aspect-square"
-          />
-          <div className="grow">Annuler</div>
-        </div>
-        <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
-            className="w-5 aspect-square"
-          />
-          <div className="grow" onClick={handleUserUpdate}>Confirmer</div>
-        </div>
-      </div></>)
-  }
-  const ManagerClub = () => {
-    return (<>
-      <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 text-lg">
+        <div className="flex gap-4 self-start px-4 mt-4 text-lg whitespace-nowrap text-zinc-900">
+          <div className="flex gap-4 self-start px-4 mt-4 text-lg text-black whitespace-nowrap">
             <img
               loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/34848e41c517a882271598e6b332cc80714742cf7cf80986eb83517390955912?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="grow">Club actuel</div>
-          </div>
-          <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-            FC Barcelona
-          </div>
-        </div>
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9546aeb093e3ec26475401432bc55b615b0f62cb155be43c999b0a7f12a5e03b?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="grow">Nombre de clubs entraînées</div>
-          </div>
-          <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-            FC Barcelona
-          </div>
-        </div>
-      </div>
-      <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap max-w-md">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9546aeb093e3ec26475401432bc55b615b0f62cb155be43c999b0a7f12a5e03b?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="grow">Nombre de clubs entraînées</div>
-          </div>
-          <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-            FC Barcelona
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between self-stretch px-4  mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9eef9a8ecf72454aa31d293670dd10a47fc88d682d43f49543412c7854b765a1?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="flex-auto max-md:max-w-full">Pays d’entraînement</div>
-          </div>
-          <div className="flex gap-3 items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-            <div className="flex gap-4 px-4 py-2 bg-blue-600 rounded-[30px]">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/0c86cbad8949377fd6721cf601b38cf070ec0959371bc261b418f17b39a73020?"
-                className="aspect-[1.49] w-[30px]"
-              />
-              <div className="text-white">Tunisie</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/99451c10f949ad873ac0b69f52bfe635e6b06f06fe6d3a0edaabf6b776da507d?"
-                className="my-auto aspect-square w-[15px]"
-              />
-            </div>
-            <div className="flex gap-4 px-4 py-2 bg-blue-600 rounded-[30px]">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/0c86cbad8949377fd6721cf601b38cf070ec0959371bc261b418f17b39a73020?"
-                className="aspect-[1.49] w-[30px]"
-              />
-              <div className="text-white">Tunisie</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/99451c10f949ad873ac0b69f52bfe635e6b06f06fe6d3a0edaabf6b776da507d?"
-                className="my-auto aspect-square w-[15px]"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 px-4 mt-8 text-lg text-black whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/cfa1fd9aa4a36a5865ce3a42172844ac2406e9d9694fa4e86cb40405fbebcee0?"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7a53452f15bd5895da162bb03bb52c137da8fbcc9d687ab358a7d4d0a05729b5?"
               className="my-auto w-5 aspect-square"
             />
             <div className="flex-auto">Compétences</div>
           </div>
-          <div className="flex gap-5 justify-between pr-3 mt-4 text-lg text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-            <div className="flex gap-4 justify-between px-4 py-2 bg-blue-600 rounded-[30px]">
-              <div className="grow">Connaissance tactique</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/09ece0a1e3dd80cc0549e668dcc68aa01e293da5831d687f01ce521851e6e78c?"
-                className="my-auto w-5 aspect-[20]"
-              />
-            </div>
-            <div className="flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]">
-              <div className="grow">Compétence technique</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4a155f026605793c9f4b60d97373b696a1680b2e2cc186e41c26e46bca512c57?"
-                className="my-auto w-5 aspect-square"
-              />
-            </div>
-            <div className="flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]">
-              <div>Éthique</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/8da01ea8925e96d735a641e27463bf01bbc39a4edb781d94a3439ae730e711db?"
-                className="my-auto w-5 aspect-square"
-              />
-            </div>
-            <div className="flex gap-4 justify-between px-4 py-2 bg-blue-600 rounded-[30px]">
-              <div>Analyse</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/09ece0a1e3dd80cc0549e668dcc68aa01e293da5831d687f01ce521851e6e78c?"
-                className="my-auto w-5 aspect-[20]"
-              />
+        </div>
+        <div className="flex flex-wrap gap-2  mt-4 mr-3 text-lg text-blue-600 max-md:flex-wrap max-md:pr-5 max-md:mr-2.5 max-md:max-w-full">
+          <div className="flex gap-4 justify-center px-4 py-2 text-lg text-white whitespace-nowrap bg-blue-600 rounded-[30px]">
+            <div>Rapidité</div>
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/09ece0a1e3dd80cc0549e668dcc68aa01e293da5831d687f01ce521851e6e78c?"
+              className="my-auto w-5 aspect-[20]"
+            />
+          </div>
+          <div className="flex gap-4 justify-center px-4 py-2 text-lg text-white whitespace-nowrap bg-blue-600 rounded-[30px]">
+            <div>Rapidité</div>
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/09ece0a1e3dd80cc0549e668dcc68aa01e293da5831d687f01ce521851e6e78c?"
+              className="my-auto w-5 aspect-[20]"
+            />
+          </div>
+          <div className="flex gap-4 justify-between px-4 py-2 bg-gray-100 rounded-[30px]">
+            <div className="grow">Contrôle du ballon</div>
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/395456325771eef7825f8748995f8f34b5ba82b5d1593352969ce17d32bd7057?"
+              className="my-auto w-5 aspect-square"
+            />
+          </div>
+          <div className="flex gap-4 justify-between px-4 py-2 bg-gray-100 rounded-[30px]">
+            <div className="grow">Evaluation des risques sur le terrain</div>
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a379c2b679c64aa79966cfe1f4da9abaac640108e27fb1c1f195a427ede08f54?"
+              className="my-auto w-5 aspect-square"
+            />
+          </div>
+          <div className="flex gap-4 justify-between px-4 py-2 bg-gray-100 rounded-[30px]">
+            <div>Endurance</div>
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/100e7fd13f80be37546e7b065bd86a35d283f0b416a26c657fb2e1b905910718?"
+              className="my-auto w-5 aspect-square"
+            />
+          </div>
+        </div>
+        <div className="flex gap-5 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
+          <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
+              className="w-5 aspect-square"
+            />
+            <div className="grow">Annuler</div>
+          </div>
+          <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
+              className="w-5 aspect-square"
+            />
+            <div className="grow" onClick={handleUserUpdate}>
+              Confirmer
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex gap-5 mt-4 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
-        <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
-            className="w-5 aspect-square"
-          />
-          <div className="grow">Annuler</div>
+      </>
+    );
+  };
+  const ManagerClub = () => {
+    return (
+      <>
+        <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 text-lg">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/34848e41c517a882271598e6b332cc80714742cf7cf80986eb83517390955912?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="grow">Club actuel</div>
+            </div>
+            <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+              FC Barcelona
+            </div>
+          </div>
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9546aeb093e3ec26475401432bc55b615b0f62cb155be43c999b0a7f12a5e03b?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="grow">Nombre de clubs entraînées</div>
+            </div>
+            <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+              FC Barcelona
+            </div>
+          </div>
         </div>
-        <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
-            className="w-5 aspect-square"
-          />
-          <div className="grow" onClick={handleUserUpdate}>Confirmer</div>
+        <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap max-w-md">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9546aeb093e3ec26475401432bc55b615b0f62cb155be43c999b0a7f12a5e03b?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="grow">Nombre de clubs entraînées</div>
+            </div>
+            <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+              FC Barcelona
+            </div>
+          </div>
         </div>
-      </div>
-    </>)
-  }
+
+        <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between self-stretch px-4  mt-8 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9eef9a8ecf72454aa31d293670dd10a47fc88d682d43f49543412c7854b765a1?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="flex-auto max-md:max-w-full">
+                Pays d’entraînement
+              </div>
+            </div>
+            <div className="flex gap-3 items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+              <div className="flex gap-4 px-4 py-2 bg-blue-600 rounded-[30px]">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/0c86cbad8949377fd6721cf601b38cf070ec0959371bc261b418f17b39a73020?"
+                  className="aspect-[1.49] w-[30px]"
+                />
+                <div className="text-white">Tunisie</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/99451c10f949ad873ac0b69f52bfe635e6b06f06fe6d3a0edaabf6b776da507d?"
+                  className="my-auto aspect-square w-[15px]"
+                />
+              </div>
+              <div className="flex gap-4 px-4 py-2 bg-blue-600 rounded-[30px]">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/0c86cbad8949377fd6721cf601b38cf070ec0959371bc261b418f17b39a73020?"
+                  className="aspect-[1.49] w-[30px]"
+                />
+                <div className="text-white">Tunisie</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/99451c10f949ad873ac0b69f52bfe635e6b06f06fe6d3a0edaabf6b776da507d?"
+                  className="my-auto aspect-square w-[15px]"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 px-4 mt-8 text-lg text-black whitespace-nowrap">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cfa1fd9aa4a36a5865ce3a42172844ac2406e9d9694fa4e86cb40405fbebcee0?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="flex-auto">Compétences</div>
+            </div>
+            <div className="flex gap-5 justify-between pr-3 mt-4 text-lg text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+              <div className="flex gap-4 justify-between px-4 py-2 bg-blue-600 rounded-[30px]">
+                <div className="grow">Connaissance tactique</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/09ece0a1e3dd80cc0549e668dcc68aa01e293da5831d687f01ce521851e6e78c?"
+                  className="my-auto w-5 aspect-[20]"
+                />
+              </div>
+              <div className="flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]">
+                <div className="grow">Compétence technique</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4a155f026605793c9f4b60d97373b696a1680b2e2cc186e41c26e46bca512c57?"
+                  className="my-auto w-5 aspect-square"
+                />
+              </div>
+              <div className="flex gap-4 justify-between px-4 py-2 text-blue-600 bg-gray-100 rounded-[30px]">
+                <div>Éthique</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8da01ea8925e96d735a641e27463bf01bbc39a4edb781d94a3439ae730e711db?"
+                  className="my-auto w-5 aspect-square"
+                />
+              </div>
+              <div className="flex gap-4 justify-between px-4 py-2 bg-blue-600 rounded-[30px]">
+                <div>Analyse</div>
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/09ece0a1e3dd80cc0549e668dcc68aa01e293da5831d687f01ce521851e6e78c?"
+                  className="my-auto w-5 aspect-[20]"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-5 mt-4 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
+          <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
+              className="w-5 aspect-square"
+            />
+            <div className="grow">Annuler</div>
+          </div>
+          <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
+              className="w-5 aspect-square"
+            />
+            <div className="grow" onClick={handleUserUpdate}>
+              Confirmer
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
   const Scout = () => {
-    return (<>
-      <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/7fc299c7309ae8b780b43c6854bca414b797400e225c8bb46ace6a4eaf3298ac?"
-              className="my-auto aspect-[1.15] w-[23px]"
-            />
-            <div className="grow">Type d’engagement</div>
-          </div>
-          <select
-            name="engagement"
-            value={formData.engagement}
-            className={` w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${inputErrors["engagement"] ? "is-invalid" : ""
-              }`}
-            onChange={handleInputChange}
-          >
-            <option value="" disabled>
-              Select Engagement
-            </option>
-            <option value="plein-temps">Plein Temps</option>
-            <option value="mi-temps">Mi-Temps</option>
-            <option value="volontaire">Volontaire</option>
-          </select>
-          {inputErrors["engagement"] && (
-            <div className="invalid-feedback">
-              {inputErrors["engagement"]}
+    return (
+      <>
+        <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/7fc299c7309ae8b780b43c6854bca414b797400e225c8bb46ace6a4eaf3298ac?"
+                className="my-auto aspect-[1.15] w-[23px]"
+              />
+              <div className="grow">Type d’engagement</div>
             </div>
-          )}
-        </div>
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9546aeb093e3ec26475401432bc55b615b0f62cb155be43c999b0a7f12a5e03b?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="grow">Nombre de joueurs détectés</div>
-          </div>
-          <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-            <input
-              type="number"
-              id="totalPlayer"
-              name="totalPlayer"
-              className={`w-full ${inputErrors["totalPlayer"]
-                ? "is-invalid"
-                : ""
-                }`}
+            <select
+              name="engagement"
+              value={formData.engagement}
+              className={` w-full justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                inputErrors["engagement"] ? "is-invalid" : ""
+              }`}
               onChange={handleInputChange}
-              value={formData.totalPlayer}
-              placeholder="Entrer la totale des joueurs"
-            />
+            >
+              <option value="" disabled>
+                Select Engagement
+              </option>
+              <option value="plein-temps">Plein Temps</option>
+              <option value="mi-temps">Mi-Temps</option>
+              <option value="volontaire">Volontaire</option>
+            </select>
+            {inputErrors["engagement"] && (
+              <div className="invalid-feedback">
+                {inputErrors["engagement"]}
+              </div>
+            )}
+          </div>
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap text-zinc-900">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/9546aeb093e3ec26475401432bc55b615b0f62cb155be43c999b0a7f12a5e03b?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="grow">Nombre de joueurs détectés</div>
+            </div>
+            <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+              <input
+                type="number"
+                id="totalPlayer"
+                name="totalPlayer"
+                className={`w-full ${
+                  inputErrors["totalPlayer"] ? "is-invalid" : ""
+                }`}
+                onChange={handleInputChange}
+                value={formData.totalPlayer}
+                placeholder="Entrer la totale des joueurs"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 justify-between px-4 mt-4 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/59cea66f320cc2b3c0bde83c1ddb772510ed46e1dda698f5410131d33c5e72aa?"
-              className="my-auto w-5 aspect-square"
-            />
-            <div className="flex-auto max-md:max-w-full">Régions d’explorations</div>
-          </div>
-          <Select
+        <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 justify-between px-4 mt-4 text-lg text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/59cea66f320cc2b3c0bde83c1ddb772510ed46e1dda698f5410131d33c5e72aa?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="flex-auto max-md:max-w-full">
+                Régions d’explorations
+              </div>
+            </div>
+            <Select
               options={regionOptions}
               className={`justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5`}
               onChange={handleChangeregion}
@@ -5931,59 +5963,65 @@ useEffect(() => {
                 multiValue: (styles, { data }) => {
                   return {
                     ...styles,
-                    backgroundColor: '#2E71EB',
-                    color:'#2E71EB'
+                    backgroundColor: "#2E71EB",
+                    color: "#2E71EB",
                   };
                 },
                 borderRadius: "0.375rem",
                 option: (provided, state) => ({
                   ...provided,
-                  backgroundColor : 'bg-blue-500',
-                  color: state.isSelected ? 'white' : 'black', // Change colors as needed
+                  backgroundColor: "bg-blue-500",
+                  color: state.isSelected ? "white" : "black", // Change colors as needed
                 }),
               }}
-
             />
+          </div>
         </div>
-      </div>
-      <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
-        <div className="lg:flex-1 w-full">
-          <div className="flex gap-4 self-start px-4 mt-4 text-lg text-black whitespace-nowrap">
+        <div className="mt-6 mr-4 max-md:mr-2.5 max-md:max-w-full flex-col md:flex-row flex gap-4 flex-wrap">
+          <div className="lg:flex-1 w-full">
+            <div className="flex gap-4 self-start px-4 mt-4 text-lg text-black whitespace-nowrap">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/08a936387b3f7fb1bcf259060d359552c762bf5c7068b03d7dda549c3f2cab5e?"
+                className="my-auto w-5 aspect-square"
+              />
+              <div className="flex-auto">Compétences</div>
+            </div>
+            <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
+              FC Barcelona
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-5 mt-4 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
+          <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
             <img
               loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/08a936387b3f7fb1bcf259060d359552c762bf5c7068b03d7dda549c3f2cab5e?"
-              className="my-auto w-5 aspect-square"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
+              className="w-5 aspect-square"
             />
-            <div className="flex-auto">Compétences</div>
+            <div className="grow">Annuler</div>
           </div>
-          <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-            FC Barcelona
+          <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
+              className="w-5 aspect-square"
+            />
+            <div className="grow" onClick={handleUserUpdate}>
+              Confirmer
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex gap-5 mt-4 justify-between py-2 mt-6 mr-4 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:mr-2.5 max-md:max-w-full">
-        <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 border-2 border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/9e237a106a6aae9aaedb87131a5b6a9cefc6631b6b0b800569f8639d3cbb6941?"
-            className="w-5 aspect-square"
-          />
-          <div className="grow">Annuler</div>
-        </div>
-        <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/810cd337099c18a7e6b11929296189496595f751eeaf9b41ac7fbc60598d6f03?"
-            className="w-5 aspect-square"
-          />
-          <div className="grow" onClick={handleUserUpdate}>Confirmer</div>
-        </div>
-      </div>
-    </>)
-  }
+      </>
+    );
+  };
   const Others = () => {
-    return (<><p>Manager Club</p></>)
-  }
+    return (
+      <>
+        <p>Manager Club</p>
+      </>
+    );
+  };
   const [userInfo, setUserInfo] = useState(null);
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const id = storedUserData.id;
@@ -5993,7 +6031,7 @@ useEffect(() => {
         const response = await fetch(`https://odine-sport.com/api/user/${id}`);
         const data = await response.json();
         setUserInfo(data);
-        console.log("eeeeeeeeeeeeeee", userInfo);
+
         setFormData({
           nom: data.nom || "",
           prenom: data.prenom || "",
@@ -6020,9 +6058,7 @@ useEffect(() => {
   if (!userInfo) {
     return <p>Loading...</p>;
   }
-  const logout = () => {
-    console.log('user logout');
-  }
+  const logout = () => {};
   const handleCountryChangePaysResidence = (selectedOption) => {
     // Update the formData state with the selected nationality
     setFormData({
@@ -6036,7 +6072,6 @@ useEffect(() => {
     const selectedValue = selectedOption
       ? selectedOption.label.props.children[1]
       : null;
-    console.log("Selected residence:", selectedValue);
   };
   const optionsPays = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
@@ -6087,13 +6122,15 @@ useEffect(() => {
   };
 
   const handleUserUpdate = async (e) => {
-    console.log(formData)
     e.preventDefault(); // Prevent the default form submission
 
     try {
       // Check if required fields are filled
       if (!formData.nom || !formData.prenom || !formData.tel) {
-        setErrMsg({ status: "failed", message: "Fill all the required information" });
+        setErrMsg({
+          status: "failed",
+          message: "Fill all the required information",
+        });
         return;
       }
 
@@ -6103,7 +6140,10 @@ useEffect(() => {
       formDataToUpdate.append("date_naissance", formData.date_naissance || "");
       formDataToUpdate.append("gender", formData.gender || "");
       formDataToUpdate.append("nationality", formData.nationality || "");
-      formDataToUpdate.append("countryresidence", formData.countryresidence || "");
+      formDataToUpdate.append(
+        "countryresidence",
+        formData.countryresidence || ""
+      );
       formDataToUpdate.append("cityresidence", formData.cityresidence || "");
       formDataToUpdate.append("tel", formData.tel);
       formDataToUpdate.append("login", formData.login);
@@ -6129,12 +6169,14 @@ useEffect(() => {
         // Handle other state updates or redirects as needed
       } else {
         // Handle errors
-        console.error("Error updating user profile:", response.statusText);
+
         const errorData = await response.json();
-        setErrMsg({ status: "failed", message: errorData.message || "Error updating user profile" });
+        setErrMsg({
+          status: "failed",
+          message: errorData.message || "Error updating user profile",
+        });
       }
     } catch (error) {
-      console.error("Error updating user profile:", error);
       setErrMsg({ status: "failed", message: "Error updating user profile" });
     }
   };
@@ -6174,25 +6216,24 @@ useEffect(() => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac20d9bf5dc01e69f2a6e82df157e82794a74dd3d3c80d0437777183828a95ba?"
                     className="my-auto aspect-square w-[15px]"
                   />
-                  <Link to='/profile' className="grow">Revenir au Profil</Link>
+                  <Link to="/profile" className="grow">
+                    Revenir au Profil
+                  </Link>
                 </div>
                 <ProfileSideBar />
               </div>
             </div>
 
             <div className="flex flex-col flex-wrap grow gap-y-2 justify-between content-start py-8 pr-4 pl-8 w-full bg-white rounded-xl max-md:pl-5 max-md:mt-6 max-md:max-w-full">
-              
-              {profile === 'player' && <ManagerPlayer/>}
-              {profile === 'manager' && <ManagerClub/>}
-              {profile === 'scout' && <Scout />}
-              
+              {profile === "player" && <ManagerPlayer />}
+              {profile === "manager" && <ManagerClub />}
+              {profile === "scout" && <Scout />}
             </div>
-
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Information;

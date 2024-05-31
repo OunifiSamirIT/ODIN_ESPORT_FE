@@ -67,7 +67,6 @@ const EditPage = () => {
       );
 
       if (response.ok) {
-        console.log("........................" , response)
         const updatedArticle = await response.json();
         setEditArticle(null);
 
@@ -75,7 +74,7 @@ const EditPage = () => {
         navigate("/");
       } else {
         // Handle errors
-        console.error("Error updating article:", response.statusText);
+
         const errorData = await response.json();
         // setErrMsg({ status: "failed", message: errorData.message || "Error updating article" });
       }
@@ -84,7 +83,6 @@ const EditPage = () => {
       // setErrMsg({ status: "failed", message: "Error updating article" });
     }
   };
-  
 
   if (!editArticle) {
     return <p>Loading...</p>;

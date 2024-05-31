@@ -14,12 +14,11 @@ function Profiledetail() {
         const response = await fetch(`${Config.LOCAL_URL}/api/other/${id}`);
         const data = await response.json();
         setUserInfo(data);
-        console.log("hhhsksksk", userInfo);
       } catch (error) {
         console.error("Error fetching user information:", error);
       }
     };
-    console.log(userInfo);
+
     fetchUserInfo();
   }, []);
 

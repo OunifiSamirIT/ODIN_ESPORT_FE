@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Config }from  "../../config"
+import { Config } from "../../config";
 import { Context } from "../../index";
 function Login({ setAuthStatus }) {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
@@ -37,16 +37,19 @@ function Login({ setAuthStatus }) {
   const onSubmit = async (data) => {
     try {
       setIsSubmitting(true);
-      const response = await fetch(`${Config.LOCAL_URL}/api/auth/admin/signin`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier: data.identifier, // Use the value from the identifier field
-          password: data.password,
-        }),
-      });
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/auth/admin/signin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            identifier: data.identifier, // Use the value from the identifier field
+            password: data.password,
+          }),
+        }
+      );
       const result = await response.json();
 
       if (response.ok) {
@@ -64,7 +67,6 @@ function Login({ setAuthStatus }) {
         }
       }
     } catch (error) {
-      console.error("Error during login:", error);
       setErrMsg({
         status: "failed",
         message: "An error occurred during login.",

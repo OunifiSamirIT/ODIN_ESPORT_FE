@@ -12,13 +12,11 @@ import paysAll from "./Pays.json";
 import { v4 as uuidv4 } from "uuid";
 import ReactFlagsSelect from "react-flags-select";
 import "./flags.css";
-import Select from 'react-select';
+import Select from "react-select";
 
-
-
-import 'flag-icon-css/css/flag-icons.min.css';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import "flag-icon-css/css/flag-icons.min.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const pays = [
   {
@@ -5352,7 +5350,7 @@ function Register() {
   const [imagePreview, setImagePreview] = useState(null);
   const [select, setSelect] = useState("");
   const onSelect = (code) => setSelect(code);
-  console.log("SELECT", select);
+
   const allCountries = [
     "Ad",
     "Ae",
@@ -5577,7 +5575,6 @@ function Register() {
     "Zm",
     "Zw",
   ];
-  
 
   // const countryList = [
   //   { name: 'USA', code: 'us' },
@@ -5587,28 +5584,31 @@ function Register() {
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
-      width: '100%',
-      textAlign: 'left',
+      width: "100%",
+      textAlign: "left",
     }),
   };
   const customStylesphone = {
     option: (provided, state) => ({
       ...provided,
-      textAlign: 'left',
-      width: '500px',
-      padding: "10px"
+      textAlign: "left",
+      width: "500px",
+      padding: "10px",
     }),
   };
 
   const options = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso['alpha-2'].toLowerCase(); // Convert to lowercase
-  
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+
     return {
       value: countryCode,
       label: (
         <div>
           {countryCode && (
-            <span className={`flag-icon flag-icon-${countryCode}`} style={{ marginRight: '8px' , width: '40px'}}></span>
+            <span
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{ marginRight: "8px", width: "40px" }}
+            ></span>
           )}
           {country.nationalite}
         </div>
@@ -5619,24 +5619,27 @@ function Register() {
     // Update the formData state with the selected nationality
     setFormData({
       ...formData,
-      nationality: selectedOption ? selectedOption.label.props.children[1] : '',
+      nationality: selectedOption ? selectedOption.label.props.children[1] : "",
     });
 
     // Access the nationalite value from the selected option (if needed)
-    const selectedNationalityValue = selectedOption ? selectedOption.label.props.children[1] : null;
-    console.log('Selected Nationality:', selectedNationalityValue);
+    const selectedNationalityValue = selectedOption
+      ? selectedOption.label.props.children[1]
+      : null;
   };
-  
-  
+
   const optionsPays = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso['alpha-2'].toLowerCase(); // Convert to lowercase
-  
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
+
     return {
       value: countryCode,
       label: (
         <div>
           {countryCode && (
-            <span className={`flag-icon flag-icon-${countryCode}`} style={{ marginRight: '8px' , width: '40px'}}></span>
+            <span
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{ marginRight: "8px", width: "40px" }}
+            ></span>
           )}
           {country.name}
         </div>
@@ -5647,18 +5650,19 @@ function Register() {
     // Update the formData state with the selected nationality
     setFormData({
       ...formData,
-      countryresidence: selectedOption ? selectedOption.label.props.children[1] : '',
+      countryresidence: selectedOption
+        ? selectedOption.label.props.children[1]
+        : "",
     });
 
     // Access the nationalite value from the selected option (if needed)
-    const selectedValue = selectedOption ? selectedOption.label.props.children[1] : null;
-    console.log('Selected residence:', selectedValue);
+    const selectedValue = selectedOption
+      ? selectedOption.label.props.children[1]
+      : null;
   };
 
-  
-
   const [selectedCountryphone, setSelectedCountryphone] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleChangephone = (selectedOption) => {
     setSelectedCountryphone(selectedOption);
@@ -5669,22 +5673,26 @@ function Register() {
     if (inputValue.length <= selectedCountryphone.phoneLength) {
       setPhoneNumber(inputValue);
       setFormData({ ...formData, tel: inputValue });
-
     }
   };
 
   const optionsphone = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso['alpha-2'].toLowerCase();
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
 
     return {
       value: countryCode,
       label: (
-        <div style={{ textAlign: 'left' }}>
+        <div style={{ textAlign: "left" }}>
           {countryCode && (
-            <span className={`flag-icon flag-icon-${countryCode}`} style={{ marginRight: '2px', textAlign: 'left',
-             }}></span>
+            <span
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{
+                marginRight: "2px",
+                textAlign: "left",
+              }}
+            ></span>
           )}
-           ({country.phone})
+          ({country.phone})
         </div>
       ),
       countryCode: countryCode,
@@ -5692,9 +5700,9 @@ function Register() {
     };
   });
 
-// ///////////////////////
-const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
-  const [phoneNumberWS, setPhoneNumberWS] = useState('');
+  // ///////////////////////
+  const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
+  const [phoneNumberWS, setPhoneNumberWS] = useState("");
 
   const handleChangephoneWS = (selectedOptionWS) => {
     setSelectedCountryphoneWS(selectedOptionWS);
@@ -5712,25 +5720,29 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
   };
 
   const optionsphoneWS = paysAllInfo.map((country) => {
-    const countryCode = country.iso && country.iso['alpha-2'].toLowerCase();
+    const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
 
     return {
       value: countryCode,
       label: (
-        <div style={{ textAlign: 'left' }}>
+        <div style={{ textAlign: "left" }}>
           {countryCode && (
-            <div className={`flag-icon flag-icon-${countryCode}`} style={{ marginRight: '1px', textAlign: 'left',       rounded: '30px',
-
-             }}></div>
+            <div
+              className={`flag-icon flag-icon-${countryCode}`}
+              style={{
+                marginRight: "1px",
+                textAlign: "left",
+                rounded: "30px",
+              }}
+            ></div>
           )}
-           ({country.phone})
+          ({country.phone})
         </div>
       ),
       countryCode: countryCode,
       phoneLength: country.phoneLength,
     };
   });
-
 
   const profilesData = [
     {
@@ -5784,9 +5796,7 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
     return pays.map((country, index) => (
       <option key={index} value={country.nationalite}>
         {country.nationalite}
-       
       </option>
-      
     ));
   };
   const handleSkillToggleAutre = (skill) => {
@@ -5967,13 +5977,13 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
       );
       return;
     }
-  
+
     // Password matching validation
     if (formData.password !== formData.confirmPassword) {
       setValidationError("Passwords do not match");
       return;
     }
-  
+
     // Required fields for step 1
     const requiredFields = [
       "nom",
@@ -5989,15 +5999,15 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
       "numWSup",
       "password",
     ];
-  
+
     // Check if all required fields are filled in
     const areAllFieldsFilled = requiredFields.every(
       (field) => formData[field] !== ""
     );
-  
+
     if (areAllFieldsFilled) {
       // Your existing code for setting formData
-  
+
       // Example: Navigate to the next step
       setStep(step + 1);
     } else {
@@ -6009,12 +6019,10 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
         }
       });
       setInputErrors(errors);
-  
+
       // Alert the user or provide feedback that some fields are missing
-      console.log("Please fill in all required fields.", errors);
     }
   };
-  
 
   const handleNextStep = () => {
     if (!isPasswordValid()) {
@@ -6061,11 +6069,6 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
       (field) => formData[field] !== ""
     );
 
-    console.log("Selected Profile:", selectedProfile);
-    console.log("Form Data:", formData);
-    console.log("Are All Fields Filled:", areAllFieldsFilled);
-    console.log("Is Profile Selected:", isProfileSelected);
-
     if (areAllFieldsFilled && isProfileSelected) {
       if (
         selectedProfile === "player" ||
@@ -6097,7 +6100,6 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
       setInputErrors(errors);
 
       // Alert the user or provide feedback that some fields are missing
-      console.log("Please fill in all required fields.");
     }
   };
 
@@ -6170,10 +6172,8 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
     return [];
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submit button clicked!");
 
     const formDataToSubmit = new FormData();
 
@@ -6196,9 +6196,7 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
       if (response.ok) {
         const responseData = await response.json();
 
-        console.log("Server Response Data:", responseData);
         navigate("/login");
-        console.log("User registered successfully!");
       } else {
         const errorData = await response.json(); // Parse the error response
         setEmailError(errorData.message || "Registration failed.");
@@ -6281,43 +6279,6 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
                             className="absolute inset-0 opacity-0"
                           />
                         </label>
-
-                        {/* ////////////////////////// */}
-
-
-
-
-                        
-
-
-
-
-
-
-
-                        
-                        {/* <ReactFlagsSelect
-                          selected={selected}
-                          onSelect={(code) => setSelected(code)} 
-                          searchable
-                          searchPlaceholder="chercher votre Pays"
-
-                          selectButtonClassName="menu-flags-button"
-                          showSelectedLabel={showSelectedLabel}
-        selectedSize={selectedSize}
-        showOptionLabel={showOptionLabel}
-        optionsSize={optionsSize}
-        placeholder={placeholder}
-        searchable={searchable}
-        searchPlaceholder={searchPlaceholder}
-        alignOptionsToRight={alignOptionsToRight}
-        fullWidth={fullWidth}
-        disabled={disabled} 
-                        /> */}
-                        <br />
-
-
-                        {/* ////////////////////////////////////////// */}
 
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-user text-grey-500 pe-0"></i>
@@ -6450,58 +6411,40 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
                           )}
                         </div>
 
-
-
-
-
-                          {/* <ReactFlagsSelect
-    selected={formData.nationality} 
-    onSelect={(code) => handleInputChange({ target: { name: 'nationality', value: code } })}
-    searchable
-    placeholder="Nationalité"
-    optionsSize={18}
-    searchPlaceholder="chercher votre Pays"
-    selectButtonClassName={`style2-input ps-5 form-control text-grey-900 font-xsss fw-600 ${
-      inputErrors["nationality"] ? "is-invalid" : ""
-    }`}
-  >
-    
-    {generateOptions()}
-  </ReactFlagsSelect> */}
                         <div className="form-group icon-input mb-3">
-  <i className="font-sm ti-world text-grey-500 pe-0"></i>
+                          <i className="font-sm ti-world text-grey-500 pe-0"></i>
 
-  <div>
-      <Select
-        options={options}
-        placeholder="Select a country"
-        // onChange={(selectedOption) => console.log(selectedOption)}
-        styles={customStyles}
-        onChange={handleCountryChange}
-        value={options.find((option) => option.value === formData.nationality)} // Set the value from formData
-
-      />
-    </div>
-  {inputErrors["nationality"] && (
-    <div className="invalid-feedback">
-      {inputErrors["nationality"]}
-    </div>
-  )}
-  
-</div>
-
+                          <div>
+                            <Select
+                              options={options}
+                              placeholder="Select a country"
+                              styles={customStyles}
+                              onChange={handleCountryChange}
+                              value={options.find(
+                                (option) =>
+                                  option.value === formData.nationality
+                              )} // Set the value from formData
+                            />
+                          </div>
+                          {inputErrors["nationality"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["nationality"]}
+                            </div>
+                          )}
+                        </div>
 
                         <div className="form-group icon-input mb-3">
                           <i className="font-sm ti-world text-grey-500 pe-0"></i>
                           <Select
-        options={optionsPays}
-        placeholder="Select a country"
-        // onChange={(selectedOption) => console.log(selectedOption)}
-        styles={customStyles}
-        onChange={handleCountryChangePaysResidence}
-        value={optionsPays.find((option) => option.value === formData.countryresidence)} // Set the value from formData
-
-      />
+                            options={optionsPays}
+                            placeholder="Select a country"
+                            styles={customStyles}
+                            onChange={handleCountryChangePaysResidence}
+                            value={optionsPays.find(
+                              (option) =>
+                                option.value === formData.countryresidence
+                            )} // Set the value from formData
+                          />
                           {inputErrors["countryresidence"] && (
                             <div className="invalid-feedback">
                               {inputErrors["countryresidence"]}
@@ -6529,97 +6472,104 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
                         </div>
 
                         <div className="form-group   icon-input mb-3 d-flex align-items-center">
-      <div className="d-flex align-items-center">
-      <Select
-          styles={{
-            // Add or modify the styles as needed
-            control: (provided, state) => ({
-              ...provided,
-              width: '130px', 
-              textAlign: 'left',
-              // Set the desired width
-            }),
-          }}
-          options={optionsphone}
-          value={selectedCountryphone}
-          onChange={handleChangephone}
-          placeholder="Select a country" 
-        />
-        {selectedCountryphone && (
-          <div style={{ position: 'relative', marginTop: '5px' }}>
-            <input
-              type="number"
-              max={selectedCountryphone.phoneLength}
-              onChange={handleChangePhoneNumber}
-              placeholder={`Enter phone number for ${selectedCountryphone.label}`}
-              value={phoneNumber}
-            />
-            <div
-              style={{
-                display: 'flex',
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                borderTop: '2px solid blue', // Change color as needed
-              }}
-            >
-              {/* You can render lines here if needed */}
-            </div>
-          </div>
-        )}
-      </div>
-      {inputErrors["tel"] && (
-        <div className="invalid-feedback">
-          {inputErrors["tel"]}
-        </div>
-      )}
-    </div>
+                          <div className="d-flex align-items-center">
+                            <Select
+                              styles={{
+                                // Add or modify the styles as needed
+                                control: (provided, state) => ({
+                                  ...provided,
+                                  width: "130px",
+                                  textAlign: "left",
+                                  // Set the desired width
+                                }),
+                              }}
+                              options={optionsphone}
+                              value={selectedCountryphone}
+                              onChange={handleChangephone}
+                              placeholder="Select a country"
+                            />
+                            {selectedCountryphone && (
+                              <div
+                                style={{
+                                  position: "relative",
+                                  marginTop: "5px",
+                                }}
+                              >
+                                <input
+                                  type="number"
+                                  max={selectedCountryphone.phoneLength}
+                                  onChange={handleChangePhoneNumber}
+                                  placeholder={`Enter phone number for ${selectedCountryphone.label}`}
+                                  value={phoneNumber}
+                                />
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    position: "absolute",
+                                    bottom: 0,
+                                    left: 0,
+                                    width: "100%",
+                                    borderTop: "2px solid blue", // Change color as needed
+                                  }}
+                                >
+                                  {/* You can render lines here if needed */}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          {inputErrors["tel"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["tel"]}
+                            </div>
+                          )}
+                        </div>
 
-
-
-
-    <div className="form-group   icon-input mb-3 d-flex align-items-center">
-      <div className="d-flex align-items-center">
-      <Select
-          styles={{
-            // Add or modify the styles as needed
-            control: (provided, state) => ({
-              ...provided,
-              width: '130px', 
-              textAlign: 'left',
-              // Set the desired width
-            }),
-          }}
-          options={optionsphoneWS}
-          value={selectedCountryphoneWS}
-          onChange={handleChangephoneWS}
-          placeholder="Select a country" 
-        />
-        {selectedCountryphoneWS && (
-          <div style={{ position: 'relative', marginTop: '5px' }}>
-            <input
-              type="number"
-              max={selectedCountryphoneWS.phoneLength}
-              onChange={handleChangePhoneNumberWS}
-              placeholder={`Enter phone number for ${selectedCountryphoneWS.label}`}
-              value={phoneNumberWS}
-            />
-            <div
-              style={{
-                display: 'flex',
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                borderTop: '2px solid blue', // Change color as needed
-              }}
-            >
-              {/* You can render lines here if needed */}
-            </div>
-          </div>
-        )}
-      </div>
+                        <div className="form-group   icon-input mb-3 d-flex align-items-center">
+                          <div className="d-flex align-items-center">
+                            <Select
+                              styles={{
+                                // Add or modify the styles as needed
+                                control: (provided, state) => ({
+                                  ...provided,
+                                  width: "130px",
+                                  textAlign: "left",
+                                  // Set the desired width
+                                }),
+                              }}
+                              options={optionsphoneWS}
+                              value={selectedCountryphoneWS}
+                              onChange={handleChangephoneWS}
+                              placeholder="Select a country"
+                            />
+                            {selectedCountryphoneWS && (
+                              <div
+                                style={{
+                                  position: "relative",
+                                  marginTop: "5px",
+                                }}
+                              >
+                                <input
+                                  type="number"
+                                  max={selectedCountryphoneWS.phoneLength}
+                                  onChange={handleChangePhoneNumberWS}
+                                  placeholder={`Enter phone number for ${selectedCountryphoneWS.label}`}
+                                  value={phoneNumberWS}
+                                />
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    position: "absolute",
+                                    bottom: 0,
+                                    left: 0,
+                                    width: "100%",
+                                    borderTop: "2px solid blue", // Change color as needed
+                                  }}
+                                >
+                                  {/* You can render lines here if needed */}
+                                </div>
+                              </div>
+                            )}
+                          </div>
                           {inputErrors["numWSup"] && (
                             <div className="invalid-feedback">
                               {inputErrors["numWSup"]}
@@ -6658,7 +6608,6 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
                       </div>
                     )}
 
-                   
                     {step === 2 && (
                       <div className="h-max w-full">
                         <div className="row">
@@ -6678,10 +6627,7 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
                                 }`}
                                 onClick={() => {
                                   const selectedProfileValue = data.profile;
-                                  console.log(
-                                    "Selected Profile Value:",
-                                    selectedProfileValue
-                                  );
+
                                   setSelectedProfile(selectedProfileValue);
                                   handleInputChange({
                                     target: {
@@ -6721,7 +6667,7 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
                               </div>
                             </div>
                           ))}
-                          {console.log(profileError)}
+
                           {profileError && (
                             <div className="text-danger mt-2">
                               Please select a profile before proceeding.
@@ -8063,611 +8009,595 @@ const [selectedCountryphoneWS, setSelectedCountryphoneWS] = useState(null);
         </div>
       </div>
 
-
-
-
-
-
       <div className="flex flex-col items-center pb-12 bg-slate-200">
-      <div className="flex gap-5 justify-between py-6 w-full text-base font-medium text-white whitespace-nowrap max-w-[1184px] max-md:flex-wrap max-md:max-w-full">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ef89762805ea20b57e15dc704cb093ee6bf4bc12ed244f2cea4bd5c4773e2d5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-          className="w-36 max-w-full aspect-[2.7]"
-        />
-        <div className="justify-center px-8 py-2 my-auto bg-zinc-900 rounded-[30px] max-md:px-5">
-          Log In
-        </div>
-      </div>
-      <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
-        Informations Personelles
-      </div>
-      <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
-        <div className="flex gap-5 justify-between">
-          <div className="h-2 bg-blue-600 rounded-md w-[178px]" />
-          <div className="h-2 bg-blue-600 rounded-md w-[77px]" />
-          <div className="h-2 bg-blue-600 rounded-md w-[77px]" />
-        </div>
-      </div>
-      <form
-                    className="w-auto h-full sm:w-full "
-                    onSubmit={handleSubmit}
-                  >
-   {step === 1 && (   <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
-        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-        
-
-
-        
-        {/* image */}
-          <div className="flex justify-center items-center px-16 max-md:px-5 max-md:max-w-full">
-            <div className="max-w-full w-[539px]">
-              <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
-                <div className="flex flex-col w-[36%] max-md:ml-0 max-md:w-full">
-                <label className="max-w-full rounded-full border-2 aspect-square w-[178px] max-md:mt-10">
-
-                {imagePreview && ( <img
-                    loading="lazy"
-                    src={imagePreview}
-                    alt="Preview"
-                    className="max-w-full rounded-full border-2 aspect-square w-[178px] max-md:mt-10"
-                  /> )}<input
-                  type="file"
-                  name="image"
-                  onChange={handleFileChange}
-                  className="absolute inset-0 opacity-0"
-                />                        </label>
-
-                </div>
-                
-                <div className="flex flex-col ml-5 w-[64%] max-md:ml-0 max-md:w-full">
-                  <div className="flex flex-col self-stretch my-auto max-md:mt-10">
-                    <div className="text-3xl font-bold text-black">
-                      Photo de profile
-                    </div>
-                    <div className="flex gap-4 justify-between mt-4">
-                      <div className="flex gap-2 justify-between px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                          className="w-6 aspect-square fill-white"
-                        />
-                        <div className="grow my-auto">Importer une photo</div>
-                      </div>
-                      <div className="flex justify-center items-center px-3 w-10 h-10 bg-white aspect-square rounded-[37.5px]">
-                        <img
-                          loading="lazy"
-                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a9522db6cdc53b42ff83146c85938d2c84eda0890550c2fba1c629b88863dbf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                          className="w-full aspect-square"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="flex gap-5 justify-between py-6 w-full text-base font-medium text-white whitespace-nowrap max-w-[1184px] max-md:flex-wrap max-md:max-w-full">
+          <img
+            loading="lazy"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ef89762805ea20b57e15dc704cb093ee6bf4bc12ed244f2cea4bd5c4773e2d5?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+            className="w-36 max-w-full aspect-[2.7]"
+          />
+          <div className="justify-center px-8 py-2 my-auto bg-zinc-900 rounded-[30px] max-md:px-5">
+            Log In
           </div>
-        {/* nom */}
-          <div className="mt-8 max-md:max-w-full">
-            <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
-              <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
-                  <div className="flex gap-4 justify-between px-4 text-lg">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/50144aa4c9c958bc6174b7ad65e5d7ec150f9518fc697ad703a581fae6aaa421?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="self-start aspect-[0.75] w-[15px]"
-                    />
-                    <div className="grow">Nom</div>
-                  </div>
-                  <input 
-                    
-                    type="text"
-                    id="nom"
-                    name="nom"
-                    value={formData.nom}
-                    onChange={handleInputChange}
-                    className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
-                      inputErrors["nom"] ? "is-invalid" : ""
-                    }`}
-                    placeholder="Votre Nom"
-                    
-                    
-                    />{inputErrors["nom"] && (
-                      <div className="invalid-feedback">
-                        {inputErrors["nom"]}
+        </div>
+        <div className="mt-6 text-5xl font-bold text-zinc-900 max-md:max-w-full">
+          Informations Personelles
+        </div>
+        <div className="flex justify-center items-center px-16 mt-8 w-full max-w-[1184px] max-md:px-5 max-md:max-w-full">
+          <div className="flex gap-5 justify-between">
+            <div className="h-2 bg-blue-600 rounded-md w-[178px]" />
+            <div className="h-2 bg-blue-600 rounded-md w-[77px]" />
+            <div className="h-2 bg-blue-600 rounded-md w-[77px]" />
+          </div>
+        </div>
+        <form className="w-auto h-full sm:w-full " onSubmit={handleSubmit}>
+          {step === 1 && (
+            <div className="flex flex-wrap gap-y-8 justify-center content-start items-center self-stretch px-16 mt-8 w-full max-md:px-5 max-md:max-w-full">
+              <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
+                {/* image */}
+                <div className="flex justify-center items-center px-16 max-md:px-5 max-md:max-w-full">
+                  <div className="max-w-full w-[539px]">
+                    <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                      <div className="flex flex-col w-[36%] max-md:ml-0 max-md:w-full">
+                        <label className="max-w-full rounded-full border-2 aspect-square w-[178px] max-md:mt-10">
+                          {imagePreview && (
+                            <img
+                              loading="lazy"
+                              src={imagePreview}
+                              alt="Preview"
+                              className="max-w-full rounded-full border-2 aspect-square w-[178px] max-md:mt-10"
+                            />
+                          )}
+                          <input
+                            type="file"
+                            name="image"
+                            onChange={handleFileChange}
+                            className="absolute inset-0 opacity-0"
+                          />{" "}
+                        </label>
                       </div>
-                    )}
-                  
-                </div>
-              </div>
 
-
-              {/* prenom */}
-              <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
-                  <div className="flex gap-4 justify-between px-4 text-lg">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/3b682aacddfd9d405027bfc2ee157c55aecce42a1e46ef3db6e893769755f24c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="self-start aspect-[0.75] w-[15px]"
-                    />
-                    <div className="grow">Prénom</div>
-                  </div>
-                  <input 
-                  className={`form-control  justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
-                    inputErrors["prenom"] ? "is-invalid" : ""
-                  }`}
-                  
-                    type="text"
-                    value={formData.prenom}
-                    id="prenom"
-                    name="prenom"
-                    
-                    placeholder="Votre Prenom"
-                    onChange={handleInputChange}
-                  />
-                  {inputErrors["prenom"] && (
-                    <div className="invalid-feedback">
-                      {inputErrors["prenom"]}
+                      <div className="flex flex-col ml-5 w-[64%] max-md:ml-0 max-md:w-full">
+                        <div className="flex flex-col self-stretch my-auto max-md:mt-10">
+                          <div className="text-3xl font-bold text-black">
+                            Photo de profile
+                          </div>
+                          <div className="flex gap-4 justify-between mt-4">
+                            <div className="flex gap-2 justify-between px-8 py-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-6 aspect-square fill-white"
+                              />
+                              <div className="grow my-auto">
+                                Importer une photo
+                              </div>
+                            </div>
+                            <div className="flex justify-center items-center px-3 w-10 h-10 bg-white aspect-square rounded-[37.5px]">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a9522db6cdc53b42ff83146c85938d2c84eda0890550c2fba1c629b88863dbf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                                className="w-full aspect-square"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  )}
-                  
-                </div>
-              </div>
-              {/* login */}
-              <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-6">
-                  <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/b9ff538eb3525a962642dcaaa2fd0b0e9242f70955c91034cc60b37fd70611a6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="self-start aspect-[0.75] w-[15px]"
-                    />
-                    <div className="grow">Nom d’utilisateur</div>
-                  </div>
-                  <input
-                            type="text"
-                            value={formData.login}
-                            id="login"
-                            name="login"
-                            className={` form-control flex flex-col justify-center items-start py-3.5 pr-16 pl-4 mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5${
-                              inputErrors["login"] ? "is-invalid" : ""
-                            }`}
-                            placeholder="Votre nom utlisateur"
-                            onChange={handleInputChange}
-                          />
-                          {inputErrors["login"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["login"]}
-                            </div>
-                          )}
-                 
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-
-          {/* email */}
-          <div className="mt-8 max-md:max-w-full">
-            <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
-              <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
-                  <div className="flex gap-4 justify-between px-4 text-lg">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/09a82f75a3f5ad07251e935f0542b94f6a1090b5b638fd072d492c0015d91f30?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="self-start aspect-[1.1] w-[22px]"
-                    />{" "}
-                    <div className="grow">Email</div>
-                  </div>{" "}
-                  <input
-                            type="email"
-                            value={formData.email}
-                            id="email"
-                            name="email"
-                            className={` form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
-                              inputErrors["email"] ? "is-invalid" : ""
-                            }`}
-                            placeholder="Email"
-                            onChange={handleInputChange}
-                          />
-                          {inputErrors["email"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["email"]}
-                            </div>
-                          )}
-                </div>
-              </div>{" "}
-
-
-              {/* password */}
-              <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-6">
-                  <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/45acb82395fb4729e918c514329bcfe86fc6ac2c1d1965aacc2ddbb66aa3a508?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="self-start w-5 aspect-square"
-                    />{" "}
-                    <div className="grow">Mot de passe</div>
-                  </div>{" "}
-                  <input
-                            type="password"
-                            value={formData.password}
-                            id="password"
-                            name="password"
-                            className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
-                              validationError ? "is-invalid" : ""
-                            }`}
-                            placeholder="Votre Mot de passe "
-                            onChange={handleInputChange}
-                          />
-                          {validationError && (
-                            <div className="invalid-feedback">
-                              {validationError}
-                            </div>
-                          )}
-                  
-                </div>
-              </div>{" "}
-              {/* confirm ps */}
-              <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-6">
-                  <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/432367a9ce53fa928e33c05ceeee1bf97c2f47f8c05b710ff90c8532ae4d2aad?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="self-start w-5 aspect-square"
-                    />{" "}
-                    <div className="grow">Confirmer le mot de passe</div>
-                  </div>{" "}
-                  <input
-                            type="password"
-                            value={formData.confirmPassword}
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
-                              validationError ? "is-invalid" : ""
-                            }`}
-                            placeholder="Confirmer votre mot de passe"
-                            onChange={handleInputChange}
-                          />
-                          {validationError && (
-                            <div className="invalid-feedback">
-                              {validationError}
-                            </div>
-                          )}
-                  
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-
-          {/* whtsup */}
-          <div className="mt-8 max-md:max-w-full">
-            <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
-              <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
-                  <div className="flex gap-4 justify-between px-4 text-lg">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bb22266cd8479023296ff915cc3ee01660f7b93f73a8cf204b02d1f132be75c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="w-6 aspect-square"
-                    />{" "}
-                    <div className="grow">N° Whatsapp</div>
-                  </div>{" "}
-                  <div className="flex gap-4 justify-between mt-2 text-base">
-                    <Select
-          styles={{
-            control: (provided, state) => ({
-              ...provided,
-              borderRadius: '0.375rem', // You can adjust the radius as needed
-              display: 'flex',
-              justifyContent: 'center',
-              borderRadius: '30px',
-        
-              width: '100%',
-              fontSize: '1rem', // Set the desired font size
-              backgroundColor: '#f5f5f5', // Set the background color
-              borderWidth: 'none',
-            }),
-          }} 
-          className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
-          options={optionsphoneWS}
-          value={selectedCountryphoneWS}
-          onChange={handleChangephoneWS}
-        />
-        
-                    {" "}
-                    {selectedCountryphoneWS && (
-          <div style={{ position: 'relative', marginTop: '5px' }}>
-            <input
-              type="number"
-              max={selectedCountryphoneWS.phoneLength}
-              onChange={handleChangePhoneNumberWS}
-              placeholder={`Entrer numero `}
-              value={phoneNumberWS}
-             className="grow justify-center gap-3 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-5"
-            />
-           
-            </div>
-           )}        {inputErrors["numWSup"] && (
-            <div className="invalid-feedback">
-              {inputErrors["numWSup"]}
-            </div>
-          )}             
                   </div>
                 </div>
-              </div>{" "}
+                {/* nom */}
+                <div className="mt-8 max-md:max-w-full">
+                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                    <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 justify-between px-4 text-lg">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/50144aa4c9c958bc6174b7ad65e5d7ec150f9518fc697ad703a581fae6aaa421?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start aspect-[0.75] w-[15px]"
+                          />
+                          <div className="grow">Nom</div>
+                        </div>
+                        <input
+                          type="text"
+                          id="nom"
+                          name="nom"
+                          value={formData.nom}
+                          onChange={handleInputChange}
+                          className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                            inputErrors["nom"] ? "is-invalid" : ""
+                          }`}
+                          placeholder="Votre Nom"
+                        />
+                        {inputErrors["nom"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["nom"]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
 
-
-              {/* num tel  */}
-              <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col text-zinc-900 max-md:mt-6">
-                  <div className="flex gap-4 px-4 text-lg">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8b3f9f9ce91abda956cebd8c4890e6a17fde7ecb10f630388688447199195a8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="self-start w-5 aspect-square"
-                    />{" "}
-                    <div className="flex-auto">N° </div>{" "}
-                    <div className="grow">(Facultative)</div>
-                  </div>{" "}
-                  <div className="flex gap-4 justify-between mt-2 text-base whitespace-nowrap">
-                  <div className="flex gap-4 justify-between mt-3 text-base">
-                    <Select
-          styles={{
-            control: (provided, state) => ({
-              ...provided,
-              borderRadius: '0.375rem', // You can adjust the radius as needed
-              display: 'flex',
-              justifyContent: 'center',
-              borderRadius: '30px',
-        
-              width: '100%',
-              fontSize: '1rem', // Set the desired font size
-              backgroundColor: '#f5f5f5', // Set the background color
-              borderWidth: 'none',
-            }),
-          }} 
-          options={optionsphone}
-          value={selectedCountryphone}
-          onChange={handleChangephone}
-          placeholder="Select a country" 
-        />
+                    {/* prenom */}
+                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 justify-between px-4 text-lg">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/3b682aacddfd9d405027bfc2ee157c55aecce42a1e46ef3db6e893769755f24c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start aspect-[0.75] w-[15px]"
+                          />
+                          <div className="grow">Prénom</div>
+                        </div>
+                        <input
+                          className={`form-control  justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                            inputErrors["prenom"] ? "is-invalid" : ""
+                          }`}
+                          type="text"
+                          value={formData.prenom}
+                          id="prenom"
+                          name="prenom"
+                          placeholder="Votre Prenom"
+                          onChange={handleInputChange}
+                        />
+                        {inputErrors["prenom"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["prenom"]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {/* login */}
+                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/b9ff538eb3525a962642dcaaa2fd0b0e9242f70955c91034cc60b37fd70611a6?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start aspect-[0.75] w-[15px]"
+                          />
+                          <div className="grow">Nom d’utilisateur</div>
+                        </div>
+                        <input
+                          type="text"
+                          value={formData.login}
+                          id="login"
+                          name="login"
+                          className={` form-control flex flex-col justify-center items-start py-3.5 pr-16 pl-4 mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5${
+                            inputErrors["login"] ? "is-invalid" : ""
+                          }`}
+                          placeholder="Votre nom utlisateur"
+                          onChange={handleInputChange}
+                        />
+                        {inputErrors["login"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["login"]}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>{" "}
+                {/* email */}
+                <div className="mt-8 max-md:max-w-full">
+                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                    <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 justify-between px-4 text-lg">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/09a82f75a3f5ad07251e935f0542b94f6a1090b5b638fd072d492c0015d91f30?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start aspect-[1.1] w-[22px]"
+                          />{" "}
+                          <div className="grow">Email</div>
+                        </div>{" "}
+                        <input
+                          type="email"
+                          value={formData.email}
+                          id="email"
+                          name="email"
+                          className={` form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                            inputErrors["email"] ? "is-invalid" : ""
+                          }`}
+                          placeholder="Email"
+                          onChange={handleInputChange}
+                        />
+                        {inputErrors["email"] && (
+                          <div className="invalid-feedback">
+                            {inputErrors["email"]}
+                          </div>
+                        )}
+                      </div>
                     </div>{" "}
-                    {selectedCountryphone && (
-          <div style={{ position: 'relative', marginTop: '5px' }}>
-            <input
-              type="number"
-              max={selectedCountryphone.phoneLength}
-              onChange={handleChangePhoneNumber}
-              placeholder={`Enter phone number for ${selectedCountryphone.label}`}
-              value={phoneNumber}
-              className="grow justify-center gap-3 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-5"
-
-            />
-            
-          </div>
-        )}
-      {inputErrors["tel"] && (
-        <div className="invalid-feedback">
-          {inputErrors["tel"]}
-        </div>
-      )}                    
-                  </div>
-                </div>
-              </div>{" "}
-              <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 max-md:mt-6">
-                  <div className="flex gap-4 justify-between px-4 text-lg">
-                    <img
-                      loading="lazy"
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/424750770a24c4c2e5f786593b06fdc9d9137ae4f454f3cda3580afabec0922e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                      className="self-start w-5 aspect-square"
-                    />{" "}
-                    <div className="grow">Année de naissance</div>
-                  </div>{" "}
-                  <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                    <div className="flex gap-5 justify-between px-5 py-3.5 rounded-md">
-                    <DatePicker
-  selected={formData.date_naissance ? new Date(formData.date_naissance) : null}
-  onChange={(date) => handleYearChange(date?.getFullYear())}
-  dateFormat="yyyy"
-  showYearPicker
-  yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
-  maxDate={new Date(2012, 0, 1)} 
-  className="bg-zinc-100"
-        />
-        {inputErrors.date_naissance && (
-          <span className="text-red-500 text-sm">{inputErrors.date_naissance}</span>
-        )}
+                    {/* password */}
+                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/45acb82395fb4729e918c514329bcfe86fc6ac2c1d1965aacc2ddbb66aa3a508?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />{" "}
+                          <div className="grow">Mot de passe</div>
+                        </div>{" "}
+                        <input
+                          type="password"
+                          value={formData.password}
+                          id="password"
+                          name="password"
+                          className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+                            validationError ? "is-invalid" : ""
+                          }`}
+                          placeholder="Votre Mot de passe "
+                          onChange={handleInputChange}
+                        />
+                        {validationError && (
+                          <div className="invalid-feedback">
+                            {validationError}
+                          </div>
+                        )}
+                      </div>
+                    </div>{" "}
+                    {/* confirm ps */}
+                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 justify-between px-4 text-lg whitespace-nowrap">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/432367a9ce53fa928e33c05ceeee1bf97c2f47f8c05b710ff90c8532ae4d2aad?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />{" "}
+                          <div className="grow">Confirmer le mot de passe</div>
+                        </div>{" "}
+                        <input
+                          type="password"
+                          value={formData.confirmPassword}
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          className={` form-control flex flex-col justify-center mt-2 w-full whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+                            validationError ? "is-invalid" : ""
+                          }`}
+                          placeholder="Confirmer votre mot de passe"
+                          onChange={handleInputChange}
+                        />
+                        {validationError && (
+                          <div className="invalid-feedback">
+                            {validationError}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>{" "}
-                  <div className="self-center mt-2 text-zinc-800">
-                    Vous devez avoir au moins 13 ans.
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>{" "}
-           {/* gender */}
-          <div className="flex gap-5 justify-between mt-8 whitespace-nowrap text-zinc-900 max-md:flex-wrap max-md:max-w-full">
-            <div className="flex flex-col flex-1">
-              <div className="flex gap-4 justify-between px-4 text-lg">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/f81299e0229e715d9789e71faf61b6931d61c805b7fbce9b340cc4b0fd8493cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="self-start w-5 aspect-square"
-                />{" "}
-                <div className="grow">Sexe</div>
-              </div>{" "}
-                  <div><select
-                            name="gender"
-                            value={formData.gender}
-                            onChange={handleInputChange}
-                            className={`form-control flex flex-col justify-center pl-3 pt-3 px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
-                              inputErrors["gender"] ? "is-invalid" : ""
-                            }`}
-                          >
-                            <option value="male">Homme</option>
-                            <option value="female">Femme</option>
-                          </select>
-                          {inputErrors["gender"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["gender"]}
+                </div>{" "}
+                {/* whtsup */}
+                <div className="mt-8 max-md:max-w-full">
+                  <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+                    <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col whitespace-nowrap text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 justify-between px-4 text-lg">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bb22266cd8479023296ff915cc3ee01660f7b93f73a8cf204b02d1f132be75c?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="w-6 aspect-square"
+                          />{" "}
+                          <div className="grow">N° Whatsapp</div>
+                        </div>{" "}
+                        <div className="flex gap-4 justify-between mt-2 text-base">
+                          <Select
+                            styles={{
+                              control: (provided, state) => ({
+                                ...provided,
+                                borderRadius: "0.375rem", // You can adjust the radius as needed
+                                display: "flex",
+                                justifyContent: "center",
+                                borderRadius: "30px",
+
+                                width: "100%",
+                                fontSize: "1rem", // Set the desired font size
+                                backgroundColor: "#f5f5f5", // Set the background color
+                                borderWidth: "none",
+                              }),
+                            }}
+                            className="flex  py-2.5 border-solid border-[0.5px]  rounded-[30px]"
+                            options={optionsphoneWS}
+                            value={selectedCountryphoneWS}
+                            onChange={handleChangephoneWS}
+                          />{" "}
+                          {selectedCountryphoneWS && (
+                            <div
+                              style={{ position: "relative", marginTop: "5px" }}
+                            >
+                              <input
+                                type="number"
+                                max={selectedCountryphoneWS.phoneLength}
+                                onChange={handleChangePhoneNumberWS}
+                                placeholder={`Entrer numero `}
+                                value={phoneNumberWS}
+                                className="grow justify-center gap-3 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-5"
+                              />
                             </div>
-                          )}</div>{" "}
-                 
-            </div>{" "}
-            {/* nationalité */}
-            <div className="flex flex-col flex-1">
-              <div className="flex gap-4 justify-between px-4 text-lg">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/dc2223db27c0d33870f85928116ea4a9a4b038fc39e2a16c1efd0448f4f6523d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="self-start w-5 aspect-square"
-                />{" "}
-                <div className="grow">Nationalité</div>
-              </div>{" "}
-              <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                <div className="flex gap-5 justify-between px-4  w-full rounded-md">
-                  <div className="flex gap-5 justify-between">
-                    {/* <img
+                          )}{" "}
+                          {inputErrors["numWSup"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["numWSup"]}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>{" "}
+                    {/* num tel  */}
+                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 px-4 text-lg">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/f8b3f9f9ce91abda956cebd8c4890e6a17fde7ecb10f630388688447199195a8?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />{" "}
+                          <div className="flex-auto">N° </div>{" "}
+                          <div className="grow">(Facultative)</div>
+                        </div>{" "}
+                        <div className="flex gap-4 justify-between mt-2 text-base whitespace-nowrap">
+                          <div className="flex gap-4 justify-between mt-3 text-base">
+                            <Select
+                              styles={{
+                                control: (provided, state) => ({
+                                  ...provided,
+                                  borderRadius: "0.375rem", // You can adjust the radius as needed
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  borderRadius: "30px",
+
+                                  width: "100%",
+                                  fontSize: "1rem", // Set the desired font size
+                                  backgroundColor: "#f5f5f5", // Set the background color
+                                  borderWidth: "none",
+                                }),
+                              }}
+                              options={optionsphone}
+                              value={selectedCountryphone}
+                              onChange={handleChangephone}
+                              placeholder="Select a country"
+                            />
+                          </div>{" "}
+                          {selectedCountryphone && (
+                            <div
+                              style={{ position: "relative", marginTop: "5px" }}
+                            >
+                              <input
+                                type="number"
+                                max={selectedCountryphone.phoneLength}
+                                onChange={handleChangePhoneNumber}
+                                placeholder={`Enter phone number for ${selectedCountryphone.label}`}
+                                value={phoneNumber}
+                                className="grow justify-center gap-3 items-start py-3.5 pl-1 border-solid bg-zinc-100 border-[0.5px] border-neutral-200 rounded-[30px] max-md:pr-5"
+                              />
+                            </div>
+                          )}
+                          {inputErrors["tel"] && (
+                            <div className="invalid-feedback">
+                              {inputErrors["tel"]}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>{" "}
+                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                      <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 max-md:mt-6">
+                        <div className="flex gap-4 justify-between px-4 text-lg">
+                          <img
+                            loading="lazy"
+                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/424750770a24c4c2e5f786593b06fdc9d9137ae4f454f3cda3580afabec0922e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                            className="self-start w-5 aspect-square"
+                          />{" "}
+                          <div className="grow">Année de naissance</div>
+                        </div>{" "}
+                        <div className="flex flex-col justify-center py-px mt-2 w-full border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                          <div className="flex gap-5 justify-between px-5 py-3.5 rounded-md">
+                            <DatePicker
+                              selected={
+                                formData.date_naissance
+                                  ? new Date(formData.date_naissance)
+                                  : null
+                              }
+                              onChange={(date) =>
+                                handleYearChange(date?.getFullYear())
+                              }
+                              dateFormat="yyyy"
+                              showYearPicker
+                              yearDropdownItemNumber={10} // Set the maximum selectable year to 2012
+                              maxDate={new Date(2012, 0, 1)}
+                              className="bg-zinc-100"
+                            />
+                            {inputErrors.date_naissance && (
+                              <span className="text-red-500 text-sm">
+                                {inputErrors.date_naissance}
+                              </span>
+                            )}
+                          </div>
+                        </div>{" "}
+                        <div className="self-center mt-2 text-zinc-800">
+                          Vous devez avoir au moins 13 ans.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>{" "}
+                {/* gender */}
+                <div className="flex gap-5 justify-between mt-8 whitespace-nowrap text-zinc-900 max-md:flex-wrap max-md:max-w-full">
+                  <div className="flex flex-col flex-1">
+                    <div className="flex gap-4 justify-between px-4 text-lg">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f81299e0229e715d9789e71faf61b6931d61c805b7fbce9b340cc4b0fd8493cf?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                        className="self-start w-5 aspect-square"
+                      />{" "}
+                      <div className="grow">Sexe</div>
+                    </div>{" "}
+                    <div>
+                      <select
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleInputChange}
+                        className={`form-control flex flex-col justify-center pl-3 pt-3 px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] ${
+                          inputErrors["gender"] ? "is-invalid" : ""
+                        }`}
+                      >
+                        <option value="male">Homme</option>
+                        <option value="female">Femme</option>
+                      </select>
+                      {inputErrors["gender"] && (
+                        <div className="invalid-feedback">
+                          {inputErrors["gender"]}
+                        </div>
+                      )}
+                    </div>{" "}
+                  </div>{" "}
+                  {/* nationalité */}
+                  <div className="flex flex-col flex-1">
+                    <div className="flex gap-4 justify-between px-4 text-lg">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/dc2223db27c0d33870f85928116ea4a9a4b038fc39e2a16c1efd0448f4f6523d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                        className="self-start w-5 aspect-square"
+                      />{" "}
+                      <div className="grow">Nationalité</div>
+                    </div>{" "}
+                    <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                      <div className="flex gap-5 justify-between px-4  w-full rounded-md">
+                        <div className="flex gap-5 justify-between">
+                          {/* <img
                       loading="lazy"
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a6550b011e676e8207b4a8f28665fc86fb3002fb604721c44fedb862f9bc7bd?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                       className="aspect-[1.49] w-[30px]"
                     />{" "} */}
-                    <div className=" flex flex-auto sm:flex-1  ">
-                    <Select
-  options={options}
-  placeholder="Select a country"
-  styles={{
-    control: (provided, state) => ({
-      ...provided,
-      borderRadius: '0.375rem', // You can adjust the radius as needed
-      display: 'flex',
-      justifyContent: 'center',
-      borderRadius: '30px',
+                          <div className=" flex flex-auto sm:flex-1  ">
+                            <Select
+                              options={options}
+                              placeholder="Select a country"
+                              styles={{
+                                control: (provided, state) => ({
+                                  ...provided,
+                                  borderRadius: "0.375rem", // You can adjust the radius as needed
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  borderRadius: "30px",
 
-      width: '100%',
-      fontSize: '1rem', // Set the desired font size
-      backgroundColor: '#f5f5f5', // Set the background color
-      borderWidth: 'none',
-    }),
-  }}
-  onChange={handleCountryChange}
-  value={options.find((option) => option.value === formData.nationality)}
-/></div>
+                                  width: "100%",
+                                  fontSize: "1rem", // Set the desired font size
+                                  backgroundColor: "#f5f5f5", // Set the background color
+                                  borderWidth: "none",
+                                }),
+                              }}
+                              onChange={handleCountryChange}
+                              value={options.find(
+                                (option) =>
+                                  option.value === formData.nationality
+                              )}
+                            />
+                          </div>
+                        </div>{" "}
+                      </div>
+                    </div>
                   </div>{" "}
-                  
-                </div>
-              </div>
-            </div>{" "}
-            <div className="flex flex-col flex-1">
-              <div className="flex gap-4 justify-between px-4 text-lg">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/a128d306f388b8fe1ee6ab08de9c65c1f7200283d1682fac379e573167086b34?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="self-start w-5 aspect-square"
-                />{" "}
-                <div className="grow">Pays de résidence</div>
-              </div>{" "}
-              <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
-                <div className="flex gap-5 justify-between px-4  w-full rounded-md">
-                  <div className="flex gap-4 justify-between">
-                  
-                    <div className="flex-auto">   <Select
-        options={optionsPays}
-        placeholder="Select a country"
-        // onChange={(selectedOption) => console.log(selectedOption)}
-        styles={{
-          control: (provided, state) => ({
-            ...provided,
-            borderRadius: '0.375rem', // You can adjust the radius as needed
-            display: 'flex',
-            justifyContent: 'center',
-            borderRadius: '30px',
-      
-            width: '100%',
-            fontSize: '1rem', // Set the desired font size
-            backgroundColor: '#f5f5f5', // Set the background color
-            borderWidth: 'none',
-          }),
-        }}        onChange={handleCountryChangePaysResidence}
-        value={optionsPays.find((option) => option.value === formData.countryresidence)} // Set the value from formData
+                  <div className="flex flex-col flex-1">
+                    <div className="flex gap-4 justify-between px-4 text-lg">
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/a128d306f388b8fe1ee6ab08de9c65c1f7200283d1682fac379e573167086b34?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                        className="self-start w-5 aspect-square"
+                      />{" "}
+                      <div className="grow">Pays de résidence</div>
+                    </div>{" "}
+                    <div className="flex flex-col justify-center px-px py-1.5 mt-2 w-full text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
+                      <div className="flex gap-5 justify-between px-4  w-full rounded-md">
+                        <div className="flex gap-4 justify-between">
+                          <div className="flex-auto">
+                            {" "}
+                            <Select
+                              options={optionsPays}
+                              placeholder="Select a country"
+                              styles={{
+                                control: (provided, state) => ({
+                                  ...provided,
+                                  borderRadius: "0.375rem", // You can adjust the radius as needed
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  borderRadius: "30px",
 
-      />
-                          {inputErrors["countryresidence"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["countryresidence"]}
-                            </div>
-                          )}</div>
+                                  width: "100%",
+                                  fontSize: "1rem", // Set the desired font size
+                                  backgroundColor: "#f5f5f5", // Set the background color
+                                  borderWidth: "none",
+                                }),
+                              }}
+                              onChange={handleCountryChangePaysResidence}
+                              value={optionsPays.find(
+                                (option) =>
+                                  option.value === formData.countryresidence
+                              )} // Set the value from formData
+                            />
+                            {inputErrors["countryresidence"] && (
+                              <div className="invalid-feedback">
+                                {inputErrors["countryresidence"]}
+                              </div>
+                            )}
+                          </div>
+                        </div>{" "}
+                      </div>
+                    </div>
+                  </div>
+                </div>{" "}
+                {/* ville residence  */}
+                <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/26bf7a353dc8ba12a2c588e612f061c37dd22cdccf246eec44650d1580269c48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                    className="self-start w-5 aspect-square"
+                  />{" "}
+                  <div className="flex-auto">Ville de résidence</div>{" "}
+                  <div className="grow">(Facultative)</div>
+                </div>{" "}
+                <input
+                  type="text"
+                  name="cityresidence"
+                  value={formData.cityresidence}
+                  className={` form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px] max-md:pr-5 ${
+                    inputErrors["cityresidence"] ? "is-invalid" : ""
+                  }`}
+                  placeholder="Ville"
+                  onChange={handleInputChange}
+                />
+                {inputErrors["cityresidence"] && (
+                  <div className="invalid-feedback">
+                    {inputErrors["cityresidence"]}
+                  </div>
+                )}
+                <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                  <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 bg-white rounded-[30px] max-md:px-5">
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/e533b035fdc55aea149414a8782b6f661296bb286de77461db00c1e53282c2f7?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                      className="w-5 aspect-square"
+                    />{" "}
+                    <div className="grow">Précédent</div>
                   </div>{" "}
-                 
+                  <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
+                    <button type="submit" className="grow">
+                      Suivant
+                    </button>{" "}
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/009067a802ece7a987067a80c9d2bb609c7928469c28602c59a52ec0bbdb4632?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                      className="w-5 aspect-square"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>{" "}
-          {/* ville residence  */}
-
-
-
-
-          
-          <div className="flex gap-4 self-start px-4 mt-8 text-lg text-zinc-900">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/26bf7a353dc8ba12a2c588e612f061c37dd22cdccf246eec44650d1580269c48?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-              className="self-start w-5 aspect-square"
-            />{" "}
-            <div className="flex-auto">Ville de résidence</div>{" "}
-            <div className="grow">(Facultative)</div>
-
-          </div>{" "}
-          <input
-                            type="text"
-                            name="cityresidence"
-                            value={formData.cityresidence}
-                            className={` form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 max-w-full text-base whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-zinc-900 w-[379px] max-md:pr-5 ${
-                              inputErrors["cityresidence"] ? "is-invalid" : ""
-                            }`}
-                            placeholder="Ville"
-                            onChange={handleInputChange}
-                          />
-                          {inputErrors["cityresidence"] && (
-                            <div className="invalid-feedback">
-                              {inputErrors["cityresidence"]}
-                            </div>
-                          )}
-
-
-
-          <div className="flex gap-5 justify-between mt-8 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-            <div className="flex gap-2 justify-between px-8 py-2 text-blue-600 bg-white rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/e533b035fdc55aea149414a8782b6f661296bb286de77461db00c1e53282c2f7?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                className="w-5 aspect-square"
-              />{" "}
-              <div className="grow">Précédent</div>
-            </div>{" "}
-            <div className="flex gap-2 justify-between px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5">
-            <button
-                                type="submit" className="grow">Suivant</button>{" "}
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/009067a802ece7a987067a80c9d2bb609c7928469c28602c59a52ec0bbdb4632?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                className="w-5 aspect-square"
-              />
-            </div>
-          </div>
-        
-
-        </div>
-      </div>)}</form>
-    </div>
+          )}
+        </form>
+      </div>
     </Fragment>
   );
 }

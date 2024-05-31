@@ -9,8 +9,8 @@ import { Config } from "../../config";
 import { paysAllInfo } from "../../assets/data/Country";
 import Select, { components } from "react-select";
 import { useEffect } from "react";
-import * as yup from 'yup';
-import Email from './../Email';
+import * as yup from "yup";
+import Email from "./../Email";
 function Entreprise() {
   const { register, setValue, getValues } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -103,7 +103,6 @@ function Entreprise() {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre", user);
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
@@ -112,19 +111,23 @@ function Entreprise() {
     e.preventDefault();
     setErrors({});
 
-
     // Client-side validation
     const newErrors = {};
-    if (!formData.EntrepriseName) newErrors.EntrepriseName = "Ce champ est Obligatoire";
-    if (!formData.Experience) newErrors.Experience = "Ce champ est Obligatoire ";
+    if (!formData.EntrepriseName)
+      newErrors.EntrepriseName = "Ce champ est Obligatoire";
+    if (!formData.Experience)
+      newErrors.Experience = "Ce champ est Obligatoire ";
 
     // if (!formData.image) newErrors.image = "Le logo d'entreprise est Obligatoire";
     if (!formData.postoffre) newErrors.postoffre = "Ce champ est obilgatoire";
     if (!formData.NivET) newErrors.NivET = "Ce champ est obilgatoire";
-    if (!formData.typecontrat) newErrors.typecontrat = "Ce champ est obbligatoire";
+    if (!formData.typecontrat)
+      newErrors.typecontrat = "Ce champ est obbligatoire";
     if (!formData.paysoffre) newErrors.paysoffre = "Ce champ est obligatoire";
-    if (!formData.villeoffre) newErrors.villeoffre = " Ce champ est obligatoire";
-    if (!formData.date_experie) newErrors.date_experie = "Ce champ est obligatoire";
+    if (!formData.villeoffre)
+      newErrors.villeoffre = " Ce champ est obligatoire";
+    if (!formData.date_experie)
+      newErrors.date_experie = "Ce champ est obligatoire";
     const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!formData.email) {
@@ -133,9 +136,14 @@ function Entreprise() {
       newErrors.email = "Format invalide: exemple@domaine.com";
     }
 
-    { errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p> }
+    {
+      errors.email && (
+        <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+      );
+    }
 
-    if (!formData.description) newErrors.description = "Ce champ est obligatoire";
+    if (!formData.description)
+      newErrors.description = "Ce champ est obligatoire";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -159,13 +167,10 @@ function Entreprise() {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log("Server Response Data:", responseData);
-
       } else {
         const errorData = await response.json();
         console.error("Server Error Message:", errorData.message);
       }
-
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -184,7 +189,6 @@ function Entreprise() {
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
-          console.log("user offre", user);
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
@@ -483,7 +487,6 @@ function Entreprise() {
                               className="shrink-0 max-w-full  mx-auto rounded-full object-contain border-4 border-solid aspect-square  max-md:mt-10"
                             />
                           )}
-
                         </div>
 
                         <div className="flex flex-col ml-5 w-[65%] max-md:ml-0 max-md:w-full">
@@ -544,12 +547,20 @@ function Entreprise() {
                                 EntrepriseName: e.target.value,
                               })
                             }
-                            // className={` form-control justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5 
+                            // className={` form-control justify-center items-start px-4 py-3.5 mt-2 text-base border border-solid border-neutral-200 rounded-[30px] max-md:pr-5
                             //   }`}
-                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.EntrepriseName && !formData.EntrepriseName ? "is-invalid" : ""
-                              }`}
+                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                              errors.EntrepriseName && !formData.EntrepriseName
+                                ? "is-invalid"
+                                : ""
+                            }`}
                           ></input>
-                          {errors.EntrepriseName && !formData.EntrepriseName && <p className="mt-2  text-sm text-red-600">{errors.EntrepriseName}</p>}
+                          {errors.EntrepriseName &&
+                            !formData.EntrepriseName && (
+                              <p className="mt-2  text-sm text-red-600">
+                                {errors.EntrepriseName}
+                              </p>
+                            )}
                           <div className="flex gap-3 px-4 mt-6">
                             <img
                               loading="lazy"
@@ -559,8 +570,13 @@ function Entreprise() {
                             <div className="flex-1">Niveau d’études</div>
                           </div>
 
-                          <div className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.NivET && !formData.NivET ? "is-invalid" : ""
-                            }`}>
+                          <div
+                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                              errors.NivET && !formData.NivET
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          >
                             <select
                               id="NivET"
                               className=" w-full bg-transparent "
@@ -589,11 +605,13 @@ function Entreprise() {
                                 Expert, Recherche
                               </option>
                             </select>
-
                           </div>
 
-
-                          {errors.NivET && !formData.NivET && <p className="mt-2  text-sm text-red-600">{errors.NivET}</p>}
+                          {errors.NivET && !formData.NivET && (
+                            <p className="mt-2  text-sm text-red-600">
+                              {errors.NivET}
+                            </p>
+                          )}
                           <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
                             <img
                               loading="lazy"
@@ -603,9 +621,13 @@ function Entreprise() {
                             <div className="flex-1">Type de contrat</div>
                           </div>
 
-
-                          <div className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.typecontrat && !formData.typecontrat ? "is-invalid" : ""
-                            }`}>
+                          <div
+                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                              errors.typecontrat && !formData.typecontrat
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          >
                             <select
                               id="typecontrat"
                               className="w-full bg-transparent"
@@ -625,7 +647,11 @@ function Entreprise() {
                             </select>
                           </div>
 
-                          {errors.typecontrat && !formData.typecontrat && <p className="mt-2  text-sm text-red-600">{errors.typecontrat}</p>}
+                          {errors.typecontrat && !formData.typecontrat && (
+                            <p className="mt-2  text-sm text-red-600">
+                              {errors.typecontrat}
+                            </p>
+                          )}
                           <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
                             <img
                               loading="lazy"
@@ -646,10 +672,17 @@ function Entreprise() {
                                 villeoffre: e.target.value,
                               })
                             }
-                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.villeoffre && !formData.villeoffre ? "is-invalid" : ""
-                              }`}
+                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                              errors.villeoffre && !formData.villeoffre
+                                ? "is-invalid"
+                                : ""
+                            }`}
                           />
-                          {errors.villeoffre && !formData.villeoffre && <p className="mt-2  text-sm text-red-600">{errors.villeoffre}</p>}
+                          {errors.villeoffre && !formData.villeoffre && (
+                            <p className="mt-2  text-sm text-red-600">
+                              {errors.villeoffre}
+                            </p>
+                          )}
                           <div className="flex gap-3 px-4 mt-6">
                             <img
                               loading="lazy"
@@ -658,8 +691,13 @@ function Entreprise() {
                             />
                             <div className="flex-1">Date d’expiration</div>
                           </div>
-                          <div className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.date_experie && !formData.date_experie ? "is-invalid" : ""
-                            }`}>
+                          <div
+                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                              errors.date_experie && !formData.date_experie
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          >
                             <div className="flex gap-5 justify-between px-4  rounded-md max-md:pr-5">
                               <DatePicker
                                 className="bg-transparent "
@@ -677,7 +715,11 @@ function Entreprise() {
                               />
                             </div>
                           </div>
-                          {errors.date_experie && !formData.date_experie && <p className="mt-2  text-sm text-red-600">{errors.date_experie}</p>}
+                          {errors.date_experie && !formData.date_experie && (
+                            <p className="mt-2  text-sm text-red-600">
+                              {errors.date_experie}
+                            </p>
+                          )}
                         </div>
                       </div>
                       {/* chtar lekher */}
@@ -702,10 +744,17 @@ function Entreprise() {
                                 postoffre: e.target.value,
                               })
                             }
-                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.postoffre && !formData.postoffre ? "is-invalid" : ""
-                              }`}
+                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                              errors.postoffre && !formData.postoffre
+                                ? "is-invalid"
+                                : ""
+                            }`}
                           />
-                          {errors.postoffre && !formData.postoffre && <p className="mt-2  text-sm text-red-600">{errors.postoffre}</p>}
+                          {errors.postoffre && !formData.postoffre && (
+                            <p className="mt-2  text-sm text-red-600">
+                              {errors.postoffre}
+                            </p>
+                          )}
                           <div className="flex gap-3 px-4 whitespace-nowrap mt-4">
                             <img
                               loading="lazy"
@@ -715,8 +764,13 @@ function Entreprise() {
                             <div className="flex-1">Niveau d'experience</div>
                           </div>
 
-                          <div className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.Experience && !formData.Experience ? "is-invalid" : ""
-                            }`}>
+                          <div
+                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                              errors.Experience && !formData.Experience
+                                ? "is-invalid"
+                                : ""
+                            }`}
+                          >
                             <select
                               className="w-full bg-transparent"
                               value={formData.Experience}
@@ -748,7 +802,11 @@ function Entreprise() {
                             </select>
                           </div>
 
-                          {errors.Experience && !formData.Experience && <p className="mt-2  text-sm text-red-600">{errors.Experience}</p>}
+                          {errors.Experience && !formData.Experience && (
+                            <p className="mt-2  text-sm text-red-600">
+                              {errors.Experience}
+                            </p>
+                          )}
                           <div className="flex gap-3 px-4 mt-6">
                             <img
                               loading="lazy"
@@ -758,44 +816,6 @@ function Entreprise() {
                             <div className="flex-1">Pays de résidence</div>
                           </div>
 
-                          {/* <Select
-
-                            options={optionsPaysOffre}
-                            placeholder="Pays de résidence"
-
-                            // onChange={(selectedOption) => console.log(selectedOption)}
-                            styles={{
-                              control: (provided, state) => ({
-                                ...provided,
-                                borderRadius: "0.375rem", // You can adjust the radius as needed
-                                display: "flex",
-                                justifyContent: "center",
-                                borderRadius: "30px",
-
-                                fontSize: "14px", // Set the desired font size
-                                backgroundColor: "#fff", // Set the background color
-                                borderWidth: "none",
-
-                                paddingTop: "4px",
-                                paddingBottom: "4px",
-                                marginTop: "8px",
-                                paddingLeft: "16px",
-                                paddingRight: "15px",
-                                width: "100%",
-
-                                border: "0.5px solid #E5E5E5",
-                              }),
-                              menu: (provided, state) => ({
-                                ...provided,
-                                width: "100%", // Adjust the width as needed
-                              }),
-                            }}
-                            onChange={handleCountryChangePaysOffre}
-                            value={optionsPaysOffre.find(
-                              (option) => option.value === formData.paysoffre
-                            )} // Set the value from formData
-
-                          /> */}
                           <div>
                             <Select
                               options={optionsPaysOffre}
@@ -810,7 +830,10 @@ function Entreprise() {
                                   display: "flex",
                                   justifyContent: "center",
                                   borderRadius: "30px",
-                                  borderColor: errors.paysoffre && !formData.paysoffre ? "red" : "",
+                                  borderColor:
+                                    errors.paysoffre && !formData.paysoffre
+                                      ? "red"
+                                      : "",
                                   fontSize: "14px",
                                   backgroundColor: "#f5f5f5",
                                   borderWidth: "0.5px",
@@ -820,17 +843,20 @@ function Entreprise() {
                                   paddingLeft: "16px",
                                   paddingRight: "15px",
                                   width: "100%",
-                                  boxShadow: 'none'
+                                  boxShadow: "none",
                                 }),
                                 menu: (provided, state) => ({
                                   ...provided,
                                   width: "100%",
                                 }),
                               }}
-
                             />
                           </div>
-                          {errors.paysoffre && !formData.paysoffre && <p className="mt-2  text-sm text-red-600">{errors.paysoffre}</p>}
+                          {errors.paysoffre && !formData.paysoffre && (
+                            <p className="mt-2  text-sm text-red-600">
+                              {errors.paysoffre}
+                            </p>
+                          )}
                           <div className="flex gap-3 px-4 mt-6 whitespace-nowrap">
                             <img
                               loading="lazy"
@@ -840,7 +866,6 @@ function Entreprise() {
                             <div className="flex-1">Email</div>
                           </div>
                           <input
-
                             id="email"
                             placeholder="Email"
                             value={formData.email}
@@ -850,13 +875,18 @@ function Entreprise() {
                                 email: e.target.value,
                               })
                             }
-                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.email && !formData.email ? "is-invalid" : ""
-                              }`}
+                            className={`   form-control justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                              errors.email && !formData.email
+                                ? "is-invalid"
+                                : ""
+                            }`}
                           />
-                          {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
-
+                          {errors.email && (
+                            <p className="mt-2 text-sm text-red-600">
+                              {errors.email}
+                            </p>
+                          )}
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -879,10 +909,17 @@ function Entreprise() {
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
-                    className={`form-control justify-center h-20 items-start  pr-16 pl-4  text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${errors.description && !formData.description ? "is-invalid" : ""
-                      }`}
+                    className={`form-control justify-center h-20 items-start  pr-16 pl-4  text-base border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 ${
+                      errors.description && !formData.description
+                        ? "is-invalid"
+                        : ""
+                    }`}
                   />
-                  {errors.description && !formData.description && <p className="mt-2  text-sm text-red-600">{errors.description}</p>}
+                  {errors.description && !formData.description && (
+                    <p className="mt-2  text-sm text-red-600">
+                      {errors.description}
+                    </p>
+                  )}
                   {/* buttons */}
                   <div className="flex gap-2 flex-col-reverse  md:flex-row  justify-between items-center py-2  mt-2 w-full text-base font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                     <Link to="/home" className="w-full">

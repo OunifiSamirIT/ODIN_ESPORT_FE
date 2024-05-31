@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import UserImage from "../assets/placeholder.jpg"
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import UserImage from "../assets/placeholder.jpg";
 const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
-  
- 
- 
   const navigate = useNavigate();
 
-  
   // const [Hamburger, setHumberger] = useState(false);
 
   const handleClickHamburger = () => {
@@ -30,44 +26,42 @@ const SlideMenu = ({ setIsActive, setHumberger, Hamburger }) => {
   return (
     <>
       <div className="relative flex justify-end">
-       
-      <div className="md:hidden">
-                  <svg
-                    width="40"
-                    height="30"
-                    viewBox="0 0 60 50"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    onClick={handleClickHamburger}
-                  >
-                    <rect
-                      ref={rect1Ref}
-                      width="59.0909"
-                      height="4.54545"
-                      rx="2.27273"
-                      fill="#000000"
-                    />
-                    <rect
-                      ref={rect2Ref}
-                      y="22.7272"
-                      width="59.0909"
-                      height="4.54545"
-                      rx="2.27273"
-                      fill="#000000"
-                    />
-                    <rect
-                      ref={rect3Ref}
-                      y="45.4546"
-                      width="59.0909"
-                      height="4.54545"
-                      rx="2.27273"
-                      fill="#000000"
-                    />
-                  </svg>
-                </div>
-
+        <div className="md:hidden">
+          <svg
+            width="40"
+            height="30"
+            viewBox="0 0 60 50"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            onClick={handleClickHamburger}
+          >
+            <rect
+              ref={rect1Ref}
+              width="59.0909"
+              height="4.54545"
+              rx="2.27273"
+              fill="#000000"
+            />
+            <rect
+              ref={rect2Ref}
+              y="22.7272"
+              width="59.0909"
+              height="4.54545"
+              rx="2.27273"
+              fill="#000000"
+            />
+            <rect
+              ref={rect3Ref}
+              y="45.4546"
+              width="59.0909"
+              height="4.54545"
+              rx="2.27273"
+              fill="#000000"
+            />
+          </svg>
+        </div>
       </div>
     </>
-  )
-}
-export default SlideMenu
+  );
+};
+export default SlideMenu;

@@ -1,6 +1,6 @@
-import React, { useState , useRef , useEffect} from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
-const Dropdown = ({ children ,  options }) => {
+const Dropdown = ({ children, options }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const toggleDropdown = () => {
@@ -16,13 +16,12 @@ const Dropdown = ({ children ,  options }) => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef]);
-
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
@@ -35,9 +34,7 @@ const Dropdown = ({ children ,  options }) => {
       </button>
       {isOpen && (
         <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-          <div className="py-1">
-            {children}
-          </div>
+          <div className="py-1">{children}</div>
         </div>
       )}
     </div>
@@ -45,31 +42,28 @@ const Dropdown = ({ children ,  options }) => {
 };
 
 const DropdownItem = ({ children, href }) => {
-    const handleItemClick = () => {
-      console.log(`Selected option: ${children}`);
-    };
-  
-    if (href) {
-      return (
-        <a
-          href={href}
-          onClick={handleItemClick}
-          className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 text-center"
-        >
-          {children}
-        </a>
-      );
-    } else {
-      return (
-        <button
-          onClick={handleItemClick}
-          className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 text-center"
-        >
-          {children}
-        </button>
-      );
-    }
-  };
+  const handleItemClick = () => {};
 
+  if (href) {
+    return (
+      <a
+        href={href}
+        onClick={handleItemClick}
+        className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 text-center"
+      >
+        {children}
+      </a>
+    );
+  } else {
+    return (
+      <button
+        onClick={handleItemClick}
+        className="block px-4 py-1 text-sm text-gray-700 hover:bg-gray-100 text-center"
+      >
+        {children}
+      </button>
+    );
+  }
+};
 
 export { Dropdown, DropdownItem };

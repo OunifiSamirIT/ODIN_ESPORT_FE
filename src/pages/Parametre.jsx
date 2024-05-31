@@ -1,12 +1,12 @@
 import React, { Component, Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ProfileSideBar from "../components/ProfileSideBar"
+import ProfileSideBar from "../components/ProfileSideBar";
 import Header from "../components/Header";
 import Leftnav from "../components/Leftnav";
 import Rightchat from "../components/Rightchat";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
-import Select, { components } from "react-select"; 
+import Select, { components } from "react-select";
 import "flag-icon-css/css/flag-icons.min.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -5327,9 +5327,9 @@ const paysAllInfo = [
       "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ZW.svg",
     phoneLength: 9,
   },
-]; 
+];
 
-const  Parametre = () => {
+const Parametre = () => {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [picture, setPicture] = useState(null);
@@ -5342,7 +5342,7 @@ const  Parametre = () => {
   const [file, setFile] = useState(null);
   const [phoneNumberWS, setPhoneNumberWS] = useState("");
   const [inputErrors, setInputErrors] = useState({});
-  const [isActive, setIsActive] = useState()
+  const [isActive, setIsActive] = useState();
 
   const isPasswordValid = () => {
     const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(.{8,})$/;
@@ -5378,7 +5378,6 @@ const  Parametre = () => {
     const selectedNationalityValue = selectedOption
       ? selectedOption.label.props.children[1]
       : null;
-    console.log("Selected Nationality:", selectedNationalityValue);
   };
   const openModal = () => {
     setIsModalOpen(true);
@@ -5440,7 +5439,7 @@ const  Parametre = () => {
       image: e.target.files[0],
     });
   };
-  
+
   const [selectedCountryphone, setSelectedCountryphone] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -5476,7 +5475,7 @@ const  Parametre = () => {
       phoneLength: country.phoneLength,
     };
   });
-  
+
   const [userInfo, setUserInfo] = useState(null);
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const id = storedUserData.id;
@@ -5486,7 +5485,7 @@ const  Parametre = () => {
         const response = await fetch(`https://odine-sport.com/api/user/${id}`);
         const data = await response.json();
         setUserInfo(data);
-        console.log("eeeeeeeeeeeeeee", userInfo);
+
         setFormData({
           nom: data.nom || "",
           prenom: data.prenom || "",
@@ -5513,72 +5512,8 @@ const  Parametre = () => {
   if (!userInfo) {
     return <p>Loading...</p>;
   }
-  const logout = () => {
-    console.log('user logout');
-  }
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  const logout = () => {};
 
-  //   if (formData.password.length < 8) {
-  //     setValidationError("Password must be at least 8 characters long.");
-  //     // setIsModalOpen(true);
-  //     return; // Don't proceed with the form submission
-  //   }
-  //   try {
-  //     // Update user information
-
-  //     const formDataWithImage = new FormData();
-  // Object.entries(formData).forEach(([key, value]) => {
-  //   formDataWithImage.append(key, value);
-  // });
-  // formDataWithImage.append("image", picture);
-
-  //     const userResponse = await fetch(`https://odine-sport.com/api/user/${id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: formDataWithImage,
-  //     });
-
-  //     if (!userResponse.ok) {
-  //       console.error("User update failed.");
-  //       // Handle the failure case for user update
-  //       return;
-  //     }
-
-  //     // Update player information
-  //     const playerResponse = await fetch(
-  //       `https://odine-sport.com/api/player/${id}`,
-  //       {
-  //         method: "PUT",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           height: formData.height,
-  //           weight: formData.weight,
-  //           strongSkill: formData.strongSkill,
-  //           positionPlay: formData.positionPlay,
-  //           positionSecond: formData.positionSecond,
-  //           skillsInProfile: formData.skillsInProfile,
-  //           // Add other player fields as needed
-  //         }),
-  //       }
-  //     );
-
-  //     if (playerResponse.ok) {
-  //       console.log("User and player information updated successfully!");
-  //       navigate("/");
-  //     } else {
-  //       console.error("Update failed.");
-  //       // Handle other error cases
-  //     }
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //     // Handle the error case, e.g., show an error message
-  //   }
-  // };
   const handleCountryChangePaysResidence = (selectedOption) => {
     // Update the formData state with the selected nationality
     setFormData({
@@ -5592,7 +5527,6 @@ const  Parametre = () => {
     const selectedValue = selectedOption
       ? selectedOption.label.props.children[1]
       : null;
-    console.log("Selected residence:", selectedValue);
   };
   const optionsPays = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase(); // Convert to lowercase
@@ -5626,7 +5560,7 @@ const  Parametre = () => {
       return prevValue;
     });
   };
- 
+
   const handleFileChange = (e, type) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -5643,30 +5577,35 @@ const  Parametre = () => {
   };
 
   const handleUserUpdate = async (e) => {
-    console.log(formData)
     e.preventDefault(); // Prevent the default form submission
 
     try {
       // Check if required fields are filled
       if (!formData.nom || !formData.prenom || !formData.tel) {
-        setErrMsg({ status: "failed", message: "Fill all the required information" });
+        setErrMsg({
+          status: "failed",
+          message: "Fill all the required information",
+        });
         return;
       }
-  
+
       const formDataToUpdate = new FormData();
       formDataToUpdate.append("nom", formData.nom);
       formDataToUpdate.append("prenom", formData.prenom);
       formDataToUpdate.append("date_naissance", formData.date_naissance || "");
       formDataToUpdate.append("gender", formData.gender || "");
       formDataToUpdate.append("nationality", formData.nationality || "");
-      formDataToUpdate.append("countryresidence", formData.countryresidence || "");
+      formDataToUpdate.append(
+        "countryresidence",
+        formData.countryresidence || ""
+      );
       formDataToUpdate.append("cityresidence", formData.cityresidence || "");
       formDataToUpdate.append("tel", formData.tel);
       formDataToUpdate.append("login", formData.login);
       formDataToUpdate.append("password", formData.password || "");
       formDataToUpdate.append("image", file);
       formDataToUpdate.append("nationality", formData.nationality);
-  
+
       // Make a PUT request to update the user profile
       const response = await fetch(
         `https://odine-sport.com/api/user/${storedUserData.id}`,
@@ -5675,24 +5614,26 @@ const  Parametre = () => {
           body: formDataToUpdate,
         }
       );
-  
+
       if (response.ok) {
         const updatedUser = await response.json();
         // setUserData(updatedUser);
-  
+
         // Handle other state updates or redirects as needed
       } else {
         // Handle errors
-        console.error("Error updating user profile:", response.statusText);
+
         const errorData = await response.json();
-        setErrMsg({ status: "failed", message: errorData.message || "Error updating user profile" });
+        setErrMsg({
+          status: "failed",
+          message: errorData.message || "Error updating user profile",
+        });
       }
     } catch (error) {
-      console.error("Error updating user profile:", error);
       setErrMsg({ status: "failed", message: "Error updating user profile" });
     }
   };
-    const optionsphoneWS = paysAllInfo.map((country) => {
+  const optionsphoneWS = paysAllInfo.map((country) => {
     const countryCode = country.iso && country.iso["alpha-2"].toLowerCase();
 
     return {
@@ -5712,85 +5653,79 @@ const  Parametre = () => {
       phoneLength: country.phoneLength,
     };
   });
-  
+
   return (
     <>
-
-<div className="nav-header bg-white shadow-xs border-0">
-
-<div className=" flex justify-between items-center w-full">
-             <Link to="/home"><img src={Logo} className='ml-3 h-28 w-28 '/><span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0"> </span> </Link>
-
-         </div>
-         <SlideMenu setIsActive={setIsActive}/>
-
-
-
-
-
-
-</div>
-
-
+      <div className="nav-header bg-white shadow-xs border-0">
+        <div className=" flex justify-between items-center w-full">
+          <Link to="/home">
+            <img src={Logo} className="ml-3 h-28 w-28 " />
+            <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">
+              {" "}
+            </span>{" "}
+          </Link>
+        </div>
+        <SlideMenu setIsActive={setIsActive} />
+      </div>
 
       <div className="flex flex-col pb-10 mt-20 bg-gray-200">
-      <div className="self-center mt-6 w-full max-w-[1344px] max-md:max-w-full">
-      <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
-        <div className="flex flex-col w-[24%] max-md:ml-0 max-md:w-full">
-          <div className="flex flex-col text-base font-medium max-md:mt-6">
-            <div className="flex gap-2 justify-between px-20 py-2 text-white whitespace-nowrap bg-orange-500 rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/02282bb1f0c32b671d51f2531113e64ee168087841382b334f851cb3179c7886?"
-                className="my-auto aspect-square w-[15px]"
-              />
-              <div className="grow">Revenir au Profil</div>
+        <div className="self-center mt-6 w-full max-w-[1344px] max-md:max-w-full">
+          <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
+            <div className="flex flex-col w-[24%] max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col text-base font-medium max-md:mt-6">
+                <div className="flex gap-2 justify-between px-20 py-2 text-white whitespace-nowrap bg-orange-500 rounded-[30px] max-md:px-5">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/02282bb1f0c32b671d51f2531113e64ee168087841382b334f851cb3179c7886?"
+                    className="my-auto aspect-square w-[15px]"
+                  />
+                  <div className="grow">Revenir au Profil</div>
+                </div>
+                <ProfileSideBar />
+              </div>
             </div>
-            <ProfileSideBar/>
+            <div className="flex flex-col ml-5 w-[76%] max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col px-8 py-9 text-lg bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:max-w-full">
+                <div className="flex gap-4 self-start px-4 whitespace-nowrap">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/e0f2ace319a8a40362513aebe5b9d3895ee695350e8c08fdf2d1f81c2a6111bf?"
+                    className="my-auto aspect-[1.1] w-[22px]"
+                  />
+                  <div className="grow">Email Principale</div>
+                </div>
+                <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid bg-zinc-100 border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full">
+                  joeyleblanc@gmail.com
+                </div>
+                <div className="flex gap-4 justify-between px-4 mt-6 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/948c756af05f9aea12c0006315a48a0862850f46651f81448082c23d1eb93da2?"
+                    className="my-auto aspect-[1.1] w-[22px]"
+                  />
+                  <div className="grow max-md:max-w-full">Email</div>
+                </div>
+                <div className="justify-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5 max-md:max-w-full">
+                  Ajouter un autre email
+                </div>
+                <div className="flex gap-4 justify-between px-4 mt-6 max-md:flex-wrap max-md:max-w-full">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a85b62b66ecf00095664baf16a200ba7858326683afa2b2f6a03ae7601c2701?"
+                    className="my-auto w-5 aspect-square"
+                  />
+                  <div className="grow max-md:max-w-full">Mot de passe</div>
+                </div>
+                <div className="justify-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5 max-md:max-w-full">
+                  Changer votre mot de passe
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col ml-5 w-[76%] max-md:ml-0 max-md:w-full">
-        <div className="flex flex-col px-8 py-9 text-lg bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:max-w-full">
-      <div className="flex gap-4 self-start px-4 whitespace-nowrap">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/e0f2ace319a8a40362513aebe5b9d3895ee695350e8c08fdf2d1f81c2a6111bf?"
-          className="my-auto aspect-[1.1] w-[22px]"
-        />
-        <div className="grow">Email Principale</div>
       </div>
-      <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid bg-zinc-100 border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full">
-        joeyleblanc@gmail.com
-      </div>
-      <div className="flex gap-4 justify-between px-4 mt-6 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/948c756af05f9aea12c0006315a48a0862850f46651f81448082c23d1eb93da2?"
-          className="my-auto aspect-[1.1] w-[22px]"
-        />
-        <div className="grow max-md:max-w-full">Email</div>
-      </div>
-      <div className="justify-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5 max-md:max-w-full">
-        Ajouter un autre email
-      </div>
-      <div className="flex gap-4 justify-between px-4 mt-6 max-md:flex-wrap max-md:max-w-full">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/1a85b62b66ecf00095664baf16a200ba7858326683afa2b2f6a03ae7601c2701?"
-          className="my-auto w-5 aspect-square"
-        />
-        <div className="grow max-md:max-w-full">Mot de passe</div>
-      </div>
-      <div className="justify-center items-center px-16 py-2 mt-2 text-base font-medium text-blue-600 whitespace-nowrap bg-white border border-solid border-[color:var(--Accent,#2E71EB)] rounded-[30px] max-md:px-5 max-md:max-w-full">
-        Changer votre mot de passe
-      </div>
-    </div>
-        </div>
-      </div>
-    </div>
-    </div>
     </>
   );
-}
+};
 
 export default Parametre;
