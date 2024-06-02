@@ -7,7 +7,7 @@ import { Context } from "../../../index";
 import Social from "../components/social";
 import Modal from "react-modal";
 
-const Scout = ({ userInfo }) => {
+const Scout = ({ userInfo, sendNotification }) => {
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const { id } = useParams();
   const isOwner = storedUserData.id == id;
@@ -232,7 +232,10 @@ const Scout = ({ userInfo }) => {
                       ) : (
                         <button
                           className="flex items-center "
-                          onClick={sendFriendRequest}
+                          onClick={() => {
+                            sendNotification(id)
+                            sendFriendRequest()
+                          }}
                         >
                           <p>
                             {getTranslation(

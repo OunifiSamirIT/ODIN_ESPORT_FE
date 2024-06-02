@@ -13,7 +13,32 @@ import Scout from "../pages/Profile/Fragments/Scout";
 import { toast, ToastContainer } from 'react-toastify';
 import { Context } from "../index";
 
+import { io } from 'socket.io-client';
+import NotificationService from "../api/notification.server";
+
 const ProfileLayout = ({ children, onChange, user }) => {
+
+
+    //initialize socket
+
+    const [socket, setSocket] = useState(null);
+
+    useEffect(() => {
+        const socketInstance = io(Config.LOCAL_URL);
+        setSocket(socketInstance);
+
+    }, []);
+    
+    //send request notification
+    let sendNotification = (id)  => {NotificationService.instantSend(socket, 
+        {
+          toUser_id: id,
+          forWichAction: "AddRequest",
+          actionId: "0",
+          postId: "",
+          postImage: ""
+        })
+    }
     const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
     const [CurrentUser, setCurrentUser] = useState(null)
@@ -92,11 +117,12 @@ const ProfileLayout = ({ children, onChange, user }) => {
                     <div className="flex gap-2 max-md:flex-col max-md:gap-0 max-md:">
                         <div className="flex flex-col w-full md:w-1/2">
                             <div className="flex flex-col">
-                                {CurrentUser?.user.profil === 'player' && <Player userInfo={CurrentUser} />}
-                                {CurrentUser?.user.profil === 'coach' && <Entraineur userInfo={CurrentUser} />}
-                                {CurrentUser?.user.profil === 'agent' && <General userInfo={CurrentUser} />}
-                                {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} />}
-                                {CurrentUser?.user.profil === 'scout' && <Scout userInfo={CurrentUser} />}
+                                
+                            {CurrentUser?.user.profil === 'player' && <Player userInfo={CurrentUser} sendNotification={sendNotification} />}
+                                {CurrentUser?.user.profil === 'coach' && <Entraineur userInfo={CurrentUser} sendNotification={sendNotification} />}
+                                {CurrentUser?.user.profil === 'agent' && <General userInfo={CurrentUser}  sendNotification={sendNotification}/>}
+                                {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} sendNotification={sendNotification}/>}
+                                {CurrentUser?.user.profil === 'scout' && <Scout userInfo={CurrentUser}  sendNotification={sendNotification}/>}
                                 {Invitation && Invitation.length > 0 ? <div className="flex flex-col flex-wrap justify-center h-fit content-start px-3 py-6 mt-6  bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                                     <div className="flex gap-5 justify-between font-medium whitespace-nowrap w-full">
                                         <div className="flex flex-auto gap-4 py-2 text-base text-zinc-900">

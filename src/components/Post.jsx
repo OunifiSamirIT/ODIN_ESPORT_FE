@@ -44,6 +44,11 @@ import '../../node_modules/moment/locale/fr';
 import '../../node_modules/moment/locale/en-ca';
 
 
+
+import NotificationService from "../api/notification.server";
+import { io } from 'socket.io-client';
+
+
 import {
   BiEditAlt,
   BiHeart,
@@ -135,6 +140,23 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
     }
   };
+
+
+
+  //notification
+
+
+//initialize socket
+
+const [socket, setSocket] = useState(null);
+
+useEffect(() => {
+  const socketInstance = io(Config.LOCAL_URL);
+  setSocket(socketInstance);
+
+}, []);
+
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutsidelike);
     return () => {
@@ -2087,6 +2109,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                 <span className="flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
                   <button
                     onClick={async () => {
+                       //notlike
+                       NotificationService.instantSend(socket, 
+                        {
+                          toUser_id: article?.user?.user?.id,
+                          forWichAction: "like",
+                          actionId: "0",
+                          postId: article.id,
+                          postImage: article?.image ? article?.image : ""
+                        }
+                      )
                       await handleLikeClick(article.id, 1);
                       await fetchLikesForArticle(article.id);
                     }}
@@ -2466,6 +2498,18 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 <div className="flex flex-row">  <button
                                   className="flex-row"
                                   onClick={async () => {
+                                    NotificationService.instantSend(socket, 
+                                      {
+                                        toUser_id: comment.userId,
+                                        forWichAction: "likeComment",
+                                        actionId: "0",
+                                        postId: article.id,
+                                        content: comment.description,
+                                        postImage: article?.image ? article?.image : ""
+
+                                      }
+                                    )
+
                                     await fetchLikesForComment(comment.id);
 
                                     await handleLikeComment(comment.id);
@@ -2755,10 +2799,26 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         />
                                         <button
                                           onClick={() =>
-                                            addReply(
-                                              replyingToCommentId,
-                                              replyInput
-                                            )
+                                            {
+                                              console.log("article.idarticle.id",article.id)
+                                            console.log(comment.userId, "comment.userId")
+                                            console.log(article.userId, "article.userId")
+                                            console.log(reply.userId, "reply.userId")
+                                            NotificationService.instantSend(socket, 
+                                              {
+                                                toUser_id: comment.userId,
+                                                forWichAction: "reply",
+                                                actionId: "0",
+                                                postId: article.id,
+                                                content: replyInput,
+                                                postImage: article?.image ? article?.image : ""
+
+                                              })
+                                              addReply(
+                                                replyingToCommentId,
+                                                replyInput
+                                              )
+                                            }
                                           }
                                         >
                                           <svg
@@ -2812,6 +2872,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               />
                               <button
                                 onClick={() => {
+                                  console.log("article.idarticle.id",article.id)
+                                  NotificationService.instantSend(socket, 
+                                    {
+                                      toUser_id: article?.user?.user?.id,
+                                      forWichAction: "comment",
+                                      actionId: "0",
+                                      postId: article.id,
+                                      content: comment,
+                                      postImage: article?.image ? article?.image : ""
+                                    })
+
                                   addComment(article.id);
                                   console.log("🚀 ~ Post ~ article.id:", article.id)
                                 }
@@ -2982,6 +3053,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       <span className="flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
                         <button
                           onClick={async () => {
+                             //notlike
+                       NotificationService.instantSend(socket, 
+                        {
+                          toUser_id: article?.user?.user?.id,
+                          forWichAction: "like",
+                          actionId: "0",
+                          postId: article.id,
+                          postImage: article?.image ? article?.image : ""
+                        }
+                      )
                             await handleLikeClick(article.id, 1);
                             await fetchLikesForArticle(article.id);
                           }}
@@ -3361,6 +3442,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       <div className="flex flex-row">  <button
                                         className="flex-row"
                                         onClick={async () => {
+                                          NotificationService.instantSend(socket, 
+                                            {
+                                              toUser_id: comment.userId,
+                                              forWichAction: "likeComment",
+                                              actionId: "0",
+                                              postId: article.id,
+                                              content: comment.description,
+                                              postImage: article?.image ? article?.image : ""
+      
+                                            }
+                                          )
                                           await fetchLikesForComment(comment.id);
 
                                           await handleLikeComment(comment.id);
@@ -3649,11 +3741,26 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 className="w-full px-2 bg-gray-100 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
                                               />
                                               <button
-                                                onClick={() =>
+                                                onClick={() =>{
+                                                  console.log("article.idarticle.id",article.id)
+                                                  console.log(comment.userId, "comment.userId")
+                                                  console.log(article.userId, "article.userId")
+                                                  console.log(reply.userId, "reply.userId")
+                                                  NotificationService.instantSend(socket, 
+                                                    {
+                                                      toUser_id: comment.userId,
+                                                      forWichAction: "reply",
+                                                      actionId: "0",
+                                                      postId: article.id,
+                                                      content: replyInput,
+                                                      postImage: article?.image ? article?.image : ""
+      
+                                                    })
                                                   addReply(
                                                     replyingToCommentId,
                                                     replyInput
                                                   )
+                                                }
                                                 }
                                               >
                                                 <svg
@@ -3707,6 +3814,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     />
                                     <button
                                       onClick={() => {
+                                        console.log("article.idarticle.id",article.id)
+                                  NotificationService.instantSend(socket, 
+                                    {
+                                      toUser_id: article?.user?.user?.id,
+                                      forWichAction: "comment",
+                                      actionId: "0",
+                                      postId: article.id,
+                                      content: comment,
+                                      postImage: article?.image ? article?.image : ""
+                                    })
+
                                         addComment(article.id);
                                         console.log("🚀 ~ Post ~ article.id:", article.id)
                                       }

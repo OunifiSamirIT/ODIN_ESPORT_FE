@@ -25,7 +25,7 @@ export default function LeftMenu({
           <div className="  flex flex-col items-start gap-3 py-4 px-0 w-full rounded-[0.625rem] bg-white  border border-solid shadow-sm border-neutral-900 border-opacity-10 ">
             <Link to="/home" className="nav-content-bttn open-font">
               <div className="flex justify-center items-center gap-4 py-2 px-6 ">
-                <div className="flex justify-center items-center gap-2.5 p-2 rounded-full text-xl font-bold whitespace-nowrap text-zinc-900">
+                <div className="flex justify-center items-center gap-2.5 p-2 rounded-full text-lg font-bold whitespace-nowrap text-zinc-900">
                   <svg
                     width={20}
                     height={20}
@@ -39,7 +39,7 @@ export default function LeftMenu({
                     />
                   </svg>
                 </div>
-                <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
+                <div className="text-[#1d1e21] font-['Sora'] text-lg font-medium leading-[normal]">
                   {getTranslation(
                     `Home`, // -----> Englais
                     `Acceuil` //  -----> Francais
@@ -80,7 +80,7 @@ export default function LeftMenu({
                     />
                   </svg>
                 </div>
-                <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
+                <div className="text-[#1d1e21] font-['Sora'] text-lg font-medium leading-[normal]">
                   {getTranslation(
                     `Profile`, // -----> Englais
                     `Profil` //  -----> Francais
@@ -115,7 +115,7 @@ export default function LeftMenu({
                         />
                       </svg>
                     </div>
-                    <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
+                    <div className="text-[#1d1e21] font-['Sora'] text-lg font-medium leading-[normal]">
                       {getTranslation(
                         `Agents`, // -----> Englais
                         `Agents` //  -----> Francais
@@ -154,7 +154,7 @@ export default function LeftMenu({
                         </defs>
                       </svg>
                     </div>
-                    <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
+                    <div className="text-[#1d1e21] font-['Sora'] text-lg font-medium leading-[normal]">
                       {getTranslation(
                         `Player`, // -----> Englais
                         `Joueur` //  -----> Francais
@@ -172,7 +172,7 @@ export default function LeftMenu({
               onClick={() => {
                 setEventTogglerIsOpenned(!eventTogglerIsOpenned);
               }}
-              className="flex gap-5 justify-between px-6 py-2   w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer"
+              className="flex gap-5 justify-between px-6 py-2   w-full text-lg font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer"
             >
               <div className="flex gap-4 justify-between px-2 py-1.5 ">
                 <img
@@ -200,7 +200,7 @@ export default function LeftMenu({
               <>
                 <div className="toggler mt-[-15px] ml-10px">
                   <Link to="/defaultgroup">
-                    <div className="flex gap-5 justify-between px-6 ml-5 py-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
+                    <div className="flex gap-5 justify-between px-6 ml-5 py-2 w-full text-lg font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
                       <div className="flex gap-4 justify-between px-2 py-1.5 text-base">
                         <svg
                           width="21"
@@ -232,7 +232,7 @@ export default function LeftMenu({
                   </Link>
 
                   <Link to="/challenges  ">
-                    <div className="flex gap-5 justify-between px-6 py-2 ml-5 mt-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
+                    <div className="flex gap-5 justify-between px-6 py-2 ml-5 mt-2 w-full text-lg font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
                       <div className="flex gap-4 justify-between px-2 py-1.5 text-base">
                         <svg
                           width="21"
@@ -261,7 +261,7 @@ export default function LeftMenu({
                   </Link>
 
                   <Link to="/defaultgroupEvents">
-                    <div className="flex gap-5 justify-between px-6 ml-5 py-2 mt-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
+                    <div className="flex gap-5 justify-between px-6 ml-5 py-2 mt-2 w-full text-lg font-medium whitespace-nowrap text-zinc-900 max-md:px-5 cursor-pointer">
                       <div className="flex gap-4 justify-between px-2 py-1.5 text-base">
                         <img
                           loading="lazy"
@@ -287,7 +287,7 @@ export default function LeftMenu({
             <div className="w-full h-[0.3px] opacity-[0.2] bg-[#a3a3a4]" />
 
             <Link to="/homeoffre">
-              <div className="flex gap-3 justify-between px-6  py-2 w-full text-xl font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
+              <div className="flex gap-3 justify-between px-6  py-2 w-full text-lg font-medium whitespace-nowrap text-zinc-900 max-md:px-5">
                 <div className="flex gap-4 justify-between px-2 py-1.5">
                   {" "}
                   <img

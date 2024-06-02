@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import { Context } from "../../../index";
 import Social from "../components/social";
 
-const General = ({ userInfo }) => {
+const General = ({ userInfo, sendNotification }) => {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -229,7 +229,10 @@ const General = ({ userInfo }) => {
                       ) : (
                         <button
                           className="flex items-center "
-                          onClick={sendFriendRequest}
+                          onClick={() => {
+                            sendNotification(id)
+                            sendFriendRequest()
+                          }}
                         >
                           <p>
                             {getTranslation(

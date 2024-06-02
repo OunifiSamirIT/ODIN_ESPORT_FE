@@ -52,6 +52,7 @@ import GalleryDetailscamps from "./pages/Gallerieuserodindetails";
 import GalleryDetailsevent from "./pages/GallerieEventsodindetails";
 import Thankscamps from "./pages/Gallerieuserthankyou";
 import Thanksodinevent from "./pages/Gallerieodineventthankyou.jsx";
+import OnePost from "./components/onePost";
 
 import ShopOne from "./pages/ShopOne";
 import ShopTwo from "./pages/ShopTwo";
@@ -458,7 +459,6 @@ function Root() {
             {/* 02/02 */}
             <Route exact path="/odin/album" element={<Galleryuser />} />
             <Route exact path="/admin/login" element={<AdminLogin />} />
-            <Route path="/sfgsfgsfgsfgsD/*" element={<RootRoutes />} />
 
             {isAuthenticated ? (
               <>
@@ -492,6 +492,8 @@ function Root() {
                   path={`/thanksevent/:id`}
                   element={<Thanksodinevent />}
                 />
+
+               <Route exact path="/onepost/:idP" element={<OnePost />} />
 
                 {/* <Route exact path={`/professionalprofile`} element={<Professionalprofile />} /> */}
 

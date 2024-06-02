@@ -1,0 +1,103 @@
+import { Config } from "../config";
+import UserServer from "./user.server";
+
+let user = JSON.parse(localStorage.getItem('user'));
+let {id, username} = user  ? user : {id: "", username: ""};
+
+class NotificationService {
+  constructor() {
+      
+    }
+
+    static async instantSend (socket, data) {
+        console.log("instantSave id", id) 
+        let userData = await UserServer.fetchUserById(id)
+        let userImage = userData?.user?.image
+        
+        console.log("🚀 ~ NotificationService ~ instantSend ~ userData:", userData, typeof userData, "userData?.user",userData?.user)
+        console.log("🚀 ~ NotificationService ~ instantSend ~ image:", userImage)
+        console.log("instantSavee", data)
+      
+        let notificationData = {
+          
+          fromUser_id: id,
+          fromUser_name: username,
+          fromUser_image: userImage,
+          isReaded: 0 ,
+          content: "",
+          ...data,
+          
+        }
+        console.log("🚀 ~ NotificationService ~ instantSend ~ notificationData:", notificationData)
+
+        if (socket && notificationData) {
+          socket.emit('send-notification', JSON.stringify(notificationData));
+        }
+    }
+
+    static async getNotificationForCurrentUser () {
+      const response = await fetch(Config.LOCAL_URL + '/api/notification/')
+      const notification = await response.json();
+      console.log("🚀 ~ NotificationService ~ getNotificationForCurrentUser ~ res:", notification.data)
+      let data = notification.data
+      let noticationForCurrentUserOnly = []
+      
+      data.map((raw) => {
+        console.log("raw", raw)
+        console.log('raw.toUser_id == id', raw.toUser_id, id, raw.toUser_id == id )
+        if ((raw.toUser_id == id || raw.toUser_id == -1) && raw.toUser_id != raw.fromUser_id ){
+          console.log(raw, id, "rawid")
+          noticationForCurrentUserOnly.push(raw)
+
+        }
+      })  
+      console.log("🚀 ~ NotificationService ~ getNotificationForCurrentUser ~ noticationForCurrentUserOnly:", noticationForCurrentUserOnly)
+    return noticationForCurrentUserOnly
+    }
+
+
+    static listeningToNotification(socketInstance, setnotificationData) {
+      socketInstance.on('get-notification', (data) => {
+     
+        setnotificationData(JSON.parse(data))
+  
+        console.log(`notification data from header: ${data}`);
+      });
+    }
+
+
+    static async deleteNotificationById (id) {
+      let response = await  fetch(Config.LOCAL_URL + '/api/notification/' + id, {
+        method: "DELETE"
+      })
+
+      return response
+    }
+
+    static async deleteAll () {
+      let response = await  fetch(Config.LOCAL_URL + '/api/notificationForUser/' + id , {
+        method: "DELETE"
+      })
+
+      return response
+    }
+ 
+
+    static async setNotificationReaded (id) {
+      let response = await  fetch(Config.LOCAL_URL + '/api/notification/' + id, {
+        method: "PUT"
+      })
+
+      return response
+    }
+    // static realSave () {
+        
+    // }
+
+
+    // static realSave () {
+        
+    // }
+}
+
+export default NotificationService

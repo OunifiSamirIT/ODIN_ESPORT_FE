@@ -14,7 +14,7 @@ import { paysAllInfo } from "../../../assets/data/Country";
 import Modal from 'react-modal';
 import { Context } from "../../../index";
 import Social from "../components/social";
-const PlayerCard = ({ userInfo }) => {
+const PlayerCard = ({ userInfo, sendNotification}) => {
 
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const { id } = useParams();
@@ -220,7 +220,10 @@ const PlayerCard = ({ userInfo }) => {
                                             </svg>
 
                                             {acceptedFriend ? <div className="">{acceptedFriend?.status == 'pending' ? 'En Atente' : 'ami(e)'}</div> :
-                                                <button className="flex items-center " onClick={sendFriendRequest}><p>
+                                                <button className="flex items-center " onClick={() => {
+                                                    sendNotification(id)
+                                                    sendFriendRequest()
+                                                  }}><p>
 
 
                                                     {

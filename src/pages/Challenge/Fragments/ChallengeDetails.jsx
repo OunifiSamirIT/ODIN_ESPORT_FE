@@ -12,7 +12,28 @@ import ParticipantCard from "../Component/ParticipantCard";
 import moment from "moment/moment";
 import '../../../../node_modules/moment/locale/fr';
 import '../../../../node_modules/moment/locale/en-ca';
+
+
+
+import NotificationService from "../../../api/notification.server";
+import { io } from 'socket.io-client';
+
 const ChallengeDetais = () => {
+
+
+
+
+    //initialize socket
+
+    const [socket, setSocket] = useState(null);
+
+    useEffect(() => {
+        const socketInstance = io(Config.LOCAL_URL);
+        setSocket(socketInstance);
+
+    }, []);
+
+
     const {
         register,
         handleSubmit,
@@ -774,7 +795,19 @@ const ChallengeDetais = () => {
                                 <div className="mx-4  text-base font-light text-zinc-900 max-md:mr-2.5 max-md:max-w-full">
                                     {showCase.description}
                                 </div>
-                                {!isVoted ? <div onClick={handleVote} className="flex cursor-pointer justify-center items-center px-4 py-2 mx-2 md:mt-8 mt-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px]">
+                                {!isVoted ? <div onClick={() => {
+                                        NotificationService.instantSend(socket, 
+                                            {
+                                            toUser_id: showCase.user.id,
+                                            forWichAction: "voteChallenge",
+                                            actionId: "0",
+                                            postId: challengeId,
+                                            content: challenges.name,
+                                            postImage: showCase.video ? showCase.video : " "
+                                            }
+                                        )
+                                        handleVote()
+                                    } } className="flex cursor-pointer justify-center items-center px-4 py-2 mx-2 md:mt-8 mt-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px]">
                                     <div className="flex gap-2">
                                         <img
                                             loading="lazy"
@@ -812,7 +845,20 @@ const ChallengeDetais = () => {
                                     <div className="flex w-full gap-5 justify-between whitespace-nowrap">
                                         <div className="flex gap-2 py-2">
                                             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class={`size-6 ${hasLiked ? 'text-orange-500' : ''}`} height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path></svg>
-                                            <button onClick={handleLike} className={`${hasLiked ? 'text-orange-500' : ''}`}>{
+                                            <button onClick={
+                                                    () => {
+                                                        NotificationService.instantSend(socket, 
+                                                            {
+                                                            toUser_id: showCase.user.id,
+                                                            forWichAction: "likeChallenge",
+                                                            actionId: "0",
+                                                            postId: challengeId,
+                                                            content: challenges.name,
+                                                            postImage: showCase.video ? showCase.video : " "
+                                                            }
+                                                        )
+                                                        handleLike()
+                                                    }} className={`${hasLiked ? 'text-orange-500' : ''}`}>{
                                                 getTranslation(
                                                     `Like`,  // -----> Englais
                                                     `J’aime`, //  -----> Francais
@@ -989,7 +1035,21 @@ const ChallengeDetais = () => {
                                                     </div>
                                                     <div className="flex gap-0  justify-between text-base text-zinc-900">
 
-                                                        <div onClick={() => handleReplyLike(item.id)} className={`${item.like.some((l) => l.userId == storedUserData.id)
+                                                        <div onClick={() => {
+                                                            //notlike
+                                                            NotificationService.instantSend(socket, 
+                                                                {
+                                                                toUser_id: item.userId,
+                                                                forWichAction: "likeCommentChallenge",
+                                                                actionId: "0",
+                                                                postId: challengeId,
+                                                                content: challenges.name,
+                                                                postImage: "postImage"
+                                                                }
+                                                            )
+                                                            handleReplyLike(item.id)
+                                                        }
+                                                        } className={`${item.like.some((l) => l.userId == storedUserData.id)
                                                             ? 'text-orange-500'
                                                             : ''
                                                             } ${hasLikedReply.includes(item.id) ? 'text-orange-500' : '!text-black'} flex items-center gap-2 py-2 whitespace-nowrap cursor-pointer`}>
@@ -1121,7 +1181,21 @@ const ChallengeDetais = () => {
                                             />
                                             <button
                                                 className="ml-2"
-                                                onClick={handleCommentaire}
+                                                onClick={
+                                                    () => {
+                                                            //notlike
+                                                            NotificationService.instantSend(socket, 
+                                                                {
+                                                                toUser_id: showCase.user.id,
+                                                                forWichAction: "commentChallenge",
+                                                                actionId: "0",
+                                                                postId: challengeId,
+                                                                content: challenges.name,
+                                                                postImage: showCase.video ? showCase.video : " "
+                                                                }
+                                                            )
+                                                        handleCommentaire()
+                                                    }}
                                             >
                                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z" fill="#2E71EB" />

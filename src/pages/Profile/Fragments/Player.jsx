@@ -10,7 +10,7 @@ import Modal from "react-modal";
 import { Context } from "../../../index";
 import Social from "../components/social";
 
-const PlayerCard = ({ userInfo }) => {
+const PlayerCard = ({ userInfo, sendNotification }) => {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -235,7 +235,10 @@ const PlayerCard = ({ userInfo }) => {
                       ) : (
                         <button
                           className="flex items-center "
-                          onClick={sendFriendRequest}
+                          onClick={() => {
+                            sendNotification(id)
+                            sendFriendRequest()
+                          }}
                         >
                           <p>
                             {getTranslation(

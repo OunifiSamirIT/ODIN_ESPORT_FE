@@ -4,6 +4,12 @@ import Darkbutton from "../components/Darkbutton";
 import Logo from "../assets/ODIN22.png";
 import SlideMenu from "./SlideMenu";
 import "../components/Hamburger.css";
+import campImg from "../assets/campImg.png"
+import challengeImg from "../assets/challengeImg.png"
+import eventImg from "../assets/challengeImg.png"
+
+import noNot from "../assets/noNot.png";
+import SelfNot from "./selfNotification";
 
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import { Config } from "../config";
@@ -14,7 +20,327 @@ import Userdefault from "../assets/userdefault.jpg";
 import BurgerMenuLink from "./BurgerMenuLink";
 import LanguageToggler from "../fixDesignComponents/languageToggler";
 import { Context } from "../index";
+import MobileNotification from "./MobileNotification" 
+// notification importation
+import gsap from "gsap";
+import { io } from "socket.io-client";
+import NotificationService from "../api/notification.server";
+import DesktopNotification from "./DesktopNotification";
+import MobileNotificationPopup from "./MobileNotificationPopup";
+import DesktopNotificationPopup from "./DesktopNotificationPopup";
+//end
+
 function Header() {
+  let [notificationData, setnotificationData] = useState([]);
+  let [ isNotifyBlocked, setNotifyBlocked] = useState(true);
+  let [activeBtn, setActiveBtn] = useState(true); 
+  
+  let animateRinging = () => {
+    gsap.timeline()
+    .to('.notifyContainer', {
+      opacity: 1,
+      x: 0
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "0deg"      
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "0deg"      
+    })
+    .to('.notifyContainer', {
+      delay: 1,
+      opacity: 0,
+      x: -3
+    })
+    .to('.notifyContainer', {
+      duration: 0,
+      opacity: 0,
+      x: 5
+    })
+  }
+  
+  let animateBell = () =>  {
+    gsap.timeline()
+    
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "0deg"      
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.bellImageBlueX21Notification', {
+      duration: .1,
+      rotate: "0deg"      
+    })
+
+    
+  }
+
+  let notifyBrowser = () => {
+    if(window.Notification && Notification.permission !== "denied") {
+      Notification.requestPermission(function(status) {  // status is "granted", if accepted by user
+       let lastNotificationData =  notificationData[0] 
+        
+        function getBodyContent() {
+          if (lastNotificationData.forWichAction ==  "like") {
+            return "Aimeé Ton poste."
+          } 
+          if (lastNotificationData.forWichAction ==  "likeComment") {
+            return "Aimeé Ton commentaire " +  lastNotificationData.content.substring(0,10) + "..."  
+          }
+          if (lastNotificationData.forWichAction ==  "comment") {
+            return "Commenteé a Ton commentaire " +  lastNotificationData.content.substring(0,10) + "..."  
+          }
+          if (lastNotificationData.forWichAction ==  "reply") {
+            return "Repondre Ton commentaire "  +  lastNotificationData.content.substring(0,10) + "..."  
+          }
+          if (lastNotificationData.forWichAction ==  "AcceptRequest") {
+            return "Accepté Ton  invitation."
+          }
+          if (lastNotificationData.forWichAction ==  "AddRequest") {
+            return "Envoyeé a vous invitation."
+          } 
+          if (lastNotificationData.forWichAction ==  "share") {
+            return "Partageé Ton poste."
+          }
+          if (lastNotificationData.forWichAction ==  "camp") {
+            return 'Camp valable  "' + lastNotificationData.content + '"'
+          }
+          if (lastNotificationData.forWichAction ==  "challenge") {
+            return 'Challenge valable dans "'  +  lastNotificationData.content + '"'
+          } 
+          if (lastNotificationData.forWichAction ==  "event") {
+            return 'Odin event valable dans "'  +  lastNotificationData.content + '"'
+          } 
+           
+          if (lastNotificationData.forWichAction ==  "likeChallenge") {
+            return 'A aimé votre participation au défi ' +  lastNotificationData.content + '"'  
+          }
+          if (lastNotificationData.forWichAction ==  "commentChallenge") {
+            return 'A commenté votre participation au défi "' +  lastNotificationData.content + '"'  
+          }
+          if (lastNotificationData.forWichAction ==  "voteChallenge") {
+            return 'A voté votre participation au défi "' +  lastNotificationData.content + '"'  
+          }
+          if (lastNotificationData.forWichAction ==  "likeCommentChallenge") {
+            return 'A aimé votre commentaire dans participation au défi "' +  lastNotificationData.content + '"'  
+          }
+        }
+
+        function getBodyImage() {
+          if (lastNotificationData.forWichAction == "share" ||
+          lastNotificationData.forWichAction == "like" ||
+          lastNotificationData.forWichAction == "comment" ||
+          lastNotificationData.forWichAction == "reply" ||
+          lastNotificationData.forWichAction == "likeComment" ||
+          lastNotificationData.forWichAction == "AddRequest" ||
+          lastNotificationData.forWichAction == "AcceptRequest"||
+          lastNotificationData.forWichAction == "likeChallenge" ||
+          lastNotificationData.forWichAction == "commentChallenge"||
+          lastNotificationData.forWichAction == "voteChallenge"||
+          lastNotificationData.forWichAction == "likeCommentChallenge") {
+            return lastNotificationData.fromUser_image 
+          }
+
+          if (lastNotificationData.forWichAction == "camp" ) {
+            return  campImg
+          } 
+          if (lastNotificationData.forWichAction == "challenge" ) {
+            return  challengeImg
+          } 
+          if (lastNotificationData.forWichAction == "event" ) {
+            return  eventImg
+          } 
+        }
+
+        
+        function getLink() {
+          const url = {
+
+            LOCAL_URL :  'http://localhost:3000',
+            HOST_URL :  'https://odinesport.com/home',
+        }
+          if (lastNotificationData.forWichAction == "share" ||
+          lastNotificationData.forWichAction == "like" ||
+          lastNotificationData.forWichAction == "comment" ||
+          lastNotificationData.forWichAction == "reply" ||
+          lastNotificationData.forWichAction == "likeComment") {
+            return  url.LOCAL_URL + "/onepost/" + lastNotificationData.postId
+          }
+          
+          if(
+          
+            lastNotificationData.forWichAction == "AcceptRequest") {
+              http://localhost:3000/friends
+              return  url.LOCAL_URL + "/profile/" + lastNotificationData.fromUser_id
+            }
+            if(
+              lastNotificationData.forWichAction == "AddRequest" ) {
+                return  url.LOCAL_URL + "/friends/" 
+              }
+          if(
+          lastNotificationData.forWichAction == "likeChallenge" ||
+          lastNotificationData.forWichAction == "commentChallenge"||
+          lastNotificationData.forWichAction == "voteChallenge"||
+          lastNotificationData.forWichAction == "likeCommentChallenge") {
+            return  url.LOCAL_URL + "/challenges/details/" + lastNotificationData.postId
+          }
+  
+          if (lastNotificationData.forWichAction == "camp" ) {
+            return  url.LOCAL_URL + "/defaultgroup/" 
+          }    
+          if (lastNotificationData.forWichAction == "challenge" ) {
+            return  url.LOCAL_URL + "/challenges"
+          } 
+          if (lastNotificationData.forWichAction == "event" ) {
+            return  url.LOCAL_URL + "/defaultgroupEvents/" 
+          }  
+        }
+      //  let bodyContent =  lastNotificationData.fromUser_name + " " + getBodyContent()
+       let bodyContent = lastNotificationData.fromUser_name + " " +  getBodyContent()
+
+       //test data not
+        // alert(JSON.stringify (lastNotificationData)) 
+        let n = new Notification('ODIN E-SPORT', {  
+          body: bodyContent,
+          icon:  getBodyImage(),// optional
+          
+        }); 
+
+        
+        n.onclick =  (event) => {
+          event.preventDefault(); // prevent the browser from focusing the Notification's tab
+          window.open(getLink(), "_blank");
+        };     
+      }); 
+    }
+  }
+
+  //socket
+  const [socket, setSocket] = useState(null);
+  //get all notifcation data 
+  let getNotificationForCurrentUser =  () => {
+   setTimeout( async () =>  {
+    let data =
+    await NotificationService.getNotificationForCurrentUser();
+  setnotificationData(data.reverse());
+
+  let unReadedData = data.filter(raw => {
+    if (raw.isReaded == false) return raw
+  })
+  setUnreadedData( unReadedData)
+   }, 1000)
+  };
+  useEffect(() => {
+    const socketInstance = io(Config.LOCAL_URL);
+    setSocket(socketInstance);
+
+    // listen for events emitted by the server
+
+    socketInstance.on("connect", () => {
+      console.log("Connected to server");
+    });
+ 
+    socketInstance.on("get-notification", () => {
+      getNotificationForCurrentUser();
+
+    });
+
+    return () => {
+      if (socketInstance) {
+        socketInstance.disconnect();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+      getNotificationForCurrentUser();
+
+        Notification.requestPermission()
+      
+       
+
+  }, []);
+
+  //notify
+  const tone = useRef(new Audio(require('../assets/sound/simple_notif.mp3')));
+
+  useEffect(() => {
+
+    setTimeout(() => {
+      setNotifyBlocked(false)
+    }, 6000)
+    if (!isNotifyBlocked && notificationData.length != 0) {
+      // animateRinging()
+      animateBell() 
+      notifyBrowser()
+      tone.current.play(); 
+
+    }
+  }, [notificationData.length])
+
+  // all & unread filtrage notification
+
+
+  //delete notification by id
+  let deleteNotData = (id) => {
+    NotificationService.deleteNotificationById(id);
+    setnotificationData(
+      notificationData.filter((not) => {
+        return not.id != id;
+      })
+    );
+  };
   const iconImages = {
     Profilesearch,
     Football,
@@ -35,7 +361,7 @@ function Header() {
   const [search, setSearch] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
+const [UnreadedData, setUnreadedData] = useState([])
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const [isActive, setIsActive] = useState(null);
@@ -75,22 +401,28 @@ function Header() {
   }, []);
 
   const handleSearch = (event) => {
-    const searchString = event.target.value.toLowerCase();
+    const searchString = event.target.value;
     setSearchTerm(searchString);
     if (searchString.trim() === "") {
       setSearchResults([]);
     } else {
       const filteredTargets = search
-        .filter((item) => item.titre.toLowerCase().includes(searchString))
-        .map((target) => ({ ...target, origin: "Page" }));
+        .filter(
+          (item) =>
+            item.titre.toLowerCase().startsWith(searchString.toLowerCase()) ||
+            item.titre.toLowerCase().includes(searchString.toLowerCase())
+        )
+        .map((target) => ({ ...target, origin: "Page" })); // Adding origin property to filtered targets
 
       const filteredUsers = users
-        .filter((user) => {
-          const fullName =
-            `${user?.user?.nom} ${user?.user?.prenom}`.toLowerCase();
-          return fullName.includes(searchString);
-        })
-        .map((user) => ({ ...user.user, origin: "Personne" }));
+        .filter(
+          (user) =>
+            user?.user?.nom
+              .toLowerCase()
+              .startsWith(searchString.toLowerCase()) ||
+            user?.user?.nom.toLowerCase().includes(searchString.toLowerCase())
+        )
+        .map((user) => ({ ...user.user, origin: "Personne" })); // Adding origin property to filtered users
 
       setSearchResults([...filteredTargets, ...filteredUsers]);
     }
@@ -118,6 +450,8 @@ function Header() {
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
   const [Hamburger, setHumberger] = useState(false);
+  const [mobileNotificationPopUpContainer, setMobileNotificationPopUpContainer] = useState(false);
+  
   const handleClickHamburger = () => {
     setHumberger(!Hamburger);
   };
@@ -134,11 +468,13 @@ function Header() {
     // Redirect to the login page or another route
     navigate("/login");
   };
+
+ 
   return (
     <>
       <div
         className={`w-full dark-bg fixed z-50 shadow-xs ${
-          Hamburger ? "fixed top-0 h-screen overflow-hidden z-50" : ""
+          Hamburger || mobileNotificationPopUpContainer ? "fixed top-0 h-screen overflow-hidden z-50" : ""
         }`}
       >
         {" "}
@@ -226,6 +562,7 @@ function Header() {
                   </clipPath>
                 </defs>
               </svg> */}
+
               <svg
                 width="86"
                 height="60"
@@ -361,8 +698,8 @@ function Header() {
                 {" "}
               </span>
             </a>
-
-            <div className="hidden md:flex pl-2 pt-4 w-full min-w-[250px]">
+             
+            <div className="hidden md:flex  pl-2 pt-4 w-full min-w-[250px]  ">
               <div className="flex items-center relative ">
                 <div className="flex items-center whitespace-nowrap dark-bg pr-2 pl-2 h-11 w-[250px] rounded-full mr-4 border border-black absolute top-0">
                   <input
@@ -385,9 +722,10 @@ function Header() {
                     />
                   </svg>
                 </div>
+
                 <div className="">
                   {searchResults.length > 0 && (
-                    <ul className="bg-white shadow-md rounded-md mt-1 px-4 py-2 max-h-60 absolute top-[40px] min-w-[350px] overflow-y-scroll">
+                    <ul className="bg-white shadow-md rounded-md mt-1 px-4 py-2 max-h-60 absolute top-[40px]  min-w-[350px] overflow-y-scroll ">
                       {searchResults.map((item, index) => (
                         <React.Fragment key={index}>
                           {index === 0 ||
@@ -398,7 +736,7 @@ function Header() {
                           ) : null}
                           <li
                             key={item.id}
-                            className="flex items-center py-1 space-x-4"
+                            className="flex items-center py-1 space-x-4 "
                           >
                             {item.icon ? (
                               <img
@@ -406,6 +744,7 @@ function Header() {
                                 alt={item.titre}
                                 width="20"
                                 height="20"
+                                className=""
                               />
                             ) : (
                               <img
@@ -414,13 +753,22 @@ function Header() {
                                 className="rounded-full object-fill w-10 h-10"
                               />
                             )}
+                            {/* <a href={`/profile/${item.id}`} className="pr-4">
+                              {item.titre || item.nom + " " + item.prenom}
+                            </a> */}
                             <a
                               href={`/profile/${item.id}`}
                               className="pr-4 flex flex-row"
                             >
                               <div className="flex pr-2">
-                                {item.titre || `${item.nom} ${item.prenom}`}
+                                {" "}
+                                {item.titre || item.nom + " " + item.prenom}
                               </div>
+                              {/* <div className="flex text-gray-400 text-xs pt-1 ">
+                         {item.titre || item?.profil == 'other' ? item?.other?.profession : ''}
+                         
+                         
+                         </div> */}
                             </a>
                           </li>
                         </React.Fragment>
@@ -429,18 +777,64 @@ function Header() {
                   )}
                 </div>
               </div>
-            </div>
           </div>
-
+            </div>
           <div className="flex items-center">
+
+
+          <DesktopNotification 
+             deleteNotData={deleteNotData}
+             notificationData={notificationData}
+             setnotificationData={setnotificationData} 
+             NotificationService={NotificationService} />
+          <DesktopNotificationPopup 
+           deleteNotData={deleteNotData}
+           notificationData={activeBtn ? notificationData: UnreadedData}
+           setnotificationData={setnotificationData} 
+           NotificationService={NotificationService} 
+           activeBtn={activeBtn} setActiveBtn = { setActiveBtn}
+           setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
+           getNotificationForCurrentUser={getNotificationForCurrentUser}
+          />
+          <MobileNotification 
+                    
+                    deleteNotData={deleteNotData}
+                    notificationData={notificationData}
+                    setnotificationData={setnotificationData} 
+                    NotificationService={NotificationService} 
+                    setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
+                    /> 
+
+                  
             <SlideMenu
               setIsActive={setIsActive}
               setHumberger={setHumberger}
               Hamburger={Hamburger}
+
+             deleteNotData={deleteNotData}
+             notificationData={notificationData}
+             setnotificationData={setnotificationData} 
+             NotificationService={NotificationService}
             />
           </div>
         </div>
+      {
+        mobileNotificationPopUpContainer &&  
+        <MobileNotificationPopup
+        deleteNotData={deleteNotData}
+        notificationData={activeBtn ? notificationData: UnreadedData}
+        setnotificationData={setnotificationData} 
+        NotificationService={NotificationService} 
+        activeBtn={activeBtn} setActiveBtn = { setActiveBtn}
+        getNotificationForCurrentUser={getNotificationForCurrentUser}
+
+
+        setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
+        />
+      }
+      
         {Hamburger && (
+          
           <div className="bg-zinc-100 fixed left-0 z-0 py-4 md:hidden w-screen h-screen overflow-y-scroll z-90">
             <div className="flex flex-col items-center pb-12 mx-auto w-full max-w-[480px]  overflow-hidden ">
               <div className="flex flex-col gap-y-4 items-center pb-12 mx-auto w-full max-w-[480px] h-[1000] ">
@@ -450,11 +844,12 @@ function Header() {
                     srcSet={user?.user?.image}
                     className="my-auto rounded-full aspect-square w-[35px]"
                   />
+
                   <div className="flex flex-col flex-1">
                     <div className="text-lg">
                       {user?.user?.nom + " " + user?.user?.prenom}
                     </div>
-                    <a href={`/profile/${user?.user?.id}`} className="text-sm">
+                    <Link to={`/profile/${user?.user?.id}`} className="text-sm">
                       {" "}
                       {getTranslation(
                         `Profile`, // -----> Englais
@@ -462,7 +857,7 @@ function Header() {
                         //   ``,  //  -----> Turkey
                         //   `` ,  //  -----> Allemagne
                       )}
-                    </a>
+                    </Link>
                   </div>
                 </div>
 

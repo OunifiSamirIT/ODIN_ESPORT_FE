@@ -5,7 +5,31 @@ import Placeholder from "../assets/placeholder.jpg";
 import FriendRequest from "./../pages/Profile/FriendRequest";
 import { Context } from "../index";
 
+import { io } from 'socket.io-client';
+import NotificationService from '../api/notification.server';
 function Friends() {
+
+
+  //initialize socket
+
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    const socketInstance = io(Config.LOCAL_URL);
+  setSocket(socketInstance);
+
+  }, []);
+  
+  //send accepted request notification
+  let sendNotification = (id)  => {NotificationService.instantSend(socket, 
+      {
+        toUser_id: id,
+        forWichAction: "AcceptRequest",
+        actionId: "0",
+        postId: "",
+        postImage: ""
+      })
+  }
   // const [friendRequests, setFriendRequests] = useState(null);
   const [userpf, setUserpf] = useState(null);
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -133,13 +157,16 @@ function Friends() {
 
             <div className="card-body d-flex align-items-center pt-0 ps-4 mt-2 pe-4 pb-4">
               <button
-                onClick={() => acceptInvitation(item.receiver.id)}
+                onClick={() => {
+                  sendNotification(item?.friendRequest?.receiver?.id)
+                  acceptInvitation(item?.friendRequest?.receiver?.id)
+                }}
                 className="grow justify-center px-6 py-2 mr-3 text-white text-center bg-blue-600 rounded-[30px] max-md:px-5"
               >
                 Accepter
               </button>
               <button
-                onClick={() => deleteInviation(item.receiver.id)}
+                onClick={() => deleteInviation(item?.friendRequest?.receiver?.id)}
                 className="grow justify-center px-6 text-white py-2 text-center bg-orange-500 rounded-[30px] max-md:px-5"
               >
                 Supprimer
