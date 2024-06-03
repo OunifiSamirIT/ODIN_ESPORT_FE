@@ -7,33 +7,29 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header2";
 import { Context } from "../../index";
 
-import { io } from 'socket.io-client';
-import NotificationService from '../../api/notification.server';
+import { io } from "socket.io-client";
+import NotificationService from "../../api/notification.server";
 
 const FriendRequest = () => {
-
-
-
   //initialize socket
 
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const socketInstance = io(Config.LOCAL_URL);
-  setSocket(socketInstance);
-
+    setSocket(socketInstance);
   }, []);
-  
+
   //send accepted request notification
-  let sendNotification = (id)  => {NotificationService.instantSend(socket, 
-      {
-        toUser_id: id,
-        forWichAction: "AcceptRequest",
-        actionId: "0",
-        postId: "",
-        postImage: ""
-      })
-  }
+  let sendNotification = (id) => {
+    NotificationService.instantSend(socket, {
+      toUser_id: id,
+      forWichAction: "AcceptRequest",
+      actionId: "0",
+      postId: "",
+      postImage: "",
+    });
+  };
 
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
   const [user, setUser] = useState([]);
@@ -451,19 +447,24 @@ const FriendRequest = () => {
                   return (
                     <div className="col-span-1">
                       <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:mt-6">
-                        <img
-                          loading="lazy"
-                          src={
-                            item?.friendRequest?.receiver?.image
-                              ? item?.friendRequest?.receiver.image
-                              : Placeholder
-                          }
-                          className="self-center max-w-full rounded-full aspect-square w-[120px]"
-                        />
-                        <div className="self-center mt-4 text-xl font-medium text-black">
-                          {item?.friendRequest?.receiver?.nom}{" "}
-                          {item?.friendRequest?.receiver?.prenom}
-                        </div>
+                        <Link
+                          to={`/profile/${item?.friendRequest?.receiver?.id}`}
+                        >
+                          <img
+                            loading="lazy"
+                            src={
+                              item?.friendRequest?.receiver?.image
+                                ? item?.friendRequest?.receiver.image
+                                : Placeholder
+                            }
+                            className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                          />
+
+                          <div className="self-center mt-4 text-xl font-medium text-black">
+                            {item?.friendRequest?.receiver?.nom}{" "}
+                            {item?.friendRequest?.receiver?.prenom}
+                          </div>
+                        </Link>
                         <div className="flex gap-2 justify-between mt-4 w-full">
                           <div className="flex gap-4 justify-between px-1 font-light whitespace-nowrap">
                             <img
@@ -558,14 +559,16 @@ const FriendRequest = () => {
                         </div>
                         <div className="flex gap-2 justify-between mt-4 text-base font-medium text-white whitespace-nowrap">
                           <button
-                            onClick={() =>{
-                                // alert(item?.friendRequest?.receiver?.id)
-                                sendNotification(item?.friendRequest?.receiver?.id)
-                                
-                                acceptInvitation(item?.friendRequest?.receiver?.id) 
+                            onClick={() => {
+                              // alert(item?.friendRequest?.receiver?.id)
+                              sendNotification(
+                                item?.friendRequest?.receiver?.id
+                              );
 
-                              }
-                            }
+                              acceptInvitation(
+                                item?.friendRequest?.receiver?.id
+                              );
+                            }}
                             className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5"
                           >
                             {getTranslation(
