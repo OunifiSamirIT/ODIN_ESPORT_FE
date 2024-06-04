@@ -1,19 +1,26 @@
-import React, {useState} from 'react'
-import ringing from "../assets/ringing2.png"
+import React, { useEffect, useState } from "react";
+import ringing from "../assets/ringing2.png";
 import bellNotification from "../assets/bellNotification.png";
 import noNot from "../assets/noNot.png";
-import gsap from "gsap"
+import gsap from "gsap";
 import SelfNot from "../components/selfNotification";
 
-export default function DesktopNotification({notificationData, deleteNotData, setnotificationData, NotificationService}) {
-     // notification
-     let unreadedNotification = notificationData.filter( raw => {
-      if(raw.isReaded == "0"){ return raw}
-      
-
-     })
-  let togglePopupNotification = () => {
-
+export default function DesktopNotification({
+  notificationData,
+  deleteNotData,
+  setnotificationData,
+  NotificationService,
+  expandedslide,
+}) {
+  // notification
+  let unreadedNotification = notificationData.filter((raw) => {
+    if (raw.isReaded == "0") {
+      return raw;
+    }
+  });
+  useEffect(() => console.log("hello"), [expandedslide]);
+  console.log(expandedslide, "aaa");
+  let togglePopupNotification = (expandedslide) => {
     !popupNotificationIsHidden
       ? gsap
           .timeline()
@@ -81,50 +88,57 @@ export default function DesktopNotification({notificationData, deleteNotData, se
   let [popupNotificationIsHidden, setPopupNotificationHidden] = useState(true);
 
   return (
-    <span className="max-sm:hidden md:flex notificationOuterContainer -translate-x-6 -translate-y-1">
-    <div style={{
-      display: notificationData.length ? "flex": "none"
-    }} className="countableContainer ">
-      {unreadedNotification.length}
+    <div className="mt-[9px]">
+      {" "}
+      <span className="max-sm:hidden md:flex notificationOuterContainer -translate-x-4 -translate-y-1">
+        <div
+          style={{
+            display: notificationData.length ? "flex" : "none",
+          }}
+          className="countableContainer "
+        >
+          {unreadedNotification.length}
+        </div>
+        <div
+          className="notifyContainer"
+          style={{
+            minWidth: 300,
+            right: 50,
+          }}
+        >
+          <img src={ringing} alt="" />
+          vous avez une nouvelle notification
+        </div>
+        <div
+          className="notificationCon "
+          // style={
+          //   notificationData.length > 0
+          //     ? {
+          //         backgroundColor: "#2563eb",
+          //         border: " none",
+          //       }
+          //     : {
+          //         backgroundColor: "#2563eb00",
+          //         boxShadow: " 0 0 12px -1px #2563eb00",
+          //         border: " 1px solid #bbb",
+          //       }
+          // }
+        >
+          <div className="imgcon " onClick={togglePopupNotification}>
+            <img
+              // style={{
+              //   filter:
+              //     notificationData.length > 0
+              //       ? "invert(1)"
+              //       : "invert(0.5)",
+              // }}
+              className="bellImageBlueX21Notification"
+              src={bellNotification}
+              alt=""
+            />
+          </div>
+        </div>
+      </span>
     </div>
-    <div className="notifyContainer" style={{
-    minWidth: 300,
-    right: 50
-
-
-    }}>
-      <img src={ringing} alt="" />
-    vous avez une nouvelle notification
-    </div>
-    <div
-      className="notificationCon "
-      // style={
-      //   notificationData.length > 0
-      //     ? {
-      //         backgroundColor: "#2563eb",
-      //         border: " none",
-      //       }
-      //     : {
-      //         backgroundColor: "#2563eb00",
-      //         boxShadow: " 0 0 12px -1px #2563eb00",
-      //         border: " 1px solid #bbb",
-      //       }
-      // }
-    >
-      <div className="imgcon " onClick={togglePopupNotification}>
-        <img
-          // style={{
-          //   filter:
-          //     notificationData.length > 0
-          //       ? "invert(1)"
-          //       : "invert(0.5)",
-          // }}
-          className="bellImageBlueX21Notification"
-          src={bellNotification}
-          alt=""
-        />
-      </div>
-    
-    </div>
-  </span>  )
+  );
 }
