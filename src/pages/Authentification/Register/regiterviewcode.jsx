@@ -7,7 +7,7 @@ import Logo2 from "../assets/2.png";
 import Logo3 from "../assets/3.png";
 import Logo4 from "../assets/4.png";
 import Logo5 from "../assets/5.png";
-import paysAll from "./Pays.json";
+import paysAll from "../../Pays.json";
 // import pays from "./Pays.json";
 import { v4 as uuidv4 } from "uuid";
 import ReactFlagsSelect from "react-flags-select";

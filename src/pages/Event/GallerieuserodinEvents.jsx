@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Header2";
+import Header from "../../components/Header2";
 // import Leftnav from '../../components/Leftnav';
 // import Rightchat from '../../components/Rightchat';
-import Pagetitle from "../components/Pagetitle";
+
 // import Appfooter from '../../components/Appfooter';
 // import Popupchat from '../../components/Popupchat';
-import Load from "../components/Load";
+
 import { Link, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
-import { paysAllInfo } from "../assets/data/Country";
-import "./flags.css";
+import { paysAllInfo } from "../../assets/data/Country";
+import "../flags.css";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Config } from "../config";
-import LeftMenu from "../components/LeftMenu";
-import { Context } from "../index";
+import { Config } from "../../config";
+import LeftMenu from "../../components/LeftMenu";
+import { Context } from "../../index";
+import Index from "../Profile/Index";
 
 const Album = () => {
   const [album, setAlbum] = useState([]);

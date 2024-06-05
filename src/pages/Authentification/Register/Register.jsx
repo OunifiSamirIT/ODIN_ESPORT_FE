@@ -1,30 +1,30 @@
 import React, { Component, Fragment, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import D from "../assets/userdefault.jpg";
-import Logo from "../assets/logo.png";
-import Logo1 from "../assets/1.png";
-import Logo2 from "../assets/2.png";
-import Logo3 from "../assets/3.png";
-import Logo4 from "../assets/4.png";
-import Logo5 from "../assets/5.png";
-import paysAll from "./Pays.json";
+import D from "../../../assets/userdefault.jpg";
+import Logo from "../../../assets/logo.png";
+import Logo1 from "../../../assets/1.png";
+import Logo2 from "../../../assets/2.png";
+import Logo3 from "../../../assets/3.png";
+import Logo4 from "../../../assets/4.png";
+import Logo5 from "../../../assets/5.png";
+import paysAll from "../../Pays.json";
 // import pays from "./Pays.json";
 import { v4 as uuidv4 } from "uuid";
 import ReactFlagsSelect from "react-flags-select";
-import "./flags.css";
+import "../../flags.css";
 import Select, { components } from "react-select";
 import * as yup from "yup";
-import { Config } from "../config";
-import RP from "../assets/Rolepersonne.png";
+import { Config } from "../../../config";
+import RP from "../../../assets/Rolepersonne.png";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import Modal from "react-modal";
-import Header from "../components/Header3";
-import { Context } from "../index";
+import Header from "../../../components/Header3";
+import { Context } from "../../../index";
 // import "react-modal/styles.css";
-import checkedMark from "../assets/check-mark.png";
-import PdfModal from "../pages/PdfModal";
+import checkedMark from "../../../assets/check-mark.png";
+import PdfModal from "../../../pages/PdfModal";
 
 const paysAllInfo = [
   {
@@ -6106,7 +6106,7 @@ function Register() {
                             <header className="min-h-10 bg-blue-600 flex items-center justify-center">
                               <img
                                 className="w-6 h-6 invert"
-                                src={require("../assets/calendar.png")}
+                                src={require("../../../assets/calendar.png")}
                               />
                             </header>
                             <main className="overflow-y-scroll items-center justify-center bg-white flex flex-wrap max-h-40">
@@ -6241,7 +6241,7 @@ function Register() {
                                 className="pl-1 h-5 "
                               >
                                 <img
-                                  src={require("../assets/down.png")}
+                                  src={require("../../../assets/down.png")}
                                   className="w-5  invert-[.8]"
                                 />
                               </span>
@@ -7702,7 +7702,7 @@ function Register() {
                                 className="pl-2 h-5 "
                               >
                                 <img
-                                  src={require("../assets/down.png")}
+                                  src={require("../../../assets/down.png")}
                                   className="w-5  invert-[.7]"
                                 />
                               </span>
@@ -8992,7 +8992,7 @@ function Register() {
                                   className="pl-1 h-5 "
                                 >
                                   <img
-                                    src={require("../assets/down.png")}
+                                    src={require("../../../assets/down.png")}
                                     className="w-5  invert-[.8]"
                                   />
                                 </span>

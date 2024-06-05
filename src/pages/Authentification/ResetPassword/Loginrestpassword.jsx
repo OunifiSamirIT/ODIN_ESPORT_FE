@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import CustomButton from "../components/CustomButton";
-import Loading from "../components/Loading";
+
+import Loading from "../../../components/Loading";
 
 function Login() {
   const [errMsg, setErrMsg] = useState("");

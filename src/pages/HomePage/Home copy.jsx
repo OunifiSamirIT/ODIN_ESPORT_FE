@@ -1,32 +1,32 @@
 import React, { Component, Fragment, useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Post from "../components/Post";
-import Albumsadmin from "../components/Albumsadmin";
-import Header from "../components/Header2";
-import Leftnav from "../components/Leftnav";
-import Rightchat from "../components/Rightchat";
-import Appfooter from "../components/Appfooter";
-import Popupchat from "../components/Popupchat";
-import LeftMenu from "../components/LeftMenu";
-import RightMenu from "../components/RightMenu";
-import Friends from "../components/Friends";
-import Contacts from "../components/Contacts";
-import Group from "../components/Group";
-import Events from "../components/Events";
-import Createpost from "../components/Createpost";
-import Memberslider from "../components/Memberslider";
-import Friendsilder from "../components/Friendsilder";
-import Storyslider from "../components/Storyslider";
-import Postview from "../components/Postview";
-import Load from "../components/Load";
-import Profilephoto from "../components/Profilephoto";
-import TextInput from "../components/TextInput";
-import CustomButton from "../components/CustomButton";
+import Post from "../../components/Post";
+import Albumsadmin from "../../components/Albumsadmin";
+import Header from "../../components/Header2";
+import Leftnav from "../../components/Leftnav";
+import Rightchat from "../../components/Rightchat";
+import Appfooter from "../../components/Appfooter";
+import Popupchat from "../../components/Popupchat";
+import LeftMenu from "../../components/LeftMenu";
+import RightMenu from "../../components/RightMenu";
+import Friends from "../../components/Friends";
+import Contacts from "../../components/Contacts";
+import Group from "../../components/Group";
+import Events from "../../components/Events";
+import Createpost from "../../components/Createpost";
+import Memberslider from "../../components/Memberslider";
+import Friendsilder from "../../components/Friendsilder";
+import Storyslider from "../../components/Storyslider";
+import Postview from "../../components/Postview";
+import Load from "../../components/Load";
+import Profilephoto from "../../components/Profilephoto";
+import TextInput from "../../components/TextInput";
+import CustomButton from "../../components/CustomButton";
 import { BsFiletypeGif, BsPersonFillAdd, BsTypeH1 } from "react-icons/bs";
-import placeholder from "../assets/placeholder.jpg";
+import placeholder from "../../assets/placeholder.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Config } from "../config";
+import { Config } from "../../config";
 import {
   BiEditAlt,
   BiHeart,
@@ -41,7 +41,7 @@ import {
   BiLogInCircle,
   BiUndo,
 } from "react-icons/bi";
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
 import {
   Link,
   Navigate,
@@ -49,11 +49,11 @@ import {
   useLocation,
   json,
 } from "react-router-dom";
-import GallerieOdin from "./Gallerieuserodin";
-import AdminImg from "../assets/ODIN22.png";
+
+import AdminImg from "../../assets/ODIN22.png";
 import SkeletonArticleCard from "./HomeSkeletonPost";
-import CreatePost from "../components/CreatePostss";
-import CreatePostModal from "../components/CreatePostModal";
+import CreatePost from "../../components/CreatePostss";
+import CreatePostModal from "../../components/CreatePostModal";
 function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

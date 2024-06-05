@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import Logo from "../assets/ODIN22.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import SlideMenu from "../components/SlideMenu";
-import { Config } from "../config";
-import Header from "../components/Header2";
-import { Context } from "../index";
+
+import { Config } from "../../config";
+import Header from "../../components/Header2";
+import { Context } from "../../index";
 
 const Album = () => {
   const [isActive, setIsActive] = useState(false);

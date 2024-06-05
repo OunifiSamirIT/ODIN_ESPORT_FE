@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Header2";
+import Header from "../../components/Header2";
 // import Leftnav from '../../components/Leftnav';
 // import Rightchat from '../../components/Rightchat';
-import Pagetitle from "../components/Pagetitle";
+
 // import Appfooter from '../../components/Appfooter';
 // import Popupchat from '../../components/Popupchat';
-import Load from "../components/Load";
+
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Modal from "react-modal";
-import { Context } from "../index";
-import { Config } from "../config";
-import LeftMenu from "../components/LeftMenu";
+import { Context } from "../../index";
+import { Config } from "../../config";
+import LeftMenu from "../../components/LeftMenu";
 
 const Album = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);

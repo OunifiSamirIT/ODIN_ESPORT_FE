@@ -20,8 +20,8 @@ import EditBlog from "./pages/Admin/Components/editArticle.jsx";
 
 import Demo from "./demo/Demo";
 
-import Home from "./pages/Home";
-import Homee from "./pages/Home copy";
+import Home from "./pages/HomePage/Home.jsx";
+import Homee from "./pages/HomePage/Home copy.jsx";
 
 import Badge from "./pages/Badge";
 import Badgeagent from "./pages/Badgeagents";
@@ -38,20 +38,20 @@ import Password from "./pages/Password";
 import Payment from "./pages/Payment";
 import Notification from "./pages/Notification";
 import Helpbox from "./pages/Helpbox";
-import Login from "./pages/Login";
-import LoginCode from "./pages/Logincode.jsx";
-import Loginreset from "./pages/Loginrestpassword";
-import Loginemail from "./pages/Loginemail";
-import Register from "./pages/Register";
-import Forgot from "./pages/Forgot";
+import Login from "./pages/Authentification/Login/Login";
+import LoginCode from "./pages/Authentification/Login/Logincode";
+import Loginreset from "./pages/Authentification/ResetPassword/Loginrestpassword";
+import Loginemail from "./pages/Authentification/Login/Loginemail.jsx";
+import Register from "./pages/Authentification/Register/Register";
+import Forgot from "./pages/Authentification/ResetPassword/Forgot.jsx";
 import Notfound from "./pages/Notfound";
 import Gallery from "./pages/Gallerie";
-import Galleryuser from "./pages/Gallerieuserodin";
-import GalleryuserEvent from "./pages/GallerieuserodinEvents";
-import GalleryDetailscamps from "./pages/Gallerieuserodindetails";
-import GalleryDetailsevent from "./pages/GallerieEventsodindetails";
-import Thankscamps from "./pages/Gallerieuserthankyou";
-import Thanksodinevent from "./pages/Gallerieodineventthankyou.jsx";
+import Galleryuser from "./pages/Camps/Gallerieuserodin.jsx";
+import GalleryuserEvent from "./pages/Event/GallerieuserodinEvents.jsx";
+import GalleryDetailscamps from "./pages/Camps/Gallerieuserodindetails.jsx";
+import GalleryDetailsevent from "./pages/Event/GallerieEventsodindetails.jsx";
+import Thankscamps from "./pages/Camps/Gallerieuserthankyou.jsx";
+import Thanksodinevent from "./pages/Event/Gallerieodineventthankyou.jsx";
 import OnePost from "./components/onePost";
 
 import ShopOne from "./pages/ShopOne";
@@ -98,8 +98,8 @@ import AddAlbumcamps from "./pages/Admin/Components/AddAlbumCamps";
 import AddOffreemploi from "./pages/Admin/offreemploi/addoffre";
 import EditUser from "./pages/Admin/Components/EditUser";
 import CreateUser from "./pages/Admin/Components/CreateUser";
-import FormCamps from "./pages/GallerieuserForm";
-import FormEvent from "./pages/GallerieuserFormevent.jsx";
+import FormCamps from "./pages/Camps/GallerieuserForm.jsx";
+import FormEvent from "./pages/Event/GallerieuserFormevent.jsx";
 
 import UserEvent from "./pages/UserEvent";
 import ViewAlbum from "./pages/Admin/Components/ViewAlbum";
@@ -493,7 +493,7 @@ function Root() {
                   element={<Thanksodinevent />}
                 />
 
-               <Route exact path="/onepost/:idP" element={<OnePost />} />
+                <Route exact path="/onepost/:idP" element={<OnePost />} />
 
                 {/* <Route exact path={`/professionalprofile`} element={<Professionalprofile />} /> */}
 

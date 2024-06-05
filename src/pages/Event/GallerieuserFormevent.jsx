@@ -1,47 +1,39 @@
 import React, { useState, useEffect } from "react";
 // import Leftnav from '../../components/Leftnav';
 // import Rightchat from '../../components/Rightchat';
-import Pagetitle from "../components/Pagetitle";
+
 // import Appfooter from '../../components/Appfooter';
 // import Popupchat from '../../components/Popupchat';
-import Load from "../components/Load";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import Modal from "react-modal";
-import SlideMenu from "../components/SlideMenu";
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Context } from "../../index";
 
-import Logo from "../assets/ODIN22.png";
-import { paysAllInfo } from "../assets/data/Country";
+import { paysAllInfo } from "../../assets/data/Country";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
-import { Config } from "../config";
-import Header from "../components/Header2";
-
-import { Context } from "../index";
+import { Config } from "../../config";
+import Header from "../../components/Header2";
 
 const schema = yup.object().shape({
-  passport: yup.string().required("Ce Champs est obligatoire !"),
-  date_validation: yup.string().when("passport", {
-    is: "Oui", // Add the condition here
-    then: () => yup.string().required("Ce Champs est obligatoire !"),
-    otherwise: () => yup.string(), // Validation is skipped when passport is 'Non'
-  }),
-  fraisinscrit: yup.string().required("Veuillez confirmer votre engagement !"),
+  modepaiement: yup.string().required("Ce champs est obligatoire !"),
 });
 
 const Album = () => {
   const [isActive, setIsActive] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const [album, setAlbum] = useState([]);
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const handleTermsLinkClick = () => {
     setIsModalOpen(true);
@@ -52,7 +44,7 @@ const Album = () => {
   };
 
   const handelretourform = () => {
-    navigate("/defaultgroup");
+    navigate("/defaultgroupEvents");
   };
 
   useEffect(() => {
@@ -70,19 +62,6 @@ const Album = () => {
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-
-    const fetchAlbums = async () => {
-      try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
-        const result = await response.json();
-
-        setAlbum(result.data);
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-      }
-    };
-
-    fetchAlbums();
   }, []);
 
   const matchingCountry = paysAllInfo.find(
@@ -95,35 +74,19 @@ const Album = () => {
 
   const [errors, setErrors] = useState({});
 
-  const validateField = async (name, value) => {
-    try {
-      // Only validate date_validation if passport is set to "Oui"
-      if (name === "date_validation" && formData.passport === "Non") {
-        setErrors((prevErrors) => ({ ...prevErrors, date_validation: null }));
-      } else {
-        await schema.validateAt(name, { [name]: value });
-        setErrors((prevErrors) => ({ ...prevErrors, [name]: null }));
-      }
-    } catch (error) {
-      setErrors((prevErrors) => ({ ...prevErrors, [name]: error.message }));
-    }
-  };
-
   const [formData, setFormData] = useState({
     emailsecondaire: "",
-    passport: "",
-    date_validation: "",
-    fraisinscrit: "",
+    modepaiement: "",
+
     status: "Encours",
     champsoptionnel: "",
-    campsId: "",
+    eventodinId: "",
     userId: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-    validateField(name, value);
   };
 
   const handleSubmit = async () => {
@@ -136,21 +99,21 @@ const Album = () => {
 
           const storedUserData = JSON.parse(localStorage.getItem("user"));
           const userId = storedUserData ? storedUserData.id : null;
-          const campsId = id;
+          const eventodinId = id;
 
-          fetch(`${Config.LOCAL_URL}/api/inscrit/upload`, {
+          fetch(`${Config.LOCAL_URL}/api/inscritevent/upload`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
               emailsecondaire: formData.emailsecondaire,
-              passport: formData.passport,
-              date_validation: formData.date_validation,
-              fraisinscrit: formData.fraisinscrit,
+              modepaiement: formData.modepaiement,
+              // date_validation: formData.date_validation,
+              // fraisinscrit: formData.fraisinscrit,
               status: formData.status,
               champsoptionnel: formData.champsoptionnel,
-              campsId: campsId,
+              eventodinId: eventodinId,
               userId: userId,
             }),
           })
@@ -159,16 +122,16 @@ const Album = () => {
               // Reset form data after successful submission
               setFormData({
                 emailsecondaire: "",
-                passport: "",
-                date_validation: "",
-                fraisinscrit: "",
+                modepaiement: "",
+                // date_validation: "",
+                // fraisinscrit: "",
                 status: "",
                 champsoptionnel: "",
-                campsId: "",
+                eventodinId: "",
                 userId: "",
               });
 
-              navigate(`/thanks/${id}`);
+              navigate(`/thanksevent/${id}`);
             })
             .catch((error) => {
               console.error("Error submitting form:", error);
@@ -417,7 +380,7 @@ const Album = () => {
                 </div>
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-                {users?.user?.cityresidence}
+                {users?.user?.countryresidence}
               </div>
             </div>
             <div className="flex flex-col flex-1 mt-1 whitespace-nowrap">
@@ -428,14 +391,11 @@ const Album = () => {
                   className="my-auto aspect-[1.05] w-[21px]"
                 />
                 <div className="grow">
-                  {" "}
                   {getTranslation(
                     `Email`, // -----> Englais
-                    `Email`, //  -----> Francais
-                    ``, //  -----> Turkey
-                    `` //  -----> Allemagne
+                    `Email` //  -----> Francais
                   )}
-                </div>
+                </div>{" "}
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-1 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
                 {users?.user?.email}
@@ -454,14 +414,16 @@ const Album = () => {
                     `Email Secondaire`, //  -----> Francais
                     ``, //  -----> Turkey
                     `` //  -----> Allemagne
-                  )}
+                  )}{" "}
                   (
                   {getTranslation(
                     `Optional`, // -----> Englais
-                    `Facultatif` //  -----> Francais
+                    `Facultatif`, //  -----> Francais
+                    ``, //  -----> Turkey
+                    `` //  -----> Allemagne
                   )}
                   )
-                </div>
+                </div>{" "}
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
                 <input
@@ -496,170 +458,90 @@ const Album = () => {
             </div>
             <div className="flex flex-col flex-1 text-zinc-900">
               <div className="flex gap-4 justify-between px-4 text-lg">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/8bf2ef649448b0d66ed482eea95f865c88a2d95fa6ccdf076dec39eb896daea2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="my-auto w-5 aspect-square"
-                />
+                <svg
+                  width="20"
+                  height="21"
+                  viewBox="0 0 20 21"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.8342 3.8475C10.8342 3.3875 11.2067 3.01417 11.6675 3.01417H15.0642L13.9892 1.9175C13.6667 1.58833 13.6717 1.06083 14.0008 0.738333C14.3283 0.4175 14.8575 0.420833 15.1792 0.75L16.9933 2.60083C17.3192 2.92583 17.5008 3.365 17.5008 3.83333C17.5008 4.30167 17.3183 4.74167 16.9875 5.0725L15.1792 6.91667C15.0167 7.08333 14.8 7.16667 14.5842 7.16667C14.3733 7.16667 14.1625 7.0875 14.0008 6.92833C13.6717 6.60583 13.6675 6.07833 13.9892 5.74917L15.0375 4.67917H11.6675C11.2067 4.67917 10.8342 4.30583 10.8342 3.84583V3.8475ZM19.2908 7.735C18.8617 7.34417 18.3025 7.14167 17.7258 7.17C17.145 7.19667 16.61 7.44833 16.2308 7.86583L13.28 10.98C13.3067 11.155 13.3342 11.33 13.3342 11.5117C13.3342 13.2475 12.0383 14.7417 10.32 14.9867L6.77667 15.4833C6.32083 15.5483 5.89917 15.2317 5.83417 14.7767C5.76917 14.3208 6.08583 13.8992 6.54083 13.8342L10.0092 13.3483C10.7892 13.2367 11.4658 12.6767 11.6258 11.905C11.8725 10.7175 10.9675 9.6675 9.8225 9.6675H7.5V8.83417H7.81333C9.01917 8.83417 10 7.85333 10 6.6475C10 5.57417 9.23083 4.66667 8.1725 4.49083L5.435 4.03417C5.18333 3.9925 5.00083 3.77667 5.00083 3.52083C5.00083 3.23417 5.23417 3.00083 5.52083 3.00083H7.72417C8.02083 3.00083 8.2975 3.16083 8.44667 3.4175C8.67583 3.81583 9.18417 3.9525 9.585 3.72167C9.98333 3.49083 10.12 2.98167 9.88833 2.58333C9.44333 1.8125 8.61333 1.33333 7.72333 1.33333H7.5C7.5 0.873333 7.1275 0.5 6.66667 0.5C6.20583 0.5 5.83333 0.873333 5.83333 1.33333H5.52C4.31417 1.33333 3.33333 2.31417 3.33333 3.52C3.33333 4.59333 4.1025 5.50083 5.16083 5.67667L7.89833 6.13333C8.15 6.175 8.3325 6.39083 8.3325 6.64667C8.3325 6.93333 8.09917 7.16667 7.8125 7.16667H5.60917C5.3125 7.16667 5.03583 7.00667 4.88667 6.75C4.6575 6.35083 4.14833 6.21417 3.74833 6.44583C3.35 6.67667 3.21333 7.18583 3.445 7.58417C3.89 8.355 4.72 8.83333 5.61 8.83333H5.83333V9.66667H3.33333C1.4925 9.66667 0 11.1592 0 13V17.1667C0 19.0075 1.4925 20.5 3.33333 20.5H6.885C9.2225 20.5 11.4517 19.5183 13.03 17.795L19.4483 10.7875C20.2383 9.9025 20.1667 8.53167 19.2908 7.73333V7.735Z"
+                    fill="#1D1E21"
+                  />
+                </svg>
                 <div className="grow">
+                  {" "}
                   {getTranslation(
-                    `Do you have a passport?`, // -----> Englais
-                    `Avez-vous un Passport ?`, //  -----> Francais
-                    ``, //  -----> Turkey
-                    `` //  -----> Allemagne
+                    `Payment Method`, // -----> Englais
+                    `Mode de paiement` //  -----> Francais
                   )}
                 </div>
               </div>
               <div className="flex flex-col justify-center py-1.5 mt-2 w-full text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px]">
                 <div
-                  htmlFor="passport"
+                  htmlFor="modepaiement"
                   className="flex gap-5 justify-between px-4 py-2 rounded-md"
                 >
                   <select
-                    name="passport"
-                    value={formData.passport}
+                    name="modepaiement"
+                    value={formData.modepaiement}
                     onChange={handleChange}
                     className="w-full"
                   >
                     <option>
                       {getTranslation(
-                        `Yes/No`, // -----> Englais
-                        `Oui / Non`, //  -----> Francais
-                        ``, //  -----> Turkey
-                        `` //  -----> Allemagne
+                        `Bank Transfer / On-site`, // -----> Englais
+                        ` virement Bancaire / sur place` //  -----> Francais
                       )}
                     </option>
-                    <option value="Oui">
+                    <option value="Par virement">
                       {getTranslation(
-                        `Yes`, // -----> Englais
-                        `Oui`, //  -----> Francais
-                        ``, //  -----> Turkey
-                        `` //  -----> Allemagne
+                        `Bank Transfer`, // -----> Englais
+                        ` virement Bancaire` //  -----> Francais
                       )}
                     </option>
-                    <option value="Non">
+                    <option value="Sur place">
                       {getTranslation(
-                        `No`, // -----> Englais
-                        `Non`, //  -----> Francais
-                        ``, //  -----> Turkey
-                        `` //  -----> Allemagne
+                        `On-site`, // -----> Englais
+                        `Sur place` //  -----> Francais
                       )}
                     </option>
                   </select>
                 </div>
               </div>{" "}
-              <p className="text-red text-md">{errors.passport}</p>
+              <p className="text-red text-md">{errors.modepaiement}</p>
             </div>
-            <div className="flex flex-col flex-1">
-              <div className="flex gap-4 justify-between px-4 text-lg text-zinc-900">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/d25aba1d49146125c002c91e072e49db818d43215feceb4a7555ff8fa612d13d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                  className="my-auto w-5 aspect-square"
-                />
-                <div className="grow">
-                  {getTranslation(
-                    `Expiration Date`, // -----> Englais
-                    `Date d’expiration`, //  -----> Francais
-                    ``, //  -----> Turkey
-                    `` //  -----> Allemagne
-                  )}{" "}
-                </div>
-              </div>
-              <DatePicker
-                selected={formData.date_validation}
-                onChange={(date) =>
-                  setFormData({ ...formData, date_validation: date })
-                }
-                dateFormat="dd-MM-yyyy"
-                className="flex flex-col justify-center px-2 py-3.5 mt-2 w-full text-base border-solid  border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] text-neutral-500"
-              />
-              <p className="text-red text-md">{errors.date_validation}</p>
-            </div>
-          </div>
-          <div className="self-start mt-10 text-xl text-zinc-900 max-md:max-w-full">
-            {getTranslation(
-              `I confirm that I am able to pay the `, // -----> Englais
-              ` Je confirme que je peux payer les`, //  -----> Francais
-              ``, //  -----> Turkey
-              `` //  -----> Allemagne
-            )}{" "}
-            <span className="font-bold">
-              {getTranslation(
-                ` participation fees`, // -----> Englais
-                ` frais de participation`, //  -----> Francais
-                ``, //  -----> Turkey
-                `` //  -----> Allemagne
-              )}
-            </span>
-            {getTranslation(
-              ` for this camp.`, // -----> Englais
-              ` de ce camp.`, //  -----> Francais
-              ``, //  -----> Turkey
-              `` //  -----> Allemagne
-            )}
-            <div className="flex gap-5 justify-between self-start mt-2 text-lg leading-7 whitespace-nowrap text-zinc-900 max-md:ml-2">
-              <label htmlFor="fraisinscrit">
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      name="fraisinscrit"
-                      value="Oui"
-                      className="mr-3"
-                      checked={formData.fraisinscrit === "Oui"}
-                      onChange={handleChange}
-                    />
-                    {getTranslation(
-                      `Yes, I confirm`, // -----> Englais
-                      ` Oui , je confirme`, //  -----> Francais
-                      ``, //  -----> Turkey
-                      `` //  -----> Allemagne
-                    )}
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="fraisinscrit"
-                      value="Non"
-                      className=" ml-4 mr-3"
-                      checked={formData.fraisinscrit === "Non"}
-                      onChange={handleChange}
-                    />
-                    {getTranslation(
-                      `No`, // -----> Englais
-                      `Non`, //  -----> Francais
-                      ``, //  -----> Turkey
-                      `` //  -----> Allemagne
-                    )}
-                  </label>
-                </div>
-              </label>
-            </div>
-            <p className="text-red text-base">{errors.fraisinscrit}</p>
           </div>
 
-          <div className="flex gap-2 md:gap-5 justify-between mt-8 w-full text-base font-medium text-white whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-            <div className="flex gap-2 justify-between px-8 py-2 bg-orange-500 rounded-[30px] max-md:px-5">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/782d8b9c4e26c6ae2faa75f1bad14c148b0b27ad2722daea1be1e990d6d99625?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                className="my-auto aspect-square fill-white w-[15px]"
-              />
-              <button onClick={handelretourform} className="grow">
+          <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
+            <div className="flex gap-3 items-center justify-center  px-4 py-2 text-white  bg-orange-500 rounded-[30px] ">
+              <button onClick={handelretourform} className="grow md:ml-4">
                 {getTranslation(
                   `Cancel`, // -----> Englais
                   `Annuler` //  -----> Francais
                 )}
               </button>
+              <svg
+                width="15"
+                height="16"
+                viewBox="0 0 15 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z"
+                  fill="white"
+                />
+              </svg>
             </div>
-            <div className="flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5">
-              <div className="grow" onClick={handleSubmit}>
+            <div className="flex gap-1 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] ">
+              <button className="grow" onClick={handleSubmit}>
                 {getTranslation(
                   `Submit`, // -----> Englais
                   `Confirmer` //  -----> Francais
                 )}
-              </div>
+              </button>
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/baaf729ca2403013e4685351338f1da226bf86e312b0177a0235a267f7f3c2f3?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -667,6 +549,28 @@ const Album = () => {
               />
             </div>
           </div>
+
+          {/* <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">
+
+            <div className="flex gap-3 items-center justify-center px-4 py-2 text-white bg-blue-600 rounded-[30px] md:order-2 md:flex-row md:justify-center md:items-center">
+              <button onClick={handleSubmit} className="grow">Confirmer</button>
+              <div className="md:ml-auto md:order-2">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/baaf729ca2403013e4685351338f1da226bf86e312b0177a0235a267f7f3c2f3?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
+                  className="w-5 aspect-square md:mb-0"
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-1 items-center justify-center px-4 py-2 text-white bg-orange-500 rounded-[30px] md:order-1">
+              <button onClick={handelretourform} className="grow">Annuler</button>
+              <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg" className=" ml-">
+                <path d="M14.651 0.848955C14.4275 0.625519 14.1244 0.5 13.8084 0.5C13.4924 0.5 13.1893 0.625519 12.9658 0.848955L7.5 6.31474L2.03422 0.848955C1.81071 0.625519 1.50762 0.5 1.19159 0.5C0.875553 0.5 0.572458 0.625519 0.348955 0.848955C0.125519 1.07246 0 1.37555 0 1.69159C0 2.00762 0.125519 2.31071 0.348955 2.53422L5.81474 8L0.348955 13.4658C0.125519 13.6893 0 13.9924 0 14.3084C0 14.6244 0.125519 14.9275 0.348955 15.151C0.572458 15.3745 0.875553 15.5 1.19159 15.5C1.50762 15.5 1.81071 15.3745 2.03422 15.151L7.5 9.68526L12.9658 15.151C13.1893 15.3745 13.4924 15.5 13.8084 15.5C14.1244 15.5 14.4275 15.3745 14.651 15.151C14.8745 14.9275 15 14.6244 15 14.3084C15 13.9924 14.8745 13.6893 14.651 13.4658L9.18526 8L14.651 2.53422C14.8745 2.31071 15 2.00762 15 1.69159C15 1.37555 14.8745 1.07246 14.651 0.848955Z" fill="white" />
+              </svg>
+            </div>
+
+          </div> */}
         </div>
       </div>
     </>

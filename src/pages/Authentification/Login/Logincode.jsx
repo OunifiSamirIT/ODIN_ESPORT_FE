@@ -1,8 +1,8 @@
 import React, { useState, Fragment, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Config } from "../config";
-import { Context } from "../index";
+import { Config } from "../../../config";
+import { Context } from "../../../index";
 
 function VerificationCode() {
   const { getTranslation } = useContext(Context);

@@ -1,25 +1,25 @@
 import React, { Component, Fragment, useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import Header from "../components/Header";
-import Leftnav from "../components/Leftnav";
-import Rightchat from "../components/Rightchat";
-import Appfooter from "../components/Appfooter";
-import Popupchat from "../components/Popupchat";
+import Header from "../../components/Header";
+import Leftnav from "../../components/Leftnav";
+import Rightchat from "../../components/Rightchat";
+import Appfooter from "../../components/Appfooter";
+import Popupchat from "../../components/Popupchat";
 
-import Friends from "../components/Friends";
-import Contacts from "../components/Contacts";
-import Group from "../components/Group";
-import Events from "../components/Events";
-import Createpost from "../components/Createpost";
-import Memberslider from "../components/Memberslider";
-import Friendsilder from "../components/Friendsilder";
-import Storyslider from "../components/Storyslider";
-import Postview from "../components/Postview";
-import Load from "../components/Load";
-import Profilephoto from "../components/Profilephoto";
-import TextInput from "../components/TextInput";
-import CustomButton from "../components/CustomButton";
+import Friends from "../../components/Friends";
+import Contacts from "../../components/Contacts";
+import Group from "../../components/Group";
+import Events from "../../components/Events";
+import Createpost from "../../components/Createpost";
+import Memberslider from "../../components/Memberslider";
+import Friendsilder from "../../components/Friendsilder";
+import Storyslider from "../../components/Storyslider";
+import Postview from "../../components/Postview";
+import Load from "../../components/Load";
+import Profilephoto from "../../components/Profilephoto";
+import TextInput from "../../components/TextInput";
+import CustomButton from "../../components/CustomButton";
 import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -37,7 +37,7 @@ import {
   BiSolidVideo,
   BiUndo,
 } from "react-icons/bi";
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import GallerieOdin from "./Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";

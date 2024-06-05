@@ -1,8 +1,8 @@
 import React, { Component, Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import CustomButton from "../components/CustomButton";
-import { Config } from "../config";
+import CustomButton from "../../../components/CustomButton";
+import { Config } from "../../../config";
 function Forgot() {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);

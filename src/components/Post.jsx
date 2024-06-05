@@ -6,17 +6,17 @@ import Rightchat from "../components/Rightchat";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
 import Slider from "react-slick";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 // import './styles.css';
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation } from "swiper/modules";
 
 import Friends from "../components/Friends";
 import Contacts from "../components/Contacts";
@@ -40,14 +40,11 @@ import Modal from "react-modal";
 import moment from "moment/moment";
 // import 'moment/locale/fr';
 // import 'moment/locale/en';
-import '../../node_modules/moment/locale/fr';
-import '../../node_modules/moment/locale/en-ca';
-
-
+import "../../node_modules/moment/locale/fr";
+import "../../node_modules/moment/locale/en-ca";
 
 import NotificationService from "../api/notification.server";
-import { io } from 'socket.io-client';
-
+import { io } from "socket.io-client";
 
 import {
   BiEditAlt,
@@ -64,13 +61,20 @@ import {
   BiUndo,
   BiShare,
 } from "react-icons/bi";
-import Loadingpartage from './Loading';
+import Loadingpartage from "./Loading";
 
 import Loading from "../components/Loading";
-import { Link, Navigate, useNavigate, useLocation, useParams, redirect } from "react-router-dom";
-import GallerieOdin from "../pages/Gallerieuserodin";
+import {
+  Link,
+  Navigate,
+  useNavigate,
+  useLocation,
+  useParams,
+  redirect,
+} from "react-router-dom";
+import GallerieOdin from "../pages/Camps/Gallerieuserodin";
 import AdminImg from "../assets/ODIN22.png";
-import SkeletonArticleCard from "../pages/HomeSkeletonPost";
+import SkeletonArticleCard from "../pages/HomePage/HomeSkeletonPost";
 import EditPost from "../pages/EditPost";
 import { Context } from "../index";
 function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
@@ -121,7 +125,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const [showDropdown, setShowDropdown] = useState(null);
   const [showDropdownedit, setShowDropdownedit] = useState(null);
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -134,35 +138,27 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const reff = useRef(null);
   const handleClickOutsidelike = (event) => {
     if (reff.current && !reff.current.contains(event.target)) {
-      console.log(!reff.current.contains(event.target))
-      setShowDropdownlikes(false)
-
-
+      console.log(!reff.current.contains(event.target));
+      setShowDropdownlikes(false);
     }
   };
 
-
-
   //notification
 
+  //initialize socket
 
-//initialize socket
+  const [socket, setSocket] = useState(null);
 
-const [socket, setSocket] = useState(null);
-
-useEffect(() => {
-  const socketInstance = io(Config.LOCAL_URL);
-  setSocket(socketInstance);
-
-}, []);
-
+  useEffect(() => {
+    const socketInstance = io(Config.LOCAL_URL);
+    setSocket(socketInstance);
+  }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutsidelike);
     return () => {
       document.removeEventListener("mousedown", handleClickOutsidelike);
     };
-
   }, []);
   const handleClicklikeshow = async (articleId) => {
     try {
@@ -170,10 +166,10 @@ useEffect(() => {
         `${Config.LOCAL_URL}/api/likes/articlessUser/${articleId}`
       );
       if (!response.ok) {
-        throw new Error('Failed to fetch users who liked the article');
+        throw new Error("Failed to fetch users who liked the article");
       }
       const data = await response.json();
-      console.log("🚀 ~ handleClicklikeshow ~ data:", data)
+      console.log("🚀 ~ handleClicklikeshow ~ data:", data);
       setUserslikearticle(data);
 
       setShowDropdownlikes(!showDropdownlikes);
@@ -182,25 +178,21 @@ useEffect(() => {
     }
   };
 
-
-
-  let _ref_toggelcomment = useRef(null)
+  let _ref_toggelcomment = useRef(null);
 
   const ref = useRef(null);
 
-  const [isModaldOpen, setIsModaldOpen] = useState(false)
+  const [isModaldOpen, setIsModaldOpen] = useState(false);
 
   const refGallery = useRef(null);
 
-  const [isModaldOpenGallery, setIsModaldOpenGallery] = useState(false)
+  const [isModaldOpenGallery, setIsModaldOpenGallery] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleClickOutsideGallery = (event) => {
     if (refGallery.current && !refGallery.current.contains(event.target)) {
-      console.log(!refGallery.current.contains(event.target))
-      setIsModaldOpenGallery(false)
-
-
+      console.log(!refGallery.current.contains(event.target));
+      setIsModaldOpenGallery(false);
     }
   };
   useEffect(() => {
@@ -208,7 +200,6 @@ useEffect(() => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutsideGallery);
     };
-
   }, []);
   const handlePlusClick = () => {
     setIsModaldOpenGallery(true);
@@ -217,17 +208,14 @@ useEffect(() => {
   const handleCloseModalGallery = () => {
     setIsModaldOpenGallery(false);
     setCurrentImageIndex(0); // Reset current image index when closing the modal
-
   };
-
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
-      console.log(!ref.current.contains(event.target))
-      setIsModaldOpen(false)
-      fetchArticles()
+      console.log(!ref.current.contains(event.target));
+      setIsModaldOpen(false);
+      fetchArticles();
       setCommentInputVisible(false);
-
     }
   };
   useEffect(() => {
@@ -237,7 +225,6 @@ useEffect(() => {
     };
   }, []);
 
-
   // const handleEdit = (articleId) => {
   //   console.log("Editing article with ID:", articleId); // Add this line to debug
   //   setSelectedArticleId(articleId);
@@ -245,7 +232,7 @@ useEffect(() => {
   //   setCommentInputVisible(false);
   //   if (_ref_toggelcomment.current) {
   //     _ref_toggelcomment.current.setCommentInputVisible(false);
-  //   } 
+  //   }
   //  };
   const handleEdit = (articleId) => {
     console.log("Editing article with ID:", articleId); // Debugging line
@@ -264,20 +251,15 @@ useEffect(() => {
     }
   };
 
-
   const handleCloseModal = () => {
-    fetchArticles()
+    fetchArticles();
     setIsModaldOpen(false);
 
     setCommentInputVisible(false);
-
   };
   const handleCloseModalSHOWGallery = () => {
     setIsModaldOpenGallery(false);
-
-
   };
-
 
   const handleClick = () => {
     setShowMenu(!showMenu);
@@ -303,7 +285,7 @@ useEffect(() => {
 
   //         if (response.ok) {
   //             const likeData = await response.json();
-  //             setLikesData(likeData); 
+  //             setLikesData(likeData);
   //             console.log("dddddddddddddddddd", likesData)
   //             // Update state with fetched like data
   //         } else {
@@ -326,7 +308,7 @@ useEffect(() => {
         setLikesData(likeData);
 
         // Check if userId exists in the fetched data
-        const userLiked = likeData.some(like => like.userId === userId);
+        const userLiked = likeData.some((like) => like.userId === userId);
 
         if (userLiked) {
           console.log("User has liked this article.");
@@ -342,8 +324,6 @@ useEffect(() => {
     }
   };
 
-
-
   const fetchLikesForComment = async (commentId) => {
     const userId = storedUserData.id ? storedUserData.id : null;
 
@@ -357,7 +337,7 @@ useEffect(() => {
         setLikesDataComment(likeData);
 
         // Check if userId exists in the fetched data
-        const userLiked = likeData.some(like => like.userId === userId);
+        const userLiked = likeData.some((like) => like.userId === userId);
 
         if (userLiked) {
           console.log("User has liked this article.");
@@ -407,32 +387,24 @@ useEffect(() => {
                 ?.likesCount || 0;
             return article.id === articleId
               ? {
-                ...article,
-                likesCount: updatedLikesCount,
-              }
+                  ...article,
+                  likesCount: updatedLikesCount,
+                }
               : article;
           })
         );
       } else {
-        toast.error(
-          "Error liking/unliking the article. Please try again.",
-          {
-            position: "top-right",
-          }
-        );
+        toast.error("Error liking/unliking the article. Please try again.", {
+          position: "top-right",
+        });
       }
     } catch (error) {
       console.error("Error adding like:", error);
-      toast.error(
-        "An unexpected error occurred. Please try again later.",
-        {
-          position: "top-right",
-        }
-      );
+      toast.error("An unexpected error occurred. Please try again later.", {
+        position: "top-right",
+      });
     }
   };
-
-
 
   const handleLikeComment = async (commentId) => {
     try {
@@ -492,7 +464,6 @@ useEffect(() => {
             }
           })
         );
-
       } else {
         // Handle error
         toast.error("Error liking/unliking the comment. Please try again.", {
@@ -507,10 +478,7 @@ useEffect(() => {
     }
   };
 
-
   // const storedUserData = JSON.parse(localStorage.getItem("user"));
-
-
 
   // const fetchArticles = async () => {
   //   try {
@@ -749,9 +717,9 @@ useEffect(() => {
         })
         .catch((error) => console.error("Error fetching user data:", error));
     }
-    fetchLikesForComment(article.comments.id)
+    fetchLikesForComment(article.comments.id);
     fetchLikesForArticle(article.id);
-    console.log("mmmmmmmmmm", article)
+    console.log("mmmmmmmmmm", article);
     // fetchArticles();
     // fetchAlbums();
   }, []);
@@ -787,7 +755,7 @@ useEffect(() => {
 
   const addComment = async (articleId) => {
     try {
-      if (articleId && comment !== '') {
+      if (articleId && comment !== "") {
         // Retrieve user information from local storage
         const user = JSON.parse(localStorage.getItem("user"));
 
@@ -820,7 +788,7 @@ useEffect(() => {
         setArticles((prevArticles) => {
           return prevArticles.map((article) => {
             if (article.id === articleId) {
-              console.log(article)
+              console.log(article);
               return {
                 ...article,
                 commentsCount: (article.commentsCount || 0) + 1,
@@ -978,7 +946,7 @@ useEffect(() => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
-          onDeleteFromListAcceuillFront(id)
+          onDeleteFromListAcceuillFront(id);
           return response.json();
         })
         .then((data) => {
@@ -1012,18 +980,14 @@ useEffect(() => {
   //   return date.toISOString().split('T')[0];
   // }
 
-
-
   const [selectedComment, setSelectedComment] = useState(null);
   const [showDropdownComment, setShowDropdownComment] = useState(null);
   const [showDropdownReply, setShowDropdownReply] = useState(null);
 
-
   const [editingCommentId, setEditingCommentId] = useState(null);
-  const [editedComment, setEditedComment] = useState('');
+  const [editedComment, setEditedComment] = useState("");
   const [editingReplyId, setEditingReplyComment] = useState(null);
-  const [editedReply, setEditedReply] = useState('');
-
+  const [editedReply, setEditedReply] = useState("");
 
   const handleMoreClickComment = (comment) => {
     console.log("More clicked", comment.id);
@@ -1036,7 +1000,9 @@ useEffect(() => {
   };
 
   const handleDeleteCommentClick = async (id, articleId) => {
-    const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette publication ?");
+    const confirmDelete = window.confirm(
+      "Êtes-vous sûr de vouloir supprimer cette publication ?"
+    );
 
     if (confirmDelete) {
       try {
@@ -1098,7 +1064,7 @@ useEffect(() => {
   //               if (article.id === articleId) {
   //                 return {
   //                   ...article,
-  //                   commentsCount: (article.commentsCount || 0) - 1, 
+  //                   commentsCount: (article.commentsCount || 0) - 1,
   //                 };
   //               }
   //               return article;
@@ -1135,23 +1101,17 @@ useEffect(() => {
   //         // fetchArticles()
   //         // setSelectedComment(false)
 
-
-
-
   //       });
   //   } else {
   //     // User canceled the deletion
   //     // setCommentInputVisible()
 
-
   //   }
-
 
   // };
   const handleDeleteReplyClick = (id) => {
     const confirmDelete = window.confirm(
-      "Êtes-vous sûr de vouloir supprimer cette publication ?",
-
+      "Êtes-vous sûr de vouloir supprimer cette publication ?"
     );
 
     if (confirmDelete) {
@@ -1165,35 +1125,27 @@ useEffect(() => {
         },
       })
         .then(async (response) => {
-          const x = await response.json()
+          const x = await response.json();
 
-          console.log("DELLLETTT REPLY", response)
+          console.log("DELLLETTT REPLY", response);
 
-          fetchArticles()
-          setArticleComments()
+          fetchArticles();
+          setArticleComments();
           // window.location.reload()
 
-
           if (response.ok) {
-
             // setShowDropdownReply();
-
-          }
-
-          else if (!response.ok) {
-            console.log("sssss", response)
+          } else if (!response.ok) {
+            console.log("sssss", response);
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           return response.json();
-
         })
         .then((data) => {
-
           console.log(data.message);
           // Optionally, you can update your UI or state to reflect the deleted article
         })
         .catch((error) => {
-
           // Handle the error or show a notification to the user
         })
         .finally(() => {
@@ -1202,153 +1154,138 @@ useEffect(() => {
           // fetchCommentsByArticleId()
           // fetchArticles()
           // setSelectedComment(false)
-
-
-
-
         });
     } else {
       // User canceled the deletion
       // setCommentInputVisible()
-
-
     }
-
-
   };
 
   const updateComment = async (commentId, updatedText) => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/${commentId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ description: updatedText }),
-      });
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/commentaires/${commentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ description: updatedText }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to update comment');
+        throw new Error("Failed to update comment");
       }
     } catch (error) {
       throw new Error(`Error updating comment: ${error.message}`);
     }
   };
-
 
   const saveEditedComment = async (commentId) => {
     try {
       await updateComment(commentId, editedComment);
 
-      setComments(prevComments => prevComments.map(comment => {
-        if (comment.id === commentId) {
-          return {
-            ...comment,
-            description: editedComment
-          };
-        }
-        return comment;
-      }));
+      setComments((prevComments) =>
+        prevComments.map((comment) => {
+          if (comment.id === commentId) {
+            return {
+              ...comment,
+              description: editedComment,
+            };
+          }
+          return comment;
+        })
+      );
 
       setEditingCommentId(null);
     } catch (error) {
       console.error("Error updating comment:", error);
     }
-
   };
 
-
-
   const handleEditClickComment = (commentId) => {
-
-    const commentToEdit = article.comments.find(comment => comment.id === commentId);
-    console.log(commentToEdit, "comment to edit")
+    const commentToEdit = article.comments.find(
+      (comment) => comment.id === commentId
+    );
+    console.log(commentToEdit, "comment to edit");
     setEditingCommentId(commentId);
     setEditedComment(commentToEdit.description);
   };
-
 
   const cancelEdit = () => {
     setEditingCommentId(null);
   };
 
-
   const updateReply = async (replyId, updatedText) => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/replies/${replyId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ description: updatedText }),
-      });
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/replies/${replyId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ description: updatedText }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to update comment');
+        throw new Error("Failed to update comment");
       }
     } catch (error) {
       throw new Error(`Error updating comment: ${error.message}`);
     }
   };
 
-
   const saveEditedReply = async (replyId) => {
     try {
       await updateReply(replyId, editedReply);
 
-      setReply(prevComments => prevComments.map(reply => {
-        if (reply.id === replyId) {
-          return {
-            ...reply,
-            description: editedReply
-          };
-        }
-        return reply;
-      }));
+      setReply((prevComments) =>
+        prevComments.map((reply) => {
+          if (reply.id === replyId) {
+            return {
+              ...reply,
+              description: editedReply,
+            };
+          }
+          return reply;
+        })
+      );
 
       setEditingReplyComment(null);
     } catch (error) {
       console.error("Error updating comment:", error);
     }
-
   };
 
-
-
   const handleEditClickreply = async (replyId) => {
-
     const likesCountResponse = await fetch(
       `${Config.LOCAL_URL}/api/repliesss/${replyId}`
     );
-    const dataresultreplyofcomment = await likesCountResponse.json()
-    console.log("heloo reply", dataresultreplyofcomment)
-    const replyToEdit = article?.replys?.find(reply => reply.id === replyId);
-    console.log(replyToEdit, "ffff")
+    const dataresultreplyofcomment = await likesCountResponse.json();
+    console.log("heloo reply", dataresultreplyofcomment);
+    const replyToEdit = article?.replys?.find((reply) => reply.id === replyId);
+    console.log(replyToEdit, "ffff");
     setEditingReplyComment(replyId);
     setEditedReply(dataresultreplyofcomment?.description);
   };
-
 
   const cancelEditreply = () => {
     setEditingReplyComment(null);
   };
 
-
-
-
-
   const reffPartage = useRef(null);
 
-  const [partage, setPartage] = useState("")
-  let _ref_partage = useRef(null)
+  const [partage, setPartage] = useState("");
+  let _ref_partage = useRef(null);
 
-  const [isModaldOpenPartage, setIsModaldOpenPartage] = useState(false)
+  const [isModaldOpenPartage, setIsModaldOpenPartage] = useState(false);
   const handleClickOutsidePartage = (event) => {
     if (reffPartage.current && !reffPartage.current.contains(event.target)) {
-      console.log(!reffPartage.current.contains(event.target))
-      setIsModaldOpenPartage(false)
-
-
+      console.log(!reffPartage.current.contains(event.target));
+      setIsModaldOpenPartage(false);
     }
   };
   useEffect(() => {
@@ -1358,10 +1295,9 @@ useEffect(() => {
     };
   }, []);
   const partageArticle = async (articleId) => {
-
-    const result = await fetch(`${Config.LOCAL_URL}/api/articles/${articleId}`)
+    const result = await fetch(`${Config.LOCAL_URL}/api/articles/${articleId}`);
     setPartage(result);
-    console.log("pppppppppppppppppp", partage)
+    console.log("pppppppppppppppppp", partage);
     setIsModaldOpenPartage(true);
     // Optionally, close any other comment input sections if needed
     if (_ref_partage.current) {
@@ -1373,21 +1309,30 @@ useEffect(() => {
 
   const fetchArticles = async (size, page) => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles?size=${size}&page=${page}`);
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/articles?size=${size}&page=${page}`
+      );
       const result = await response.json();
 
       if (result.rows == 0) {
-        setHasMore(false)
+        setHasMore(false);
       }
       const articlesWithPromises = result.rows.map(async (article) => {
         const userId = article.userId;
         const comt = article.id;
 
-        const [userDataResponse, commentsResponse, likesCountResponse] = await Promise.all([
-          fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then(res => res.json()),
-          fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(res => res.json()),
-          fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(res => res.json())
-        ]);
+        const [userDataResponse, commentsResponse, likesCountResponse] =
+          await Promise.all([
+            fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
+              res.json()
+            ),
+            fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
+              (res) => res.json()
+            ),
+            fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
+              (res) => res.json()
+            ),
+          ]);
 
         const likesCount = likesCountResponse.find(
           (count) =>
@@ -1406,22 +1351,24 @@ useEffect(() => {
 
       const reversedArticlesWithPromises = articlesWithPromises; // Reverse the order
 
-      const articlesWithLikesCount = await Promise.all(reversedArticlesWithPromises);
+      const articlesWithLikesCount = await Promise.all(
+        reversedArticlesWithPromises
+      );
 
-
-
-      return articlesWithLikesCount
+      return articlesWithLikesCount;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const [textareaHeight, setTextareaHeight] = useState('70px');
+  const [textareaHeight, setTextareaHeight] = useState("70px");
   const textAreaRef = useRef(null);
 
   const handleChange = (e) => {
     if (e && textAreaRef.current) {
-      const newHeight = e.target.value ? `${textAreaRef.current.scrollHeight}px` : `${textAreaRef.current.scrollHeight}px`;
+      const newHeight = e.target.value
+        ? `${textAreaRef.current.scrollHeight}px`
+        : `${textAreaRef.current.scrollHeight}px`;
       setTextareaHeight(newHeight);
       setValue("description", e.target.value); // Update the form value
     }
@@ -1431,20 +1378,18 @@ useEffect(() => {
     handleChange(); // Initial calculation of height
   }, []); // Run only once after component mounted
 
-
-
   const [originalArticle, setOriginalArticle] = useState(null);
   const fetchArticleById = async (id) => {
     // Replace with your API call
     return fetch(`${Config.LOCAL_URL}/api/articles/${id}`)
-      .then(response => response.json())
-      .then(data => data);
+      .then((response) => response.json())
+      .then((data) => data);
   };
   useEffect(() => {
     if (article.sharedFrom) {
       fetchArticleById(article.sharedFrom)
-        .then(data => setOriginalArticle(data))
-        .catch(err => console.error('Error fetching original article:', err));
+        .then((data) => setOriginalArticle(data))
+        .catch((err) => console.error("Error fetching original article:", err));
     }
   }, [article.sharedFrom]);
   const displayArticle = originalArticle || article;
@@ -1461,8 +1406,6 @@ useEffect(() => {
   //     if(originalArticle){
   //             formData.append("sharedFrom", originalArticle.id);
   //         }else{ formData.append("sharedFrom", article.id); }
-
-
 
   //     await fetch(`${Config.LOCAL_URL}/api/articles/`, {
   //       method: "POST",
@@ -1481,7 +1424,6 @@ useEffect(() => {
 
   const handlePostSubmitPartage = async (data) => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
-
 
     const id = storedUserData.id ? storedUserData.id : null;
     try {
@@ -1502,19 +1444,19 @@ useEffect(() => {
         body: formData,
       });
       if (response.status === 200) {
-        toast.success('Partager avec success voir votre profile  !', {
+        toast.success("Partager avec success voir votre profile  !", {
           position: "top-right",
           autoClose: 5000,
-          type: 'success',
+          type: "success",
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
           theme: "light",
-        })
+        });
       }
-      // const newArticle = await response.json(); 
+      // const newArticle = await response.json();
       // addNewArticle(newArticle);
       // navigate(`/profile/${id}`)
 
@@ -1529,23 +1471,18 @@ useEffect(() => {
     }
   };
 
-
-
-
-
   const [showFullText, setShowFullText] = useState(false);
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
 
-  const storedLanguage = localStorage.getItem('language');
-  const language = storedLanguage ? storedLanguage.toLowerCase() : '';
+  const storedLanguage = localStorage.getItem("language");
+  const language = storedLanguage ? storedLanguage.toLowerCase() : "";
 
   // Set the locale based on the stored language or default to English
-  moment.locale(language === 'fr' ? 'fr' : 'en');
+  moment.locale(language === "fr" ? "fr" : "en");
 
-
-  const images = article?.image?.split(';') || [];
+  const images = article?.image?.split(";") || [];
   const imageCount = images.length;
   const friendsettings = {
     arrows: true,
@@ -1559,7 +1496,6 @@ useEffect(() => {
     autoplaySpeed: 3500,
     adaptiveHeight: true,
   };
-
 
   const videoRef = useRef(null);
 
@@ -1590,16 +1526,11 @@ useEffect(() => {
 
   return (
     <>
-
-
       <div className="flex flex-col  w-full -mt-2   max-md:ml-0 max-md:w-full">
-
-
         {/* show post  */}
 
         <div>
           <>
-
             <div
               key={article.id}
               className="card w-100 shadow-xss rounded-xxl border-0 mt-4 -px-4  p-4 "
@@ -1608,8 +1539,11 @@ useEffect(() => {
                 <Link to={`/profile/${article?.user?.user?.id}`}>
                   <figure className="avatar me-3">
                     <img
-                      srcSet={article?.user?.user?.image ? article?.user?.user?.image : placeholder}
-
+                      srcSet={
+                        article?.user?.user?.image
+                          ? article?.user?.user?.image
+                          : placeholder
+                      }
                       // src={article.user.user?.image}
                       className="shadow-sm rounded-full w-[52px] aspect-square"
                       alt="post"
@@ -1620,142 +1554,167 @@ useEffect(() => {
                 <h4 className="fw-700 text-grey-900 font-xssss mt-1">
                   <Link to={`/profile/${article?.user?.user?.id}`}>
                     {article?.user?.user?.nom} {"   "}
-                    {article?.user?.user?.prenom} </Link>
+                    {article?.user?.user?.prenom}{" "}
+                  </Link>
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {article?.user?.user?.profil == 'other' ? article.user.other?.profession : ''}
-                    {article?.user?.user?.profil == 'player' ? ' Joueur' : ''}
-                    {article?.user?.user?.profil == 'coach' ? ' Entraîneur' : ''}
-                    {article?.user?.user?.profil == 'agent' && article.user.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-                    {article?.user?.user?.profil == 'agent' && article.user.agent?.typeresponsable == 'club' ? 'Manager de CLub' : ''}
-                    {article?.user?.user?.profil == 'scout' ? 'Scout' : ''}
+                    {article?.user?.user?.profil == "other"
+                      ? article.user.other?.profession
+                      : ""}
+                    {article?.user?.user?.profil == "player" ? " Joueur" : ""}
+                    {article?.user?.user?.profil == "coach"
+                      ? " Entraîneur"
+                      : ""}
+                    {article?.user?.user?.profil == "agent" &&
+                    article.user.agent?.typeresponsable == "players"
+                      ? "Manager de Joueur"
+                      : ""}
+                    {article?.user?.user?.profil == "agent" &&
+                    article.user.agent?.typeresponsable == "club"
+                      ? "Manager de CLub"
+                      : ""}
+                    {article?.user?.user?.profil == "scout" ? "Scout" : ""}
                   </span>
                   {/* <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                   {article?.createdAt}
 
 </span> */}
                   <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                    {
-                      moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                        moment(article?.createdAt).fromNow(true) :
-                        moment(article?.createdAt).fromNow()
-                    }
+                    {moment(article?.createdAt).format("DD MMMM YYYY")}{" "}
+                    {"  -  "}
+                    {moment(article?.createdAt).isAfter(
+                      moment().subtract(1, "hour")
+                    )
+                      ? moment(article?.createdAt).fromNow(true)
+                      : moment(article?.createdAt).fromNow()}
                   </span>
-
-
-
-
                 </h4>
-                {storedUserData.id == article?.user?.user?.id &&
-
-                  (
-                    <div
-                      className="ms-auto relative cursor-pointer"
-                      onClick={() => handleMoreClick(article)}
+                {storedUserData.id == article?.user?.user?.id && (
+                  <div
+                    className="ms-auto relative cursor-pointer"
+                    onClick={() => handleMoreClick(article)}
+                  >
+                    <svg
+                      width="31"
+                      height="21"
+                      viewBox="0 0 31 21"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <svg
-                        width="31"
-                        height="21"
-                        viewBox="0 0 31 21"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                          fill="#1D1E21"
-                        />
-                        <path
-                          d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                          fill="#1D1E21"
-                        />
-                        <path
-                          d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                          fill="#1D1E21"
-                        />
-                      </svg>
+                      <path
+                        d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                        fill="#1D1E21"
+                      />
+                      <path
+                        d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                        fill="#1D1E21"
+                      />
+                      <path
+                        d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                        fill="#1D1E21"
+                      />
+                    </svg>
 
-                      {showDropdown === article.id &&
-                        article?.user?.user &&
-                        article?.user?.user?.id === storedUserData.id && (
-                          <div className="absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
-
-
-
-
-
-
-                            <button
-                              className="block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
-                              // onClick={() =>
-                              //   handleEditClick(selectedArticle)
-                              // }
-                              ref={_ref_toggelcomment}
-                              onClick={() => handleEdit(article.id)}
-
-                            >
-
-                              <label
-                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                    {showDropdown === article.id &&
+                      article?.user?.user &&
+                      article?.user?.user?.id === storedUserData.id && (
+                        <div className="absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                          <button
+                            className="block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                            // onClick={() =>
+                            //   handleEditClick(selectedArticle)
+                            // }
+                            ref={_ref_toggelcomment}
+                            onClick={() => handleEdit(article.id)}
+                          >
+                            <label
+                              className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                               // onClick={() => handleEditClick(article)}
+                            >
+                              <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
+                                <g clip-path="url(#clip0_3133_71907)">
+                                  <path
+                                    d="M1.2325 12.4487C0.763627 12.9175 0.500142 13.5533 0.5 14.2163L0.5 15.4994H1.78312C2.44611 15.4992 3.08189 15.2357 3.55062 14.7669L11.89 6.4275L9.57187 4.10938L1.2325 12.4487Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    d="M14.9651 1.03527C14.8129 0.882917 14.6322 0.762055 14.4332 0.679593C14.2343 0.597132 14.0211 0.554688 13.8057 0.554688C13.5904 0.554687 13.3771 0.597132 13.1782 0.679593C12.9793 0.762055 12.7985 0.882917 12.6463 1.03527L10.4551 3.22715L12.7732 5.54527L14.9651 3.35402C15.1174 3.20183 15.2383 3.0211 15.3208 2.82216C15.4032 2.62323 15.4457 2.40999 15.4457 2.19465C15.4457 1.9793 15.4032 1.76606 15.3208 1.56713C15.2383 1.36819 15.1174 1.18746 14.9651 1.03527Z"
+                                    fill="black"
+                                  />
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_3133_71907">
+                                    <rect
+                                      width="15"
+                                      height="15"
+                                      fill="black"
+                                      transform="translate(0.5 0.5)"
+                                    />
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <span>
+                                {getTranslation(
+                                  `Edit`, // -----> Englais
+                                  `Modifier` //  -----> Francais
+                                )}
+                              </span>
 
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <g clip-path="url(#clip0_3133_71907)">
-                                    <path d="M1.2325 12.4487C0.763627 12.9175 0.500142 13.5533 0.5 14.2163L0.5 15.4994H1.78312C2.44611 15.4992 3.08189 15.2357 3.55062 14.7669L11.89 6.4275L9.57187 4.10938L1.2325 12.4487Z" fill="black" />
-                                    <path d="M14.9651 1.03527C14.8129 0.882917 14.6322 0.762055 14.4332 0.679593C14.2343 0.597132 14.0211 0.554688 13.8057 0.554688C13.5904 0.554687 13.3771 0.597132 13.1782 0.679593C12.9793 0.762055 12.7985 0.882917 12.6463 1.03527L10.4551 3.22715L12.7732 5.54527L14.9651 3.35402C15.1174 3.20183 15.2383 3.0211 15.3208 2.82216C15.4032 2.62323 15.4457 2.40999 15.4457 2.19465C15.4457 1.9793 15.4032 1.76606 15.3208 1.56713C15.2383 1.36819 15.1174 1.18746 14.9651 1.03527Z" fill="black" />
-                                  </g>
-                                  <defs>
-                                    <clipPath id="clip0_3133_71907">
-                                      <rect width="15" height="15" fill="black" transform="translate(0.5 0.5)" />
-                                    </clipPath>
-                                  </defs>
-                                </svg>
-                                <span  >{getTranslation(
-                                  `Edit`,  // -----> Englais
-                                  `Modifier`, //  -----> Francais
-                                )}</span>
-
-                                {/* <Link to={`/editPost/${article.id}`}>
+                              {/* <Link to={`/editPost/${article.id}`}>
                                           <span>Edit</span>
                                         </Link>{" "} */}
-                              </label>
-                            </button>
+                            </label>
+                          </button>
 
-                            <button
-                              className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
-                              onClick={() =>
-                                handleDeleteClick(article.id)
-                              }
+                          <button
+                            className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                            onClick={() => handleDeleteClick(article.id)}
+                          >
+                            <svg
+                              width="19"
+                              height="20"
+                              viewBox="0 0 19 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
-                              <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.5 3.33333H14.0825C13.695 1.43417 12.0125 0 10 0H8.33333C6.32167 0 4.63833 1.43417 4.25083 3.33333H0.833333C0.373333 3.33333 0 3.70583 0 4.16667C0 4.6275 0.373333 5 0.833333 5H1.55L2.63 16.2325C2.83667 18.3808 4.62 20 6.7775 20H11.55C13.7108 20 15.4942 18.3775 15.6983 16.2267L16.7617 5H17.4992C17.9592 5 18.3325 4.6275 18.3325 4.16667C18.3325 3.70583 17.96 3.33333 17.5 3.33333ZM8.33333 1.66667H10C11.085 1.66667 12.0017 2.36583 12.3467 3.33333H5.9875C6.3325 2.36583 7.24833 1.66667 8.33333 1.66667ZM12.2558 13.5775C12.5817 13.9033 12.5817 14.43 12.2558 14.7558C12.0933 14.9183 11.88 15 11.6667 15C11.4533 15 11.24 14.9183 11.0775 14.7558L9.16667 12.845L7.25583 14.7558C7.09333 14.9183 6.88 15 6.66667 15C6.45333 15 6.24 14.9183 6.0775 14.7558C5.75167 14.43 5.75167 13.9033 6.0775 13.5775L7.98833 11.6667L6.0775 9.75583C5.75167 9.43 5.75167 8.90333 6.0775 8.5775C6.40333 8.25167 6.93 8.25167 7.25583 8.5775L9.16667 10.4883L11.0775 8.5775C11.4033 8.25167 11.93 8.25167 12.2558 8.5775C12.5817 8.90333 12.5817 9.43 12.2558 9.75583L10.345 11.6667L12.2558 13.5775Z" fill="black" />
-                              </svg>
-                              <span className="text-base">{getTranslation(
-                                `Delete`,  // -----> Englais
-                                `Supprimer`, //  -----> Francais
-                              )}</span>
-                            </button>
-                          </div>
-                        )}
-                    </div>)}
+                              <path
+                                d="M17.5 3.33333H14.0825C13.695 1.43417 12.0125 0 10 0H8.33333C6.32167 0 4.63833 1.43417 4.25083 3.33333H0.833333C0.373333 3.33333 0 3.70583 0 4.16667C0 4.6275 0.373333 5 0.833333 5H1.55L2.63 16.2325C2.83667 18.3808 4.62 20 6.7775 20H11.55C13.7108 20 15.4942 18.3775 15.6983 16.2267L16.7617 5H17.4992C17.9592 5 18.3325 4.6275 18.3325 4.16667C18.3325 3.70583 17.96 3.33333 17.5 3.33333ZM8.33333 1.66667H10C11.085 1.66667 12.0017 2.36583 12.3467 3.33333H5.9875C6.3325 2.36583 7.24833 1.66667 8.33333 1.66667ZM12.2558 13.5775C12.5817 13.9033 12.5817 14.43 12.2558 14.7558C12.0933 14.9183 11.88 15 11.6667 15C11.4533 15 11.24 14.9183 11.0775 14.7558L9.16667 12.845L7.25583 14.7558C7.09333 14.9183 6.88 15 6.66667 15C6.45333 15 6.24 14.9183 6.0775 14.7558C5.75167 14.43 5.75167 13.9033 6.0775 13.5775L7.98833 11.6667L6.0775 9.75583C5.75167 9.43 5.75167 8.90333 6.0775 8.5775C6.40333 8.25167 6.93 8.25167 7.25583 8.5775L9.16667 10.4883L11.0775 8.5775C11.4033 8.25167 11.93 8.25167 12.2558 8.5775C12.5817 8.90333 12.5817 9.43 12.2558 9.75583L10.345 11.6667L12.2558 13.5775Z"
+                                fill="black"
+                              />
+                            </svg>
+                            <span className="text-base">
+                              {getTranslation(
+                                `Delete`, // -----> Englais
+                                `Supprimer` //  -----> Francais
+                              )}
+                            </span>
+                          </button>
+                        </div>
+                      )}
+                  </div>
+                )}
               </div>
 
               <div class=" p-0  mt-2">
                 <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
-                  {!showFullText && article?.description?.length > 295 ? article?.description?.substring(0, 295) + "..." : article.description}
+                  {!showFullText && article?.description?.length > 295
+                    ? article?.description?.substring(0, 295) + "..."
+                    : article.description}
                   {article?.description?.length > 295 && (
                     <button
                       onClick={toggleText}
                       className="text-blue-600  hover:text-blue-400 focus:outline-none"
                     >
-                      {showFullText ? 'Voir moins' : 'Voir plus'}
+                      {showFullText ? "Voir moins" : "Voir plus"}
                     </button>
                   )}
-
                 </p>
-
               </div>
-
 
               {article?.video && (
                 <div className="card-body d-block p-0 mb-3">
@@ -1766,22 +1725,15 @@ useEffect(() => {
                           controls
                           className=" w-100 md:max-h-[600px] max-h-[350px]"
                           ref={videoRef}
-
                         >
-                          <source
-                            src={article.video}
-                            type="video/mp4"
-                          />
-                          Your browser does not support the video
-                          tag.
+                          <source src={article.video} type="video/mp4" />
+                          Your browser does not support the video tag.
                         </video>{" "}
                       </div>
                     </div>
                   </div>
                 </div>
               )}
-
-
 
               {/* <div className="card-body d-block p-0 mb-1">
   <div onClick={handlePlusClick} className={`grid  ${imageCount === 1 ? 'grid-cols-1' : imageCount === 2 ? 'grid-cols-2 h-[80%]' : imageCount === 3 ? 'grid-cols-2 ' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
@@ -1855,15 +1807,50 @@ useEffect(() => {
   </div>
 </div> */}
 
-
               <div className="card-body d-block p-0 mb-1">
-                <div onClick={handlePlusClick} className={`grid ${imageCount === 1 ? 'grid-cols-1' : imageCount === 2 ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
+                <div
+                  onClick={handlePlusClick}
+                  className={`grid ${
+                    imageCount === 1
+                      ? "grid-cols-1"
+                      : imageCount === 2
+                      ? "grid-cols-2"
+                      : "grid-cols-2 sm:grid-cols-2 md:grid-cols-2"
+                  }`}
+                >
                   {images.slice(0, 4).map((imageUrl, index) => (
-                    <div key={index} className={`p-1 relative ${imageCount === 3 && index === 0 ? 'col-span-2' : ''}`}>
+                    <div
+                      key={index}
+                      className={`p-1 relative ${
+                        imageCount === 3 && index === 0 ? "col-span-2" : ""
+                      }`}
+                    >
                       {imageUrl && (
                         <div
-                          className={`relative w-full ${imageCount === 1 ? 'md:h-[400px] h-[350px] single-image-container' : imageCount === 2 ? 'h-full md:h-[250px]' : 'w-full h-44'} ${index === 0 && imageCount === 3 ? 'min-h-56 md:h-56 object-cover' : ''} ${index > 0 && imageCount === 3 ? 'w-full h-[250px]' : 'w-full h-44'} ${index === 3 && images.length > 4 ? 'opacity-50 md:h-[250px]' : 'md:h-[250px]'} ${imageCount === 4 ? 'h-full md:h-[250px]' : 'w-full h-44'}`}
-                          style={{ overflow: 'hidden' }}
+                          className={`relative w-full ${
+                            imageCount === 1
+                              ? "md:h-[400px] h-[350px] single-image-container"
+                              : imageCount === 2
+                              ? "h-full md:h-[250px]"
+                              : "w-full h-44"
+                          } ${
+                            index === 0 && imageCount === 3
+                              ? "min-h-56 md:h-56 object-cover"
+                              : ""
+                          } ${
+                            index > 0 && imageCount === 3
+                              ? "w-full h-[250px]"
+                              : "w-full h-44"
+                          } ${
+                            index === 3 && images.length > 4
+                              ? "opacity-50 md:h-[250px]"
+                              : "md:h-[250px]"
+                          } ${
+                            imageCount === 4
+                              ? "h-full md:h-[250px]"
+                              : "w-full h-44"
+                          }`}
+                          style={{ overflow: "hidden" }}
                         >
                           {imageCount === 1 && (
                             <div
@@ -1872,15 +1859,44 @@ useEffect(() => {
                             ></div>
                           )}
                           <img
-                            className={`relative w-full ${imageCount === 1 ? 'md:h-[400px] h-[350px] object-contain' : imageCount === 2 ? 'h-full md:h-[250px] object-cover' : 'w-full h-44'} ${index === 0 && imageCount === 3 ? 'min-h-56 md:h-56 object-cover' : ''} ${index > 0 && imageCount === 3 ? 'object-cover h-[250px]' : ''} ${index === 3 && images.length > 4 ? 'opacity-50 md:h-[250px]' : 'md:h-[250px]'} ${imageCount === 4 ? 'h-full object-cover md:h-[250px]' : 'w-full h-44'}`}
+                            className={`relative w-full ${
+                              imageCount === 1
+                                ? "md:h-[400px] h-[350px] object-contain"
+                                : imageCount === 2
+                                ? "h-full md:h-[250px] object-cover"
+                                : "w-full h-44"
+                            } ${
+                              index === 0 && imageCount === 3
+                                ? "min-h-56 md:h-56 object-cover"
+                                : ""
+                            } ${
+                              index > 0 && imageCount === 3
+                                ? "object-cover h-[250px]"
+                                : ""
+                            } ${
+                              index === 3 && images.length > 4
+                                ? "opacity-50 md:h-[250px]"
+                                : "md:h-[250px]"
+                            } ${
+                              imageCount === 4
+                                ? "h-full object-cover md:h-[250px]"
+                                : "w-full h-44"
+                            }`}
                             src={imageUrl}
                             alt={`Image ${index + 1}`}
-                            style={{ marginBottom: '0', borderRadius: '0', zIndex: 1 }}
+                            style={{
+                              marginBottom: "0",
+                              borderRadius: "0",
+                              zIndex: 1,
+                            }}
                           />
                         </div>
                       )}
                       {index === 3 && images.length > 4 && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl" onClick={handlePlusClick}>
+                        <div
+                          className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl"
+                          onClick={handlePlusClick}
+                        >
                           +{images.length - 4}
                         </div>
                       )}
@@ -1889,88 +1905,221 @@ useEffect(() => {
                 </div>
               </div>
 
-
-
-
-
-
-
               {article?.sharedFrom && article?.sharedArticle && (
-                <div key={article?.sharedArticle?.id} className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 mb-3">
+                <div
+                  key={article?.sharedArticle?.id}
+                  className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 mb-3"
+                >
                   <div className="card-body p-0 d-flex">
-                    <Link to={`/profile/${article?.sharedArticle?.userspartage?.id}`}>
+                    <Link
+                      to={`/profile/${article?.sharedArticle?.userspartage?.id}`}
+                    >
                       <figure className="avatar me-3">
                         <img
-                          srcSet={article?.sharedArticle?.userspartage?.image ? article?.sharedArticle?.userspartage?.image : placeholder}
+                          srcSet={
+                            article?.sharedArticle?.userspartage?.image
+                              ? article?.sharedArticle?.userspartage?.image
+                              : placeholder
+                          }
                           className="shadow-sm rounded-full w-[52px] aspect-square"
                           alt="post"
                         />
                       </figure>
                     </Link>
                     <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                      <Link to={`/profile/${article?.sharedArticle?.userspartage?.id}`}>
-                        {article?.sharedArticle?.userspartage?.nom} {article?.sharedArticle?.userspartage?.prenom}
+                      <Link
+                        to={`/profile/${article?.sharedArticle?.userspartage?.id}`}
+                      >
+                        {article?.sharedArticle?.userspartage?.nom}{" "}
+                        {article?.sharedArticle?.userspartage?.prenom}
                       </Link>
                       <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {article?.sharedArticle?.userspartage?.profil == 'other' ? article?.sharedArticle?.userspartage?.other?.profession : ''}
-                        {article?.sharedArticle?.userspartage?.profil == 'player' ? ' Joueur' : ''}
-                        {article?.sharedArticle?.userspartage?.profil == 'coach' ? ' Entraîneur' : ''}
-                        {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'players' ? 'Manager de Joueur' : ''}
-                        {article?.sharedArticle?.userspartage?.profil == 'agent' && article?.sharedArticle?.userspartage?.agent?.typeresponsable == 'club' ? 'Manager de Club' : ''}
-                        {article?.sharedArticle?.userspartage?.profil == 'scout' ? 'Scout' : ''}
+                        {article?.sharedArticle?.userspartage?.profil == "other"
+                          ? article?.sharedArticle?.userspartage?.other
+                              ?.profession
+                          : ""}
+                        {article?.sharedArticle?.userspartage?.profil ==
+                        "player"
+                          ? " Joueur"
+                          : ""}
+                        {article?.sharedArticle?.userspartage?.profil == "coach"
+                          ? " Entraîneur"
+                          : ""}
+                        {article?.sharedArticle?.userspartage?.profil ==
+                          "agent" &&
+                        article?.sharedArticle?.userspartage?.agent
+                          ?.typeresponsable == "players"
+                          ? "Manager de Joueur"
+                          : ""}
+                        {article?.sharedArticle?.userspartage?.profil ==
+                          "agent" &&
+                        article?.sharedArticle?.userspartage?.agent
+                          ?.typeresponsable == "club"
+                          ? "Manager de Club"
+                          : ""}
+                        {article?.sharedArticle?.userspartage?.profil == "scout"
+                          ? "Scout"
+                          : ""}
                       </span>
                       <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                        {moment(article?.sharedArticle?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                        {moment(article?.sharedArticle?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                          moment(article?.sharedArticle?.createdAt).fromNow(true) :
-                          moment(article?.sharedArticle?.createdAt).fromNow()}
+                        {moment(article?.sharedArticle?.createdAt).format(
+                          "DD MMMM YYYY"
+                        )}{" "}
+                        {"  -  "}
+                        {moment(article?.sharedArticle?.createdAt).isAfter(
+                          moment().subtract(1, "hour")
+                        )
+                          ? moment(article?.sharedArticle?.createdAt).fromNow(
+                              true
+                            )
+                          : moment(article?.sharedArticle?.createdAt).fromNow()}
                       </span>
                     </h4>
                   </div>
                   <div className="p-0 mt-2">
                     <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
-                      {!showFullText && article?.sharedArticle?.description?.length > 295 ? article?.sharedArticle?.description.substring(0, 295) + "..." : article.sharedArticle.description}
+                      {!showFullText &&
+                      article?.sharedArticle?.description?.length > 295
+                        ? article?.sharedArticle?.description.substring(
+                            0,
+                            295
+                          ) + "..."
+                        : article.sharedArticle.description}
                       {article.sharedArticle?.description.length > 295 && (
                         <button
                           onClick={toggleText}
                           className="text-blue-600 hover:text-blue-400 focus:outline-none"
                         >
-                          {showFullText ? 'Voir moins' : 'Voir plus'}
+                          {showFullText ? "Voir moins" : "Voir plus"}
                         </button>
                       )}
                     </p>
                   </div>
                   {article?.sharedArticle?.image && (
                     <div className="card-body d-block p-0 mb-3">
-                      <div className={`grid ${article?.sharedArticle?.image.split(';').length === 1 ? 'grid-cols-1' : article?.sharedArticle?.image.split(';').length === 2 ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
-                        {article?.sharedArticle?.image.split(';').slice(0, 4).map((imageUrl, index) => (
-                          <div key={index} className={`p-1 relative ${article?.sharedArticle?.image.split(';').length === 3 && index === 0 ? 'col-span-2' : ''}`}>
-                            {imageUrl && (
-                              <div
-                                className={`relative w-full ${article?.sharedArticle?.image.split(';').length === 1 ? 'md:h-[400px] h-[350px] single-image-container' : article?.sharedArticle?.image.split(';').length === 2 ? 'h-full md:h-[250px]' : 'w-full h-44'} ${index === 0 && article?.sharedArticle?.image.split(';').length === 3 ? 'h-42 md:h-56 object-cover' : ''} ${index > 0 && article?.sharedArticle?.image.split(';').length === 3 ? 'w-full h-[250px]' : 'w-full h-44'} ${index === 3 && article?.sharedArticle?.image.split(';').length > 4 ? 'opacity-50 md:h-[250px]' : 'md:h-[250px]'} ${article?.sharedArticle?.image.split(';').length === 4 ? 'h-full md:h-[250px]' : 'w-full h-44'}`}
-                                style={{ overflow: 'hidden' }}
-                              >
-                                {article?.sharedArticle?.image.split(';').length === 1 && (
-                                  <div
-                                    className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-md"
-                                    style={{ backgroundImage: `url(${imageUrl})` }}
-                                  ></div>
+                      <div
+                        className={`grid ${
+                          article?.sharedArticle?.image.split(";").length === 1
+                            ? "grid-cols-1"
+                            : article?.sharedArticle?.image.split(";")
+                                .length === 2
+                            ? "grid-cols-2"
+                            : "grid-cols-2 sm:grid-cols-2 md:grid-cols-2"
+                        }`}
+                      >
+                        {article?.sharedArticle?.image
+                          .split(";")
+                          .slice(0, 4)
+                          .map((imageUrl, index) => (
+                            <div
+                              key={index}
+                              className={`p-1 relative ${
+                                article?.sharedArticle?.image.split(";")
+                                  .length === 3 && index === 0
+                                  ? "col-span-2"
+                                  : ""
+                              }`}
+                            >
+                              {imageUrl && (
+                                <div
+                                  className={`relative w-full ${
+                                    article?.sharedArticle?.image.split(";")
+                                      .length === 1
+                                      ? "md:h-[400px] h-[350px] single-image-container"
+                                      : article?.sharedArticle?.image.split(";")
+                                          .length === 2
+                                      ? "h-full md:h-[250px]"
+                                      : "w-full h-44"
+                                  } ${
+                                    index === 0 &&
+                                    article?.sharedArticle?.image.split(";")
+                                      .length === 3
+                                      ? "h-42 md:h-56 object-cover"
+                                      : ""
+                                  } ${
+                                    index > 0 &&
+                                    article?.sharedArticle?.image.split(";")
+                                      .length === 3
+                                      ? "w-full h-[250px]"
+                                      : "w-full h-44"
+                                  } ${
+                                    index === 3 &&
+                                    article?.sharedArticle?.image.split(";")
+                                      .length > 4
+                                      ? "opacity-50 md:h-[250px]"
+                                      : "md:h-[250px]"
+                                  } ${
+                                    article?.sharedArticle?.image.split(";")
+                                      .length === 4
+                                      ? "h-full md:h-[250px]"
+                                      : "w-full h-44"
+                                  }`}
+                                  style={{ overflow: "hidden" }}
+                                >
+                                  {article?.sharedArticle?.image.split(";")
+                                    .length === 1 && (
+                                    <div
+                                      className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-md"
+                                      style={{
+                                        backgroundImage: `url(${imageUrl})`,
+                                      }}
+                                    ></div>
+                                  )}
+                                  <img
+                                    className={`relative w-full ${
+                                      article?.sharedArticle?.image.split(";")
+                                        .length === 1
+                                        ? "md:h-[400px] h-[350px]   object-contain "
+                                        : article?.sharedArticle?.image.split(
+                                            ";"
+                                          ).length === 2
+                                        ? "h-full md:h-[250px] object-cover"
+                                        : "w-full h-44"
+                                    } ${
+                                      index === 0 &&
+                                      article?.sharedArticle?.image.split(";")
+                                        .length === 3
+                                        ? "h-30 md:h-56 object-cover"
+                                        : ""
+                                    } ${
+                                      index > 0 &&
+                                      article?.sharedArticle?.image.split(";")
+                                        .length === 3
+                                        ? "object-cover h-[250px]"
+                                        : ""
+                                    } ${
+                                      index === 3 &&
+                                      article?.sharedArticle?.image.split(";")
+                                        .length > 4
+                                        ? "opacity-50 md:h-[250px]"
+                                        : "md:h-[250px]"
+                                    } ${
+                                      article?.sharedArticle?.image.split(";")
+                                        .length === 4
+                                        ? "h-full object-cover md:h-[250px]"
+                                        : "w-full h-44"
+                                    }`}
+                                    src={imageUrl}
+                                    alt={`Image ${index + 1}`}
+                                    style={{
+                                      marginBottom: "0",
+                                      borderRadius: "0",
+                                      zIndex: 1,
+                                    }}
+                                  />
+                                </div>
+                              )}
+                              {index === 3 &&
+                                article?.sharedArticle?.image.split(";")
+                                  .length > 4 && (
+                                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl">
+                                    +
+                                    {article?.sharedArticle?.image.split(";")
+                                      .length - 4}
+                                  </div>
                                 )}
-                                <img
-                                  className={`relative w-full ${article?.sharedArticle?.image.split(';').length === 1 ? 'md:h-[400px] h-[350px]   object-contain ' : article?.sharedArticle?.image.split(';').length === 2 ? 'h-full md:h-[250px] object-cover' : 'w-full h-44'} ${index === 0 && article?.sharedArticle?.image.split(';').length === 3 ? 'h-30 md:h-56 object-cover' : ''} ${index > 0 && article?.sharedArticle?.image.split(';').length === 3 ? 'object-cover h-[250px]' : ''} ${index === 3 && article?.sharedArticle?.image.split(';').length > 4 ? 'opacity-50 md:h-[250px]' : 'md:h-[250px]'} ${article?.sharedArticle?.image.split(';').length === 4 ? 'h-full object-cover md:h-[250px]' : 'w-full h-44'}`}
-                                  src={imageUrl}
-                                  alt={`Image ${index + 1}`}
-                                  style={{ marginBottom: '0', borderRadius: '0', zIndex: 1 }}
-                                />
-                              </div>
-                            )}
-                            {index === 3 && article?.sharedArticle?.image.split(';').length > 4 && (
-                              <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl">
-                                +{article?.sharedArticle?.image.split(';').length - 4}
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                            </div>
+                          ))}
                       </div>
                     </div>
                   )}
@@ -2021,14 +2170,12 @@ useEffect(() => {
                 </div>
               )}
 
-
-
-
-
               <div className="  rounded-lg -mt-4">
                 <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
-                  <div onClick={() => handleClicklikeshow(article.id)}
-                    className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5">
+                  <div
+                    onClick={() => handleClicklikeshow(article.id)}
+                    className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
+                  >
                     <svg
                       width="17"
                       height="15"
@@ -2045,31 +2192,38 @@ useEffect(() => {
                       {article.likesCount}
                     </span> */}
                     <div>
-                      <span
-                        className="text-md py-1 px-2 relative z-[2] "
-                      >
+                      <span className="text-md py-1 px-2 relative z-[2] ">
                         <div className=""> {article.likesCount}</div>
 
                         {showDropdownlikes && (
-                          <div ref={reff} className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+                          <div
+                            ref={reff}
+                            className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
+                          >
                             <div className="py-2 px-4">
-                              <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold"> {
-                                getTranslation(
-                                  `Who liked this post?`,  // -----> Englais
+                              <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
+                                {" "}
+                                {getTranslation(
+                                  `Who liked this post?`, // -----> Englais
                                   `Qui a aimé cette publication?`, //  -----> Francais
-                                  ``,  //  -----> Turkey
-                                  ``,  //  -----> Allemagne
-                                )
-
-                              } </h3>
+                                  ``, //  -----> Turkey
+                                  `` //  -----> Allemagne
+                                )}{" "}
+                              </h3>
                               <ul>
                                 {userslikearticle.map((like, index) => (
-                                  <li key={index} className="mt-1 py-2 flex flex-row  items-center">
+                                  <li
+                                    key={index}
+                                    className="mt-1 py-2 flex flex-row  items-center"
+                                  >
                                     <Link to={`/profile/${like.userId}`}>
                                       <figure className="avatar me-3">
                                         <img
-                                          srcSet={like?.user?.image ? like?.user?.image : placeholder}
-
+                                          srcSet={
+                                            like?.user?.image
+                                              ? like?.user?.image
+                                              : placeholder
+                                          }
                                           // src={article?.user?.user??.image}
                                           className="shadow-sm rounded-full w-[32px] aspect-square"
                                         />{" "}
@@ -2084,7 +2238,6 @@ useEffect(() => {
                         )}
                       </span>
                     </div>
-
                   </div>
                   <div className="flex gap-2.5 items-center justify-center py-2.5">
                     <svg
@@ -2109,75 +2262,65 @@ useEffect(() => {
                 <span className="flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
                   <button
                     onClick={async () => {
-                       //notlike
-                       NotificationService.instantSend(socket, 
-                        {
-                          toUser_id: article?.user?.user?.id,
-                          forWichAction: "like",
-                          actionId: "0",
-                          postId: article.id,
-                          postImage: article?.image ? article?.image : ""
-                        }
-                      )
+                      //notlike
+                      NotificationService.instantSend(socket, {
+                        toUser_id: article?.user?.user?.id,
+                        forWichAction: "like",
+                        actionId: "0",
+                        postId: article.id,
+                        postImage: article?.image ? article?.image : "",
+                      });
                       await handleLikeClick(article.id, 1);
                       await fetchLikesForArticle(article.id);
                     }}
                   >
-
-
-
-
-
-
                     <span className="flex items-center flex-col md:flex-row gap-2 ">
-                      {likesData && likesData.some(like => like.userId === storedUserData.id) ? (
-                        < span className="flex flex-row">  <BiSolidHeart className="size-6 text-orange-500" />
+                      {likesData &&
+                      likesData.some(
+                        (like) => like.userId === storedUserData.id
+                      ) ? (
+                        <span className="flex flex-row">
+                          {" "}
+                          <BiSolidHeart className="size-6 text-orange-500" />
                           <div className="flex items-center gap-2">
                             <span
                               className="text-xs md:text-md"
-
                               style={{
                                 marginLeft: "1px",
                                 marginTop: "2px",
-                                color: "#f97316"
-
+                                color: "#f97316",
                               }}
                             >
-
                               {getTranslation(
-                                `Like`,  // -----> Englais
-                                `J'aime`, //  -----> Francais
+                                `Like`, // -----> Englais
+                                `J'aime` //  -----> Francais
                               )}
                             </span>
                           </div>
                         </span>
                       ) : (
-                        <span className="flex flex-row"> <BiHeart className="size-6 text-black" />
+                        <span className="flex flex-row">
+                          {" "}
+                          <BiHeart className="size-6 text-black" />
                           <div className="flex items-center gap-2">
                             <span
                               className="text-xs md:text-md"
                               style={{
                                 marginLeft: "1px",
                                 marginTop: "2px",
-                                color: "black"
-
+                                color: "black",
                               }}
                             >
-
                               {getTranslation(
-                                `Like`,  // -----> Englais
-                                `J'aime`, //  -----> Francais
+                                `Like`, // -----> Englais
+                                `J'aime` //  -----> Francais
                               )}
                             </span>
                           </div>
-
                         </span>
-                      )
-                      }
+                      )}
                     </span>
                   </button>{" "}
-
-
                   <button
                     onClick={() => {
                       if (selectedArticleId === article.id) {
@@ -2191,11 +2334,7 @@ useEffect(() => {
                       }
                     }}
                   >
-
-
-
                     <div className="flex flex-row gap-x-4">
-
                       {selectedArticleId === article.id ? (
                         <div className="flex gap-2 flex-row md:flex-row items-center">
                           <img
@@ -2203,10 +2342,12 @@ useEffect(() => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="w-5 aspect-square fill-zinc-900"
                           />
-                          <div className="flex gap-2 text-xs md:text-md">{getTranslation(
-                            `Comment`,  // -----> Englais
-                            `Commenter`, //  -----> Francais
-                          )} </div>
+                          <div className="flex gap-2 text-xs md:text-md">
+                            {getTranslation(
+                              `Comment`, // -----> Englais
+                              `Commenter` //  -----> Francais
+                            )}{" "}
+                          </div>
                         </div>
                       ) : (
                         <div className="flex gap-2 flex-row md:flex-row items-center">
@@ -2217,49 +2358,34 @@ useEffect(() => {
                           />
                           <div className="flex gap-2 text-xs md:text-md">
                             {" "}
-                            <span>{getTranslation(
-                              `Comment`,  // -----> Englais
-                              `Commenter`, //  -----> Francais
-                            )} </span>
+                            <span>
+                              {getTranslation(
+                                `Comment`, // -----> Englais
+                                `Commenter` //  -----> Francais
+                              )}{" "}
+                            </span>
                           </div>
                         </div>
                       )}
-
-
                     </div>
-
-
-
-
                   </button>
-
-
-
-
                   {/* partage */}
-
                   <button
                     onClick={() => {
-
-                      partageArticle(article.id)
-
-
-
+                      partageArticle(article.id);
                     }}
                   >
-
-
-
                     <div className="flex flex-row gap-x-4">
-
                       {selectedArticleId === article.id ? (
                         <div className="flex gap-2 flex-row md:flex-row items-center">
                           <BiShare className="size-6" />
 
-                          <div className="flex gap-2 text-xs md:text-md">{getTranslation(
-                            `Share`,  // -----> Englais
-                            `Partager`, //  -----> Francais
-                          )} </div>
+                          <div className="flex gap-2 text-xs md:text-md">
+                            {getTranslation(
+                              `Share`, // -----> Englais
+                              `Partager` //  -----> Francais
+                            )}{" "}
+                          </div>
                         </div>
                       ) : (
                         <div className="flex gap-2 flex-row md:flex-row items-center">
@@ -2267,24 +2393,17 @@ useEffect(() => {
 
                           <div className="flex gap-2 text-xs md:text-md">
                             {" "}
-                            <span>{getTranslation(
-                              `Share`,  // -----> Englais
-                              `Partager`, //  -----> Francais
-                            )} </span>
+                            <span>
+                              {getTranslation(
+                                `Share`, // -----> Englais
+                                `Partager` //  -----> Francais
+                              )}{" "}
+                            </span>
                           </div>
                         </div>
                       )}
-
                     </div>
-
-
-
-
-
-
                   </button>
-
-
                 </span>
 
                 {selectedArticleId === article?.id && (
@@ -2293,52 +2412,53 @@ useEffect(() => {
                       article?.comments?.map((comment) => (
                         <div key={comment.id} className="comment">
                           <div className="flex w-full">
-                            <Link to={`/profile/${comment?.user?.user?.id}`}>  <figure className="avatar me-3 mb-8">
-
-
-
-                              <img
-                                src={comment?.user?.user?.image ? comment?.user?.user?.image : placeholder}
-
-                                className="shadow-sm rounded-full w-[52px] aspect-square"
-                                alt="post"
-                              />
-                            </figure></Link>
+                            <Link to={`/profile/${comment?.user?.user?.id}`}>
+                              {" "}
+                              <figure className="avatar me-3 mb-8">
+                                <img
+                                  src={
+                                    comment?.user?.user?.image
+                                      ? comment?.user?.user?.image
+                                      : placeholder
+                                  }
+                                  className="shadow-sm rounded-full w-[52px] aspect-square"
+                                  alt="post"
+                                />
+                              </figure>
+                            </Link>
                             <div className="flex flex-col w-full">
-
-
-
                               <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[15px] md:rounded-[20px] max-w-[510px]">
-
-
-
-
                                 <div className="flex gap-4 justify-between px-3 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
-
-
-
-
                                   <div className="flex flex-col py-1 font-light text-zinc-900">
-
-
-
-
-                                    <Link to={`/profile/${comment?.user?.user?.id}`}>
+                                    <Link
+                                      to={`/profile/${comment?.user?.user?.id}`}
+                                    >
                                       <div className="fw-700 text-grey-900 font-xssss mt-1">
-                                        {comment.user &&
-                                          comment.user.user.nom}{" "}
+                                        {comment.user && comment.user.user.nom}{" "}
                                         {comment.user &&
                                           comment.user.user.prenom}
-                                      </div> </Link>
+                                      </div>{" "}
+                                    </Link>
                                     <div className="mt-1 text-xs">
-
                                       {comment.user && (
                                         <div>
-                                          {comment?.user?.user?.profil === 'other' && comment?.user?.other?.profession}
-                                          {comment?.user?.user?.profil === 'player' && 'Joueur'}
-                                          {comment?.user?.user?.profil === 'agent' && comment?.user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
-                                          {comment?.user?.user?.profil === 'agent' && comment?.user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
-                                          {comment?.user?.user?.profil === 'scout' && 'Scout'}
+                                          {comment?.user?.user?.profil ===
+                                            "other" &&
+                                            comment?.user?.other?.profession}
+                                          {comment?.user?.user?.profil ===
+                                            "player" && "Joueur"}
+                                          {comment?.user?.user?.profil ===
+                                            "agent" &&
+                                            comment?.user?.agent
+                                              ?.typeresponsable === "players" &&
+                                            "Manager de Joueur"}
+                                          {comment?.user?.user?.profil ===
+                                            "agent" &&
+                                            comment?.user?.agent
+                                              ?.typeresponsable === "club" &&
+                                            "Manager de Club"}
+                                          {comment?.user?.user?.profil ===
+                                            "scout" && "Scout"}
                                         </div>
                                       )}
 
@@ -2346,28 +2466,28 @@ useEffect(() => {
                                         comment.user.user.profil} */}
                                     </div>
                                     <div className="mt-1 text-xs">
-                                      {moment(comment?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                                      {
-                                        moment(comment?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                                          moment(comment?.createdAt).fromNow(true) :
-                                          moment(comment?.createdAt).fromNow()
-                                      }
-
+                                      {moment(comment?.createdAt).format(
+                                        "DD MMMM YYYY"
+                                      )}{" "}
+                                      {"  -  "}
+                                      {moment(comment?.createdAt).isAfter(
+                                        moment().subtract(1, "hour")
+                                      )
+                                        ? moment(comment?.createdAt).fromNow(
+                                            true
+                                          )
+                                        : moment(comment?.createdAt).fromNow()}
                                     </div>
-
                                   </div>
 
-
-
-
-
-                                  {storedUserData.id == comment?.user?.user?.id &&
-
-                                    (<div
+                                  {storedUserData.id ==
+                                    comment?.user?.user?.id && (
+                                    <div
                                       className=" relative cursor-pointer"
-                                      onClick={() => handleMoreClickComment(comment)}
+                                      onClick={() =>
+                                        handleMoreClickComment(comment)
+                                      }
                                     >
-
                                       <svg
                                         width="31"
                                         height="21"
@@ -2391,453 +2511,512 @@ useEffect(() => {
 
                                       {showDropdownComment === comment?.id &&
                                         comment?.user?.user &&
-                                        comment?.user?.user?.id === storedUserData.id && (
+                                        comment?.user?.user?.id ===
+                                          storedUserData.id && (
                                           <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                             <button
                                               className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-                                              onClick={() => handleEditClickComment(comment.id)
+                                              onClick={() =>
+                                                handleEditClickComment(
+                                                  comment.id
+                                                )
                                               }
                                             >
                                               <label
                                                 className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                              // onClick={() => handleEditClickComment(comment)}
+                                                // onClick={() => handleEditClickComment(comment)}
                                               >
                                                 <BiEditAlt />
                                                 {/* <Link to={`/editPost/${comment.id}`}> */}
                                                 <span>
                                                   {getTranslation(
-                                                    `Edit`,  // -----> Englais
-                                                    `Modifier`, //  -----> Francais
-                                                  )}</span>
+                                                    `Edit`, // -----> Englais
+                                                    `Modifier` //  -----> Francais
+                                                  )}
+                                                </span>
                                                 {/* </Link>{" "} */}
                                               </label>
                                             </button>
 
-
                                             <button
                                               className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-
                                               onClick={() => {
-                                                handleDeleteCommentClick(comment.id, article.id)
+                                                handleDeleteCommentClick(
+                                                  comment.id,
+                                                  article.id
+                                                );
 
                                                 setCommentInputVisible(false);
                                                 setSelectedArticleId(null);
-
                                               }}
                                             >
                                               <label
                                                 className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                              // onClick={() => handleEditClickComment(comment)}
+                                                // onClick={() => handleEditClickComment(comment)}
                                               >
                                                 <BiLogInCircle />
-                                                <span className="text-base"> {getTranslation(
-                                                  `Delete`,  // -----> Englais
-                                                  `Supprimer`, //  -----> Francais
-                                                )}</span></label>
+                                                <span className="text-base">
+                                                  {" "}
+                                                  {getTranslation(
+                                                    `Delete`, // -----> Englais
+                                                    `Supprimer` //  -----> Francais
+                                                  )}
+                                                </span>
+                                              </label>
                                             </button>
                                           </div>
                                         )}
-
-                                    </div>)}
-
-
-
-
-
+                                    </div>
+                                  )}
                                 </div>
-                                <div className="mt-2 text-break font-light text-zinc-900 px-4" >
+                                <div className="mt-2 text-break font-light text-zinc-900 px-4">
                                   {comment.id === editingCommentId ? (
                                     <textarea
                                       className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
-                                      style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                      style={{
+                                        resize: "none",
+                                        maxHeight: "300px",
+                                        overflowY: "auto",
+                                        scrollbarWidth: "none",
+                                      }}
                                       value={editedComment}
-                                      onChange={(e) => setEditedComment(e.target.value)}
+                                      onChange={(e) =>
+                                        setEditedComment(e.target.value)
+                                      }
                                     ></textarea>
                                   ) : (
-                                    <div className="text-wrap" style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                    <div
+                                      className="text-wrap"
+                                      style={{
+                                        resize: "none",
+                                        maxHeight: "300px",
+                                        overflowY: "auto",
+                                        scrollbarWidth: "none",
+                                      }}
                                     >
-
                                       {comment.description}
                                     </div>
                                   )}
                                 </div>
 
-
-
                                 {comment.id === editingCommentId ? (
                                   <div className="my-2 px-[26px] flex w-full justify-between">
+                                    <button
+                                      className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
+                                      onClick={() => cancelEdit()}
+                                    >
+                                      {" "}
+                                      {getTranslation(
+                                        `Cancel`, // -----> Englais
+                                        `Annuler` //  -----> Francais
+                                      )}
+                                    </button>
+                                    <button
+                                      className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
+                                      onClick={() => {
+                                        saveEditedComment(comment.id);
 
-                                    <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}> {getTranslation(
-                                      `Cancel`,  // -----> Englais
-                                      `Annuler`, //  -----> Francais
-                                    )}</button>
-                                    <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
-                                      saveEditedComment(comment.id)
-
-
-                                      setCommentInputVisible(false);
-                                      setSelectedArticleId(null);
-                                    }
-
-
-
-                                    }>Modifier</button>
-
+                                        setCommentInputVisible(false);
+                                        setSelectedArticleId(null);
+                                      }}
+                                    >
+                                      Modifier
+                                    </button>
                                   </div>
                                 ) : (
-                                  <div className="my-2 flex w-full justify-between">
-
-
-                                  </div>
+                                  <div className="my-2 flex w-full justify-between"></div>
                                 )}
-
-
                               </div>
 
                               <div className="my-2 flex flex-row  w-full justify-between">
-                                <div className="flex flex-row">  <button
-                                  className="flex-row"
-                                  onClick={async () => {
-                                    NotificationService.instantSend(socket, 
-                                      {
+                                <div className="flex flex-row">
+                                  {" "}
+                                  <button
+                                    className="flex-row"
+                                    onClick={async () => {
+                                      NotificationService.instantSend(socket, {
                                         toUser_id: comment.userId,
                                         forWichAction: "likeComment",
                                         actionId: "0",
                                         postId: article.id,
                                         content: comment.description,
-                                        postImage: article?.image ? article?.image : ""
+                                        postImage: article?.image
+                                          ? article?.image
+                                          : "",
+                                      });
 
-                                      }
-                                    )
+                                      await fetchLikesForComment(comment.id);
 
-                                    await fetchLikesForComment(comment.id);
-
-                                    await handleLikeComment(comment.id);
-                                  }}
-
-                                >
-                                  <div className="flex-col">
-
-
-
-                                    {likesDataComment && (
-                                      likesDataComment.some(like => like.userId === storedUserData.id && like.commentId === comment.id) ? (
-                                        <span className="flex flex-row">
-                                          <BiSolidHeart className="size-6 text-orange-500" />
-                                          <div className="flex items-center gap-2">
-                                            <span
-                                              className="text-xs md:text-md"
-                                              style={{
-                                                marginLeft: "1px",
-                                                marginTop: "2px",
-                                                color: "#f97316"
-                                              }}
-                                            ></span>
-                                          </div>
-                                          <div className="flex-col mt-1 ml-2 text-orange-500">{comment.likesCount}</div>
-                                        </span>
-                                      ) : (
-                                        <span className="flex flex-row">
-                                          <BiHeart className="size-6 text-black" />
-                                          <div className="flex items-center gap-2">
-                                            <span
-                                              className="text-xs md:text-md"
-                                              style={{
-                                                marginLeft: "1px",
-                                                marginTop: "2px",
-                                                color: "black"
-                                              }}
-                                            ></span>
-                                          </div>
-                                          <div className="flex-col mt-1 ml-2 text-black">{comment.likesCount}</div>
-                                        </span>
-                                      )
-                                    )}
-
-
-
-                                  </div>
-                                </button>
+                                      await handleLikeComment(comment.id);
+                                    }}
+                                  >
+                                    <div className="flex-col">
+                                      {likesDataComment &&
+                                        (likesDataComment.some(
+                                          (like) =>
+                                            like.userId === storedUserData.id &&
+                                            like.commentId === comment.id
+                                        ) ? (
+                                          <span className="flex flex-row">
+                                            <BiSolidHeart className="size-6 text-orange-500" />
+                                            <div className="flex items-center gap-2">
+                                              <span
+                                                className="text-xs md:text-md"
+                                                style={{
+                                                  marginLeft: "1px",
+                                                  marginTop: "2px",
+                                                  color: "#f97316",
+                                                }}
+                                              ></span>
+                                            </div>
+                                            <div className="flex-col mt-1 ml-2 text-orange-500">
+                                              {comment.likesCount}
+                                            </div>
+                                          </span>
+                                        ) : (
+                                          <span className="flex flex-row">
+                                            <BiHeart className="size-6 text-black" />
+                                            <div className="flex items-center gap-2">
+                                              <span
+                                                className="text-xs md:text-md"
+                                                style={{
+                                                  marginLeft: "1px",
+                                                  marginTop: "2px",
+                                                  color: "black",
+                                                }}
+                                              ></span>
+                                            </div>
+                                            <div className="flex-col mt-1 ml-2 text-black">
+                                              {comment.likesCount}
+                                            </div>
+                                          </span>
+                                        ))}
+                                    </div>
+                                  </button>
                                   {/* <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
-
                                 </div>
                                 <button
-                                  onClick={() =>
-                                    handleReplyClick(comment.id)
-                                  }
+                                  onClick={() => handleReplyClick(comment.id)}
                                   className="w-20 font-semibold ml-2  mt-2 flex gap-2 text-xs md:text-md"
                                 >
                                   {getTranslation(
-                                    `Reply`,  // -----> Englais
-                                    `Répondre`, //  -----> Francais
+                                    `Reply`, // -----> Englais
+                                    `Répondre` //  -----> Francais
                                   )}
                                 </button>
                               </div>
                             </div>
                           </div>
 
-
                           {repliesVisible[comment?.id] && (
                             <div className="replies-section ml-6 md:ml-16 mt-0">
                               {articleComments[comment?.id] &&
-                                articleComments[comment?.id].map(
-                                  (reply) => (
-                                    <div
-                                      key={reply.id}
-                                      className="reply mb-0"
-                                    >
-
-                                      <div className="flex space-x-2 items-start py-2">
-                                        <figure className="avatar me-2 mb-8">
-                                          <img
-                                            src={
-                                              //  reply.user?.user?.image
-                                              reply?.user?.user?.image ? reply?.user?.user?.image : placeholder
-
-                                            }
-                                            className="shadow-sm rounded-full w-[52px] aspect-square"
-                                            alt="post"
-                                          />
-                                        </figure>
-                                        <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
-                                          <div className="flex gap-4 justify-between px-2 md:px-6 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
-                                            <div className="flex flex-col py-1 font-light text-zinc-900">
-                                              <div className="fw-700 text-grey-900 font-xssss mt-1">
-                                                {reply.user &&
-                                                  reply.user.user
-                                                    .nom}{" "}
-                                                {reply.user &&
-                                                  reply.user.user
-                                                    .prenom}
-                                              </div>
-                                              <div className="mt-1 text-xs">
-                                                {/* {reply.user &&
+                                articleComments[comment?.id].map((reply) => (
+                                  <div key={reply.id} className="reply mb-0">
+                                    <div className="flex space-x-2 items-start py-2">
+                                      <figure className="avatar me-2 mb-8">
+                                        <img
+                                          src={
+                                            //  reply.user?.user?.image
+                                            reply?.user?.user?.image
+                                              ? reply?.user?.user?.image
+                                              : placeholder
+                                          }
+                                          className="shadow-sm rounded-full w-[52px] aspect-square"
+                                          alt="post"
+                                        />
+                                      </figure>
+                                      <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
+                                        <div className="flex gap-4 justify-between px-2 md:px-6 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
+                                          <div className="flex flex-col py-1 font-light text-zinc-900">
+                                            <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                              {reply.user &&
+                                                reply.user.user.nom}{" "}
+                                              {reply.user &&
+                                                reply.user.user.prenom}
+                                            </div>
+                                            <div className="mt-1 text-xs">
+                                              {/* {reply.user &&
                                                   reply.user.user
                                                     .profil} */}
-                                                {reply.user && (
-                                                  <div>
-                                                    {reply?.user?.user?.profil === 'other' && reply?.user?.other?.profession}
-                                                    {reply?.user?.user?.profil === 'player' && 'Joueur'}
-                                                    {reply?.user?.user?.profil === 'agent' && reply?.user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
-                                                    {reply?.user?.user?.profil === 'agent' && reply?.user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
-                                                    {reply?.user?.user?.profil === 'scout' && 'Scout'}
+                                              {reply.user && (
+                                                <div>
+                                                  {reply?.user?.user?.profil ===
+                                                    "other" &&
+                                                    reply?.user?.other
+                                                      ?.profession}
+                                                  {reply?.user?.user?.profil ===
+                                                    "player" && "Joueur"}
+                                                  {reply?.user?.user?.profil ===
+                                                    "agent" &&
+                                                    reply?.user?.agent
+                                                      ?.typeresponsable ===
+                                                      "players" &&
+                                                    "Manager de Joueur"}
+                                                  {reply?.user?.user?.profil ===
+                                                    "agent" &&
+                                                    reply?.user?.agent
+                                                      ?.typeresponsable ===
+                                                      "club" &&
+                                                    "Manager de Club"}
+                                                  {reply?.user?.user?.profil ===
+                                                    "scout" && "Scout"}
+                                                </div>
+                                              )}
+                                            </div>
+                                            <div className="mt-1 text-xs">
+                                              {moment(reply?.createdAt).format(
+                                                "DD MMMM YYYY"
+                                              )}{" "}
+                                              {"  -  "}
+                                              {moment(reply?.createdAt).isAfter(
+                                                moment().subtract(1, "hour")
+                                              )
+                                                ? moment(
+                                                    reply?.createdAt
+                                                  ).fromNow(true)
+                                                : moment(
+                                                    reply?.createdAt
+                                                  ).fromNow()}
+                                            </div>
+                                          </div>
+                                          {storedUserData.id ==
+                                            reply?.user?.user?.id && (
+                                            <div
+                                              className="ms-auto relative cursor-pointer"
+                                              onClick={() =>
+                                                handleMoreClickreply(reply)
+                                              }
+                                            >
+                                              <svg
+                                                width="31"
+                                                height="21"
+                                                viewBox="0 0 31 21"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                                                  fill="#1D1E21"
+                                                />
+                                                <path
+                                                  d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                                                  fill="#1D1E21"
+                                                />
+                                                <path
+                                                  d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                                                  fill="#1D1E21"
+                                                />
+                                              </svg>
+
+                                              {showDropdownReply === reply.id &&
+                                                reply?.user?.user &&
+                                                reply?.user?.user?.id ===
+                                                  storedUserData.id && (
+                                                  <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                                    <button
+                                                      className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                      onClick={() =>
+                                                        handleEditClickreply(
+                                                          reply.id
+                                                        )
+                                                      }
+                                                    >
+                                                      <label
+                                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                        // onClick={() => handleEditClickComment(comment)}
+                                                      >
+                                                        <BiEditAlt />
+                                                        {/* <Link to={`/editPost/${comment.id}`}> */}
+                                                        <span>
+                                                          {getTranslation(
+                                                            `Edit`, // -----> Englais
+                                                            `Modifier` //  -----> Francais
+                                                          )}
+                                                        </span>
+                                                        {/* </Link>{" "} */}
+                                                      </label>
+                                                    </button>
+
+                                                    <button
+                                                      className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                      onClick={() => {
+                                                        handleDeleteReplyClick(
+                                                          reply.id
+                                                        );
+                                                        fetchRepliesForComment(
+                                                          reply.commentaireId
+                                                        );
+                                                        setRepliesVisible(
+                                                          false
+                                                        );
+                                                        setSelectedArticleId(
+                                                          null
+                                                        );
+                                                      }}
+                                                    >
+                                                      <label
+                                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                        // onClick={() => handleEditClickComment(comment)}
+                                                      >
+                                                        <BiLogInCircle />
+                                                        <span className="text-base">
+                                                          {getTranslation(
+                                                            `Delete`, // -----> Englais
+                                                            `Supprimer` //  -----> Francais
+                                                          )}
+                                                        </span>
+                                                      </label>
+                                                    </button>
                                                   </div>
                                                 )}
-                                              </div>
-                                              <div className="mt-1 text-xs">
-                                                {moment(reply?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                                                {
-                                                  moment(reply?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                                                    moment(reply?.createdAt).fromNow(true) :
-                                                    moment(reply?.createdAt).fromNow()
-                                                }
-
-
-
-                                              </div>
-
                                             </div>
-                                            {storedUserData.id == reply?.user?.user?.id &&
-                                              (
-                                                <div
-                                                  className="ms-auto relative cursor-pointer"
-                                                  onClick={() => handleMoreClickreply(reply)}
-                                                >
-
-                                                  <svg
-                                                    width="31"
-                                                    height="21"
-                                                    viewBox="0 0 31 21"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                  >
-                                                    <path
-                                                      d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                                      fill="#1D1E21"
-                                                    />
-                                                    <path
-                                                      d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                                                      fill="#1D1E21"
-                                                    />
-                                                    <path
-                                                      d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                                                      fill="#1D1E21"
-                                                    />
-                                                  </svg>
-
-                                                  {showDropdownReply === reply.id &&
-                                                    reply?.user?.user &&
-                                                    reply?.user?.user?.id === storedUserData.id && (
-                                                      <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                                                        <button
-                                                          className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-                                                          onClick={() => handleEditClickreply(reply.id)
-                                                          }
-                                                        >
-                                                          <label
-                                                            className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                                          // onClick={() => handleEditClickComment(comment)}
-                                                          >
-                                                            <BiEditAlt />
-                                                            {/* <Link to={`/editPost/${comment.id}`}> */}
-                                                            <span>{getTranslation(
-                                                              `Edit`,  // -----> Englais
-                                                              `Modifier`, //  -----> Francais
-                                                            )}</span>
-                                                            {/* </Link>{" "} */}
-                                                          </label>
-                                                        </button>
-
-
-                                                        <button
-                                                          className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-
-                                                          onClick={() => {
-                                                            handleDeleteReplyClick(reply.id)
-                                                            fetchRepliesForComment(reply.commentaireId)
-                                                            setRepliesVisible(false);
-                                                            setSelectedArticleId(null);
-
-
-                                                          }}
-                                                        >
-                                                          <label
-                                                            className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                                          // onClick={() => handleEditClickComment(comment)}
-                                                          >
-                                                            <BiLogInCircle />
-                                                            <span className="text-base">{getTranslation(
-                                                              `Delete`,  // -----> Englais
-                                                              `Supprimer`, //  -----> Francais
-                                                            )}</span></label>
-                                                        </button>
-                                                      </div>
-                                                    )}
-
-                                                </div>)
-                                            }
-
-                                          </div>
-                                          <div className="mt-2 text-break font-light text-zinc-900 px-4" >
-                                            {reply.id === editingReplyId ? (
-                                              <textarea
-                                                className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
-                                                style={{ resize: 'none', maxHeight: '300px', height: '150px', overflowY: 'auto', scrollbarWidth: 'none' }}
-                                                value={editedReply}
-                                                onChange={(e) => setEditedReply(e.target.value)}
-                                              ></textarea>
-                                            ) : (
-                                              <div className="text-wrap" style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
-                                              >
-
-                                                {reply.description}
-                                              </div>
-                                            )}
-                                          </div>
-                                          {/* ok */}
+                                          )}
+                                        </div>
+                                        <div className="mt-2 text-break font-light text-zinc-900 px-4">
                                           {reply.id === editingReplyId ? (
-                                            <div className="my-2 px-[26px] flex w-full justify-between ">
-                                              <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEditreply()}>Annuler</button>
+                                            <textarea
+                                              className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
+                                              style={{
+                                                resize: "none",
+                                                maxHeight: "300px",
+                                                height: "150px",
+                                                overflowY: "auto",
+                                                scrollbarWidth: "none",
+                                              }}
+                                              value={editedReply}
+                                              onChange={(e) =>
+                                                setEditedReply(e.target.value)
+                                              }
+                                            ></textarea>
+                                          ) : (
+                                            <div
+                                              className="text-wrap"
+                                              style={{
+                                                resize: "none",
+                                                maxHeight: "300px",
+                                                overflowY: "auto",
+                                                scrollbarWidth: "none",
+                                              }}
+                                            >
+                                              {reply.description}
+                                            </div>
+                                          )}
+                                        </div>
+                                        {/* ok */}
+                                        {reply.id === editingReplyId ? (
+                                          <div className="my-2 px-[26px] flex w-full justify-between ">
+                                            <button
+                                              className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
+                                              onClick={() => cancelEditreply()}
+                                            >
+                                              Annuler
+                                            </button>
 
-                                              <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
-                                                saveEditedReply(reply.id)
+                                            <button
+                                              className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
+                                              onClick={() => {
+                                                saveEditedReply(reply.id);
                                                 // fetchRepliesForComment(reply.commentaireId)
 
                                                 // setCommentInputVisible(false);
                                                 // setSelectedArticleId(null);
-                                                fetchRepliesForComment(reply.commentaireId)
+                                                fetchRepliesForComment(
+                                                  reply.commentaireId
+                                                );
                                                 setRepliesVisible(false);
                                                 setSelectedArticleId(null);
-                                              }
-
-
-
-                                              }>Modifier</button>
-                                            </div>
-                                          ) : (
-                                            <div className="my-2 flex w-full justify-between">
-
-                                              {/* <button onClick={() => handleEditClickComment(comment.id)}>Edit</button> */}
-
-                                            </div>
-                                          )}
-
-
-
-
-                                        </div>
-
-                                      </div>
-
-                                    </div>
-                                  )
-                                )}
-                              {replyingToCommentId ==
-                                comment.id && (
-                                  <div className="flex items-center gap-3 ">
-                                    <figure className="avatar">
-                                      <img
-                                        src={
-                                          user?.user?.image ? user?.user?.image : placeholder
-                                        }
-                                        className="shadow-sm rounded-full w-[52px] aspect-square"
-                                        alt="post"
-                                      />
-                                    </figure>
-                                    <div className="flex flex-col w-full">
-                                      <div className="w-full flex items-center">
-                                        <input
-                                          type="text"
-                                          value={replyInput}
-                                          placeholder="Ecrire un reponse .."
-                                          onChange={(e) =>
-                                            setReplyInput(
-                                              e.target.value
-                                            )
-                                          }
-                                          className="w-full px-2 bg-gray-100 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
-                                        />
-                                        <button
-                                          onClick={() =>
-                                            {
-                                              console.log("article.idarticle.id",article.id)
-                                            console.log(comment.userId, "comment.userId")
-                                            console.log(article.userId, "article.userId")
-                                            console.log(reply.userId, "reply.userId")
-                                            NotificationService.instantSend(socket, 
-                                              {
-                                                toUser_id: comment.userId,
-                                                forWichAction: "reply",
-                                                actionId: "0",
-                                                postId: article.id,
-                                                content: replyInput,
-                                                postImage: article?.image ? article?.image : ""
-
-                                              })
-                                              addReply(
-                                                replyingToCommentId,
-                                                replyInput
-                                              )
-                                            }
-                                          }
-                                        >
-                                          <svg
-                                            className="w-4 h-5 md:w-5"
-                                            viewBox="0 0 20 20"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                          >
-                                            <path
-                                              d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
-                                              fill="#2E71EB"
-                                            />
-                                          </svg>
-                                        </button>
+                                              }}
+                                            >
+                                              Modifier
+                                            </button>
+                                          </div>
+                                        ) : (
+                                          <div className="my-2 flex w-full justify-between">
+                                            {/* <button onClick={() => handleEditClickComment(comment.id)}>Edit</button> */}
+                                          </div>
+                                        )}
                                       </div>
                                     </div>
-
                                   </div>
-                                )}
+                                ))}
+                              {replyingToCommentId == comment.id && (
+                                <div className="flex items-center gap-3 ">
+                                  <figure className="avatar">
+                                    <img
+                                      src={
+                                        user?.user?.image
+                                          ? user?.user?.image
+                                          : placeholder
+                                      }
+                                      className="shadow-sm rounded-full w-[52px] aspect-square"
+                                      alt="post"
+                                    />
+                                  </figure>
+                                  <div className="flex flex-col w-full">
+                                    <div className="w-full flex items-center">
+                                      <input
+                                        type="text"
+                                        value={replyInput}
+                                        placeholder="Ecrire un reponse .."
+                                        onChange={(e) =>
+                                          setReplyInput(e.target.value)
+                                        }
+                                        className="w-full px-2 bg-gray-100 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
+                                      />
+                                      <button
+                                        onClick={() => {
+                                          console.log(
+                                            "article.idarticle.id",
+                                            article.id
+                                          );
+                                          console.log(
+                                            comment.userId,
+                                            "comment.userId"
+                                          );
+                                          console.log(
+                                            article.userId,
+                                            "article.userId"
+                                          );
+                                          console.log(
+                                            reply.userId,
+                                            "reply.userId"
+                                          );
+                                          NotificationService.instantSend(
+                                            socket,
+                                            {
+                                              toUser_id: comment.userId,
+                                              forWichAction: "reply",
+                                              actionId: "0",
+                                              postId: article.id,
+                                              content: replyInput,
+                                              postImage: article?.image
+                                                ? article?.image
+                                                : "",
+                                            }
+                                          );
+                                          addReply(
+                                            replyingToCommentId,
+                                            replyInput
+                                          );
+                                        }}
+                                      >
+                                        <svg
+                                          className="w-4 h-5 md:w-5"
+                                          viewBox="0 0 20 20"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
+                                            fill="#2E71EB"
+                                          />
+                                        </svg>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           )}
                         </div>
@@ -2845,15 +3024,12 @@ useEffect(() => {
 
                     {/* Add Comment Input */}
                     {commentInputVisible && (
-                      <div
-                      >
+                      <div>
                         <div className="flex items-center gap-2 md:gap-3 mt-3">
                           <figure className="avatar">
                             <img
                               src={
-                                user.user.image
-                                  ? user.user?.image
-                                  : placeholder
+                                user.user.image ? user.user?.image : placeholder
                               }
                               className="shadow-sm rounded-full w-[52px] aspect-square"
                               alt="post"
@@ -2865,28 +3041,32 @@ useEffect(() => {
                                 type="text"
                                 value={comment}
                                 placeholder="Ecrire un commentaire .."
-                                onChange={(e) =>
-                                  setComment(e.target.value)
-                                }
+                                onChange={(e) => setComment(e.target.value)}
                                 className="w-full bg-gray-100 rounded-[15px] md:rounded-[30px] px-2 mr-1 md:mr-3 h-12"
                               />
                               <button
                                 onClick={() => {
-                                  console.log("article.idarticle.id",article.id)
-                                  NotificationService.instantSend(socket, 
-                                    {
-                                      toUser_id: article?.user?.user?.id,
-                                      forWichAction: "comment",
-                                      actionId: "0",
-                                      postId: article.id,
-                                      content: comment,
-                                      postImage: article?.image ? article?.image : ""
-                                    })
+                                  console.log(
+                                    "article.idarticle.id",
+                                    article.id
+                                  );
+                                  NotificationService.instantSend(socket, {
+                                    toUser_id: article?.user?.user?.id,
+                                    forWichAction: "comment",
+                                    actionId: "0",
+                                    postId: article.id,
+                                    content: comment,
+                                    postImage: article?.image
+                                      ? article?.image
+                                      : "",
+                                  });
 
                                   addComment(article.id);
-                                  console.log("🚀 ~ Post ~ article.id:", article.id)
-                                }
-                                }
+                                  console.log(
+                                    "🚀 ~ Post ~ article.id:",
+                                    article.id
+                                  );
+                                }}
                                 className="ml-1"
                               >
                                 <svg
@@ -2912,37 +3092,52 @@ useEffect(() => {
                 )}
               </div>
             </div>
-
           </>
 
           {isModaldOpen && (
             <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
-              <div ref={ref} className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
-
-                <EditPost articleId={selectedArticleId} setArticles={setArticles} onClose={handleCloseModal} />
+              <div
+                ref={ref}
+                className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10"
+              >
+                <EditPost
+                  articleId={selectedArticleId}
+                  setArticles={setArticles}
+                  onClose={handleCloseModal}
+                />
                 <button
                   className=" absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
-                  onClick={() => handleCloseModal(true)}> X </button>
+                  onClick={() => handleCloseModal(true)}
+                >
+                  {" "}
+                  X{" "}
+                </button>
               </div>
             </div>
           )}
 
-
           {isModaldOpenGallery && (
-
             <div className="bg-black/70 fixed inset-0 z-50 h-full w-full   flex justify-center items-center ">
-
               {/* <button
              className=" float-left "
           >
              
           </button> */}
-              <div ref={refGallery} className="relative flex flex-col py-2    rounded-[10px] md:w-full w-[425px]  max-md:my-10">
-
-
+              <div
+                ref={refGallery}
+                className="relative flex flex-col py-2    rounded-[10px] md:w-full w-[425px]  max-md:my-10"
+              >
                 <div className="flex flex-col md:flex-row h-screen w-screen  bg-black md:pr-0">
                   <div className="bg-black  ">
-                    <svg onClick={handleCloseModalSHOWGallery} className="ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 md:size-14 size-14  " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 62" width="62" height="62" fill="#fff">
+                    <svg
+                      onClick={handleCloseModalSHOWGallery}
+                      className="ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 md:size-14 size-14  "
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 62 62"
+                      width="62"
+                      height="62"
+                      fill="#fff"
+                    >
                       <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
                     </svg>
                   </div>
@@ -2950,29 +3145,37 @@ useEffect(() => {
                     <Swiper
                       modules={[Pagination, Navigation]}
                       navigation={true}
-
                       initialSlide={currentImageIndex}
-                      onSlideChange={(swiper) => setCurrentImageIndex(swiper.activeIndex)}
+                      onSlideChange={(swiper) =>
+                        setCurrentImageIndex(swiper.activeIndex)
+                      }
                       centeredSlides={true}
                       spaceBetween={80}
                       className=" flex items-center justify-between w-full h-full my-2"
                     >
                       {images.map((imageUrl, index) => (
-                        <SwiperSlide key={index} className="flex justify-center items-center ">
+                        <SwiperSlide
+                          key={index}
+                          className="flex justify-center items-center "
+                        >
                           <div className="flex justify-between items-center w-full h-full ">
-                            <img src={imageUrl} alt={`Image ${index}`} className=" w-full h-full object-contain     " />
+                            <img
+                              src={imageUrl}
+                              alt={`Image ${index}`}
+                              className=" w-full h-full object-contain     "
+                            />
                           </div>
                         </SwiperSlide>
                       ))}
-
                     </Swiper>
-
                   </div>
                   <div className="hidden bg-white md:flex flex-col w-[30%] p-10 ">
                     <div className="  rounded-lg -mt-4">
                       <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
-                        <div onClick={() => handleClicklikeshow(article.id)}
-                          className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5">
+                        <div
+                          onClick={() => handleClicklikeshow(article.id)}
+                          className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
+                        >
                           <svg
                             width="17"
                             height="15"
@@ -2989,31 +3192,38 @@ useEffect(() => {
                       {article.likesCount}
                     </span> */}
                           <div>
-                            <span
-                              className="text-md py-1 px-2 relative z-[2] "
-                            >
+                            <span className="text-md py-1 px-2 relative z-[2] ">
                               <div className=""> {article.likesCount}</div>
 
                               {showDropdownlikes && (
-                                <div ref={reff} className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+                                <div
+                                  ref={reff}
+                                  className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
+                                >
                                   <div className="py-2 px-4">
-                                    <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold"> {
-                                      getTranslation(
-                                        `Who liked this post?`,  // -----> Englais
+                                    <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
+                                      {" "}
+                                      {getTranslation(
+                                        `Who liked this post?`, // -----> Englais
                                         `Qui a aimé cette publication?`, //  -----> Francais
-                                        ``,  //  -----> Turkey
-                                        ``,  //  -----> Allemagne
-                                      )
-
-                                    } </h3>
+                                        ``, //  -----> Turkey
+                                        `` //  -----> Allemagne
+                                      )}{" "}
+                                    </h3>
                                     <ul>
                                       {userslikearticle.map((like, index) => (
-                                        <li key={index} className="mt-1 py-2 flex flex-row  items-center">
+                                        <li
+                                          key={index}
+                                          className="mt-1 py-2 flex flex-row  items-center"
+                                        >
                                           <Link to={`/profile/${like.userId}`}>
                                             <figure className="avatar me-3">
                                               <img
-                                                srcSet={like?.user?.image ? like?.user?.image : placeholder}
-
+                                                srcSet={
+                                                  like?.user?.image
+                                                    ? like?.user?.image
+                                                    : placeholder
+                                                }
                                                 // src={article?.user?.user??.image}
                                                 className="shadow-sm rounded-full w-[32px] aspect-square"
                                               />{" "}
@@ -3028,7 +3238,6 @@ useEffect(() => {
                               )}
                             </span>
                           </div>
-
                         </div>
                         <div className="flex gap-2.5 items-center justify-center py-2.5">
                           <svg
@@ -3053,75 +3262,65 @@ useEffect(() => {
                       <span className="flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
                         <button
                           onClick={async () => {
-                             //notlike
-                       NotificationService.instantSend(socket, 
-                        {
-                          toUser_id: article?.user?.user?.id,
-                          forWichAction: "like",
-                          actionId: "0",
-                          postId: article.id,
-                          postImage: article?.image ? article?.image : ""
-                        }
-                      )
+                            //notlike
+                            NotificationService.instantSend(socket, {
+                              toUser_id: article?.user?.user?.id,
+                              forWichAction: "like",
+                              actionId: "0",
+                              postId: article.id,
+                              postImage: article?.image ? article?.image : "",
+                            });
                             await handleLikeClick(article.id, 1);
                             await fetchLikesForArticle(article.id);
                           }}
                         >
-
-
-
-
-
-
                           <span className="flex items-center flex-col md:flex-row gap-2 ">
-                            {likesData && likesData.some(like => like.userId === storedUserData.id) ? (
-                              < span className="flex flex-row">  <BiSolidHeart className="size-6 text-orange-500" />
+                            {likesData &&
+                            likesData.some(
+                              (like) => like.userId === storedUserData.id
+                            ) ? (
+                              <span className="flex flex-row">
+                                {" "}
+                                <BiSolidHeart className="size-6 text-orange-500" />
                                 <div className="flex items-center gap-2">
                                   <span
                                     className="text-xs md:text-md"
-
                                     style={{
                                       marginLeft: "1px",
                                       marginTop: "2px",
-                                      color: "#f97316"
-
+                                      color: "#f97316",
                                     }}
                                   >
-
                                     {getTranslation(
-                                      `Like`,  // -----> Englais
-                                      `J'aime`, //  -----> Francais
+                                      `Like`, // -----> Englais
+                                      `J'aime` //  -----> Francais
                                     )}
                                   </span>
                                 </div>
                               </span>
                             ) : (
-                              <span className="flex flex-row"> <BiHeart className="size-6 text-black" />
+                              <span className="flex flex-row">
+                                {" "}
+                                <BiHeart className="size-6 text-black" />
                                 <div className="flex items-center gap-2">
                                   <span
                                     className="text-xs md:text-md"
                                     style={{
                                       marginLeft: "1px",
                                       marginTop: "2px",
-                                      color: "black"
-
+                                      color: "black",
                                     }}
                                   >
-
                                     {getTranslation(
-                                      `Like`,  // -----> Englais
-                                      `J'aime`, //  -----> Francais
+                                      `Like`, // -----> Englais
+                                      `J'aime` //  -----> Francais
                                     )}
                                   </span>
                                 </div>
-
                               </span>
-                            )
-                            }
+                            )}
                           </span>
                         </button>{" "}
-
-
                         <button
                           onClick={() => {
                             if (selectedArticleId === article.id) {
@@ -3135,11 +3334,7 @@ useEffect(() => {
                             }
                           }}
                         >
-
-
-
                           <div className="flex flex-row gap-x-4">
-
                             {selectedArticleId === article.id ? (
                               <div className="flex gap-2 flex-row md:flex-row items-center">
                                 <img
@@ -3147,10 +3342,12 @@ useEffect(() => {
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="w-5 aspect-square fill-zinc-900"
                                 />
-                                <div className="flex gap-2 text-xs md:text-md">{getTranslation(
-                                  `Comment`,  // -----> Englais
-                                  `Commenter`, //  -----> Francais
-                                )} </div>
+                                <div className="flex gap-2 text-xs md:text-md">
+                                  {getTranslation(
+                                    `Comment`, // -----> Englais
+                                    `Commenter` //  -----> Francais
+                                  )}{" "}
+                                </div>
                               </div>
                             ) : (
                               <div className="flex gap-2 flex-row md:flex-row items-center">
@@ -3161,49 +3358,34 @@ useEffect(() => {
                                 />
                                 <div className="flex gap-2 text-xs md:text-md">
                                   {" "}
-                                  <span>{getTranslation(
-                                    `Comment`,  // -----> Englais
-                                    `Commenter`, //  -----> Francais
-                                  )} </span>
+                                  <span>
+                                    {getTranslation(
+                                      `Comment`, // -----> Englais
+                                      `Commenter` //  -----> Francais
+                                    )}{" "}
+                                  </span>
                                 </div>
                               </div>
                             )}
-
-
                           </div>
-
-
-
-
                         </button>
-
-
-
-
                         {/* partage */}
-
                         <button
                           onClick={() => {
-
-                            partageArticle(article.id)
-
-
-
+                            partageArticle(article.id);
                           }}
                         >
-
-
-
                           <div className="flex flex-row gap-x-4">
-
                             {selectedArticleId === article.id ? (
                               <div className="flex gap-2 flex-row md:flex-row items-center">
                                 <BiShare className="size-6" />
 
-                                <div className="flex gap-2 text-xs md:text-md">{getTranslation(
-                                  `Share`,  // -----> Englais
-                                  `Partager`, //  -----> Francais
-                                )} </div>
+                                <div className="flex gap-2 text-xs md:text-md">
+                                  {getTranslation(
+                                    `Share`, // -----> Englais
+                                    `Partager` //  -----> Francais
+                                  )}{" "}
+                                </div>
                               </div>
                             ) : (
                               <div className="flex gap-2 flex-row md:flex-row items-center">
@@ -3211,24 +3393,17 @@ useEffect(() => {
 
                                 <div className="flex gap-2 text-xs md:text-md">
                                   {" "}
-                                  <span>{getTranslation(
-                                    `Share`,  // -----> Englais
-                                    `Partager`, //  -----> Francais
-                                  )} </span>
+                                  <span>
+                                    {getTranslation(
+                                      `Share`, // -----> Englais
+                                      `Partager` //  -----> Francais
+                                    )}{" "}
+                                  </span>
                                 </div>
                               </div>
                             )}
-
                           </div>
-
-
-
-
-
-
                         </button>
-
-
                       </span>
 
                       {selectedArticleId === article?.id && (
@@ -3237,52 +3412,59 @@ useEffect(() => {
                             article?.comments?.map((comment) => (
                               <div key={comment.id} className="comment">
                                 <div className="flex w-full">
-                                  <Link to={`/profile/${comment?.user?.user?.id}`}>  <figure className="avatar me-3 mb-8">
-
-
-
-                                    <img
-                                      src={comment?.user?.user?.image ? comment?.user?.user?.image : placeholder}
-
-                                      className="shadow-sm rounded-full w-[52px] aspect-square"
-                                      alt="post"
-                                    />
-                                  </figure></Link>
+                                  <Link
+                                    to={`/profile/${comment?.user?.user?.id}`}
+                                  >
+                                    {" "}
+                                    <figure className="avatar me-3 mb-8">
+                                      <img
+                                        src={
+                                          comment?.user?.user?.image
+                                            ? comment?.user?.user?.image
+                                            : placeholder
+                                        }
+                                        className="shadow-sm rounded-full w-[52px] aspect-square"
+                                        alt="post"
+                                      />
+                                    </figure>
+                                  </Link>
                                   <div className="flex flex-col w-full">
-
-
-
                                     <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[15px] md:rounded-[20px] max-w-[510px]">
-
-
-
-
                                       <div className="flex gap-4 justify-between px-3 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
-
-
-
-
                                         <div className="flex flex-col py-1 font-light text-zinc-900">
-
-
-
-
-                                          <Link to={`/profile/${comment?.user?.user?.id}`}>
+                                          <Link
+                                            to={`/profile/${comment?.user?.user?.id}`}
+                                          >
                                             <div className="fw-700 text-grey-900 font-xssss mt-1">
                                               {comment.user &&
                                                 comment.user.user.nom}{" "}
                                               {comment.user &&
                                                 comment.user.user.prenom}
-                                            </div> </Link>
+                                            </div>{" "}
+                                          </Link>
                                           <div className="mt-1 text-xs">
-
                                             {comment.user && (
                                               <div>
-                                                {comment?.user?.user?.profil === 'other' && comment?.user?.other?.profession}
-                                                {comment?.user?.user?.profil === 'player' && 'Joueur'}
-                                                {comment?.user?.user?.profil === 'agent' && comment?.user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
-                                                {comment?.user?.user?.profil === 'agent' && comment?.user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
-                                                {comment?.user?.user?.profil === 'scout' && 'Scout'}
+                                                {comment?.user?.user?.profil ===
+                                                  "other" &&
+                                                  comment?.user?.other
+                                                    ?.profession}
+                                                {comment?.user?.user?.profil ===
+                                                  "player" && "Joueur"}
+                                                {comment?.user?.user?.profil ===
+                                                  "agent" &&
+                                                  comment?.user?.agent
+                                                    ?.typeresponsable ===
+                                                    "players" &&
+                                                  "Manager de Joueur"}
+                                                {comment?.user?.user?.profil ===
+                                                  "agent" &&
+                                                  comment?.user?.agent
+                                                    ?.typeresponsable ===
+                                                    "club" &&
+                                                  "Manager de Club"}
+                                                {comment?.user?.user?.profil ===
+                                                  "scout" && "Scout"}
                                               </div>
                                             )}
 
@@ -3290,28 +3472,30 @@ useEffect(() => {
                                         comment.user.user.profil} */}
                                           </div>
                                           <div className="mt-1 text-xs">
-                                            {moment(comment?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                                            {
-                                              moment(comment?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                                                moment(comment?.createdAt).fromNow(true) :
-                                                moment(comment?.createdAt).fromNow()
-                                            }
-
+                                            {moment(comment?.createdAt).format(
+                                              "DD MMMM YYYY"
+                                            )}{" "}
+                                            {"  -  "}
+                                            {moment(comment?.createdAt).isAfter(
+                                              moment().subtract(1, "hour")
+                                            )
+                                              ? moment(
+                                                  comment?.createdAt
+                                                ).fromNow(true)
+                                              : moment(
+                                                  comment?.createdAt
+                                                ).fromNow()}
                                           </div>
-
                                         </div>
 
-
-
-
-
-                                        {storedUserData.id == comment?.user?.user?.id &&
-
-                                          (<div
+                                        {storedUserData.id ==
+                                          comment?.user?.user?.id && (
+                                          <div
                                             className=" relative cursor-pointer"
-                                            onClick={() => handleMoreClickComment(comment)}
+                                            onClick={() =>
+                                              handleMoreClickComment(comment)
+                                            }
                                           >
-
                                             <svg
                                               width="31"
                                               height="21"
@@ -3333,176 +3517,201 @@ useEffect(() => {
                                               />
                                             </svg>
 
-                                            {showDropdownComment === comment?.id &&
+                                            {showDropdownComment ===
+                                              comment?.id &&
                                               comment?.user?.user &&
-                                              comment?.user?.user?.id === storedUserData.id && (
+                                              comment?.user?.user?.id ===
+                                                storedUserData.id && (
                                                 <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                   <button
                                                     className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-                                                    onClick={() => handleEditClickComment(comment.id)
+                                                    onClick={() =>
+                                                      handleEditClickComment(
+                                                        comment.id
+                                                      )
                                                     }
                                                   >
                                                     <label
                                                       className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                                    // onClick={() => handleEditClickComment(comment)}
+                                                      // onClick={() => handleEditClickComment(comment)}
                                                     >
                                                       <BiEditAlt />
                                                       {/* <Link to={`/editPost/${comment.id}`}> */}
                                                       <span>
                                                         {getTranslation(
-                                                          `Edit`,  // -----> Englais
-                                                          `Modifier`, //  -----> Francais
-                                                        )}</span>
+                                                          `Edit`, // -----> Englais
+                                                          `Modifier` //  -----> Francais
+                                                        )}
+                                                      </span>
                                                       {/* </Link>{" "} */}
                                                     </label>
                                                   </button>
 
-
                                                   <button
                                                     className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-
                                                     onClick={() => {
-                                                      handleDeleteCommentClick(comment.id, article.id)
+                                                      handleDeleteCommentClick(
+                                                        comment.id,
+                                                        article.id
+                                                      );
 
-                                                      setCommentInputVisible(false);
-                                                      setSelectedArticleId(null);
-
+                                                      setCommentInputVisible(
+                                                        false
+                                                      );
+                                                      setSelectedArticleId(
+                                                        null
+                                                      );
                                                     }}
                                                   >
                                                     <label
                                                       className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                                                    // onClick={() => handleEditClickComment(comment)}
+                                                      // onClick={() => handleEditClickComment(comment)}
                                                     >
                                                       <BiLogInCircle />
-                                                      <span className="text-base"> {getTranslation(
-                                                        `Delete`,  // -----> Englais
-                                                        `Supprimer`, //  -----> Francais
-                                                      )}</span></label>
+                                                      <span className="text-base">
+                                                        {" "}
+                                                        {getTranslation(
+                                                          `Delete`, // -----> Englais
+                                                          `Supprimer` //  -----> Francais
+                                                        )}
+                                                      </span>
+                                                    </label>
                                                   </button>
                                                 </div>
                                               )}
-
-                                          </div>)}
-
-
-
-
-
+                                          </div>
+                                        )}
                                       </div>
-                                      <div className="mt-2 text-break font-light text-zinc-900 px-4" >
+                                      <div className="mt-2 text-break font-light text-zinc-900 px-4">
                                         {comment.id === editingCommentId ? (
                                           <textarea
                                             className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
-                                            style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                            style={{
+                                              resize: "none",
+                                              maxHeight: "300px",
+                                              overflowY: "auto",
+                                              scrollbarWidth: "none",
+                                            }}
                                             value={editedComment}
-                                            onChange={(e) => setEditedComment(e.target.value)}
+                                            onChange={(e) =>
+                                              setEditedComment(e.target.value)
+                                            }
                                           ></textarea>
                                         ) : (
-                                          <div className="text-wrap" style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                          <div
+                                            className="text-wrap"
+                                            style={{
+                                              resize: "none",
+                                              maxHeight: "300px",
+                                              overflowY: "auto",
+                                              scrollbarWidth: "none",
+                                            }}
                                           >
-
                                             {comment.description}
                                           </div>
                                         )}
                                       </div>
 
-
-
                                       {comment.id === editingCommentId ? (
                                         <div className="my-2 px-[26px] flex w-full justify-between">
+                                          <button
+                                            className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
+                                            onClick={() => cancelEdit()}
+                                          >
+                                            {" "}
+                                            {getTranslation(
+                                              `Cancel`, // -----> Englais
+                                              `Annuler` //  -----> Francais
+                                            )}
+                                          </button>
+                                          <button
+                                            className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
+                                            onClick={() => {
+                                              saveEditedComment(comment.id);
 
-                                          <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEdit()}> {getTranslation(
-                                            `Cancel`,  // -----> Englais
-                                            `Annuler`, //  -----> Francais
-                                          )}</button>
-                                          <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
-                                            saveEditedComment(comment.id)
-
-
-                                            setCommentInputVisible(false);
-                                            setSelectedArticleId(null);
-                                          }
-
-
-
-                                          }>Modifier</button>
-
+                                              setCommentInputVisible(false);
+                                              setSelectedArticleId(null);
+                                            }}
+                                          >
+                                            Modifier
+                                          </button>
                                         </div>
                                       ) : (
-                                        <div className="my-2 flex w-full justify-between">
-
-
-                                        </div>
+                                        <div className="my-2 flex w-full justify-between"></div>
                                       )}
-
-
                                     </div>
 
                                     <div className="my-2 flex flex-row  w-full justify-between">
-                                      <div className="flex flex-row">  <button
-                                        className="flex-row"
-                                        onClick={async () => {
-                                          NotificationService.instantSend(socket, 
-                                            {
-                                              toUser_id: comment.userId,
-                                              forWichAction: "likeComment",
-                                              actionId: "0",
-                                              postId: article.id,
-                                              content: comment.description,
-                                              postImage: article?.image ? article?.image : ""
-      
-                                            }
-                                          )
-                                          await fetchLikesForComment(comment.id);
+                                      <div className="flex flex-row">
+                                        {" "}
+                                        <button
+                                          className="flex-row"
+                                          onClick={async () => {
+                                            NotificationService.instantSend(
+                                              socket,
+                                              {
+                                                toUser_id: comment.userId,
+                                                forWichAction: "likeComment",
+                                                actionId: "0",
+                                                postId: article.id,
+                                                content: comment.description,
+                                                postImage: article?.image
+                                                  ? article?.image
+                                                  : "",
+                                              }
+                                            );
+                                            await fetchLikesForComment(
+                                              comment.id
+                                            );
 
-                                          await handleLikeComment(comment.id);
-                                        }}
-
-                                      >
-                                        <div className="flex-col">
-
-
-
-                                          {likesDataComment && (
-                                            likesDataComment.some(like => like.userId === storedUserData.id && like.commentId === comment.id) ? (
-                                              <span className="flex flex-row">
-                                                <BiSolidHeart className="size-6 text-orange-500" />
-                                                <div className="flex items-center gap-2">
-                                                  <span
-                                                    className="text-xs md:text-md"
-                                                    style={{
-                                                      marginLeft: "1px",
-                                                      marginTop: "2px",
-                                                      color: "#f97316"
-                                                    }}
-                                                  ></span>
-                                                </div>
-                                                <div className="flex-col mt-1 ml-2 text-orange-500">{comment.likesCount}</div>
-                                              </span>
-                                            ) : (
-                                              <span className="flex flex-row">
-                                                <BiHeart className="size-6 text-black" />
-                                                <div className="flex items-center gap-2">
-                                                  <span
-                                                    className="text-xs md:text-md"
-                                                    style={{
-                                                      marginLeft: "1px",
-                                                      marginTop: "2px",
-                                                      color: "black"
-                                                    }}
-                                                  ></span>
-                                                </div>
-                                                <div className="flex-col mt-1 ml-2 text-black">{comment.likesCount}</div>
-                                              </span>
-                                            )
-                                          )}
-
-
-
-                                        </div>
-                                      </button>
+                                            await handleLikeComment(comment.id);
+                                          }}
+                                        >
+                                          <div className="flex-col">
+                                            {likesDataComment &&
+                                              (likesDataComment.some(
+                                                (like) =>
+                                                  like.userId ===
+                                                    storedUserData.id &&
+                                                  like.commentId === comment.id
+                                              ) ? (
+                                                <span className="flex flex-row">
+                                                  <BiSolidHeart className="size-6 text-orange-500" />
+                                                  <div className="flex items-center gap-2">
+                                                    <span
+                                                      className="text-xs md:text-md"
+                                                      style={{
+                                                        marginLeft: "1px",
+                                                        marginTop: "2px",
+                                                        color: "#f97316",
+                                                      }}
+                                                    ></span>
+                                                  </div>
+                                                  <div className="flex-col mt-1 ml-2 text-orange-500">
+                                                    {comment.likesCount}
+                                                  </div>
+                                                </span>
+                                              ) : (
+                                                <span className="flex flex-row">
+                                                  <BiHeart className="size-6 text-black" />
+                                                  <div className="flex items-center gap-2">
+                                                    <span
+                                                      className="text-xs md:text-md"
+                                                      style={{
+                                                        marginLeft: "1px",
+                                                        marginTop: "2px",
+                                                        color: "black",
+                                                      }}
+                                                    ></span>
+                                                  </div>
+                                                  <div className="flex-col mt-1 ml-2 text-black">
+                                                    {comment.likesCount}
+                                                  </div>
+                                                </span>
+                                              ))}
+                                          </div>
+                                        </button>
                                         {/* <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
-
                                       </div>
                                       <button
                                         onClick={() =>
@@ -3511,14 +3720,13 @@ useEffect(() => {
                                         className="w-20 font-semibold ml-2  mt-2 flex gap-2 text-xs md:text-md"
                                       >
                                         {getTranslation(
-                                          `Reply`,  // -----> Englais
-                                          `Répondre`, //  -----> Francais
+                                          `Reply`, // -----> Englais
+                                          `Répondre` //  -----> Francais
                                         )}
                                       </button>
                                     </div>
                                   </div>
                                 </div>
-
 
                                 {repliesVisible[comment?.id] && (
                                   <div className="replies-section ml-6 md:ml-16 mt-0">
@@ -3529,14 +3737,14 @@ useEffect(() => {
                                             key={reply.id}
                                             className="reply mb-0"
                                           >
-
                                             <div className="flex space-x-2 items-start py-2">
                                               <figure className="avatar me-2 mb-8">
                                                 <img
                                                   src={
                                                     //  reply.user?.user?.image
-                                                    reply?.user?.user?.image ? reply?.user?.user?.image : placeholder
-
+                                                    reply?.user?.user?.image
+                                                      ? reply?.user?.user?.image
+                                                      : placeholder
                                                   }
                                                   className="shadow-sm rounded-full w-[52px] aspect-square"
                                                   alt="post"
@@ -3550,8 +3758,7 @@ useEffect(() => {
                                                         reply.user.user
                                                           .nom}{" "}
                                                       {reply.user &&
-                                                        reply.user.user
-                                                          .prenom}
+                                                        reply.user.user.prenom}
                                                     </div>
                                                     <div className="mt-1 text-xs">
                                                       {/* {reply.user &&
@@ -3559,120 +3766,184 @@ useEffect(() => {
                                                     .profil} */}
                                                       {reply.user && (
                                                         <div>
-                                                          {reply?.user?.user?.profil === 'other' && reply?.user?.other?.profession}
-                                                          {reply?.user?.user?.profil === 'player' && 'Joueur'}
-                                                          {reply?.user?.user?.profil === 'agent' && reply?.user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
-                                                          {reply?.user?.user?.profil === 'agent' && reply?.user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
-                                                          {reply?.user?.user?.profil === 'scout' && 'Scout'}
+                                                          {reply?.user?.user
+                                                            ?.profil ===
+                                                            "other" &&
+                                                            reply?.user?.other
+                                                              ?.profession}
+                                                          {reply?.user?.user
+                                                            ?.profil ===
+                                                            "player" &&
+                                                            "Joueur"}
+                                                          {reply?.user?.user
+                                                            ?.profil ===
+                                                            "agent" &&
+                                                            reply?.user?.agent
+                                                              ?.typeresponsable ===
+                                                              "players" &&
+                                                            "Manager de Joueur"}
+                                                          {reply?.user?.user
+                                                            ?.profil ===
+                                                            "agent" &&
+                                                            reply?.user?.agent
+                                                              ?.typeresponsable ===
+                                                              "club" &&
+                                                            "Manager de Club"}
+                                                          {reply?.user?.user
+                                                            ?.profil ===
+                                                            "scout" && "Scout"}
                                                         </div>
                                                       )}
                                                     </div>
                                                     <div className="mt-1 text-xs">
-                                                      {moment(reply?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                                                      {
-                                                        moment(reply?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                                                          moment(reply?.createdAt).fromNow(true) :
-                                                          moment(reply?.createdAt).fromNow()
-                                                      }
-
-
-
+                                                      {moment(
+                                                        reply?.createdAt
+                                                      ).format(
+                                                        "DD MMMM YYYY"
+                                                      )}{" "}
+                                                      {"  -  "}
+                                                      {moment(
+                                                        reply?.createdAt
+                                                      ).isAfter(
+                                                        moment().subtract(
+                                                          1,
+                                                          "hour"
+                                                        )
+                                                      )
+                                                        ? moment(
+                                                            reply?.createdAt
+                                                          ).fromNow(true)
+                                                        : moment(
+                                                            reply?.createdAt
+                                                          ).fromNow()}
                                                     </div>
-
                                                   </div>
-                                                  {storedUserData.id == reply?.user?.user?.id &&
-                                                    (
-                                                      <div
-                                                        className="ms-auto relative cursor-pointer"
-                                                        onClick={() => handleMoreClickreply(reply)}
+                                                  {storedUserData.id ==
+                                                    reply?.user?.user?.id && (
+                                                    <div
+                                                      className="ms-auto relative cursor-pointer"
+                                                      onClick={() =>
+                                                        handleMoreClickreply(
+                                                          reply
+                                                        )
+                                                      }
+                                                    >
+                                                      <svg
+                                                        width="31"
+                                                        height="21"
+                                                        viewBox="0 0 31 21"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
                                                       >
+                                                        <path
+                                                          d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                                                          fill="#1D1E21"
+                                                        />
+                                                        <path
+                                                          d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                                                          fill="#1D1E21"
+                                                        />
+                                                        <path
+                                                          d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                                                          fill="#1D1E21"
+                                                        />
+                                                      </svg>
 
-                                                        <svg
-                                                          width="31"
-                                                          height="21"
-                                                          viewBox="0 0 31 21"
-                                                          fill="none"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                                            fill="#1D1E21"
-                                                          />
-                                                          <path
-                                                            d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                                                            fill="#1D1E21"
-                                                          />
-                                                          <path
-                                                            d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                                                            fill="#1D1E21"
-                                                          />
-                                                        </svg>
-
-                                                        {showDropdownReply === reply.id &&
-                                                          reply?.user?.user &&
-                                                          reply?.user?.user?.id === storedUserData.id && (
-                                                            <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                                                              <button
-                                                                className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-                                                                onClick={() => handleEditClickreply(reply.id)
-                                                                }
-                                                              >
-                                                                <label
-                                                                  className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                      {showDropdownReply ===
+                                                        reply.id &&
+                                                        reply?.user?.user &&
+                                                        reply?.user?.user
+                                                          ?.id ===
+                                                          storedUserData.id && (
+                                                          <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                                            <button
+                                                              className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                              onClick={() =>
+                                                                handleEditClickreply(
+                                                                  reply.id
+                                                                )
+                                                              }
+                                                            >
+                                                              <label
+                                                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                                 // onClick={() => handleEditClickComment(comment)}
-                                                                >
-                                                                  <BiEditAlt />
-                                                                  {/* <Link to={`/editPost/${comment.id}`}> */}
-                                                                  <span>{getTranslation(
-                                                                    `Edit`,  // -----> Englais
-                                                                    `Modifier`, //  -----> Francais
-                                                                  )}</span>
-                                                                  {/* </Link>{" "} */}
-                                                                </label>
-                                                              </button>
-
-
-                                                              <button
-                                                                className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
-
-                                                                onClick={() => {
-                                                                  handleDeleteReplyClick(reply.id)
-                                                                  fetchRepliesForComment(reply.commentaireId)
-                                                                  setRepliesVisible(false);
-                                                                  setSelectedArticleId(null);
-
-
-                                                                }}
                                                               >
-                                                                <label
-                                                                  className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                                <BiEditAlt />
+                                                                {/* <Link to={`/editPost/${comment.id}`}> */}
+                                                                <span>
+                                                                  {getTranslation(
+                                                                    `Edit`, // -----> Englais
+                                                                    `Modifier` //  -----> Francais
+                                                                  )}
+                                                                </span>
+                                                                {/* </Link>{" "} */}
+                                                              </label>
+                                                            </button>
+
+                                                            <button
+                                                              className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                              onClick={() => {
+                                                                handleDeleteReplyClick(
+                                                                  reply.id
+                                                                );
+                                                                fetchRepliesForComment(
+                                                                  reply.commentaireId
+                                                                );
+                                                                setRepliesVisible(
+                                                                  false
+                                                                );
+                                                                setSelectedArticleId(
+                                                                  null
+                                                                );
+                                                              }}
+                                                            >
+                                                              <label
+                                                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                                 // onClick={() => handleEditClickComment(comment)}
-                                                                >
-                                                                  <BiLogInCircle />
-                                                                  <span className="text-base">{getTranslation(
-                                                                    `Delete`,  // -----> Englais
-                                                                    `Supprimer`, //  -----> Francais
-                                                                  )}</span></label>
-                                                              </button>
-                                                            </div>
-                                                          )}
-
-                                                      </div>)
-                                                  }
-
+                                                              >
+                                                                <BiLogInCircle />
+                                                                <span className="text-base">
+                                                                  {getTranslation(
+                                                                    `Delete`, // -----> Englais
+                                                                    `Supprimer` //  -----> Francais
+                                                                  )}
+                                                                </span>
+                                                              </label>
+                                                            </button>
+                                                          </div>
+                                                        )}
+                                                    </div>
+                                                  )}
                                                 </div>
-                                                <div className="mt-2 text-break font-light text-zinc-900 px-4" >
-                                                  {reply.id === editingReplyId ? (
+                                                <div className="mt-2 text-break font-light text-zinc-900 px-4">
+                                                  {reply.id ===
+                                                  editingReplyId ? (
                                                     <textarea
                                                       className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
-                                                      style={{ resize: 'none', maxHeight: '300px', height: '150px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                                      style={{
+                                                        resize: "none",
+                                                        maxHeight: "300px",
+                                                        height: "150px",
+                                                        overflowY: "auto",
+                                                        scrollbarWidth: "none",
+                                                      }}
                                                       value={editedReply}
-                                                      onChange={(e) => setEditedReply(e.target.value)}
+                                                      onChange={(e) =>
+                                                        setEditedReply(
+                                                          e.target.value
+                                                        )
+                                                      }
                                                     ></textarea>
                                                   ) : (
-                                                    <div className="text-wrap" style={{ resize: 'none', maxHeight: '300px', overflowY: 'auto', scrollbarWidth: 'none' }}
+                                                    <div
+                                                      className="text-wrap"
+                                                      style={{
+                                                        resize: "none",
+                                                        maxHeight: "300px",
+                                                        overflowY: "auto",
+                                                        scrollbarWidth: "none",
+                                                      }}
                                                     >
-
                                                       {reply.description}
                                                     </div>
                                                   )}
@@ -3680,106 +3951,126 @@ useEffect(() => {
                                                 {/* ok */}
                                                 {reply.id === editingReplyId ? (
                                                   <div className="my-2 px-[26px] flex w-full justify-between ">
-                                                    <button className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3" onClick={() => cancelEditreply()}>Annuler</button>
+                                                    <button
+                                                      className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
+                                                      onClick={() =>
+                                                        cancelEditreply()
+                                                      }
+                                                    >
+                                                      Annuler
+                                                    </button>
 
-                                                    <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
-                                                      saveEditedReply(reply.id)
-                                                      // fetchRepliesForComment(reply.commentaireId)
+                                                    <button
+                                                      className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
+                                                      onClick={() => {
+                                                        saveEditedReply(
+                                                          reply.id
+                                                        );
+                                                        // fetchRepliesForComment(reply.commentaireId)
 
-                                                      // setCommentInputVisible(false);
-                                                      // setSelectedArticleId(null);
-                                                      fetchRepliesForComment(reply.commentaireId)
-                                                      setRepliesVisible(false);
-                                                      setSelectedArticleId(null);
-                                                    }
-
-
-
-                                                    }>Modifier</button>
+                                                        // setCommentInputVisible(false);
+                                                        // setSelectedArticleId(null);
+                                                        fetchRepliesForComment(
+                                                          reply.commentaireId
+                                                        );
+                                                        setRepliesVisible(
+                                                          false
+                                                        );
+                                                        setSelectedArticleId(
+                                                          null
+                                                        );
+                                                      }}
+                                                    >
+                                                      Modifier
+                                                    </button>
                                                   </div>
                                                 ) : (
                                                   <div className="my-2 flex w-full justify-between">
-
                                                     {/* <button onClick={() => handleEditClickComment(comment.id)}>Edit</button> */}
-
                                                   </div>
                                                 )}
-
-
-
-
                                               </div>
-
                                             </div>
-
                                           </div>
                                         )
                                       )}
-                                    {replyingToCommentId ==
-                                      comment.id && (
-                                        <div className="flex items-center gap-3 ">
-                                          <figure className="avatar">
-                                            <img
-                                              src={
-                                                user?.user?.image ? user?.user?.image : placeholder
+                                    {replyingToCommentId == comment.id && (
+                                      <div className="flex items-center gap-3 ">
+                                        <figure className="avatar">
+                                          <img
+                                            src={
+                                              user?.user?.image
+                                                ? user?.user?.image
+                                                : placeholder
+                                            }
+                                            className="shadow-sm rounded-full w-[52px] aspect-square"
+                                            alt="post"
+                                          />
+                                        </figure>
+                                        <div className="flex flex-col w-full">
+                                          <div className="w-full flex items-center">
+                                            <input
+                                              type="text"
+                                              value={replyInput}
+                                              placeholder="Ecrire un reponse .."
+                                              onChange={(e) =>
+                                                setReplyInput(e.target.value)
                                               }
-                                              className="shadow-sm rounded-full w-[52px] aspect-square"
-                                              alt="post"
+                                              className="w-full px-2 bg-gray-100 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
                                             />
-                                          </figure>
-                                          <div className="flex flex-col w-full">
-                                            <div className="w-full flex items-center">
-                                              <input
-                                                type="text"
-                                                value={replyInput}
-                                                placeholder="Ecrire un reponse .."
-                                                onChange={(e) =>
-                                                  setReplyInput(
-                                                    e.target.value
-                                                  )
-                                                }
-                                                className="w-full px-2 bg-gray-100 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
-                                              />
-                                              <button
-                                                onClick={() =>{
-                                                  console.log("article.idarticle.id",article.id)
-                                                  console.log(comment.userId, "comment.userId")
-                                                  console.log(article.userId, "article.userId")
-                                                  console.log(reply.userId, "reply.userId")
-                                                  NotificationService.instantSend(socket, 
-                                                    {
-                                                      toUser_id: comment.userId,
-                                                      forWichAction: "reply",
-                                                      actionId: "0",
-                                                      postId: article.id,
-                                                      content: replyInput,
-                                                      postImage: article?.image ? article?.image : ""
-      
-                                                    })
-                                                  addReply(
-                                                    replyingToCommentId,
-                                                    replyInput
-                                                  )
-                                                }
-                                                }
+                                            <button
+                                              onClick={() => {
+                                                console.log(
+                                                  "article.idarticle.id",
+                                                  article.id
+                                                );
+                                                console.log(
+                                                  comment.userId,
+                                                  "comment.userId"
+                                                );
+                                                console.log(
+                                                  article.userId,
+                                                  "article.userId"
+                                                );
+                                                console.log(
+                                                  reply.userId,
+                                                  "reply.userId"
+                                                );
+                                                NotificationService.instantSend(
+                                                  socket,
+                                                  {
+                                                    toUser_id: comment.userId,
+                                                    forWichAction: "reply",
+                                                    actionId: "0",
+                                                    postId: article.id,
+                                                    content: replyInput,
+                                                    postImage: article?.image
+                                                      ? article?.image
+                                                      : "",
+                                                  }
+                                                );
+                                                addReply(
+                                                  replyingToCommentId,
+                                                  replyInput
+                                                );
+                                              }}
+                                            >
+                                              <svg
+                                                className="w-4 h-5 md:w-5"
+                                                viewBox="0 0 20 20"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
                                               >
-                                                <svg
-                                                  className="w-4 h-5 md:w-5"
-                                                  viewBox="0 0 20 20"
-                                                  fill="none"
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                  <path
-                                                    d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
-                                                    fill="#2E71EB"
-                                                  />
-                                                </svg>
-                                              </button>
-                                            </div>
+                                                <path
+                                                  d="M0.141013 3.09153C-0.18232 2.20653 0.0610132 1.22653 0.761847 0.595693C1.46101 -0.0326407 2.45685 -0.174307 3.30185 0.236526L18.3768 7.27319C19.1852 7.65153 19.7635 8.34236 19.9977 9.16736H3.37101L0.188513 3.19736C0.171013 3.16319 0.15518 3.12736 0.141013 3.09153ZM3.38268 10.8349L0.25518 16.814C0.23768 16.8474 0.22268 16.8807 0.21018 16.9157C-0.11232 17.8015 0.133513 18.7799 0.834347 19.4099C1.26851 19.799 1.81685 19.9999 2.36851 19.9999C2.70935 19.9999 3.05101 19.9232 3.36935 19.7674L18.3785 12.7357C19.1893 12.3557 19.7668 11.6624 19.9993 10.8357H3.38268V10.8349Z"
+                                                  fill="#2E71EB"
+                                                />
+                                              </svg>
+                                            </button>
                                           </div>
-
                                         </div>
-                                      )}
+                                      </div>
+                                    )}
                                   </div>
                                 )}
                               </div>
@@ -3787,8 +4078,7 @@ useEffect(() => {
 
                           {/* Add Comment Input */}
                           {commentInputVisible && (
-                            <div
-                            >
+                            <div>
                               <div className="flex items-center gap-2 md:gap-3 mt-3">
                                 <figure className="avatar">
                                   <img
@@ -3814,21 +4104,30 @@ useEffect(() => {
                                     />
                                     <button
                                       onClick={() => {
-                                        console.log("article.idarticle.id",article.id)
-                                  NotificationService.instantSend(socket, 
-                                    {
-                                      toUser_id: article?.user?.user?.id,
-                                      forWichAction: "comment",
-                                      actionId: "0",
-                                      postId: article.id,
-                                      content: comment,
-                                      postImage: article?.image ? article?.image : ""
-                                    })
+                                        console.log(
+                                          "article.idarticle.id",
+                                          article.id
+                                        );
+                                        NotificationService.instantSend(
+                                          socket,
+                                          {
+                                            toUser_id: article?.user?.user?.id,
+                                            forWichAction: "comment",
+                                            actionId: "0",
+                                            postId: article.id,
+                                            content: comment,
+                                            postImage: article?.image
+                                              ? article?.image
+                                              : "",
+                                          }
+                                        );
 
                                         addComment(article.id);
-                                        console.log("🚀 ~ Post ~ article.id:", article.id)
-                                      }
-                                      }
+                                        console.log(
+                                          "🚀 ~ Post ~ article.id:",
+                                          article.id
+                                        );
+                                      }}
                                       className="ml-1"
                                     >
                                       <svg
@@ -3853,67 +4152,64 @@ useEffect(() => {
                         </div>
                       )}
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
             </div>
           )}
 
           {isModaldOpenPartage && (
             <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
-              <div ref={reffPartage} className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10">
-
-
-
-
-
-
-
-
-
-
-
-
-
+              <div
+                ref={reffPartage}
+                className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10"
+              >
                 <div className="flex flex-col">
-
-
-
-
-
-                  <form className="h-[695px] mb-2 flex flex-col" onSubmit={handleSubmit(handlePostSubmitPartage)}>
+                  <form
+                    className="h-[695px] mb-2 flex flex-col"
+                    onSubmit={handleSubmit(handlePostSubmitPartage)}
+                  >
                     <div className="card-body flex flex-col  d-flex p-0">
                       <div className="flex flex-col w-full mb-2">
-                        <div className='flex flex-row mb-3 '>
+                        <div className="flex flex-row mb-3 ">
                           <img
-                            srcSet={user?.user?.image ? user?.user.image : placeholder}
+                            srcSet={
+                              user?.user?.image ? user?.user.image : placeholder
+                            }
                             alt="icon"
                             className="shadow-sm rounded-full aspect-square w-11 h-11 md:w-16 md:h-16 mr-2"
                           />
-                          <div className='mt-[5px] md:mt-3  text-xs  '>
-                            <div className="flex  flex-row"> <div className="font-bold mr-1"> {
-                              user?.user?.nom}</div>
-                              <span> {' '}</span>
-                              <div className="font-bold">  {
-                                user?.user?.prenom}</div></div>
+                          <div className="mt-[5px] md:mt-3  text-xs  ">
+                            <div className="flex  flex-row">
+                              {" "}
+                              <div className="font-bold mr-1">
+                                {" "}
+                                {user?.user?.nom}
+                              </div>
+                              <span> </span>
+                              <div className="font-bold">
+                                {" "}
+                                {user?.user?.prenom}
+                              </div>
+                            </div>
 
                             {
-                              <div className='text-gray-400 font-sans'>
-                                {user?.user?.profil === 'other' && user?.other?.profession}
-                                {user?.user?.profil === 'player' && 'Joueur'}
-                                {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'players' && 'Manager de Joueur'}
-                                {user?.user?.profil === 'agent' && user?.agent?.typeresponsable === 'club' && 'Manager de Club'}
-                                {user?.user?.profil === 'scout' && 'Scout'}
+                              <div className="text-gray-400 font-sans">
+                                {user?.user?.profil === "other" &&
+                                  user?.other?.profession}
+                                {user?.user?.profil === "player" && "Joueur"}
+                                {user?.user?.profil === "agent" &&
+                                  user?.agent?.typeresponsable === "players" &&
+                                  "Manager de Joueur"}
+                                {user?.user?.profil === "agent" &&
+                                  user?.agent?.typeresponsable === "club" &&
+                                  "Manager de Club"}
+                                {user?.user?.profil === "scout" && "Scout"}
                               </div>
                             }
                           </div>
-
                         </div>
                         <div className="flex flex-col w-full gap-y-2">
-
                           <textarea
                             className="flex max-h-fit px-2 pt-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[10px] theme-dark-bg"
                             placeholder="Quoi de neuf ?"
@@ -3924,65 +4220,112 @@ useEffect(() => {
                           {errMsg?.message && (
                             <span
                               role="alert"
-                              className={`text-sm ${errMsg?.status === "failed"
-                                ? "text-[#f64949fe]"
-                                : "text-[#2ba150fe]"
-                                } mt-0.5`}
+                              className={`text-sm ${
+                                errMsg?.status === "failed"
+                                  ? "text-[#f64949fe]"
+                                  : "text-[#2ba150fe]"
+                              } mt-0.5`}
                             >
                               {errMsg?.message}
                             </span>
                           )}
-
-
-
-
-
-
                         </div>
                       </div>
                       {displayArticle && (
-                        <div key={displayArticle.id} className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 ">
+                        <div
+                          key={displayArticle.id}
+                          className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 "
+                        >
                           <div className="card-body p-0 d-flex">
-                            <Link to={`/profile/${displayArticle.user?.user?.id || displayArticle.userspartage?.id}`}>
+                            <Link
+                              to={`/profile/${
+                                displayArticle.user?.user?.id ||
+                                displayArticle.userspartage?.id
+                              }`}
+                            >
                               <figure className="avatar me-3">
                                 <img
-                                  srcSet={displayArticle.user?.user?.image || displayArticle.userspartage?.image || placeholder}
+                                  srcSet={
+                                    displayArticle.user?.user?.image ||
+                                    displayArticle.userspartage?.image ||
+                                    placeholder
+                                  }
                                   className="shadow-sm rounded-full w-[52px] aspect-square"
                                   alt="post"
                                 />
                               </figure>
                             </Link>
                             <h4 className="fw-700 text-grey-900 font-xssss mt-1">
-                              <Link to={`/profile/${displayArticle.user?.user?.id || displayArticle.userspartage?.id}`}>
-                                {displayArticle.user?.user?.nom || displayArticle.userspartage?.nom} {" "}
-                                {displayArticle.user?.user?.prenom || displayArticle.userspartage?.prenom}
+                              <Link
+                                to={`/profile/${
+                                  displayArticle.user?.user?.id ||
+                                  displayArticle.userspartage?.id
+                                }`}
+                              >
+                                {displayArticle.user?.user?.nom ||
+                                  displayArticle.userspartage?.nom}{" "}
+                                {displayArticle.user?.user?.prenom ||
+                                  displayArticle.userspartage?.prenom}
                               </Link>
                               <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                                {displayArticle.user?.user?.profil === 'other' ? displayArticle.user?.other?.profession : ''}
-                                {displayArticle.user?.user?.profil === 'player' ? ' Joueur' : ''}
-                                {displayArticle.user?.user?.profil === 'admin' ? ' admin' : ''}
-                                {displayArticle.user?.user?.profil === 'coach' ? ' Entraîneur' : ''}
-                                {displayArticle.user?.user?.profil === 'agent' && displayArticle.user?.agent?.typeresponsable === 'players' ? 'Manager de Joueur' : ''}
-                                {displayArticle.user?.user?.profil === 'agent' && displayArticle.user?.agent?.typeresponsable === 'club' ? 'Manager de Club' : ''}
-                                {displayArticle.user?.user?.profil === 'scout' ? 'Scout' : ''}
+                                {displayArticle.user?.user?.profil === "other"
+                                  ? displayArticle.user?.other?.profession
+                                  : ""}
+                                {displayArticle.user?.user?.profil === "player"
+                                  ? " Joueur"
+                                  : ""}
+                                {displayArticle.user?.user?.profil === "admin"
+                                  ? " admin"
+                                  : ""}
+                                {displayArticle.user?.user?.profil === "coach"
+                                  ? " Entraîneur"
+                                  : ""}
+                                {displayArticle.user?.user?.profil ===
+                                  "agent" &&
+                                displayArticle.user?.agent?.typeresponsable ===
+                                  "players"
+                                  ? "Manager de Joueur"
+                                  : ""}
+                                {displayArticle.user?.user?.profil ===
+                                  "agent" &&
+                                displayArticle.user?.agent?.typeresponsable ===
+                                  "club"
+                                  ? "Manager de Club"
+                                  : ""}
+                                {displayArticle.user?.user?.profil === "scout"
+                                  ? "Scout"
+                                  : ""}
                               </span>
                               <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                                {moment(displayArticle.createdAt).format('DD MMMM YYYY')} {' - '}
-                                {moment(displayArticle.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                                  moment(displayArticle.createdAt).fromNow(true) :
-                                  moment(displayArticle.createdAt).fromNow()}
+                                {moment(displayArticle.createdAt).format(
+                                  "DD MMMM YYYY"
+                                )}{" "}
+                                {" - "}
+                                {moment(displayArticle.createdAt).isAfter(
+                                  moment().subtract(1, "hour")
+                                )
+                                  ? moment(displayArticle.createdAt).fromNow(
+                                      true
+                                    )
+                                  : moment(displayArticle.createdAt).fromNow()}
                               </span>
                             </h4>
                           </div>
                           <div className="p-0 mt-2">
                             <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
-                              {!showFullText && displayArticle?.description?.length > 295 ? displayArticle?.description?.substring(0, 295) + "..." : displayArticle.description}
+                              {!showFullText &&
+                              displayArticle?.description?.length > 295
+                                ? displayArticle?.description?.substring(
+                                    0,
+                                    295
+                                  ) + "..."
+                                : displayArticle.description}
                               {displayArticle?.description?.length > 295 && (
                                 <button
                                   onClick={toggleText}
                                   className="text-blue-600 hover:text-blue-400 focus:outline-none"
                                 >
-                                  {showFullText ? 'Voir moins' : 'Voir plus'}
+                                  {showFullText ? "Voir moins" : "Voir plus"}
                                 </button>
                               )}
                             </p>
@@ -3990,15 +4333,51 @@ useEffect(() => {
 
                           {displayArticle?.image && (
                             <div className="card-body d-block p-0 mb-3">
-                              <div className={`grid ${imageCount === 1 ? 'grid-cols-1' : imageCount === 2 ? 'grid-cols-2' : imageCount === 3 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
+                              <div
+                                className={`grid ${
+                                  imageCount === 1
+                                    ? "grid-cols-1"
+                                    : imageCount === 2
+                                    ? "grid-cols-2"
+                                    : imageCount === 3
+                                    ? "grid-cols-1 sm:grid-cols-2"
+                                    : "grid-cols-2 sm:grid-cols-2 md:grid-cols-2"
+                                }`}
+                              >
                                 {images.slice(0, 4).map((imageUrl, index) => (
-                                  <div key={index} className={`p-1 relative ${imageCount === 3 && index === 0 ? 'col-span-2' : ''}`}>
+                                  <div
+                                    key={index}
+                                    className={`p-1 relative ${
+                                      imageCount === 3 && index === 0
+                                        ? "col-span-2"
+                                        : ""
+                                    }`}
+                                  >
                                     {imageUrl && (
                                       <img
-                                        className={`w-full ${imageCount === 1 ? 'h-full' : imageCount === 2 ? 'h-full md:h-56' : 'h-56'} ${index === 0 && article?.image?.split(';').length === 3 ? 'h-full md:h-56 object-cover' : 'object-cover h-56'} ${index === 3 && images.length > 4 ? 'opacity-50' : ''}`}
+                                        className={`w-full ${
+                                          imageCount === 1
+                                            ? "h-full"
+                                            : imageCount === 2
+                                            ? "h-full md:h-56"
+                                            : "h-56"
+                                        } ${
+                                          index === 0 &&
+                                          article?.image?.split(";").length ===
+                                            3
+                                            ? "h-full md:h-56 object-cover"
+                                            : "object-cover h-56"
+                                        } ${
+                                          index === 3 && images.length > 4
+                                            ? "opacity-50"
+                                            : ""
+                                        }`}
                                         src={imageUrl}
                                         alt={`Image ${index + 1}`}
-                                        style={{ marginBottom: '0', borderRadius: '0' }}
+                                        style={{
+                                          marginBottom: "0",
+                                          borderRadius: "0",
+                                        }}
                                       />
                                     )}
                                     {index === 3 && images.length > 4 && (
@@ -4027,7 +4406,8 @@ useEffect(() => {
                                         src={displayArticle?.video}
                                         type="video/mp4"
                                       />
-                                      Your browser does not support the video tag.
+                                      Your browser does not support the video
+                                      tag.
                                     </video>
                                   </div>
                                 </div>
@@ -4232,7 +4612,6 @@ useEffect(() => {
 
 </div> )} */}
 
-
                       {posting ? (
                         <Loadingpartage />
                       ) : (
@@ -4240,48 +4619,31 @@ useEffect(() => {
                           type="submit"
                           className="bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white   px-8 rounded-full font-semibold text-sm"
                         >
-
                           {getTranslation(
-                            `Share`,  // -----> Englais
-                            `Partager`, //  -----> Francais
+                            `Share`, // -----> Englais
+                            `Partager` //  -----> Francais
                           )}
-
                         </button>
                       )}
                     </div>
                   </form>
-
-
-
-
-
-
-
                 </div>
-
-
-
-
-
-
-
-
 
                 <button
                   className=" absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
-                  onClick={() => handleCloseModal(true)}> Xddddddddddddddddd </button>
+                  onClick={() => handleCloseModal(true)}
+                >
+                  {" "}
+                  Xddddddddddddddddd{" "}
+                </button>
               </div>
               <ToastContainer />
-
             </div>
-
           )}
-
         </div>
-
       </div>
     </>
-  )
+  );
 }
 
-export default Post
+export default Post;

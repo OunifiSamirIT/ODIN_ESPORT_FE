@@ -1,8 +1,8 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Config } from "../config";
-import { Context } from "../index";
+import { Config } from "../../../config";
+import { Context } from "../../../index";
 function Login({ setAuthStatus }) {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const [verificationMessage, setVerificationMessage] = useState("");
