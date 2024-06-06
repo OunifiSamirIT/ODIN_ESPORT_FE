@@ -99,7 +99,7 @@ export default function MobileNotification({notificationData, deleteNotData, set
   let [popupNotificationIsHidden, setPopupNotificationHidden] = useState(true);
 
   return (
-    <span className="max-sm:flex md:hidden notificationOuterContainer -translate-x-6 -translate-y-1 ">
+    <span className="max-sm:flex md:hidden notificationOuterContainer -translate-x-6 -translate-y-0 ">
     <div style={{
       display: notificationData.length ? "flex": "none"
     }} className="countableContainer ">

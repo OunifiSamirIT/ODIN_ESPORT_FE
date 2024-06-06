@@ -4,9 +4,9 @@ import Darkbutton from "../components/Darkbutton";
 import Logo from "../assets/ODIN22.png";
 import SlideMenu from "./SlideMenu";
 import "../components/Hamburger.css";
-import campImg from "../assets/campImg.png";
-import challengeImg from "../assets/challengeImg.png";
-import eventImg from "../assets/challengeImg.png";
+import campImg from "../assets/campImg.png"
+import challengeImg from "../assets/challengeImg.png"
+import eventImg from "../assets/challengeImg.png"
 
 import noNot from "../assets/noNot.png";
 import SelfNot from "./selfNotification";
@@ -20,9 +20,7 @@ import Userdefault from "../assets/userdefault.jpg";
 import BurgerMenuLink from "./BurgerMenuLink";
 import LanguageToggler from "../fixDesignComponents/languageToggler";
 import { Context } from "../index";
-import MobileNotification from "./MobileNotification";
-import Sun from "../assets/sun.png";
-import Moon from "../assets/moon.png";
+import MobileNotification from "./MobileNotification" 
 // notification importation
 import gsap from "gsap";
 import { io } from "socket.io-client";
@@ -32,104 +30,111 @@ import MobileNotificationPopup from "./MobileNotificationPopup";
 import DesktopNotificationPopup from "./DesktopNotificationPopup";
 //end
 
+import Sun from "../assets/sun.png"
+import Moon from "../assets/moon.png"
+
 function Header() {
+
+
+  let { handleDarkModeToggler } = React.useContext(Context)
+  let [popupNotificationIsHidden, setPopupNotificationHidden] = useState(true);
+
   let [notificationData, setnotificationData] = useState([]);
-  let [isNotifyBlocked, setNotifyBlocked] = useState(true);
-  let [activeBtn, setActiveBtn] = useState(true);
-  const [expandedslide, setExpandedSlide] = useState(false);
-  const [lang, setLang] = useState("Français");
-
+  let [ isNotifyBlocked, setNotifyBlocked] = useState(true);
+  let [activeBtn, setActiveBtn] = useState(true); 
+  
   let animateRinging = () => {
-    gsap
-      .timeline()
-      .to(".notifyContainer", {
-        opacity: 1,
-        x: 0,
-      })
-      .to(".notifyContainer img", {
-        duration: 0.1,
-        rotate: "0deg",
-      })
-      .to(".notifyContainer img", {
-        duration: 0.1,
-        rotate: "10deg",
-      })
+    gsap.timeline()
+    .to('.notifyContainer', {
+      opacity: 1,
+      x: 0
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "0deg"      
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "10deg"      
+    })
 
-      .to(".notifyContainer img", {
-        duration: 0.1,
-        rotate: "-10deg",
-      })
-      .to(".notifyContainer img", {
-        duration: 0.1,
-        rotate: "10deg",
-      })
-      .to(".notifyContainer img", {
-        duration: 0.1,
-        rotate: "-10deg",
-      })
-      .to(".notifyContainer img", {
-        duration: 0.1,
-        rotate: "10deg",
-      })
-      .to(".notifyContainer img", {
-        duration: 0.1,
-        rotate: "-10deg",
-      })
-      .to(".notifyContainer img", {
-        duration: 0.1,
-        rotate: "0deg",
-      })
-      .to(".notifyContainer", {
-        delay: 1,
-        opacity: 0,
-        x: -3,
-      })
-      .to(".notifyContainer", {
-        duration: 0,
-        opacity: 0,
-        x: 5,
-      });
-  };
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.notifyContainer img', {
+      duration: .1,
+      rotate: "0deg"      
+    })
+    .to('.notifyContainer', {
+      delay: 1,
+      opacity: 0,
+      x: -3
+    })
+    .to('.notifyContainer', {
+      duration: 0,
+      opacity: 0,
+      x: 5
+    })
+  }
+  
+  let animateBell = () =>  {
+    gsap.timeline()
+    
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "0deg"      
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "10deg"      
+    })
 
-  let animateBell = () => {
-    gsap
-      .timeline()
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "10deg"      
+    })
+    .to('.bellImageBlueX21Notification ', {
+      duration: .1,
+      rotate: "-10deg"   ,
+    })
+    .to('.bellImageBlueX21Notification', {
+      duration: .1,
+      rotate: "0deg"      
+    })
 
-      .to(".bellImageBlueX21Notification ", {
-        duration: 0.1,
-        rotate: "0deg",
-      })
-      .to(".bellImageBlueX21Notification ", {
-        duration: 0.1,
-        rotate: "10deg",
-      })
+    
+  }
 
-      .to(".bellImageBlueX21Notification ", {
-        duration: 0.1,
-        rotate: "-10deg",
-      })
-      .to(".bellImageBlueX21Notification ", {
-        duration: 0.1,
-        rotate: "10deg",
-      })
-      .to(".bellImageBlueX21Notification ", {
-        duration: 0.1,
-        rotate: "-10deg",
-      })
-      .to(".bellImageBlueX21Notification ", {
-        duration: 0.1,
-        rotate: "10deg",
-      })
-      .to(".bellImageBlueX21Notification ", {
-        duration: 0.1,
-        rotate: "-10deg",
-      })
-      .to(".bellImageBlueX21Notification", {
-        duration: 0.1,
-        rotate: "0deg",
-      });
-  };
-
+  
   let notifyBrowser = () => {
     if (window.Notification && Notification.permission !== "denied") {
       Notification.requestPermission(function (status) {
@@ -138,76 +143,111 @@ function Header() {
 
         function getBodyContent() {
           if (lastNotificationData.forWichAction == "like") {
-            return "Aimeé Ton poste.";
+            return getTranslation(
+              "Liked your post",
+              "A aimé votre publication" 
+            )
           }
           if (lastNotificationData.forWichAction == "likeComment") {
             return (
-              "Aimeé Ton commentaire " +
+
+              getTranslation("", 
+              "A aimé votre commentaire: ",
+              "Liked your post: "
+              ) +
               lastNotificationData.content.substring(0, 10) +
               "..."
             );
           }
           if (lastNotificationData.forWichAction == "comment") {
             return (
-              "Commenteé a Ton commentaire " +
+              getTranslation("", 
+              "A commenté votre publication: " ,
+              "Commented on your post: "
+              )
+              +
               lastNotificationData.content.substring(0, 10) +
               "..."
             );
           }
           if (lastNotificationData.forWichAction == "reply") {
             return (
-              "Repondre Ton commentaire " +
+              getTranslation(
+                "Replyed to your comment ",
+                "A répondu à votre commentaire "
+              )
+               +
               lastNotificationData.content.substring(0, 10) +
               "..."
             );
           }
           if (lastNotificationData.forWichAction == "AcceptRequest") {
-            return "Accepté Ton  invitation.";
+            return getTranslation(
+              getTranslation(
+                "Accepted your invtation",
+                "A accepté votre invitation"
+              )
+            );
           }
           if (lastNotificationData.forWichAction == "AddRequest") {
-            return "Envoyeé a vous invitation.";
+            return getTranslation(
+              "Send you a friend request",
+              "A envoyé à vous une invitation"
+            );
           }
           if (lastNotificationData.forWichAction == "share") {
-            return "Partageé Ton poste.";
+            return getTranslation(
+              "Shared your post",
+              "A partagé votre publication"
+            );
           }
           if (lastNotificationData.forWichAction == "camp") {
-            return 'Camp valable  "' + lastNotificationData.content + '"';
+            return getTranslation(
+              'Camp available  "' ,
+              'Camp disponible  "' 
+            ) + lastNotificationData.content + '"';
           }
           if (lastNotificationData.forWichAction == "challenge") {
             return (
-              'Challenge valable dans "' + lastNotificationData.content + '"'
+              getTranslation(
+                'Challenge available "',
+                'Challenge disponible "'
+              ) + lastNotificationData.content + '"'
             );
           }
           if (lastNotificationData.forWichAction == "event") {
             return (
-              'Odin event valable dans "' + lastNotificationData.content + '"'
+              getTranslation(
+                'Odin event available "',
+                'Odin event disponible "'
+              ) + lastNotificationData.content + '"'
             );
           }
 
           if (lastNotificationData.forWichAction == "likeChallenge") {
             return (
-              "A aimé votre participation au défi " +
+              "A aimé votre participation au " +
               lastNotificationData.content +
               '"'
             );
           }
           if (lastNotificationData.forWichAction == "commentChallenge") {
             return (
-              'A commenté votre participation au défi "' +
+              'A commenté votre participation au "' +
               lastNotificationData.content +
               '"'
             );
           }
           if (lastNotificationData.forWichAction == "voteChallenge") {
             return (
-              'A voté votre participation au défi "' +
+              'A voté votre participation au "' +
               lastNotificationData.content +
               '"'
             );
           }
           if (lastNotificationData.forWichAction == "likeCommentChallenge") {
             return (
-              'A aimé votre commentaire dans participation au défi "' +
+              'A aimé votre commentaire a participation au "' +
               lastNotificationData.content +
               '"'
             );
@@ -308,19 +348,21 @@ function Header() {
     }
   };
 
+
   //socket
   const [socket, setSocket] = useState(null);
-  //get all notifcation data
-  let getNotificationForCurrentUser = () => {
-    setTimeout(async () => {
-      let data = await NotificationService?.getNotificationForCurrentUser();
-      setnotificationData(data.reverse());
+  //get all notifcation data 
+  let getNotificationForCurrentUser =  () => {
+   setTimeout( async () =>  {
+    let data =
+    await NotificationService.getNotificationForCurrentUser();
+  setnotificationData(data.reverse());
 
-      let unReadedData = data.filter((raw) => {
-        if (raw.isReaded == false) return raw;
-      });
-      setUnreadedData(unReadedData);
-    }, 1000);
+  let unReadedData = data.filter(raw => {
+    if (raw.isReaded == false) return raw
+  })
+  setUnreadedData( unReadedData)
+   }, 1000)
   };
   useEffect(() => {
     const socketInstance = io(Config.LOCAL_URL);
@@ -331,9 +373,10 @@ function Header() {
     socketInstance.on("connect", () => {
       console.log("Connected to server");
     });
-
+ 
     socketInstance.on("get-notification", () => {
       getNotificationForCurrentUser();
+
     });
 
     return () => {
@@ -344,27 +387,33 @@ function Header() {
   }, []);
 
   useEffect(() => {
-    getNotificationForCurrentUser();
+      getNotificationForCurrentUser();
 
-    Notification.requestPermission();
+        Notification.requestPermission()
+      
+       
+
   }, []);
 
   //notify
-  const tone = useRef(new Audio(require("../assets/sound/simple_notif.mp3")));
+  const tone = useRef(new Audio(require('../assets/sound/simple_notif.mp3')));
 
   useEffect(() => {
+
     setTimeout(() => {
-      setNotifyBlocked(false);
-    }, 6000);
+      setNotifyBlocked(false)
+    }, 6000)
     if (!isNotifyBlocked && notificationData.length != 0) {
       // animateRinging()
-      animateBell();
-      notifyBrowser();
-      tone.current.play();
+      animateBell() 
+      notifyBrowser()
+      tone.current.play(); 
+
     }
-  }, [notificationData.length]);
+  }, [notificationData.length])
 
   // all & unread filtrage notification
+
 
   //delete notification by id
   let deleteNotData = (id) => {
@@ -395,13 +444,12 @@ function Header() {
   const [search, setSearch] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [UnreadedData, setUnreadedData] = useState([]);
+const [UnreadedData, setUnreadedData] = useState([])
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
-  const [isActive, setIsActive] = useState(null);
+  const [isActive, setIsActive] = useState(false);
   const [isNoti, setisNoti] = useState(null);
   const location = useLocation();
-  let { handleDarkModeToggler } = React.useContext(Context);
   useEffect(() => {
     setHumberger(false);
   }, [location]);
@@ -436,22 +484,28 @@ function Header() {
   }, []);
 
   const handleSearch = (event) => {
-    const searchString = event.target.value.toLowerCase();
+    const searchString = event.target.value;
     setSearchTerm(searchString);
     if (searchString.trim() === "") {
       setSearchResults([]);
     } else {
       const filteredTargets = search
-        .filter((item) => item.titre.toLowerCase().includes(searchString))
-        .map((target) => ({ ...target, origin: "Page" }));
+        .filter(
+          (item) =>
+            item.titre.toLowerCase().startsWith(searchString.toLowerCase()) ||
+            item.titre.toLowerCase().includes(searchString.toLowerCase())
+        )
+        .map((target) => ({ ...target, origin: "Page" })); // Adding origin property to filtered targets
 
       const filteredUsers = users
-        .filter((user) => {
-          const fullName =
-            `${user?.user?.nom} ${user?.user?.prenom}`.toLowerCase();
-          return fullName.includes(searchString);
-        })
-        .map((user) => ({ ...user.user, origin: "Personne" }));
+        .filter(
+          (user) =>
+            user?.user?.nom
+              .toLowerCase()
+              .startsWith(searchString.toLowerCase()) ||
+            user?.user?.nom.toLowerCase().includes(searchString.toLowerCase())
+        )
+        .map((user) => ({ ...user.user, origin: "Personne" })); // Adding origin property to filtered users
 
       setSearchResults([...filteredTargets, ...filteredUsers]);
     }
@@ -479,11 +533,8 @@ function Header() {
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
   const [Hamburger, setHumberger] = useState(false);
-  const [
-    mobileNotificationPopUpContainer,
-    setMobileNotificationPopUpContainer,
-  ] = useState(false);
-
+  const [mobileNotificationPopUpContainer, setMobileNotificationPopUpContainer] = useState(false);
+  
   const handleClickHamburger = () => {
     setHumberger(!Hamburger);
   };
@@ -500,27 +551,28 @@ function Header() {
     // Redirect to the login page or another route
     navigate("/login");
   };
-  const toggleLanguage = () => {
-    setLang((prevLang) => (prevLang === "Français" ? "English" : "Français"));
-  };
+
+ 
   return (
     <>
       <div
         className={`w-full dark-bg fixed z-50 shadow-xs ${
-          Hamburger || mobileNotificationPopUpContainer
-            ? "fixed top-0 h-screen overflow-hidden z-50"
-            : ""
+          Hamburger || mobileNotificationPopUpContainer ? "fixed top-0 h-screen overflow-hidden z-50" : ""
         }`}
       >
         {" "}
         <div className="max-sm:px-4 max-w-[1280px] h-[80px] w-full dark-bg  border-0 flex items-center justify-between mx-auto py-2 ">
-          <div className="flex flex-row ">
+          <div className="flex flex-row">
             <a href="/home" className="mt-3">
+            
+
               <svg
                 width="86"
                 height="60"
                 viewBox="0 0 86 77"
                 fill="none"
+                className="odinLightLogo"
+
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -559,99 +611,67 @@ function Header() {
                 />
               </svg>
 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-                width="209"
-                height="53"
-                viewBox="0 0 209 53"
-                className="odinDarkLogo hidden opacity-0"
-              >
-                <defs>
-                  <style
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        ".cls-1,.cls-5{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{fill:#fff;}.cls-4{fill:#ff7f00;}.cls-5{stroke:#fff;stroke-width:0.73px;}",
-                    }}
-                  />
-                  <clipPath id="clip-path">
-                    <rect className="cls-1" width={209} height="52.31" />
-                  </clipPath>
-                </defs>
-                <g id="Layer_2" data-name="Layer 2">
-                  <g id="Layer_1-2" data-name="Layer 1">
-                    <g className="cls-2">
-                      <path
-                        className="cls-3"
-                        d="M66.81,14.07V52.31H40.53L38.1,47.53l-2.39-4.78L33.32,38l-2.39-4.78,2.39-4.78,2.39-4.78,2.39-4.76,2.43-4.8ZM42.9,18.87l-2.37,4.76L38.1,28.41l-2.39,4.78L38.1,38l2.39,4.78,2.39,4.78H62V18.87Z"
+            <svg
+                width="86"
+                height="60"
+                    viewBox="0 0 73 64"
+            className="odinDarkLogo hidden opacity-0"
+
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <style
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            ".cls-1{fill:#fff;}.cls-2{fill:#ff7f00;}.cls-3{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:0.25px;}",
+                        }}
                       />
-                      <path
-                        className="cls-3"
-                        d="M26.3,14.07l2.39,4.78,2.39,4.78,2.39,4.78,2.39,4.78L33.47,38l-2.39,4.78-2.39,4.78L26.3,52.31H0V14.07ZM4.78,18.87V47.55H23.91l2.39-4.78L28.69,38l2.39-4.78-2.39-4.78L26.3,23.65l-2.39-4.78Z"
-                      />
-                      <path className="cls-4" d="M73.17,0H68.34V4.6h4.83Z" />
-                      <path
-                        className="cls-3"
-                        d="M80.58,29.11a6.67,6.67,0,0,1-3-.6A6.18,6.18,0,0,1,75.57,27a7.13,7.13,0,0,1-1.22-2.1,6.67,6.67,0,0,1-.4-2.17V22.3A6.66,6.66,0,0,1,74.36,20a6.13,6.13,0,0,1,1.29-2.11,6.28,6.28,0,0,1,2-1.44,7.83,7.83,0,0,1,5.79,0A6.11,6.11,0,0,1,86.77,20a6.66,6.66,0,0,1,.41,2.29v.38a6.41,6.41,0,0,1-.4,2.17A6.8,6.8,0,0,1,85.56,27a6.18,6.18,0,0,1-2.06,1.56A6.57,6.57,0,0,1,80.58,29.11Zm0-2.26a4.11,4.11,0,0,0,1.72-.35,3.73,3.73,0,0,0,1.3-1,4.4,4.4,0,0,0,.83-1.4,4.85,4.85,0,0,0,.28-1.65,5.06,5.06,0,0,0-.28-1.73,4,4,0,0,0-.83-1.38,3.77,3.77,0,0,0-1.31-.91,4.77,4.77,0,0,0-3.45,0,3.86,3.86,0,0,0-1.31.91,4,4,0,0,0-.83,1.38,5.31,5.31,0,0,0-.28,1.73,4.89,4.89,0,0,0,.28,1.65,4.4,4.4,0,0,0,.83,1.4,3.77,3.77,0,0,0,1.31,1A4.17,4.17,0,0,0,80.58,26.85Z"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M89.53,28.86V16.18H92V28.86Zm2.09,0V26.59h2.59a4.74,4.74,0,0,0,1.75-.3,3.46,3.46,0,0,0,1.29-.85,3.88,3.88,0,0,0,.82-1.29,4.67,4.67,0,0,0,.28-1.66,4.84,4.84,0,0,0-.28-1.69,3.69,3.69,0,0,0-.82-1.28,3.54,3.54,0,0,0-1.29-.8,5.26,5.26,0,0,0-1.75-.28H91.62V16.18h2.43a8.07,8.07,0,0,1,3,.48A5.81,5.81,0,0,1,99.12,18a5.69,5.69,0,0,1,1.27,2,6.4,6.4,0,0,1,.41,2.29v.38a6.33,6.33,0,0,1-.41,2.23A6,6,0,0,1,97,28.29a7.68,7.68,0,0,1-3,.53Z"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M103.06,28.79V16.26h2.42V28.79Z"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M108.59,28.79V16.26h4l5.27,10.5h.56l-.34.31V16.26h2.3V28.79h-4l-5.27-10.5h-.58l.35-.31V28.79Z"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M74.69,49.4V36.85h2.39V49.4Zm2-10.47v-2h5.54v2Zm0,5.14V42H82v2.06Zm0,5.33V47.32h5.68V49.4Z"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M89.08,49.7a6.56,6.56,0,0,1-2.8-.53,4,4,0,0,1-1.74-1.45,3.81,3.81,0,0,1-.6-2.12h2.38a1.85,1.85,0,0,0,.28,1,1.82,1.82,0,0,0,.88.76,3.53,3.53,0,0,0,1.6.29,3.85,3.85,0,0,0,1.5-.25,2.13,2.13,0,0,0,.89-.68,1.61,1.61,0,0,0,.29-1,1.31,1.31,0,0,0-.15-.61,1.24,1.24,0,0,0-.41-.47,3.74,3.74,0,0,0-1.75-.48l-1.1-.09A4.76,4.76,0,0,1,85.47,43a3.44,3.44,0,0,1-.82-1.17,3.34,3.34,0,0,1-.25-1.4,3.65,3.65,0,0,1,.55-2A3.59,3.59,0,0,1,86.55,37a6.25,6.25,0,0,1,4.85,0,3.8,3.8,0,0,1,1.6,1.4,3.92,3.92,0,0,1,.56,2.12H91.18a1.92,1.92,0,0,0-.25-1,1.85,1.85,0,0,0-.74-.7A2.42,2.42,0,0,0,89,38.57a2.71,2.71,0,0,0-1.2.24,1.76,1.76,0,0,0-.73.65,1.74,1.74,0,0,0-.23.89,1.35,1.35,0,0,0,.1.56,1.86,1.86,0,0,0,.32.47,2,2,0,0,0,1.36.48l1.1.1a7.36,7.36,0,0,1,2.35.57,3.78,3.78,0,0,1,1.57,1.26,3.13,3.13,0,0,1,.55,1.9,3.57,3.57,0,0,1-.61,2.08,4,4,0,0,1-1.76,1.4A6.53,6.53,0,0,1,89.08,49.7Z"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M96.38,49.4V36.8H98.8V49.4Zm2.09-3.84V43.45h2.42a2.61,2.61,0,0,0,1.25-.29,1.94,1.94,0,0,0,.77-.81,2.82,2.82,0,0,0,.26-1.18,2.86,2.86,0,0,0-.26-1.19,1.84,1.84,0,0,0-.77-.79,2.61,2.61,0,0,0-1.25-.29H98.47V36.79h2.23a6.31,6.31,0,0,1,2.68.51,3.81,3.81,0,0,1,1.69,1.46,4.24,4.24,0,0,1,.59,2.25v.28a4.24,4.24,0,0,1-.59,2.25A3.79,3.79,0,0,1,103.38,45a6.17,6.17,0,0,1-2.68.52Z"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M113.55,49.7a6.63,6.63,0,0,1-2.94-.6,6.08,6.08,0,0,1-2.06-1.57,6.87,6.87,0,0,1-1.22-2.09,6.22,6.22,0,0,1-.4-2.17v-.38a6.66,6.66,0,0,1,.41-2.29,6.2,6.2,0,0,1,1.24-2.06,6,6,0,0,1,2.07-1.49,7.71,7.71,0,0,1,5.78,0,6,6,0,0,1,2,1.43,6.08,6.08,0,0,1,1.29,2.12,6.62,6.62,0,0,1,.41,2.29v.38a6.22,6.22,0,0,1-.4,2.17,6.84,6.84,0,0,1-1.21,2.09,6.12,6.12,0,0,1-2.07,1.57A6.51,6.51,0,0,1,113.55,49.7Zm0-2.26a4.23,4.23,0,0,0,1.72-.34,3.93,3.93,0,0,0,1.31-1,4.26,4.26,0,0,0,.82-1.39,4.91,4.91,0,0,0,.29-1.66,5.11,5.11,0,0,0-.29-1.73,4,4,0,0,0-.82-1.37,3.69,3.69,0,0,0-1.31-.91,4.77,4.77,0,0,0-3.45,0,3.77,3.77,0,0,0-1.32.91,4,4,0,0,0-.82,1.37,5.1,5.1,0,0,0-.28,1.73,4.67,4.67,0,0,0,.28,1.66,4.26,4.26,0,0,0,.82,1.39,4,4,0,0,0,1.32,1,4.1,4.1,0,0,0,1.73.36Z"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M122.5,49.4V36.8h2.43V49.4Zm1.72-4.18v-2h3.19a2.33,2.33,0,0,0,1.16-.27,2,2,0,0,0,.77-.77,2.37,2.37,0,0,0,.27-1.14,2.43,2.43,0,0,0-.27-1.15,2,2,0,0,0-.77-.77,2.23,2.23,0,0,0-1.16-.27h-3.19V36.79h2.93a6.89,6.89,0,0,1,2.62.45,3.55,3.55,0,0,1,1.71,1.35,4.09,4.09,0,0,1,.6,2.28v.28a4,4,0,0,1-.61,2.28,3.71,3.71,0,0,1-1.71,1.34,7,7,0,0,1-2.61.45Zm5.94,4.18-3.84-5.48h2.73l4,5.48Z"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M133.38,39V36.85h9.7V39ZM137,49.4V38.65h2.42V49.4Z"
-                      />
-                      <rect
-                        className="cls-5"
-                        x="148.29"
-                        y="33.8"
-                        width="60.35"
-                        height="18.15"
-                        rx="4.48"
-                      />
-                      <path
-                        className="cls-3"
-                        d="M169.27,46.57a2.76,2.76,0,0,1-1.43-.36,2.59,2.59,0,0,1-1-1,3.6,3.6,0,0,1-.36-1.5h.27v2.67h-.7V37.88H167v4.25l-.33.78a3.37,3.37,0,0,1,.37-1.57,2.46,2.46,0,0,1,.95-1,2.7,2.7,0,0,1,1.37-.34,2.77,2.77,0,0,1,1.23.26,2.9,2.9,0,0,1,.93.69,3,3,0,0,1,.59,1,3.46,3.46,0,0,1,.21,1.21v.16a3.54,3.54,0,0,1-.21,1.21,3.27,3.27,0,0,1-.6,1,2.61,2.61,0,0,1-.95.72A2.83,2.83,0,0,1,169.27,46.57Zm-.1-.77a2.11,2.11,0,0,0,1.2-.33,2.2,2.2,0,0,0,.77-.91,3,3,0,0,0,.27-1.28,2.9,2.9,0,0,0-.28-1.28,2.14,2.14,0,0,0-.78-.9,2.19,2.19,0,0,0-1.18-.32,2.35,2.35,0,0,0-1.14.28,2,2,0,0,0-.81.79,2.25,2.25,0,0,0-.29,1.18v.57a2.22,2.22,0,0,0,.29,1.16,2.12,2.12,0,0,0,.81.76A2.35,2.35,0,0,0,169.17,45.8Zm7.44.77a3.25,3.25,0,0,1-1.37-.27,2.68,2.68,0,0,1-1-.73,3.18,3.18,0,0,1-.56-1,3.86,3.86,0,0,1-.18-1.17V43.2a3.86,3.86,0,0,1,.18-1.17,3,3,0,0,1,.56-1,2.77,2.77,0,0,1,.93-.72,2.91,2.91,0,0,1,1.32-.28,2.8,2.8,0,0,1,1.61.43,2.87,2.87,0,0,1,1,1.1,3.34,3.34,0,0,1,.32,1.44v.45H174v-.68h4.9l-.22.34a2.68,2.68,0,0,0-.25-1.2,1.73,1.73,0,0,0-.7-.81,2.31,2.31,0,0,0-2.33,0,2.23,2.23,0,0,0-.73.9,3.38,3.38,0,0,0-.23,1.27,3.55,3.55,0,0,0,.23,1.28,2.14,2.14,0,0,0,.74.91,2.55,2.55,0,0,0,2.56,0,1.5,1.5,0,0,0,.61-.87h.82a2.34,2.34,0,0,1-.49,1.07,2.64,2.64,0,0,1-.94.69A3.36,3.36,0,0,1,176.61,46.57Zm6.76-.13a3.07,3.07,0,0,1-1.11-.18,1.47,1.47,0,0,1-.72-.63,2.47,2.47,0,0,1-.26-1.21V38.28h.84v6.27a1.12,1.12,0,0,0,.29.82,1.14,1.14,0,0,0,.83.28h1.1v.79Zm-3.19-5.56v-.66h4.16v.66Zm9.57,5.49V44.52h-.14V42.34a1.42,1.42,0,0,0-.36-1.05,1.48,1.48,0,0,0-1.12-.37h-.7l-.68,0-.56,0v-.77l.53,0,.54,0h.56a4.17,4.17,0,0,1,1.51.23,1.62,1.62,0,0,1,.85.73,2.72,2.72,0,0,1,.27,1.31v3.95Zm-2.08.17a2.63,2.63,0,0,1-1.15-.24,1.77,1.77,0,0,1-.78-.67,2,2,0,0,1-.27-1.07,1.87,1.87,0,0,1,.28-1.05,1.76,1.76,0,0,1,.83-.65,3.23,3.23,0,0,1,1.31-.23h1.8v.66h-1.86a1.63,1.63,0,0,0-1.13.36,1.2,1.2,0,0,0-.38.92,1.16,1.16,0,0,0,.41.93,1.65,1.65,0,0,0,1.1.34,2.31,2.31,0,0,0,.83-.15,1.55,1.55,0,0,0,.66-.54,1.84,1.84,0,0,0,.29-1l.26.37a2.51,2.51,0,0,1-.33,1.15,1.76,1.76,0,0,1-.75.68A2.46,2.46,0,0,1,187.67,46.54Z"
-                      />
+                    </defs>
+                    <g id="Layer_2" data-name="Layer 2">
+                      <g id="Layer_1-2" data-name="Layer 1">
+                        <path
+                          className="cls-1"
+                          d="M66.81,14.07V52.31H40.53L38.1,47.53l-2.39-4.78L33.32,38l-2.39-4.78,2.39-4.78,2.39-4.78,2.39-4.76,2.43-4.8ZM42.9,18.87l-2.37,4.76L38.1,28.41l-2.39,4.78L38.1,38l2.39,4.78,2.39,4.78H62V18.87Z"
+                        />
+                        <path
+                          className="cls-1"
+                          d="M26.3,14.07l2.39,4.78,2.39,4.78,2.39,4.78,2.39,4.78L33.47,38l-2.39,4.78-2.39,4.78L26.3,52.31H0V14.07ZM4.78,18.87V47.55H23.91l2.39-4.78L28.69,38l2.39-4.78-2.39-4.78L26.3,23.65l-2.39-4.78Z"
+                        />
+                        <path className="cls-2" d="M73.17,0H68.34V4.6h4.83Z" />
+                        <rect
+                          className="cls-3"
+                          x="16.62"
+                          y="56.56"
+                          width="34.34"
+                          height="7.37"
+                          rx="2.83"
+                        />
+                        <path
+                          className="cls-1"
+                          d="M28.48,62.1a1.13,1.13,0,0,1-.61-.16,1,1,0,0,1-.4-.43,1.4,1.4,0,0,1-.16-.63h.12V62h-.3V58.4h.37v1.81l-.14.33a1.38,1.38,0,0,1,.16-.67,1.08,1.08,0,0,1,.4-.42,1.25,1.25,0,0,1,.59-.14,1.06,1.06,0,0,1,.51.11,1.18,1.18,0,0,1,.4.29,1.2,1.2,0,0,1,.25.44,1.44,1.44,0,0,1,.09.51v.07a1.44,1.44,0,0,1-.09.51,1.36,1.36,0,0,1-.25.44A1.27,1.27,0,0,1,29,62,1.25,1.25,0,0,1,28.48,62.1Zm0-.33a.93.93,0,0,0,.51-.14,1,1,0,0,0,.33-.39,1.33,1.33,0,0,0,.11-.54,1.2,1.2,0,0,0-.12-.55.87.87,0,0,0-.33-.38.92.92,0,0,0-.5-.14,1,1,0,0,0-.48.12.88.88,0,0,0-.35.34,1,1,0,0,0-.12.5v.25a1,1,0,0,0,.12.48.93.93,0,0,0,.35.33A1,1,0,0,0,28.44,61.77Z"
+                        />
+                        <path
+                          className="cls-1"
+                          d="M32.59,62.1A1.34,1.34,0,0,1,32,62a1.13,1.13,0,0,1-.4-.31,1.26,1.26,0,0,1-.24-.44,1.69,1.69,0,0,1-.08-.5v-.07a1.62,1.62,0,0,1,.08-.49,1.26,1.26,0,0,1,.24-.44,1.1,1.1,0,0,1,.39-.31,1.4,1.4,0,0,1,.56-.11,1.22,1.22,0,0,1,.69.18,1.16,1.16,0,0,1,.41.47,1.4,1.4,0,0,1,.14.61v.19H31.46v-.29h2.08l-.09.15a1.13,1.13,0,0,0-.1-.51.79.79,0,0,0-.3-.35.91.91,0,0,0-.49-.13.8.8,0,0,0-.5.15.83.83,0,0,0-.31.38,1.51,1.51,0,0,0,0,1.08.92.92,0,0,0,.31.39,1,1,0,0,0,.53.14.89.89,0,0,0,.56-.16.6.6,0,0,0,.26-.36h.35a1.17,1.17,0,0,1-.21.45,1.06,1.06,0,0,1-.4.29A1.4,1.4,0,0,1,32.59,62.1Z"
+                        />
+                        <path
+                          className="cls-1"
+                          d="M35.1,59.68V59.4h1.77v.28ZM36.45,62A1.13,1.13,0,0,1,36,62a.62.62,0,0,1-.31-.27,1,1,0,0,1-.1-.51V58.57h.35v2.67a.5.5,0,0,0,.12.35.51.51,0,0,0,.36.12h.47V62Z"
+                        />
+                        <path
+                          className="cls-1"
+                          d="M39.27,62.08a1.07,1.07,0,0,1-.49-.1.75.75,0,0,1-.33-.28.85.85,0,0,1-.12-.46.72.72,0,0,1,.13-.44.66.66,0,0,1,.35-.28,1.32,1.32,0,0,1,.55-.1h.77v.28h-.79a.69.69,0,0,0-.48.15.51.51,0,0,0-.16.4.48.48,0,0,0,.17.39.68.68,0,0,0,.47.15,1,1,0,0,0,.35-.07.62.62,0,0,0,.28-.23.72.72,0,0,0,.12-.44l.11.15a1,1,0,0,1-.14.49.65.65,0,0,1-.32.29A1,1,0,0,1,39.27,62.08Zm.88-.07v-.78h-.06V60.3a.61.61,0,0,0-.15-.45.65.65,0,0,0-.47-.16h-.59l-.24,0V59.4l.22,0h.47a1.67,1.67,0,0,1,.65.1.69.69,0,0,1,.36.31,1.22,1.22,0,0,1,.11.55V62Z"
+                        />
+                      </g>
                     </g>
-                  </g>
-                </g>
-              </svg>
+                  </svg>
 
               <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">
                 {" "}
               </span>
             </a>
-
+             
             <div className="hidden md:flex  pl-2 pt-4 w-full min-w-[250px]  ">
               <div className="flex items-center relative ">
                 <div className="flex items-center whitespace-nowrap dark-bg pr-2 pl-2 h-11 w-[250px] rounded-full mr-4 border border-black absolute top-0">
@@ -730,94 +750,89 @@ function Header() {
                   )}
                 </div>
               </div>
-            </div>
           </div>
-          <div className="flex items-center ">
-            <div className="flex items-center justify-between ">
-              <div className="flex justify-start mr-6 text-base  font-medium text-white">
-                <svg
-                  onClick={toggleLanguage}
-                  width="30"
-                  height="30"
-                  viewBox="0 0 30 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M23.75 0H6.25C2.79875 0 0 2.7975 0 6.25V13.75C0 17.2013 2.79875 20 6.25 20H23.75C27.1963 20 30 17.1963 30 13.75V6.25C30 2.80375 27.1963 0 23.75 0ZM10.15 15C9.7425 15 9.38875 14.7188 9.2975 14.3212L8.96625 12.875H5.955L5.6125 14.3263C5.51875 14.7213 5.1675 15 4.76125 15C4.1975 15 3.78125 14.4738 3.91 13.925L5.67625 6.43375C5.9275 5.35125 7.0975 4.67625 8.24625 5.1575C8.795 5.3875 9.16375 5.915 9.29875 6.495L11.0025 13.93C11.1275 14.4775 10.7125 15 10.15 15ZM27.5 13.75C27.5 15.8175 25.8175 17.5 23.75 17.5H15V2.5H23.75C25.8175 2.5 27.5 4.1825 27.5 6.25V13.75ZM25.625 7.02V7.04625C25.625 7.47125 25.28 7.81625 24.855 7.81625H24.46C24.3088 9.41 23.6888 11.23 22.4513 12.6488C23.1287 13.06 23.9412 13.3538 24.9312 13.4475C25.325 13.485 25.625 13.8175 25.625 14.2138V14.24C25.625 14.6975 25.23 15.05 24.775 15.0062C23.3538 14.87 22.2012 14.395 21.265 13.7288C20.3237 14.4012 19.1575 14.8725 17.725 15.0062C17.27 15.0487 16.8763 14.6962 16.8763 14.2387V14.2125C16.8763 13.8112 17.1863 13.4825 17.5863 13.445C18.5713 13.3512 19.3837 13.0613 20.0575 12.6513C19.6437 12.1775 19.2987 11.6588 19.0163 11.1175C18.75 10.6075 19.1275 9.9975 19.7025 9.9975H19.715C19.9975 9.9975 20.2612 10.15 20.3913 10.4C20.6225 10.84 20.9113 11.2637 21.2575 11.6525C22.28 10.5025 22.7475 9.0175 22.8862 7.81375H17.6475C17.2225 7.81375 16.8775 7.46875 16.8775 7.04375V7.0175C16.8775 6.5925 17.2225 6.2475 17.6475 6.2475H20.4688V5.7675C20.4688 5.3425 20.8137 4.9975 21.2387 4.9975H21.265C21.69 4.9975 22.035 5.3425 22.035 5.7675V6.2475H24.8563C25.2812 6.2475 25.6262 6.5925 25.6262 7.0175L25.625 7.02ZM7.58125 6.82875L8.565 11.125H6.36875L7.3825 6.82875C7.39375 6.7825 7.43375 6.75 7.48125 6.75C7.52875 6.75 7.57125 6.7825 7.58125 6.82875Z"
-                    fill="#2E71EB"
-                  />
-                </svg>
-              </div>
-
-              <div
-                onClick={handleDarkModeToggler}
-                className="darkModeSwitcher flex w-[2px]  mr-8 h-[2px] bg-[#11111120] cursor-pointer rounded-full justify-center items-center p-3"
-              >
-                <img
-                  src={Sun}
-                  className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
-                />
-                <img src={Moon} className="w-5 h-5 invert moon absolute" />
-              </div>
-
-              <DesktopNotification
-                deleteNotData={deleteNotData}
-                notificationData={notificationData}
-                setnotificationData={setnotificationData}
-                NotificationService={NotificationService}
-                expandedslide={expandedslide}
-              />
-              <DesktopNotificationPopup
-                deleteNotData={deleteNotData}
-                notificationData={activeBtn ? notificationData : UnreadedData}
-                setnotificationData={setnotificationData}
-                NotificationService={NotificationService}
-                activeBtn={activeBtn}
-                setActiveBtn={setActiveBtn}
-                setMobileNotificationPopUpContainer={
-                  setMobileNotificationPopUpContainer
-                }
-                getNotificationForCurrentUser={getNotificationForCurrentUser}
-              />
-              <MobileNotification
-                deleteNotData={deleteNotData}
-                notificationData={notificationData}
-                setnotificationData={setnotificationData}
-                NotificationService={NotificationService}
-                setMobileNotificationPopUpContainer={
-                  setMobileNotificationPopUpContainer
-                }
-              />
-              <SlideMenu
-                setIsActive={setIsActive}
-                setHumberger={setHumberger}
-                Hamburger={Hamburger}
-                deleteNotData={deleteNotData}
-                notificationData={notificationData}
-                setnotificationData={setnotificationData}
-                NotificationService={NotificationService}
-                setExpandedSlide={setExpandedSlide}
-                expandedslide={expandedslide}
-              />
             </div>
+          <div className="flex items-center">
+            <span className=" mr-5 ">
+
+           
+            <LanguageToggler isIcon={true} hide={true} color={true} />
+
+                </span>
+
+<span style={{ 
+  marginRight: 40
+}}>
+  <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-8 h-8 bg-[#2E71EB] cursor-pointer rounded-full justify-center items-center -ml-4">
+            <img
+              src={Moon}
+              className="w-5 h-5 invert moon "
+            />
+            <img
+              src={Sun}
+              className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
+            />
+          </div>
+</span>
+
+          <DesktopNotification 
+             deleteNotData={deleteNotData}
+             notificationData={notificationData}
+             setnotificationData={setnotificationData} 
+             NotificationService={NotificationService}
+             setIsActive={setIsActive}
+             popupNotificationIsHidden={popupNotificationIsHidden}
+            setPopupNotificationHidden={setPopupNotificationHidden}
+             />
+          <DesktopNotificationPopup 
+           deleteNotData={deleteNotData}
+           notificationData={activeBtn ? notificationData: UnreadedData}
+           setnotificationData={setnotificationData} 
+           NotificationService={NotificationService} 
+           activeBtn={activeBtn} setActiveBtn = { setActiveBtn}
+           setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
+           getNotificationForCurrentUser={getNotificationForCurrentUser}
+          />
+          <MobileNotification 
+                    
+                    deleteNotData={deleteNotData}
+                    notificationData={notificationData}
+                    setnotificationData={setnotificationData} 
+                    NotificationService={NotificationService} 
+                    setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
+                    /> 
+
+                  
+            <SlideMenu
+              setIsActive={setIsActive}
+              isActive={isActive}
+              setHumberger={setHumberger}
+              Hamburger={Hamburger}
+              setPopupNotificationHidden={setPopupNotificationHidden}
+             deleteNotData={deleteNotData}
+             notificationData={notificationData}
+             setnotificationData={setnotificationData} 
+             NotificationService={NotificationService}
+            />
           </div>
         </div>
-        {mobileNotificationPopUpContainer && (
-          <MobileNotificationPopup
-            deleteNotData={deleteNotData}
-            notificationData={activeBtn ? notificationData : UnreadedData}
-            setnotificationData={setnotificationData}
-            NotificationService={NotificationService}
-            activeBtn={activeBtn}
-            setActiveBtn={setActiveBtn}
-            getNotificationForCurrentUser={getNotificationForCurrentUser}
-            setMobileNotificationPopUpContainer={
-              setMobileNotificationPopUpContainer
-            }
-          />
-        )}
+      {
+        mobileNotificationPopUpContainer &&  
+        <MobileNotificationPopup
+        deleteNotData={deleteNotData}
+        notificationData={activeBtn ? notificationData: UnreadedData}
+        setnotificationData={setnotificationData} 
+        NotificationService={NotificationService} 
+        activeBtn={activeBtn} setActiveBtn = { setActiveBtn}
+        getNotificationForCurrentUser={getNotificationForCurrentUser}
+
+
+        setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
+        />
+      }
+      
         {Hamburger && (
+          
           <div className="bg-zinc-100 fixed left-0 z-0 py-4 md:hidden w-screen h-screen overflow-y-scroll z-90">
             <div className="flex flex-col items-center pb-12 mx-auto w-full max-w-[480px]  overflow-hidden ">
               <div className="flex flex-col gap-y-4 items-center pb-12 mx-auto w-full max-w-[480px] h-[1000] ">

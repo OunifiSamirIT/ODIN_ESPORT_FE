@@ -158,14 +158,14 @@ export default function SelfNot({
               {notData.forWichAction == "like" && (
                 <span>
                   {" "}
-                  <span className="font-bold">Aimeé</span> Ton poste.
+                  <span className="font-bold">A aimé</span> votre publication
                 </span>
               )}
 
               {notData.forWichAction == "camp" && (
                 <span>
                   {" "}
-                  <span className="font-bold">Camp</span> valable{" "}
+                  <span className="font-bold">Camp</span> disponible{" "}
                   <span className="font-bold"> "{notData.content}"</span>{" "}
                 </span>
               )}
@@ -173,7 +173,7 @@ export default function SelfNot({
               {notData.forWichAction == "challenge" && (
                 <span>
                   {" "}
-                  <span className="font-bold">Challenge</span> valable dans{" "}
+                  <span className="font-bold">Challenge</span> disponible{" "}
                   <span className="font-bold"> "{notData.content}" </span>{" "}
                 </span>
               )}
@@ -181,8 +181,8 @@ export default function SelfNot({
                 <span>
                   {" "}
                   <span className="font-bold">A aimé</span> votre participation
-                  au défi{" "}
-                  <span className="font-bold"> "{notData.content}" </span>{" "}
+                  au{" "}
+                  <span className="font-bold"> "Challenge {notData.content}" </span>{" "}
                 </span>
               )}
 
@@ -190,30 +190,30 @@ export default function SelfNot({
                 <span>
                   {" "}
                   <span className="font-bold">A commenté</span> votre
-                  participation au défi{" "}
-                  <span className="font-bold"> "{notData.content}" </span>{" "}
+                  participation au{" "}
+                  <span className="font-bold"> "Challenge {notData.content}" </span>{" "}
                 </span>
               )}
               {notData.forWichAction == "voteChallenge" && (
                 <span>
                   {" "}
                   <span className="font-bold">A voté</span> votre participation
-                  au défi{" "}
-                  <span className="font-bold"> "{notData.content}" </span>{" "}
+                  au{" "}
+                  <span className="font-bold"> "Challenge {notData.content}" </span>{" "}
                 </span>
               )}
               {notData.forWichAction == "likeCommentChallenge" && (
                 <span>
                   {" "}
                   <span className="font-bold">A aimé</span> votre commentaire a participation
-                  au défi{" "}
-                  <span className="font-bold"> "{notData.content}" </span>{" "}
+                  au{" "}
+                  <span className="font-bold"> "Challenge {notData.content}" </span>{" "}
                 </span>
               )}
               {notData.forWichAction == "event" && (
                 <span>
                   {" "}
-                  <span className="font-bold">Odin event</span> valable{" "}
+                  <span className="font-bold">Odin event</span> disponible{" "}
                   <span className="font-bold"> "{notData.content}" </span>{" "}
                 </span>
               )}
@@ -221,7 +221,7 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">Aimeé</span> ton commentaire:
+                    <span className="font-bold">A aimé</span> votre commentaire:
                   </span>{" "}
                   <span className="font-bold">
                     {" "}
@@ -234,7 +234,7 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">Commenteé</span> ton poste:
+                    <span className="font-bold">A commenté </span> votre publication:
                   </span>{" "}
                   <span className="font-bold">
                     {" "}
@@ -247,7 +247,7 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">Repondre</span> ton commentaire:
+                    <span className="font-bold">A répondu</span>à votre commentaire:
                   </span>{" "}
                   <span className="font-bold">
                     {" "}
@@ -260,7 +260,7 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">Accepté</span> votre invitation
+                    <span className="font-bold">A accepté</span> votre invitation
                   </span>
                 </span>
               )}
@@ -268,7 +268,7 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">Envoyeé</span> a vous invitation
+                    <span className="font-bold">A envoyé</span> à vous une invitation
                   </span>
                 </span>
               )}
@@ -276,7 +276,7 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">Partageé</span> ton post.
+                    <span className="font-bold">A partagé</span> votre publication.
                   </span>
                 </span>
               )}
@@ -299,15 +299,60 @@ export default function SelfNot({
         >
           {(notData.forWichAction == "like" ||
             notData.forWichAction == "share" ||
-            notData.forWichAction == "comment") && (
-            <img
-              loading="lazy"
-              src={notData.postImage}
-              alt=""
-              style={{
-                borderRadius: 5,
-              }}
-            />
+            notData.forWichAction == "comment"||
+            notData.forWichAction == "likeComment"||
+            notData.forWichAction == "replyComment") && (
+
+<>
+{
+  notData.content == "" && notData.postImage == "" &&
+  <div className="relative flex justify-center items-center  w-[50px] h-[50px]">
+  <img
+    src={postContentImg}
+    alt=""
+    
+    className="absolute"
+
+    style={{
+      borderRadius: 5,
+      // filter: "blur(2px)",
+      marginBottom: 7,
+      marginTop: 7,
+      filter: "brightness(0) ",
+      opacity: .1
+    }}
+  />
+  <img
+    src={notContentPlay}
+    alt=""
+    className="absolute"
+    style={{
+      // filter: "blur(2px)",
+      marginBottom: 7,
+      marginTop: 7,
+      width: 20
+    }}
+  />
+</div>
+
+}
+
+{
+  notData.postImage  &&
+  <img
+  loading="lazy"
+  src={notData.postImage.indexOf(';') > -1 ? notData.postImage.split(';')[0] : notData.postImage }
+  alt=""
+  style={{
+    borderRadius: 5,
+  }}
+/>
+
+}
+            
+</>
+
+            
           )}
           {notData.forWichAction == "camp" && (
             <img
