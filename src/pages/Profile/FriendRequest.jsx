@@ -426,95 +426,122 @@ const FriendRequest = () => {
             <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="items-start px-8 py-6 text-3xl md:mt-4 font-bold whitespace-nowrap bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:max-w-full">
                 {getTranslation(
-                  `Request`, // -----> Englais
-                  ` Demandes` //  -----> Francais
-                  //   ``,  //  -----> Turkey
-                  //   `` ,  //  -----> Allemagne
+                  `Request`, // -----> English
+                  `Demandes` // -----> French
+                  // ``,  // -----> Turkish
+                  // ``,  // -----> German
                 )}
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 ">
-                {FriendRequest?.length <= 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                {FriendRequest?.friendRequests?.length === 0 ? (
                   <div className="text-lg text-center col-span-3">
                     {getTranslation(
-                      `No invitations at the moment!`, // -----> Englais
-                      ` Aucune invitation pour le moment !  ` //  -----> Francais
-                      //   ``,  //  -----> Turkey
-                      //   `` ,  //  -----> Allemagne
+                      `No invitations at the moment!`, // -----> English
+                      `Aucune invitation pour le moment!` // -----> French
+                      // ``,  // -----> Turkish
+                      // ``,  // -----> German
                     )}
                   </div>
-                )}
-                {FriendRequest?.friendRequests?.map((item) => {
-                  return (
-                    <div className="col-span-1">
-                      <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:mt-6">
-                        <Link
-                          to={`/profile/${item?.friendRequest?.receiver?.id}`}
-                        >
-                          <img
-                            loading="lazy"
-                            src={
-                              item?.friendRequest?.receiver?.image
-                                ? item?.friendRequest?.receiver.image
-                                : Placeholder
-                            }
-                            className="self-center max-w-full rounded-full aspect-square w-[120px]"
-                          />
-
-                          <div className="self-center mt-4 text-xl font-medium text-black">
-                            {item?.friendRequest?.receiver?.nom}{" "}
-                            {item?.friendRequest?.receiver?.prenom}
-                          </div>
-                        </Link>
-                        <div className="flex gap-2 justify-between mt-4 w-full">
-                          <div className="flex gap-4 justify-between px-1 font-light whitespace-nowrap">
+                ) : (
+                  FriendRequest?.friendRequests?.map((item, index) => {
+                    return (
+                      <div key={index} className="col-span-1">
+                        <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:mt-6">
+                          <Link
+                            to={`/profile/${item?.friendRequest?.receiver?.id}`}
+                          >
                             <img
                               loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/576404c583a66cbb5fc431ad30a1cd490dd50b47c1745b9e924980a529366444?"
-                              className="shrink-0 w-3.5 aspect-[0.74]"
+                              src={
+                                item?.friendRequest?.receiver?.image
+                                  ? item?.friendRequest?.receiver.image
+                                  : Placeholder
+                              }
+                              className="self-center max-w-full rounded-full aspect-square w-[120px]"
                             />
-                            <div className="my-auto">Profil</div>
-                          </div>
-                          <div className="my-auto font-medium">
-                            {" "}
-                            {item.receiverUserProfile?.user?.profil ===
-                              "other" &&
-                              item?.receiverUserProfile?.other?.profession}
-                            {item.receiverUserProfile?.user?.profil ===
-                              "player" && "Joueur"}
-                            {item.receiverUserProfile?.user?.profil == "coach"
-                              ? " Entraineur"
-                              : ""}
-                            {item.receiverUserProfile?.user?.profil ===
-                              "agent" &&
-                              item?.receiverUserProfile?.agent
-                                ?.typeresponsable === "players" &&
-                              "Manager de Joueur"}
-                            {item.receiverUserProfile?.user?.profil ===
-                              "agent" &&
-                              item?.receiverUserProfile?.agent
-                                ?.typeresponsable === "club" &&
-                              "Manager de Club"}
-                            {item.receiverUserProfile?.user?.profil ===
-                              "scout" && "Scout"}{" "}
-                          </div>
-                        </div>
-                        <div className="flex gap-2 justify-between mt-4 w-full whitespace-nowrap">
-                          <div className="flex gap-2 font-light">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5eae7f20e92fe11b1e7f70f0906a949d8f8881426a877620d101145fd278e5?"
-                              className="shrink-0 w-5 aspect-square"
-                            />
-                            <div className="my-auto">
-                              {getTranslation(
-                                `Nationality`, // -----> Englais
-                                `Nationalité`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
+                            <div className="self-center mt-4 text-xl font-medium text-black">
+                              {item?.friendRequest?.receiver?.nom}{" "}
+                              {item?.friendRequest?.receiver?.prenom}
+                            </div>
+                          </Link>
+                          <div className="flex gap-2 justify-between mt-4 w-full">
+                            <div className="flex gap-4 justify-between px-1 font-light whitespace-nowrap">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/576404c583a66cbb5fc431ad30a1cd490dd50b47c1745b9e924980a529366444?"
+                                className="shrink-0 w-3.5 aspect-[0.74]"
+                              />
+                              <div className="my-auto">Profil</div>
+                            </div>
+                            <div className="my-auto font-medium">
+                              {item.receiverUserProfile?.user?.profil ===
+                                "other" &&
+                                item?.receiverUserProfile?.other?.profession}
+                              {item.receiverUserProfile?.user?.profil ===
+                                "player" && "Joueur"}
+                              {item.receiverUserProfile?.user?.profil ===
+                                "coach" && "Entraineur"}
+                              {item.receiverUserProfile?.user?.profil ===
+                                "agent" &&
+                                item?.receiverUserProfile?.agent
+                                  ?.typeresponsable === "players" &&
+                                "Manager de Joueur"}
+                              {item.receiverUserProfile?.user?.profil ===
+                                "agent" &&
+                                item?.receiverUserProfile?.agent
+                                  ?.typeresponsable === "club" &&
+                                "Manager de Club"}
+                              {item.receiverUserProfile?.user?.profil ===
+                                "scout" && "Scout"}
                             </div>
                           </div>
-                          <div className="flex font-medium">
+                          <div className="flex gap-2 justify-between mt-4 w-full whitespace-nowrap">
+                            <div className="flex gap-2 font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5eae7f20e92fe11b1e7f70f0906a949d8f8881426a877620d101145fd278e5?"
+                                className="shrink-0 w-5 aspect-square"
+                              />
+                              <div className="my-auto">
+                                {getTranslation(
+                                  `Nationality`, // -----> English
+                                  `Nationalité` // -----> French
+                                  // ``, // -----> Turkish
+                                  // ``, // -----> German
+                                )}
+                              </div>
+                            </div>
+                            <div className="flex font-medium">
+                              <div className="flex font-medium whitespace-nowrap">
+                                <span
+                                  className={`flag-icon flag-icon-${getCountryFlagFromCountryName(
+                                    item?.friendRequest?.receiver
+                                      ?.countryresidence
+                                  )}`}
+                                  style={{ marginRight: "8px" }}
+                                ></span>
+                                <div>
+                                  {item?.friendRequest?.receiver?.nationality}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex gap-2 justify-between mt-4 w-full">
+                            <div className="flex gap-2 font-light">
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5eae7f20e92fe11b1e7f70f0906a949d8f8881426a877620d101145fd278e5?"
+                                className="shrink-0 w-5 aspect-square"
+                              />
+                              <div>
+                                {getTranslation(
+                                  `Country of residence`, // -----> English
+                                  `Pays de résidence` // -----> French
+                                  // ``, // -----> Turkish
+                                  // ``, // -----> German
+                                )}
+                              </div>
+                            </div>
                             <div className="flex font-medium whitespace-nowrap">
                               <span
                                 className={`flag-icon flag-icon-${getCountryFlagFromCountryName(
@@ -524,78 +551,53 @@ const FriendRequest = () => {
                                 style={{ marginRight: "8px" }}
                               ></span>
                               <div>
-                                {item?.friendRequest?.receiver?.nationality}
+                                {
+                                  item?.friendRequest?.receiver
+                                    ?.countryresidence
+                                }
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="flex gap-2 justify-between mt-4 w-full">
-                          <div className="flex gap-2 font-light">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa5eae7f20e92fe11b1e7f70f0906a949d8f8881426a877620d101145fd278e5?"
-                              className="shrink-0 w-5 aspect-square"
-                            />
-                            <div>
+                          <div className="flex gap-2 justify-between mt-4 text-base font-medium text-white whitespace-nowrap">
+                            <button
+                              onClick={() => {
+                                sendNotification(
+                                  item?.friendRequest?.receiver?.id
+                                );
+                                acceptInvitation(
+                                  item?.friendRequest?.receiver?.id
+                                );
+                              }}
+                              className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5"
+                            >
                               {getTranslation(
-                                `Country of residence`, // -----> Englais
-                                `Pays de résidence`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}{" "}
-                            </div>
+                                `Accept`, // -----> English
+                                `Accepter` // -----> French
+                                // ``, // -----> Turkish
+                                // ``, // -----> German
+                              )}
+                            </button>
+                            <button
+                              onClick={() =>
+                                deleteInviation(
+                                  item?.friendRequest?.receiver?.id
+                                )
+                              }
+                              className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5"
+                            >
+                              {getTranslation(
+                                `Delete`, // -----> English
+                                `Supprimer` // -----> French
+                                // ``, // -----> Turkish
+                                // ``, // -----> German
+                              )}
+                            </button>
                           </div>
-                          <div className="flex font-medium whitespace-nowrap">
-                            <span
-                              className={`flag-icon flag-icon-${getCountryFlagFromCountryName(
-                                item?.friendRequest?.receiver?.countryresidence
-                              )}`}
-                              style={{ marginRight: "8px" }}
-                            ></span>
-                            <div>
-                              {item?.friendRequest?.receiver?.countryresidence}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex gap-2 justify-between mt-4 text-base font-medium text-white whitespace-nowrap">
-                          <button
-                            onClick={() => {
-                              // alert(item?.friendRequest?.receiver?.id)
-                              sendNotification(
-                                item?.friendRequest?.receiver?.id
-                              );
-
-                              acceptInvitation(
-                                item?.friendRequest?.receiver?.id
-                              );
-                            }}
-                            className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5"
-                          >
-                            {getTranslation(
-                              `Accept`, // -----> Englais
-                              `Accepter` //  -----> Francais
-                              //   ``,  //  -----> Turkey
-                              //   `` ,  //  -----> Allemagne
-                            )}
-                          </button>
-                          <button
-                            onClick={() =>
-                              deleteInviation(item?.friendRequest?.receiver?.id)
-                            }
-                            className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5"
-                          >
-                            {getTranslation(
-                              `Delete`, // -----> Englais
-                              `Supprimer` //  -----> Francais
-                              //   ``,  //  -----> Turkey
-                              //   `` ,  //  -----> Allemagne
-                            )}
-                          </button>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                )}
               </div>
             </div>
           </div>

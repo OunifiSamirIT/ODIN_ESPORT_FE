@@ -4,9 +4,9 @@ import Darkbutton from "../components/Darkbutton";
 import Logo from "../assets/ODIN22.png";
 import SlideMenu from "./SlideMenu";
 import "../components/Hamburger.css";
-import campImg from "../assets/campImg.png"
-import challengeImg from "../assets/challengeImg.png"
-import eventImg from "../assets/challengeImg.png"
+import campImg from "../assets/campImg.png";
+import challengeImg from "../assets/challengeImg.png";
+import eventImg from "../assets/challengeImg.png";
 
 import noNot from "../assets/noNot.png";
 import SelfNot from "./selfNotification";
@@ -20,7 +20,7 @@ import Userdefault from "../assets/userdefault.jpg";
 import BurgerMenuLink from "./BurgerMenuLink";
 import LanguageToggler from "../fixDesignComponents/languageToggler";
 import { Context } from "../index";
-import MobileNotification from "./MobileNotification" 
+import MobileNotification from "./MobileNotification";
 // notification importation
 import gsap from "gsap";
 import { io } from "socket.io-client";
@@ -30,111 +30,108 @@ import MobileNotificationPopup from "./MobileNotificationPopup";
 import DesktopNotificationPopup from "./DesktopNotificationPopup";
 //end
 
-import Sun from "../assets/sun.png"
-import Moon from "../assets/moon.png"
+import Sun from "../assets/sun.png";
+import Moon from "../assets/moon.png";
 
 function Header() {
-
-
-  let { handleDarkModeToggler } = React.useContext(Context)
+  let { handleDarkModeToggler } = React.useContext(Context);
   let [popupNotificationIsHidden, setPopupNotificationHidden] = useState(true);
 
   let [notificationData, setnotificationData] = useState([]);
-  let [ isNotifyBlocked, setNotifyBlocked] = useState(true);
-  let [activeBtn, setActiveBtn] = useState(true); 
-  
+  let [isNotifyBlocked, setNotifyBlocked] = useState(true);
+  let [activeBtn, setActiveBtn] = useState(true);
+
   let animateRinging = () => {
-    gsap.timeline()
-    .to('.notifyContainer', {
-      opacity: 1,
-      x: 0
-    })
-    .to('.notifyContainer img', {
-      duration: .1,
-      rotate: "0deg"      
-    })
-    .to('.notifyContainer img', {
-      duration: .1,
-      rotate: "10deg"      
-    })
+    gsap
+      .timeline()
+      .to(".notifyContainer", {
+        opacity: 1,
+        x: 0,
+      })
+      .to(".notifyContainer img", {
+        duration: 0.1,
+        rotate: "0deg",
+      })
+      .to(".notifyContainer img", {
+        duration: 0.1,
+        rotate: "10deg",
+      })
 
-    .to('.notifyContainer img', {
-      duration: .1,
-      rotate: "-10deg"   ,
-    })
-    .to('.notifyContainer img', {
-      duration: .1,
-      rotate: "10deg"      
-    })
-    .to('.notifyContainer img', {
-      duration: .1,
-      rotate: "-10deg"   ,
-    })
-    .to('.notifyContainer img', {
-      duration: .1,
-      rotate: "10deg"      
-    })
-    .to('.notifyContainer img', {
-      duration: .1,
-      rotate: "-10deg"   ,
-    })
-    .to('.notifyContainer img', {
-      duration: .1,
-      rotate: "0deg"      
-    })
-    .to('.notifyContainer', {
-      delay: 1,
-      opacity: 0,
-      x: -3
-    })
-    .to('.notifyContainer', {
-      duration: 0,
-      opacity: 0,
-      x: 5
-    })
-  }
-  
-  let animateBell = () =>  {
-    gsap.timeline()
-    
-    .to('.bellImageBlueX21Notification ', {
-      duration: .1,
-      rotate: "0deg"      
-    })
-    .to('.bellImageBlueX21Notification ', {
-      duration: .1,
-      rotate: "10deg"      
-    })
+      .to(".notifyContainer img", {
+        duration: 0.1,
+        rotate: "-10deg",
+      })
+      .to(".notifyContainer img", {
+        duration: 0.1,
+        rotate: "10deg",
+      })
+      .to(".notifyContainer img", {
+        duration: 0.1,
+        rotate: "-10deg",
+      })
+      .to(".notifyContainer img", {
+        duration: 0.1,
+        rotate: "10deg",
+      })
+      .to(".notifyContainer img", {
+        duration: 0.1,
+        rotate: "-10deg",
+      })
+      .to(".notifyContainer img", {
+        duration: 0.1,
+        rotate: "0deg",
+      })
+      .to(".notifyContainer", {
+        delay: 1,
+        opacity: 0,
+        x: -3,
+      })
+      .to(".notifyContainer", {
+        duration: 0,
+        opacity: 0,
+        x: 5,
+      });
+  };
 
-    .to('.bellImageBlueX21Notification ', {
-      duration: .1,
-      rotate: "-10deg"   ,
-    })
-    .to('.bellImageBlueX21Notification ', {
-      duration: .1,
-      rotate: "10deg"      
-    })
-    .to('.bellImageBlueX21Notification ', {
-      duration: .1,
-      rotate: "-10deg"   ,
-    })
-    .to('.bellImageBlueX21Notification ', {
-      duration: .1,
-      rotate: "10deg"      
-    })
-    .to('.bellImageBlueX21Notification ', {
-      duration: .1,
-      rotate: "-10deg"   ,
-    })
-    .to('.bellImageBlueX21Notification', {
-      duration: .1,
-      rotate: "0deg"      
-    })
+  let animateBell = () => {
+    gsap
+      .timeline()
 
-    
-  }
+      .to(".bellImageBlueX21Notification ", {
+        duration: 0.1,
+        rotate: "0deg",
+      })
+      .to(".bellImageBlueX21Notification ", {
+        duration: 0.1,
+        rotate: "10deg",
+      })
 
-  
+      .to(".bellImageBlueX21Notification ", {
+        duration: 0.1,
+        rotate: "-10deg",
+      })
+      .to(".bellImageBlueX21Notification ", {
+        duration: 0.1,
+        rotate: "10deg",
+      })
+      .to(".bellImageBlueX21Notification ", {
+        duration: 0.1,
+        rotate: "-10deg",
+      })
+      .to(".bellImageBlueX21Notification ", {
+        duration: 0.1,
+        rotate: "10deg",
+      })
+      .to(".bellImageBlueX21Notification ", {
+        duration: 0.1,
+        rotate: "-10deg",
+      })
+      .to(".bellImageBlueX21Notification", {
+        duration: 0.1,
+        rotate: "0deg",
+      });
+  };
+
   let notifyBrowser = () => {
     if (window.Notification && Notification.permission !== "denied") {
       Notification.requestPermission(function (status) {
@@ -145,15 +142,15 @@ function Header() {
           if (lastNotificationData.forWichAction == "like") {
             return getTranslation(
               "Liked your post",
-              "A aimé votre publication" 
-            )
+              "A aimé votre publication"
+            );
           }
           if (lastNotificationData.forWichAction == "likeComment") {
             return (
-
-              getTranslation("", 
-              "A aimé votre commentaire: ",
-              "Liked your post: "
+              getTranslation(
+                "",
+                "A aimé votre commentaire: ",
+                "Liked your post: "
               ) +
               lastNotificationData.content.substring(0, 10) +
               "..."
@@ -161,11 +158,11 @@ function Header() {
           }
           if (lastNotificationData.forWichAction == "comment") {
             return (
-              getTranslation("", 
-              "A commenté votre publication: " ,
-              "Commented on your post: "
-              )
-              +
+              getTranslation(
+                "",
+                "A commenté votre publication: ",
+                "Commented on your post: "
+              ) +
               lastNotificationData.content.substring(0, 10) +
               "..."
             );
@@ -175,8 +172,7 @@ function Header() {
               getTranslation(
                 "Replyed to your comment ",
                 "A répondu à votre commentaire "
-              )
-               +
+              ) +
               lastNotificationData.content.substring(0, 10) +
               "..."
             );
@@ -202,17 +198,20 @@ function Header() {
             );
           }
           if (lastNotificationData.forWichAction == "camp") {
-            return getTranslation(
-              'Camp available  "' ,
-              'Camp disponible  "' 
-            ) + lastNotificationData.content + '"';
+            return (
+              getTranslation('Camp available  "', 'Camp disponible  "') +
+              lastNotificationData.content +
+              '"'
+            );
           }
           if (lastNotificationData.forWichAction == "challenge") {
             return (
               getTranslation(
                 'Challenge available "',
                 'Challenge disponible "'
-              ) + lastNotificationData.content + '"'
+              ) +
+              lastNotificationData.content +
+              '"'
             );
           }
           if (lastNotificationData.forWichAction == "event") {
@@ -220,7 +219,9 @@ function Header() {
               getTranslation(
                 'Odin event available "',
                 'Odin event disponible "'
-              ) + lastNotificationData.content + '"'
+              ) +
+              lastNotificationData.content +
+              '"'
             );
           }
 
@@ -348,21 +349,19 @@ function Header() {
     }
   };
 
-
   //socket
   const [socket, setSocket] = useState(null);
-  //get all notifcation data 
-  let getNotificationForCurrentUser =  () => {
-   setTimeout( async () =>  {
-    let data =
-    await NotificationService.getNotificationForCurrentUser();
-  setnotificationData(data.reverse());
+  //get all notifcation data
+  let getNotificationForCurrentUser = () => {
+    setTimeout(async () => {
+      let data = await NotificationService.getNotificationForCurrentUser();
+      setnotificationData(data.reverse());
 
-  let unReadedData = data.filter(raw => {
-    if (raw.isReaded == false) return raw
-  })
-  setUnreadedData( unReadedData)
-   }, 1000)
+      let unReadedData = data.filter((raw) => {
+        if (raw.isReaded == false) return raw;
+      });
+      setUnreadedData(unReadedData);
+    }, 1000);
   };
   useEffect(() => {
     const socketInstance = io(Config.LOCAL_URL);
@@ -373,10 +372,9 @@ function Header() {
     socketInstance.on("connect", () => {
       console.log("Connected to server");
     });
- 
+
     socketInstance.on("get-notification", () => {
       getNotificationForCurrentUser();
-
     });
 
     return () => {
@@ -387,33 +385,27 @@ function Header() {
   }, []);
 
   useEffect(() => {
-      getNotificationForCurrentUser();
+    getNotificationForCurrentUser();
 
-        Notification.requestPermission()
-      
-       
-
+    Notification.requestPermission();
   }, []);
 
   //notify
-  const tone = useRef(new Audio(require('../assets/sound/simple_notif.mp3')));
+  const tone = useRef(new Audio(require("../assets/sound/simple_notif.mp3")));
 
   useEffect(() => {
-
     setTimeout(() => {
-      setNotifyBlocked(false)
-    }, 6000)
+      setNotifyBlocked(false);
+    }, 6000);
     if (!isNotifyBlocked && notificationData.length != 0) {
       // animateRinging()
-      animateBell() 
-      notifyBrowser()
-      tone.current.play(); 
-
+      animateBell();
+      notifyBrowser();
+      tone.current.play();
     }
-  }, [notificationData.length])
+  }, [notificationData.length]);
 
   // all & unread filtrage notification
-
 
   //delete notification by id
   let deleteNotData = (id) => {
@@ -444,7 +436,7 @@ function Header() {
   const [search, setSearch] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-const [UnreadedData, setUnreadedData] = useState([])
+  const [UnreadedData, setUnreadedData] = useState([]);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const [isActive, setIsActive] = useState(false);
@@ -484,33 +476,26 @@ const [UnreadedData, setUnreadedData] = useState([])
   }, []);
 
   const handleSearch = (event) => {
-    const searchString = event.target.value;
+    const searchString = event.target.value.toLowerCase();
     setSearchTerm(searchString);
     if (searchString.trim() === "") {
       setSearchResults([]);
     } else {
       const filteredTargets = search
-        .filter(
-          (item) =>
-            item.titre.toLowerCase().startsWith(searchString.toLowerCase()) ||
-            item.titre.toLowerCase().includes(searchString.toLowerCase())
-        )
-        .map((target) => ({ ...target, origin: "Page" })); // Adding origin property to filtered targets
+        .filter((item) => item.titre.toLowerCase().includes(searchString))
+        .map((target) => ({ ...target, origin: "Page" }));
 
       const filteredUsers = users
-        .filter(
-          (user) =>
-            user?.user?.nom
-              .toLowerCase()
-              .startsWith(searchString.toLowerCase()) ||
-            user?.user?.nom.toLowerCase().includes(searchString.toLowerCase())
-        )
-        .map((user) => ({ ...user.user, origin: "Personne" })); // Adding origin property to filtered users
+        .filter((user) => {
+          const fullName =
+            `${user?.user?.nom} ${user?.user?.prenom}`.toLowerCase();
+          return fullName.includes(searchString);
+        })
+        .map((user) => ({ ...user.user, origin: "Personne" }));
 
       setSearchResults([...filteredTargets, ...filteredUsers]);
     }
   };
-
   const toggleActive = () => setIsOpen(!isActive);
   const toggleisNoti = () => setisNoti(!isNoti);
   const navClass = `${isOpen ? " nav-active" : ""}`;
@@ -533,8 +518,11 @@ const [UnreadedData, setUnreadedData] = useState([])
 
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
   const [Hamburger, setHumberger] = useState(false);
-  const [mobileNotificationPopUpContainer, setMobileNotificationPopUpContainer] = useState(false);
-  
+  const [
+    mobileNotificationPopUpContainer,
+    setMobileNotificationPopUpContainer,
+  ] = useState(false);
+
   const handleClickHamburger = () => {
     setHumberger(!Hamburger);
   };
@@ -552,27 +540,25 @@ const [UnreadedData, setUnreadedData] = useState([])
     navigate("/login");
   };
 
- 
   return (
     <>
       <div
         className={`w-full dark-bg fixed z-50 shadow-xs ${
-          Hamburger || mobileNotificationPopUpContainer ? "fixed top-0 h-screen overflow-hidden z-50" : ""
+          Hamburger || mobileNotificationPopUpContainer
+            ? "fixed top-0 h-screen overflow-hidden z-50"
+            : ""
         }`}
       >
         {" "}
         <div className="max-sm:px-4 max-w-[1280px] h-[80px] w-full dark-bg  border-0 flex items-center justify-between mx-auto py-2 ">
           <div className="flex flex-row">
             <a href="/home" className="mt-3">
-            
-
               <svg
                 width="86"
                 height="60"
                 viewBox="0 0 86 77"
                 fill="none"
                 className="odinLightLogo"
-
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -611,67 +597,66 @@ const [UnreadedData, setUnreadedData] = useState([])
                 />
               </svg>
 
-            <svg
+              <svg
                 width="86"
                 height="60"
-                    viewBox="0 0 73 64"
-            className="odinDarkLogo hidden opacity-0"
-
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <style
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            ".cls-1{fill:#fff;}.cls-2{fill:#ff7f00;}.cls-3{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:0.25px;}",
-                        }}
-                      />
-                    </defs>
-                    <g id="Layer_2" data-name="Layer 2">
-                      <g id="Layer_1-2" data-name="Layer 1">
-                        <path
-                          className="cls-1"
-                          d="M66.81,14.07V52.31H40.53L38.1,47.53l-2.39-4.78L33.32,38l-2.39-4.78,2.39-4.78,2.39-4.78,2.39-4.76,2.43-4.8ZM42.9,18.87l-2.37,4.76L38.1,28.41l-2.39,4.78L38.1,38l2.39,4.78,2.39,4.78H62V18.87Z"
-                        />
-                        <path
-                          className="cls-1"
-                          d="M26.3,14.07l2.39,4.78,2.39,4.78,2.39,4.78,2.39,4.78L33.47,38l-2.39,4.78-2.39,4.78L26.3,52.31H0V14.07ZM4.78,18.87V47.55H23.91l2.39-4.78L28.69,38l2.39-4.78-2.39-4.78L26.3,23.65l-2.39-4.78Z"
-                        />
-                        <path className="cls-2" d="M73.17,0H68.34V4.6h4.83Z" />
-                        <rect
-                          className="cls-3"
-                          x="16.62"
-                          y="56.56"
-                          width="34.34"
-                          height="7.37"
-                          rx="2.83"
-                        />
-                        <path
-                          className="cls-1"
-                          d="M28.48,62.1a1.13,1.13,0,0,1-.61-.16,1,1,0,0,1-.4-.43,1.4,1.4,0,0,1-.16-.63h.12V62h-.3V58.4h.37v1.81l-.14.33a1.38,1.38,0,0,1,.16-.67,1.08,1.08,0,0,1,.4-.42,1.25,1.25,0,0,1,.59-.14,1.06,1.06,0,0,1,.51.11,1.18,1.18,0,0,1,.4.29,1.2,1.2,0,0,1,.25.44,1.44,1.44,0,0,1,.09.51v.07a1.44,1.44,0,0,1-.09.51,1.36,1.36,0,0,1-.25.44A1.27,1.27,0,0,1,29,62,1.25,1.25,0,0,1,28.48,62.1Zm0-.33a.93.93,0,0,0,.51-.14,1,1,0,0,0,.33-.39,1.33,1.33,0,0,0,.11-.54,1.2,1.2,0,0,0-.12-.55.87.87,0,0,0-.33-.38.92.92,0,0,0-.5-.14,1,1,0,0,0-.48.12.88.88,0,0,0-.35.34,1,1,0,0,0-.12.5v.25a1,1,0,0,0,.12.48.93.93,0,0,0,.35.33A1,1,0,0,0,28.44,61.77Z"
-                        />
-                        <path
-                          className="cls-1"
-                          d="M32.59,62.1A1.34,1.34,0,0,1,32,62a1.13,1.13,0,0,1-.4-.31,1.26,1.26,0,0,1-.24-.44,1.69,1.69,0,0,1-.08-.5v-.07a1.62,1.62,0,0,1,.08-.49,1.26,1.26,0,0,1,.24-.44,1.1,1.1,0,0,1,.39-.31,1.4,1.4,0,0,1,.56-.11,1.22,1.22,0,0,1,.69.18,1.16,1.16,0,0,1,.41.47,1.4,1.4,0,0,1,.14.61v.19H31.46v-.29h2.08l-.09.15a1.13,1.13,0,0,0-.1-.51.79.79,0,0,0-.3-.35.91.91,0,0,0-.49-.13.8.8,0,0,0-.5.15.83.83,0,0,0-.31.38,1.51,1.51,0,0,0,0,1.08.92.92,0,0,0,.31.39,1,1,0,0,0,.53.14.89.89,0,0,0,.56-.16.6.6,0,0,0,.26-.36h.35a1.17,1.17,0,0,1-.21.45,1.06,1.06,0,0,1-.4.29A1.4,1.4,0,0,1,32.59,62.1Z"
-                        />
-                        <path
-                          className="cls-1"
-                          d="M35.1,59.68V59.4h1.77v.28ZM36.45,62A1.13,1.13,0,0,1,36,62a.62.62,0,0,1-.31-.27,1,1,0,0,1-.1-.51V58.57h.35v2.67a.5.5,0,0,0,.12.35.51.51,0,0,0,.36.12h.47V62Z"
-                        />
-                        <path
-                          className="cls-1"
-                          d="M39.27,62.08a1.07,1.07,0,0,1-.49-.1.75.75,0,0,1-.33-.28.85.85,0,0,1-.12-.46.72.72,0,0,1,.13-.44.66.66,0,0,1,.35-.28,1.32,1.32,0,0,1,.55-.1h.77v.28h-.79a.69.69,0,0,0-.48.15.51.51,0,0,0-.16.4.48.48,0,0,0,.17.39.68.68,0,0,0,.47.15,1,1,0,0,0,.35-.07.62.62,0,0,0,.28-.23.72.72,0,0,0,.12-.44l.11.15a1,1,0,0,1-.14.49.65.65,0,0,1-.32.29A1,1,0,0,1,39.27,62.08Zm.88-.07v-.78h-.06V60.3a.61.61,0,0,0-.15-.45.65.65,0,0,0-.47-.16h-.59l-.24,0V59.4l.22,0h.47a1.67,1.67,0,0,1,.65.1.69.69,0,0,1,.36.31,1.22,1.22,0,0,1,.11.55V62Z"
-                        />
-                      </g>
-                    </g>
-                  </svg>
+                viewBox="0 0 73 64"
+                className="odinDarkLogo hidden opacity-0"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <style
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        ".cls-1{fill:#fff;}.cls-2{fill:#ff7f00;}.cls-3{fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:0.25px;}",
+                    }}
+                  />
+                </defs>
+                <g id="Layer_2" data-name="Layer 2">
+                  <g id="Layer_1-2" data-name="Layer 1">
+                    <path
+                      className="cls-1"
+                      d="M66.81,14.07V52.31H40.53L38.1,47.53l-2.39-4.78L33.32,38l-2.39-4.78,2.39-4.78,2.39-4.78,2.39-4.76,2.43-4.8ZM42.9,18.87l-2.37,4.76L38.1,28.41l-2.39,4.78L38.1,38l2.39,4.78,2.39,4.78H62V18.87Z"
+                    />
+                    <path
+                      className="cls-1"
+                      d="M26.3,14.07l2.39,4.78,2.39,4.78,2.39,4.78,2.39,4.78L33.47,38l-2.39,4.78-2.39,4.78L26.3,52.31H0V14.07ZM4.78,18.87V47.55H23.91l2.39-4.78L28.69,38l2.39-4.78-2.39-4.78L26.3,23.65l-2.39-4.78Z"
+                    />
+                    <path className="cls-2" d="M73.17,0H68.34V4.6h4.83Z" />
+                    <rect
+                      className="cls-3"
+                      x="16.62"
+                      y="56.56"
+                      width="34.34"
+                      height="7.37"
+                      rx="2.83"
+                    />
+                    <path
+                      className="cls-1"
+                      d="M28.48,62.1a1.13,1.13,0,0,1-.61-.16,1,1,0,0,1-.4-.43,1.4,1.4,0,0,1-.16-.63h.12V62h-.3V58.4h.37v1.81l-.14.33a1.38,1.38,0,0,1,.16-.67,1.08,1.08,0,0,1,.4-.42,1.25,1.25,0,0,1,.59-.14,1.06,1.06,0,0,1,.51.11,1.18,1.18,0,0,1,.4.29,1.2,1.2,0,0,1,.25.44,1.44,1.44,0,0,1,.09.51v.07a1.44,1.44,0,0,1-.09.51,1.36,1.36,0,0,1-.25.44A1.27,1.27,0,0,1,29,62,1.25,1.25,0,0,1,28.48,62.1Zm0-.33a.93.93,0,0,0,.51-.14,1,1,0,0,0,.33-.39,1.33,1.33,0,0,0,.11-.54,1.2,1.2,0,0,0-.12-.55.87.87,0,0,0-.33-.38.92.92,0,0,0-.5-.14,1,1,0,0,0-.48.12.88.88,0,0,0-.35.34,1,1,0,0,0-.12.5v.25a1,1,0,0,0,.12.48.93.93,0,0,0,.35.33A1,1,0,0,0,28.44,61.77Z"
+                    />
+                    <path
+                      className="cls-1"
+                      d="M32.59,62.1A1.34,1.34,0,0,1,32,62a1.13,1.13,0,0,1-.4-.31,1.26,1.26,0,0,1-.24-.44,1.69,1.69,0,0,1-.08-.5v-.07a1.62,1.62,0,0,1,.08-.49,1.26,1.26,0,0,1,.24-.44,1.1,1.1,0,0,1,.39-.31,1.4,1.4,0,0,1,.56-.11,1.22,1.22,0,0,1,.69.18,1.16,1.16,0,0,1,.41.47,1.4,1.4,0,0,1,.14.61v.19H31.46v-.29h2.08l-.09.15a1.13,1.13,0,0,0-.1-.51.79.79,0,0,0-.3-.35.91.91,0,0,0-.49-.13.8.8,0,0,0-.5.15.83.83,0,0,0-.31.38,1.51,1.51,0,0,0,0,1.08.92.92,0,0,0,.31.39,1,1,0,0,0,.53.14.89.89,0,0,0,.56-.16.6.6,0,0,0,.26-.36h.35a1.17,1.17,0,0,1-.21.45,1.06,1.06,0,0,1-.4.29A1.4,1.4,0,0,1,32.59,62.1Z"
+                    />
+                    <path
+                      className="cls-1"
+                      d="M35.1,59.68V59.4h1.77v.28ZM36.45,62A1.13,1.13,0,0,1,36,62a.62.62,0,0,1-.31-.27,1,1,0,0,1-.1-.51V58.57h.35v2.67a.5.5,0,0,0,.12.35.51.51,0,0,0,.36.12h.47V62Z"
+                    />
+                    <path
+                      className="cls-1"
+                      d="M39.27,62.08a1.07,1.07,0,0,1-.49-.1.75.75,0,0,1-.33-.28.85.85,0,0,1-.12-.46.72.72,0,0,1,.13-.44.66.66,0,0,1,.35-.28,1.32,1.32,0,0,1,.55-.1h.77v.28h-.79a.69.69,0,0,0-.48.15.51.51,0,0,0-.16.4.48.48,0,0,0,.17.39.68.68,0,0,0,.47.15,1,1,0,0,0,.35-.07.62.62,0,0,0,.28-.23.72.72,0,0,0,.12-.44l.11.15a1,1,0,0,1-.14.49.65.65,0,0,1-.32.29A1,1,0,0,1,39.27,62.08Zm.88-.07v-.78h-.06V60.3a.61.61,0,0,0-.15-.45.65.65,0,0,0-.47-.16h-.59l-.24,0V59.4l.22,0h.47a1.67,1.67,0,0,1,.65.1.69.69,0,0,1,.36.31,1.22,1.22,0,0,1,.11.55V62Z"
+                    />
+                  </g>
+                </g>
+              </svg>
 
               <span className="d-inline-block fredoka-font ls-3 fw-300 text-current font-l logo-text mb-0">
                 {" "}
               </span>
             </a>
-             
+
             <div className="hidden md:flex  pl-2 pt-4 w-full min-w-[250px]  ">
               <div className="flex items-center relative ">
                 <div className="flex items-center whitespace-nowrap dark-bg pr-2 pl-2 h-11 w-[250px] rounded-full mr-4 border border-black absolute top-0">
@@ -750,89 +735,89 @@ const [UnreadedData, setUnreadedData] = useState([])
                   )}
                 </div>
               </div>
-          </div>
             </div>
+          </div>
           <div className="flex items-center">
             <span className=" mr-5 ">
+              <LanguageToggler isIcon={true} hide={true} color={true} />
+            </span>
 
-           
-            <LanguageToggler isIcon={true} hide={true} color={true} />
+            <span
+              style={{
+                marginRight: 40,
+              }}
+            >
+              <div
+                onClick={handleDarkModeToggler}
+                className="darkModeSwitcher  flex w-8 h-8 bg-[#2E71EB] cursor-pointer rounded-full justify-center items-center -ml-4"
+              >
+                <img src={Moon} className="w-5 h-5 invert moon " />
+                <img
+                  src={Sun}
+                  className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
+                />
+              </div>
+            </span>
 
-                </span>
-
-<span style={{ 
-  marginRight: 40
-}}>
-  <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-8 h-8 bg-[#2E71EB] cursor-pointer rounded-full justify-center items-center -ml-4">
-            <img
-              src={Moon}
-              className="w-5 h-5 invert moon "
+            <DesktopNotification
+              deleteNotData={deleteNotData}
+              notificationData={notificationData}
+              setnotificationData={setnotificationData}
+              NotificationService={NotificationService}
+              setIsActive={setIsActive}
+              popupNotificationIsHidden={popupNotificationIsHidden}
+              setPopupNotificationHidden={setPopupNotificationHidden}
             />
-            <img
-              src={Sun}
-              className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
+            <DesktopNotificationPopup
+              deleteNotData={deleteNotData}
+              notificationData={activeBtn ? notificationData : UnreadedData}
+              setnotificationData={setnotificationData}
+              NotificationService={NotificationService}
+              activeBtn={activeBtn}
+              setActiveBtn={setActiveBtn}
+              setMobileNotificationPopUpContainer={
+                setMobileNotificationPopUpContainer
+              }
+              getNotificationForCurrentUser={getNotificationForCurrentUser}
             />
-          </div>
-</span>
+            <MobileNotification
+              deleteNotData={deleteNotData}
+              notificationData={notificationData}
+              setnotificationData={setnotificationData}
+              NotificationService={NotificationService}
+              setMobileNotificationPopUpContainer={
+                setMobileNotificationPopUpContainer
+              }
+            />
 
-          <DesktopNotification 
-             deleteNotData={deleteNotData}
-             notificationData={notificationData}
-             setnotificationData={setnotificationData} 
-             NotificationService={NotificationService}
-             setIsActive={setIsActive}
-             popupNotificationIsHidden={popupNotificationIsHidden}
-            setPopupNotificationHidden={setPopupNotificationHidden}
-             />
-          <DesktopNotificationPopup 
-           deleteNotData={deleteNotData}
-           notificationData={activeBtn ? notificationData: UnreadedData}
-           setnotificationData={setnotificationData} 
-           NotificationService={NotificationService} 
-           activeBtn={activeBtn} setActiveBtn = { setActiveBtn}
-           setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
-           getNotificationForCurrentUser={getNotificationForCurrentUser}
-          />
-          <MobileNotification 
-                    
-                    deleteNotData={deleteNotData}
-                    notificationData={notificationData}
-                    setnotificationData={setnotificationData} 
-                    NotificationService={NotificationService} 
-                    setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
-                    /> 
-
-                  
             <SlideMenu
               setIsActive={setIsActive}
               isActive={isActive}
               setHumberger={setHumberger}
               Hamburger={Hamburger}
               setPopupNotificationHidden={setPopupNotificationHidden}
-             deleteNotData={deleteNotData}
-             notificationData={notificationData}
-             setnotificationData={setnotificationData} 
-             NotificationService={NotificationService}
+              deleteNotData={deleteNotData}
+              notificationData={notificationData}
+              setnotificationData={setnotificationData}
+              NotificationService={NotificationService}
             />
           </div>
         </div>
-      {
-        mobileNotificationPopUpContainer &&  
-        <MobileNotificationPopup
-        deleteNotData={deleteNotData}
-        notificationData={activeBtn ? notificationData: UnreadedData}
-        setnotificationData={setnotificationData} 
-        NotificationService={NotificationService} 
-        activeBtn={activeBtn} setActiveBtn = { setActiveBtn}
-        getNotificationForCurrentUser={getNotificationForCurrentUser}
-
-
-        setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
-        />
-      }
-      
+        {mobileNotificationPopUpContainer && (
+          <MobileNotificationPopup
+            deleteNotData={deleteNotData}
+            notificationData={activeBtn ? notificationData : UnreadedData}
+            setnotificationData={setnotificationData}
+            NotificationService={NotificationService}
+            activeBtn={activeBtn}
+            setActiveBtn={setActiveBtn}
+            getNotificationForCurrentUser={getNotificationForCurrentUser}
+            setMobileNotificationPopUpContainer={
+              setMobileNotificationPopUpContainer
+            }
+          />
+        )}
         {Hamburger && (
-          
           <div className="bg-zinc-100 fixed left-0 z-0 py-4 md:hidden w-screen h-screen overflow-y-scroll z-90">
             <div className="flex flex-col items-center pb-12 mx-auto w-full max-w-[480px]  overflow-hidden ">
               <div className="flex flex-col gap-y-4 items-center pb-12 mx-auto w-full max-w-[480px] h-[1000] ">
