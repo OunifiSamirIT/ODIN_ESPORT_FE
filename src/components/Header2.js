@@ -748,7 +748,7 @@ function Header() {
               }}
             >
               <div
-                onClick={handleDarkModeToggler}
+                // onClick={handleDarkModeToggler}
                 className="darkModeSwitcher  flex w-8 h-8 bg-[#2E71EB] cursor-pointer rounded-full justify-center items-center -ml-4"
               >
                 <img src={Moon} className="w-5 h-5 invert moon " />
