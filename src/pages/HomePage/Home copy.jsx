@@ -54,6 +54,8 @@ import AdminImg from "../../assets/ODIN22.png";
 import SkeletonArticleCard from "./HomeSkeletonPost";
 import CreatePost from "../../components/CreatePostss";
 import CreatePostModal from "../../components/CreatePostModal";
+import Card from './../Challenge/Component/Card';
+
 function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -224,6 +226,20 @@ function Home() {
     }
   };
 
+
+  // challange event 
+  const [challenges, setChallenges] = useState([])
+  const fetchChallenges = async () => {
+      const response = await fetch(`${Config.LOCAL_URL}/api/challenges`)
+      const result = await response.json()
+      console.log(result)
+      setChallenges(result.challenges)
+  }
+  useEffect(() => {
+      console.log(challenges)
+      fetchChallenges()
+  }, [])
+
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -252,6 +268,7 @@ function Home() {
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
+ 
 
   return (
     <>
@@ -294,6 +311,26 @@ function Home() {
                     .map((_, index) => <SkeletonArticleCard key={index} />)}
 
                 <div>
+                {/* <div className="bg-white rounded-md shadow-md  h-[450px] mb-6">
+  {(() => {
+    const item = challenges[challenges.length - 1]; // Get the last item in the array
+    return (
+      <div key={item?.id}>
+          <video
+                          controls
+                          className=" w-100 md:max-h-[350px] max-h-[350px]"
+                        >
+                          <source src={item?.video} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+        {item?.description.length > 100
+          ? item?.description.slice(0, 100) + '...'
+          : item?.description}
+      </div>
+    );
+  })()}
+</div> */}
+
                   {data.map((item, index) => (
                     <div key={`item-${index}`}>
                       {
