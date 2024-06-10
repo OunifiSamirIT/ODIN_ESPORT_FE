@@ -5,7 +5,9 @@ import noNot from "../assets/noNot.png";
 import gsap from "gsap"
 import SelfNot from "../components/selfNotification";
 
-export default function MobileNotification({notificationData, deleteNotData, setnotificationData, NotificationService, setMobileNotificationPopUpContainer}) {
+export default function MobileNotification({popupNotificationIsHidden,setPopupNotificationHidden,  setHumberger, notificationData, deleteNotData, setnotificationData, NotificationService, setMobileNotificationPopUpContainer}) {
+
+  
      // notification
 
      let unreadedNotification = notificationData.filter( raw => {
@@ -54,7 +56,7 @@ export default function MobileNotification({notificationData, deleteNotData, set
           }
           else {
             
-  
+            setHumberger(false)
             setMobileNotificationPopUpContainer(true)
             setTimeout(() => {
               gsap
@@ -96,7 +98,6 @@ export default function MobileNotification({notificationData, deleteNotData, set
   
     };
 
-  let [popupNotificationIsHidden, setPopupNotificationHidden] = useState(true);
 
   return (
     <span className="max-sm:flex md:hidden notificationOuterContainer -translate-x-6 -translate-y-0 ">

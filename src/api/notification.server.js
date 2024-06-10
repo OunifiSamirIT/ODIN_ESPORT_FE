@@ -1,15 +1,16 @@
 import { Config } from "../config";
 import UserServer from "./user.server";
 
-let user = JSON.parse(localStorage.getItem('user'));
-let {id, username} = user  ? user : {id: "", username: ""};
-
 class NotificationService {
   constructor() {
       
     }
 
     static async instantSend (socket, data) {
+
+        let user = JSON.parse(localStorage.getItem('user'));
+        let {id, username} = user  ? user : {id: "", username: ""};
+
         console.log("instantSave id", id) 
         let userData = await UserServer.fetchUserById(id)
         let userImage = userData?.user?.image
@@ -17,7 +18,8 @@ class NotificationService {
         console.log("🚀 ~ NotificationService ~ instantSend ~ userData:", userData, typeof userData, "userData?.user",userData?.user)
         console.log("🚀 ~ NotificationService ~ instantSend ~ image:", userImage)
         console.log("instantSavee", data)
-      
+
+        let content =  data.content ? data.content : ""
         let notificationData = {
           
           fromUser_id: id,
@@ -26,6 +28,7 @@ class NotificationService {
           isReaded: 0 ,
           content: "",
           ...data,
+          pattern:  id + "_" + data.forWichAction +"_"  + data.toUser_id + "_" + data.postId + "_" + content
           
         }
         console.log("🚀 ~ NotificationService ~ instantSend ~ notificationData:", notificationData)
@@ -36,6 +39,10 @@ class NotificationService {
     }
 
     static async getNotificationForCurrentUser () {
+
+      let user = JSON.parse(localStorage.getItem('user'));
+      let {id, username} = user  ? user : {id: "", username: ""};
+
       const response = await fetch(Config.LOCAL_URL + '/api/notification/')
       const notification = await response.json();
       console.log("🚀 ~ NotificationService ~ getNotificationForCurrentUser ~ res:", notification.data)
@@ -75,6 +82,10 @@ class NotificationService {
     }
 
     static async deleteAll () {
+
+      let user = JSON.parse(localStorage.getItem('user'));
+      let {id, username} = user  ? user : {id: "", username: ""};
+
       let response = await  fetch(Config.LOCAL_URL + '/api/notificationForUser/' + id , {
         method: "DELETE"
       })

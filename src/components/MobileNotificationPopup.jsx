@@ -2,6 +2,7 @@ import React from "react";
 
 import noNot from "../assets/noNot.png";
 import SelfNot from "./selfNotification";
+import { Context } from "../index";
 
 export default function MobileNotificationPopup({
   notificationData,
@@ -9,9 +10,12 @@ export default function MobileNotificationPopup({
   setnotificationData,
   NotificationService,
   activeBtn, setActiveBtn,
-  getNotificationForCurrentUser
+  getNotificationForCurrentUser 
 
 }) {
+
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+
   return (
     <div
       className="mobilePopUpNotificationCon  
@@ -40,7 +44,10 @@ export default function MobileNotificationPopup({
                 setActiveBtn(true);
               }}
             >
-              All
+              {getTranslation(
+                "All",
+                "tous"
+              )}
             </button>
             <button
               style={
@@ -55,7 +62,10 @@ export default function MobileNotificationPopup({
                 setActiveBtn(false);
               }}
             >
-              Unread
+              {getTranslation(
+                "Unread",
+                "Non lu"
+              )}
             </button>
           </div>
         </header>
@@ -76,7 +86,10 @@ export default function MobileNotificationPopup({
         ) : (
           <div className="noNot">
             <img src={noNot} alt="" />
-            <p>aucune notification</p>
+            <p>{getTranslation(
+              "no notifications",
+              "aucune notification"
+            )}</p>
           </div>
         )}
       </div>

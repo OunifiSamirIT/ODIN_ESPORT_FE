@@ -161,20 +161,20 @@ function Header() {
           }
           if (lastNotificationData.forWichAction == "comment") {
             return (
-              getTranslation("", 
+              getTranslation( 
               "A commenté votre publication: " ,
               "Commented on your post: "
               )
               +
               lastNotificationData.content.substring(0, 10) +
               "..."
-            );
+            ); 
           }
           if (lastNotificationData.forWichAction == "reply") {
             return (
               getTranslation(
-                "Replyed to your comment ",
-                "A répondu à votre commentaire "
+                "Replyed to your comment: ",
+                "A répondu votre commentaire: "
               )
                +
               lastNotificationData.content.substring(0, 10) +
@@ -191,7 +191,7 @@ function Header() {
           }
           if (lastNotificationData.forWichAction == "AddRequest") {
             return getTranslation(
-              "Send you a friend request",
+              "Sent you invitation",
               "A envoyé à vous une invitation"
             );
           }
@@ -226,28 +226,45 @@ function Header() {
 
           if (lastNotificationData.forWichAction == "likeChallenge") {
             return (
-              "A aimé votre participation au " +
+              getTranslation(
+                'Liked for your entry in the "',
+                'A aimé votre participation au "'
+              )
+               +
               lastNotificationData.content +
               '"'
             );
           }
           if (lastNotificationData.forWichAction == "commentChallenge") {
             return (
-              'A commenté votre participation au "' +
+              getTranslation(
+                'Commented on your entry in the "',
+                'A commenté votre participation au "'
+              )
+               +
               lastNotificationData.content +
               '"'
             );
           }
           if (lastNotificationData.forWichAction == "voteChallenge") {
             return (
-              'A voté votre participation au "' +
+              getTranslation(
+                'Voted for your entry in the "',
+                'A voté votre participation au "'
+              )
+             
+               +
               lastNotificationData.content +
               '"'
             );
           }
           if (lastNotificationData.forWichAction == "likeCommentChallenge") {
             return (
-              'A aimé votre commentaire a participation au "' +
+              getTranslation(
+                'Liked your comment for your entry in the "',
+                'A aimé votre commentaire a participation au "'
+              )
+               +
               lastNotificationData.content +
               '"'
             );
@@ -288,7 +305,6 @@ function Header() {
             HOST_URL: "https://odinesport.com/home",
           };
           if (
-            lastNotificationData.forWichAction == "share" ||
             lastNotificationData.forWichAction == "like" ||
             lastNotificationData.forWichAction == "comment" ||
             lastNotificationData.forWichAction == "reply" ||
@@ -297,7 +313,9 @@ function Header() {
             return url.LOCAL_URL + "/onepost/" + lastNotificationData.postId;
           }
 
-          if (lastNotificationData.forWichAction == "AcceptRequest") {
+          if (
+            lastNotificationData.forWichAction == "share" ||
+lastNotificationData.forWichAction == "AcceptRequest") {
             //localhost:3000/friends
             http: return (
               url.LOCAL_URL + "/profile/" + lastNotificationData.fromUser_id
@@ -331,7 +349,7 @@ function Header() {
         }
         //  let bodyContent =  lastNotificationData.fromUser_name + " " + getBodyContent()
         let bodyContent =
-          lastNotificationData.fromUser_name + " " + getBodyContent();
+          lastNotificationData.fromUser_name.toUpperCase() + " " + getBodyContent();
 
         //test data not
         // alert(JSON.stringify (lastNotificationData))
@@ -510,7 +528,7 @@ const [UnreadedData, setUnreadedData] = useState([])
       setSearchResults([...filteredTargets, ...filteredUsers]);
     }
   };
-
+ 
   const toggleActive = () => setIsOpen(!isActive);
   const toggleisNoti = () => setisNoti(!isNoti);
   const navClass = `${isOpen ? " nav-active" : ""}`;
@@ -525,7 +543,6 @@ const [UnreadedData, setUnreadedData] = useState([])
   // const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
   const id = storedUserData.id ? storedUserData.id : null;
-
   const userProfileType = storedUserData ? storedUserData.profil : null;
 
   const shouldHideForProfiles = ["other", "player"];
@@ -759,7 +776,7 @@ const [UnreadedData, setUnreadedData] = useState([])
             <LanguageToggler isIcon={true} hide={true} color={true} />
 
                 </span>
-
+{/* 
 <span style={{ 
   marginRight: 40
 }}>
@@ -773,7 +790,7 @@ const [UnreadedData, setUnreadedData] = useState([])
               className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
             />
           </div>
-</span>
+</span> */}
 
           <DesktopNotification 
              deleteNotData={deleteNotData}
@@ -794,12 +811,15 @@ const [UnreadedData, setUnreadedData] = useState([])
            getNotificationForCurrentUser={getNotificationForCurrentUser}
           />
           <MobileNotification 
-                    
                     deleteNotData={deleteNotData}
                     notificationData={notificationData}
                     setnotificationData={setnotificationData} 
                     NotificationService={NotificationService} 
                     setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
+                    setHumberger={setHumberger}
+
+                  popupNotificationIsHidden={popupNotificationIsHidden}
+                  setPopupNotificationHidden={setPopupNotificationHidden}
                     /> 
 
                   
@@ -811,6 +831,7 @@ const [UnreadedData, setUnreadedData] = useState([])
               setPopupNotificationHidden={setPopupNotificationHidden}
              deleteNotData={deleteNotData}
              notificationData={notificationData}
+             setMobileNotificationPopUpContainer={setMobileNotificationPopUpContainer}
              setnotificationData={setnotificationData} 
              NotificationService={NotificationService}
             />

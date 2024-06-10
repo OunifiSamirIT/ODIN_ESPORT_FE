@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import notificationIcon from "../assets/usernot.png";
 import remove from "../assets/remove.png";
 import arrow from "../assets/down-arrow.png";
@@ -10,6 +10,7 @@ import NotificationService from "../api/notification.server";
 import campImg from "../assets/campImg.png";
 import challengeImg from "../assets/challengeImg.png";
 import eventImg from "../assets/eventImg.png";
+import { Context } from "../index";
 
 import postContentImg from "../assets/postContentImg.png";
 import campContentImg from "../assets/campContentImg.png";
@@ -17,7 +18,6 @@ import notContentPlay from "../assets/notContentplay.png";
 import eventContentImg from "../assets/eventContentImg.png";
 import { Navigate } from 'react-router-dom';
 
-const currentUser = JSON.parse(localStorage.getItem("user"));
 export default function SelfNot({
   deleteNotContent,
   notData,
@@ -29,6 +29,13 @@ export default function SelfNot({
     .substring(2)
     .replace(/[0-9]/g, "");
   console.log("uniqueClass", uniqueClass);
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+
+  const [currentUser, setCurrentUser] = useState([])
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setCurrentUser(user)
+  }, [])
   let moreNotContent = () => {
     gsap
       .timeline()
@@ -158,14 +165,28 @@ export default function SelfNot({
               {notData.forWichAction == "like" && (
                 <span>
                   {" "}
-                  <span className="font-bold">A aimé</span> votre publication
+                  <span className="font-bold">{getTranslation(
+
+                    "Liked",
+                    "A aimé"
+                  )} </span>{getTranslation(
+
+"your post",
+"votre publication"
+)} 
                 </span>
               )}
 
               {notData.forWichAction == "camp" && (
                 <span>
                   {" "}
-                  <span className="font-bold">Camp</span> disponible{" "}
+                  <span className="font-bold">Camp </span> 
+                  {getTranslation(
+
+"available",
+"disponible"
+)}
+                  {" "}
                   <span className="font-bold"> "{notData.content}"</span>{" "}
                 </span>
               )}
@@ -173,15 +194,26 @@ export default function SelfNot({
               {notData.forWichAction == "challenge" && (
                 <span>
                   {" "}
-                  <span className="font-bold">Challenge</span> disponible{" "}
+                  <span className="font-bold">Challenge</span>   {getTranslation(
+
+"available",
+"disponible"
+)}{" "}
                   <span className="font-bold"> "{notData.content}" </span>{" "}
                 </span>
               )}
               {notData.forWichAction == "likeChallenge" && (
                 <span>
                   {" "}
-                  <span className="font-bold">A aimé</span> votre participation
-                  au{" "}
+                  <span className="font-bold"> {getTranslation(
+                'Liked ',
+                "A aimé "
+              )}</span>{getTranslation(
+
+"for your entry in the ",
+"votre participation au "
+)}
+                  {" "}
                   <span className="font-bold"> "Challenge {notData.content}" </span>{" "}
                 </span>
               )}
@@ -189,31 +221,55 @@ export default function SelfNot({
               {notData.forWichAction == "commentChallenge" && (
                 <span>
                   {" "}
-                  <span className="font-bold">A commenté</span> votre
-                  participation au{" "}
+                  <span className="font-bold">{getTranslation(
+                    "Commented ",
+                    "A commenté "
+                  )}</span>{getTranslation(
+
+"for your entry in the ",
+"votre participation au "
+)}{" "}
                   <span className="font-bold"> "Challenge {notData.content}" </span>{" "}
                 </span>
               )}
               {notData.forWichAction == "voteChallenge" && (
                 <span>
                   {" "}
-                  <span className="font-bold">A voté</span> votre participation
-                  au{" "}
+                  <span className="font-bold">{getTranslation(
+                    "Voted ",
+                    "A voté "
+                  )}</span>{getTranslation(
+
+"for your entry in the ",
+"votre participation au "
+)}
+                  {" "}
                   <span className="font-bold"> "Challenge {notData.content}" </span>{" "}
                 </span>
               )}
               {notData.forWichAction == "likeCommentChallenge" && (
                 <span>
                   {" "}
-                  <span className="font-bold">A aimé</span> votre commentaire a participation
-                  au{" "}
+                  <span className="font-bold"> {getTranslation(
+                'Liked "',
+                "A aimé "
+              )}</span> {getTranslation(
+
+"your comment at your entry in the ",
+"votre commentaire a participation au "
+)}
+                  {" "}
                   <span className="font-bold"> "Challenge {notData.content}" </span>{" "}
                 </span>
               )}
               {notData.forWichAction == "event" && (
                 <span>
                   {" "}
-                  <span className="font-bold">Odin event</span> disponible{" "}
+                  <span className="font-bold">Odin event</span>  {getTranslation(
+
+"available",
+"disponible"
+)}{" "}
                   <span className="font-bold"> "{notData.content}" </span>{" "}
                 </span>
               )}
@@ -221,7 +277,13 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">A aimé</span> votre commentaire:
+                    <span className="font-bold">{getTranslation(
+                      "Liked",
+                      "A aimé"
+                    )}</span> {getTranslation(
+                      "Your comment:",
+                      "votre commentaire:"
+                    )}
                   </span>{" "}
                   <span className="font-bold">
                     {" "}
@@ -234,7 +296,15 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">A commenté </span> votre publication:
+                    <span className="font-bold">{
+                      getTranslation(
+                        "Commented ",
+                        "A commenté "
+                      )
+                    } </span> {getTranslation(
+                      "your post:",
+                      "votre publication:"
+                    )}
                   </span>{" "}
                   <span className="font-bold">
                     {" "}
@@ -247,7 +317,15 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">A répondu</span>à votre commentaire:
+                    <span className="font-bold">{getTranslation(
+                      "Replyed ",
+                      "A répondu "
+                    )}</span>{
+                      getTranslation(
+                        "Your comment",
+                        "votre commentaire:"
+                      )
+                    }
                   </span>{" "}
                   <span className="font-bold">
                     {" "}
@@ -260,7 +338,12 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">A accepté</span> votre invitation
+                    <span className="font-bold">{getTranslation(
+                      "Accepted",
+                      "A accepté"
+                    )}</span> {getTranslation(" your invitation",
+                    " votre invitation"
+                    )}
                   </span>
                 </span>
               )}
@@ -268,7 +351,8 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">A envoyé</span> à vous une invitation
+                    <span className="font-bold">{getTranslation
+                    ("Sent ", "A envoyé ")}</span> {getTranslation("you an invitation", "à vous une invitation")}
                   </span>
                 </span>
               )}
@@ -276,7 +360,13 @@ export default function SelfNot({
                 <span>
                   <span>
                     {" "}
-                    <span className="font-bold">A partagé</span> votre publication.
+                    <span className="font-bold"> {getTranslation(
+                      'Shared ',
+                      "A partagé "
+                    )}  </span> {getTranslation(
+                      'your post.',
+                      'votre publication.'
+                    )}
                   </span>
                 </span>
               )}
@@ -305,7 +395,7 @@ export default function SelfNot({
 
 <>
 {
-  notData.content == "" && notData.postImage == "" &&
+  (notData.actionId == 0 && notData.postImage == "") &&
   <div className="relative flex justify-center items-center  w-[50px] h-[50px]">
   <img
     src={postContentImg}

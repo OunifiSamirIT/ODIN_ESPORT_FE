@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import noNot from "../assets/noNot.png";
 import SelfNot from "./selfNotification";
+import { Context } from "../index";
 
 export default function DesktopNotificationPopup({
   notificationData,
@@ -10,6 +11,8 @@ export default function DesktopNotificationPopup({
   activeBtn, setActiveBtn,
   getNotificationForCurrentUser
 }) {
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+
   return (
     <div className="max-sm:hidden md:flex desktopPopUpNotificationCon">
       <div className="loadingNot">
@@ -34,7 +37,10 @@ export default function DesktopNotificationPopup({
                 setActiveBtn(true);
               }}
             >
-              All
+              {getTranslation(
+                "All",
+                "tous"
+              )}
             </button>
             <button
               style={
@@ -49,7 +55,11 @@ export default function DesktopNotificationPopup({
                 setActiveBtn(false);
               }}
             >
-              Unread
+              {getTranslation(
+                "Unread",
+                "Non lu"
+              )}
+              
             </button>
           </div>
           {/* <button
@@ -78,7 +88,10 @@ export default function DesktopNotificationPopup({
         ) : (
           <div className="noNot">
             <img src={noNot} alt="" />
-            <p>aucune notification</p>
+            <p>{getTranslation(
+              "no notifications",
+              "aucune notification"
+            )}</p>
           </div>
         )}
       </div>

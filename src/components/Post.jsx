@@ -1438,8 +1438,13 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       } else {
         formData.append("sharedFrom", article.id);
       }
-
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
+      NotificationService.instantSend(socket, {
+        toUser_id: article?.user?.user?.id,
+        forWichAction: "share",
+        actionId: article.description ? 1 : 0,
+        postId: article.id,
+        postImage: article?.image ? article?.image : "",
+      });      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
       });
@@ -2266,7 +2271,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       NotificationService.instantSend(socket, {
                         toUser_id: article?.user?.user?.id,
                         forWichAction: "like",
-                        actionId: "0",
+                        actionId: article.description ? 1 : 0,
                         postId: article.id,
                         postImage: article?.image ? article?.image : "",
                       });
@@ -2637,7 +2642,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       NotificationService.instantSend(socket, {
                                         toUser_id: comment.userId,
                                         forWichAction: "likeComment",
-                                        actionId: "0",
+                                        actionId: article.description ? 1 : 0,
                                         postId: article.id,
                                         content: comment.description,
                                         postImage: article?.image
@@ -2987,7 +2992,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             {
                                               toUser_id: comment.userId,
                                               forWichAction: "reply",
-                                              actionId: "0",
+                                              actionId: article.description ? 1 : 0,
                                               postId: article.id,
                                               content: replyInput,
                                               postImage: article?.image
@@ -3053,7 +3058,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                   NotificationService.instantSend(socket, {
                                     toUser_id: article?.user?.user?.id,
                                     forWichAction: "comment",
-                                    actionId: "0",
+                                    actionId: article.description ? 1 : 0,
                                     postId: article.id,
                                     content: comment,
                                     postImage: article?.image
@@ -3266,7 +3271,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                             NotificationService.instantSend(socket, {
                               toUser_id: article?.user?.user?.id,
                               forWichAction: "like",
-                              actionId: "0",
+                              actionId: article.description ? 1 : 0,
                               postId: article.id,
                               postImage: article?.image ? article?.image : "",
                             });
@@ -3652,7 +3657,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               {
                                                 toUser_id: comment.userId,
                                                 forWichAction: "likeComment",
-                                                actionId: "0",
+                                                actionId: article.description ? 1 : 0,
                                                 postId: article.id,
                                                 content: comment.description,
                                                 postImage: article?.image
@@ -4041,7 +4046,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   {
                                                     toUser_id: comment.userId,
                                                     forWichAction: "reply",
-                                                    actionId: "0",
+                                                    actionId: article.description ? 1 : 0,
                                                     postId: article.id,
                                                     content: replyInput,
                                                     postImage: article?.image
@@ -4113,7 +4118,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           {
                                             toUser_id: article?.user?.user?.id,
                                             forWichAction: "comment",
-                                            actionId: "0",
+                                            actionId: article.description ? 1 : 0,
                                             postId: article.id,
                                             content: comment,
                                             postImage: article?.image
