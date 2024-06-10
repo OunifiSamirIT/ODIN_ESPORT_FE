@@ -6,25 +6,9 @@ import LanguageToggler from "../fixDesignComponents/languageToggler";
 import { Context } from "../index";
 import gsap from "gsap";
 
-<<<<<<< HEAD
 const SlideMenu = ({setMobileNotificationPopUpContainer, isActive, setPopupNotificationHidden,setIsActive, setHumberger, Hamburger, notificationData, deleteNotData, setnotificationData, NotificationService }) => {
   const [lang, setLang] = useState('Français')
   const [user, setUser] = useState({})
-=======
-const SlideMenu = ({
-  isActive,
-  setPopupNotificationHidden,
-  setIsActive,
-  setHumberger,
-  Hamburger,
-  notificationData,
-  deleteNotData,
-  setnotificationData,
-  NotificationService,
-}) => {
-  const [lang, setLang] = useState("Français");
-  const [user, setUser] = useState({});
->>>>>>> c9fd53d387cc23ac619336ad4ba21904bb7735dd
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
