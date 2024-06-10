@@ -15,7 +15,7 @@ const User = () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user`);
         const result = await response.json();
 
-        setUsers(result.rows);
+        setUsers(result);
       } catch (error) {
         console.error("Error fetching articles:", error);
       }

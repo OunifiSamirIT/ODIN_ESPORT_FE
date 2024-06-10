@@ -307,26 +307,28 @@
 
 .slideMenuBtn {
 flex: 1;
-  width: 90%;
+  width: 100%;
   @include flexrow();
   transition: .4s;
-  border-bottom: 1px solid #ffffff50;
+  // border-bottom: 1px solid #ffffff50;
   
-  &:hover {
-    cursor: pointer;
-    color: #fff;
-    background-color: #ffffff50;
-    border-radius: 10px;
-  }
-  &.logoutBtn {
-    border: none;
-  transition: .4s;
-    border-radius: 10px;
-   &:hover {
-  background-color: #FF7F00cc;
+ 
+  // &:hover {
+  //   cursor: pointer;
+  //   color: #fff;
+    
+  //   background-color: #ffffff50;
+  //   border-radius: 10px;
+  // }
+  // &.logoutBtn {
+  //   border: none;
+  // transition: .4s;
+  //   border-radius: 10px;
+  //  &:hover {
+  // background-color: #FF9800;
 
-   }
-  }
+  //  }
+  // }
 }
 
 .notificationOuterContainer {
