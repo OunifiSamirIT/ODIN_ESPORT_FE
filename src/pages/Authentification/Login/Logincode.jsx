@@ -1,30 +1,74 @@
-import React, { useState, Fragment, useContext, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { Config } from "../../../config";
-import { Context } from "../../../index";
+import { useNavigate } from "react-router";
+import Header from "../../../components/Header3";
 
-function VerificationCode() {
-  const { getTranslation } = useContext(Context);
-  const [errMsg, setErrMsg] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
+const VerificationCode = () => {
+  const [code, setCode] = useState(Array(6).fill(""));
+  const [error, setError] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const storeduser = JSON.parse(localStorage.getItem("idusercode"));
+  const inputRefs = useRef([]);
 
-  const onSubmit = async (data) => {
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("idusercode");
+    const storedEmail = localStorage.getItem("useremail");
+    setUserId(storedUserId);
+    setEmail(storedEmail);
+    setEmail(storedEmail || "");
+  }, []);
+
+  const handleChange = (value, index) => {
+    if (/^\d$/.test(value) || value === "") {
+      const newCode = [...code];
+      newCode[index] = value.slice(-1);
+      setCode(newCode);
+
+      if (value !== "" && index < code.length - 1) {
+        inputRefs.current[index + 1].focus();
+      }
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Enter") {
+      if (index < code.length - 1) {
+        inputRefs.current[index + 1].focus();
+      } else {
+        handleSubmit();
+      }
+    } else if (e.key === "Backspace") {
+      if (code[index] === "") {
+        if (index > 0) {
+          inputRefs.current[index - 1].focus();
+          const newCode = [...code];
+          newCode[index - 1] = "";
+          setCode(newCode);
+        }
+      } else {
+        const newCode = [...code];
+        newCode[index] = "";
+        setCode(newCode);
+      }
+    }
+  };
+
+  const handlePaste = (e) => {
+    const paste = e.clipboardData.getData("text").replace(/\s+/g, "");
+    if (/^\d{6}$/.test(paste)) {
+      const newCode = paste.split("");
+      setCode(newCode);
+      inputRefs.current.forEach((input, index) => {
+        input.value = newCode[index];
+      });
+      inputRefs.current[5].focus();
+    }
+  };
+
+  const handleSubmit = async () => {
+    const enteredCode = code.join("");
     try {
-      setIsSubmitting(true);
-      const userId = localStorage.getItem("idusercode"); // Get user ID from local storage
-
-      // Concatenate the values from the three inputs
-      const verificationToken = data.input1 + data.input2 + data.input3;
-
       const response = await fetch(
         `${Config.LOCAL_URL}/api/auth/verify-email`,
         {
@@ -32,233 +76,123 @@ function VerificationCode() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ verificationToken, userId }), // Send concatenated verificationToken
+          body: JSON.stringify({
+            verificationToken: enteredCode,
+            userId,
+          }),
         }
       );
 
-      const result = await response.json();
-
       if (response.ok) {
+        setError(false);
         navigate("/login");
       } else {
-        setErrMsg(result.message);
+        setError(true);
       }
     } catch (error) {
-      setErrMsg("An error occurred during verification.");
-    } finally {
-      setIsSubmitting(false);
+      console.error("Error occurred:", error);
+      setError(true);
     }
   };
 
-  useEffect(() => {
-    const handleOtpForm = () => {
-      const form = document.getElementById("otp-form");
-      const inputs = [...form.querySelectorAll("input[type=text]")];
-      const submit = form.querySelector("button[type=submit]");
-
-      const handleKeyDown = (e) => {
-        const { key, target } = e;
-        if (
-          !/^[0-9]{1}$/.test(key) &&
-          key !== "Backspace" &&
-          key !== "Delete" &&
-          key !== "Tab" &&
-          !e.metaKey
-        ) {
-          e.preventDefault();
+  const handleResend = async () => {
+    try {
+      const response = await fetch(
+        `${Config.LOCAL_URL}/api/auth/resend-verification-email`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+          }),
         }
+      );
 
-        if (key === "Delete" || key === "Backspace") {
-          const index = inputs.indexOf(target);
-          if (index > 0 && target.value === "") {
-            inputs[index - 1].focus();
-          }
-        }
-      };
-
-      const handleInput = (e) => {
-        const { target } = e;
-        const index = inputs.indexOf(target);
-        const newValue = target.value.replace(/[^0-9]/g, "").slice(0, 2); // Allow only numbers and limit length to 2
-        target.value = newValue;
-        if (newValue.length === 2 && index < inputs.length - 1) {
-          inputs[index + 1].focus();
-        }
-      };
-
-      const handlePaste = (e) => {
-        e.preventDefault();
-        const text = e.clipboardData.getData("text");
-        const digits = text
-          .replace(/[^0-9]/g, "")
-          .slice(0, 6)
-          .split(""); // Allow only numbers and limit length to 6
-        inputs.forEach((input, index) => {
-          input.value = digits[index] || "";
-          if (index < digits.length - 1) {
-            inputs[index + 1].focus();
-          }
-        });
-      };
-
-      inputs.forEach((input) => {
-        input.addEventListener("input", handleInput);
-        input.addEventListener("keydown", handleKeyDown);
-        input.addEventListener("paste", handlePaste);
-      });
-    };
-
-    handleOtpForm();
-
-    return () => {
-      // Clean up event listeners if component unmounts
-      const form = document.getElementById("otp-form");
-      if (form) {
-        const inputs = [...form.querySelectorAll("input[type=text]")];
-        inputs.forEach((input) => {
-          input.removeEventListener("input", handleOtpForm);
-          input.removeEventListener("keydown", handleOtpForm);
-          input.removeEventListener("paste", handleOtpForm);
-        });
+      if (response.ok) {
+        console.log("Verification email resent successfully!");
+      } else {
+        console.error("Failed to resend verification email.");
       }
-    };
-  }, []);
+    } catch (error) {
+      console.error(
+        "Error occurred while resending verification email:",
+        error
+      );
+    }
+  };
 
   return (
     <Fragment>
-      <div className="flex flex-col justify-center bg-gray-200 min-h-screen">
-        <div className="flex items-center justify-center w-full max-w-lg mx-auto p-6 bg-white rounded-xl shadow-md">
-          <div className="w-full">
-            <Link
-              to="/"
-              className="self-center mt-6 mb-6 max-w-full aspect-[2.78] w-[132px] max-md:mt-10"
-            >
-              {" "}
-              <svg
-                width="73"
-                height="64"
-                className="md:w-[100%] w-[100%] my-4"
-                viewBox="0 0 73 64"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  <style
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        ".cls-1{fill:#2e71eb;}.cls-2{fill:#ff7f00;}.cls-3{fill:none;stroke:#2e71eb;stroke-miterlimit:10;stroke-width:0.25px;}",
-                    }}
-                  />
-                </defs>
-                <g id="Layer_2" data-name="Layer 2">
-                  <g id="Layer_1-2" data-name="Layer 1">
-                    <path
-                      className="cls-1"
-                      d="M66.81,14.07V52.31H40.53L38.1,47.53l-2.39-4.78L33.32,38l-2.39-4.78,2.39-4.78,2.39-4.78,2.39-4.76,2.43-4.8ZM42.9,18.87l-2.37,4.76L38.1,28.41l-2.39,4.78L38.1,38l2.39,4.78,2.39,4.78H62V18.87Z"
-                    />
-                    <path
-                      className="cls-1"
-                      d="M26.3,14.07l2.39,4.78,2.39,4.78,2.39,4.78,2.39,4.78L33.47,38l-2.39,4.78-2.39,4.78L26.3,52.31H0V14.07ZM4.78,18.87V47.55H23.91l2.39-4.78L28.69,38l2.39-4.78-2.39-4.78L26.3,23.65l-2.39-4.78Z"
-                    />
-                    <path className="cls-2" d="M73.17,0H68.34V4.6h4.83Z" />
-                    <rect
-                      className="cls-3"
-                      x="16.62"
-                      y="56.56"
-                      width="34.34"
-                      height="7.37"
-                      rx="2.83"
-                    />
-                    <path
-                      className="cls-1"
-                      d="M28.48,62.1a1.13,1.13,0,0,1-.61-.16,1,1,0,0,1-.4-.43,1.4,1.4,0,0,1-.16-.63h.12V62h-.3V58.4h.37v1.81l-.14.33a1.38,1.38,0,0,1,.16-.67,1.08,1.08,0,0,1,.4-.42,1.25,1.25,0,0,1,.59-.14,1.06,1.06,0,0,1,.51.11,1.18,1.18,0,0,1,.4.29,1.2,1.2,0,0,1,.25.44,1.44,1.44,0,0,1,.09.51v.07a1.44,1.44,0,0,1-.09.51,1.36,1.36,0,0,1-.25.44A1.27,1.27,0,0,1,29,62,1.25,1.25,0,0,1,28.48,62.1Zm0-.33a.93.93,0,0,0,.51-.14,1,1,0,0,0,.33-.39,1.33,1.33,0,0,0,.11-.54,1.2,1.2,0,0,0-.12-.55.87.87,0,0,0-.33-.38.92.92,0,0,0-.5-.14,1,1,0,0,0-.48.12.88.88,0,0,0-.35.34,1,1,0,0,0-.12.5v.25a1,1,0,0,0,.12.48.93.93,0,0,0,.35.33A1,1,0,0,0,28.44,61.77Z"
-                    />
-                    <path
-                      className="cls-1"
-                      d="M32.59,62.1A1.34,1.34,0,0,1,32,62a1.13,1.13,0,0,1-.4-.31,1.26,1.26,0,0,1-.24-.44,1.69,1.69,0,0,1-.08-.5v-.07a1.62,1.62,0,0,1,.08-.49,1.26,1.26,0,0,1,.24-.44,1.1,1.1,0,0,1,.39-.31,1.4,1.4,0,0,1,.56-.11,1.22,1.22,0,0,1,.69.18,1.16,1.16,0,0,1,.41.47,1.4,1.4,0,0,1,.14.61v.19H31.46v-.29h2.08l-.09.15a1.13,1.13,0,0,0-.1-.51.79.79,0,0,0-.3-.35.91.91,0,0,0-.49-.13.8.8,0,0,0-.5.15.83.83,0,0,0-.31.38,1.51,1.51,0,0,0,0,1.08.92.92,0,0,0,.31.39,1,1,0,0,0,.53.14.89.89,0,0,0,.56-.16.6.6,0,0,0,.26-.36h.35a1.17,1.17,0,0,1-.21.45,1.06,1.06,0,0,1-.4.29A1.4,1.4,0,0,1,32.59,62.1Z"
-                    />
-                    <path
-                      className="cls-1"
-                      d="M35.1,59.68V59.4h1.77v.28ZM36.45,62A1.13,1.13,0,0,1,36,62a.62.62,0,0,1-.31-.27,1,1,0,0,1-.1-.51V58.57h.35v2.67a.5.5,0,0,0,.12.35.51.51,0,0,0,.36.12h.47V62Z"
-                    />
-                    <path
-                      className="cls-1"
-                      d="M39.27,62.08a1.07,1.07,0,0,1-.49-.1.75.75,0,0,1-.33-.28.85.85,0,0,1-.12-.46.72.72,0,0,1,.13-.44.66.66,0,0,1,.35-.28,1.32,1.32,0,0,1,.55-.1h.77v.28h-.79a.69.69,0,0,0-.48.15.51.51,0,0,0-.16.4.48.48,0,0,0,.17.39.68.68,0,0,0,.47.15,1,1,0,0,0,.35-.07.62.62,0,0,0,.28-.23.72.72,0,0,0,.12-.44l.11.15a1,1,0,0,1-.14.49.65.65,0,0,1-.32.29A1,1,0,0,1,39.27,62.08Zm.88-.07v-.78h-.06V60.3a.61.61,0,0,0-.15-.45.65.65,0,0,0-.47-.16h-.59l-.24,0V59.4l.22,0h.47a1.67,1.67,0,0,1,.65.1.69.69,0,0,1,.36.31,1.22,1.22,0,0,1,.11.55V62Z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </Link>
+      <div className="min-h-screen flex flex-col bg-gray-100 overflow-y-scroll">
+        <Header />
+        <div className="flex justify-center items-center flex-grow">
+          <div className="bg-white md:p-8 p-4 rounded-lg shadow-md md:w-[530px] w-[400px] mt-24 md:mt-0 ">
             <div className="text-center mb-6">
-              <h1 className="text-5xl font-bold text-zinc-900">
-                {getTranslation("Welcome!", "Bienvenue!", "Hoş geldin")}
-              </h1>
-              <h3 className="text-xl font-bold text-zinc-800">
-                {getTranslation(
-                  "Check your mailbox and insert the verification code received!",
-                  "Vérifiez votre boite Mail et Insérez Le code de Verification reçu!",
-                  "Hoş geldin"
-                )}
-              </h3>
-            </div>
-
-            <form id="otp-form" onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex items-center justify-center gap-5">
-                <input
-                  type="text"
-                  {...register("input1", {
-                    required: true,
-                    minLength: 1,
-                    maxLength: 2,
-                  })}
-                  placeholder="_ _"
-                  className="w-14 h-14 text-center text-2xl font-bold text-slate-900 bg-slate-100 border border-black hover:border-slate-500 appearance-none rounded  focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-                />
-                <input
-                  type="text"
-                  placeholder="_ _"
-                  {...register("input2", {
-                    required: true,
-                    minLength: 1,
-                    maxLength: 2,
-                  })}
-                  className="w-14 h-14 text-center text-2xl font-bold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-500 appearance-none rounded outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-                />
-                <input
-                  type="text"
-                  placeholder="_ _"
-                  {...register("input3", {
-                    required: true,
-                    minLength: 1,
-                    maxLength: 2,
-                  })}
-                  className="w-14 h-14 text-center text-2xl font-bold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-500 appearance-none rounded outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-                />
-              </div>
-              {errors.input1 && errors.input2 && errors.input3 && (
-                <span className="text-red-500">Champs est obligatoire</span>
-              )}
-
-              {errMsg && (
-                <div className="bg-red-100 mt-4 text-red-700 text-sm p-2 rounded-md mb-4">
-                  {errMsg}
-                </div>
-              )}
-              <div className="max-w-[260px] mx-auto mt-4">
-                <button
-                  type="submit"
-                  className="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-blue-600 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150"
-                  disabled={isSubmitting}
+              <h1 className="flex justify-center animate-pulse">
+                <svg
+                  width="68"
+                  height="68"
+                  viewBox="0 0 80 81"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Verifier votre compte
-                </button>
-              </div>
-            </form>
+                  <circle cx="40" cy="40.5" r="40" fill="#2E71EB" />
+                  <path
+                    d="M50.6346 24.067L40.1931 20.5854C39.8512 20.4715 39.4816 20.4715 39.1398 20.5854L28.6982 24.067C27.0381 24.6185 25.594 25.6791 24.5711 27.0982C23.5481 28.5172 22.9984 30.2226 23 31.9719V40.5001C23 53.1049 38.3331 60.0665 38.9898 60.3565C39.2028 60.4511 39.4333 60.5 39.6664 60.5C39.8995 60.5 40.13 60.4511 40.3431 60.3565C40.9997 60.0665 56.3328 53.1049 56.3328 40.5001V31.9719C56.3344 30.2226 55.7847 28.5172 54.7618 27.0982C53.7388 25.6791 52.2947 24.6185 50.6346 24.067ZM47.5296 36.6952L40.4097 43.815C40.1184 44.1084 39.7717 44.3409 39.3897 44.4991C39.0078 44.6573 38.5982 44.7381 38.1848 44.7367H38.1298C37.7079 44.7302 37.2918 44.6383 36.9065 44.4664C36.5212 44.2945 36.1748 44.0463 35.8881 43.7367L32.0449 39.7368C31.8784 39.5823 31.7453 39.3955 31.6536 39.1878C31.562 38.9801 31.5137 38.7558 31.5118 38.5288C31.51 38.3017 31.5545 38.0767 31.6427 37.8675C31.7309 37.6583 31.8609 37.4693 32.0248 37.3121C32.1887 37.155 32.3829 37.033 32.5956 36.9536C32.8084 36.8742 33.0351 36.8391 33.2618 36.8504C33.4886 36.8618 33.7106 36.9194 33.9144 37.0196C34.1181 37.1199 34.2992 37.2607 34.4465 37.4335L38.1864 41.3334L45.1663 34.3335C45.4807 34.0299 45.9017 33.8619 46.3386 33.8657C46.7756 33.8695 47.1936 34.0448 47.5027 34.3538C47.8117 34.6628 47.9869 35.0808 47.9907 35.5178C47.9945 35.9548 47.8266 36.3758 47.523 36.6902L47.5296 36.6952Z"
+                    fill="white"
+                  />
+                </svg>
+              </h1>
+              <h2 className="text-2xl font-bold mt-2">Verify your account</h2>
+              <p className="text-gray-600">
+                Enter the passcode you just received on your email address :
+              </p>
+              <p className="text-black-600 font-bold text-break">{email}</p>
+            </div>
+            <div className="flex justify-center mb-4 space-x-2">
+              {code.map((digit, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  maxLength="1"
+                  value={digit}
+                  onChange={(e) => handleChange(e.target.value, index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  onPaste={handlePaste}
+                  ref={(el) => (inputRefs.current[index] = el)}
+                  className={`w-12 h-12 text-center text-lg border-2 rounded-md ${
+                    error ? "border-red-500" : "border-gray-300"
+                  }`}
+                />
+              ))}
+            </div>
+            {error && (
+              <p className="text-red-500 text-center mb-4">
+                Verification code invalid! Please verify the passcode
+              </p>
+            )}
+            <button
+              onClick={handleSubmit}
+              className="w-full bg-blue-500 text-white py-2 rounded-full hover:bg-blue-600"
+            >
+              Verify
+            </button>
+            <div className="text-center mt-4 flex space-x-3 items-center justify-center ">
+              <span className="text-gray-600">Didn't receive the code?</span>
+              <button
+                onClick={handleResend}
+                className="text-blue-500 hover:underline border border-blue-500 rounded-full px-2 py-1 focus:outline-none focus:ring focus:border-blue-300"
+              >
+                Resend
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </Fragment>
   );
-}
+};
 
 export default VerificationCode;
