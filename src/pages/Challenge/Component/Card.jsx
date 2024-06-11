@@ -36,7 +36,7 @@ const Card = ({ item }) => {
         });
     }
     return (
-        <div  className="cursor-pointer flex flex-col flex-wrap content-start p-6 mx-auto w-full font-light bg-white rounded-[10px] text-zinc-900">
+        <Link to={`/challenges/details/${item.id}`}  className="cursor-pointer flex flex-col flex-wrap content-start p-6 mx-auto w-full font-light bg-white rounded-[10px] text-zinc-900">
             <Link to={`/challenges/details/${item.id}`} class="relative">
                 <video ref={video} onClick={playVideo} class="object-cover w-full aspect-[16/9] rounded-[7px] h-[110px]"
                     src={`${item.video}`}
@@ -69,7 +69,7 @@ const Card = ({ item }) => {
                     item.description
                 }
             </Link>
-        </div>
+        </Link>
     )
 
 }

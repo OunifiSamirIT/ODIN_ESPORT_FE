@@ -17,6 +17,7 @@ import '../../../../node_modules/moment/locale/en-ca';
 
 import NotificationService from "../../../api/notification.server";
 import { io } from 'socket.io-client';
+import { BiSolidHeart } from "react-icons/bi";
 
 const ChallengeDetais = () => {
 
@@ -60,6 +61,7 @@ const ChallengeDetais = () => {
     const [ReplyText, setReplyText] = useState([]);
     const [ReplyShow, setReplyShow] = useState(false);
     const [commentToEdit, setCommentToEdit] = useState(false);
+    const [showDropdownlikes, setShowDropdownlikes] = useState(false);
     const video = useRef();
     const participantVideo = useRef();
     const handleEditComment = (comment) => {
@@ -185,6 +187,12 @@ const ChallengeDetais = () => {
             setDropdown(false)
             console.log('clicked outside')
         }
+        if (likeModelRef.current && !likeModelRef.current.contains(event.target)) {
+            setShowDropdownlikes(false)
+        }
+        if (VoteModelRef.current && !VoteModelRef.current.contains(event.target)) {
+            setShowDropdownVotes(false)
+        }
     };
     const reRange = () => {
 
@@ -231,10 +239,22 @@ const ChallengeDetais = () => {
     const sortByVote = (vote) => {
         if (vote) { return vote.sort((a, b) => b.votes - a.votes) }
     }
-
+    const [likePerContectedUser, setLikesPerContectedUser] = useState([])
     const fetchCommentaire = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/fetch/${showCase.id}`)
         const result = await response.json()
+        let connectedUserLikes = [];
+        const useee = result.commentaire.map((item) => {
+            console.log('sfkjgjsfgj', item)
+            item.like.map((i) => {
+                if (i.userId == storedUserData.id) {
+                    connectedUserLikes.push(i)
+                    setLikesPerContectedUser(connectedUserLikes)
+                }
+            })
+
+        })
+        console.log('yoo efhsjdfkjllsd', connectedUserLikes)
         setCommentaire(result.commentaire)
     }
     useEffect(() => {
@@ -270,6 +290,8 @@ const ChallengeDetais = () => {
         }
 
     }
+    const likeModelRef = useRef();
+    const VoteModelRef = useRef();
     const [loading, setIsLoading] = useState(false)
     useEffect(() => {
         checkIfParticipate(challenges)
@@ -338,6 +360,7 @@ const ChallengeDetais = () => {
     const myVideoRef = useRef()
     const [likes, setLikes] = useState(0)
     const [vote, setVote] = useState(0)
+    const [userslikearticle, setUserslikearticle] = useState([]);
     const EditDropDown = useRef()
     const handleCommentaire = async () => {
         const formData = new FormData()
@@ -449,9 +472,11 @@ const ChallengeDetais = () => {
             method: 'PUT',
             body: formData
         })
+        fetchCommentaire()
         const result = await response.json()
         console.log(hasLikedReply)
         // setLikes(result.likeCount)
+
 
     }
     const checkLike = async (participantId) => {
@@ -472,6 +497,8 @@ const ChallengeDetais = () => {
         console.log(didIlikedTheChallenge, 'this is new commentaire')
     }
     const [editedComment, setEditedComment] = useState('')
+    const [showDropdownVotes, setShowDropdownVotes] = useState(false)
+    const [userVote, setUserVote] = useState([])
     const hasUserLiked = (likeArray, userId) => {
         if (!Array.isArray(likeArray)) {
             console.error('Input is not an array.');
@@ -500,6 +527,40 @@ const ChallengeDetais = () => {
         checkLike(item.id)
         setShowCase(item)
         fetchCommentaire()
+    }
+    const handleClicklikeshow = async (id) => {
+        try {
+            const response = await fetch(
+                `${Config.LOCAL_URL}/api/like/fetchLikelist/${id}`
+            );
+            if (!response.ok) {
+                throw new Error("Failed to fetch users who liked the article");
+            }
+            const data = await response.json();
+            console.log("🚀 ~ handleClicklikeshow ~ data:", data);
+            setUserslikearticle(data.like);
+            console.log(userslikearticle)
+            setShowDropdownlikes(!showDropdownlikes);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    const handleClickVoteshow = async (id) => {
+        try {
+            const response = await fetch(
+                `${Config.LOCAL_URL}/api/like/fetchVotelist/${id}`
+            );
+            if (!response.ok) {
+                throw new Error("Failed to fetch users who liked the article");
+            }
+            const data = await response.json();
+            console.log("🚀 ~ handleClicklikeshow ~ data:", data);
+            setUserVote(data.like)
+            console.log(data.like)
+            setShowDropdownVotes(!showDropdownlikes);
+        } catch (error) {
+            console.error(error);
+        }
     }
     const [videoName, setVideoName] = useState()
     return (<>
@@ -565,7 +626,7 @@ const ChallengeDetais = () => {
 
                                         } </div>
                                 </div>
-                                <input type="file" name="video" {...register("video")} onChange={(e) => setVideoName(e.target.files[0].name)} className="top-0 opacity-0 absolute flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5" />
+                                <input type="file" name="video" {...register("video")} onChange={(e) => setVideoName(e.target.files[0].name)} className="!appearance-none top-0 !opacity-0 absolute flex gap-2 justify-between px-8 py-2 bg-blue-600 rounded-[30px] max-md:px-5" />
 
                             </div>
                         </div>
@@ -598,8 +659,8 @@ const ChallengeDetais = () => {
                         </div>
                         {error && <p className="text-red-500 text-center">{error}</p>}
                         <div className="flex flex-col">
-                            <div className="flex gap-2 justify-center self-center px-8 py-2 mt-8 font-medium bg-blue-500 text-white whitespace-nowrap border-2 border-blue-500 border-solid rounded-[30px] max-md:px-5">
-                                <button type="submit" disabled={loading}> {loading ? loading :
+                            <div className="flex gap-2 justify-center self-center px-8 py-2 mt-8 font-medium cursor-pointer bg-blue-600 hover:bg-blue-500 text-white whitespace-nowrap border-2 border-blue-500 border-solid rounded-[30px] max-md:px-5">
+                                <button type="submit" disabled={loading}> {loading ? 'loading ...'  :
                                     getTranslation(
                                         `Submit`,  // -----> Englais
                                         `Confirmer`, //  -----> Francais
@@ -721,7 +782,7 @@ const ChallengeDetais = () => {
                 <svg onClick={() => setShowCase(false)} className="md:hidden my-4 absolute right-0 z-50 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 62" width="60" height="60" fill="#fff">
                     <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
                 </svg>
-                <div ref={ref} className="relative overflow-scroll flex h-[80%] md:h-[600px] flex-col justify-between items-center  max-w-full  mt-20 bg-white overflow-y-scroll   rounded-[10px] w-[936px]">
+                <div ref={ref} className="relative md:overflow-hidden flex h-[80%] md:h-[600px] flex-col justify-between items-center  max-w-full  mt-20 bg-white overflow-y-scroll   rounded-[10px] w-[936px]">
                     <div className="flex max-md:flex-col  md:h-[600px] w-full  relative">
                         <div className="hidden md:flex md:fixed md:flex-col md:w-[400px] md:h-[600px] max-md:ml-0 max-md:w-full">
                             <video ref={participantVideo} onClick={playVideoPa} preload="metadata" class="md:rounded-s-[10px] bg-gray-900 object-cover max-md:scale-75 size-full"
@@ -796,18 +857,18 @@ const ChallengeDetais = () => {
                                     {showCase.description}
                                 </div>
                                 {!isVoted ? <div onClick={() => {
-                                        NotificationService.instantSend(socket, 
-                                            {
+                                    NotificationService.instantSend(socket,
+                                        {
                                             toUser_id: showCase.user.id,
                                             forWichAction: "voteChallenge",
                                             actionId: "0",
                                             postId: challengeId,
                                             content: challenges.name,
                                             postImage: showCase.video ? showCase.video : " "
-                                            }
-                                        )
-                                        handleVote()
-                                    } } className="flex cursor-pointer justify-center items-center px-4 py-2 mx-2 md:mt-8 mt-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px]">
+                                        }
+                                    )
+                                    handleVote()
+                                }} className="flex cursor-pointer justify-center items-center px-4 py-2 mx-2 md:mt-8 mt-2 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px]">
                                     <div className="flex gap-2">
                                         <img
                                             loading="lazy"
@@ -846,27 +907,27 @@ const ChallengeDetais = () => {
                                         <div className="flex gap-2 py-2">
                                             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class={`size-6 ${hasLiked ? 'text-orange-500' : ''}`} height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path></svg>
                                             <button onClick={
-                                                    () => {
-                                                        NotificationService.instantSend(socket, 
-                                                            {
+                                                () => {
+                                                    NotificationService.instantSend(socket,
+                                                        {
                                                             toUser_id: showCase.user.id,
                                                             forWichAction: "likeChallenge",
                                                             actionId: "0",
                                                             postId: challengeId,
                                                             content: challenges.name,
                                                             postImage: showCase.video ? showCase.video : " "
-                                                            }
-                                                        )
-                                                        handleLike()
-                                                    }} className={`${hasLiked ? 'text-orange-500' : ''}`}>{
-                                                getTranslation(
-                                                    `Like`,  // -----> Englais
-                                                    `J’aime`, //  -----> Francais
-                                                    //   ``,  //  -----> Turkey
-                                                    //   `` ,  //  -----> Allemagne
-                                                )
+                                                        }
+                                                    )
+                                                    handleLike()
+                                                }} className={`${hasLiked ? 'text-orange-500' : ''}`}>{
+                                                    getTranslation(
+                                                        `Like`,  // -----> Englais
+                                                        `J’aime`, //  -----> Francais
+                                                        //   ``,  //  -----> Turkey
+                                                        //   `` ,  //  -----> Allemagne
+                                                    )
 
-                                            }</button>
+                                                }</button>
                                         </div>
                                         {/* <div className="flex gap-2 py-2"> */}
                                         <div className="flex gap-2 py-2">
@@ -895,19 +956,94 @@ const ChallengeDetais = () => {
                                     </div>
                                 </div>
                                 <div className="flex gap-4 justify-between items-center px-4 mt-2 w-full text-xs font-light whitespace-nowrap text-neutral-500 max-md:flex-wrap">
-                                    <div className="flex gap-2.5 justify-center self-stretch py-2 my-auto">
+                                    <div onClick={() => handleClickVoteshow(showCase.id)} className="cursor-pointer relative flex gap-2.5 justify-center self-stretch py-2 my-auto">
                                         <svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12.125 0H7.625C5.9675 0 4.625 1.3425 4.625 3V10.5C4.625 10.9125 4.9625 11.25 5.375 11.25H14.375C14.7875 11.25 15.125 10.9125 15.125 10.5V3C15.125 1.3425 13.7825 0 12.125 0ZM12.6575 5.67L10.625 7.7025C10.2575 8.07 9.7775 8.25 9.2975 8.25C8.8175 8.25 8.3375 8.07 7.97 7.7025L7.0925 6.825C6.8 6.5325 6.8 6.06 7.0925 5.7675C7.385 5.475 7.8575 5.475 8.15 5.7675L9.0275 6.645C9.1775 6.795 9.41 6.7875 9.56 6.645L11.5925 4.6125C11.885 4.32 12.3575 4.32 12.65 4.6125C12.9425 4.905 12.9425 5.3775 12.65 5.67H12.6575ZM18.875 10.5V12C18.875 13.6575 17.5325 15 15.875 15H3.875C2.2175 15 0.875 13.6575 0.875 12V10.5C0.875 9.105 1.835 7.9425 3.125 7.605V10.5C3.125 11.7375 4.1375 12.75 5.375 12.75H14.375C15.6125 12.75 16.625 11.7375 16.625 10.5V7.605C17.915 7.9425 18.875 9.105 18.875 10.5Z" fill="#65676B" />
                                         </svg>
 
                                         <div>{vote}</div>
+                                        {showDropdownVotes && userVote.length > 0 ? (<div ref={VoteModelRef} className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-4 md:mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+                                            <div className="py-2 px-4">
+                                                <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
+                                                    {getTranslation(
+                                                        `Who Voted for this post?`, // -----> Englais
+                                                        `Qui a Voté sur cette publication?`, //  -----> Francais
+                                                        ``, //  -----> Turkey
+                                                        `` //  -----> Allemagne
+                                                    )}
+                                                </h3>
+                                                <ul>
+                                                    {userVote.map((like, index) => (
+                                                        <li
+                                                            key={index}
+                                                            className="mt-1 py-2 flex flex-row  items-center"
+                                                        >
+                                                            <Link to={`/profile/${like.userId}`}>
+                                                                <figure className="avatar me-3">
+                                                                    <img
+                                                                        srcSet={
+                                                                            like?.user?.image
+                                                                                ? like?.user?.image
+                                                                                : placeholder
+                                                                        }
+                                                                        alt="avatar"
+                                                                        // src={article?.user?.user??.image}
+                                                                        className="shadow-sm rounded-full w-[32px] aspect-square"
+                                                                    />{" "}
+                                                                </figure>
+                                                            </Link>
+                                                            {like?.user?.nom} {like?.user?.prenom}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>) : ''}
                                     </div>
-                                    <div className="flex gap-2.5 justify-center self-stretch py-2 my-auto">
+                                    <div onClick={() => handleClicklikeshow(showCase.id)} className="cursor-pointer relative flex gap-2.5 justify-center self-stretch py-2 my-auto">
                                         <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12.5665 0C11.8122 0.0117335 11.0743 0.222313 10.4274 0.610472C9.78043 0.998631 9.24737 1.55062 8.88203 2.21071C8.51669 1.55062 7.98363 0.998631 7.3367 0.610472C6.68977 0.222313 5.95187 0.0117335 5.19752 0C3.99498 0.0522469 2.862 0.578304 2.0461 1.46324C1.2302 2.34818 0.7977 3.52007 0.843087 4.72288C0.843087 9.26153 8.18264 14.5036 8.49482 14.726L8.88203 15L9.26924 14.726C9.58142 14.5049 16.921 9.26153 16.921 4.72288C16.9664 3.52007 16.5339 2.34818 15.718 1.46324C14.9021 0.578304 13.7691 0.0522469 12.5665 0Z" fill="#65676B" />
                                         </svg>
 
                                         <div>{likes}</div>
+
+                                        {showDropdownlikes && userslikearticle.length > 0 ? (<div ref={likeModelRef} className="absolute overflow-y-scroll overflow-hidden hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-4 md:mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+                                            <div className="py-2 px-4">
+                                                <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
+                                                    {getTranslation(
+                                                        `Who liked this post?`, // -----> Englais
+                                                        `Qui a aimé cette publication?`, //  -----> Francais
+                                                        ``, //  -----> Turkey
+                                                        `` //  -----> Allemagne
+                                                    )}
+                                                </h3>
+                                                <ul>
+                                                    {userslikearticle.map((like, index) => (
+                                                        <li
+                                                            key={index}
+                                                            className="mt-1 py-2 flex flex-row  items-center"
+                                                        >
+                                                            <Link to={`/profile/${like.userId}`}>
+                                                                <figure className="avatar me-3">
+                                                                    <img
+                                                                        srcSet={
+                                                                            like?.user?.image
+                                                                                ? like?.user?.image
+                                                                                : placeholder
+                                                                        }
+                                                                        alt="avatar"
+                                                                        // src={article?.user?.user??.image}
+                                                                        className="shadow-sm rounded-full w-[32px] aspect-square"
+                                                                    />{" "}
+                                                                </figure>
+                                                            </Link>
+                                                            {like?.user?.nom} {like?.user?.prenom}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        </div>) : ''}
+
+
                                     </div>
                                     <div className="flex gap-2.5 justify-center self-stretch py-2.5">
                                         <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1037,24 +1173,35 @@ const ChallengeDetais = () => {
 
                                                         <div onClick={() => {
                                                             //notlike
-                                                            NotificationService.instantSend(socket, 
+                                                            NotificationService.instantSend(socket,
                                                                 {
-                                                                toUser_id: item.userId,
-                                                                forWichAction: "likeCommentChallenge",
-                                                                actionId: "0",
-                                                                postId: challengeId,
-                                                                content: challenges.name,
-                                                                postImage: "postImage"
+                                                                    toUser_id: item.userId,
+                                                                    forWichAction: "likeCommentChallenge",
+                                                                    actionId: "0",
+                                                                    postId: challengeId,
+                                                                    content: challenges.name,
+                                                                    postImage: "postImage"
                                                                 }
                                                             )
                                                             handleReplyLike(item.id)
                                                         }
-                                                        } className={`${item.like.some((l) => l.userId == storedUserData.id)
-                                                            ? 'text-orange-500'
-                                                            : ''
-                                                            } ${hasLikedReply.includes(item.id) ? 'text-orange-500' : '!text-black'} flex items-center gap-2 py-2 whitespace-nowrap cursor-pointer`}>
-                                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="size-6 " height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.205 4.791a5.938 5.938 0 0 0-4.209-1.754A5.906 5.906 0 0 0 12 4.595a5.904 5.904 0 0 0-3.996-1.558 5.942 5.942 0 0 0-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z"></path></svg>
-                                                            <div className=" w-20 font-semibold flex gap-2 text-xs">J’aime</div>
+                                                        } className={`flex items-center gap-2 py-2 whitespace-nowrap cursor-pointer`}>
+                                                            <span className="flex flex-row items-center">
+                                                                <BiSolidHeart className="size-5 " />
+                                                                <div className="flex items-center gap-2">
+                                                                    <span
+                                                                        className="text-xs md:text-md"
+                                                                        style={{
+                                                                            marginLeft: "1px",
+                                                                            marginTop: "2px",
+                                                                            color: "#f97316",
+                                                                        }}
+                                                                    ></span>
+                                                                </div>
+                                                                <div className="flex-col mt-1 ml-2 text-sm ">
+                                                                    {item.like.length}
+                                                                </div>
+                                                            </span>
                                                         </div>
                                                         {/* <div onClick={() => ReplyShow == false ? setReplyShow(item.id) : setReplyShow(false)} className="items-center cursor-pointer flex gap-2 py-2 whitespace-nowrap">
                                                             <svg className="size-5" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1183,17 +1330,17 @@ const ChallengeDetais = () => {
                                                 className="ml-2"
                                                 onClick={
                                                     () => {
-                                                            //notlike
-                                                            NotificationService.instantSend(socket, 
-                                                                {
+                                                        //notlike
+                                                        NotificationService.instantSend(socket,
+                                                            {
                                                                 toUser_id: showCase.user.id,
                                                                 forWichAction: "commentChallenge",
                                                                 actionId: "0",
                                                                 postId: challengeId,
                                                                 content: challenges.name,
                                                                 postImage: showCase.video ? showCase.video : " "
-                                                                }
-                                                            )
+                                                            }
+                                                        )
                                                         handleCommentaire()
                                                     }}
                                             >
