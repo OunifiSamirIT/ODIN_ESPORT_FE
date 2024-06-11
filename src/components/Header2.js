@@ -383,7 +383,7 @@ lastNotificationData.forWichAction == "AcceptRequest") {
    }, 1000)
   };
   useEffect(() => {
-    const socketInstance = io(Config.LOCAL_URL);
+    const socketInstance = io(Config.LOCAL_URL , { transports: ["websocket"] });
     setSocket(socketInstance);
 
     // listen for events emitted by the server
