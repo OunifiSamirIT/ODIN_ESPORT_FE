@@ -296,8 +296,8 @@ function Header() {
 
         function getLink() {
           const url = {
-            LOCAL_URL: "https://odinesport.com",
-            HOST_URL: "http://localhost:3000",
+            LOCAL_URL: "https://odinesport.com/",
+            HOST_URL: "https://odinesport.com/home",
           };
           if (
             lastNotificationData.forWichAction == "like" ||
@@ -379,7 +379,7 @@ function Header() {
     }, 1000);
   };
   useEffect(() => {
-    const socketInstance = io(Config.LOCAL_URL);
+    const socketInstance = io(Config.LOCAL_URL, { transports: ["websocket"] });
     setSocket(socketInstance);
 
     // listen for events emitted by the server

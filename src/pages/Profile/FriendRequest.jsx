@@ -446,7 +446,7 @@ const FriendRequest = () => {
                   FriendRequest?.friendRequests?.map((item, index) => {
                     return (
                       <div key={index} className="col-span-1">
-                        <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:mt-6">
+                        <div className="flex flex-col items-center grow p-6 mx-auto w-full text-xs bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:mt-6">
                           <Link
                             to={`/profile/${item?.friendRequest?.receiver?.id}`}
                           >
@@ -457,7 +457,7 @@ const FriendRequest = () => {
                                   ? item?.friendRequest?.receiver.image
                                   : Placeholder
                               }
-                              className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                              className=" max-w-full rounded-full aspect-square w-[120px]"
                             />
                             <div className="self-center mt-4 text-xl font-medium text-black">
                               {item?.friendRequest?.receiver?.nom}{" "}
