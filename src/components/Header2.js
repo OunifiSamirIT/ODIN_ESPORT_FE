@@ -301,7 +301,7 @@ function Header() {
 
         function getLink() {
           const url = {
-            LOCAL_URL: "http://localhost:3000",
+            LOCAL_URL: "https://odinesport.com/",
             HOST_URL: "https://odinesport.com/home",
           };
           if (
