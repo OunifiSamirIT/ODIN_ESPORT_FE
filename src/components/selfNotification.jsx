@@ -82,7 +82,7 @@ export default function SelfNot({
       LOCAL_URL :  'http://localhost:3000',
       HOST_URL :  'https://odinesport.com/home',
   }
-    if (notData.forWichAction == "share" ||
+    if (
     notData.forWichAction == "like" ||
     notData.forWichAction == "comment" ||
     notData.forWichAction == "reply" ||
@@ -91,8 +91,9 @@ export default function SelfNot({
     }
     
     if(
-    
+      notData.forWichAction == "share" ||
       notData.forWichAction == "AcceptRequest") {
+
         return  url.LOCAL_URL + "/profile/" + notData.fromUser_id
       }
       if(
