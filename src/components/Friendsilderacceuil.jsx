@@ -70,7 +70,7 @@ function FriendsSlider() {
         >
           {agents.map((value, index) => (
             <div
-              key={value.user.id}
+              key={index}
               className="w150 md:w-[50%] d-block border-0 bg-gray-100 rounded-3 overflow-hidden mb-3 mt-2 me-3"
             >
               <div className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center">
