@@ -78,7 +78,7 @@ export default function SelfNot({
   };
   function getLink() {
     const url = {
-      LOCAL_URL: "https://odinesport.com/home",
+      LOCAL_URL: "https://odinesport.com",
       HOST_URL: "http://localhost:3000",
     };
     if (
