@@ -5341,7 +5341,9 @@ function Register() {
         const responseData = await response.json();
 
         const idusercode = responseData.user.id;
+        const useremail = responseData.user.email;
         localStorage.setItem("idusercode", idusercode);
+        localStorage.setItem("useremail", useremail);
         navigate("/codeverification");
       } else {
         const errorData = await response.json();

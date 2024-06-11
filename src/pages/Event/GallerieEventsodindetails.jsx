@@ -252,7 +252,6 @@ const Album = () => {
                               className="self-center w-5 aspect-square"
                             />
                             <div className="flex items-center justify-center mt-2">
-                              {" "}
                               {formatDate(albumDetails.date_debut)}
                             </div>
                           </div>

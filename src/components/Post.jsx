@@ -1391,7 +1391,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
         actionId: article.description ? 1 : 0,
         postId: article.id,
         postImage: article?.image ? article?.image : "",
-      });      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
+      });
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
       });
@@ -1487,7 +1488,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           <>
             <div
               key={article.id}
-              className="card w-100 shadow-xss rounded-xxl border-0 mt-4 -px-4  p-4 "
+              className="card w-100 shadow-xss rounded-xxl border-0 mt-3 -px-4  p-4 "
             >
               <div className="card-body p-0 d-flex">
                 <Link to={`/profile/${article?.user?.user?.id}`}>
@@ -2926,7 +2927,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             {
                                               toUser_id: comment.userId,
                                               forWichAction: "reply",
-                                              actionId: article.description ? 1 : 0,
+                                              actionId: article.description
+                                                ? 1
+                                                : 0,
                                               postId: article.id,
                                               content: replyInput,
                                               postImage: article?.image
@@ -3785,7 +3788,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               {
                                                 toUser_id: comment.userId,
                                                 forWichAction: "likeComment",
-                                                actionId: article.description ? 1 : 0,
+                                                actionId: article.description
+                                                  ? 1
+                                                  : 0,
                                                 postId: article.id,
                                                 content: comment.description,
                                                 postImage: article?.image
@@ -4174,7 +4179,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   {
                                                     toUser_id: comment.userId,
                                                     forWichAction: "reply",
-                                                    actionId: article.description ? 1 : 0,
+                                                    actionId:
+                                                      article.description
+                                                        ? 1
+                                                        : 0,
                                                     postId: article.id,
                                                     content: replyInput,
                                                     postImage: article?.image
@@ -4246,7 +4254,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           {
                                             toUser_id: article?.user?.user?.id,
                                             forWichAction: "comment",
-                                            actionId: article.description ? 1 : 0,
+                                            actionId: article.description
+                                              ? 1
+                                              : 0,
                                             postId: article.id,
                                             content: comment,
                                             postImage: article?.image
