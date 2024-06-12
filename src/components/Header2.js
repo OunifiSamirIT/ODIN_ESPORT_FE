@@ -491,28 +491,22 @@ function Header() {
   }, []);
 
   const handleSearch = (event) => {
-    const searchString = event.target.value;
+    const searchString = event.target.value.toLowerCase();
     setSearchTerm(searchString);
     if (searchString.trim() === "") {
       setSearchResults([]);
     } else {
       const filteredTargets = search
-        .filter(
-          (item) =>
-            item.titre.toLowerCase().startsWith(searchString.toLowerCase()) ||
-            item.titre.toLowerCase().includes(searchString.toLowerCase())
-        )
-        .map((target) => ({ ...target, origin: "Page" })); // Adding origin property to filtered targets
+        .filter((item) => item.titre.toLowerCase().includes(searchString))
+        .map((target) => ({ ...target, origin: "Page" }));
 
       const filteredUsers = users
-        .filter(
-          (user) =>
-            user?.user?.nom
-              .toLowerCase()
-              .startsWith(searchString.toLowerCase()) ||
-            user?.user?.nom.toLowerCase().includes(searchString.toLowerCase())
-        )
-        .map((user) => ({ ...user.user, origin: "Personne" })); // Adding origin property to filtered users
+        .filter((user) => {
+          const fullName =
+            `${user?.user?.nom} ${user?.user?.prenom}`.toLowerCase();
+          return fullName.includes(searchString);
+        })
+        .map((user) => ({ ...user.user, origin: "Personne" }));
 
       setSearchResults([...filteredTargets, ...filteredUsers]);
     }
