@@ -973,7 +973,7 @@ function Header() {
                   Href={"/defaultgroupEvents"}
                   Title={getTranslation(
                     `Odin Event`, // -----> Englais
-                    `Evènnement Odin` //  -----> Francais
+                    `Evènement Odin` //  -----> Francais
                     //   ``,  //  -----> Turkey
                     //   `` ,  //  -----> Allemagne
                   )}
