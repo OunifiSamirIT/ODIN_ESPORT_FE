@@ -1098,7 +1098,7 @@ function Demo() {
               <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
                 <img
                   src={jr}
-                  className="grow w-full aspect-[0.78] -mb-10 -mt-10 md:mb-0 md:-mt-8"
+                  className="grow w-full aspect-[0.78] -mb-[53.4px] -mt-10 -md:mb-[53.4px] md:-mt-8"
                 />
               </div>
             </div>
