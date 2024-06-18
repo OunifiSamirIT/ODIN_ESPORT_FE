@@ -1161,7 +1161,7 @@ function Demo() {
               </div>
 
               <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
-                <div className="grow md:mt-10 pt-10 max-md:max-w-full ">
+                <div className="grow md:mt-2 pt-10 max-md:max-w-full ">
                   <Slider
                     style={{ width: "100%", height: "80%" }}
                     {...friendsettings}
