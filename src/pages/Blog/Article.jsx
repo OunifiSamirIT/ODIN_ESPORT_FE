@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import NewsLetter from "../../assets/newsletter.png";
+import { useParams } from "react-router-dom";
+import BlogLayout from "../../Layout/BlogLayout";
 import banner from "../../assets/banner.png";
+import NewsLetter from "../../assets/newsletter.png";
 import { Config } from "../../config";
 import { Context } from "../../index";
-
+import Logo from "../../assets/odin.png"
 const Article = () => {
   const { articleId } = useParams();
   const [article, setArticle] = useState([]);
   const [recommandation, setRecommandation] = useState([]);
+  const [newsletter , setNewsletter] = useState();
   function shuffle(array) {
     let currentIndex = array.length,
       temporaryValue,
@@ -65,76 +67,7 @@ const Article = () => {
     return `${month} ${day}, ${year}`;
   };
   return (
-    <div className="flex flex-col justify-center w-full bg-gray-200 max-h-fit">
-      <div className="w-full flex justify-center bg-white shadow-sm">
-        <div className="max-w-[1344px] flex gap-5 justify-between w-full  max-md:flex-wrap max-md:max-w-full">
-          <img
-            loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/2a75ed34d5c19415cab78b345b0d5336760c4e7969ac95ce58c0988fa6ca72f6?"
-            className="shrink-0 my-auto w-36 max-w-full aspect-[2.78]"
-          />
-          <div className="flex gap-5 justify-center items-center py-4 max-md:flex-wrap">
-            <div className="self-stretch my-auto text-base font-medium text-zinc-900">
-              {getTranslation(
-                `Contact`, // -----> Englais
-                `Contact` //  -----> Francais
-              )}
-            </div>
-            <div className="justify-center self-stretch px-8 py-2 text-base font-medium text-white bg-blue-600 rounded-[10px] max-md:px-5">
-              {getTranslation(
-                `Sign Up`, // -----> Englais
-                `S'inscrire` //  -----> Francais
-              )}
-            </div>
-            <div className="justify-center self-stretch px-8 py-2 text-base font-medium border-2 border-solid border-zinc-900 border-opacity-50 rounded-[10px] text-zinc-900 max-md:px-5">
-              {getTranslation(
-                `Log In`, // -----> Englais
-                `Se connecter` //  -----> Francais
-              )}
-            </div>
-            <div className="flex gap-1 items-center self-stretch px-1 py-0.5 my-auto text-base font-medium whitespace-nowrap text-zinc-900">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2c4a63d30029455ac7463db8ddec033b20fbe12764ee2e85c2ce8db495dbd38?"
-                className="shrink-0 self-stretch my-auto aspect-square w-[15px]"
-              />
-              <div className="self-stretch">FR</div>
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/04ac61c32c73166c8b9f3152bb2bb21b87c4d0ee9441d92c84b5666c94e77ec4?"
-                className="shrink-0 self-stretch my-auto aspect-[1.89] fill-zinc-900 w-[15px]"
-              />
-            </div>
-            <div className="flex gap-4 justify-center self-stretch my-auto">
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/a3351d138ecd362085903908891e6778efbf44224595854c1f8370410a5b6e36?"
-                className="shrink-0 aspect-square w-[25px]"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/2f6fbdc92bd752c095b3edc0fd0f189c5bdd37ffcd9ad2dadd50a77eb50c59c9?"
-                className="shrink-0 aspect-square w-[25px]"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/38f75e0064def8be48c51667f3094724720685e3d1e87de4bda8b43980ab29f2?"
-                className="shrink-0 aspect-square w-[25px]"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/474ee8d077d5f772e184a4d56f1c1f8579b86c33c8b7127e55ba939ae58a20bc?"
-                className="shrink-0 aspect-square w-[25px]"
-              />
-              <img
-                loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/4920bdfd459b25e1b8b46fc404ed67e3b6c913f64a1ac833125b83540b01c14d?"
-                className="shrink-0 aspect-square w-[25px]"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <BlogLayout>
       {article[0] && (
         <div className=" px-4 flex flex-col items-center gap-y-32 w-full h-fit flex justify-center text-center">
           <div className="self-center mt-12 w-full max-w-[1344px] max-md:mt-10 max-md:max-w-full">
@@ -143,7 +76,7 @@ const Article = () => {
                 <div className="flex flex-col grow max-md:mt-10 max-md:max-w-full">
                   <div className="flex flex-col p-6 bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:max-w-full">
                     <div className="flex flex-wrap gap-1 py-2">
-                      {article[0]?.tags.split(",").map((e) => {
+                      {article[0]?.tags.split(",").filter((e) => e != '').map((e) => {
                         return (
                           <div className="justify-center self-start px-3 py-1.5 text-base font-medium text-white whitespace-nowrap bg-blue-600 rounded-md">
                             {e}
@@ -154,11 +87,11 @@ const Article = () => {
                     <div className="text-left mt-4 text-3xl font-bold max-md:max-w-full">
                       {article[0]?.title}
                     </div>
-                    <div className="flex gap-5 justify-between self-start mt-5 text-zinc-500">
+                    <div className="flex gap-2 max-sm:justify-between max-sm:w-full self-start mt-5 text-zinc-500">
                       <div className="flex gap-2 text-base">
                         <img
                           loading="lazy"
-                          srcSet={article[0]?.imageUrl}
+                          srcSet={Logo}
                           className="shrink-0 w-7 aspect-square rounded-full"
                         />
                         <div className="my-auto">Admin | Odine</div>
@@ -274,12 +207,12 @@ const Article = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="tal2 justify-center self-center px-8 py-2 mt-6 text-base font-medium text-white bg-blue-600 rounded-[10px] max-md:px-5">
+                    <a href="/register" className="tal2 justify-center self-center px-8 py-2 mt-6 text-base font-medium text-white bg-blue-600 rounded-[10px] max-md:px-5">
                       {getTranslation(
                         `Start Your Journey Now!`, // -----> Englais
                         `Commencez votre aventure!` //  -----> Francais
                       )}
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -317,15 +250,13 @@ const Article = () => {
               Inscrivez-vous à notre newsletter pour du contenu exclusif directement dans votre boîte de réception !` //  -----> Francais
                       )}
                     </div>
-                    <div className="justify-center items-start px-4 py-2 mt-4 whitespace-nowrap bg-white border border-solid border-stone-300 rounded-[10px] text-neutral-500 max-md:pr-5">
-                      johndoe@gmail.com
-                    </div>
-                    <div className="justify-center text-center items-center px-8 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[10px] max-md:px-5">
+                    <input type="text" onChange={(e) => setNewsletter(e.target.value)} value={newsletter} placeholder="johndoe@gmail.com" className="justify-center items-start px-4 py-2 mt-4 whitespace-nowrap bg-white border border-solid border-stone-300 rounded-[10px] text-neutral-500 max-md:pr-5"/>
+                    <button className="justify-center text-center items-center px-8 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[10px] max-md:px-5">
                       {getTranslation(
                         `Subscribe`, // -----> Englais
                         `S'inscrire` //  -----> Francais
                       )}
-                    </div>
+                    </button>
                   </div>
                   <div className="mt-4 text-3xl font-bold text-zinc-900">
                     {getTranslation(
@@ -380,99 +311,8 @@ const Article = () => {
           </div>
         </div>
       )}
-      <div className="flex mt-8 justify-center items-center self-stretch px-16 py-6 w-full bg-blue-600 max-md:px-5 max-md:mt-10 max-md:max-w-full">
-        <div className="flex flex-col w-full max-w-[1184px] max-md:max-w-full">
-          <div className="flex gap-5 justify-between py-2 w-full max-md:flex-wrap max-md:max-w-full">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4d9a5157737e60ab06daba1a7dd1777fe2730f176a2e03e7da55c1b8e0683609?"
-              className="shrink-0 my-auto w-36 max-w-full aspect-[2.78]"
-            />
-            <div className="flex gap-5 justify-center items-center py-4 max-md:flex-wrap">
-              <div className="tal1 self-stretch my-auto text-base font-medium text-white">
-                {getTranslation(
-                  `Contact`, // -----> Englais
-                  `Contact` //  -----> Francais
-                )}
-              </div>
-              <div className="tal1 self-stretch my-auto text-base font-medium text-white">
-                {getTranslation(
-                  `Blog`, // -----> Englais
-                  `Blog` //  -----> Francais
-                )}
-              </div>
-              <div className="tal1 justify-center self-stretch px-8 py-2 text-base font-medium text-blue-600 bg-white rounded-[10px] max-md:px-5">
-                {getTranslation(
-                  `Sign Up`, // -----> Englais
-                  `S'inscrire` //  -----> Francais
-                )}
-              </div>
-              <div className="tal1 justify-center self-stretch px-8 py-2 text-base font-medium text-white border-2 border-white border-solid rounded-[10px] max-md:px-5">
-                {getTranslation(
-                  `Log In`, // -----> Englais
-                  `Se connecter` //  -----> Francais
-                )}
-              </div>
-              <div className="flex gap-1 items-center self-stretch px-1 py-0.5 my-auto text-base font-medium text-white whitespace-nowrap">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/e02fcaf74568ed6cae17a4cfea06fe3a743e2638ff68a32034bcc388457a56a8?"
-                  className="shrink-0 self-stretch my-auto aspect-square w-[15px]"
-                />
-                <div className="self-stretch">FR</div>
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b14a756e6f1b65f22854328381a428fbb0c36693ecead144e76135aaa22f6c84?"
-                  className="shrink-0 self-stretch my-auto aspect-[1.89] fill-white w-[15px]"
-                />
-              </div>
-              <div className="flex gap-4 justify-center self-stretch my-auto">
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/b7b70aacc8389036f7a0f030228a7cca93292b91bccd6e6f1e7c9f2dc0445e8a?"
-                  className="shrink-0 aspect-square w-[25px]"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/69c2999828553289a852c163dcf2dcb73a5a9b0cde905c1600e4d640e10df9ea?"
-                  className="shrink-0 aspect-square w-[25px]"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/086ca203c0c49861414fd7751bca85fddfa84895e8932788855b274c017ad8e8?"
-                  className="shrink-0 aspect-square w-[25px]"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/3efc58d7512b4b6168ed6951e8eed4914e14ee066db5f5a082bbffc12f1e277d?"
-                  className="shrink-0 aspect-square w-[25px]"
-                />
-                <img
-                  loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/2c0d535dec073828d67e962fdb5e4a0fc42321ebba0f6a0df002daa3c4fb9e3f?"
-                  className="shrink-0 aspect-square w-[25px]"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex gap-5 justify-between py-2 mt-6 max-md:flex-wrap max-md:max-w-full">
-            <div className="my-auto text-xs font-light text-white">
-              {getTranslation(
-                ` All Rights Reserved © 2024 Odin Esport `, // -----> Englais
-                `Tous droits réservés © 2024 Odin Esport ` //  -----> Francais
-              )}
-            </div>
-            <div className="text-base font-medium text-white underline">
-              {getTranslation(
-                ` Privacy Policy  `, // -----> Englais
-                `Politique de confidentialité ` //  -----> Francais
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+      </BlogLayout>
+    );}
+
 
 export default Article;

@@ -17,14 +17,11 @@ function FriendsSlider() {
           throw new Error("Failed to fetch users");
         }
         const data = await response.json();
-
         // Récupérez l'ID de l'utilisateur connecté à partir du local storage
-        const storedUserData = JSON.parse(localStorage.getItem("user"));
+        const storedUserData = localStorage.getItem("user");
         const id = storedUserData ? storedUserData.id : null;
-        console.log(storedUserData, "user dhiaaaaaaaaaaaaaaaabbbbbbbbbb");
         // Filtrez les utilisateurs pour exclure l'utilisateur connecté
-        const filteredData = data.filter((agent) => agent.user.id !== id);
-        console.log(filteredData, "ahrlawasahla");
+        const filteredData = data.filter((agent) => agent?.user?.id !== id);
         setAgents(filteredData);
         setLoading(false);
       } catch (error) {
@@ -32,7 +29,6 @@ function FriendsSlider() {
         setLoading(false);
       }
     };
-
     fetchUsers();
   }, []);
 
@@ -81,6 +77,7 @@ function FriendsSlider() {
               key={index}
               className="w150 md:w-[50%] d-block border-0 bg-gray-100 rounded-3 overflow-hidden mb-3 mt-2 me-3"
             >
+              <p>hello</p>
               <div className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center">
                 <Link to={`/profile/${value?.user?.id}`}>
                   <figure className="avatar mb-1 d-flex justify-content-center align-items-center">
