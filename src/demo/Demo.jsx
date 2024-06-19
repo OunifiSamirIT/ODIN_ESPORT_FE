@@ -301,7 +301,7 @@ function Demo() {
     autoplay: true,
     autoplaySpeed: 3500,
     adaptiveHeight: true,
-    appendDots: dots => (
+    appendDots: (dots) => (
       <div className="absolute bottom-[-80px] w-full flex justify-center">
         <ul> {dots} </ul>
       </div>
@@ -1037,7 +1037,6 @@ function Demo() {
             <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
               <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
                 <div className="flex flex-col self-stretch my-auto text-white max-md:mt-10">
-
                   <div className="tal1 text-2xl md:text-3xl space-y-1 font-bold max-md:max-w-full">
                     <div>
                       {getTranslation(
@@ -1047,7 +1046,9 @@ function Demo() {
                         // `` ,  //  -----> Allemand
                       )}
                     </div>
-                    <div className="mt-2"> {/* Utiliser mt-4 pour ajouter une marge supérieure */}
+                    <div className="mt-2">
+                      {" "}
+                      {/* Utiliser mt-4 pour ajouter une marge supérieure */}
                       {getTranslation(
                         `Unlocking Football Dreams`, // -----> Anglais
                         `Débloquez vos rêves de football` //  -----> Français
@@ -1056,7 +1057,6 @@ function Demo() {
                       )}
                     </div>
                   </div>
-
                   <div className="tal1 mt-2  text-2xl font-light max-md:max-w-full">
                     {getTranslation(
                       `A Comprehensive Experience for All`, // -----> Englais
@@ -1098,7 +1098,7 @@ function Demo() {
               <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
                 <img
                   src={jr}
-                  className="grow w-full aspect-[0.78] max-md:mt-8 max-md:max-w-full"
+                  className="grow w-full aspect-[0.78] -mb-[53.4px] -mt-10 -md:mb-[53.4px] md:-mt-8"
                 />
               </div>
             </div>
@@ -1161,7 +1161,7 @@ function Demo() {
               </div>
 
               <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
-                <div className="grow md:mt-10 pt-10 max-md:max-w-full ">
+                <div className="grow md:mt-2 pt-10 max-md:max-w-full ">
                   <Slider
                     style={{ width: "100%", height: "80%" }}
                     {...friendsettings}

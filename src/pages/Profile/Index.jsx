@@ -1066,6 +1066,170 @@ const Index = () => {
 
   SwiperCore.use([Pagination, Navigation]);
 
+  // const VideoGrid = ({ articlesWithVideo }) => {
+  //   const [isOpen, setIsOpen] = useState(false);
+  //   const [currentImageIndexVideo, setCurrentImageIndexVideo] = useState(0);
+  //   const refGalleryVideo = useRef(null);
+  //   const videoRefs = useRef([]);
+
+  //   const handlePlusClickVideo = (index, event) => {
+  //     event.preventDefault();
+  //     setCurrentImageIndexVideo(index);
+  //     setIsOpen(true);
+  //   };
+
+  //   const handleClickOutsideGalleryVideo = (event) => {
+  //     if (
+  //       refGalleryVideo.current &&
+  //       !refGalleryVideo.current.contains(event.target)
+  //     ) {
+  //       setIsOpen(false);
+  //     }
+  //   };
+
+  //   useEffect(() => {
+  //     document.addEventListener("mousedown", handleClickOutsideGalleryVideo);
+  //     document.addEventListener("touchstart", handleClickOutsideGalleryVideo);
+  //     return () => {
+  //       document.removeEventListener(
+  //         "mousedown",
+  //         handleClickOutsideGalleryVideo
+  //       );
+  //       document.removeEventListener(
+  //         "touchstart",
+  //         handleClickOutsideGalleryVideo
+  //       );
+  //     };
+  //   }, []);
+
+  //   const closeModalVideo = () => {
+  //     setIsOpen(false);
+  //   };
+
+  //   const allVideos = [];
+  //   articlesWithVideo.forEach((article) => {
+  //     article.video.split(";").forEach((videoUrl) => {
+  //       allVideos.push({ url: videoUrl, date: article.date });
+  //     });
+  //   });
+  //   allVideos.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  //   const handleVideoPlay = (index) => {
+  //     videoRefs.current.forEach((videoRef, idx) => {
+  //       if (videoRef) {
+  //         if (idx === index) {
+  //           videoRef.play();
+  //         } else {
+  //           videoRef.pause();
+  //         }
+  //       }
+  //     });
+  //   };
+
+  //   const handleSlideChange = (swiper) => {
+  //     setCurrentImageIndexVideo(swiper.activeIndex);
+  //     handleVideoPlay(swiper.activeIndex);
+  //   };
+
+  //   return (
+  //     <div>
+  //       <div className="flex flex-wrap md:gap-x-2 md:gap-y-3 md:m-3 gap-3 m-2 md:pl-2 pt-3 md:pt-4 rounded-2xl">
+  //         {allVideos.map((video, index) => (
+  //           <div key={index} className="relative w-[30%] md:w-[31.2%] md:h-30">
+  //             <video
+  //               className="object-cover md:w-full md:h-72 h-40 rounded-md aspect-square"
+  //               src={video.url}
+  //               onClick={(event) => handlePlusClickVideo(index, event)}
+  //             />
+  //             <svg
+  //               onClick={(event) => handlePlusClickVideo(index, event)}
+  //               className="absolute flex cursor-pointer md:top-[37%] md:left-[32%] md:w-20 md:h-20 top-[37%] left-[32%] w-10 max:h-10"
+  //               viewBox="0 0 79 78"
+  //               fill="none"
+  //               xmlns="http://www.w3.org/2000/svg"
+  //             >
+  //               <path
+  //                 d="M29.1241 55.8515H28.154C28.0849 55.8261 28.0145 55.8045 27.9432 55.7867C26.2758 55.4558 25.0525 54.0157 25.0516 52.331C25.0453 43.6342 25.0453 34.9373 25.0516 26.2405C25.0553 25.678 25.1978 25.1252 25.4663 24.631C26.3302 22.9895 28.5453 22.117 30.5367 23.2824C34.4485 25.5727 38.3828 27.8215 42.3085 30.0875C45.7953 32.1034 49.2824 34.1163 52.7698 36.1264C54.3179 37.0223 55.0065 38.6317 54.5443 40.2732C54.2635 41.2702 53.6259 41.9734 52.7343 42.4874C46.2143 46.2438 39.7055 50.02 33.1777 53.7634C31.8585 54.5202 30.63 55.4575 29.1241 55.8515Z"
+  //                 fill="white"
+  //               />
+  //               <circle cx="39.3922" cy="39.3004" r="38.1207" stroke="white" />
+  //             </svg>
+  //           </div>
+  //         ))}
+  //       </div>
+
+  //       {isOpen && (
+  //         <div className="bg-black/100 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+  //           <button
+  //             onClick={closeModalVideo}
+  //             className="hidden absolute md:top-5 top-2 md:right-0 right-6 text-white rounded-full w-12 h-12 md:flex items-center justify-center"
+  //           >
+  //             <svg
+  //               className="mt-2 float-right"
+  //               xmlns="http://www.w3.org/2000/svg"
+  //               viewBox="0 0 62 62"
+  //               width="150"
+  //               height="150"
+  //               fill="#fff"
+  //             >
+  //               <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
+  //             </svg>
+  //           </button>
+  //           <div
+  //             ref={refGalleryVideo}
+  //             className="relative flex flex-col p-2 rounded-[10px] md:w-[725px] w-[385px] max-md:px-5 max-md:my-10"
+  //           >
+  //             <Swiper
+  //               navigation={true}
+  //               initialSlide={currentImageIndexVideo}
+  //               onSlideChange={handleSlideChange}
+  //               centeredSlides={true}
+  //               slidesPerView={1}
+  //               spaceBetween={10}
+  //               className="mySwiperprofile"
+  //             >
+  //               {allVideos.map((video, index) => (
+  //                 <SwiperSlide
+  //                   key={index}
+  //                   className="flex justify-center items-center relative"
+  //                 >
+  //                   <div className="imageswiper-container -mt-8">
+  //                     <video
+  //                       src={video.url}
+  //                       controls
+  //                       ref={(el) => {
+  //                         videoRefs.current[index] = el;
+  //                       }}
+  //                       className="imageswipe -ml-[127px] max-h-[450px] md:w-full w-[50%] h-full md:ml-[212px]"
+  //                       onLoadedMetadata={() =>
+  //                         handleVideoPlay(currentImageIndexVideo)
+  //                       }
+  //                     />
+  //                     <button
+  //                       onClick={closeModalVideo}
+  //                       className="md:hidden absolute md:top-5 top-2 md:right-0 right-6 text-white rounded-full w-12 h-12 flex items-center justify-center"
+  //                     >
+  //                       <svg
+  //                         className="mt-2 float-right"
+  //                         xmlns="http://www.w3.org/2000/svg"
+  //                         viewBox="0 0 62 62"
+  //                         width="150"
+  //                         height="150"
+  //                         fill="#fff"
+  //                       >
+  //                         <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
+  //                       </svg>
+  //                     </button>
+  //                   </div>
+  //                 </SwiperSlide>
+  //               ))}
+  //             </Swiper>
+  //           </div>
+  //         </div>
+  //       )}
+  //     </div>
+  //   );
+  // };
   const VideoGrid = ({ articlesWithVideo }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [currentImageIndexVideo, setCurrentImageIndexVideo] = useState(0);
@@ -1130,12 +1294,27 @@ const Index = () => {
       setCurrentImageIndexVideo(swiper.activeIndex);
       handleVideoPlay(swiper.activeIndex);
     };
+    const getVideoClass = (numVideos) => {
+      if (numVideos === 1) {
+        return "w-[57%] md:w-[63%]";
+      } else if (numVideos === 2) {
+        return "w-[33%] md:w-[35%]";
+      } else if (numVideos === 3) {
+        return "w-[30%] md:w-[31.2%]";
+      }
+      return "w-[30%] md:w-[31.2%]"; // default case for more than 3 videos
+    };
 
+    const videoClass = getVideoClass(allVideos.length);
     return (
       <div>
         <div className="flex flex-wrap md:gap-x-2 md:gap-y-3 md:m-3 gap-3 m-2 md:pl-2 pt-3 md:pt-4 rounded-2xl">
           {allVideos.map((video, index) => (
-            <div key={index} className="relative w-[30%] md:w-[31.2%] md:h-30">
+            <div
+              key={index}
+              className={`relative 
+                ${videoClass}`}
+            >
               <video
                 className="object-cover md:w-full md:h-72 h-40 rounded-md aspect-square"
                 src={video.url}
@@ -1230,6 +1409,7 @@ const Index = () => {
       </div>
     );
   };
+
   return (
     <>
       <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>

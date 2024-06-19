@@ -17,7 +17,15 @@ function FriendsSlider() {
           throw new Error("Failed to fetch users");
         }
         const data = await response.json();
-        setAgents(data);
+
+        // Récupérez l'ID de l'utilisateur connecté à partir du local storage
+        const storedUserData = JSON.parse(localStorage.getItem("user"));
+        const id = storedUserData ? storedUserData.id : null;
+        console.log(storedUserData, "user dhiaaaaaaaaaaaaaaaabbbbbbbbbb");
+        // Filtrez les utilisateurs pour exclure l'utilisateur connecté
+        const filteredData = data.filter((agent) => agent.user.id !== id);
+        console.log(filteredData, "ahrlawasahla");
+        setAgents(filteredData);
         setLoading(false);
       } catch (error) {
         setError(error.message);
