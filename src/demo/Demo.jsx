@@ -1,20 +1,19 @@
-import React, { Component, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import "./demo.css";
-import Hero from "../assets/Frame 182.png";
-import Hero1 from "../assets/Frame 183.png";
-import Hero2 from "../assets/Frame 18.png";
-import jr from "../assets/jr.png";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { toast, ToastContainer } from "react-toastify";
+import Hero2 from "../assets/Frame 18.png";
+import Hero from "../assets/Frame 182.png";
+import Hero1 from "../assets/Frame 183.png";
+import jr from "../assets/jr.png";
 import "../components/Hamburger.css";
 import { Config } from "../config";
 import LanguageToggler from "../fixDesignComponents/languageToggler";
-import ODINLOGO from "../assets/ODINWHITEOP.png";
+import "./demo.css";
 // wehed
-import { Context } from "../index";
 import gsap from "gsap";
+import { Context } from "../index";
 import PdfModal from "../pages/PdfModal";
 
 const newDemoList = [
