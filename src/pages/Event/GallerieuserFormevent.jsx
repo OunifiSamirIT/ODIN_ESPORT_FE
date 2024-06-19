@@ -21,15 +21,13 @@ import { useForm, Controller } from "react-hook-form";
 import { Config } from "../../config";
 import Header from "../../components/Header2";
 
-const schema = yup.object().shape({
-  modepaiement: yup.string().required("Ce champs est obligatoire !"),
-});
+
 
 const Album = () => {
   const [isActive, setIsActive] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+  
 
   const [album, setAlbum] = useState([]);
   const [users, setUsers] = useState([]);
@@ -38,11 +36,15 @@ const Album = () => {
   const handleTermsLinkClick = () => {
     setIsModalOpen(true);
   };
-
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
+  const schema = yup.object().shape({
+    modepaiement: yup.string().required( getTranslation(
+      ` This field is required!`,
+      `Ce champ est obligatoire`,)),
+  });
   const handelretourform = () => {
     navigate("/defaultgroupEvents");
   };

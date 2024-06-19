@@ -1159,7 +1159,11 @@ const ChallengeDetais = () => {
                                                                 <button className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3" onClick={() => {
                                                                     submitUpdatedComment(item)
                                                                 }
-                                                                }>Modifier</button>
+                                                                }>{getTranslation(
+                                                                    `Update`,  // -----> Englais
+                                                                    `Modifier`, //  -----> Francais
+                                                                )}
+                                                                </button>
 
                                                             </div>
                                                         ) : (
@@ -1443,7 +1447,7 @@ const ChallengeDetais = () => {
                             {expired ? <div> {
                                 getTranslation(
                                     `Challenge completed!`,  // -----> Englais
-                                    `Challenge terminer`, //  -----> Francais
+                                    `Challenge terminé!`, //  -----> Francais
                                     //   ``,  //  -----> Turkey
                                     //   `` ,  //  -----> Allemagne
                                 )

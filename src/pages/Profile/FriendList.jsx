@@ -104,7 +104,12 @@ const FriendList = () => {
                     </svg>
                   </div>
                   <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    Acceuil
+                  {getTranslation(
+                    `Home`, // -----> Englais
+                    `Acceuil` //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )}
                   </div>
                 </div>
               </Link>
@@ -143,7 +148,12 @@ const FriendList = () => {
                     </svg>
                   </div>
                   <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    Profil
+                  {getTranslation(
+                    `Profile`, // -----> Englais
+                    `Profil` //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )}
                   </div>
                 </div>{" "}
               </Link>
@@ -210,7 +220,12 @@ const FriendList = () => {
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                        Joueur
+                      {getTranslation(
+                    `Players`, // -----> Englais
+                    `Joueurs` //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )}
                       </div>
                     </div>{" "}
                   </Link>
@@ -230,7 +245,12 @@ const FriendList = () => {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                     className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                   />
-                  <div>Événements</div>
+                  <div>{getTranslation(
+                    `Events`, // -----> Englais
+                    `Événements` //  -----> Francais
+                    //   ``,  //  -----> Turkey
+                    //   `` ,  //  -----> Allemagne
+                  )}</div>
                 </div>
                 <img
                   loading="lazy"
@@ -295,7 +315,7 @@ const FriendList = () => {
                             className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                           />
 
-                          <div>Evénnement ODIN</div>
+                          <div>ODIN Events</div>
                         </div>
                       </div>
                     </Link>
@@ -313,7 +333,12 @@ const FriendList = () => {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a7fc5fd676e2d7354f4a7f19b0967db7f2d99a7e161c7c156ac1ce03217cf2c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                       className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                     />
-                    <div>Offres d’emploi</div>
+                    <div>{getTranslation(
+                      `Job Offers`, // -----> Englais
+                      `Offres d’emploi` //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )}</div>
                   </div>
                 </div>
               </Link>
@@ -330,7 +355,12 @@ const FriendList = () => {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 my-auto w-4 aspect-square fill-white"
                       />
-                      <div>Publier une offre</div>
+                      <div>{getTranslation(
+                        `Publish an Offer`, // -----> Englais
+                        ` Publier une offre` //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )}</div>
                     </div>
                   )}
               </Link>
@@ -341,7 +371,13 @@ const FriendList = () => {
         </div>
         <div className="md:col-span-6 col-span-8 w-full   flex flex-col  md:px-0 ">
           <div className="justify-center items-start px-8 py-6 text-3xl font-bold whitespace-nowrap bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:max-w-full">
-            List des amis
+           
+            {getTranslation(
+                        `Friends list`, // -----> Englais
+                        `  List des amis` //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 ">
             {FriendRequest.length <= 0 && (

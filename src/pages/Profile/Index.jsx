@@ -819,7 +819,13 @@ const Index = () => {
 
   const handleDeleteClick = (id) => {
     const confirmDelete = window.confirm(
-      "Êtes-vous sûr de vouloir supprimer cette publication ?"
+      getTranslation(
+        `Are you sure you want to delete this post?`, // -----> Englais
+        ` Êtes-vous sûr de vouloir supprimer cette publication ?` //  -----> Francais
+        //   ``,  //  -----> Turkey
+        //   `` ,  //  -----> Allemagne
+      )
+      
     );
 
     if (confirmDelete) {
@@ -1360,7 +1366,13 @@ const Index = () => {
                 <PhotoGrid articlesWithPhoto={articlesWithPhoto} />
               ) : (
                 <div className="w-full mt-4 text-center">
-                  Aucun Photo pour le moment
+                   
+                  {getTranslation(
+                            `No photos at the moment.`, // -----> Englais
+                            ` Aucune Photo pour le moment.` //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )}
                 </div>
               )}
             </div>
@@ -1486,7 +1498,12 @@ const Index = () => {
                 <VideoGrid articlesWithVideo={articlesWithVideo} />
               ) : (
                 <div className="w-full mt-4 text-center">
-                  Aucun Video pour le moment
+                  {getTranslation(
+                            `No photos at the moment.`, // -----> Englais
+                            ` Aucune Photo pour le moment.` //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )}
                 </div>
               )}
             </div>

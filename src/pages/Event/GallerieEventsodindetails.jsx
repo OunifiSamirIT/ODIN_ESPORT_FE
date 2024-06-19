@@ -195,7 +195,11 @@ const Album = () => {
                           </svg>
                           <span className=" text-white">
                             {" "}
-                            Revenir aux Events
+                            {getTranslation(
+                                `Back to Events`, 
+                                `Revenir aux Events`, 
+                              )}
+                            
                           </span>
                         </button>
                       </Link>

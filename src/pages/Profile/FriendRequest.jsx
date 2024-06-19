@@ -361,7 +361,7 @@ const FriendRequest = () => {
                             <div>
                               {getTranslation(
                                 `ODIN Event`, // -----> Englais
-                                `Evénnement ODIN` //  -----> Francais
+                                `ODIN Event` //  -----> Francais
                                 //   ``,  //  -----> Turkey
                                 //   `` ,  //  -----> Allemagne
                               )}

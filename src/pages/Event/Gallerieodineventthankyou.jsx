@@ -100,7 +100,11 @@ const Album = () => {
           <div className="flex flex-col w-full max-w-[1115px]">
             <div className="flex gap-5 justify-between pt-4">
               <div className="flex-auto text-lg ml-2 md:text-3xl font-bold text-zinc-900">
-                Evènement qui pourraient vous intéresser
+                
+                {getTranslation(
+                                ` Events that might interest yous`, 
+                                `Evènement qui pourraient vous intéresser`, 
+                              )}
               </div>
             </div>
             <div className="px-2 mt-6">
@@ -134,7 +138,10 @@ const Album = () => {
                       </div>
                       <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
                         <div className="flex flex-col whitespace-nowrap text-zinc-900">
-                          <div className="text-xs font-light">Prix</div>
+                          <div className="text-xs font-light">{getTranslation(
+                                `Price`, 
+                                `Prix`, 
+                              )}</div>
                           <div className="mt-1 text-base font-semibold">
                             {value.prix} €
                           </div>

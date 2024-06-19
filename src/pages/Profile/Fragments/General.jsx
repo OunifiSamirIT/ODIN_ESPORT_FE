@@ -479,7 +479,12 @@ const General = ({ userInfo, sendNotification }) => {
                     </defs>
                   </svg>
                   <div className="grow self-start mt-1">
-                    {userInfo.agent.totalPlayer} Joueurs
+                    {userInfo.agent.totalPlayer} {getTranslation(
+                      `Players`, // -----> Englais
+                      `Joueurs` //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )}
                   </div>
                   <div className="grow self-start mt-1">
                     {userInfo.agent.totalPlayer}

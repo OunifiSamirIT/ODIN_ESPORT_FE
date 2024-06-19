@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Context } from "../../../index";
 
 function Login({ setAuthStatus }) {
   const [verificationMessage, setVerificationMessage] = useState("");
@@ -10,6 +11,7 @@ function Login({ setAuthStatus }) {
   const [loginError, setLoginError] = useState(false); // New state variable for login error
   const [invalidPassword, setInvalidPassword] = useState(false); // New state variable for invalid password
   const location = useLocation();
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   // Use state to track whether to reload the component
   const [shouldReload, setShouldReload] = useState(false);
@@ -62,7 +64,13 @@ function Login({ setAuthStatus }) {
           setIsEmailVerified(false);
           setVerificationMessage(
             <div className="bg-blue-200 text-base p-2 justify-center mt-8 mb-1 animate-pulse rounded-md">
-              Verifier Votre Compte pour seconnecter
+             
+
+              {getTranslation(
+              ` Verify your account to Log In`,
+              `  Vérifier Votre Compte pour se connecter`,) }
+                
+
             </div>
           );
         } else {

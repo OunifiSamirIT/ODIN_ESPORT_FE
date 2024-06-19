@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState, useRef } from "react";
 import { Config } from "../../../config";
 import { useNavigate } from "react-router";
 import Header from "../../../components/Header3";
-
+import { Context } from "../../../index";
 const VerificationCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
   const [error, setError] = useState(false);
@@ -10,7 +10,7 @@ const VerificationCode = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const inputRefs = useRef([]);
-
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   useEffect(() => {
     const storedUserId = localStorage.getItem("idusercode");
     const storedEmail = localStorage.getItem("useremail");
@@ -145,9 +145,19 @@ const VerificationCode = () => {
                   />
                 </svg>
               </h1>
-              <h2 className="text-2xl font-bold mt-2">Verify your account</h2>
+              <h2 className="text-2xl font-bold mt-2">
+                
+              {getTranslation(
+              ` Verify your account`,
+              ` Vérifier votre compte`,) }
+                
+                
+               </h2>
               <p className="text-gray-600">
-                Enter the passcode you just received on your email address :
+              {getTranslation(
+              ` Enter the passcode you just received on your email address :`,
+              ` Veuillez entrer le code que vous venez de recevoir à votre adresse e-mail :`,) }
+              
               </p>
               <p className="text-black-600 font-bold text-break">{email}</p>
             </div>
@@ -170,22 +180,38 @@ const VerificationCode = () => {
             </div>
             {error && (
               <p className="text-red-500 text-center mb-4">
-                Verification code invalid! Please verify the passcode
+
+
+{getTranslation(
+              ` Verification code invalid! Please verify the passcode.`,
+              `  Code de vérification invalide ! Veuillez vérifier le code.`,) }
+                
+               
               </p>
             )}
             <button
               onClick={handleSubmit}
               className="w-full bg-blue-500 text-white py-2 rounded-full hover:bg-blue-600"
             >
-              Verify
+              {getTranslation(
+              ` Verify`,
+              `Vérifier`,) }
+              
             </button>
             <div className="text-center mt-4 flex space-x-3 items-center justify-center ">
-              <span className="text-gray-600">Didn't receive the code?</span>
+              <span className="text-gray-600">
+              {getTranslation(
+              `Didn't receive the code?`,
+              `Je n'ai pas reçu le code? `,) }
+               </span>
               <button
                 onClick={handleResend}
                 className="text-blue-500 hover:underline border border-blue-500 rounded-full px-2 py-1 focus:outline-none focus:ring focus:border-blue-300"
               >
-                Resend
+                {getTranslation(
+              ` Resend`,
+              `Renvoyer`,) }
+                
               </button>
             </div>
           </div>

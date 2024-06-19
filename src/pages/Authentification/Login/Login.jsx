@@ -109,6 +109,7 @@ function Login({ setAuthStatus }) {
             <div className="flex flex-col w-[62%] max-md:ml-0 max-md:w-full  md:flex">
               <img
                 loading="lazy"
+                alt="cover"
                 srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/1cb97e1663c2da81f6d5683f20c7941dffda20d6bbb2d2c0c186a0b041803375?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                 className="grow w-full aspect-[1.0] max-md:max-w-full"
               />
@@ -285,14 +286,19 @@ function Login({ setAuthStatus }) {
 
                 <div className="flex gap-2 justify-between px-2 py-2 mt-2 text-base max-md:flex-wrap max-md:px-5 max-md:max-w-full flex-col">
                   <div className="flex-auto text-zinc-900  text-sm md:text-base text-center">
-                    Vous n'avez pas compte ?
+                    {getTranslation(
+                      `Don't have an account?`, // -----> Englais
+                      `Vous n'avez pas un compte? `, //  -----> Francais
+                      ``, //  -----> Turkey
+                      `` //  -----> Allemagne
+                    )}
                   </div>
                   <Link
                     to="/register"
                     className="flex-auto font-medium text-blue-600 underline text-sm md:text-base text-center"
                   >
                     {getTranslation(
-                      ` creat account`, // -----> Englais
+                      `Create Account`, // -----> Englais
                       `Créer un Compte `, //  -----> Francais
                       ``, //  -----> Turkey
                       `` //  -----> Allemagne
