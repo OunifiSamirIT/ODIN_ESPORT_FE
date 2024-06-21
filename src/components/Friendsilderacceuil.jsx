@@ -18,10 +18,12 @@ function FriendsSlider() {
         }
         const data = await response.json();
         // Récupérez l'ID de l'utilisateur connecté à partir du local storage
-        const storedUserData = localStorage.getItem("user");
+        const storedUserData = JSON.parse(localStorage.getItem("user"));
         const id = storedUserData ? storedUserData.id : null;
+        console.log(storedUserData, "user dhiaaaaaaaaaaaaaaaabbbbbbbbbb");
         // Filtrez les utilisateurs pour exclure l'utilisateur connecté
-        const filteredData = data.filter((agent) => agent?.user?.id !== id);
+        const filteredData = data.filter((agent) => agent.user.id !== id);
+        console.log(filteredData, "ahrlawasahla");
         setAgents(filteredData);
         setLoading(false);
       } catch (error) {
