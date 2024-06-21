@@ -192,6 +192,16 @@ function Root() {
           setDarkTheme(!_currentTheme);
         },
       });
+      gsap.to(".dark-gray-bg", {
+        delay: 1,
+
+        backgroundColor: "rgb(243 244 246 )",
+        background: "rgb(243 244 246 )",
+        color: "#111",
+        onComplete: () => {
+          setDarkTheme(!_currentTheme);
+        },
+      });
       gsap.to(".dark-light-bg", {
         delay: 1,
 
@@ -261,6 +271,16 @@ function Root() {
         delay: 1,
 
         color: "#fff",
+      });
+      gsap.to(".dark-gray-bg", {
+        delay: 1,
+
+        backgroundColor: "#444",
+        background: "#444",
+        color: "#fff",
+        onComplete: () => {
+          setDarkTheme(!_currentTheme);
+        },
       });
       gsap.to(".dark-bg", {
         delay: 1,

@@ -296,8 +296,7 @@ function Header() {
 
         function getLink() {
           const url = {
-            LOCAL_URL: "https://odinesport.com/",
-            HOST_URL: "https://odinesport.com/home",
+            LOCAL_URL: Config.LOCAL_URL ==  "http://localhost:5000" ? "http://localhost:3000" :"https://odinesport.com/",
           };
           if (
             lastNotificationData.forWichAction == "like" ||
@@ -309,7 +308,6 @@ function Header() {
           }
 
           if (
-            lastNotificationData.forWichAction == "share" ||
             lastNotificationData.forWichAction == "AcceptRequest"
           ) {
             //localhost:3000/friends
@@ -334,13 +332,13 @@ function Header() {
           }
 
           if (lastNotificationData.forWichAction == "camp") {
-            return url.LOCAL_URL + "/defaultgroup/";
+            return url.LOCAL_URL + "/defaultgroup/" + lastNotificationData.postId;
           }
           if (lastNotificationData.forWichAction == "challenge") {
-            return url.LOCAL_URL + "/challenges";
+            return url.LOCAL_URL + "/challenges/" + lastNotificationData.postId ;
           }
           if (lastNotificationData.forWichAction == "event") {
-            return url.LOCAL_URL + "/defaultgroupEvents/";
+            return url.LOCAL_URL + "/defaultgroupevent/" + lastNotificationData.postId;
           }
         }
         //  let bodyContent =  lastNotificationData.fromUser_name + " " + getBodyContent()
@@ -378,7 +376,10 @@ function Header() {
       setUnreadedData(unReadedData);
     }, 1000);
   };
+
+  const [latestNotificationLength, setLatestNotificationLength]  = useState(0) 
   useEffect(() => {
+    
     const socketInstance = io(Config.LOCAL_URL, { transports: ["websocket"] });
     setSocket(socketInstance);
 
@@ -412,11 +413,14 @@ function Header() {
     setTimeout(() => {
       setNotifyBlocked(false);
     }, 6000);
-    if (!isNotifyBlocked && notificationData.length != 0) {
+    if (!isNotifyBlocked && notificationData.length != 0 && notificationData.length >= latestNotificationLength) {
+      // alert(notificationData.length >= latestNotificationLength)
       // animateRinging()
       animateBell();
       notifyBrowser();
       tone.current.play();
+      setLatestNotificationLength(notificationData.length)
+      
     }
   }, [notificationData.length]);
 
@@ -756,7 +760,7 @@ function Header() {
             <span className=" mr-5 ">
               <LanguageToggler isIcon={true} hide={true} color={true} />
             </span>
-            {/* 
+{/*             
 <span style={{ 
   marginRight: 40
 }}>

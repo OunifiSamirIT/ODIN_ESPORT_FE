@@ -78,10 +78,11 @@ export default function SelfNot({
   };
   function getLink() {
     const url = {
-      LOCAL_URL: "https://odinesport.com",
-      HOST_URL: "http://localhost:3000",
+      LOCAL_URL: Config.LOCAL_URL ==  "http://localhost:5000" ? "http://localhost:3000" :"https://odinesport.com/",
+      
     };
     if (
+      notData.forWichAction == "share" ||
       notData.forWichAction == "like" ||
       notData.forWichAction == "comment" ||
       notData.forWichAction == "reply" ||
@@ -91,7 +92,6 @@ export default function SelfNot({
     }
 
     if (
-      notData.forWichAction == "share" ||
       notData.forWichAction == "AcceptRequest"
     ) {
       return url.LOCAL_URL + "/profile/" + notData.fromUser_id;
@@ -109,13 +109,13 @@ export default function SelfNot({
     }
 
     if (notData.forWichAction == "camp") {
-      return url.LOCAL_URL + "/defaultgroup/";
+      return url.LOCAL_URL + "/defaultgroup/" + notData.postId;
     }
     if (notData.forWichAction == "challenge") {
-      return url.LOCAL_URL + "/challenges";
+      return url.LOCAL_URL + "/challenges/details/" + notData.postId;
     }
     if (notData.forWichAction == "event") {
-      return url.LOCAL_URL + "/defaultgroupEvents/";
+      return url.LOCAL_URL + "/defaultgroupevent/" + notData.postId;
     }
   }
   return (
@@ -367,7 +367,7 @@ export default function SelfNot({
             notData.forWichAction == "likeComment" ||
             notData.forWichAction == "replyComment") && (
             <>
-              {notData.actionId == 0 && notData.postImage == "" && (
+              {notData.actionId == 1 && notData.postImage == "" && (
                 <div className="relative flex justify-center items-center  w-[50px] h-[50px]">
                   <img
                     src={postContentImg}
@@ -396,7 +396,7 @@ export default function SelfNot({
                 </div>
               )}
 
-              {notData.postImage && (
+              {notData.postImage && notData.actionId == 0 && (
                 <img
                   loading="lazy"
                   src={
@@ -487,7 +487,9 @@ export default function SelfNot({
           {notData.isReaded == 0 && (
             <div className="orangeStatusIsReaded"></div>
           )}
+
         </div>
+        {/* <img src={remove} alt="" className="w-5 invert-0 mr-5 ml-3" onClick={showHideDeltebtn}/> */}
       </div>
       <div className="endline"></div>
     </div>
