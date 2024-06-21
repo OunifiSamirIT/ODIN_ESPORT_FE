@@ -42,6 +42,10 @@ if (!popupNotificationIsHidden) {
             duration: 0,
             opacity: 0,
           })
+          .to(".desktopPopUpNotificationCon", {
+            duration: 0,
+            opacity: 0,
+          })
         }
         else {
           setIsActive(false)
