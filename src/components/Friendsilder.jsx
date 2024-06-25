@@ -9,7 +9,7 @@ function FriendsSlider() {
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg } = React.useContext(Context);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -66,7 +66,9 @@ function FriendsSlider() {
   };
 
   return (
-    <div className="flex flex-col mt-1 w-full bg-white rounded-md shadow-sm">
+    <div 
+    style={dark_light_bg}
+    className="flex flex-col mt-1 w-full rounded-md shadow-sm">
       {/* <div className="flex gap-2 justify-between px-6 pt-4 max-md:px-5">
                 <div className="text-lg font-bold text-zinc-900">
                     Personnes que
@@ -76,7 +78,9 @@ function FriendsSlider() {
               
             </div> */}
       <div className="flex justify-between items-center px-6 pt-3 max-md:px-5">
-        <div className="text-lg font-bold text-zinc-900">
+        <div 
+    style={dark_light_bg}
+    className="text-lg font-bold">
           {getTranslation(
             ` People you might know`, // -----> Englais
             `Personnes que vous pourriez connaître` //  -----> Francais
@@ -90,10 +94,12 @@ function FriendsSlider() {
         <Slider ref={sliderRef} style={{ width: "93%" }} {...friendSettings}>
           {agents.map((value, index) => (
             <div
+    style={dark_bg}
+
               key={index}
-              className="card w150 d-block border-0 bg-gray-100  rounded-3 overflow-hidden mb-3 me-3 "
+              className="card w150 d-block border-0  rounded-3 overflow-hidden mb-3 me-3 "
             >
-              <div className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center">
+              <div style={dark_bg} className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center">
                 <Link to={`/profile/${value?.user?.id}`}>
                   <figure className="avatar mb-1  d-flex justify-content-center align-items-center">
                     <img
@@ -103,7 +109,7 @@ function FriendsSlider() {
                     />
                   </figure>
                 </Link>
-                <h4 className="fw-700 font-xssss mt-3 mb-1 d-block w-100">
+                <h4 style={dark_bg} className="fw-700 font-xssss mt-3 mb-1 d-block w-100">
                   {" "}
                   {value?.user?.nom} {value?.user?.prenom}{" "}
                 </h4>

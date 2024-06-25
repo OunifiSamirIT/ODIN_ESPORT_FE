@@ -55,8 +55,12 @@ import SkeletonArticleCard from "./HomeSkeletonPost";
 import CreatePost from "../../components/CreatePostss";
 import CreatePostModal from "../../components/CreatePostModal";
 import Card from './../Challenge/Component/Card';
+import { Context } from "../../index";
 
 function Home() {
+
+  const { dark_bg } = React.useContext(Context);
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [eventHasMore, setEventHasMore] = useState(true);
@@ -275,7 +279,7 @@ function Home() {
       {/* <Header />
        */}
 
-      <div className="flex flex-col pb-20  bg-zinc-100">
+      <div style={dark_bg} className="flex flex-col pb-20 ">
         <Header />
         <div className="self-center px-3 md:px-1  mt-24 w-full  max-w-[1280px] max-md:mt-10 max-md:max-w-full">
           <div className="flex relative gap-3 max-md:flex-col max-md:gap-0 ">

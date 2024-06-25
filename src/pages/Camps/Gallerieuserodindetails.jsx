@@ -15,7 +15,7 @@ import { Context } from "../../index";
 const Album = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
 
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
 
@@ -147,7 +147,7 @@ const Album = () => {
     <>
       <Header />
 
-      <div className="flex flex-col pb-12    mt-0 lg:mt-8 bg-zinc-100">
+      <div style={dark_bg} className="flex flex-col pb-12    mt-0 lg:mt-8">
         <div className="self-center md:mt-20  w-full max-w-[1344px]  max-md:max-w-full">
           <div className="flex max-md:flex-col max-md:gap-0">
             {/* left menu */}
@@ -164,9 +164,10 @@ const Album = () => {
 
             {/* left menu */}
 
-            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
+            <div  className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
-                <div className="justify-between px-8 py-6 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+                        
+                <div style={dark_light_bg} className="justify-between px-8 py-6 rounded-xl max-md:px-5 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <Link to="/defaultgroup">
@@ -213,7 +214,7 @@ const Album = () => {
                       />
                     </div>
                     <div className="flex flex-col mt-[-12px] ml-5 w-[67%] max-md:ml-0 max-md:w-full">
-                      <div className="flex flex-col grow text-base text-zinc-900  max-md:max-w-full">
+                      <div className="flex flex-col grow text-base  max-md:max-w-full">
                         <div className="text-3xl max-md:text-xl font-bold max-md:max-w-full">
                           {albumDetails.album_name}
                         </div>
@@ -227,6 +228,7 @@ const Album = () => {
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/28072299919cd6610830b1b847db76fa736c975769fafa1e967a25837aa2c386?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
+                              style={dark_img}
                             />
                             <div className="flex items-center justify-center mt-2">
                               {albumDetails.Duree}
@@ -236,12 +238,16 @@ const Album = () => {
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="my-auto w-px aspect-[0.04] stroke-[1px] stroke-gray-200"
+                            style={dark_img}
+
                           />
                           <div className="flex flex-col flex-1">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e7fe0f54388243cde5eda2567d634e20fcaedc6593a7e131847cf26794a55f35?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
+                              style={dark_img}
+
                             />
                             <div className="flex items-center justify-center mt-2">
                               {albumDetails.payscamps}
@@ -251,12 +257,16 @@ const Album = () => {
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="my-auto w-px aspect-[0.04] stroke-[1px] stroke-gray-200"
+                            style={dark_img}
+
                           />
                           <div className="flex flex-col flex-1">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/545e939511a47d6db83d17be743c494bcd9b7824f609f0def7b7a0a0da2ac415?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
+                              style={dark_img}
+
                             />
                             <div className="flex items-center justify-center mt-2">
                               {" "}
@@ -267,12 +277,16 @@ const Album = () => {
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="my-auto w-px aspect-[0.04] stroke-[1px] stroke-gray-200"
+                            style={dark_img}
+
                           />
                           <div className="flex flex-col flex-1">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3d803e2aa84cc65dafa06294cf90b747ef51e660e2c45f13da33c1f8a6c4b0e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
+                              style={dark_img}
+
                             />
 
                             <div className="flex items-center justify-center mt-2">
@@ -283,12 +297,16 @@ const Album = () => {
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="my-auto w-px aspect-[0.04] stroke-[1px] stroke-gray-200"
+                            style={dark_img}
+
                           />
                           <div className="flex flex-col flex-1">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/dff4dfbc9781a939e5690bf8f047fdfc420dbf36c9e00ec905ac56bf410a2e14?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center aspect-[0.9] fill-zinc-900 w-[18px] mr-3"
+                              style={dark_img}
+
                             />
                             <div className="flex items-center justify-center mt-2">
                               {albumDetails.prix} €
@@ -303,6 +321,7 @@ const Album = () => {
                                   loading="lazy"
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/4185b5905b50428887ea8bc5135f9d41832f7a4a61c88cd3baa7301b1591ace2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="w-5 aspect-square"
+                                  
                                 />
 
                                 <button

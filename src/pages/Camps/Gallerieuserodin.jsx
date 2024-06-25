@@ -22,7 +22,7 @@ const Album = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const navigate = useNavigate();
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
 
   const [searchDuree, setSearchDuree] = useState("");
   const [searchPays, setSearchPays] = useState("");
@@ -206,7 +206,7 @@ const Album = () => {
     <>
       <Header />
 
-      <div className="flex flex-col pb-12    mt-0 lg:mt-8 bg-zinc-100">
+      <div style={dark_bg} className="flex flex-col pb-12    mt-0 lg:mt-8 ">
         <div className="self-center md:mt-20  w-full max-w-[1344px]  max-md:max-w-full">
           <div className="flex max-md:flex-col max-md:gap-0">
             {/* left menu */}
@@ -225,8 +225,8 @@ const Album = () => {
 
             <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow  max-md:max-w-full">
-                <div className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 bg-white rounded-xl max-md:px-5 max-md:max-w-full">
-                  <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
+                <div style={dark_light_bg} className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 rounded-xl max-md:px-5 max-md:max-w-full">
+                  <div className="text-3xl font-bold  max-md:max-w-full">
                     {getTranslation(
                       `Search for a Camp`, // -----> Englais
                       ` Chercher un Camp` //  -----> Francais
@@ -237,12 +237,13 @@ const Album = () => {
                   <div className="flex-wrap gap-y-4 justify-between content-start mt-2 max-md:max-w-full">
                     <div className="flex gap-3 md:gap-5 max-md:flex-col max-md:gap-0">
                       <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col grow text-base text-zinc-900 max-md:mt-10">
+                        <div className="flex flex-col grow text-base  max-md:mt-10">
                           <div className="flex gap-2 md:gap-4 justify-between px-4 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/803e02712b2b4c86f9a16b3c2fd85a1f2520ba9fac821299d322e0a17e04e0df?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square"
+                              style={dark_img}
                             />
                             <div className="grow">
                               {" "}
@@ -260,11 +261,15 @@ const Album = () => {
                                 onChange={handleDureeChange}
                                 value={searchDuree}
                                 className="w-full"
+                                style={{
+                                  backgroundColor: "transparent"
+                                }}
                               >
                                 {dureeOptions.map((option) => (
                                   <option
                                     key={option.value}
                                     value={option.value}
+                                    style={dark_bg}
                                   >
                                     {option.label}
                                   </option>
@@ -277,6 +282,8 @@ const Album = () => {
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/50a0695569327f7204d974bc36853e47face4848f228a6c678484e0d7aca8146?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="aspect-[0.9] fill-zinc-900 w-[18px]"
+                              style={dark_img}
+
                             />
                             <div className="grow">
                               {" "}
@@ -304,12 +311,14 @@ const Album = () => {
                       </div>
 
                       <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col whitespace-nowrap text-zinc-900 ">
+                        <div className="flex flex-col whitespace-nowrap  ">
                           <div className="flex gap-4 justify-between px-4 text-base">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bfb1d26cb36312136826da85a4c47e65f704f7a4f080f319b159e471c18e5bc?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square"
+                              style={dark_img}
+
                             />
                             <div className="grow">
                               {getTranslation(
@@ -324,7 +333,8 @@ const Album = () => {
                           <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid rounded-[30px]">
                             <Select
                               options={options}
-                              placeholder="Pays camps"
+                              placeholder={<div style={dark_light_bg} >Pays camps</div>} 
+
                               styles={{
                                 control: (provided, state) => ({
                                   ...provided,
@@ -339,9 +349,16 @@ const Album = () => {
 
                                   width: "100%",
                                   fontSize: "12px", // Set the desired font size
-                                  backgroundColor: "#ffffff", // Set the background color
                                   borderWidth: "none",
+                                  ...dark_light_bg,
                                 }),
+                                menuList: base => ({
+                                  ...base,
+                                  // kill the white space on first and last option
+                                  color: "#111"
+                                })
+
+
                               }}
                               onChange={(selectedOption) =>
                                 setSearchPays(
@@ -372,12 +389,14 @@ const Album = () => {
                       </div>
 
                       <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                        <div className="flex flex-col grow text-base whitespace-nowrap text-zinc-900 ">
+                        <div className="flex flex-col grow text-base whitespace-nowrap  ">
                           <div className="flex gap-4 justify-between px-4 whitespace-nowrap">
                             <img
                               loading="lazy"
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/a38d56790789553e5ad61b7be1f1c9794b8856c20bce58844081006640976d32?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square"
+                              style={dark_img}
+
                             />
                             <div className="grow">
                               {getTranslation(
@@ -392,6 +411,7 @@ const Album = () => {
                             <div className="flex gap-5 justify-between px-4 py-3 rounded-md">
                               <DatePicker
                                 dateFormat="dd-MM-yyyy"
+                                className="bg-transparent"
                                 selected={searchDateDB} // Set the selected date from your state
                                 onChange={(date) => handleDateDBChange(date)} // Handle date change
                               />
@@ -457,8 +477,9 @@ const Album = () => {
                     {filteredCamps.map((value, index) => (
                       <div key={index} className="flex flex-col">
                         <div
+                        style={dark_light_bg}
                           onClick={() => handleCardClick(value.id)}
-                          className="flex flex-col grow items-start pb-4 mx-auto w-full bg-white rounded-xl"
+                          className="flex flex-col grow items-start pb-4 mx-auto w-full  rounded-xl"
                         >
                           <img
                             loading="lazy"
@@ -466,10 +487,10 @@ const Album = () => {
                             className="self-stretch w-full aspect-square rounded-t-xl object-cover"
                           />
                           <div className="pl-3 pr-2">
-                            <div className="mt-4 px-2 self-start text-break font-semibold text-zinc-900">
+                            <div className="mt-4 px-2 self-start text-break font-semibold ">
                               {value.album_name}
                             </div>
-                            <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap text-zinc-400 w-[282px]">
+                            <div className="flex justify-between mt-1 px-2 max-w-full text-xs font-light whitespace-nowrap w-[282px]">
                               <div className="flex self-start gap-2">
                                 <div className="flex self-start ">
                                   {formatDatee(value.date_debut)}
@@ -481,20 +502,20 @@ const Album = () => {
                                 {value.payscamps}
                               </div>
                             </div>
-                            <div className="mt-2 text-xs text-break mx-2 font-light text-black">
+                            <div className="mt-2 text-xs text-break mx-2 font-light">
                               {value.description.length > 100
                                 ? value.description.slice(0, 100) + "..."
                                 : value.description}
                             </div>
                             <div className="flex gap-5 px-2 justify-between items-center mt-3  max-w-full w-[282px]">
                               <div className="flex flex-col whitespace-nowrap ">
-                                <div className="text-xs font-light text-zinc-400">
+                                <div className="text-xs font-light ">
                                   {getTranslation(
                                     `Price`, // -----> Englais
                                     `Prix` //  -----> Francais
                                   )}
                                 </div>
-                                <div className="mt-1 text-base text-zinc-900 font-semibold">
+                                <div className="mt-1 text-base font-semibold">
                                   {value.prix} €
                                 </div>
                               </div>

@@ -31,7 +31,7 @@ function Friends() {
   const [userpf, setUserpf] = useState(null);
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const [friendRequests, setFriendRequests] = useState([]);
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img } = React.useContext(Context);
 
   const acceptInvitation = async (id) => {
     const response = await fetch(
@@ -86,9 +86,9 @@ function Friends() {
   // const pendingFriendRequests = friendRequests?.receiver || [];
 
   return (
-    <div className="card w-100 shadow-xss rounded-md border-0 mb-3">
-      <div className="card-body d-flex align-items-center p-4">
-        <h4 className=" mb-0 font-bold text-lg text-grey-900 mr-2">
+    <div style={dark_light_bg} className="card w-100 shadow-xss rounded-md border-0 mb-3">
+      <div  className="card-body d-flex align-items-center p-4">
+        <h4 style={dark_light_bg} className=" mb-0 font-bold text-lg  mr-2">
           {getTranslation(
             `Requests`, // -----> Englais
             `Demandes` //  -----> Francais
@@ -125,12 +125,12 @@ function Friends() {
               </Link>
               <div>
                 <Link to={`/profile/${item?.friendRequest?.receiver?.id}`}>
-                  <h4 className="fw-700 text-grey-900 mb-1 font-xssss mt-4">
+                  <h4 style={dark_light_bg} className="fw-700  mb-1 font-xssss mt-4">
                     {item?.friendRequest?.receiver?.nom}{" "}
                     {item?.friendRequest?.receiver?.prenom}
                   </h4>
                 </Link>
-                <h3 className="fw-700 text-grey-500 mb-1 font-xssss mt-2">
+                <h3 style={dark_light_bg} className="fw-700 mb-1 font-xssss mt-2">
                   {item.receiverUserProfile?.user?.profil === "other" &&
                     item?.receiverUserProfile?.other?.profession}
                   {item.receiverUserProfile?.user?.profil === "player" &&

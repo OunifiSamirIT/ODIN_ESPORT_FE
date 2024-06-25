@@ -151,6 +151,42 @@ function Root() {
   let [_currentTheme, setDarkTheme] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const dark_light_bg = {
+    transition: ".5s",
+    backgroundColor: !_currentTheme ? "#fff" : "#444",
+    background: !_currentTheme ? "#fff" : "#444",
+    color: !_currentTheme ? "#111" : "#fff",
+  }
+  const dark_fill_svg = {
+    transition: ".5s",
+    fill:  !_currentTheme ? "#111" : "#fff",
+  }
+  const dark_img = {
+    transition: ".5s",
+    filter:  !_currentTheme ? "invert(0)" : "invert(1)",
+  }
+  
+  const dark_bg = {
+    transition: ".5s",
+    backgroundColor: !_currentTheme ? "rgb(244 244 245 /1)" : "#333",
+    background: !_currentTheme ? "rgb(244 244 245 /1)" : "#333",
+    color: !_currentTheme ? "#111" : "#fff",
+  }
+
+  const dark_gray_color = {
+    transition: ".5s",
+    color: _currentTheme ? "rgb(244 244 245 /0.8)" : "#65676B",
+  }
+
+  const dark_gray_svg = {
+    transition: ".5s",
+    fill:  _currentTheme ? "rgb(244 244 245 /.8)" : "#65676B",
+  }
+
+  const dark_border = {
+    transition: ".5s",
+    border: _currentTheme ? "1px solid #ffffff90" : "1px solid  #ccc",
+  }
   let handleDarkModeToggler = () => {
     if (_currentTheme) {
       gsap
@@ -166,11 +202,14 @@ function Root() {
           opacity: 1,
         });
       gsap.to(".dark-Wide-bg", {
-        delay: 1,
+        delay: .40,
 
         backgroundColor: "#f4f4f5",
         background: "#f4f4f5",
         color: "#111",
+        onComplete: () => {
+          setDarkTheme(!_currentTheme);
+        },
       });
       gsap.to("body", {
         delay: 1,
@@ -188,9 +227,6 @@ function Root() {
         backgroundColor: "#fff",
         background: "#fff",
         color: "#111",
-        onComplete: () => {
-          setDarkTheme(!_currentTheme);
-        },
       });
       gsap.to(".dark-gray-bg", {
         delay: 1,
@@ -198,9 +234,7 @@ function Root() {
         backgroundColor: "rgb(243 244 246 )",
         background: "rgb(243 244 246 )",
         color: "#111",
-        onComplete: () => {
-          setDarkTheme(!_currentTheme);
-        },
+        
       });
       gsap.to(".dark-light-bg", {
         delay: 1,
@@ -257,10 +291,14 @@ function Root() {
           rotate: "0deg",
         });
       gsap.to(".dark-Wide-bg", {
-        delay: 1,
+        delay: .40,
         backgroundColor: "#333",
         background: "#333",
         color: "#fff",
+
+        onComplete: () => {
+          setDarkTheme(!_currentTheme);
+        },
       });
       gsap.to("body", {
         delay: 1,
@@ -278,9 +316,6 @@ function Root() {
         backgroundColor: "#444",
         background: "#444",
         color: "#fff",
-        onComplete: () => {
-          setDarkTheme(!_currentTheme);
-        },
       });
       gsap.to(".dark-bg", {
         delay: 1,
@@ -288,9 +323,7 @@ function Root() {
         backgroundColor: "#333",
         background: "#333",
         color: "#fff",
-        onComplete: () => {
-          setDarkTheme(!_currentTheme);
-        },
+       
       });
       gsap.to(".dark-light-bg", {
         delay: 1,
@@ -436,6 +469,13 @@ function Root() {
           getTranslation: getTranslation,
           handleDarkModeToggler: handleDarkModeToggler,
           _currentTheme: _currentTheme,
+          dark_light_bg: dark_light_bg,
+          dark_fill_svg: dark_fill_svg,
+          dark_img: dark_img,
+          dark_bg: dark_bg,
+          dark_border: dark_border,
+          dark_gray_color:dark_gray_color,
+          dark_gray_svg:dark_gray_svg
         }}
       >
         <BrowserRouter basename={"/"}>

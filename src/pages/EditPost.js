@@ -14,6 +14,8 @@ import { BsFiletypeGif } from "react-icons/bs";
 import Loading from "../components/Loading";
 import { useForm } from "react-hook-form";
 import { Config } from "../config";
+import { Context } from "../index";
+
 function EditPost({ articleId, onClose }) {
   // const { articleId } = useParams();
 
@@ -27,6 +29,7 @@ function EditPost({ articleId, onClose }) {
   const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
   const [originalArticle, setOriginalArticle] = useState(null);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false); // New state
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
 
   const {
     register,
@@ -146,23 +149,23 @@ function EditPost({ articleId, onClose }) {
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
   return (
     <Fragment>
-      <div className="flex flex-col items-center px-10 py-2 w-full  text-base bg-white rounded-xl max-w-[772px] max-md:px-5">
-        <div className="text-xl text-center md:text-3xl flex justify-center items-center font-bold text-black w-full">
+      <div style={dark_light_bg} className="flex flex-col items-center px-10 py-2 w-full  text-base rounded-xl max-w-[772px] max-md:px-5">
+        <div className="text-xl text-center md:text-3xl flex justify-center items-center font-bold  w-full">
           Modifier votre publication
         </div>
         <form className="w-full" onSubmit={handleUpdateArticle}>
-          <div className="flex flex-col justify-center py-2 mt-6 w-full font-light bg-white rounded-xl text-neutral-500 max-md:max-w-full">
+          <div className="flex flex-col justify-center py-2 mt-6 w-full font-light rounded-xl  max-md:max-w-full">
             <div className="flex flex-col md:flex-row md:gap-4  ">
               <img
                 src={storedUserData.image}
                 alt="icon"
                 className="  w-14 h-14 mb-2 object-cover rounded-full aspect-square  object-center"
               />
-              <div className="flex-1 justify-center py-4 pr-1 pl-1 bg-gray-100 rounded-[30px] max-md:pl-5 max-md:max-w-full">
+              <div style={dark_border} className="flex-1 justify-center py-4 pr-1 pl-1 rounded-[30px] max-md:pl-5 max-md:max-w-full">
                 <div className=" flex  ">
                   <textarea
                     name="description"
-                    className="flex-1 justify-center pb-10 w-full pr-1 pl-1  bg-gray-100   "
+                    className="flex-1 justify-center pb-10 bg-transparent w-full pr-1 pl-1     "
                     value={editArticle?.description}
                     onChange={(e) =>
                       setEditArticle((prev) => ({

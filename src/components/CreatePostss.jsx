@@ -11,6 +11,9 @@ import { Context } from "../index";
 
 
 function CreatePost({ setArticles, onClose }) {
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg } = React.useContext(Context);
+
+
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const {
     register,
@@ -35,7 +38,6 @@ function CreatePost({ setArticles, onClose }) {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
 
   const loadRemainingArticles = (remainingArticles) => {
@@ -166,7 +168,7 @@ function CreatePost({ setArticles, onClose }) {
 
   return (
     <div className="flex flex-col ml-5 w-[90%] h-[425px]  md:mt-0  max-md:ml-0 max-md:w-full">
-      <div className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-3">
+      <div style={dark_light_bg} className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-3">
         <div className="card-body p-2 position-relative">
 
           <form className="h-[300px] flex flex-col" onSubmit={handleSubmit(handlePostSubmit)}>
@@ -383,7 +385,7 @@ function CreatePost({ setArticles, onClose }) {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                     className="aspect-square w-[25px]"
                   />
-                  <span className="d-none-xs ml-2">Photo</span>
+                  <span style={dark_light_bg} className="d-none-xs ml-2">Photo</span>
                 </label>
                 <label
                   className="d-flex align-items-center font-xssss fw-600 mt-1 ls-1 text-grey-700 text-dark"
@@ -401,7 +403,7 @@ function CreatePost({ setArticles, onClose }) {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                     className="aspect-square w-[25px]"
                   />
-                  <span className="d-none-xs ml-2">  {getTranslation(
+                  <span style={dark_light_bg} className="d-none-xs ml-2">  {getTranslation(
                     `Video`,  // -----> Englais
                     `Vidéo`, //  -----> Francais
                   )}</span>
@@ -423,7 +425,7 @@ function CreatePost({ setArticles, onClose }) {
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                     className="aspect-[1.2] fill-slate-500 w-[30px]"
                   />{" "}
-                  <span className="d-none-xs ml-2">
+                  <span style={dark_light_bg} className="d-none-xs ml-2">
                     {getTranslation(
                       `GIF`,  // -----> Englais
                       `GIF`, //  -----> Francais

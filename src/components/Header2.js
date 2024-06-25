@@ -760,7 +760,7 @@ function Header() {
             <span className=" mr-5 ">
               <LanguageToggler isIcon={true} hide={true} color={true} />
             </span>
-{/*             
+            
 <span style={{ 
   marginRight: 40
 }}>
@@ -774,7 +774,7 @@ function Header() {
               className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
             />
           </div>
-</span> */}
+</span> 
 
             <DesktopNotification
               deleteNotData={deleteNotData}
