@@ -12,7 +12,10 @@ module.exports = {
       colors : {
         'orange' : {
           new : '#FF7F00'
-        } 
+        },
+        'gray' : {
+          hover : 'rgba(46, 113, 235, 0.1)',
+        }
       },
       
     },

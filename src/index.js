@@ -420,6 +420,53 @@ function Root() {
       >
         <BrowserRouter basename={"/"}>
           <Routes>
+            <Route exact path="/admin/album" element={<Album />} />
+            <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
+            <Route exact path="/admin/albumevents" element={<Albumevents />} />
+            <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
+            <Route exact path="/admin" element={<AdminHome />} />
+            <Route exact path="/admin/users" element={<Users />} />
+            <Route exact path="/admin/users/create" element={<CreateUser />} />
+            <Route exact path="/admin/users/edit/:id" element={<EditUser />} />
+            <Route exact path="admin/events" element={<EventA />} />
+            <Route exact path="/admin/album" element={<Album />} />
+            <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
+            <Route exact path="/admin/albumevents" element={<Albumevents />} />
+            <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
+            <Route
+              exact
+              path="/admin/albumevents/create"
+              element={<AddAlbumEvents />}
+            />
+            <Route exact path="/admin/album/create" element={<AddAlbum />} />
+            <Route
+              exact
+              path="/admin/albumcamps/create"
+              element={<AddAlbumcamps />}
+            />
+            <Route exact path="/admin/blog" element={<AdminBlog />} />
+            <Route exact path="/admin/blog/create" element={<AddArticle />} />
+            <Route
+              exact
+              path="/admin/blog/edit/:articleId"
+              element={<EditBlog />}
+            />
+            <Route exact path="/admin/challenge" element={<AdminChallenges />} />
+            <Route
+              exact
+              path="/admin/challenge/create"
+              element={<AddChallenge />}
+            />
+            <Route
+              exact
+              path="/admin/challenge/update/:articleId"
+              element={<EditBlog />}
+            />
+            <Route exact path="/admin" element={<AdminHome />} />
+            <Route exact path="/admin/users" element={<Users />} />
+            <Route exact path="/admin/users/create" element={<CreateUser />} />
+            <Route exact path="/admin/users/edit/:id" element={<EditUser />} />
+            <Route exact path="admin/events" element={<EventA />} />
             <Route exact path="/" element={<Demo />} />
             <Route exact path="/Test" element={<Test />} />
             <Route

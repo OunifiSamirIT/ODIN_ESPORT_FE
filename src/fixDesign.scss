@@ -861,3 +861,16 @@ flex: 1;
 }
 
 
+// .isActive {
+//   transform: scale(1.25);
+//   color: #2E71EB;
+// }
+.isActive{
+  transform: scale(1.25);
+  color: #2E71EB;
+  transition: all 1s ease-in-out;
+}
+
+.isActive svg, .isActive path {
+  fill: #2E71EB;
+}

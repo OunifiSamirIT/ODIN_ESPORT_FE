@@ -55,6 +55,7 @@ import SkeletonArticleCard from "./HomeSkeletonPost";
 import CreatePost from "../../components/CreatePostss";
 import CreatePostModal from "../../components/CreatePostModal";
 import Card from './../Challenge/Component/Card';
+import ChallengeSideBar from "../../components/HomePage/ChallengeSideBar";
 
 function Home() {
   const [data, setData] = useState([]);
@@ -280,7 +281,6 @@ function Home() {
         <div className="self-center px-3 md:px-1  mt-24 w-full  max-w-[1280px] max-md:mt-10 max-md:max-w-full">
           <div className="flex relative gap-3 max-md:flex-col max-md:gap-0 ">
             {/* left menu */}
-
             <LeftMenu
               id={id}
               shouldShowAgentItem={shouldShowAgentItem}

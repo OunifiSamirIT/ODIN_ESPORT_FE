@@ -1,7 +1,5 @@
 import React from "react";
 import Header from "../../components/Header2";
-import { Context } from "../../index";
-
 import {
   Link,
   Navigate,
@@ -22,7 +20,6 @@ import moment from "moment";
 
 function HomeOffre() {
   const [album, setAlbum] = useState([]);
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [offerToUpdate, setOfferToUpdate] = useState(null);
@@ -373,12 +370,7 @@ function HomeOffre() {
                       </svg>
                     </div>
                     <div className=" dark-bg  font-['Sora'] text-xl font-medium leading-[normal]">
-                    {getTranslation(
-                    `Home`, // -----> Englais
-                    `Acceuil` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}
+                      Acceuil
                     </div>
                   </div>
                 </Link>
@@ -419,12 +411,7 @@ function HomeOffre() {
                       </svg>
                     </div>
                     <div className=" dark-bg  text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    {getTranslation(
-                    `Profile`, // -----> Englais
-                    `Profil` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}
+                      Profil
                     </div>
                   </div>{" "}
                 </Link>
@@ -493,11 +480,7 @@ function HomeOffre() {
                           </svg>
                         </div>
                         <div className=" dark-bg  text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                        {getTranslation(
-                    `Players`, // -----> Englais
-                    `Joueurs` //  -----> Francais
-                    
-                  )}
+                          Joueur
                         </div>
                       </div>{" "}
                     </Link>
@@ -517,12 +500,7 @@ function HomeOffre() {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                       className="dark-invert-img   shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                     />
-                    <div>{getTranslation(
-                    `Events`, // -----> Englais
-                    `Événements` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}</div>
+                    <div>Événements</div>
                   </div>
                   <img
                     loading="lazy"
@@ -593,7 +571,7 @@ function HomeOffre() {
                             className=" dark-invert-img  shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                           />
 
-                          <div lassName="dark-text">ODIN Events</div>
+                          <div lassName="dark-text">Evénnement ODIN</div>
                         </div>
                       </div>
                     </Link>
@@ -610,12 +588,7 @@ function HomeOffre() {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a7fc5fd676e2d7354f4a7f19b0967db7f2d99a7e161c7c156ac1ce03217cf2c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className=" dark-invert-img shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                       />
-                      <div>{getTranslation(
-                      `Job Offers`, // -----> Englais
-                      `Offres d’emploi` //  -----> Francais
-                      //   ``,  //  -----> Turkey
-                      //   `` ,  //  -----> Allemagne
-                    )}</div>
+                      <div>Offres d’emploi</div>
                     </div>
                   </div>
                 </Link>
@@ -632,12 +605,7 @@ function HomeOffre() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                           className="   shrink-0 my-auto w-4 aspect-square fill-white"
                         />
-                        <div>{getTranslation(
-                        `Publish an Offer`, // -----> Englais
-                        ` Publier une offre` //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )}</div>
+                        <div>Publier une offre</div>
                       </div>
                     )}
                 </Link>
@@ -651,12 +619,7 @@ function HomeOffre() {
               <div className=" dark-bg  flex flex-col  px-4 pt-8 pb-4 rounded-xl ">
                 <div className=" dark-bg  flex w-full gap-2.5 justify-between  max-md:flex-wrap max-md:max-w-full">
                   <div className=" dark-bg   w-full ml-7 flex flex-row justify-center md:justify-start items-center text-2xl md:text-3xl max-md:text-center font-bold text-zinc-900">
-                  {getTranslation(
-                      `Job Offers`, // -----> Englais
-                      `Offres d’emploi` //  -----> Francais
-                      //   ``,  //  -----> Turkey
-                      //   `` ,  //  -----> Allemagne
-                    )}
+                    Offres d'emploi
                     <Link to="/entreprise">
                       {!(
                         userProfileType === "other" &&
@@ -670,12 +633,7 @@ function HomeOffre() {
                   <div className=" dark-bg  flex flex-col hidden justify-center text-base w-full md:w-fit whitespace-nowrap text-neutral-500">
                     <div className=" dark-bg  flex flex-col justify-center w-full bg-gray-100 border border-solid border-neutral-200 rounded-[30px]">
                       <div className=" dark-bg  flex gap-5 justify-between  px-4 py-2 rounded-md max-md:pl-5">
-                        <div>{getTranslation(
-                      `Search`, // -----> Englais
-                      `Recherche` //  -----> Francais
-                      //   ``,  //  -----> Turkey
-                      //   `` ,  //  -----> Allemagne
-                    )}</div>
+                        <div>Recherche</div>
                         <img
                           loading="lazy"
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/9033f03d9a2834cdac194d3bcb22d8f5a291db69f65af060dca64befb0fc2639?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
@@ -696,10 +654,7 @@ function HomeOffre() {
                             className="dark-invert-img  shrink-0  ml-3 mr-3 aspect-[1.1] fill-zinc-900 w-[22px]"
                           />
                           <div className=" dark-bg  flex-1 ">
-                          {getTranslation(
-                        `Education level`, // -----> Englais
-                        `Niveau d’études` //  -----> Francais
-                      )}
+                            Niveau d’études
                           </div>
                         </div>
                         <div className="  flex flex-col justify-center mt-2 text-xs font-light border border-solid border-neutral-200 rounded-[30px]">
@@ -710,14 +665,11 @@ function HomeOffre() {
                                 value={selectedNiveauEtudes}
                                 onChange={handleNEChange}
                               >
-                                <option value=""> {getTranslation(
-                        `Education level`, // -----> Englais
-                        `Niveau d’études` //  -----> Francais
-                      )}</option>
-                                <option value="Bac">{getTranslation( `Primary`,  `Primaire`  )}</option>
-                                <option value="Bac">{getTranslation( `Secondary`,  `Secondaire`  )}</option>
+                                <option value="">Niveau d’études</option>
+                                <option value="Bac">Primaire</option>
+                                <option value="Bac">Secondaire</option>
                                 <option value="Bac">
-                                {getTranslation( `Vocational training`,  `Formations professionnelles`  )}
+                                  Formations professionnelles
                                 </option>
                                 <option value="Bac">Bac</option>
                                 <option value="Bac +1">Bac +1</option>
@@ -725,9 +677,9 @@ function HomeOffre() {
                                 <option value="Bac +3">Bac +3</option>
                                 <option value="Bac +4">Bac +4</option>
                                 <option value="Bac +5">Bac +5</option>
-                                <option value="Doctorat">{getTranslation( `Doctorate`,  `Doctorat`  )}</option>
+                                <option value="Doctorat">Doctorat</option>
                                 <option value=" Expert, Recherche">
-                                {getTranslation( `Expert, Research`,  `Expert, Recherche`  )}
+                                  Expert, Recherche
                                 </option>
                               </select>
                             </div>
@@ -740,7 +692,7 @@ function HomeOffre() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/6fc7b06844195331538c54aa188c56f25638bf27c62a789cda2e6486ea93f211?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                             className=" dark-invert-img  shrink-0 w-5 aspect-square"
                           />
-                          <div className=" dark-bg  flex-1">{getTranslation( `Country`,`Pays`  )}</div>
+                          <div className=" dark-bg  flex-1">pays</div>
                         </div>
 
                         <div className=" dark-bg  flex flex-col justify-center mt-2 text-xs font-light whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
@@ -800,10 +752,7 @@ function HomeOffre() {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a7fc5fd676e2d7354f4a7f19b0967db7f2d99a7e161c7c156ac1ce03217cf2c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                             className=" dark-invert-img   shrink-0 w-5 aspect-square fill-zinc-900"
                           />
-                          <div className=" dark-bg  flex-1">
-                          {getTranslation( `Level of experience`,  `Niveau d'expérience`  )}
-
-                          </div>
+                          <div className=" dark-bg  flex-1">Expérience</div>
                         </div>
                         <div className="  flex flex-col justify-center py-1.5 mt-2 text-xs font-light border border-solid border-neutral-200 rounded-[30px]">
                           <div className="  flex gap-5 justify-between px-4 py-2.5 rounded-md">
@@ -813,27 +762,24 @@ function HomeOffre() {
                                 value={selectedExperience}
                                 onChange={handleExperienceChange}
                               >
-                                <option>{getTranslation( `Level of experience`,  `Niveau d'expérience`  )}
- </option>
+                                <option>Expérience</option>
                                 <option value="Acunne Experience">
-                                {getTranslation( `No experience`,  `Acunne Expérience`  )}
+                                  Acunne Experience
                                 </option>
                                 <option value="Moins d'un an">
-                                {getTranslation( `Less than a year`,  ` Moins d'un an`  )}
+                                  Moins d'un an
                                 </option>
                                 <option value="Entre 1 et 2 ans">
-                                {getTranslation( `Between 1 and 2 years`,  `Entre 1 et 2 ans `  )}
-
+                                  Entre 1 et 2 ans
                                 </option>
                                 <option value="Entre 2 et 5 ans">
-                                {getTranslation( ` Between 2 and 5 years`,  `Entre 2 et 5 ans`  )}
+                                  Entre 2 et 5 ans
                                 </option>
                                 <option value="Entre 5 et 10 ans">
-                                {getTranslation( ` Between 5 and 10 years`,  `Entre 5 et 10 ans `  )}
+                                  Entre 5 et 10 ans
                                 </option>
                                 <option value="Plus que 10 ans">
-                                {getTranslation( `More than 10 years`,  `Plus que 10 ans`  )} {" "}
-{" "}
+                                  Plus que 10 ans{" "}
                                 </option>
                               </select>
                             </div>
@@ -851,7 +797,8 @@ function HomeOffre() {
                             className=" dark-invert-img   shrink-0 aspect-[0.75] fill-zinc-900 w-[15px]"
                           />
                           <div className=" dark-bg  flex-1">
-                          {getTranslation( `Type of contract`,  `Type de contrat`  )}                          </div>
+                            Type de contrat
+                          </div>
                         </div>
                         <div className="   flex flex-col justify-center py-1.5 mt-2 text-xs font-light whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
                           <div className="   flex gap-5 justify-between px-4 py-2.5 rounded-md">
@@ -861,15 +808,14 @@ function HomeOffre() {
                                 value={selectedTypeContrat}
                                 onChange={handleContratChange}
                               >
-                                <option>{getTranslation( `Type of contract`,  `Type de contrat`  )} </option>
+                                <option>Type de contrat </option>
                                 <option value="CDI">CDI</option>
                                 <option value="CDD">CDD</option>
 
                                 <option value="CIVP">CIVP</option>
-                                <option value="Stagiare"> 
-                                {getTranslation( `Intern`,  `Stagiaire`  )}</option>
-                                <option value="Saisonner"> 
-                                {getTranslation( `Seasonal`,  `Saisonnier`  )}</option>
+                                {/* <option value="CDI">SIVP</option> */}
+                                <option value="Stagiare">Stagiare</option>
+                                <option value="Saisonner">Saisonner</option>
                               </select>
                             </div>
                           </div>
@@ -883,20 +829,14 @@ function HomeOffre() {
                     onClick={handleReset}
                     className="  flex justify-center cursor-pointer px-4 py-2 w-full md:w-fit text-white bg-orange-500 rounded-[30px] max-md:px-5"
                   >
-                     {getTranslation( `Reset`,  `Réinitialiser`  )}
-                    
+                    Réinitialiser
                   </div>
                   <div className="   flex gap-1 w-full md:w-fit  justify-between ">
                     <div
                       onClick={handleSearch}
                       className="   flex  justify-center cursor-pointer w-full px-8 py-2 text-white bg-blue-600 rounded-[30px] max-md:px-5"
                     >
-                       {getTranslation(
-                                `Submit`, // -----> Englais
-                                `Confirmer`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
+                      Confirmer
                     </div>
                   </div>
                 </div>
@@ -971,35 +911,21 @@ function HomeOffre() {
                                     fill="#EB3E3E"
                                   />
                                 </svg>
-                                {getTranslation(
-                                `Are you sure you want to delete this offer?`, // -----> Englais
-                                `Etes-vous sûr de vouloir supprimer cette offre?`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
+                                Vous voulez vraiment supprimer cette Offre
+                                d'emploi
                               </div>
                               <div className="mt-4 flex gap-2 md:gap-5 justify-between mt-2 md:mt-4 w-full font-medium whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
                                 <button
                                   onClick={handleCancelDelete}
                                   className="flex flex-1 gap-2 justify-center px-12 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] md:px-5"
                                 >
-                                  {getTranslation(
-                                `Cancel`, // -----> Englais
-                                `Annuler`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
+                                  Annuler
                                 </button>
                                 <button
                                   type="submit"
                                   className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]"
                                 >
-                                   {getTranslation(
-                                `Submit`, // -----> Englais
-                                `Confirmer`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
+                                  Confirmer
                                 </button>
                               </div>
                             </form>
@@ -1088,12 +1014,7 @@ function HomeOffre() {
                                     <div className="flex flex-col ml-5 w-[65%] max-md:ml-0 max-md:w-full">
                                       <div className="flex flex-col self-stretch text-center my-auto max-md:mt-10">
                                         <div className="md:text-3xl  mt-0 text-sm   font-bold text-black">
-                                        {getTranslation(
-                        `Company logo`, // -----> Englais
-                        `  Logo de l’entreprise` //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )}
+                                          Logo de l’entreprise
                                         </div>
                                         <label>
                                           <div className="flex flex-col items-center justify-center md:mt-4">
@@ -1115,10 +1036,7 @@ function HomeOffre() {
                                               }
                                               className="mt-2 px-4 py-2 md:text-base font-medium text-white bg-blue-600 rounded-[30px]"
                                             >
-                                              {getTranslation(
-                        `Change the photo`, // -----> Englais
-                        `Changer la photo` //  -----> Francais
-                      )}
+                                              Changer la photo
                                             </button>
                                           </div>
                                         </label>
@@ -1141,10 +1059,7 @@ function HomeOffre() {
                                           className="shrink-0 my-auto md:w-5 w-3 aspect-square"
                                         />
                                         <div className="md:flex-1">
-                                        {getTranslation(
-                        `Company name`, // -----> Englais
-                        `Nom de l’entreprise` //  -----> Francais
-                      )}
+                                          Nom de l’entreprise
                                         </div>
                                       </div>
                                       <input
@@ -1167,10 +1082,7 @@ function HomeOffre() {
                                           className="shrink-0 my-auto aspect-[1.1] fill-zinc-900   mt-1 md:w-5 w-3"
                                         />
                                         <div className="flex-1">
-                                        {getTranslation(
-                        `Education level`, // -----> Englais
-                        `Niveau d’études` //  -----> Francais
-                      )}
+                                          Niveau d’études
                                         </div>
                                       </div>
                                       <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
@@ -1187,19 +1099,16 @@ function HomeOffre() {
                                             }
                                           >
                                             <option value="">
-                                            {getTranslation(
-                        `Education level`, // -----> Englais
-                        `Niveau d’études` //  -----> Francais
-                      )}
+                                              Niveau d’études
                                             </option>
                                             <option value="Bac">
-                                            {getTranslation( `Primary`,  `Primaire`  )}
+                                              Primaire
                                             </option>
                                             <option value="Bac">
-                                            {getTranslation( `Secondary`,  `Secondaire`  )}
+                                              Secondaire
                                             </option>
                                             <option value="Bac">
-                                            {getTranslation( `Vocational training`,  `Formations professionnelles`  )}
+                                              Formations professionnelles
                                             </option>
                                             <option value="Bac">Bac</option>
                                             <option value="Bac +1">
@@ -1218,10 +1127,10 @@ function HomeOffre() {
                                               Bac +5
                                             </option>
                                             <option value="Doctorat">
-                                            {getTranslation( `Doctorate`,  `Doctorat`  )}
+                                              Doctorat
                                             </option>
                                             <option value="Expert, Recherche">
-                                            {getTranslation( `Expert, Research`,  `Expert, Recherche`  )}
+                                              Expert, Recherche
                                             </option>
                                           </select>
                                         </div>
@@ -1233,7 +1142,7 @@ function HomeOffre() {
                                           className="shrink-0 my-auto md:w-5 w-3 aspect-square"
                                         />
                                         <div className="flex-1">
-                                        {getTranslation( `Type of contract`,  `Type de contrat`  )}
+                                          Type de contrat
                                         </div>
                                       </div>
 
@@ -1251,13 +1160,14 @@ function HomeOffre() {
                                             }
                                           >
                                             <option value="">
-                                            {getTranslation( `Type of contract`,  `Type de contrat`  )}{" "}
+                                              Type de contrat{" "}
                                             </option>
                                             <option value="CDI">CDI</option>
                                             <option value="CDD">CDD</option>
                                             <option value="CVIP">CVIP</option>
-                                            <option value="Stagiare">{getTranslation( `Intern`,  `Stagiaire`  )}</option>
-                                <option value="Saisonner"> {getTranslation( `Seasonal`,  `Saisonnier`  )}</option>
+                                            <option value="Mission">
+                                              Mission
+                                            </option>
                                           </select>
                                         </div>
                                       </div>
@@ -1268,7 +1178,7 @@ function HomeOffre() {
                                           className="shrink-0 my-auto md:w-5 w-3 aspect-square"
                                         />
                                         <div className="-ml-5" />
-                                        {getTranslation( `City`,  `Ville`  )}
+                                        Ville
                                       </div>
                                       <input
                                         type="text"
@@ -1290,7 +1200,7 @@ function HomeOffre() {
                                           className="shrink-0 my-auto md:w-5 w-3 aspect-square"
                                         />
                                         <div className="flex-1">
-                                        {getTranslation( `Expiration date`,  `Date d’expiration`  )}
+                                          Date d’expiration
                                         </div>
                                       </div>
                                       <div className="flex flex-col justify-center   w-full  mt-2 py-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
@@ -1322,7 +1232,7 @@ function HomeOffre() {
                                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/41776bb27129fce58ebd612cf76f133b828dda8fc48d76c5bcc72264b625b44c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                                           className="shrink-0 my-auto md:w-5 w-3 aspect-square fill-zinc-900"
                                         />
-                                        <div className="flex-1">{getTranslation( `Job position`,  `Poste`  )}</div>
+                                        <div className="flex-1">Poste</div>
                                       </div>
                                       <input
                                         type="text"
@@ -1345,7 +1255,7 @@ function HomeOffre() {
                                           className="shrink-0 my-auto md:w-5 w-3 aspect-square fill-zinc-900"
                                         />
                                         <div className="flex-1">
-                                        {getTranslation( `Level of experience`,  `Niveau d'expérience`  )}
+                                          Niveau d'experience
                                         </div>
                                       </div>
                                       <div className="flex flex-col justify-center px-px py-1.5 mt-2 text-base whitespace-nowrap border border-solid border-neutral-200 rounded-[30px]">
@@ -1361,22 +1271,22 @@ function HomeOffre() {
                                             }
                                           >
                                             <option value="Acunne Experience">
-                                            {getTranslation( `No experience`,  `Acunne Expérience`  )}
+                                              Acunne Experience
                                             </option>
                                             <option value="Moins d'un an">
-                                            {getTranslation( `Less than a year`,  ` Moins d'un an`  )}
+                                              Moins d'un an
                                             </option>
                                             <option value="Entre 1 et 2 ans">
-                                            {getTranslation( `Between 1 and 2 years`,  `Entre 1 et 2 ans `  )}
+                                              Entre 1 et 2 ans
                                             </option>
                                             <option value="Entre 2 et 5 ans">
-                                            {getTranslation( ` Between 2 and 5 years`,  `Entre 2 et 5 ans`  )}
+                                              Entre 2 et 5 ans
                                             </option>
                                             <option value="Entre 5 et 10 ans">
-                                            {getTranslation( ` Between 5 and 10 years`,  `Entre 5 et 10 ans `  )}
+                                              Entre 5 et 10 ans
                                             </option>
                                             <option value="Plus que 10 ans">
-                                            {getTranslation( `More than 10 years`,  `Plus que 10 ans`  )}{" "}
+                                              Plus que 10 ans{" "}
                                             </option>
                                           </select>
                                         </div>
@@ -1389,7 +1299,7 @@ function HomeOffre() {
                                           className="shrink-0 my-auto aspect-[0.75] fill-zinc-900  md:w-5 w-3"
                                         />
                                         <div className="flex-1">
-                                        {getTranslation( `Country of residence`,  `Pays de résidence`  )}
+                                          Pays de résidence
                                         </div>
                                       </div>
 
@@ -1487,24 +1397,14 @@ function HomeOffre() {
                                 onClick={handleCancelUpdate}
                                 className="flex flex-1 gap-2 justify-center px-20 md:px-7 py-2 text-orange-500 border-2 border-orange-500 border-solid rounded-[30px] "
                               >
-                                {getTranslation(
-                                `Cancel`, // -----> Englais
-                                `Annuler`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
+                                Annuler
                               </button>
                               <button
                                 type="submit"
                                 onClick={handleUpdateSubmit}
                                 className="flex flex-1 gap-2  justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]"
                               >
-                                {getTranslation(
-                                `Submit`, // -----> Englais
-                                `Confirmer`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
+                                Confirmer
                               </button>
                             </div>
                           </div>
@@ -1547,25 +1447,13 @@ function HomeOffre() {
                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                   onClick={() => handleUpdateClick(value)}
                                 >
-                                  {getTranslation(
-                                `Update`, // -----> Englais
-                                `Modifier`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
-                                  
+                                  Update
                                 </button>
                                 <button
                                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                   onClick={() => handleDeleteClick(value.id)}
                                 >
-                                   {getTranslation(
-                                `Delete`, // -----> Englais
-                                `Supprimer`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
-                                  
+                                  Delete
                                 </button>
                               </div>
                             )}
@@ -1619,13 +1507,7 @@ function HomeOffre() {
                           className="dark-invert-img  shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                         />
                         <div>
-                        {getTranslation(
-                                `Expire:`, // -----> Englais
-                                `Expire le:`, //  -----> Francais
-                                ``, //  -----> Turkey
-                                `` //  -----> Allemagne
-                              )}
-                          
+                          Expire le:
                           {moment(value.date_experie).format("DD-MM-YYYY")}
                         </div>
                       </div>

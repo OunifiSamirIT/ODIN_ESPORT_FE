@@ -32,6 +32,7 @@ import DesktopNotificationPopup from "./DesktopNotificationPopup";
 
 import Sun from "../assets/sun.png";
 import Moon from "../assets/moon.png";
+import Horizontal from "./HomePage/HorizontalNavigation";
 
 function Header() {
   let { handleDarkModeToggler } = React.useContext(Context);
@@ -752,6 +753,7 @@ function Header() {
               </div>
             </div>
           </div>
+          <Horizontal className={``}/>
           <div className="flex items-center">
             <span className=" mr-5 ">
               <LanguageToggler isIcon={true} hide={true} color={true} />

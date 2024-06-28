@@ -106,7 +106,7 @@ function Friends() {
         </a>
       </div>
 
-      {friendRequests.friendRequests?.map((item) => (
+      {friendRequests?.friendRequests?.length ? friendRequests.friendRequests?.map((item) => (
         <>
           <div className="wrap" key={item?.friendRequest?.receiver?.id}>
             <div className="card-body d-flex pt-0 ps-4 pe-4 pb-0 bor-0">
@@ -173,7 +173,7 @@ function Friends() {
             </div>
           </div>
         </>
-      ))}
+      )): <p className="text-center pb-4">Acune invtation pour le moment</p>}
     </div>
   );
 }

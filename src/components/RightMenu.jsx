@@ -11,7 +11,7 @@ export default function RightMenu() {
           <Friends />
 
           {/* <Group /> */}
-          <Events />
+          {/* <Events /> */}
           <Friendsilder />
         </div>
       </div>
