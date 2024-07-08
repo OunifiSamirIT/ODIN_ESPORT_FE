@@ -39,7 +39,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
           postImage: ""
         })
     }
-    const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
+    const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
 
     const [CurrentUser, setCurrentUser] = useState(null)
     const { id } = useParams()
@@ -107,9 +107,10 @@ const ProfileLayout = ({ children, onChange, user }) => {
     //     CheckIfInvitationIsSend()
     //     console.log('curren', Invitation)
     // }, [user])
+
     return (
         <>
-            <HomeLayout>
+            <HomeLayout  style={dark_bg}>
                 {/* <div>
             <ToastContainer />
           </div> */}

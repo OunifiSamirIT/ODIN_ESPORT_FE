@@ -11,6 +11,7 @@ import { Config } from "../../../config";
 
 import { io } from 'socket.io-client';
 import NotificationService from "../../../api/notification.server";
+import { toast } from "react-toastify";
 
 const AddEvent = () => {
 
@@ -72,15 +73,31 @@ const AddEvent = () => {
             formData.append('files', file);
         });
         formData.append("userId", storedUserData.id);
-        await fetch(`${Config.LOCAL_URL}/api/albumeventodin/upload`, {
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumeventodin/upload`, {
             method: 'POST',
             body: formData,
         });
-        sendNotification("event", "", "eventId", data.AlbumName)
 
-        navigate("/home");
+        if (response.status === 200) {
+            const res = await fetch(`${Config.LOCAL_URL}/api/lastOdinEvent`)
+            const result = await res.json()
+            const lastEventCreated = await result
+            const eventId = lastEventCreated.event[0].id
+            console.log("🚀 ~ onSubmit ~ result:",  lastEventCreated.event[0].id)
+            sendNotification("event", "", eventId, data.AlbumName)
 
-
+            toast.success('Event ete ajoutée', {
+                position: "top-right",
+                autoClose: 5000,
+                type: 'success',
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
     }
     const handleFileChange = async () => {
         setValue('file', uploadedFiles)

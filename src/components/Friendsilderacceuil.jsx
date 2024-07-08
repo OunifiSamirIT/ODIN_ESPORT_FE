@@ -2,8 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { Config } from "../config";
+import { Context } from "../index";
 
 function FriendsSlider() {
+
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg } = React.useContext(Context);
+
+  
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,10 +23,12 @@ function FriendsSlider() {
         }
         const data = await response.json();
         // Récupérez l'ID de l'utilisateur connecté à partir du local storage
-        const storedUserData = localStorage.getItem("user");
+        const storedUserData = JSON.parse(localStorage.getItem("user"));
         const id = storedUserData ? storedUserData.id : null;
         // Filtrez les utilisateurs pour exclure l'utilisateur connecté
-        const filteredData = data.filter((agent) => agent?.user?.id !== id);
+        
+        const filteredData = data.filter((agent) => agent.user.id !== id);
+        console.log(data , 'filteredData')
         setAgents(filteredData);
         setLoading(false);
       } catch (error) {
@@ -59,7 +66,7 @@ function FriendsSlider() {
   };
 
   return (
-    <div className="flex flex-col mt-6 w-[100%] px-3 md:px-0 md:w-[85%] bg-white rounded-md shadow-sm">
+    <div style={dark_light_bg} className="flex flex-col mt-6 w-[100%] px-3 md:px-0 md:w-[85%]  rounded-md shadow-sm">
       <div className="flex flex-row items-center mt-2">
         <button
           onClick={prevSlide}
@@ -75,9 +82,13 @@ function FriendsSlider() {
           {agents.map((value, index) => (
             <div
               key={index}
-              className="w150 md:w-[50%] d-block border-0 bg-gray-100 rounded-3 overflow-hidden mb-3 mt-2 me-3"
+              style={dark_bg}
+              className="w150 md:w-[50%] d-block border-0 rounded-3 overflow-hidden mb-3 mt-2 me-3"
             >
-              <div className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center">
+              <div 
+              style={dark_bg}
+
+               className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center">
                 <Link to={`/profile/${value?.user?.id}`}>
                   <figure className="avatar mb-1 d-flex justify-content-center align-items-center">
                     <img
@@ -87,7 +98,9 @@ function FriendsSlider() {
                     />
                   </figure>
                 </Link>
-                <h4 className="fw-700 font-xssss mt-3 mb-1 d-block w-100">
+                <h4 
+                 style={dark_bg}
+                className="fw-700 font-xssss mt-3 mb-1 d-block w-100">
                   {value?.user?.nom} {value?.user?.prenom}
                 </h4>
                 <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-3 lh-2">

@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../index";
 
 function Events() {
+
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg } = React.useContext(Context);
+
+  
   const [albums, setAlbums] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const navigate = useNavigate();
@@ -12,7 +16,6 @@ function Events() {
     setSelectedCard(id);
     navigate(`/defaultgroup/${id}`);
   };
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -41,10 +44,10 @@ function Events() {
   };
 
   return (
-    <div className="card w-100 shadow-xss mt-1 rounded-md border-0 mb-3">
-      <div className="flex flex-col mt-1 w-full bg-white rounded-md shadow-sm">
+    <div style={dark_light_bg} className="card w-100 shadow-xss mt-1 rounded-md border-0 mb-3">
+      <div   className="flex flex-col mt-1 w-full rounded-md shadow-sm">
         <div className="flex justify-between items-center px-6 pt-2 max-md:px-5">
-          <div className="text-lg font-bold text-zinc-900">
+          <div style={dark_light_bg} className="text-lg font-bold text-zinc-900">
             {getTranslation(
               `Camps that might interest you.`, // -----> Englais
               `Camps qui pourraient vous intéresser` //  -----> Francais
@@ -70,11 +73,13 @@ function Events() {
           </div>
         </div>
 
-        <div className="flex flex-col flex-wrap content-start px-4 mt-4 w-full bg-white rounded-xl ">
+        <div style={dark_light_bg} className="flex flex-col flex-wrap content-start px-4 mt-4 w-full  rounded-xl ">
           {albums.map((album) => (
             <div>
               {" "}
               <div
+              style={dark_light_bg}
+
                 key={album.id}
                 className="flex gap-2  justify-between text-xs font-light text-zinc-900"
               >

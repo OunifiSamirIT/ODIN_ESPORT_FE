@@ -126,7 +126,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const [showDropdown, setShowDropdown] = useState(null);
   const [showDropdownedit, setShowDropdownedit] = useState(null);
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -1385,17 +1385,12 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       } else {
         formData.append("sharedFrom", article.id);
       }
-      NotificationService.instantSend(socket, {
-        toUser_id: article?.user?.user?.id,
-        forWichAction: "share",
-        actionId: article.description ? 1 : 0,
-        postId: article.id,
-        postImage: article?.image ? article?.image : "",
-      });
+     
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
       });
+    
       if (response.status === 200) {
         toast.success("Partager avec success voir votre profile  !", {
           position: "top-right",
@@ -1408,6 +1403,25 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           progress: undefined,
           theme: "light",
         });
+
+        const res = await fetch(
+          `${Config.LOCAL_URL}/api/articles?size=1&page=0`
+        );
+        const result = await res.json();
+        const idAfterPostCreated = result.rows[0].id
+
+        console.log("🚀 ~ handlePostSubmitPartage ~ postAfterCreateaz1:", idAfterPostCreated)
+        
+        
+       
+        NotificationService.instantSend(socket, {
+          toUser_id: article?.user?.user?.id,
+          forWichAction: "share",
+          actionId: article?.video ? 1 : 0,
+          postId: idAfterPostCreated,
+          postImage: article?.image ? article?.image : "",
+        });
+
       }
       // const newArticle = await response.json();
       // addNewArticle(newArticle);
@@ -1481,18 +1495,19 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
   return (
     <>
-      <div className="flex flex-col  w-full -mt-2   max-md:ml-0 max-md:w-full">
+      <div className="  flex flex-col  w-full -mt-2   max-md:ml-0 max-md:w-full">
         {/* show post  */}
 
         <div>
           <>
             <div
               key={article.id}
-              className="card w-100 shadow-xss rounded-xxl border-0 mt-3 -px-4  p-4 "
+              style={dark_light_bg}
+              className="  card w-100 shadow-xss rounded-xxl border-0 mt-3 -px-4  p-4 "
             >
-              <div className="card-body p-0 d-flex">
+              <div className="  card-body p-0 d-flex">
                 <Link to={`/profile/${article?.user?.user?.id}`}>
-                  <figure className="avatar me-3">
+                  <figure className="  avatar me-3">
                     <img
                       srcSet={
                         article?.user?.user?.image
@@ -1500,18 +1515,18 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           : placeholder
                       }
                       // src={article.user.user?.image}
-                      className="shadow-sm rounded-full w-[52px] aspect-square"
+                      className="  shadow-sm rounded-full w-[52px] aspect-square"
                       alt="post"
                     />{" "}
                   </figure>
                 </Link>
 
-                <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+                <h4  style={dark_light_bg} className="  fw-700 font-xssss mt-1">
                   <Link to={`/profile/${article?.user?.user?.id}`}>
                     {article?.user?.user?.nom} {"   "}
                     {article?.user?.user?.prenom}{" "}
                   </Link>
-                  <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {article?.user?.user?.profil == "other"
                       ? article.user.other?.profession
                       : ""}
@@ -1529,11 +1544,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       : ""}
                     {article?.user?.user?.profil == "scout" ? "Scout" : ""}
                   </span>
-                  {/* <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  {/* <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                   {article?.createdAt}
 
 </span> */}
-                  <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {moment(article?.createdAt).format("DD MMMM YYYY")}{" "}
                     {"  -  "}
                     {moment(article?.createdAt).isAfter(
@@ -1545,7 +1560,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                 </h4>
                 {storedUserData.id == article?.user?.user?.id && (
                   <div
-                    className="ms-auto relative cursor-pointer"
+                    className="  ms-auto relative cursor-pointer"
                     onClick={() => handleMoreClick(article)}
                   >
                     <svg
@@ -1557,24 +1572,24 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     >
                       <path
                         d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                        fill="#1D1E21"
-                      />
+                        style={dark_fill_svg}
+                        />
                       <path
                         d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                        fill="#1D1E21"
-                      />
+                        style={dark_fill_svg}
+                        />
                       <path
                         d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                        fill="#1D1E21"
-                      />
+                        style={dark_fill_svg}
+                        />
                     </svg>
 
                     {showDropdown === article.id &&
                       article?.user?.user &&
                       article?.user?.user?.id === storedUserData.id && (
-                        <div className="absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                        <div className="  absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                           <button
-                            className="block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                            className="  block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
                             // onClick={() =>
                             //   handleEditClick(selectedArticle)
                             // }
@@ -1582,7 +1597,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                             onClick={() => handleEdit(article.id)}
                           >
                             <label
-                              className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                              className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                               // onClick={() => handleEditClick(article)}
                             >
                               <svg
@@ -1627,7 +1642,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </button>
 
                           <button
-                            className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                            className="  flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
                             onClick={() => handleDeleteClick(article.id)}
                           >
                             <svg
@@ -1642,7 +1657,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 fill="black"
                               />
                             </svg>
-                            <span className="text-base">
+                            <span className="  text-base">
                               {getTranslation(
                                 `Delete`, // -----> Englais
                                 `Supprimer` //  -----> Francais
@@ -1656,14 +1671,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               </div>
 
               <div class=" p-0  mt-2">
-                <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
+                <p style={dark_light_bg} className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2">
                   {!showFullText && article?.description?.length > 295
                     ? article?.description?.substring(0, 295) + "..."
                     : article.description}
                   {article?.description?.length > 295 && (
                     <button
                       onClick={toggleText}
-                      className="text-blue-600  hover:text-blue-400 focus:outline-none"
+                      className="  text-blue-600  hover:text-blue-400 focus:outline-none"
                     >
                       {showFullText ? "Voir moins" : "Voir plus"}
                     </button>
@@ -1672,13 +1687,13 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               </div>
 
               {article?.video && (
-                <div className="card-body d-block p-0 mb-3">
-                  <div className="row ps-2 pe-2">
-                    <div className="col-sm-12 p-1">
-                      <div className="card-body p-0 mb-3  overflow-hidden ">
+                <div className="  card-body d-block p-0 mb-3">
+                  <div className="  row ps-2 pe-2">
+                    <div className="  col-sm-12 p-1">
+                      <div className="  card-body p-0 mb-3  overflow-hidden ">
                         <video
                           controls
-                          className=" w-100 md:max-h-[600px] max-h-[350px]"
+                          className="   w-100 md:max-h-[600px] max-h-[350px]"
                           ref={videoRef}
                         >
                           <source src={article.video} type="video/mp4" />
@@ -1692,7 +1707,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
              
 
-              <div className="card-body d-block p-0 mb-1">
+              <div className="  card-body d-block p-0 mb-1">
                 <div
                   onClick={handlePlusClick}
                   className={`grid ${
@@ -1739,7 +1754,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         >
                           {imageCount === 1 && (
                             <div
-                              className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-md"
+                              className="  absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-md"
                               style={{ backgroundImage: `url(${imageUrl})` }}
                             ></div>
                           )}
@@ -1779,7 +1794,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       )}
                       {index === 3 && images.length > 4 && (
                         <div
-                          className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl"
+                          className="  absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl"
                           onClick={handlePlusClick}
                         >
                           +{images.length - 4}
@@ -1792,33 +1807,34 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
               {article?.sharedFrom && article?.sharedArticle && (
                 <div
+                  style={{...dark_light_bg, ...dark_border}}
                   key={article?.sharedArticle?.id}
-                  className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 mb-3"
+                  className="  card w-100 flex flex-col shadow-xss rounded-xxl  p-4 mb-3"
                 >
-                  <div className="card-body p-0 d-flex">
+                  <div className="  card-body p-0 d-flex">
                     <Link
                       to={`/profile/${article?.sharedArticle?.userspartage?.id}`}
                     >
-                      <figure className="avatar me-3">
+                      <figure className="  avatar me-3">
                         <img
                           srcSet={
                             article?.sharedArticle?.userspartage?.image
                               ? article?.sharedArticle?.userspartage?.image
                               : placeholder
                           }
-                          className="shadow-sm rounded-full w-[52px] aspect-square"
+                          className="  shadow-sm rounded-full w-[52px] aspect-square"
                           alt="post"
                         />
                       </figure>
                     </Link>
-                    <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+                    <h4 style={dark_light_bg} className="  fw-700 font-xssss mt-1">
                       <Link
                         to={`/profile/${article?.sharedArticle?.userspartage?.id}`}
                       >
                         {article?.sharedArticle?.userspartage?.nom}{" "}
                         {article?.sharedArticle?.userspartage?.prenom}
                       </Link>
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                      <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                         {article?.sharedArticle?.userspartage?.profil == "other"
                           ? article?.sharedArticle?.userspartage?.other
                               ?.profession
@@ -1846,7 +1862,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           ? "Scout"
                           : ""}
                       </span>
-                      <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                      <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                         {moment(article?.sharedArticle?.createdAt).format(
                           "DD MMMM YYYY"
                         )}{" "}
@@ -1861,8 +1877,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       </span>
                     </h4>
                   </div>
-                  <div className="p-0 mt-2">
-                    <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
+                  <div className="  p-0 mt-2">
+                    <p style={dark_light_bg}  className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 ">
                       {!showFullText &&
                       article?.sharedArticle?.description?.length > 295
                         ? article?.sharedArticle?.description.substring(
@@ -1873,7 +1889,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       {article.sharedArticle?.description.length > 295 && (
                         <button
                           onClick={toggleText}
-                          className="text-blue-600 hover:text-blue-400 focus:outline-none"
+                          className="  text-blue-600 hover:text-blue-400 focus:outline-none"
                         >
                           {showFullText ? "Voir moins" : "Voir plus"}
                         </button>
@@ -1881,7 +1897,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     </p>
                   </div>
                   {article?.sharedArticle?.image && (
-                    <div className="card-body d-block p-0 mb-3">
+                    <div className="  card-body d-block p-0 mb-3">
                       <div
                         className={`grid ${
                           article?.sharedArticle?.image.split(";").length === 1
@@ -1944,7 +1960,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                   {article?.sharedArticle?.image.split(";")
                                     .length === 1 && (
                                     <div
-                                      className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-md"
+                                      className="  absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-md"
                                       style={{
                                         backgroundImage: `url(${imageUrl})`,
                                       }}
@@ -1997,7 +2013,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               {index === 3 &&
                                 article?.sharedArticle?.image.split(";")
                                   .length > 4 && (
-                                  <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl">
+                                  <div className="  absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl">
                                     +
                                     {article?.sharedArticle?.image.split(";")
                                       .length - 4}
@@ -2010,10 +2026,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                   )}
 
                   {/* {article?.sharedArticle?.image && (
-      <div className="card-body d-block p-0 mb-3">
+      <div className="  card-body d-block p-0 mb-3">
         <div className={`grid ${article?.sharedArticle?.image.split(';').length === 1 ? 'grid-cols-1' : article?.sharedArticle?.image.split(';').length === 2 ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-2 md:grid-cols-2'}`}>
           {article?.sharedArticle?.image.split(';').slice(0, 4).map((imageUrl, index) => (
-            <div key={index} className="p-1 relative">
+            <div key={index} className="  p-1 relative">
               {imageUrl && (
                 <img
                   className={`w-full ${article?.sharedArticle?.image.split(';').length === 1 ? 'md:max-h-[600px] max-h-[350px] w-100 object-contain' : article?.sharedArticle?.image.split(';').length === 2 ? 'h-full md:h-44' : 'h-44'} ${index === 3 && article?.sharedArticle?.image.split(';').length > 4 ? 'opacity-50' : ''}`}
@@ -2023,7 +2039,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                 />
               )}
               {index === 3 && article?.sharedArticle?.image.split(';').length > 4 && (
-                <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl">
+                <div className="  absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl">
                   +{article?.sharedArticle?.image.split(';').length - 4}
                 </div>
               )}
@@ -2033,13 +2049,13 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       </div>
     )} */}
                   {article?.sharedArticle?.video && (
-                    <div className="card-body d-block p-0 mb-3">
-                      <div className="row ps-2 pe-2">
-                        <div className="col-sm-12 p-1">
-                          <div className="card-body p-0 mb-3 overflow-hidden">
+                    <div className="  card-body d-block p-0 mb-3">
+                      <div className="  row ps-2 pe-2">
+                        <div className="  col-sm-12 p-1">
+                          <div className="  card-body p-0 mb-3 overflow-hidden">
                             <video
                               controls
-                              className="w-100 md:max-h-[600px] max-h-[350px]"
+                              className="  w-100 md:max-h-[600px] max-h-[350px]"
                             >
                               <source
                                 src={article?.sharedArticle?.video}
@@ -2055,11 +2071,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                 </div>
               )}
 
-              <div className="  rounded-lg -mt-4">
-                <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
+              <div className="    rounded-lg -mt-4">
+                <div className="  flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
                   <div
                     onClick={() => handleClicklikeshow(article.id)}
-                    className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
+                    className="  flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
                   >
                     <svg
                       width="17"
@@ -2070,23 +2086,23 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     >
                       <path
                         d="M11.7267 0C10.9723 0.0117335 10.2344 0.222313 9.58752 0.610472C8.94058 0.998631 8.40753 1.55062 8.04219 2.21071C7.67684 1.55062 7.14379 0.998631 6.49686 0.610472C5.84993 0.222313 5.11203 0.0117335 4.35767 0C3.15514 0.0522469 2.02216 0.578304 1.20626 1.46324C0.390358 2.34818 -0.0421438 3.52007 0.00324311 4.72288C0.00324311 9.26153 7.3428 14.5036 7.65498 14.726L8.04219 15L8.4294 14.726C8.74158 14.5049 16.0811 9.26153 16.0811 4.72288C16.1265 3.52007 15.694 2.34818 14.8781 1.46324C14.0622 0.578304 12.9292 0.0522469 11.7267 0Z"
-                        fill="#65676B"
+                        style={dark_gray_svg}
                       />
                     </svg>
-                    {/* <span className="text-md py-1">
+                    {/* <span className="  text-md py-1">
                       {article.likesCount}
                     </span> */}
                     <div>
-                      <span className="text-md py-1 px-2 relative z-[2] ">
-                        <div className=""> {article.likesCount}</div>
+                      <span className="  text-md py-1 px-2 relative z-[2] ">
+                        <div className="  " style={dark_gray_color} > {article.likesCount}</div>
 
                         {showDropdownlikes && (
                           <div
                             ref={reff}
-                            className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
+                            className="  absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
                           >
-                            <div className="py-2 px-4">
-                              <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
+                            <div className="  py-2 px-4">
+                              <h3 className="  md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
                                 {" "}
                                 {getTranslation(
                                   `Who liked this post?`, // -----> Englais
@@ -2099,10 +2115,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 {userslikearticle.map((like, index) => (
                                   <li
                                     key={index}
-                                    className="mt-1 py-2 flex flex-row  items-center"
+                                    className="  mt-1 py-2 flex flex-row  items-center"
                                   >
                                     <Link to={`/profile/${like.userId}`}>
-                                      <figure className="avatar me-3">
+                                      <figure className="  avatar me-3">
                                         <img
                                           srcSet={
                                             like?.user?.image
@@ -2110,7 +2126,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               : placeholder
                                           }
                                           // src={article?.user?.user??.image}
-                                          className="shadow-sm rounded-full w-[32px] aspect-square"
+                                          className="  shadow-sm rounded-full w-[32px] aspect-square"
                                         />{" "}
                                       </figure>
                                     </Link>
@@ -2124,7 +2140,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       </span>
                     </div>
                   </div>
-                  <div className="flex gap-2.5 items-center justify-center py-2.5">
+                  <div className="  flex gap-2.5 items-center justify-center py-2.5">
                     <svg
                       width="15"
                       height="15"
@@ -2134,30 +2150,34 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     >
                       <path
                         d="M12.2974 1.72552C11.5056 1.06664 10.586 0.578896 9.5964 0.29302C8.6068 0.00714375 7.56872 -0.0706678 6.54756 0.0644883C4.65848 0.309904 2.9336 1.26506 1.72316 2.73601C0.512716 4.20696 -0.0925499 6.08345 0.0302592 7.98444C0.153068 9.88544 0.994746 11.6684 2.38439 12.9714C3.77403 14.2744 5.60748 14.9997 7.51244 15H11.8756C12.704 14.999 13.4982 14.6695 14.0839 14.0837C14.6697 13.498 14.9992 12.7038 15.0002 11.8754V7.06918V7.02981C14.934 6.00835 14.6602 5.01111 14.1955 4.09908C13.7308 3.18706 13.0849 2.3794 12.2974 1.72552ZM5.00152 4.37641H7.50119C7.66693 4.37641 7.82588 4.44225 7.94307 4.55945C8.06026 4.67664 8.1261 4.83559 8.1261 5.00133C8.1261 5.16707 8.06026 5.32602 7.94307 5.44321C7.82588 5.56041 7.66693 5.62625 7.50119 5.62625H5.00152C4.83578 5.62625 4.67683 5.56041 4.55964 5.44321C4.44244 5.32602 4.3766 5.16707 4.3766 5.00133C4.3766 4.83559 4.44244 4.67664 4.55964 4.55945C4.67683 4.44225 4.83578 4.37641 5.00152 4.37641ZM10.0009 10.6256H5.00152C4.83578 10.6256 4.67683 10.5597 4.55964 10.4425C4.44244 10.3254 4.3766 10.1664 4.3766 10.0007C4.3766 9.83493 4.44244 9.67598 4.55964 9.55878C4.67683 9.44159 4.83578 9.37575 5.00152 9.37575H10.0009C10.1666 9.37575 10.3255 9.44159 10.4427 9.55878C10.5599 9.67598 10.6258 9.83493 10.6258 10.0007C10.6258 10.1664 10.5599 10.3254 10.4427 10.4425C10.3255 10.5597 10.1666 10.6256 10.0009 10.6256ZM10.0009 8.12591H5.00152C4.83578 8.12591 4.67683 8.06008 4.55964 7.94288C4.44244 7.82569 4.3766 7.66674 4.3766 7.501C4.3766 7.33526 4.44244 7.17631 4.55964 7.05912C4.67683 6.94192 4.83578 6.87608 5.00152 6.87608H10.0009C10.1666 6.87608 10.3255 6.94192 10.4427 7.05912C10.5599 7.17631 10.6258 7.33526 10.6258 7.501C10.6258 7.66674 10.5599 7.82569 10.4427 7.94288C10.3255 8.06008 10.1666 8.12591 10.0009 8.12591Z"
-                        fill="#65676B"
+                        style={dark_gray_svg}
                       />
                     </svg>
-                    <span className="text-md py-1">
+                    <span style={dark_gray_color}  className="  text-md py-1">
                       {article.commentsCount}
                     </span>
                   </div>
                   <div
                     onClick={() => handleClickpartageshow(article.id)}
-                    className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
+                    className="  flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
                   >
-                    <BiSolidShare className=" size-5"/>
+                    <BiSolidShare
+                        style={dark_gray_svg}
+                        className="   size-5"/>
                     
                     <div>
-                    <span className="text-md py-1 px-2 relative z-[2] ">
-                        <div className=""> {article.shareCount}</div>
+                    <span className="  text-md py-1 px-2 relative z-[2] ">
+                        <div className="  " 
+                        style={dark_gray_color}
+                        > {article.shareCount}</div>
 
                         {showDropdownpartage && (
                           <div
                             ref={reffpartage}
-                            className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:-translate-x-96 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
+                            className="  absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:-translate-x-96 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
                           >
-                            <div className="py-2 px-4">
-                              <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
+                            <div className="  py-2 px-4">
+                              <h3 className="  md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
                                 {" "}
                                 {getTranslation(
                                   `Who Sheard this post?`, // -----> Englais
@@ -2170,10 +2190,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 {article?.sharedUsers?.map((p, index) => (
                                   <li
                                     key={index}
-                                    className="mt-1 py-2 flex flex-row  items-center"
+                                    className="  mt-1 py-2 flex flex-row  items-center"
                                   >
                                     <Link to={`/profile/${p?.userId}`}>
-                                      <figure className="avatar me-3">
+                                      <figure className="  avatar me-3">
                                         <img
                                           srcSet={
                                             p?.image
@@ -2181,11 +2201,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               : placeholder
                                           }
                                           // src={article?.user?.user??.image}
-                                          className="shadow-sm rounded-full w-[32px] aspect-square"
+                                          className="  shadow-sm rounded-full w-[32px] aspect-square"
                                         />{" "}
                                       </figure>
                                     </Link>
-                                   <p className="text-black "> {p?.nom} {p?.prenom}</p>
+                                   <p className="  text-black "> {p?.nom} {p?.prenom}</p>
                                   </li>
                                 ))}
                               </ul>
@@ -2196,16 +2216,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     </div>
                   </div>
                 </div>
-                <span className="h-[0.5px] block bg-gray-200 w-full mb-3"></span>
+                <span className={`h-[0.5px] block w-full duration-300 mb-3 ${_currentTheme ? "bg-[#888] " : "bg-gray-200 "}`}></span>
 
-                <span className="flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
+                <span className="  flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
                   <button
                     onClick={async () => {
                       //notlike
                       NotificationService.instantSend(socket, {
                         toUser_id: article?.user?.user?.id,
                         forWichAction: "like",
-                        actionId: article.description ? 1 : 0,
+                        actionId: article?.video ? 1 : 0,
                         postId: article.id,
                         postImage: article?.image ? article?.image : "",
                       });
@@ -2213,17 +2233,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       await fetchLikesForArticle(article.id);
                     }}
                   >
-                    <span className="flex items-center flex-col md:flex-row gap-2 ">
+                    <span className="  flex items-center flex-col md:flex-row gap-2 ">
                       {likesData &&
                       likesData.some(
                         (like) => like.userId === storedUserData.id
                       ) ? (
-                        <span className="flex flex-row">
+                        <span className="  flex flex-row">
                           {" "}
-                          <BiSolidHeart className="size-6 text-orange-500" />
-                          <div className="flex items-center gap-2">
+                          <BiSolidHeart className="  size-6 text-orange-500" />
+                          <div className="  flex items-center gap-2">
                             <span
-                              className="text-xs md:text-md"
+                              className="  text-xs md:text-md"
                               style={{
                                 marginLeft: "1px",
                                 marginTop: "2px",
@@ -2238,16 +2258,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </div>
                         </span>
                       ) : (
-                        <span className="flex flex-row">
+                        <span className="  flex flex-row">
                           {" "}
-                          <BiHeart className="size-6 text-black" />
-                          <div className="flex items-center gap-2">
+                          <BiHeart style={dark_light_bg} className="  size-6"  />
+                          <div className="  flex items-center gap-2">
                             <span
-                              className="text-xs md:text-md"
+                              className="  text-xs md:text-md"
                               style={{
                                 marginLeft: "1px",
                                 marginTop: "2px",
-                                color: "black",
+                                ...dark_light_bg
                               }}
                             >
                               {getTranslation(
@@ -2273,15 +2293,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       }
                     }}
                   >
-                    <div className="flex flex-row gap-x-4">
+                    <div className="  flex flex-row gap-x-4">
                       {selectedArticleId === article.id ? (
-                        <div className="flex gap-2 flex-row md:flex-row items-center">
+                        <div className="  flex gap-2 flex-row md:flex-row items-center">
                           <img
+                          style={dark_img} 
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square fill-zinc-900"
+                            className="  w-5 aspect-square fill-zinc-900"
                           />
-                          <div className="flex gap-2 text-xs md:text-md">
+                          <div style={dark_light_bg} className="  flex gap-2 text-xs md:text-md">
                             {getTranslation(
                               `Comment`, // -----> Englais
                               `Commenter` //  -----> Francais
@@ -2289,13 +2310,15 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </div>
                         </div>
                       ) : (
-                        <div className="flex gap-2 flex-row md:flex-row items-center">
+                        <div className="  flex gap-2 flex-row md:flex-row items-center">
                           <img
+                          style={dark_img} 
+
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                            className="w-5 aspect-square fill-zinc-900"
+                            className="  w-5 aspect-square fill-zinc-900"
                           />
-                          <div className="flex gap-2 text-xs md:text-md">
+                          <div style={dark_light_bg}  className="  flex gap-2 text-xs md:text-md">
                             {" "}
                             <span>
                               {getTranslation(
@@ -2314,13 +2337,13 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       partageArticle(article.id);
                     }}
                   >
-                    <div className="flex flex-row gap-x-4">
+                    <div className="  flex flex-row gap-x-4">
                     
                       {selectedArticleId === article.id ? (
-                        <div className="flex gap-2 flex-row md:flex-row items-center">
-                          <BiShare className="size-6" />
+                        <div className="  flex gap-2 flex-row md:flex-row items-center">
+                          <BiShare className="  size-6" />
 
-                          <div className="flex gap-2 text-xs md:text-md">
+                          <div className="  flex gap-2 text-xs md:text-md">
                             {getTranslation(
                               `Share`, // -----> Englais
                               `Partager` //  -----> Francais
@@ -2328,10 +2351,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </div>
                         </div>
                       ) : (
-                        <div className="flex gap-2 flex-row md:flex-row items-center">
-                          <BiShare className="size-6" />
+                        <div className="  flex gap-2 flex-row md:flex-row items-center">
+                          <BiShare className="  size-6" />
 
-                          <div className="flex gap-2 text-xs md:text-md">
+                          <div className="  flex gap-2 text-xs md:text-md">
                             {" "}
                             <span>
                               {getTranslation(
@@ -2347,39 +2370,39 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                 </span>
 
                 {selectedArticleId === article?.id && (
-                  <div className="comments-section mt-2 ">
+                  <div className="  comments-section mt-2 ">
                     {article?.comments &&
                       article?.comments?.map((comment) => (
-                        <div key={comment.id} className="comment">
-                          <div className="flex w-full">
+                        <div key={comment.id} className="  comment">
+                          <div className="  flex w-full">
                             <Link to={`/profile/${comment?.user?.user?.id}`}>
                               {" "}
-                              <figure className="avatar me-3 mb-8">
+                              <figure className="  avatar me-3 mb-8">
                                 <img
                                   src={
                                     comment?.user?.user?.image
                                       ? comment?.user?.user?.image
                                       : placeholder
                                   }
-                                  className="shadow-sm rounded-full w-[52px] aspect-square"
+                                  className="  shadow-sm rounded-full w-[52px] aspect-square"
                                   alt="post"
                                 />
                               </figure>
                             </Link>
-                            <div className="flex flex-col w-full">
-                              <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[15px] md:rounded-[20px] max-w-[510px]">
-                                <div className="flex gap-4 justify-between px-3 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
-                                  <div className="flex flex-col py-1 font-light text-zinc-900">
+                            <div className="  flex flex-col w-full">
+                              <div style={dark_bg} className="  w-full flex flex-col py-2  rounded-[15px] md:rounded-[20px] max-w-[510px]">
+                                <div className="  flex gap-4 justify-between px-3 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
+                                  <div className="  flex flex-col py-1 font-light ">
                                     <Link
                                       to={`/profile/${comment?.user?.user?.id}`}
                                     >
-                                      <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                      <div className="  fw-700 font-xssss mt-1">
                                         {comment.user && comment.user.user.nom}{" "}
                                         {comment.user &&
                                           comment.user.user.prenom}
                                       </div>{" "}
                                     </Link>
-                                    <div className="mt-1 text-xs">
+                                    <div className="  mt-1 text-xs">
                                       {comment.user && (
                                         <div>
                                           {comment?.user?.user?.profil ===
@@ -2405,7 +2428,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       {/* {comment.user &&
                                         comment.user.user.profil} */}
                                     </div>
-                                    <div className="mt-1 text-xs">
+                                    <div className="  mt-1 text-xs">
                                       {moment(comment?.createdAt).format(
                                         "DD MMMM YYYY"
                                       )}{" "}
@@ -2423,7 +2446,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                   {storedUserData.id ==
                                     comment?.user?.user?.id && (
                                     <div
-                                      className=" relative cursor-pointer"
+                                      className="   relative cursor-pointer"
                                       onClick={() =>
                                         handleMoreClickComment(comment)
                                       }
@@ -2437,25 +2460,25 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       >
                                         <path
                                           d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                          fill="#1D1E21"
-                                        />
+                                      style={dark_fill_svg}
+/>
                                         <path
                                           d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                                          fill="#1D1E21"
-                                        />
+                                          style={dark_fill_svg}
+                                          />
                                         <path
                                           d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                                          fill="#1D1E21"
-                                        />
+                                          style={dark_fill_svg}
+                                          />
                                       </svg>
 
                                       {showDropdownComment === comment?.id &&
                                         comment?.user?.user &&
                                         comment?.user?.user?.id ===
                                           storedUserData.id && (
-                                          <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                          <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                             <button
-                                              className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                              className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                               onClick={() =>
                                                 handleEditClickComment(
                                                   comment.id
@@ -2463,7 +2486,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               }
                                             >
                                               <label
-                                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                 // onClick={() => handleEditClickComment(comment)}
                                               >
                                                 <BiEditAlt />
@@ -2479,7 +2502,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             </button>
 
                                             <button
-                                              className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                              className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                               onClick={() => {
                                                 handleDeleteCommentClick(
                                                   comment.id,
@@ -2491,11 +2514,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               }}
                                             >
                                               <label
-                                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                 // onClick={() => handleEditClickComment(comment)}
                                               >
                                                 <BiLogInCircle />
-                                                <span className="text-base">
+                                                <span className="  text-base">
                                                   {" "}
                                                   {getTranslation(
                                                     `Delete`, // -----> Englais
@@ -2509,10 +2532,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     </div>
                                   )}
                                 </div>
-                                <div className="mt-2 text-break font-light text-zinc-900 px-4">
+                                <div className="  mt-2 text-break font-light  px-4">
                                   {comment.id === editingCommentId ? (
                                     <textarea
-                                      className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
+                                      className="  bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
                                       style={{
                                         resize: "none",
                                         maxHeight: "300px",
@@ -2526,7 +2549,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     ></textarea>
                                   ) : (
                                     <div
-                                      className="text-wrap"
+                                      className="  text-wrap"
                                       style={{
                                         resize: "none",
                                         maxHeight: "300px",
@@ -2540,9 +2563,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 </div>
 
                                 {comment.id === editingCommentId ? (
-                                  <div className="my-2 px-[26px] flex w-full justify-between">
+                                  <div className="  my-2 px-[26px] flex w-full justify-between">
                                     <button
-                                      className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
+                                      className="  bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
                                       onClick={() => cancelEdit()}
                                     >
                                       {" "}
@@ -2552,7 +2575,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       )}
                                     </button>
                                     <button
-                                      className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
+                                      className="  bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
                                       onClick={() => {
                                         saveEditedComment(comment.id);
 
@@ -2564,20 +2587,20 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     </button>
                                   </div>
                                 ) : (
-                                  <div className="my-2 flex w-full justify-between"></div>
+                                  <div className="  my-2 flex w-full justify-between"></div>
                                 )}
                               </div>
 
-                              <div className="my-2 flex flex-row  w-full justify-between">
-                                <div className="flex flex-row">
+                              <div className="  my-2 flex flex-row  w-full justify-between">
+                                <div className="  flex flex-row">
                                   {" "}
                                   <button
-                                    className="flex-row"
+                                    className="  flex-row"
                                     onClick={async () => {
                                       NotificationService.instantSend(socket, {
                                         toUser_id: comment.userId,
                                         forWichAction: "likeComment",
-                                        actionId: article.description ? 1 : 0,
+                                        actionId: article?.video ? 1 : 0,
                                         postId: article.id,
                                         content: comment.description,
                                         postImage: article?.image
@@ -2590,18 +2613,18 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       await handleLikeComment(comment.id);
                                     }}
                                   >
-                                    <div className="flex-col">
+                                    <div className="  flex-col">
                                       {likesDataComment &&
                                         (likesDataComment.some(
                                           (like) =>
                                             like.userId === storedUserData.id &&
                                             like.commentId === comment.id
                                         ) ? (
-                                          <span className="flex flex-row">
-                                            <BiSolidHeart className="size-6 text-orange-500" />
-                                            <div className="flex items-center gap-2">
+                                          <span className="  flex flex-row">
+                                            <BiSolidHeart className="  size-6 text-orange-500" />
+                                            <div className="  flex items-center gap-2">
                                               <span
-                                                className="text-xs md:text-md"
+                                                className="  text-xs md:text-md"
                                                 style={{
                                                   marginLeft: "1px",
                                                   marginTop: "2px",
@@ -2609,35 +2632,35 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 }}
                                               ></span>
                                             </div>
-                                            <div className="flex-col mt-1 ml-2 text-orange-500">
+                                            <div className="  flex-col mt-1 ml-2 text-orange-500">
                                               {comment.likesCount}
                                             </div>
                                           </span>
                                         ) : (
-                                          <span className="flex flex-row">
-                                            <BiHeart className="size-6 text-black" />
-                                            <div className="flex items-center gap-2">
+                                          <span className="  flex flex-row">
+                                            <BiHeart style={dark_gray_color} className="  size-6 " />
+                                            <div className="  flex items-center gap-2">
                                               <span
-                                                className="text-xs md:text-md"
+                                                className="  text-xs md:text-md"
                                                 style={{
                                                   marginLeft: "1px",
                                                   marginTop: "2px",
-                                                  color: "black",
+                                                                                                    
                                                 }}
                                               ></span>
                                             </div>
-                                            <div className="flex-col mt-1 ml-2 text-black">
+                                            <div style={dark_gray_color} className="  flex-col mt-1 ml-2">
                                               {comment.likesCount}
                                             </div>
                                           </span>
                                         ))}
                                     </div>
                                   </button>
-                                  {/* <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
+                                  {/* <div className="  flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
                                 </div>
                                 <button
                                   onClick={() => handleReplyClick(comment.id)}
-                                  className="w-20 font-semibold ml-2  mt-2 flex gap-2 text-xs md:text-md"
+                                  className="  w-20 font-semibold ml-2  mt-2 flex gap-2 text-xs md:text-md"
                                 >
                                   {getTranslation(
                                     `Reply`, // -----> Englais
@@ -2649,12 +2672,12 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </div>
 
                           {repliesVisible[comment?.id] && (
-                            <div className="replies-section ml-6 md:ml-16 mt-0">
+                            <div className="  replies-section ml-6 md:ml-16 mt-0">
                               {articleComments[comment?.id] &&
                                 articleComments[comment?.id].map((reply) => (
-                                  <div key={reply.id} className="reply mb-0">
-                                    <div className="flex space-x-2 items-start py-2">
-                                      <figure className="avatar me-2 mb-8">
+                                  <div key={reply.id} className="  reply mb-0">
+                                    <div className="  flex space-x-2 items-start py-2">
+                                      <figure className="  avatar me-2 mb-8">
                                         <img
                                           src={
                                             //  reply.user?.user?.image
@@ -2662,20 +2685,20 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               ? reply?.user?.user?.image
                                               : placeholder
                                           }
-                                          className="shadow-sm rounded-full w-[52px] aspect-square"
+                                          className="  shadow-sm rounded-full w-[52px] aspect-square"
                                           alt="post"
                                         />
                                       </figure>
-                                      <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
-                                        <div className="flex gap-4 justify-between px-2 md:px-6 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
-                                          <div className="flex flex-col py-1 font-light text-zinc-900">
-                                            <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                      <div style={dark_bg} className="  w-full flex flex-col py-2 rounded-[20px] max-w-[510px]">
+                                        <div className="  flex gap-4 justify-between px-2 md:px-6 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
+                                          <div className="  flex flex-col py-1 font-light ">
+                                            <div className="  fw-700 font-xssss mt-1">
                                               {reply.user &&
                                                 reply.user.user.nom}{" "}
                                               {reply.user &&
                                                 reply.user.user.prenom}
                                             </div>
-                                            <div className="mt-1 text-xs">
+                                            <div className="  mt-1 text-xs">
                                               {/* {reply.user &&
                                                   reply.user.user
                                                     .profil} */}
@@ -2704,7 +2727,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 </div>
                                               )}
                                             </div>
-                                            <div className="mt-1 text-xs">
+                                            <div className="  mt-1 text-xs">
                                               {moment(reply?.createdAt).format(
                                                 "DD MMMM YYYY"
                                               )}{" "}
@@ -2723,7 +2746,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           {storedUserData.id ==
                                             reply?.user?.user?.id && (
                                             <div
-                                              className="ms-auto relative cursor-pointer"
+                                              className="  ms-auto relative cursor-pointer"
                                               onClick={() =>
                                                 handleMoreClickreply(reply)
                                               }
@@ -2737,15 +2760,15 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               >
                                                 <path
                                                   d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                                  fill="#1D1E21"
-                                                />
+                                                  style={dark_fill_svg}
+/>
                                                 <path
                                                   d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                                                  fill="#1D1E21"
+                                                  style={dark_fill_svg}
                                                 />
                                                 <path
                                                   d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                                                  fill="#1D1E21"
+                                                  style={dark_fill_svg}
                                                 />
                                               </svg>
 
@@ -2753,9 +2776,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 reply?.user?.user &&
                                                 reply?.user?.user?.id ===
                                                   storedUserData.id && (
-                                                  <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                                  <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                     <button
-                                                      className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                      className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                                       onClick={() =>
                                                         handleEditClickreply(
                                                           reply.id
@@ -2763,7 +2786,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                       }
                                                     >
                                                       <label
-                                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                        className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                         // onClick={() => handleEditClickComment(comment)}
                                                       >
                                                         <BiEditAlt />
@@ -2779,7 +2802,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     </button>
 
                                                     <button
-                                                      className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                      className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                                       onClick={() => {
                                                         handleDeleteReplyClick(
                                                           reply.id
@@ -2796,11 +2819,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                       }}
                                                     >
                                                       <label
-                                                        className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                        className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                         // onClick={() => handleEditClickComment(comment)}
                                                       >
                                                         <BiLogInCircle />
-                                                        <span className="text-base">
+                                                        <span className="  text-base">
                                                           {getTranslation(
                                                             `Delete`, // -----> Englais
                                                             `Supprimer` //  -----> Francais
@@ -2813,16 +2836,18 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             </div>
                                           )}
                                         </div>
-                                        <div className="mt-2 text-break font-light text-zinc-900 px-4">
+                                        <div className="  mt-2 text-break font-light px-4 ">
                                           {reply.id === editingReplyId ? (
                                             <textarea
-                                              className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
+                                              className="   rounded-[30px] px-3 py-2  w-full"
                                               style={{
                                                 resize: "none",
                                                 maxHeight: "300px",
                                                 height: "150px",
                                                 overflowY: "auto",
                                                 scrollbarWidth: "none",
+                                                ...dark_border,
+                                                ...dark_bg
                                               }}
                                               value={editedReply}
                                               onChange={(e) =>
@@ -2831,7 +2856,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             ></textarea>
                                           ) : (
                                             <div
-                                              className="text-wrap"
+                                              className="  text-wrap"
                                               style={{
                                                 resize: "none",
                                                 maxHeight: "300px",
@@ -2845,16 +2870,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         </div>
                                         {/* ok */}
                                         {reply.id === editingReplyId ? (
-                                          <div className="my-2 px-[26px] flex w-full justify-between ">
+                                          <div className="  my-2 px-[26px] flex w-full justify-between ">
                                             <button
-                                              className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
+                                              className="  bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
                                               onClick={() => cancelEditreply()}
                                             >
                                               Annuler
                                             </button>
 
                                             <button
-                                              className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
+                                              className="  bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
                                               onClick={() => {
                                                 saveEditedReply(reply.id);
                                                 // fetchRepliesForComment(reply.commentaireId)
@@ -2872,7 +2897,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             </button>
                                           </div>
                                         ) : (
-                                          <div className="my-2 flex w-full justify-between">
+                                          <div className="  my-2 flex w-full justify-between">
                                             {/* <button onClick={() => handleEditClickComment(comment.id)}>Edit</button> */}
                                           </div>
                                         )}
@@ -2881,20 +2906,20 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                   </div>
                                 ))}
                               {replyingToCommentId == comment.id && (
-                                <div className="flex items-center gap-3 ">
-                                  <figure className="avatar">
+                                <div className="  flex items-center gap-3 ">
+                                  <figure className="  avatar">
                                     <img
                                       src={
                                         user?.user?.image
                                           ? user?.user?.image
                                           : placeholder
                                       }
-                                      className="shadow-sm rounded-full w-[52px] aspect-square"
+                                      className="  shadow-sm rounded-full w-[52px] aspect-square"
                                       alt="post"
                                     />
                                   </figure>
-                                  <div className="flex flex-col w-full">
-                                    <div className="w-full flex items-center">
+                                  <div className="  flex flex-col w-full">
+                                    <div className="  w-full flex items-center">
                                       <input
                                         type="text"
                                         value={replyInput}
@@ -2902,7 +2927,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         onChange={(e) =>
                                           setReplyInput(e.target.value)
                                         }
-                                        className="w-full px-2 bg-gray-100 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
+                                        className="  w-full px-2 mb-2 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
+                                        style={dark_bg}
+
                                       />
                                       <button
                                         onClick={() => {
@@ -2927,7 +2954,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             {
                                               toUser_id: comment.userId,
                                               forWichAction: "reply",
-                                              actionId: article.description
+                                              actionId: article?.video
                                                 ? 1
                                                 : 0,
                                               postId: article.id,
@@ -2944,7 +2971,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         }}
                                       >
                                         <svg
-                                          className="w-4 h-5 md:w-5"
+                                          className="  w-4 h-5 md:w-5"
                                           viewBox="0 0 20 20"
                                           fill="none"
                                           xmlns="http://www.w3.org/2000/svg"
@@ -2967,24 +2994,25 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     {/* Add Comment Input */}
                     {commentInputVisible && (
                       <div>
-                        <div className="flex items-center gap-2 md:gap-3 mt-3">
-                          <figure className="avatar">
+                        <div className="  flex items-center gap-2 md:gap-3 mt-3">
+                          <figure className="  avatar">
                             <img
                               src={
                                 user.user.image ? user.user?.image : placeholder
                               }
-                              className="shadow-sm rounded-full w-[52px] aspect-square"
+                              className="  shadow-sm rounded-full w-[52px] aspect-square"
                               alt="post"
                             />
                           </figure>
-                          <div className="flex flex-col w-full">
-                            <div className="w-full flex items-center">
+                          <div className="  flex flex-col w-full">
+                            <div className="  w-full flex items-center">
                               <input
                                 type="text"
                                 value={comment}
                                 placeholder="Ecrire un commentaire .."
                                 onChange={(e) => setComment(e.target.value)}
-                                className="w-full bg-gray-100 rounded-[15px] md:rounded-[30px] px-2 mr-1 md:mr-3 h-12"
+                                className="  w-full rounded-[15px] md:rounded-[30px] px-2 mr-1 md:mr-3 h-12"
+                                style={dark_bg}
                               />
                               <button
                                 onClick={() => {
@@ -2995,7 +3023,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                   NotificationService.instantSend(socket, {
                                     toUser_id: article?.user?.user?.id,
                                     forWichAction: "comment",
-                                    actionId: article.description ? 1 : 0,
+                                    actionId: article?.video? 1 : 0,
                                     postId: article.id,
                                     content: comment,
                                     postImage: article?.image
@@ -3009,10 +3037,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     article.id
                                   );
                                 }}
-                                className="ml-1"
+                                className="  ml-1"
                               >
                                 <svg
-                                  className="w-4 h-5 md:w-5 "
+                                  className="  w-4 h-5 md:w-5 "
                                   // width="20"
                                   // height="20"
                                   viewBox="0 0 20 20"
@@ -3037,10 +3065,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           </>
 
           {isModaldOpen && (
-            <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+            <div className="  bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
               <div
                 ref={ref}
-                className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10"
+                style={dark_light_bg}
+                className="  relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full  rounded-[10px] w-[625px] max-md:px-5 max-md:my-10"
               >
                 <EditPost
                   articleId={selectedArticleId}
@@ -3048,7 +3077,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                   onClose={handleCloseModal}
                 />
                 <button
-                  className=" absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
+                  className="   absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
                   onClick={() => handleCloseModal(true)}
                 >
                   {" "}
@@ -3059,21 +3088,21 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           )}
 
           {isModaldOpenGallery && (
-            <div className="bg-black/70 fixed inset-0 z-50 h-full w-full   flex justify-center items-center ">
+            <div className="  bg-black/70 fixed inset-0 z-50 h-full w-full   flex justify-center items-center ">
               {/* <button
-             className=" float-left "
+             className="   float-left "
           >
              
           </button> */}
               <div
                 ref={refGallery}
-                className="relative flex flex-col py-2    rounded-[10px] md:w-full w-[425px]  max-md:my-10"
+                className="  relative flex flex-col py-2    rounded-[10px] md:w-full w-[425px]  max-md:my-10"
               >
-                <div className="flex flex-col md:flex-row h-screen w-screen  bg-black md:pr-0">
-                  <div className="bg-black  ">
+                <div className="  flex flex-col md:flex-row h-screen w-screen  bg-black md:pr-0">
+                  <div className="  bg-black  ">
                     <svg
                       onClick={handleCloseModalSHOWGallery}
-                      className="ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 md:size-14 size-14  "
+                      className="  ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 md:size-14 size-14  "
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 62 62"
                       width="62"
@@ -3083,7 +3112,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
                     </svg>
                   </div>
-                  <div className="flex flex-col w-full  md:w-[70%] bg-black    -py-10">
+                  <div className="  flex flex-col w-full  md:w-[70%] bg-black    -py-10">
                     <Swiper
                       modules={[Pagination, Navigation]}
                       navigation={true}
@@ -3093,18 +3122,18 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       }
                       centeredSlides={true}
                       spaceBetween={80}
-                      className=" flex items-center justify-between w-full h-full my-2"
+                      className="   flex items-center justify-between w-full h-full my-2"
                     >
                       {images.map((imageUrl, index) => (
                         <SwiperSlide
                           key={index}
-                          className="flex justify-center items-center "
+                          className="  flex justify-center items-center "
                         >
-                          <div className="flex justify-between items-center w-full h-full ">
+                          <div className="  flex justify-between items-center w-full h-full ">
                             <img
                               src={imageUrl}
                               alt={`Image ${index}`}
-                              className=" w-full h-full object-contain     "
+                              className="   w-full h-full object-contain     "
                             />
                           </div>
                         </SwiperSlide>
@@ -3113,11 +3142,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                   </div>
                 
                   
-                  <div className="hidden bg-white md:flex flex-col w-[30%] p-10 ">
-                    <div className="  rounded-lg -mt-4">
-                    <div className="card-body p-0 d-flex">
+                  <div  style={dark_light_bg} className="  hidden md:flex flex-col w-[30%] p-10 ">
+                    <div className="    rounded-lg -mt-4">
+                    <div className="  card-body p-0 d-flex">
                 <Link to={`/profile/${article?.user?.user?.id}`}>
-                  <figure className="avatar me-3">
+                  <figure className="  avatar me-3">
                     <img
                       srcSet={
                         article?.user?.user?.image
@@ -3125,18 +3154,18 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           : placeholder
                       }
                       // src={article.user.user?.image}
-                      className="shadow-sm rounded-full w-[52px] aspect-square"
+                      className="  shadow-sm rounded-full w-[52px] aspect-square"
                       alt="post"
                     />{" "}
                   </figure>
                 </Link>
 
-                <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+                <h4 style={dark_light_bg} className="  fw-700  font-xssss mt-1">
                   <Link to={`/profile/${article?.user?.user?.id}`}>
                     {article?.user?.user?.nom} {"   "}
                     {article?.user?.user?.prenom}{" "}
                   </Link>
-                  <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {article?.user?.user?.profil == "other"
                       ? article.user.other?.profession
                       : ""}
@@ -3154,11 +3183,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       : ""}
                     {article?.user?.user?.profil == "scout" ? "Scout" : ""}
                   </span>
-                  {/* <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  {/* <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                   {article?.createdAt}
 
 </span> */}
-                  <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {moment(article?.createdAt).format("DD MMMM YYYY")}{" "}
                     {"  -  "}
                     {moment(article?.createdAt).isAfter(
@@ -3175,7 +3204,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
             
                 {storedUserData.id == article?.user?.user?.id && (
                   <div
-                    className="ms-auto relative cursor-pointer"
+                    className="  ms-auto relative cursor-pointer"
                     onClick={() => handleMoreClick(article)}
                   >
                     <svg
@@ -3187,24 +3216,24 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     >
                       <path
                         d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                        fill="#1D1E21"
-                      />
+                        style={dark_fill_svg}
+/>
                       <path
                         d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                        fill="#1D1E21"
+                        style={dark_fill_svg}
                       />
                       <path
                         d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                        fill="#1D1E21"
+                        style={dark_fill_svg}
                       />
                     </svg>
 
                     {showDropdown === article.id &&
                       article?.user?.user &&
                       article?.user?.user?.id === storedUserData.id && (
-                        <div className="absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                        <div className="  absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                           <button
-                            className="block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                            className="  block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
                             // onClick={() =>
                             //   handleEditClick(selectedArticle)
                             // }
@@ -3212,7 +3241,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                             onClick={() => handleEdit(article.id)}
                           >
                             <label
-                              className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                              className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                               // onClick={() => handleEditClick(article)}
                             >
                               <svg
@@ -3257,7 +3286,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </button>
 
                           <button
-                            className="flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                            className="  flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
                             onClick={() => handleDeleteClick(article.id)}
                           >
                             <svg
@@ -3272,7 +3301,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 fill="black"
                               />
                             </svg>
-                            <span className="text-base">
+                            <span className="  text-base">
                               {getTranslation(
                                 `Delete`, // -----> Englais
                                 `Supprimer` //  -----> Francais
@@ -3285,21 +3314,21 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                 )}
               </div>
               <div class=" p-0  mt-2">
-                <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
+                <p className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2">
                   {!showFullText && article?.description?.length > 295
                     ? article?.description?.substring(0, 295) + "..."
                     : article.description}
                   {article?.description?.length > 295 && (
                     <button
                       onClick={toggleText}
-                      className="text-blue-600  hover:text-blue-400 focus:outline-none"
+                      className="  text-blue-600  hover:text-blue-400 focus:outline-none"
                     >
                       {showFullText ? "Voir moins" : "Voir plus"}
                     </button>
                   )}
                 </p>
               </div>
-                      <div className="flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
+                      <div className="  flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
                        
                        
                        
@@ -3310,7 +3339,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                        
                        <div
                           onClick={() => handleClicklikeshow(article.id)}
-                          className="flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
+                          className="  flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
                         >
                           <svg
                             width="17"
@@ -3321,23 +3350,23 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           >
                             <path
                               d="M11.7267 0C10.9723 0.0117335 10.2344 0.222313 9.58752 0.610472C8.94058 0.998631 8.40753 1.55062 8.04219 2.21071C7.67684 1.55062 7.14379 0.998631 6.49686 0.610472C5.84993 0.222313 5.11203 0.0117335 4.35767 0C3.15514 0.0522469 2.02216 0.578304 1.20626 1.46324C0.390358 2.34818 -0.0421438 3.52007 0.00324311 4.72288C0.00324311 9.26153 7.3428 14.5036 7.65498 14.726L8.04219 15L8.4294 14.726C8.74158 14.5049 16.0811 9.26153 16.0811 4.72288C16.1265 3.52007 15.694 2.34818 14.8781 1.46324C14.0622 0.578304 12.9292 0.0522469 11.7267 0Z"
-                              fill="#65676B"
-                            />
+                              style={dark_fill_svg}
+                              />
                           </svg>
-                          {/* <span className="text-md py-1">
+                          {/* <span className="  text-md py-1">
                       {article.likesCount}
                     </span> */}
                           <div>
-                            <span className="text-md py-1 px-2 relative z-[2] ">
-                              <div className=""> {article.likesCount}</div>
+                            <span className="  text-md py-1 px-2 relative z-[2] ">
+                              <div className="  " style={dark_light_bg}> {article.likesCount}</div>
 
                               {showDropdownlikes && (
                                 <div
                                   ref={reff}
-                                  className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
+                                  className="  absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
                                 >
-                                  <div className="py-2 px-4">
-                                    <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
+                                  <div className="  py-2 px-4">
+                                    <h3 className="  md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
                                       {" "}
                                       {getTranslation(
                                         `Who liked this post?`, // -----> Englais
@@ -3350,10 +3379,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       {userslikearticle.map((like, index) => (
                                         <li
                                           key={index}
-                                          className="mt-1 py-2 flex flex-row  items-center"
+                                          className="  mt-1 py-2 flex flex-row  items-center"
                                         >
                                           <Link to={`/profile/${like.userId}`}>
-                                            <figure className="avatar me-3">
+                                            <figure className="  avatar me-3">
                                               <img
                                                 srcSet={
                                                   like?.user?.image
@@ -3361,7 +3390,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     : placeholder
                                                 }
                                                 // src={article?.user?.user??.image}
-                                                className="shadow-sm rounded-full w-[32px] aspect-square"
+                                                className="  shadow-sm rounded-full w-[32px] aspect-square"
                                               />{" "}
                                             </figure>
                                           </Link>
@@ -3375,7 +3404,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                             </span>
                           </div>
                         </div>
-                        <div className="flex gap-2.5 items-center justify-center py-2.5">
+                        <div className="  flex gap-2.5 items-center justify-center py-2.5">
                           <svg
                             width="15"
                             height="15"
@@ -3385,24 +3414,24 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           >
                             <path
                               d="M12.2974 1.72552C11.5056 1.06664 10.586 0.578896 9.5964 0.29302C8.6068 0.00714375 7.56872 -0.0706678 6.54756 0.0644883C4.65848 0.309904 2.9336 1.26506 1.72316 2.73601C0.512716 4.20696 -0.0925499 6.08345 0.0302592 7.98444C0.153068 9.88544 0.994746 11.6684 2.38439 12.9714C3.77403 14.2744 5.60748 14.9997 7.51244 15H11.8756C12.704 14.999 13.4982 14.6695 14.0839 14.0837C14.6697 13.498 14.9992 12.7038 15.0002 11.8754V7.06918V7.02981C14.934 6.00835 14.6602 5.01111 14.1955 4.09908C13.7308 3.18706 13.0849 2.3794 12.2974 1.72552ZM5.00152 4.37641H7.50119C7.66693 4.37641 7.82588 4.44225 7.94307 4.55945C8.06026 4.67664 8.1261 4.83559 8.1261 5.00133C8.1261 5.16707 8.06026 5.32602 7.94307 5.44321C7.82588 5.56041 7.66693 5.62625 7.50119 5.62625H5.00152C4.83578 5.62625 4.67683 5.56041 4.55964 5.44321C4.44244 5.32602 4.3766 5.16707 4.3766 5.00133C4.3766 4.83559 4.44244 4.67664 4.55964 4.55945C4.67683 4.44225 4.83578 4.37641 5.00152 4.37641ZM10.0009 10.6256H5.00152C4.83578 10.6256 4.67683 10.5597 4.55964 10.4425C4.44244 10.3254 4.3766 10.1664 4.3766 10.0007C4.3766 9.83493 4.44244 9.67598 4.55964 9.55878C4.67683 9.44159 4.83578 9.37575 5.00152 9.37575H10.0009C10.1666 9.37575 10.3255 9.44159 10.4427 9.55878C10.5599 9.67598 10.6258 9.83493 10.6258 10.0007C10.6258 10.1664 10.5599 10.3254 10.4427 10.4425C10.3255 10.5597 10.1666 10.6256 10.0009 10.6256ZM10.0009 8.12591H5.00152C4.83578 8.12591 4.67683 8.06008 4.55964 7.94288C4.44244 7.82569 4.3766 7.66674 4.3766 7.501C4.3766 7.33526 4.44244 7.17631 4.55964 7.05912C4.67683 6.94192 4.83578 6.87608 5.00152 6.87608H10.0009C10.1666 6.87608 10.3255 6.94192 10.4427 7.05912C10.5599 7.17631 10.6258 7.33526 10.6258 7.501C10.6258 7.66674 10.5599 7.82569 10.4427 7.94288C10.3255 8.06008 10.1666 8.12591 10.0009 8.12591Z"
-                              fill="#65676B"
+                              style={dark_fill_svg}
                             />
                           </svg>
-                          <span className="text-md py-1">
+                          <span style={dark_light_bg} className="  text-md py-1">
                             {article.commentsCount}
                           </span>
                         </div>
                       </div>
-                      <span className="h-[0.5px] block bg-gray-200 w-full mb-3"></span>
+                      <span className="  h-[0.5px] block bg-gray-200 w-full mb-3"></span>
 
-                      <span className="flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
+                      <span className="  flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
                         <button
                           onClick={async () => {
                             //notlike
                             NotificationService.instantSend(socket, {
                               toUser_id: article?.user?.user?.id,
                               forWichAction: "like",
-                              actionId: article.description ? 1 : 0,
+                              actionId: article?.video ? 1 : 0,
                               postId: article.id,
                               postImage: article?.image ? article?.image : "",
                             });
@@ -3410,17 +3439,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                             await fetchLikesForArticle(article.id);
                           }}
                         >
-                          <span className="flex items-center flex-col md:flex-row gap-2 ">
+                          <span className="  flex items-center flex-col md:flex-row gap-2 ">
                             {likesData &&
                             likesData.some(
                               (like) => like.userId === storedUserData.id
                             ) ? (
-                              <span className="flex flex-row">
+                              <span className="  flex flex-row">
                                 {" "}
-                                <BiSolidHeart className="size-6 text-orange-500" />
-                                <div className="flex items-center gap-2">
+                                <BiSolidHeart className="  size-6 text-orange-500" />
+                                <div className="  flex items-center gap-2">
                                   <span
-                                    className="text-xs md:text-md"
+                                    className="  text-xs md:text-md"
                                     style={{
                                       marginLeft: "1px",
                                       marginTop: "2px",
@@ -3435,16 +3464,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 </div>
                               </span>
                             ) : (
-                              <span className="flex flex-row">
+                              <span className="  flex flex-row">
                                 {" "}
-                                <BiHeart className="size-6 text-black" />
-                                <div className="flex items-center gap-2">
+                                <BiHeart style={dark_light_bg} className="  size-6" />
+                                <div className="  flex items-center gap-2">
                                   <span
-                                    className="text-xs md:text-md"
+                                    className="  text-xs md:text-md"
                                     style={{
                                       marginLeft: "1px",
                                       marginTop: "2px",
-                                      color: "black",
+                                      ...dark_light_bg
                                     }}
                                   >
                                     {getTranslation(
@@ -3470,15 +3499,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                             }
                           }}
                         >
-                          <div className="flex flex-row gap-x-4">
+                          <div className="  flex flex-row gap-x-4">
                             {selectedArticleId === article.id ? (
-                              <div className="flex gap-2 flex-row md:flex-row items-center">
+                              <div className="  flex gap-2 flex-row md:flex-row items-center">
                                 <img
                                   loading="lazy"
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                  className="w-5 aspect-square fill-zinc-900"
+                                  className="  w-5 aspect-square fill-zinc-900"
+                                  style={dark_img}
+
                                 />
-                                <div className="flex gap-2 text-xs md:text-md">
+                                <div className="  flex gap-2 text-xs md:text-md">
                                   {getTranslation(
                                     `Comment`, // -----> Englais
                                     `Commenter` //  -----> Francais
@@ -3486,13 +3517,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 </div>
                               </div>
                             ) : (
-                              <div className="flex gap-2 flex-row md:flex-row items-center">
+                              <div className="  flex gap-2 flex-row md:flex-row items-center">
                                 <img
                                   loading="lazy"
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                                  className="w-5 aspect-square fill-zinc-900"
+                                  className="  w-5 aspect-square fill-zinc-900"
+                                  style={dark_img}
                                 />
-                                <div className="flex gap-2 text-xs md:text-md">
+                                <div className="  flex gap-2 text-xs md:text-md">
                                   {" "}
                                   <span>
                                     {getTranslation(
@@ -3511,12 +3543,12 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                             partageArticle(article.id);
                           }}
                         >
-                          <div className="flex flex-row gap-x-4">
+                          <div className="  flex flex-row gap-x-4">
                             {selectedArticleId === article.id ? (
-                              <div className="flex gap-2 flex-row md:flex-row items-center">
-                                <BiShare className="size-6" />
+                              <div className="  flex gap-2 flex-row md:flex-row items-center">
+                                <BiShare className="  size-6" />
 
-                                <div className="flex gap-2 text-xs md:text-md">
+                                <div className="  flex gap-2 text-xs md:text-md">
                                   {getTranslation(
                                     `Share`, // -----> Englais
                                     `Partager` //  -----> Francais
@@ -3524,10 +3556,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 </div>
                               </div>
                             ) : (
-                              <div className="flex gap-2 flex-row md:flex-row items-center">
-                                <BiShare className="size-6" />
+                              <div className="  flex gap-2 flex-row md:flex-row items-center">
+                                <BiShare className="  size-6" />
 
-                                <div className="flex gap-2 text-xs md:text-md">
+                                <div className="  flex gap-2 text-xs md:text-md">
                                   {" "}
                                   <span>
                                     {getTranslation(
@@ -3543,42 +3575,42 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       </span>
 
                       {selectedArticleId === article?.id && (
-                        <div className="comments-section mt-2 ">
+                        <div className="  comments-section mt-2 ">
                           {article?.comments &&
                             article?.comments?.map((comment) => (
-                              <div key={comment.id} className="comment">
-                                <div className="flex w-full">
+                              <div key={comment.id} className="  comment">
+                                <div className="  flex w-full">
                                   <Link
                                     to={`/profile/${comment?.user?.user?.id}`}
                                   >
                                     {" "}
-                                    <figure className="avatar me-3 mb-8">
+                                    <figure className="  avatar me-3 mb-8">
                                       <img
                                         src={
                                           comment?.user?.user?.image
                                             ? comment?.user?.user?.image
                                             : placeholder
                                         }
-                                        className="shadow-sm rounded-full w-[52px] aspect-square"
+                                        className="  shadow-sm rounded-full w-[52px] aspect-square"
                                         alt="post"
                                       />
                                     </figure>
                                   </Link>
-                                  <div className="flex flex-col w-full">
-                                    <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[15px] md:rounded-[20px] max-w-[510px]">
-                                      <div className="flex gap-4 justify-between px-3 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
-                                        <div className="flex flex-col py-1 font-light text-zinc-900">
+                                  <div className="  flex flex-col w-full">
+                                    <div style={dark_bg} className="  w-full flex flex-col py-2 rounded-[15px] md:rounded-[20px] max-w-[510px]">
+                                      <div className="  flex gap-4 justify-between px-3 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
+                                        <div className="  flex flex-col py-1 font-light">
                                           <Link
                                             to={`/profile/${comment?.user?.user?.id}`}
                                           >
-                                            <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                            <div className="  fw-700  font-xssss mt-1">
                                               {comment.user &&
                                                 comment.user.user.nom}{" "}
                                               {comment.user &&
                                                 comment.user.user.prenom}
                                             </div>{" "}
                                           </Link>
-                                          <div className="mt-1 text-xs">
+                                          <div className="  mt-1 text-xs">
                                             {comment.user && (
                                               <div>
                                                 {comment?.user?.user?.profil ===
@@ -3607,7 +3639,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             {/* {comment.user &&
                                         comment.user.user.profil} */}
                                           </div>
-                                          <div className="mt-1 text-xs">
+                                          <div className="  mt-1 text-xs">
                                             {moment(comment?.createdAt).format(
                                               "DD MMMM YYYY"
                                             )}{" "}
@@ -3627,7 +3659,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         {storedUserData.id ==
                                           comment?.user?.user?.id && (
                                           <div
-                                            className=" relative cursor-pointer"
+                                            className="   relative cursor-pointer"
                                             onClick={() =>
                                               handleMoreClickComment(comment)
                                             }
@@ -3641,15 +3673,15 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             >
                                               <path
                                                 d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                                fill="#1D1E21"
-                                              />
+                                                style={dark_fill_svg}
+/>
                                               <path
                                                 d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                                                fill="#1D1E21"
+                                                style={dark_fill_svg}
                                               />
                                               <path
                                                 d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                                                fill="#1D1E21"
+                                                style={dark_fill_svg}
                                               />
                                             </svg>
 
@@ -3658,9 +3690,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               comment?.user?.user &&
                                               comment?.user?.user?.id ===
                                                 storedUserData.id && (
-                                                <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                                <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                   <button
-                                                    className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                    className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                                     onClick={() =>
                                                       handleEditClickComment(
                                                         comment.id
@@ -3668,7 +3700,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     }
                                                   >
                                                     <label
-                                                      className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                      className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                       // onClick={() => handleEditClickComment(comment)}
                                                     >
                                                       <BiEditAlt />
@@ -3684,7 +3716,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   </button>
 
                                                   <button
-                                                    className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                    className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                                     onClick={() => {
                                                       handleDeleteCommentClick(
                                                         comment.id,
@@ -3700,11 +3732,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     }}
                                                   >
                                                     <label
-                                                      className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                      className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                       // onClick={() => handleEditClickComment(comment)}
                                                     >
                                                       <BiLogInCircle />
-                                                      <span className="text-base">
+                                                      <span className="  text-base">
                                                         {" "}
                                                         {getTranslation(
                                                           `Delete`, // -----> Englais
@@ -3718,15 +3750,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           </div>
                                         )}
                                       </div>
-                                      <div className="mt-2 text-break font-light text-zinc-900 px-4">
+                                      <div className="  mt-2 text-break font-light  px-4">
                                         {comment.id === editingCommentId ? (
                                           <textarea
-                                            className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
+                                            className="  border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
                                             style={{
                                               resize: "none",
                                               maxHeight: "300px",
                                               overflowY: "auto",
                                               scrollbarWidth: "none",
+                                              ...dark_light_bg
                                             }}
                                             value={editedComment}
                                             onChange={(e) =>
@@ -3735,7 +3768,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           ></textarea>
                                         ) : (
                                           <div
-                                            className="text-wrap"
+                                            className="  text-wrap"
                                             style={{
                                               resize: "none",
                                               maxHeight: "300px",
@@ -3749,9 +3782,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       </div>
 
                                       {comment.id === editingCommentId ? (
-                                        <div className="my-2 px-[26px] flex w-full justify-between">
+                                        <div className="  my-2 px-[26px] flex w-full justify-between">
                                           <button
-                                            className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
+                                            className="  bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
                                             onClick={() => cancelEdit()}
                                           >
                                             {" "}
@@ -3761,7 +3794,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             )}
                                           </button>
                                           <button
-                                            className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
+                                            className="  bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
                                             onClick={() => {
                                               saveEditedComment(comment.id);
 
@@ -3773,22 +3806,22 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           </button>
                                         </div>
                                       ) : (
-                                        <div className="my-2 flex w-full justify-between"></div>
+                                        <div className="  my-2 flex w-full justify-between"></div>
                                       )}
                                     </div>
 
-                                    <div className="my-2 flex flex-row  w-full justify-between">
-                                      <div className="flex flex-row">
+                                    <div className="  my-2 flex flex-row  w-full justify-between">
+                                      <div className="  flex flex-row">
                                         {" "}
                                         <button
-                                          className="flex-row"
+                                          className="  flex-row"
                                           onClick={async () => {
                                             NotificationService.instantSend(
                                               socket,
                                               {
                                                 toUser_id: comment.userId,
                                                 forWichAction: "likeComment",
-                                                actionId: article.description
+                                                actionId: article?.video
                                                   ? 1
                                                   : 0,
                                                 postId: article.id,
@@ -3805,7 +3838,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             await handleLikeComment(comment.id);
                                           }}
                                         >
-                                          <div className="flex-col">
+                                          <div className="  flex-col">
                                             {likesDataComment &&
                                               (likesDataComment.some(
                                                 (like) =>
@@ -3813,11 +3846,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     storedUserData.id &&
                                                   like.commentId === comment.id
                                               ) ? (
-                                                <span className="flex flex-row">
-                                                  <BiSolidHeart className="size-6 text-orange-500" />
-                                                  <div className="flex items-center gap-2">
+                                                <span className="  flex flex-row">
+                                                  <BiSolidHeart className="  size-6 text-orange-500" />
+                                                  <div className="  flex items-center gap-2">
                                                     <span
-                                                      className="text-xs md:text-md"
+                                                      className="  text-xs md:text-md"
                                                       style={{
                                                         marginLeft: "1px",
                                                         marginTop: "2px",
@@ -3825,37 +3858,37 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                       }}
                                                     ></span>
                                                   </div>
-                                                  <div className="flex-col mt-1 ml-2 text-orange-500">
+                                                  <div className="  flex-col mt-1 ml-2 text-orange-500">
                                                     {comment.likesCount}
                                                   </div>
                                                 </span>
                                               ) : (
-                                                <span className="flex flex-row">
-                                                  <BiHeart className="size-6 text-black" />
-                                                  <div className="flex items-center gap-2">
+                                                <span className="  flex flex-row">
+                                                  <BiHeart style={dark_light_bg} className="  size-6 " />
+                                                  <div className="  flex items-center gap-2">
                                                     <span
-                                                      className="text-xs md:text-md"
+                                                      className="  text-xs md:text-md"
                                                       style={{
                                                         marginLeft: "1px",
                                                         marginTop: "2px",
-                                                        color: "black",
+                                                        ...dark_light_bg
                                                       }}
                                                     ></span>
                                                   </div>
-                                                  <div className="flex-col mt-1 ml-2 text-black">
+                                                  <div  style={dark_light_bg} className="  flex-col mt-1 ml-2">
                                                     {comment.likesCount}
                                                   </div>
                                                 </span>
                                               ))}
                                           </div>
                                         </button>
-                                        {/* <div className="flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
+                                        {/* <div className="  flex-col mt-1 ml-2 text-orange-500"> {comment.likesCount}</div> */}
                                       </div>
                                       <button
                                         onClick={() =>
                                           handleReplyClick(comment.id)
                                         }
-                                        className="w-20 font-semibold ml-2  mt-2 flex gap-2 text-xs md:text-md"
+                                        className="  w-20 font-semibold ml-2  mt-2 flex gap-2 text-xs md:text-md"
                                       >
                                         {getTranslation(
                                           `Reply`, // -----> Englais
@@ -3867,16 +3900,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 </div>
 
                                 {repliesVisible[comment?.id] && (
-                                  <div className="replies-section ml-6 md:ml-16 mt-0">
+                                  <div className="  replies-section ml-6 md:ml-16 mt-0">
                                     {articleComments[comment?.id] &&
                                       articleComments[comment?.id].map(
                                         (reply) => (
                                           <div
                                             key={reply.id}
-                                            className="reply mb-0"
+                                            className="  reply mb-0"
                                           >
-                                            <div className="flex space-x-2 items-start py-2">
-                                              <figure className="avatar me-2 mb-8">
+                                            <div className="  flex space-x-2 items-start py-2">
+                                              <figure className="  avatar me-2 mb-8">
                                                 <img
                                                   src={
                                                     //  reply.user?.user?.image
@@ -3884,21 +3917,21 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                       ? reply?.user?.user?.image
                                                       : placeholder
                                                   }
-                                                  className="shadow-sm rounded-full w-[52px] aspect-square"
+                                                  className="  shadow-sm rounded-full w-[52px] aspect-square"
                                                   alt="post"
                                                 />
                                               </figure>
-                                              <div className="w-full flex flex-col py-2 bg-gray-100 rounded-[20px] max-w-[510px]">
-                                                <div className="flex gap-4 justify-between px-2 md:px-6 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
-                                                  <div className="flex flex-col py-1 font-light text-zinc-900">
-                                                    <div className="fw-700 text-grey-900 font-xssss mt-1">
+                                              <div style={dark_bg} className="  w-full flex flex-col py-2 rounded-[20px] max-w-[510px]">
+                                                <div className="  flex gap-4 justify-between px-2 md:px-6 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
+                                                  <div className="  flex flex-col py-1 font-light text-zinc-900">
+                                                    <div style={dark_bg} className="  fw-700 font-xssss mt-1">
                                                       {reply.user &&
                                                         reply.user.user
                                                           .nom}{" "}
                                                       {reply.user &&
                                                         reply.user.user.prenom}
                                                     </div>
-                                                    <div className="mt-1 text-xs">
+                                                    <div style={dark_bg} className="  mt-1 text-xs">
                                                       {/* {reply.user &&
                                                   reply.user.user
                                                     .profil} */}
@@ -3933,7 +3966,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                         </div>
                                                       )}
                                                     </div>
-                                                    <div className="mt-1 text-xs">
+                                                    <div style={dark_light_bg} className="  mt-1 text-xs">
                                                       {moment(
                                                         reply?.createdAt
                                                       ).format(
@@ -3959,7 +3992,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   {storedUserData.id ==
                                                     reply?.user?.user?.id && (
                                                     <div
-                                                      className="ms-auto relative cursor-pointer"
+                                                      className="  ms-auto relative cursor-pointer"
                                                       onClick={() =>
                                                         handleMoreClickreply(
                                                           reply
@@ -3975,16 +4008,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                       >
                                                         <path
                                                           d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                                          fill="#1D1E21"
-                                                        />
+                                                      style={dark_fill_svg}
+/>
                                                         <path
                                                           d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                                                          fill="#1D1E21"
-                                                        />
+                                                          style={dark_fill_svg}
+                                                          />
                                                         <path
                                                           d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                                                          fill="#1D1E21"
-                                                        />
+                                                          style={dark_fill_svg}
+                                                          />
                                                       </svg>
 
                                                       {showDropdownReply ===
@@ -3993,9 +4026,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                         reply?.user?.user
                                                           ?.id ===
                                                           storedUserData.id && (
-                                                          <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                                          <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                             <button
-                                                              className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                              className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                                               onClick={() =>
                                                                 handleEditClickreply(
                                                                   reply.id
@@ -4003,7 +4036,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                               }
                                                             >
                                                               <label
-                                                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                                className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                                 // onClick={() => handleEditClickComment(comment)}
                                                               >
                                                                 <BiEditAlt />
@@ -4019,7 +4052,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                             </button>
 
                                                             <button
-                                                              className="block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
+                                                              className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                                               onClick={() => {
                                                                 handleDeleteReplyClick(
                                                                   reply.id
@@ -4036,11 +4069,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                               }}
                                                             >
                                                               <label
-                                                                className="flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                                                className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
                                                                 // onClick={() => handleEditClickComment(comment)}
                                                               >
                                                                 <BiLogInCircle />
-                                                                <span className="text-base">
+                                                                <span className="  text-base">
                                                                   {getTranslation(
                                                                     `Delete`, // -----> Englais
                                                                     `Supprimer` //  -----> Francais
@@ -4053,17 +4086,18 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     </div>
                                                   )}
                                                 </div>
-                                                <div className="mt-2 text-break font-light text-zinc-900 px-4">
+                                                <div className="  mt-2 text-break font-light text-zinc-900 px-4">
                                                   {reply.id ===
                                                   editingReplyId ? (
                                                     <textarea
-                                                      className="bg-gray-100 border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
+                                                      className="   border-2 border-gray-300 rounded-[30px] px-3 py-2 w-full"
                                                       style={{
                                                         resize: "none",
                                                         maxHeight: "300px",
                                                         height: "150px",
                                                         overflowY: "auto",
                                                         scrollbarWidth: "none",
+                                                        ...dark_light_bg
                                                       }}
                                                       value={editedReply}
                                                       onChange={(e) =>
@@ -4074,12 +4108,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     ></textarea>
                                                   ) : (
                                                     <div
-                                                      className="text-wrap"
+
+                                                      className="  text-wrap"
                                                       style={{
                                                         resize: "none",
                                                         maxHeight: "300px",
                                                         overflowY: "auto",
                                                         scrollbarWidth: "none",
+                                                        ...dark_bg
                                                       }}
                                                     >
                                                       {reply.description}
@@ -4088,9 +4124,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 </div>
                                                 {/* ok */}
                                                 {reply.id === editingReplyId ? (
-                                                  <div className="my-2 px-[26px] flex w-full justify-between ">
+                                                  <div className="  my-2 px-[26px] flex w-full justify-between ">
                                                     <button
-                                                      className="bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
+                                                      className="  bg-orange-500 rounded-[30px] px-2 py-1 md:py-1.5 text-white md:px-3"
                                                       onClick={() =>
                                                         cancelEditreply()
                                                       }
@@ -4099,7 +4135,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     </button>
 
                                                     <button
-                                                      className="bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
+                                                      className="  bg-blue-600 rounded-[30px] py-0 px-2 md:py-1.5 text-white md:px-3"
                                                       onClick={() => {
                                                         saveEditedReply(
                                                           reply.id
@@ -4123,7 +4159,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     </button>
                                                   </div>
                                                 ) : (
-                                                  <div className="my-2 flex w-full justify-between">
+                                                  <div className="  my-2 flex w-full justify-between">
                                                     {/* <button onClick={() => handleEditClickComment(comment.id)}>Edit</button> */}
                                                   </div>
                                                 )}
@@ -4133,28 +4169,29 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         )
                                       )}
                                     {replyingToCommentId == comment.id && (
-                                      <div className="flex items-center gap-3 ">
-                                        <figure className="avatar">
+                                      <div className="  flex items-center gap-3 ">
+                                        <figure className="  avatar">
                                           <img
                                             src={
                                               user?.user?.image
                                                 ? user?.user?.image
                                                 : placeholder
                                             }
-                                            className="shadow-sm rounded-full w-[52px] aspect-square"
+                                            className="  shadow-sm rounded-full w-[52px] aspect-square"
                                             alt="post"
                                           />
                                         </figure>
-                                        <div className="flex flex-col w-full">
-                                          <div className="w-full flex items-center">
+                                        <div className="  flex flex-col w-full">
+                                          <div className="  w-full flex items-center">
                                             <input
                                               type="text"
                                               value={replyInput}
                                               placeholder="Ecrire un reponse .."
+                                              style={dark_bg}
                                               onChange={(e) =>
                                                 setReplyInput(e.target.value)
                                               }
-                                              className="w-full px-2 bg-gray-100 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
+                                              className="  w-full px-2 bg-gray-100 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
                                             />
                                             <button
                                               onClick={() => {
@@ -4180,7 +4217,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     toUser_id: comment.userId,
                                                     forWichAction: "reply",
                                                     actionId:
-                                                      article.description
+                                                    article?.video
                                                         ? 1
                                                         : 0,
                                                     postId: article.id,
@@ -4197,7 +4234,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               }}
                                             >
                                               <svg
-                                                className="w-4 h-5 md:w-5"
+                                                className="  w-4 h-5 md:w-5"
                                                 viewBox="0 0 20 20"
                                                 fill="none"
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -4220,28 +4257,30 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           {/* Add Comment Input */}
                           {commentInputVisible && (
                             <div>
-                              <div className="flex items-center gap-2 md:gap-3 mt-3">
-                                <figure className="avatar">
+                              <div className="  flex items-center gap-2 md:gap-3 mt-3">
+                                <figure className="  avatar">
                                   <img
                                     src={
                                       user.user.image
                                         ? user.user?.image
                                         : placeholder
                                     }
-                                    className="shadow-sm rounded-full w-[52px] aspect-square"
+                                    className="  shadow-sm rounded-full w-[52px] aspect-square"
                                     alt="post"
                                   />
                                 </figure>
-                                <div className="flex flex-col w-full">
-                                  <div className="w-full flex items-center">
+                                <div className="  flex flex-col w-full">
+                                  <div className="  w-full flex items-center">
                                     <input
                                       type="text"
                                       value={comment}
+                                      style={ dark_bg}
+
                                       placeholder="Ecrire un commentaire .."
                                       onChange={(e) =>
                                         setComment(e.target.value)
                                       }
-                                      className="w-full bg-gray-100 rounded-[15px] md:rounded-[30px] px-2 mr-1 md:mr-3 h-12"
+                                      className="  w-full bg-gray-100 rounded-[15px] md:rounded-[30px] px-2 mr-1 md:mr-3 h-12"
                                     />
                                     <button
                                       onClick={() => {
@@ -4254,7 +4293,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           {
                                             toUser_id: article?.user?.user?.id,
                                             forWichAction: "comment",
-                                            actionId: article.description
+                                            actionId: article?.video
                                               ? 1
                                               : 0,
                                             postId: article.id,
@@ -4271,10 +4310,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           article.id
                                         );
                                       }}
-                                      className="ml-1"
+                                      className="  ml-1"
                                     >
                                       <svg
-                                        className="w-4 h-5 md:w-5 "
+                                        className="  w-4 h-5 md:w-5 "
                                         // width="20"
                                         // height="20"
                                         viewBox="0 0 20 20"
@@ -4304,42 +4343,43 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           )}
 
           {isModaldOpenPartage && (
-            <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+            <div className="  bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
               <div
                 ref={reffPartage}
-                className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[625px] max-md:px-5 max-md:my-10"
+                style={dark_light_bg}
+                className="  relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full rounded-[10px] w-[625px] max-md:px-5 max-md:my-10"
               >
-                <div className="flex flex-col">
+                <div className="  flex flex-col">
                   <form
-                    className="h-[695px] mb-2 flex flex-col"
+                    className="  h-[695px] mb-2 flex flex-col"
                     onSubmit={handleSubmit(handlePostSubmitPartage)}
                   >
-                    <div className="card-body flex flex-col  d-flex p-0">
-                      <div className="flex flex-col w-full mb-2">
-                        <div className="flex flex-row mb-3 ">
+                    <div className="  card-body flex flex-col  d-flex p-0">
+                      <div className="  flex flex-col w-full mb-2">
+                        <div className="  flex flex-row mb-3 ">
                           <img
                             srcSet={
                               user?.user?.image ? user?.user.image : placeholder
                             }
                             alt="icon"
-                            className="shadow-sm rounded-full aspect-square w-11 h-11 md:w-16 md:h-16 mr-2"
+                            className="  shadow-sm rounded-full aspect-square w-11 h-11 md:w-16 md:h-16 mr-2"
                           />
-                          <div className="mt-[5px] md:mt-3  text-xs  ">
-                            <div className="flex  flex-row">
+                          <div className="  mt-[5px] md:mt-3  text-xs  ">
+                            <div className="  flex  flex-row">
                               {" "}
-                              <div className="font-bold mr-1">
+                              <div className="  font-bold mr-1">
                                 {" "}
                                 {user?.user?.nom}
                               </div>
                               <span> </span>
-                              <div className="font-bold">
+                              <div className="  font-bold">
                                 {" "}
                                 {user?.user?.prenom}
                               </div>
                             </div>
 
                             {
-                              <div className="text-gray-400 font-sans">
+                              <div className="  font-sans">
                                 {user?.user?.profil === "other" &&
                                   user?.other?.profession}
                                 {user?.user?.profil === "player" && "Joueur"}
@@ -4356,9 +4396,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           
                         </div>
                         
-                        <div className="flex flex-col w-full gap-y-2">
+                        <div className="  flex flex-col w-full gap-y-2">
                           <textarea
-                            className="flex max-h-fit px-2 pt-2 h-28 justify-center bg-gray-100 rounded-[8px] md:rounded-[10px] theme-dark-bg"
+                          style={dark_border}
+                            className="  flex max-h-fit px-2 pt-2 h-28 justify-center bg-transparent rounded-[8px] md:rounded-[10px] theme-"
                             placeholder="Quoi de neuf ?"
                             name="description"
                             {...register("description")}
@@ -4381,28 +4422,29 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       {displayArticle && (
                         <div
                           key={displayArticle.id}
-                          className="card w-100 flex flex-col shadow-xss rounded-xxl border-1 p-4 "
+                          className="  card w-100 flex  flex-col shadow-xss rounded-xxl border-1 p-4 "
+                          style={dark_bg}
                         >
-                          <div className="card-body p-0 d-flex">
+                          <div className="  card-body p-0 d-flex">
                             <Link
                               to={`/profile/${
                                 displayArticle.user?.user?.id ||
                                 displayArticle.userspartage?.id
                               }`}
                             >
-                              <figure className="avatar me-3">
+                              <figure className="  avatar me-3">
                                 <img
                                   srcSet={
                                     displayArticle.user?.user?.image ||
                                     displayArticle.userspartage?.image ||
                                     placeholder
                                   }
-                                  className="shadow-sm rounded-full w-[52px] aspect-square"
+                                  className="  shadow-sm rounded-full w-[52px] aspect-square"
                                   alt="post"
                                 />
                               </figure>
                             </Link>
-                            <h4 className="fw-700 text-grey-900 font-xssss mt-1">
+                            <h4 style={dark_bg} className="  fw-700 font-xssss mt-1">
                               <Link
                                 to={`/profile/${
                                   displayArticle.user?.user?.id ||
@@ -4414,7 +4456,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 {displayArticle.user?.user?.prenom ||
                                   displayArticle.userspartage?.prenom}
                               </Link>
-                              <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                              <span style={dark_bg} className="  d-block font-xssss fw-500 mt-1 lh-3 ">
                                 {displayArticle.user?.user?.profil === "other"
                                   ? displayArticle.user?.other?.profession
                                   : ""}
@@ -4443,7 +4485,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                   ? "Scout"
                                   : ""}
                               </span>
-                              <span className="d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                              <span className="  d-block font-xssss fw-500 mt-1 lh-3 ">
                                 {moment(displayArticle.createdAt).format(
                                   "DD MMMM YYYY"
                                 )}{" "}
@@ -4458,8 +4500,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               </span>
                             </h4>
                           </div>
-                          <div className="p-0 mt-2">
-                            <p className="rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 text-dark">
+                          <div className="  p-0 mt-2">
+                            <p className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 ">
                               {!showFullText &&
                               displayArticle?.description?.length > 295
                                 ? displayArticle?.description?.substring(
@@ -4470,7 +4512,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               {displayArticle?.description?.length > 295 && (
                                 <button
                                   onClick={toggleText}
-                                  className="text-blue-600 hover:text-blue-400 focus:outline-none"
+                                  className="  text-blue-600 hover:text-blue-400 focus:outline-none"
                                 >
                                   {showFullText ? "Voir moins" : "Voir plus"}
                                 </button>
@@ -4479,7 +4521,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </div>
 
                           {displayArticle?.image && (
-                            <div className="card-body d-block p-0 mb-3">
+                            <div className="  card-body d-block p-0 mb-3">
                               <div
                                 className={`grid ${
                                   imageCount === 1
@@ -4528,8 +4570,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       />
                                     )}
                                     {index === 3 && images.length > 4 && (
-                                      <div className="absolute inset-0 flex items-center justify-center  bg-opacity-50 rounded-md text-black">
-                                        <button className="flex items-center text-lg">
+                                      <div className="  absolute inset-0 flex items-center justify-center  bg-opacity-50 rounded-md text-black">
+                                        <button className="  flex items-center text-lg">
                                           +{images.length - 4}
                                         </button>
                                       </div>
@@ -4541,13 +4583,13 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           )}
 
                           {displayArticle?.video && (
-                            <div className="card-body d-block p-0 mb-3">
-                              <div className="row ps-2 pe-2">
-                                <div className="col-sm-12 p-1">
-                                  <div className="card-body p-0 mb-3 overflow-hidden">
+                            <div className="  card-body d-block p-0 mb-3">
+                              <div className="  row ps-2 pe-2">
+                                <div className="  col-sm-12 p-1">
+                                  <div className="  card-body p-0 mb-3 overflow-hidden">
                                     <video
                                       controls
-                                      className="w-100 md:max-h-[600px] max-h-[350px]"
+                                      className="  w-100 md:max-h-[600px] max-h-[350px]"
                                     >
                                       <source
                                         src={displayArticle?.video}
@@ -4571,7 +4613,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       ) : (
                         <button
                           type="submit"
-                          className="bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white   px-8 rounded-full font-semibold text-sm"
+                          className="  mt-4 bg-blue-600 self-center mb-2  items-center text-center w-full py-2.5 m text-white   px-8 rounded-full font-semibold text-sm"
                         >
                           {getTranslation(
                             `Share`, // -----> Englais
@@ -4584,7 +4626,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                 </div>
 
                 <button
-                  className=" absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
+                  className="   absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
                   onClick={() => handleCloseModal(true)}
                 >
                   {" "}

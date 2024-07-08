@@ -293,7 +293,7 @@
 
 .hiddenScrollLeftMenu::-webkit-scrollbar-thumb {
   width: 6px;
-  background-color: rgb(244 244 245);
+  background-color: #aaa;
   opacity: 0;
 
 }
@@ -860,11 +860,7 @@ flex: 1;
 
 }
 
-
-// .isActive {
-//   transform: scale(1.25);
-//   color: #2E71EB;
-// }
+//Home Page custom css 
 .isActive{
   transform: scale(1.25);
   color: #2E71EB;

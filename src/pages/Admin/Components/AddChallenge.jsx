@@ -88,8 +88,14 @@ const AddArticle = () => {
             setValue('name', '')
             setValue('article', '')
             setValue('tags', '')
-            sendNotification("challenge", "", "challengeId", data.name)
-
+           
+            const res = await fetch(`${Config.LOCAL_URL}/api/lastChallenge`)
+            const result = await res.json()
+            const lastChallengeCreated = await result
+            const challengeId = lastChallengeCreated.challenge[0].id
+            console.log("🚀 ~ onSubmit ~ result:",  lastChallengeCreated.challenge[0].id)
+            sendNotification("challenge", "", challengeId, data.name)
+            
             toast.success('Challenge ete ajoutée', {
                 position: "top-right",
                 autoClose: 5000,
@@ -101,7 +107,6 @@ const AddArticle = () => {
                 progress: undefined,
                 theme: "light",
             })
-            // navigate('/admin/blog')
 
         }
     }

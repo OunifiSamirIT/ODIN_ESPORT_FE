@@ -9,7 +9,7 @@ import { Context } from "../index";
 
 function CreatePostModal({ fetchDataOnbegin }) {
   const [user, setUser] = useState([]);
-  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg } = React.useContext(Context);
 
   const ref = useRef(null);
   const [isModaldOpen, setIsModaldOpen] = useState(false);
@@ -54,8 +54,8 @@ function CreatePostModal({ fetchDataOnbegin }) {
 
   return (
     <div>
-      <div className="flex flex-col  w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
-        <div className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-1">
+      <div  className="flex flex-col  w-full md:mt-0 mt-12 max-md:ml-0 max-md:w-full">
+        <div style={dark_light_bg} className=" card w-100  rounded-[10px] pt-2 md:pt-2   border-0 mb-1">
           <div className="card-body p-2 position-relative">
             <div className="card-body d-flex p-0">
               <div className="flex w-full">
@@ -66,7 +66,8 @@ function CreatePostModal({ fetchDataOnbegin }) {
                 />
                 <div className="flex flex-col w-full gap-y-2">
                   <button
-                    className="grow px-2 h-[50px] justify-center  bg-gray-100 rounded-[30px] theme-dark-bg"
+                    style={dark_bg} 
+                    className="grow px-2 h-[50px] justify-center   rounded-[30px] theme-dark-bg"
                     onClick={handleOpenModal}
                   >
                     {getTranslation(
@@ -88,7 +89,7 @@ function CreatePostModal({ fetchDataOnbegin }) {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="aspect-square w-[25px]"
                         />
-                        <span className="d-none-xs ml-2">
+                        <span style={dark_light_bg}  className="d-none-xs ml-2">
                           {getTranslation(
                             `Photo`, // -----> Englais
                             `Photo` //  -----> Francais
@@ -105,7 +106,7 @@ function CreatePostModal({ fetchDataOnbegin }) {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/19ffe4c02d10f8aca8808ca37b8b31a51ff0c4dddae4b08967ea4dcd59524f9e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="aspect-square w-[25px]"
                         />
-                        <span className="d-none-xs ml-2">
+                        <span style={dark_light_bg}  className="d-none-xs ml-2">
                           {getTranslation(
                             `Video`, // -----> Englais
                             `Vidéo` //  -----> Francais
@@ -122,7 +123,7 @@ function CreatePostModal({ fetchDataOnbegin }) {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fd85c3858d242f0bd6e516abd285a594ec826065eceea3da7e87a2de6745740?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="aspect-[1.2] fill-slate-500 w-[30px]"
                         />{" "}
-                        <span className="d-none-xs ml-2">
+                        <span style={dark_light_bg}  className="d-none-xs ml-2">
                           {getTranslation(
                             `GIF`, // -----> Englais
                             `GIF` //  -----> Francais
@@ -156,10 +157,11 @@ function CreatePostModal({ fetchDataOnbegin }) {
       {isModaldOpen && (
         <div className="bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
           <div
+          style={dark_light_bg}
             ref={ref}
-            className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full bg-white rounded-[10px] w-[705px] h-[425px] max-md:px-5 max-md:my-10"
+            className="relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full rounded-[10px] w-[705px] h-[425px] max-md:px-5 max-md:my-10"
           >
-            <h4 className="self-center  text-xl md:text-2xl py-2.5 font-sora font-semibold">
+            <h4 style={dark_light_bg} className="self-center  text-xl md:text-2xl py-2.5 font-sora font-semibold">
               {getTranslation(
                 `Creat a post`, // -----> Englais
                 `Créer une publication ` //  -----> Francais

@@ -11,6 +11,7 @@ import { Config } from "../../../config";
 
 import { io } from 'socket.io-client';
 import NotificationService from "../../../api/notification.server"; 
+import { toast } from "react-toastify";
 
 const AddEvent = () => {
 
@@ -69,14 +70,34 @@ const AddEvent = () => {
         });
 
         formData.append("userId", storedUserData.id);
-        await fetch(`${Config.LOCAL_URL}/api/albumc/upload`, {
+        const response =  await fetch(`${Config.LOCAL_URL}/api/albumc/upload`, {
             method: 'POST',
             body: formData,
         });
+        if (response.status === 200) {
 
+            const res = await fetch(`${Config.LOCAL_URL}/api/lastCamp`)
+            const result = await res.json()
+            const lastCampCreated = await result
+            const campId = lastCampCreated.camp[0].id
+            console.log("🚀 ~ onSubmit ~ result:",  lastCampCreated.camp[0].id)
+            sendNotification("camp", uploadedFiles.length > 0 ? uploadedFiles[0].preview : 0, campId, data.AlbumName)
+            toast.success('Camp ete ajoutée', {
+                position: "top-right",
+                autoClose: 5000,
+                type: 'success',
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+
+        }
+        
         console.log("🚀 ~ AddEvent ~ uploadedFiles:", uploadedFiles)
 
-        sendNotification("camp", uploadedFiles.length > 0 ? uploadedFiles[0].preview : 0, "postId", data.AlbumName)
 
     }
     const handleFileChange = async () => {

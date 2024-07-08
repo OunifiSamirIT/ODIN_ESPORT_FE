@@ -1,10 +1,13 @@
 import React from "react";
-import Skeleton from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Context } from "../../index";
 
 const SkeletonArticleCard = () => {
+  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
+
   return (
-    <div className="card ml-0  w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
+    <div style={dark_light_bg} className="card ml-0  w-100 shadow-xss rounded-xxl border-0 p-4 mb-3">
       <div className="card-body p-0 d-flex">
         <figure className="avatar me-3">
           <Skeleton circle width={40} height={40} duration={0.5} />
@@ -14,7 +17,11 @@ const SkeletonArticleCard = () => {
             <Skeleton width={100} duration={0.5} />
           </h4>
           <p className="text-gray-200 font-xssss mb-2">
-            <Skeleton width={80} duration={0.5} />
+          {/* <SkeletonTheme baseColor={_currentTheme ? "#ddd" : "#444"} highlightColor={_currentTheme ? "#f1f1f1" : "#888"} >  */}
+                <p>
+                <Skeleton width={80} duration={0.5} />
+                </p>
+         {/* </SkeletonTheme> */}
           </p>
         </div>
       </div>
