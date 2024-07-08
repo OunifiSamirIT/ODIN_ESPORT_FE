@@ -10,7 +10,7 @@ export default function RightMenu() {
         <div className="flex min-h-fit md:max-h-[82vh] rounded-lg pr-2  hiddenScrollRightMenu overflow-y-scroll overflow-x-hidden  flex-col grow max-md:mt-6">
           <Friends />
           {/* <Group /> */}
-          <Events />
+          {/* <Events /> */}
           <Friendsilder />
         </div>
       </div>
