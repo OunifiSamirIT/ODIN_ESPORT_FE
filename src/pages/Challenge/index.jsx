@@ -16,7 +16,6 @@ const Challenges = () => {
         setChallenges(result.challenges)
     }
     useEffect(() => {
-        console.log(challenges)
         fetchChallenges()
     }, [])
 
