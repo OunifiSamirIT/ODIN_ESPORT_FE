@@ -1,15 +1,17 @@
 import React, { useState, Fragment } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Context } from "../../../index";
 
 import Loading from "../../../components/Loading";
-
+import { Config } from "../../../config";
 function Login() {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const [PasswordError, setPasswordError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(""); // State to store confirmed password
+  const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const {
     register,
@@ -34,7 +36,7 @@ function Login() {
 
       // Make an API request to reset the password using fetch
       const response = await fetch(
-        "https://odine-sport.com/api/auth/resetPassword",
+        `${Config.LOCAL_URL}/api/auth/resetPassword`,
         {
           method: "POST",
           headers: {
@@ -48,7 +50,7 @@ function Login() {
       );
 
       const result = await response.json();
-      // navigate("/login");
+      navigate("/login");
       // Handle success (you might want to redirect the user to a login page)
     } catch (error) {
       // Handle errors (display error message to the user)
@@ -133,11 +135,17 @@ function Login() {
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/c65bfcf8bb3554a7102634f0328dde42e3b8f29c41e3a69e0c27343a5900b8d9?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
               className="self-center max-w-full aspect-[2.78] w-[132px]"
             />
-            <div className="self-center mt-10 text-5xl font-bold leading-10 text-center max-md:max-w-full">
-              Prêt pour un nouveau départ !
+            <div className="self-center mt-10 md:text-5xl text-3xl  font-bold leading-10 text-center max-md:max-w-full">
+              {getTranslation(
+                `Ready for a new beginning!`,
+                ` Prêt pour un nouveau départ !`
+              )}
             </div>
-            <div className="self-center text-2xl text-center max-md:max-w-full">
-              Entrez votre nouveau mot de passe ci-dessous.
+            <div className="self-center md:text-2xl text-xl  text-center max-md:max-w-full">
+              {getTranslation(
+                `Enter your new password below.`,
+                ` Entrez votre nouveau mot de passe ci-dessous.`
+              )}
             </div>
 
             <div className="flex items-center justify-center h-full">
@@ -145,24 +153,30 @@ function Login() {
                 onSubmit={handleSubmit(onSubmit)}
                 className="max-w-md w-full"
               >
-                <div className="flex gap-4 justify-between px-4 mt-4 text-lg max-md:flex-wrap max-md:max-w-full">
+                <div className="flex gap-2  justify-between px-4 mt-4 text-lg max-md:flex-wrap max-md:max-w-full">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/57edfbdbfb51f4894d754d65f24afb188fead8316f7ffe01e5d1defef74fd8ee?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                     className="self-start w-5 aspect-square"
                   />
-                  <div className="grow max-md:max-w-full">
-                    Nouveau mot de passe
+                  <div className="grow md:text-lg text-sm max-md:max-w-full">
+                    {getTranslation(`New password`, ` Nouveau mot de passe`)}
                   </div>
                 </div>
-                <div>
+                <div className="px-4">
                   <input
                     name="password"
-                    placeholder="Password"
+                    placeholder={getTranslation(
+                      `New password`,
+                      ` Nouveau mot de passe`
+                    )}
                     type="password"
-                    className="flex flex-col justify-center mt-2 py-2 whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full"
+                    className="flex flex-col justify-center mt-2 py-2 px-4 whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full"
                     {...register("password", {
-                      required: "Ce champs est Obligatoire !",
+                      required: getTranslation(
+                        `This field is required`,
+                        ` Ce champs est Obligatoire !`
+                      ),
                     })}
                   />
                   {errors.password && (
@@ -174,22 +188,28 @@ function Login() {
                     </span>
                   )}
                 </div>
-                <div className="flex gap-4 justify-between px-4 mt-4 text-lg max-md:flex-wrap max-md:max-w-full">
+                <div className="flex gap-2 justify-between px-4 mt-4 text-lg max-md:flex-wrap max-md:max-w-full">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/57edfbdbfb51f4894d754d65f24afb188fead8316f7ffe01e5d1defef74fd8ee?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                     className="self-start w-5 aspect-square"
                   />
-                  <div className="grow max-md:max-w-full">
-                    Confirmer votre mot de passe
+                  <div className="grow md:text-lg text-sm max-md:max-w-full">
+                    {getTranslation(
+                      `Confirm your password`,
+                      `Confirmer votre mot de passe`
+                    )}
                   </div>
                 </div>
-                <div>
+                <div className="px-4">
                   <input
                     name="confirmPassword"
-                    placeholder="Confirm Password"
+                    placeholder={getTranslation(
+                      `Confirm your password`,
+                      `Confirmer votre mot de passe`
+                    )}
                     type="password"
-                    className="flex flex-col justify-center mt-2 py-2 whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full"
+                    className="flex flex-col justify-center mt-2 py-2 px-4 whitespace-nowrap border-solid bg-zinc-100 border-[0.5px] border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:max-w-full"
                     onChange={handleConfirmPasswordChange} // Add onChange event to update confirmed password
                   />
                   {errors.confirmPassword && (
@@ -228,19 +248,13 @@ function Login() {
                           onClick={handleSubmit(onSubmit)}
                           className="grow"
                         >
-                          Confirmer
-                        </button>
+                          {" "}
+                          {getTranslation(`Submit`, `Confirmer`)}
+                        </button>{" "}
                       </div>
                     </div>
                   </>
                 )}
-                <a
-                  href="/login"
-                  className="flex items-center text-center text-blue-600"
-                >
-                  {" "}
-                  Aller a seconnecter{" "}
-                </a>
               </form>
             </div>
           </div>

@@ -763,7 +763,7 @@ function Header() {
               <LanguageToggler isIcon={true} hide={true} color={true} />
             </span>
             
-<span style={{ 
+{/* <span style={{ 
   marginRight: 40
 }}>
   <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-8 h-8 bg-[#2E71EB] cursor-pointer rounded-full justify-center items-center -ml-4">
@@ -776,7 +776,7 @@ function Header() {
               className="w-5 h-5 invert sun scale-50 opacity-0 absolute"
             />
           </div>
-</span> 
+</span>  */}
 
             <DesktopNotification
               deleteNotData={deleteNotData}

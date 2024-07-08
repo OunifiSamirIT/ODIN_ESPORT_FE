@@ -1,33 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import Leftnav from '../../components/Leftnav';
 // import Rightchat from '../../components/Rightchat';
 
 // import Appfooter from '../../components/Appfooter';
 // import Popupchat from '../../components/Popupchat';
 
-import { Link, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Modal from "react-modal";
-
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Context } from "../../index";
 
-import { paysAllInfo } from "../../assets/data/Country";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useForm, Controller } from "react-hook-form";
-import { Config } from "../../config";
+import { paysAllInfo } from "../../assets/data/Country";
 import Header from "../../components/Header2";
-
-
+import { Config } from "../../config";
 
 const Album = () => {
   const [isActive, setIsActive] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
-  
 
   const [album, setAlbum] = useState([]);
   const [users, setUsers] = useState([]);
@@ -41,9 +32,11 @@ const Album = () => {
     setIsModalOpen(false);
   };
   const schema = yup.object().shape({
-    modepaiement: yup.string().required( getTranslation(
-      ` This field is required!`,
-      `Ce champ est obligatoire`,)),
+    modepaiement: yup
+      .string()
+      .required(
+        getTranslation(` This field is required!`, `Ce champ est obligatoire`)
+      ),
   });
   const handelretourform = () => {
     navigate("/defaultgroupEvents");
@@ -103,7 +96,7 @@ const Album = () => {
           const userId = storedUserData ? storedUserData.id : null;
           const eventodinId = id;
 
-          fetch(`${Config.LOCAL_URL}/api/inscritevent/upload`, {
+          fetch(`${Config.LOCAL_URL}/api/inscritevent`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -111,6 +104,7 @@ const Album = () => {
             body: JSON.stringify({
               emailsecondaire: formData.emailsecondaire,
               modepaiement: formData.modepaiement,
+              email: users.user.email,
               // date_validation: formData.date_validation,
               // fraisinscrit: formData.fraisinscrit,
               status: formData.status,

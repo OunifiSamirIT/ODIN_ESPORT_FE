@@ -156,37 +156,37 @@ function Root() {
     backgroundColor: !_currentTheme ? "#fff" : "#444",
     background: !_currentTheme ? "#fff" : "#444",
     color: !_currentTheme ? "#111" : "#fff",
-  }
+  };
   const dark_fill_svg = {
     transition: ".5s",
-    fill:  !_currentTheme ? "#111" : "#fff",
-  }
+    fill: !_currentTheme ? "#111" : "#fff",
+  };
   const dark_img = {
     transition: ".5s",
-    filter:  !_currentTheme ? "invert(0)" : "invert(1)",
-  }
-  
+    filter: !_currentTheme ? "invert(0)" : "invert(1)",
+  };
+
   const dark_bg = {
     transition: ".5s",
     backgroundColor: !_currentTheme ? "rgb(244 244 245 /1)" : "#333",
     background: !_currentTheme ? "rgb(244 244 245 /1)" : "#333",
     color: !_currentTheme ? "#111" : "#fff",
-  }
+  };
 
   const dark_gray_color = {
     transition: ".5s",
     color: _currentTheme ? "rgb(244 244 245 /0.8)" : "#65676B",
-  }
+  };
 
   const dark_gray_svg = {
     transition: ".5s",
-    fill:  _currentTheme ? "rgb(244 244 245 /.8)" : "#65676B",
-  }
+    fill: _currentTheme ? "rgb(244 244 245 /.8)" : "#65676B",
+  };
 
   const dark_border = {
     transition: ".5s",
     border: _currentTheme ? "1px solid #ffffff90" : "1px solid  #ccc",
-  }
+  };
   let handleDarkModeToggler = () => {
     if (_currentTheme) {
       gsap
@@ -202,7 +202,7 @@ function Root() {
           opacity: 1,
         });
       gsap.to(".dark-Wide-bg", {
-        delay: .40,
+        delay: 0.4,
 
         backgroundColor: "#f4f4f5",
         background: "#f4f4f5",
@@ -234,7 +234,6 @@ function Root() {
         backgroundColor: "rgb(243 244 246 )",
         background: "rgb(243 244 246 )",
         color: "#111",
-        
       });
       gsap.to(".dark-light-bg", {
         delay: 1,
@@ -291,7 +290,7 @@ function Root() {
           rotate: "0deg",
         });
       gsap.to(".dark-Wide-bg", {
-        delay: .40,
+        delay: 0.4,
         backgroundColor: "#333",
         background: "#333",
         color: "#fff",
@@ -323,7 +322,6 @@ function Root() {
         backgroundColor: "#333",
         background: "#333",
         color: "#fff",
-       
       });
       gsap.to(".dark-light-bg", {
         delay: 1,
@@ -474,8 +472,8 @@ function Root() {
           dark_img: dark_img,
           dark_bg: dark_bg,
           dark_border: dark_border,
-          dark_gray_color:dark_gray_color,
-          dark_gray_svg:dark_gray_svg
+          dark_gray_color: dark_gray_color,
+          dark_gray_svg: dark_gray_svg,
         }}
       >
         <BrowserRouter basename={"/"}>
