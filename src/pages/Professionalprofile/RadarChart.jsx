@@ -83,6 +83,10 @@ const RadarChart = () => {
         grid : {
           tickBorderDash : [1,5], 
           color : '#ffffff',
+          border : {
+              dash : [6],
+              color: 'red' ,
+          },
           lineWidth : 2,
           borderDash: [5, 5],      // Create dashed lines (array of lengths)
           tickLength: 3,        // Offset for dashed lines
