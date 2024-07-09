@@ -173,7 +173,7 @@ function Friends() {
             </div>
           </div>
         </>
-      )): <p className="text-center pb-4">Acune invtation pour le moment</p>}
+      )): <p className="text-center pb-4">Aucune invitation pour le moment.</p>}
     </div>
   );
 }
