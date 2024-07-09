@@ -58,35 +58,35 @@ const RadarChart = () => {
         borderColor: '#BFDEFE',
         borderWidth: 2,
         
+        
       },
     ],
   };
 
   const options = {
     scales: {
-     
+      
       r : {
         angleLines: {
           color : '#ffffff',
           borderWidth: 4,
+          
         },
         ticks: {
           display: false,
           drawTicks : false,
           maxTicksLimit:3,
           count: 3,
-          borderDash: [5, 5], // Show only the last two ticks
+          borderDash :  [6] ,
+          borderDashOffset : [5] , // Show only the last two ticks
           callback: function(value, index, values) {
             return ''; // Hide the labels for these ticks
           },
         },
         grid : {
-          tickBorderDash : [1,5], 
+          
           color : '#ffffff',
-          border : {
-              dash : [6],
-              color: 'red' ,
-          },
+         
           lineWidth : 2,
           borderDash: [5, 5],      // Create dashed lines (array of lengths)
           tickLength: 3,        // Offset for dashed lines
