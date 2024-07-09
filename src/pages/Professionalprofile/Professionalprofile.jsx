@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../../components/Header2";
 import { useEffect } from "react";
 import RadarChart from "./RadarChart";
-export const Professionalprofile = () => {
+const Professionalprofile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const data = [
@@ -465,3 +465,4 @@ export const Professionalprofile = () => {
     </>
   );
 };
+export default Professionalprofile

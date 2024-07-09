@@ -21,29 +21,103 @@ ChartJS.register(
 );
 
 const RadarChart = () => {
+  const dashedLinePlugin = {
+    id: 'dashedLinePlugin',
+    beforeDraw: (chart) => {
+      const { ctx, scales: { r } } = chart;
+      const { grid, ticks } = r;
+  
+      // Get the positions of the ticks
+      const tickPositions = r.ticks.map(tick => r.getDistanceFromCenterForValue(tick.value));
+  
+      // Draw grid lines
+      tickPositions.forEach((position, index) => {
+        ctx.save();
+        ctx.beginPath();
+        if (index === 2) { // Third line (index 2)
+          ctx.setLineDash([5, 5]); // Set dashed line pattern
+        } else {
+          ctx.setLineDash([]); // Solid lines for other grid lines
+        }
+        ctx.strokeStyle = grid.color;
+        ctx.lineWidth = grid.lineWidth;
+        ctx.arc(r.xCenter, r.yCenter, position, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.restore();
+      });
+    }
+  };
+
   const data = {
-    labels: ["Speed", "Dribble", "Passe", "Défense", "Tir", "Puissance"],
+    labels: ['VITESSE', 'SAUT', 'TIR AU BUT', 'CONDUITE DE BALLE', 'JONGLAGE', 'AGILITÉ'],
     datasets: [
       {
-        label: "Stats",
-        data: [78, 65, 59, 47, 71, 63],
-        backgroundColor: "rgba(54, 162, 235, 0.2)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        pointBackgroundColor: "rgba(54, 162, 235, 1)",
+        label: 'Performance',
+        data: [25, 20, 30, 40, 50, 10],
+        backgroundColor: 'rgba(191, 222, 254, 0.1)',
+        borderColor: '#BFDEFE',
+        borderWidth: 2,
+        
       },
     ],
   };
 
   const options = {
-    scale: {
-      ticks: { beginAtZero: true, max: 100 },
+    scales: {
+     
+      r : {
+        angleLines: {
+          color : '#ffffff',
+          borderWidth: 4,
+        },
+        ticks: {
+          display: false,
+          drawTicks : false,
+          maxTicksLimit:3,
+          count: 3,
+          borderDash: [5, 5], // Show only the last two ticks
+          callback: function(value, index, values) {
+            return ''; // Hide the labels for these ticks
+          },
+        },
+        grid : {
+          tickBorderDash : [1,5], 
+          color : '#ffffff',
+          lineWidth : 2,
+          borderDash: [5, 5],      // Create dashed lines (array of lengths)
+          tickLength: 3,        // Offset for dashed lines
+        },
+        pointLabels: {
+          color: '#ffffff',       
+          font: {
+            size: 16,
+            weight: '600', 
+            padding: 10    
+        },      
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+       plugins: [dashedLinePlugin] 
     },
   };
 
   return (
-    <div className="md:-mt-[60px] md:w-[350px] md:h-[350px] w-[290px] h-[290px] ">
-      <Radar data={data} options={options} />
+
+
+
+    <div className="flex flex-col px-8 py-6 bg-[linear-gradient(52deg,#3C8AF5_0.06%,#2E71EB_24.43%,#1E56D7_75.66%,#1F46AE_99.53%)] rounded-[10px] h-full text-white max-md:px-5">
+      <div className="w-full h-full">
+        <div className="text-3xl font-bold text-white max-md:max-w-full">
+          Performance Radar
+        </div>
+        <Radar data={data} options={options} />
+      </div>
     </div>
+
   );
 };
 
