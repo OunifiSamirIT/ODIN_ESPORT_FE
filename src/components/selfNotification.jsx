@@ -78,7 +78,7 @@ export default function SelfNot({
   };
   function getLink() {
     const url = {
-      LOCAL_URL: Config.LOCAL_URL ==  "http://localhost:5000" ? "http://localhost:3000" :"https://odinesport.com/",
+      LOCAL_URL: Config.LOCAL_URL ==  "http://localhost:5000" ? "http://localhost:3000" :"https://odinesport.com",
       
     };
     if (
