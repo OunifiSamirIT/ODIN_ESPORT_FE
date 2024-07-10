@@ -135,12 +135,25 @@ const Album = () => {
 
   const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
+
     // Format the date object into the desired format
-    return dateObject.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+    if(_currentLang == 'Fr'){
+      const formattedDate = dateObject.toLocaleDateString("fr-FR", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+      return formattedDate 
+    }else{
+      const formattedDate = dateObject.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+      return formattedDate 
+    }
+
+    
   };
 
   return (

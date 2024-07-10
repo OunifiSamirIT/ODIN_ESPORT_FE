@@ -53,7 +53,7 @@ const RadarChart = () => {
     datasets: [
       {
         label: 'Performance',
-        data: [25, 20, 30, 40, 50, 10],
+        data: [100, 75, 70, 100, 50, 25],
         backgroundColor: 'rgba(191, 222, 254, 0.1)',
         borderColor: '#BFDEFE',
         borderWidth: 2,

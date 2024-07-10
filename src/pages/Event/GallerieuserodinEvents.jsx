@@ -96,7 +96,7 @@ const Album = () => {
     { value: "", label: "Durée" },
     { value: "3 jours", label: "3 jours" },
     { value: "1 semaine", label: "1 Semaine" },
-    { value: "2 semaine", label: "2 semaine" },
+    { value: "2 semaine", label: "2 semaines" },
     { value: "3 semaines", label: "3 semaines" },
     { value: "1 mois", label: "1 mois" },
   ];
@@ -229,7 +229,7 @@ const Album = () => {
                   <div className="text-3xl font-bold text-zinc-900 max-md:max-w-full">
                     {getTranslation(
                       `Search for an Event`, // -----> Englais
-                      ` Chercher un Evènnement` //  -----> Francais
+                      `Chercher un Évènements` //  -----> Francais
                       //   ``,  //  -----> Turkey
                       //   `` ,  //  -----> Allemagne
                     )}

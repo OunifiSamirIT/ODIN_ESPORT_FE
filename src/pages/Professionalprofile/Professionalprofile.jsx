@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/Header2";
 import { useEffect } from "react";
-import RadarChart from "./RadarChart";
 const Professionalprofile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);

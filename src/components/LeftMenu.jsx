@@ -183,7 +183,7 @@ export default function LeftMenu({
                   {" "}
                   {getTranslation(
                     `Events`, // -----> Englais
-                    `Événements` //  -----> Francais
+                    `Évènements` //  -----> Francais
                     //   ``,  //  -----> Turkey
                     //   `` ,  //  -----> Allemagne
                   )}
@@ -269,7 +269,7 @@ export default function LeftMenu({
                           {" "}
                           {getTranslation(
                             `ODIN Event`, // -----> Englais
-                            `Evénnement ODIN` //  -----> Francais
+                            `Évènements ODIN` //  -----> Francais
                             //   ``,  //  -----> Turkey
                             //   `` ,  //  -----> Allemagne
                           )}

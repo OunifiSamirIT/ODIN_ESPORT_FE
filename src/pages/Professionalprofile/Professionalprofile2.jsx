@@ -1,44 +1,16 @@
 import React from 'react'
 import Header from '../../components/Header2'
 import PlayerCard from './Components/PlayerCard'
-import RadarChart from './RadarChart'
-import StatsD from './Components/Stats'
+import RadarChart from './Components/RadarChart'
+import Stats from './Components/Stats'
 
 const Professionalprofile2 = () => {
     return (
         <>
             <div className='bg-slate-200'>
                 <Header />
-                {/* <div className="flex gap-5 justify-between items-center self-stretch px-12 py-6 w-full bg-white shadow-sm max-md:flex-wrap max-md:px-5 max-md:max-w-full">
-                    <img
-                        loading="lazy"
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f184a3886f12ad73806b8f26e84e32795e360cf93795977400d5b762d7c5df63?apiKey=565f43eb1fcf430087160894dfb02980&"
-                        className="shrink-0 self-stretch my-auto w-36 max-w-full aspect-[2.78]"
-                    />
-                    <div className="flex flex-col justify-center self-stretch my-auto text-base whitespace-nowrap text-neutral-500">
-                        <div className="flex flex-col justify-center w-full bg-gray-100 border border-solid border-neutral-200 rounded-[30px]">
-                            <div className="flex gap-5 justify-between px-4 py-2 rounded-md">
-                                <div className="flex flex-col justify-center px-2">
-                                    <div className="justify-center">Recherche</div>
-                                </div>
-                                <img
-                                    loading="lazy"
-                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/f72b46626fb3cceedee24e8cfeb3468cdfd62ae3e7eb14de4b55e313549e01f9?apiKey=565f43eb1fcf430087160894dfb02980&"
-                                    className="shrink-0 w-5 aspect-square"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex flex-col justify-center items-start self-stretch px-4 rounded-[80px]">
-                        <img
-                            loading="lazy"
-                            srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/f04935a73c9ff09a237339a2a87a9b4fdd1e0cbeff709bcaf7a0e24ce7615fdf?apiKey=565f43eb1fcf430087160894dfb02980&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/f04935a73c9ff09a237339a2a87a9b4fdd1e0cbeff709bcaf7a0e24ce7615fdf?apiKey=565f43eb1fcf430087160894dfb02980&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f04935a73c9ff09a237339a2a87a9b4fdd1e0cbeff709bcaf7a0e24ce7615fdf?apiKey=565f43eb1fcf430087160894dfb02980&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/f04935a73c9ff09a237339a2a87a9b4fdd1e0cbeff709bcaf7a0e24ce7615fdf?apiKey=565f43eb1fcf430087160894dfb02980&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/f04935a73c9ff09a237339a2a87a9b4fdd1e0cbeff709bcaf7a0e24ce7615fdf?apiKey=565f43eb1fcf430087160894dfb02980&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/f04935a73c9ff09a237339a2a87a9b4fdd1e0cbeff709bcaf7a0e24ce7615fdf?apiKey=565f43eb1fcf430087160894dfb02980&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/f04935a73c9ff09a237339a2a87a9b4fdd1e0cbeff709bcaf7a0e24ce7615fdf?apiKey=565f43eb1fcf430087160894dfb02980&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/f04935a73c9ff09a237339a2a87a9b4fdd1e0cbeff709bcaf7a0e24ce7615fdf?apiKey=565f43eb1fcf430087160894dfb02980&"
-                            className="aspect-square w-[60px]"
-                        />
-                    </div>
-                </div> */}
 
-                <div className='  pt-28 md:mt-0 md:pt-0'>
+                <div className='pt-28 md:mt-0 md:pt-0 max-w-[1344px] mx-auto my-2 md:my-5 px-2'>
                     <div className="flex justify-center items-center p-4   text-xl font-bold bg-white  max-w-full text-zinc-900 max-md:px-5 rounded-[10px] md:mt-24 mx-3">
                         <div className="flex justify-between gap-4 ">
                             <img
@@ -54,10 +26,10 @@ const Professionalprofile2 = () => {
                         <div className="col-span-12 md:col-span-3 w-full">
                             <PlayerCard/>
                         </div>
-                        <div className="col-span-9">
+                        <div className="col-span-12 md:col-span-9">
                             <div className="flex flex-col md:flex-row gap-3">
                                 <div className='flex-1 w-full'>
-                                    <StatsD/>
+                                    <Stats/>
                                 </div>
                                 <div className='flex-1 items-center justify-center'>
                                    <RadarChart />
@@ -83,7 +55,6 @@ const Professionalprofile2 = () => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
 

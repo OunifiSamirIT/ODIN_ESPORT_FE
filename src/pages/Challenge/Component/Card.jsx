@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { Context } from "../../../index";
 
 const Card = ({ item }) => {
     const [thumbnailUrl, setThumbnailUrl] = useState(null);
-
+    const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
     const captureThumbnail = () => {
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth;
@@ -29,12 +29,22 @@ const Card = ({ item }) => {
     const formatDate = (dateString) => {
         const dateObject = new Date(dateString);
         // Format the date object into the desired format
-        return dateObject.toLocaleDateString('fr-FR', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-    }
+        if(_currentLang == 'Fr'){
+          const formattedDate = dateObject.toLocaleDateString("fr-FR", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          });
+          return formattedDate 
+        }else{
+          const formattedDate = dateObject.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          });
+          return formattedDate 
+        }
+      };
     return (
         <Link to={`/challenges/details/${item.id}`}  className="cursor-pointer flex flex-col flex-wrap content-start p-6 mx-auto w-full font-light bg-white rounded-[10px] text-zinc-900">
             <Link to={`/challenges/details/${item.id}`} class="relative">
