@@ -35,7 +35,7 @@ const EventSideBar = () => {
 
     return (
         <>
-                    <div className="w-100 rounded-md border-0 mb-3">
+                <div className="w-100 rounded-md border-0 mb-3">
                 <div className="d-flex align-items-center py-4">
                     <h4 className=" mb-0 pr-9 font-bold text-lg text-grey-900 ">
                         {getTranslation(
