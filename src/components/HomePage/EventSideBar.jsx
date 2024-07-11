@@ -39,13 +39,13 @@ const EventSideBar = () => {
                 <div className="d-flex align-items-center py-4">
                     <h4 className=" mb-0 pr-9 font-bold text-lg text-grey-900 ">
                         {getTranslation(
-                            `Requests`, // -----> Englais
+                            `Events that might interest you.`, // -----> Englais
                             `Odin Events qui pourraient vous intéresser` //  -----> Francais
                         )}
                     </h4>
                     {/* <span className='ml-2 font-bold text-red-500 bg-slate-300 rounded-full h-8 w-6'><p className='ml-2'>{pendingFriendRequests?.length}</p> </span> */}
                     <a
-                        href="/defaultgroupevent"
+                        href="/defaultgroupEvents"
                         className="text-nowrap ms-auto text-sm font-medium text-blue-600"
                     >
                         {getTranslation(
@@ -69,7 +69,7 @@ const EventSideBar = () => {
                 <div className="d-flex align-items-center py-4">
                     <h4 className=" mb-0 pr-9 font-bold text-lg text-grey-900 ">
                         {getTranslation(
-                            `Requests`, // -----> Englais
+                            `Camps that might interest you.`, // -----> Englais
                             `Camps qui pourraient vous intéresser` //  -----> Francais
                         )}
                     </h4>
