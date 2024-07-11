@@ -464,9 +464,12 @@ const Album = () => {
                             </div>
                           </div>
                           <div className="mt-2 text-xs mx-2 text-break font-light text-black">
-                            {value.description.length > 100
-                              ? value.description.slice(0, 100) + "..."
-                              : value.description}
+                          <div
+                            className="text-left mt-2 font-sans text-sm leading-loose h-"
+                            dangerouslySetInnerHTML={{
+                              __html: value.description.slice(0,100) + '...',
+                            }}
+                          />
                           </div>
                           <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
                             <div className="flex flex-col whitespace-nowrap ">

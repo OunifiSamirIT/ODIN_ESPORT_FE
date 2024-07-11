@@ -35,10 +35,12 @@ const EventSideBarItem = ({item}) => {
                         </svg>
                          <p>{formatDate(item.date_debut)}</p>
                     </span>
-                    <p className="text-[10px] leading-3">
-                        {item.description.length > 75
-                                ? item.description.slice(0, 75) + "..."
-                                : item.description}</p>
+                    <div
+                            className="text-left mt-2 font-sans !text-sm leading-loose "
+                            dangerouslySetInnerHTML={{
+                              __html: item.description.slice(0,100) + '...',
+                            }}
+                          />
                 </div>
             </Link>
         </>
