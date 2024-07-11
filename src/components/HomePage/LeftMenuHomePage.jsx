@@ -27,8 +27,8 @@ export default function LeftMenu({
       >
         <div className=" fixed xs:hidden sm:hidden hidden max-h-[82vh] hiddenScrollLeftMenu overflow-y-scroll overflow-x-hidden md:flex md:flex-col md:max-w-[320px] max-md:ml-0 max-md:w-full ">
           <div className="flex flex-col max-w-full mr-4">
-           <ChallengeSideBar/>
            <EventSideBar/>
+           <ChallengeSideBar/>
           </div>
         </div>
       </div>

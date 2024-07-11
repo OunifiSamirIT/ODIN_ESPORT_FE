@@ -35,6 +35,36 @@ const EventSideBar = () => {
 
     return (
         <>
+                    <div className="w-100 rounded-md border-0 mb-3">
+                <div className="d-flex align-items-center py-4">
+                    <h4 className=" mb-0 pr-9 font-bold text-lg text-grey-900 ">
+                        {getTranslation(
+                            `Requests`, // -----> Englais
+                            `Odin Events qui pourraient vous intéresser` //  -----> Francais
+                        )}
+                    </h4>
+                    {/* <span className='ml-2 font-bold text-red-500 bg-slate-300 rounded-full h-8 w-6'><p className='ml-2'>{pendingFriendRequests?.length}</p> </span> */}
+                    <a
+                        href="/defaultgroupevent"
+                        className="text-nowrap ms-auto text-sm font-medium text-blue-600"
+                    >
+                        {getTranslation(
+                            `See All`, // -----> Englais
+                            `Voir Tout` //  -----> Francais
+                        )}
+                    </a>
+                </div>
+                <div className="flex flex-col gap-y-3">
+                    {events.slice(0, 2).reverse().map((item, index) => {
+                        return (
+                            <><EventSideBarItem item={item} /> </>
+                        )
+                    })}
+                </div>
+
+
+
+            </div>
             <div className="w-100 rounded-md border-0 mb-3">
                 <div className="d-flex align-items-center py-4">
                     <h4 className=" mb-0 pr-9 font-bold text-lg text-grey-900 ">
@@ -64,36 +94,7 @@ const EventSideBar = () => {
 
                 </div>
             </div>
-            <div className="w-100 rounded-md border-0 mb-3">
-                <div className="d-flex align-items-center py-4">
-                    <h4 className=" mb-0 pr-9 font-bold text-lg text-grey-900 ">
-                        {getTranslation(
-                            `Requests`, // -----> Englais
-                            `Odin Events qui pourraient vous intéresser` //  -----> Francais
-                        )}
-                    </h4>
-                    {/* <span className='ml-2 font-bold text-red-500 bg-slate-300 rounded-full h-8 w-6'><p className='ml-2'>{pendingFriendRequests?.length}</p> </span> */}
-                    <a
-                        href="/defaultgroupEvents"
-                        className="text-nowrap ms-auto text-sm font-medium text-blue-600"
-                    >
-                        {getTranslation(
-                            `See All`, // -----> Englais
-                            `Voir Tout` //  -----> Francais
-                        )}
-                    </a>
-                </div>
-                <div className="flex flex-col gap-y-3">
-                    {events.slice(0, 2).map((item, index) => {
-                        return (
-                            <><EventSideBarItem item={item} /> </>
-                        )
-                    })}
-                </div>
 
-
-
-            </div>
         </>
     )
 

@@ -94,7 +94,7 @@ const Album = () => {
 
   const dureeOptions = [
     { value: "", label: "Durée" },
-    { value: "3 jours", label: "3 jours" },
+    { value: "4 jours", label: "4 jours" },
     { value: "1 semaine", label: "1 Semaine" },
     { value: "2 semaine", label: "2 semaines" },
     { value: "3 semaines", label: "3 semaines" },
@@ -479,7 +479,7 @@ const Album = () => {
                                 )}
                               </div>
                               <div className="mt-1 text-base text-zinc-900 font-semibold">
-                                {value.prix} €
+                                {value.prix} DT
                               </div>
                             </div>
                             <div className="flex justify-center items-center p-2.5 w-11 h-7 mt-3 bg-blue-600 rounded-md aspect-[1.13]">

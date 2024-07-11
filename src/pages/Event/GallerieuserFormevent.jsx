@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 // import Appfooter from '../../components/Appfooter';
 // import Popupchat from '../../components/Popupchat';
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { Context } from "../../index";
@@ -16,6 +16,9 @@ import Header from "../../components/Header2";
 import { Config } from "../../config";
 
 const Album = () => {
+  const { state } = useLocation();
+  const selectedPack = state?.selectedPack;
+  console.log(selectedPack, "aloo pack");
   const [isActive, setIsActive] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -111,6 +114,7 @@ const Album = () => {
               champsoptionnel: formData.champsoptionnel,
               eventodinId: eventodinId,
               userId: userId,
+              payementevent: selectedPack,
             }),
           })
             .then((response) => response.json())
@@ -128,6 +132,7 @@ const Album = () => {
               });
 
               navigate(`/thanksevent/${id}`);
+              console.log(handleSubmit, "aaloo");
             })
             .catch((error) => {
               console.error("Error submitting form:", error);

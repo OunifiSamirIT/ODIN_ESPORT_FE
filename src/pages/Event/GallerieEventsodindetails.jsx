@@ -119,7 +119,7 @@ const Album = () => {
   }
 
   const handleAlbumButtonClick = () => {
-    navigate(`/FormEvent/${eventodinId}`);
+    navigate(`/payementevent/${eventodinId}`);
   };
 
   const formatDate = (dateString) => {
@@ -216,7 +216,7 @@ const Album = () => {
                       <img
                         loading="lazy"
                         src={albumDetails.ImagesAlbumevents[0]?.image_url}
-                        className=" h-[663px]  object-contain -mt-9"
+                        className="  object-contain -md:mt-9"
                       />
                     </div>
                     <div className="flex flex-col ml-5 w-[67%] p-0 max-md:ml-0 max-md:w-full">
@@ -298,7 +298,7 @@ const Album = () => {
                               className="self-center aspect-[0.9] fill-zinc-900 w-[18px] mr-3"
                             />
                             <div className="flex items-center justify-center mt-2">
-                              {albumDetails.prix}
+                              {albumDetails.prix} DT
                             </div>
                           </div>
                         </div>
@@ -374,10 +374,11 @@ const Album = () => {
         className="custom-modalCamps" // Add the desired class name
         style={{
           content: {
+
             overflow: "hidden", // Hide scroll
             position: "absolute",
             top: "50%", // Center vertically
-            left: "50%", // Center horizontally
+            left: window.innerWidth <= 767 ? '50%' : '30%' , // Center horizontally
             width: modalWidth,
             height: modalHeight,
             margin: "0", // Remove default margin

@@ -16,7 +16,7 @@ const EventSideBarItem = ({item}) => {
 
     return (
         <>
-            <Link to={`/defaultgroupEvents/${item.id}`} className={`relative rounded-md  hover:text bg-cover text-slate-300 h-[318px] w-[312px] `} style={{ backgroundImage: `url(${item?.ImagesAlbumevents && item?.ImagesAlbumevents[0]?.image_url})` ,         backgroundSize: 'cover',
+            <Link to={`/defaultgroupevent/${item.id}`} className={`relative rounded-md  hover:text bg-cover text-slate-300 h-[318px] w-[312px] `} style={{ backgroundImage: `url(${item?.ImagesAlbumevents && item?.ImagesAlbumevents[0]?.image_url})` ,         backgroundSize: 'cover',
                 backgroundPosition: 'center' }}>
                     
                 <div className="bg-gradient-to-t from-black to-transparent  hover:bg-gradient-to-t hover:cursor-pointer hover:from-black hover:from-10% hover:to-transparent w-full h-full"></div>
