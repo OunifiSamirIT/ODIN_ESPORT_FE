@@ -19,7 +19,7 @@ const PayementEvent = () => {
     <>
       <Header />
       <div className="flex justify-center  items-center min-h-screen bg-gray-100 p-6">
-        <div className="text-center mt-[100px]">
+        <div className="text-center mt-12 md:mt-4">
           <h1 className="text-3xl font-bold mb-2 mt-4">
              Des Packs pour lancer votre aventure !
           </h1>
