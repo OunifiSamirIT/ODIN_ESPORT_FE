@@ -1,6 +1,7 @@
 // RadarChart.js
-import React from "react";
+import React , {useState , useEffect} from "react";
 import { Radar } from "react-chartjs-2";
+import TestServer from "../../../api/test.server"
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -26,10 +27,10 @@ const RadarChart = () => {
     beforeDraw: (chart) => {
       const { ctx, scales: { r } } = chart;
       const { grid, ticks } = r;
-  
+
       // Get the positions of the ticks
       const tickPositions = r.ticks.map(tick => r.getDistanceFromCenterForValue(tick.value));
-  
+
       // Draw grid lines
       tickPositions.forEach((position, index) => {
         ctx.save();
@@ -48,56 +49,104 @@ const RadarChart = () => {
     }
   };
 
+
+
+  const [vitesse, setVitesse] = useState()
+  const [saut, setSaut] = useState()
+  const [conduit, setConduit] = useState()
+  const [agilite, setAgilite] = useState()
+  const [jonglage, setJonglage] = useState()
+  const [tir, setTir] = useState()
+
+
+  const getVitesseForCurrentUser = async () => {
+    let data = await TestServer.getVitesseStatsByUser();
+    setVitesse(data?.totalPoints * 100 / 150)
+  }
+  const getSautForCurrentUser = async () => {
+    let data = await TestServer.getSautStatsByUser();
+    setSaut(data?.totalPoints * 100 / 100)
+  }
+  const getConduitForCurrentUser = async () => {
+    let data = await TestServer.getConduitStatsByUser();
+    setConduit(data * 100 / 100)
+  }
+  const getAgiliteForCurrentUser = async () => {
+    let data = await TestServer.getagiliteStatsByUser();
+    console.log(data , 'hello from the other side')
+    setAgilite(data.total_score * 100 / 100)
+  }
+  const getJonglageForCurrentUser = async () => {
+    let data = await TestServer.getJonglageStatsByUser();
+    setJonglage(data?.data?.points * 100 / 100)
+  }
+  const getTirForCurrentUser = async () => {
+    let data = await TestServer.getTirStatsByUser();
+    setTir(data?.somme * 100 / 300) 
+
+  }
+
+
+  useEffect(() => {
+    getVitesseForCurrentUser()
+    getSautForCurrentUser()
+    getConduitForCurrentUser()
+    getAgiliteForCurrentUser()
+    getJonglageForCurrentUser()
+    getTirForCurrentUser()
+    console.log('vittt', jonglage, 'new')
+  }, [])
+
   const data = {
     labels: ['VITESSE', 'SAUT', 'TIR AU BUT', 'CONDUITE DE BALLE', 'JONGLAGE', 'AGILITÉ'],
     datasets: [
       {
         label: 'Performance',
-        data: [100, 75, 70, 100, 50, 25],
+        data: [vitesse, saut, tir, conduit, jonglage, agilite],
         backgroundColor: 'rgba(191, 222, 254, 0.1)',
         borderColor: '#BFDEFE',
         borderWidth: 2,
-        
-        
+
+
       },
     ],
   };
 
   const options = {
     scales: {
-      
-      r : {
+
+      r: {
         angleLines: {
-          color : '#ffffff',
+          color: '#ffffff',
           borderWidth: 4,
-          
+
         },
         ticks: {
           display: false,
-          drawTicks : false,
-          maxTicksLimit:3,
+          drawTicks: false,
+          maxTicksLimit: 3,
           count: 3,
-          borderDash :  [6] ,
-          borderDashOffset : [5] , // Show only the last two ticks
-          callback: function(value, index, values) {
+          borderDash: [6],
+          borderDashOffset: [5], // Show only the last two ticks
+          callback: function (value, index, values) {
             return ''; // Hide the labels for these ticks
           },
         },
-        grid : {
-          
-          color : '#ffffff',
-         
-          lineWidth : 2,
+        grid: {
+
+          color: '#ffffff',
+
+          lineWidth: 2,
           borderDash: [5, 5],      // Create dashed lines (array of lengths)
           tickLength: 3,        // Offset for dashed lines
         },
         pointLabels: {
-          color: '#ffffff',       
+          color: '#ffffff',
           font: {
             size: 16,
-            weight: '600', 
-            padding: 10    
-        },      
+            weight: '600',
+            padding: 10
+          },
         }
       }
     },
@@ -105,7 +154,7 @@ const RadarChart = () => {
       legend: {
         display: false,
       },
-       plugins: [dashedLinePlugin] 
+      plugins: [dashedLinePlugin]
     },
   };
 

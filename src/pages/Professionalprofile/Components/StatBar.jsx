@@ -3,21 +3,46 @@ import gsap from "gsap"
 
 
 const StatBar = ({exercice , value} ) => {
-    let points = 150 ;
 
-    const calculatePoucentagePoints = (points , value)  => {
-        console.log('vittt' , (value * 100)/points , 'poo')
-        return (value * 100)/points + '%' ;
+    let vitesse = 150 ;
+    let saut = 100 ;
+    let conduit = 100 ;
+    let agilite = 100;
+    let jonglage = 150;
+    let tir = 300;
+    const calculatePoucentagePoints = (value)  => {
+        if(exercice == 'vitesse'){
+            return (value * 100) / vitesse  ;
+        }
+        if(exercice == 'saut'){
+            return (value * 100) / saut  ;
+        }
+        if(exercice == 'Conduite de balle'){
+            return (value * 100) / conduit  ;
+        }
+        if(exercice == 'Agilité'){
+            return (value * 100) / agilite  ;
+        }
+        if(exercice == 'Jonglage'){
+            return (value * 100) / jonglage  ;
+        }
+        if(exercice == 'Tir au but'){
+            return (value * 100) / tir;  ;
+        }
+
+        
     }
      const lineRef = useRef();
      useEffect(() => {
+        console.log('exxeerc',exercice)
+        console.log('valuevaluevalue',value + exercice )
         const tl = gsap.timeline();
         tl.fromTo(
           lineRef.current,
           { width: '0%' },
-          { width: calculatePoucentagePoints(points , value), duration: 1, ease: 'power1.in' }
+          { width: calculatePoucentagePoints(value)+'%' , duration: 0.5, ease: 'power3.in' }
         );
-      }, []);
+      }, [value]);
 
 
 

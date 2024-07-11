@@ -125,20 +125,20 @@ const Album = () => {
   const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
     // Format the date object into the desired format
-    if(_currentLang == 'Fr'){
+    if (_currentLang == 'Fr') {
       const formattedDate = dateObject.toLocaleDateString("fr-FR", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
-      return formattedDate 
-    }else{
+      return formattedDate
+    } else {
       const formattedDate = dateObject.toLocaleDateString("en-GB", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
-      return formattedDate 
+      return formattedDate
     }
   };
 
@@ -159,7 +159,7 @@ const Album = () => {
         <div className="self-center md:mt-20  w-full max-w-[1344px]  max-md:max-w-full">
           <div className="flex max-md:flex-col max-md:gap-0">
             {/* left menu */}
-            <LeftMenu
+            {/* <LeftMenu
               id={id}
               classothercomponent={true}
               shouldShowAgentItem={shouldShowAgentItem}
@@ -168,16 +168,16 @@ const Album = () => {
               eventTogglerIsOpenned={eventTogglerIsOpenned}
               user={user}
               userProfileType={userProfileType}
-            />
+            /> */}
 
             {/* left menu */}
 
-            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
+            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[100%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
-                <div className="justify-between px-8 py-6  bg-white rounded-xl max-md:px-5 max-md:max-w-full">
+                <div className="justify-between px-8 py-6  bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                   <div className="flex gap-5 max-md:flex-col  max-md:gap-0:">
-                    <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-                      <Link to="/defaultgroupEvents">
+                    <div className="flex flex-col  w-[468px] self-start max-md:ml-0 max-md:w-full">
+                      <Link className="md:hidden" to="/defaultgroupEvents">
                         <button className="w-full bg-orange-400 md:hidden rounded-full flex items-center justify-center py-2 mb-3">
                           <svg
                             width={20}
@@ -206,17 +206,17 @@ const Album = () => {
                           <span className=" text-white">
                             {" "}
                             {getTranslation(
-                                `Back to Events`, 
-                                `Revenir aux Events`, 
-                              )}
-                            
+                              `Back to Events`,
+                              `Revenir aux Events`,
+                            )}
+
                           </span>
                         </button>
                       </Link>
                       <img
                         loading="lazy"
                         src={albumDetails.ImagesAlbumevents[0]?.image_url}
-                        className="grow w-full aspect-[0.7] mt-0 object-cover max-md:mt-10"
+                        className=" h-[663px]  object-contain -mt-9"
                       />
                     </div>
                     <div className="flex flex-col ml-5 w-[67%] p-0 max-md:ml-0 max-md:w-full">
@@ -224,8 +224,19 @@ const Album = () => {
                         <div className="text-3xl font-bold text-break max-md:max-w-full">
                           {albumDetails.album_name}
                         </div>
-                        <div className="mt-4 font-light text-break max-md:max-w-full">
-                          {albumDetails.description}
+                        <div className="flex gap-1">
+                          <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.31749 0C6.11244 0.00242591 3.99839 0.879395 2.43911 2.43852C0.879827 3.99765 0.00264684 6.11161 0 8.31665C0 10.4583 1.65833 13.81 4.92916 18.2783C5.31854 18.8117 5.82837 19.2457 6.41716 19.5449C7.00594 19.8441 7.65705 20 8.31749 20C8.97792 20 9.62903 19.8441 10.2178 19.5449C10.8066 19.2457 11.3164 18.8117 11.7058 18.2783C14.9766 13.81 16.635 10.4583 16.635 8.31665C16.6323 6.11161 15.7551 3.99765 14.1959 2.43852C12.6366 0.879395 10.5225 0.00242591 8.31749 0ZM8.31749 11.6316C7.65822 11.6316 7.01375 11.4362 6.46559 11.0699C5.91743 10.7036 5.49018 10.183 5.23789 9.57393C4.9856 8.96484 4.91959 8.29462 5.04821 7.64802C5.17682 7.00142 5.49429 6.40748 5.96047 5.9413C6.42664 5.47513 7.02058 5.15766 7.66719 5.02904C8.31379 4.90042 8.98401 4.96643 9.5931 5.21873C10.2022 5.47102 10.7228 5.89826 11.089 6.44642C11.4553 6.99459 11.6508 7.63905 11.6508 8.29832C11.6508 9.18237 11.2996 10.0302 10.6745 10.6553C10.0494 11.2805 9.20154 11.6316 8.31749 11.6316Z" fill="#141414" fill-opacity="0.7" />
+                          </svg>
+                          {albumDetails.location}
+                        </div>
+                        <div className="font-light text-break max-md:max-w-full">
+                          <div
+                            className="text-left mt-2 font-sans text-sm leading-loose"
+                            dangerouslySetInnerHTML={{
+                              __html: albumDetails.description,
+                            }}
+                          />
                         </div>
 
                         <div className="flex gap-2 justify-between py-3  mt-4 whitespace-nowrap rounded-xl border border-solid border-neutral-200 max-md:flex-wrap max-md:max-w-full">
@@ -244,16 +255,6 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="my-auto w-px aspect-[0.04] stroke-[1px] stroke-gray-200"
                           />
-                          <div className="flex flex-col flex-1">
-                            <img
-                              loading="lazy"
-                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/e7fe0f54388243cde5eda2567d634e20fcaedc6593a7e131847cf26794a55f35?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-                              className="self-center w-5 aspect-square"
-                            />
-                            <div className="flex items-center justify-center mt-2">
-                              {albumDetails.payscamps}
-                            </div>
-                          </div>
                           <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -297,7 +298,7 @@ const Album = () => {
                               className="self-center aspect-[0.9] fill-zinc-900 w-[18px] mr-3"
                             />
                             <div className="flex items-center justify-center mt-2">
-                              {albumDetails.prix} €
+                              {albumDetails.prix}
                             </div>
                           </div>
                         </div>
@@ -327,7 +328,7 @@ const Album = () => {
                             </div>
                           )}
                         {isUserPreinscribed && (
-                          <div className="flex justify-center items-center p-4 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
+                          <div className="flex justify-center items-center px-4 py-3 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
                             {getTranslation(
                               `You are already pre-registered!`, // -----> Englais
                               ` Vous étes deja pré-inscrit !` //  -----> Francais
@@ -427,7 +428,7 @@ const Album = () => {
           }}
           onClick={() =>
             setSelectedImageIndex((prevIndex) =>
-              Math.min(prevIndex + 1, albumDetails.ImagesAlbumcamps.length - 1)
+              Math.min(prevIndex + 1, albumDetails.ImagesAlbumevents.length - 1)
             )
           }
         >
