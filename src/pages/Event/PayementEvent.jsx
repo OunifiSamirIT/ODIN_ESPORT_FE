@@ -66,8 +66,7 @@ const PayementEvent = () => {
                     </svg>
                   </span>
                   Participation à l'événement Kick Off League
-                </li>
-                <p className="text-sm text-gray-500 ml-4"></p>
+                </li>{" "}
                 <li className="flex text-sm items-center mb-2 font-semibold">
                   <span className="mr-2 md:mt-0 -mt-6">
                     <svg
@@ -104,7 +103,7 @@ const PayementEvent = () => {
                   </span>
                   Cadre logistique professionnel pour la détection
                 </li>
-                <p className="text-xs ml-4 mb-2">
+                <p className="text-xs ml-7 mb-2">
                   Terrains de test équipés, personnel technique qualifié,
                   matériel sportif dédié aux tests, services de restauration et
                   possibilité d'hébergement pour les participants.
@@ -145,7 +144,7 @@ const PayementEvent = () => {
                   </span>
                   Résultats des tests collectifs et individuels
                 </li>
-                <p className="text-xs ml-4 mb-2">
+                <p className="text-xs ml-7 mb-2">
                   Rapports détaillés et précis sur vos performances.
                 </p>
                 <li className="flex text-sm items-center mb-2 font-semibold">
@@ -184,7 +183,7 @@ const PayementEvent = () => {
                   </span>
                   Chances de devenir professionnel
                 </li>
-                <p className="text-xs ml-4 mb-2">
+                <p className="text-xs ml-7 mb-2 ">
                   Opportunités de contact avec des clubs ou des agents pendant
                   le mercato estival.
                 </p>
@@ -240,7 +239,7 @@ const PayementEvent = () => {
                   </span>
                   Compte Premium sur la plateforme “Odin Esport”
                 </li>
-                <p className="text-xs text-white ml-4 mb-2">
+                <p className="text-xs text-white ml-7 mb-2">
                   {" "}
                   Digitalisation des profils avec une visibilité accrue dans
                   l'écosystème du football.
@@ -307,7 +306,7 @@ const PayementEvent = () => {
                   </span>
                   Support et suivi
                 </li>
-                <p className="text-xs ml-4 mb-2">
+                <p className="text-xs ml-7 mb-2">
                   Accès à une bibliothèque sportive complète et suivi
                   personnalisé pour maximiser le potentiel des joueurs.
                 </p>
@@ -373,7 +372,7 @@ const PayementEvent = () => {
                   Participation à l'événement Kick Off League
                 </li>
 
-                <p className="text-sm text-gray-500 ml-4"></p>
+                <p className="text-sm text-gray-500 ml-7"></p>
                 <li className="flex text-sm items-center mb-2 font-semibold">
                   <span className="mr-2">
                     <svg
