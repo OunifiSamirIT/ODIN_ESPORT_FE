@@ -48,6 +48,7 @@ import Notfound from "./pages/Notfound";
 import Gallery from "./pages/Gallerie";
 import Galleryuser from "./pages/Camps/Gallerieuserodin.jsx";
 import GalleryuserEvent from "./pages/Event/GallerieuserodinEvents.jsx";
+import PayementEvent from "./pages/Event/PayementEvent.jsx";
 import GalleryDetailscamps from "./pages/Camps/Gallerieuserodindetails.jsx";
 import GalleryDetailsevent from "./pages/Event/GallerieEventsodindetails.jsx";
 import Thankscamps from "./pages/Camps/Gallerieuserthankyou.jsx";
@@ -481,7 +482,11 @@ function Root() {
             <Route exact path="/admin/album" element={<Album />} />
             <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
             <Route exact path="/admin/albumevents" element={<Albumevents />} />
-            <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
+            <Route
+              exact
+              path="/admin/offreemploi"
+              element={<AddOffreemploi />}
+            />
             <Route exact path="/admin" element={<AdminHome />} />
             <Route exact path="/admin/users" element={<Users />} />
             <Route exact path="/admin/users/create" element={<CreateUser />} />
@@ -490,7 +495,11 @@ function Root() {
             <Route exact path="/admin/album" element={<Album />} />
             <Route exact path="/admin/albumcamps" element={<Albumcamps />} />
             <Route exact path="/admin/albumevents" element={<Albumevents />} />
-            <Route exact path="/admin/offreemploi" element={<AddOffreemploi />} />
+            <Route
+              exact
+              path="/admin/offreemploi"
+              element={<AddOffreemploi />}
+            />
             <Route
               exact
               path="/admin/albumevents/create"
@@ -509,7 +518,11 @@ function Root() {
               path="/admin/blog/edit/:articleId"
               element={<EditBlog />}
             />
-            <Route exact path="/admin/challenge" element={<AdminChallenges />} />
+            <Route
+              exact
+              path="/admin/challenge"
+              element={<AdminChallenges />}
+            />
             <Route
               exact
               path="/admin/challenge/create"
@@ -594,13 +607,17 @@ function Root() {
                 <Route exact path={`/thanks/:id`} element={<Thankscamps />} />
                 <Route
                   exact
-                  path={`/thanksevent/:id`}
+                  path={`/thanksevent/:eventodinId`}
                   element={<Thanksodinevent />}
                 />
 
                 <Route exact path="/onepost/:idP" element={<OnePost />} />
 
-                <Route exact path={`/professionalprofile`} element={<Professionalprofile2 />} />
+                <Route
+                  exact
+                  path={`/professionalprofile`}
+                  element={<Professionalprofile2 />}
+                />
 
                 <Route exact path="/gallery" element={<Gallery />} />
                 <Route exact path={`/defaultgroup`} element={<Galleryuser />} />
@@ -608,6 +625,11 @@ function Root() {
                   exact
                   path={`/defaultgroupevents`}
                   element={<GalleryuserEvent />}
+                />
+                <Route
+                  exact
+                  path={`/payementevent/:eventodinId`}
+                  element={<PayementEvent />}
                 />
                 <Route exact path={`/defaultstorie`} element={<Storie />} />
                 <Route exact path={`/defaultemailbox`} element={<Email />} />

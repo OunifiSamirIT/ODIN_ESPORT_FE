@@ -119,26 +119,26 @@ const Album = () => {
   }
 
   const handleAlbumButtonClick = () => {
-    navigate(`/FormEvent/${eventodinId}`);
+    navigate(`/payementevent/${eventodinId}`);
   };
 
   const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
     // Format the date object into the desired format
-    if(_currentLang == 'Fr'){
+    if (_currentLang == "Fr") {
       const formattedDate = dateObject.toLocaleDateString("fr-FR", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
-      return formattedDate 
-    }else{
+      return formattedDate;
+    } else {
       const formattedDate = dateObject.toLocaleDateString("en-GB", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
-      return formattedDate 
+      return formattedDate;
     }
   };
 
@@ -206,10 +206,9 @@ const Album = () => {
                           <span className=" text-white">
                             {" "}
                             {getTranslation(
-                                `Back to Events`, 
-                                `Revenir aux Events`, 
-                              )}
-                            
+                              `Back to Events`,
+                              `Revenir aux Events`
+                            )}
                           </span>
                         </button>
                       </Link>
