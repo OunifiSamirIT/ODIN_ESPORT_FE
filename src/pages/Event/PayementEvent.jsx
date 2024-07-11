@@ -190,7 +190,7 @@ const PayementEvent = () => {
                 </p>
               </ul>
               <button
-                className="bg-blue-600 text-white py-2 px-4 rounded"
+                className="bg-blue-600 text-white py-2 px-16 md:px-40  rounded"
                 onClick={() => handleChoosePack("pack_standard")}
               >
                 Choose Pack
@@ -201,7 +201,7 @@ const PayementEvent = () => {
                 <h2 className="text-lg text-white font-semibold">Elite Pack</h2>
                 <div className="flex gap-2">
                   <span className="bg-blue-600 py-1 px-2 rounded">
-                    + Superstar Pack
+                    Superstar Pack
                   </span>
                   <span className="bg-white text-blue-600 py-1 px-2 rounded">
                     Most Popular
@@ -313,7 +313,7 @@ const PayementEvent = () => {
                 </p>
               </ul>
               <button
-                className="bg-white text-blue-600 py-2 px-4 mt-10 rounded border border-white"
+                className="bg-white text-blue-600 py-2 px-16 md:px-40  mt-11 rounded border border-white"
                 onClick={() => handleChoosePack("pack_premium")}
               >
                 Choose Pack
