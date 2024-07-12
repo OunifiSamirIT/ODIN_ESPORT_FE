@@ -615,7 +615,7 @@ function Root() {
 
                 <Route
                   exact
-                  path={`/professionalprofile`}
+                  path={`/professionalprofile/:id`}
                   element={<Professionalprofile2 />}
                 />
 

@@ -1,15 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header2'
 import PlayerCard from './Components/PlayerCard'
 import RadarChart from './Components/RadarChart'
 import Stats from './Components/Stats'
+import { useParams } from 'react-router-dom'
+import { Config } from '../../config'
+import PDFGenerator from '../../components/testCompoenent'
 
 const Professionalprofile2 = () => {
+    const {id}  = useParams()
+    const [player, setPlayer] = useState(null)
+    const fetchPlayer = async () => {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+        const result = response.json()
+        setPlayer(result)
+    }
+    
+    useEffect(() => {
+        if(player.isPremuim){
+            console.log('ok')
+        }
+
+    },[])
+
     return (
         <>
             <div className='bg-slate-200'>
                 <Header />
-
+                <PDFGenerator />
                 <div className='pt-28 md:mt-0 md:pt-0 max-w-[1344px] mx-auto my-2 md:my-5 px-2'>
                     <div className="flex justify-center items-center p-4   text-xl font-bold bg-white  max-w-full text-zinc-900 max-md:px-5 rounded-[10px] md:mt-24 mx-3">
                         <div className="flex justify-between gap-4 ">

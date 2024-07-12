@@ -9,8 +9,10 @@ import { paysAllInfo } from "../../../assets/data/Country";
 import Modal from "react-modal";
 import { Context } from "../../../index";
 import Social from "../components/social";
+import VerifyBadge from "../../../assets/badgeVerify.svg";
+const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 
-const PlayerCard = ({ userInfo, sendNotification }) => {
+const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   const storedUserData = JSON.parse(localStorage.getItem("user"));
@@ -106,6 +108,10 @@ const PlayerCard = ({ userInfo, sendNotification }) => {
   useEffect(() => {
     isFriendAccepted();
   }, [id]);
+
+
+
+
   return (
     <>
       <div className="flex gap-y-4 flex-col items-center md:px-[30px] max-sm:px-2 py-6 bg-white rounded-[10px] ">
@@ -115,6 +121,7 @@ const PlayerCard = ({ userInfo, sendNotification }) => {
               {/* Bouton/image cliquable */}
               <a
                 href="#"
+                className="relative"
                 onClick={() =>
                   openModal(
                     userInfo?.user.image ? userInfo?.user.image : Placeholder
@@ -129,6 +136,7 @@ const PlayerCard = ({ userInfo, sendNotification }) => {
                   }
                   className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
                 />
+                {userInfo?.user.profil === 'player' && userInfo?.user.isPremuim && <img className="absolute right-0 bottom-1" src={VerifyBadge} alt="verification Badge" />}
               </a>
 
               {/* Modale d'agrandissement de l'image */}
@@ -299,7 +307,7 @@ const PlayerCard = ({ userInfo, sendNotification }) => {
                       </div>
                     ) : (
                       <div>
-                        <button onClick={() => {}}>
+                        <button onClick={() => { }}>
                           <svg
                             className="fill-white"
                             width="37"
@@ -370,7 +378,7 @@ const PlayerCard = ({ userInfo, sendNotification }) => {
               )}`}
               style={{ marginRight: "8px", width: "25px" }}
             ></span>
-            {}
+            { }
             <div className="grow self-start mt-1">
               {userInfo.user.countryresidence}
             </div>

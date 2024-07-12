@@ -28,16 +28,17 @@ const ProfileLayout = ({ children, onChange, user }) => {
         setSocket(socketInstance);
 
     }, []);
-    
+
     //send request notification
-    let sendNotification = (id)  => {NotificationService.instantSend(socket, 
-        {
-          toUser_id: id,
-          forWichAction: "AddRequest",
-          actionId: "0",
-          postId: "",
-          postImage: ""
-        })
+    let sendNotification = (id) => {
+        NotificationService.instantSend(socket,
+            {
+                toUser_id: id,
+                forWichAction: "AddRequest",
+                actionId: "0",
+                postId: "",
+                postImage: ""
+            })
     }
     const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
 
@@ -66,6 +67,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const [acceptedFriend, setAcceptedFriend] = useState(false)
     const [invitationSend, setInvitationSend] = useState(false);
     const [Invitation, setInvitation] = useState([]);
+    const [premuim, setPremuim] = useState(false)
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
     const navigate = useNavigate()
     const userInfo = async () => {
@@ -110,7 +112,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
 
     return (
         <>
-            <HomeLayout  style={dark_bg}>
+            <HomeLayout style={dark_bg}>
                 {/* <div>
             <ToastContainer />
           </div> */}
@@ -118,12 +120,12 @@ const ProfileLayout = ({ children, onChange, user }) => {
                     <div className="flex gap-2 max-md:flex-col max-md:gap-0 max-md:">
                         <div className="flex flex-col w-full md:w-1/2">
                             <div className="flex flex-col">
-                                
-                            {CurrentUser?.user.profil === 'player' && <Player userInfo={CurrentUser} sendNotification={sendNotification} />}
+
+                                {CurrentUser?.user.profil === 'player' && <Player premuim={premuim} userInfo={CurrentUser} sendNotification={sendNotification} />}
                                 {CurrentUser?.user.profil === 'coach' && <Entraineur userInfo={CurrentUser} sendNotification={sendNotification} />}
-                                {CurrentUser?.user.profil === 'agent' && <General userInfo={CurrentUser}  sendNotification={sendNotification}/>}
-                                {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} sendNotification={sendNotification}/>}
-                                {CurrentUser?.user.profil === 'scout' && <Scout userInfo={CurrentUser}  sendNotification={sendNotification}/>}
+                                {CurrentUser?.user.profil === 'agent' && <General userInfo={CurrentUser} sendNotification={sendNotification} />}
+                                {CurrentUser?.user.profil === 'other' && <General userInfo={CurrentUser} sendNotification={sendNotification} />}
+                                {CurrentUser?.user.profil === 'scout' && <Scout userInfo={CurrentUser} sendNotification={sendNotification} />}
                                 {Invitation && Invitation.length > 0 ? <div className="flex flex-col flex-wrap justify-center h-fit content-start px-3 py-6 mt-6  bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                                     <div className="flex gap-5 justify-between font-medium whitespace-nowrap w-full">
                                         <div className="flex flex-auto gap-4 py-2 text-base text-zinc-900">
@@ -150,7 +152,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                             )}                                         </Link>}
                                     </div>
                                     <div className="mt-8 max-md:max-w-full">
-                                        <div className="grid grid-cols-2 md:grid-cols-3 flex gap-2 md:gap-8 flex-wrap ">
+                                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 flex-wrap ">
                                             {Invitation.map((item, index) => {
                                                 return (<div key={index} className="flex flex-col max-sm:flex-1">
                                                     {item.receiver && <a href={`/profile/${item.receiver.id}`} className="bg-zinc-100 text-wrap flex flex-col grow items-center px-2 py-4 w-full text-base break-all whitespace-nowrap rounded-[10px]  text-zinc-900">
@@ -225,6 +227,13 @@ const ProfileLayout = ({ children, onChange, user }) => {
                         </div>
                         <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full ">
                             <div className="flex flex-col  grow text-base font-medium whitespace-nowrap text-zinc-900 max-md:mt-4 max-md:max-w-full">
+                                {CurrentUser?.user.profil === 'player' && CurrentUser?.user.isPremuim ? <a href={`/professionalprofile/${id}`} className="w-full flex cursor-pointer gap-2 text-white items-center justify-center px-2 py-2 bg-[linear-gradient(180deg,#3C8AF5_0.06%,#2E71EB_24.43%,#1E56D7_75.66%,#1F46AE_99.53%)] rounded-[10px] mb-2">
+                                    <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="13.5" cy="13" r="13" fill="white" />
+                                        <path d="M14.2704 15.6002H12.7299C12.3867 15.6007 12.0522 15.4923 11.7746 15.2906C11.4969 15.0889 11.2904 14.8042 11.1849 14.4776L10.7091 13.0132C10.6016 12.6865 10.6008 12.334 10.7069 12.0068C10.813 11.6796 11.0205 11.3946 11.2993 11.1932L12.5447 10.291C12.8219 10.0886 13.1563 9.97948 13.4995 9.97948C13.8428 9.97948 14.1772 10.0886 14.4544 10.291L15.7004 11.1958C15.9793 11.3972 16.1869 11.6821 16.293 12.0093C16.3991 12.3366 16.3983 12.6891 16.2906 13.0158L15.8155 14.4802C15.709 14.806 15.5022 15.0897 15.2247 15.2909C14.9472 15.492 14.6132 15.6003 14.2704 15.6002ZM21.3002 13.0002C21.3002 14.5429 20.8427 16.0509 19.9857 17.3336C19.1286 18.6163 17.9104 19.6161 16.4851 20.2065C15.0599 20.7968 13.4915 20.9513 11.9785 20.6503C10.4654 20.3494 9.07561 19.6065 7.98477 18.5156C6.89392 17.4248 6.15104 16.035 5.85007 14.5219C5.54911 13.0088 5.70357 11.4405 6.29394 10.0153C6.8843 8.59 7.88405 7.37181 9.16675 6.51473C10.4495 5.65766 11.9575 5.2002 13.5002 5.2002C15.5682 5.20243 17.5509 6.02493 19.0132 7.48723C20.4755 8.94953 21.298 10.9322 21.3002 13.0002ZM13.5002 18.8502C13.8368 18.8482 14.1725 18.8174 14.5038 18.7579L15.055 16.9502C15.1801 16.5575 15.4267 16.2146 15.7594 15.9711C16.092 15.7277 16.4933 15.5962 16.9055 15.5956L18.7366 15.5924C19.0314 15.0009 19.2228 14.3634 19.3027 13.7074L17.8415 12.7324C17.5043 12.4957 17.251 12.1581 17.118 11.7681C16.9851 11.3782 16.9794 10.9561 17.1018 10.5627L17.6563 8.89024C17.1915 8.42292 16.6514 8.03707 16.0586 7.74885L14.6468 8.72774C14.3138 8.97065 13.9123 9.10154 13.5002 9.10154C13.0881 9.10154 12.6866 8.97065 12.3536 8.72774L10.9795 7.72935C10.3958 8.00821 9.86207 8.38156 9.4 8.83434L9.89855 10.5614C10.021 10.9548 10.0153 11.3769 9.88235 11.7668C9.7494 12.1568 9.49606 12.4944 9.15885 12.7311L7.70675 13.7678C7.79025 14.4026 7.97849 15.0192 8.2638 15.5924L10.0942 15.5956C10.5064 15.596 10.9079 15.7273 11.2406 15.9707C11.5734 16.2141 11.8202 16.5568 11.9454 16.9496L12.5076 18.7592C12.8353 18.8179 13.1674 18.8484 13.5002 18.8502Z" fill="#2E71EB" />
+                                    </svg>
+                                    Professional Profile
+                                </a> : null}
                                 <div className="flex  justify-between  px-2 py-4   bg-white rounded-[10px] max-md:max-w-full">
                                     <div className={`flex  flex-col flex-1 md:flex-row gap-2 items-center  justify-center ${feed === 'pubs' ? 'text-blue-600' : ''}`}>
                                         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
