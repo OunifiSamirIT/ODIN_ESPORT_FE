@@ -88,6 +88,7 @@ import Homeoffre from "./pages/emploiOffre/Homeoffre";
 
 import AdminHome from "./pages/Admin/Home";
 import Users from "./pages/Admin/Users";
+import Playerpack from "./pages/Admin/Playerpack.jsx";
 import EventA from "./pages/Admin/Event";
 import Album from "./pages/Admin/Gallerie";
 import Albumcamps from "./pages/Admin/Galleriecamps";
@@ -451,6 +452,7 @@ function Root() {
           />
           <Route exact path="/admin" element={<AdminHome />} />
           <Route exact path="/admin/users" element={<Users />} />
+
           <Route exact path="/admin/users/create" element={<CreateUser />} />
           <Route exact path="/admin/users/edit/:id" element={<EditUser />} />
           <Route exact path="admin/events" element={<EventA />} />
@@ -489,6 +491,7 @@ function Root() {
             />
             <Route exact path="/admin" element={<AdminHome />} />
             <Route exact path="/admin/users" element={<Users />} />
+            <Route exact path="/admin/playerpack" element={<Playerpack />} />
             <Route exact path="/admin/users/create" element={<CreateUser />} />
             <Route exact path="/admin/users/edit/:id" element={<EditUser />} />
             <Route exact path="admin/events" element={<EventA />} />
