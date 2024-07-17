@@ -1,22 +1,21 @@
 import React from "react";
 import img from "../../../assets/player21.png"
 
-const PlayerCard = () => {
-
+const PlayerCard = ({player}) => {
 
     return (
         <>
             <div className="flex flex-col justify-center pb-6 bg-white rounded-[10px]  text-zinc-900">
                 <img
                     loading="lazy"
-                    srcSet={img}
+                    srcSet={player?.user?.image}
                     className="w-full aspect-[0.8]"
                 />
                 <div className="self-center mt-6 text-2xl font-bold">
-                    Slim Ben Mustpha
+                    {player?.user.nom + player?.user?.prenom}
                 </div>
                 <div className="self-center text-lg font-medium text-neutral-900 text-opacity-70">
-                    Ailier Gauche
+                    {player?.player?.positionPlay}
                 </div>
                 <div className="flex flex-col px-8 mt-6 w-full text-sm">
                     <div className="flex gap-4 justify-between w-full">
@@ -43,7 +42,7 @@ const PlayerCard = () => {
 
                             <div>Pied Fort</div>
                         </div>
-                        <div className="font-medium">Pied Gauche</div>
+                        <div className="font-medium">{player?.player?.PiedFort}</div>
                     </div>
                     <div className="flex gap-4 justify-between mt-6 w-full whitespace-nowrap">
                         <div className="flex gap-4 font-light">
@@ -82,7 +81,7 @@ const PlayerCard = () => {
 
                             <div>Sexe</div>
                         </div>
-                        <div className="font-medium">Homme</div>
+                        <div className="font-medium">{player?.user?.gender}</div>
                     </div>
                     <div className="flex gap-4 justify-between mt-6 whitespace-nowrap">
                         <div className="flex gap-4 font-light">
@@ -95,7 +94,7 @@ const PlayerCard = () => {
                         </div>
                         <div className="flex gap-2.5 self-start font-medium">
 
-                            <div>Tunisienne</div>
+                            <div>{player?.user?.nationality}</div>
                         </div>
                     </div>
                     <div className="flex gap-4 justify-between mt-6">
@@ -114,7 +113,7 @@ const PlayerCard = () => {
 
                             <div>Année de naissance</div>
                         </div>
-                        <div className="font-medium">2001</div>
+                        <div className="font-medium">{player?.user?.date_naissance}</div>
                     </div>
                 </div>
             </div>

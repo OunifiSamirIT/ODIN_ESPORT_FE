@@ -86,7 +86,7 @@ const Album = () => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-
+  const [loadingForm , setLoadingForm] = useState(false)
   const handleSubmit = async () => {
     try {
       // Validate form data
@@ -98,7 +98,7 @@ const Album = () => {
           const storedUserData = JSON.parse(localStorage.getItem("user"));
           const userId = storedUserData ? storedUserData.id : null;
           const eventodinId = id;
-
+          setLoadingForm(true)
           fetch(`${Config.LOCAL_URL}/api/inscritevent`, {
             method: "POST",
             headers: {
@@ -119,6 +119,7 @@ const Album = () => {
           })
             .then((response) => response.json())
             .then((data) => {
+              setLoadingForm(false)
               // Reset form data after successful submission
               setFormData({
                 emailsecondaire: "",
@@ -537,7 +538,7 @@ const Album = () => {
               </svg>
             </div>
             <div className="flex gap-1 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] ">
-              <button className="grow" onClick={handleSubmit}>
+              <button className="grow" onClick={handleSubmit} disabled={loadingForm}>
                 {getTranslation(
                   `Submit`, // -----> Englais
                   `Confirmer` //  -----> Francais

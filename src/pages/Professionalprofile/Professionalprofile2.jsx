@@ -12,22 +12,19 @@ const Professionalprofile2 = () => {
     const [player, setPlayer] = useState(null)
     const fetchPlayer = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`)
-        const result = response.json()
+        const result = await response.json()
         setPlayer(result)
     }
     
     useEffect(() => {
-        if(player.isPremuim){
-            console.log('ok')
-        }
-
+        fetchPlayer()
     },[])
 
     return (
         <>
             <div className='bg-slate-200'>
                 <Header />
-                <PDFGenerator />
+                {/* <PDFGenerator /> */}
                 <div className='pt-28 md:mt-0 md:pt-0 max-w-[1344px] mx-auto my-2 md:my-5 px-2'>
                     <div className="flex justify-center items-center p-4   text-xl font-bold bg-white  max-w-full text-zinc-900 max-md:px-5 rounded-[10px] md:mt-24 mx-3">
                         <div className="flex justify-between gap-4 ">
@@ -42,15 +39,15 @@ const Professionalprofile2 = () => {
 
                     <div className="grid grid-cols-12 gap-4 max-w-full mt-3 px-3">
                         <div className="col-span-12 md:col-span-3 w-full">
-                            <PlayerCard/>
+                            <PlayerCard player={player}/>
                         </div>
                         <div className="col-span-12 md:col-span-9">
                             <div className="flex flex-col md:flex-row gap-3">
                                 <div className='flex-1 w-full'>
-                                    <Stats/>
+                                    <Stats id={id}/>
                                 </div>
                                 <div className='flex-1 items-center justify-center'>
-                                   <RadarChart />
+                                   <RadarChart id={id} />
                                 </div>
                             </div>
                             <div className="flex flex-col   mr-6 md:mr-0 px-6 py-8 mt-3 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">

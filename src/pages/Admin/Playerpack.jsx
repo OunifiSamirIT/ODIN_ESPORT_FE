@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Config } from "../../config";
 
 const SearchPlayer = () => {
   const [search, setSearch] = useState("");
@@ -32,7 +33,22 @@ const SearchPlayer = () => {
       setError("An error occurred while fetching player data.");
     }
   };
+  const handleUpdatePremuim = async () => {
+     const response = await fetch(`${Config.LOCAL_URL}/api/activate/premuim/${player.id}`,{
+      method: 'PUT',
+     });
+     const data = await response.json();
+     console.log(data)
+  }
+  
 
+  const handleSendPdf = async () => {
+    const response = await fetch(`${Config.LOCAL_URL}/api/result/sendMail/${player.id}`,{
+      method: 'POST',
+     });
+     const data = await response.json();
+     console.log(data)
+  }
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-4">
@@ -66,10 +82,10 @@ const SearchPlayer = () => {
             Code Convocation: {player.codeconvocation}
           </p>
           <div className="flex mt-4 space-x-2">
-            <button className="w-full p-2 text-white bg-green-500 rounded-lg">
+            <button onClick={handleUpdatePremuim} className="w-full p-2 text-white bg-green-500 rounded-lg">
               Activate Premium
             </button>
-            <button className="w-full p-2 text-white bg-yellow-500 rounded-lg">
+            <button onClick={handleSendPdf} className="w-full p-2 text-white bg-yellow-500 rounded-lg">
               Send Email
             </button>
           </div>

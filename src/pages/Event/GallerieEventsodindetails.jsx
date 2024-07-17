@@ -118,8 +118,16 @@ const Album = () => {
     return <div>Loading...</div>;
   }
 
+  // const handleAlbumButtonClick = () => {
+  //   navigate(`/payementevent/${eventodinId}`);
+  // };
+
+
   const handleAlbumButtonClick = () => {
-    navigate(`/payementevent/${eventodinId}`);
+    // setSelectedPack(pack)
+    const pack = "pack_standard"
+    navigate(`/FormEvent/${eventodinId}`, { state: { selectedPack: pack } });
+
   };
 
   const formatDate = (dateString) => {
@@ -315,7 +323,7 @@ const Album = () => {
 
                                 <button
                                   className="grow"
-                                  onClick={handleAlbumButtonClick}
+                                  onClick={() => handleAlbumButtonClick("pack_standard")}
                                 >
                                   {getTranslation(
                                     `Pre-register`, // -----> Englais

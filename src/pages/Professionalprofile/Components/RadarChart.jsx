@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-const RadarChart = () => {
+const RadarChart = ({id}) => {
   const dashedLinePlugin = {
     id: 'dashedLinePlugin',
     beforeDraw: (chart) => {
@@ -59,41 +59,41 @@ const RadarChart = () => {
   const [tir, setTir] = useState()
 
 
-  const getVitesseForCurrentUser = async () => {
-    let data = await TestServer.getVitesseStatsByUser();
-    setVitesse(data?.totalPoints * 100 / 150)
+  const getVitesseForCurrentUser = async (id) => {
+    let data = await TestServer.getVitesseStatsByUser(id);
+    setVitesse(data?.points * 100 / 150)
   }
-  const getSautForCurrentUser = async () => {
-    let data = await TestServer.getSautStatsByUser();
+  const getSautForCurrentUser = async (id) => {
+    let data = await TestServer.getSautStatsByUser(id);
     setSaut(data?.totalPoints * 100 / 100)
   }
-  const getConduitForCurrentUser = async () => {
-    let data = await TestServer.getConduitStatsByUser();
+  const getConduitForCurrentUser = async (id) => {
+    let data = await TestServer.getConduitStatsByUser(id);
     setConduit(data * 100 / 100)
   }
-  const getAgiliteForCurrentUser = async () => {
-    let data = await TestServer.getagiliteStatsByUser();
+  const getAgiliteForCurrentUser = async (id) => {
+    let data = await TestServer.getagiliteStatsByUser(id);
     console.log(data , 'hello from the other side')
-    setAgilite(data.total_score * 100 / 100)
+    setAgilite(data?.data?.total_score * 100 / 100)
   }
-  const getJonglageForCurrentUser = async () => {
-    let data = await TestServer.getJonglageStatsByUser();
+  const getJonglageForCurrentUser = async (id) => {
+    let data = await TestServer.getJonglageStatsByUser(id);
     setJonglage(data?.data?.points * 100 / 100)
   }
-  const getTirForCurrentUser = async () => {
-    let data = await TestServer.getTirStatsByUser();
+  const getTirForCurrentUser = async (id) => {
+    let data = await TestServer.getTirStatsByUser(id);
     setTir(data?.somme * 100 / 300) 
 
   }
 
 
   useEffect(() => {
-    getVitesseForCurrentUser()
-    getSautForCurrentUser()
-    getConduitForCurrentUser()
-    getAgiliteForCurrentUser()
-    getJonglageForCurrentUser()
-    getTirForCurrentUser()
+    getVitesseForCurrentUser(id)
+    getSautForCurrentUser(id)
+    getConduitForCurrentUser(id)
+    getAgiliteForCurrentUser(id)
+    getJonglageForCurrentUser(id)
+    getTirForCurrentUser(id)
     console.log('vittt', jonglage, 'new')
   }, [])
 

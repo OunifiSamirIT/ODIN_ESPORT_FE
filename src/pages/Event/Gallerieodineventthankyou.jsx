@@ -100,11 +100,11 @@ const Album = () => {
           <div className="flex flex-col w-full max-w-[1115px]">
             <div className="flex gap-5 justify-between pt-4">
               <div className="flex-auto text-lg ml-2 md:text-3xl font-bold text-zinc-900">
-                
+
                 {getTranslation(
-                                ` Events that might interest yous`, 
-                                `Evènement qui pourraient vous intéresser`, 
-                              )}
+                  ` Events that might interest yous`,
+                  `Evènement qui pourraient vous intéresser`,
+                )}
               </div>
             </div>
             <div className="px-2 mt-6">
@@ -131,19 +131,20 @@ const Album = () => {
                         </div>
                         <div>{value.payscamps}</div>
                       </div>
-                      <div className="mt-2 text-xs text-break mx-2 font-light text-zinc-900">
-                        {value.description.length > 100
-                          ? value.description.slice(0, 100) + "..."
-                          : value.description}
-                      </div>
+                      <div
+                        className="text-left mt-2 font-sans text-sm leading-loose h-"
+                        dangerouslySetInnerHTML={{
+                          __html: value.description.slice(0, 100) + '...',
+                        }}
+                      />
                       <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
                         <div className="flex flex-col whitespace-nowrap text-zinc-900">
                           <div className="text-xs font-light">{getTranslation(
-                                `Price`, 
-                                `Prix`, 
-                              )}</div>
+                            `Price`,
+                            `Prix`,
+                          )}</div>
                           <div className="mt-1 text-base font-semibold">
-                            {value.prix} €
+                            {value.prix} 
                           </div>
                         </div>
                         <div className="flex justify-center items-center p-3 bg-blue-600 rounded-xl aspect-[1.13]">
