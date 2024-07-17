@@ -482,7 +482,7 @@ const Album = () => {
                                 )}
                               </div>
                               <div className="mt-1 text-base text-zinc-900 font-semibold">
-                                {value.prix} DT
+                                {value.prix}
                               </div>
                             </div>
                             <div className="flex justify-center items-center p-2.5 w-11 h-7 mt-3 bg-blue-600 rounded-md aspect-[1.13]">

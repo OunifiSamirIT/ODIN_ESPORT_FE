@@ -306,7 +306,7 @@ const Album = () => {
                               className="self-center aspect-[0.9] fill-zinc-900 w-[18px] mr-3"
                             />
                             <div className="flex items-center justify-center mt-2">
-                              {albumDetails.prix} DT
+                              {albumDetails.prix}
                             </div>
                           </div>
                         </div>
