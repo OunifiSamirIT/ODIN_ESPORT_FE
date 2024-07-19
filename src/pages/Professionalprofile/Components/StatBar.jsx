@@ -55,7 +55,7 @@ const StatBar = ({exercice , value} ) => {
                 <div className="text-base font-light">{exercice}</div>
                 <div className="text-lg font-bold text-right">{value}</div>
             </div>
-            <div ref={lineRef} className="shrink-0 transition-all ease-in-out duration-300 mt-3 h-2 bg-blue-600 rounded-lg" />
+            <div ref={lineRef} className="max-w-[100%] shrink-0 transition-all ease-in-out duration-300 mt-3 h-2 bg-blue-600 rounded-lg" />
         </>
     )
 }

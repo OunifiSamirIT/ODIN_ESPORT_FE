@@ -53,14 +53,16 @@ const RadarChart = ({id}) => {
 
   const [vitesse, setVitesse] = useState()
   const [saut, setSaut] = useState()
+  const [tir, setTir] = useState()
   const [conduit, setConduit] = useState()
   const [agilite, setAgilite] = useState()
   const [jonglage, setJonglage] = useState()
-  const [tir, setTir] = useState()
+
 
 
   const getVitesseForCurrentUser = async (id) => {
     let data = await TestServer.getVitesseStatsByUser(id);
+    console.log(data,'helloV from the other side')
     setVitesse(data?.points * 100 / 150)
   }
   const getSautForCurrentUser = async (id) => {
@@ -69,7 +71,8 @@ const RadarChart = ({id}) => {
   }
   const getConduitForCurrentUser = async (id) => {
     let data = await TestServer.getConduitStatsByUser(id);
-    setConduit(data * 100 / 100)
+    data > 100 ? setConduit(100) : setConduit(data * 100 / 100)
+    console.log(conduit,'this is from chart')
   }
   const getAgiliteForCurrentUser = async (id) => {
     let data = await TestServer.getagiliteStatsByUser(id);
@@ -78,23 +81,25 @@ const RadarChart = ({id}) => {
   }
   const getJonglageForCurrentUser = async (id) => {
     let data = await TestServer.getJonglageStatsByUser(id);
+    console.log(data,'from chart')
     setJonglage(data?.data?.points * 100 / 100)
   }
   const getTirForCurrentUser = async (id) => {
     let data = await TestServer.getTirStatsByUser(id);
-    setTir(data?.somme * 100 / 300) 
-
+    console.log(data.somme,'from chart tir')
+    setTir(data.somme ? data.somme : 0) 
   }
 
 
   useEffect(() => {
+
     getVitesseForCurrentUser(id)
     getSautForCurrentUser(id)
     getConduitForCurrentUser(id)
     getAgiliteForCurrentUser(id)
     getJonglageForCurrentUser(id)
     getTirForCurrentUser(id)
-    console.log('vittt', jonglage, 'new')
+    console.log('vittt', tir, 'new')
   }, [])
 
   const data = {

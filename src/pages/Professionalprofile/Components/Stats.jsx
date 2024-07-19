@@ -27,7 +27,8 @@ const StatsD = ({id}) => {
     }
     const getJonglageForCurrentUser = async (id) => {
         let data = await TestServer.getJonglageStatsByUser(id);
-        setJonglage(data)
+        console.log(data.data,'from jonglage')
+        setJonglage(data?.data?.points)
     }
     const getTirForCurrentUser = async (id) => {
         let data = await TestServer.getTirStatsByUser(id);
@@ -54,7 +55,7 @@ const StatsD = ({id}) => {
                 <StatBar exercice={'vitesse'} value={vitesse?.points} />
                 <StatBar exercice={'saut'} value={saut?.totalPoints} />
                 <StatBar exercice={'Agilité'} value={agilite?.data?.total_score} />
-                <StatBar exercice={'Jonglage'} value={jonglage?.data.points} />
+                <StatBar exercice={'Jonglage'} value={jonglage} />
                 <StatBar exercice={'Conduite de balle'} value={conduit} />
                 <StatBar exercice={'Tir au but'} value={tir?.somme} />
             </div>

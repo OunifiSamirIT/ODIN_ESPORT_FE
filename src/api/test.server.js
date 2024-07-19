@@ -5,9 +5,6 @@ class TestService {
   constructor() {}
   
   static async getVitesseStatsByUser(id) {
-    // let user = JSON.parse(localStorage.getItem("user"));
-    // let { id, username } = user ? user : { id: "", username: "" };
-    console.log(id , 'jksdfhsjkd');
     const response = await fetch(Config.LOCAL_URL + `/api/GetPoint/${id}`);
     const data = await response.json();
     console.log('hello',data)
@@ -28,8 +25,8 @@ class TestService {
     const dataSlm = await responseSlm.json();
     const responseZig = await fetch(Config.LOCAL_URL + `/api/GetPointzigzag/${id}`);
     const dataZig = await responseZig.json();
-    console.log(dataSlm.totalPoints + dataZig.totalPoints , 'thisisisisisiisisis' )
-    return dataSlm.totalPoints + dataZig.totalPoints || 100;
+    // console.log(dataSlm.totalPoints + dataZig.totalPoints , 'thisisisisisiisisis' )
+    return  dataSlm?.totalPoints +  dataZig?.totalPoints;
   }
   static async getagiliteStatsByUser(id) {
   
