@@ -87,7 +87,7 @@ const RadarChart = ({id}) => {
   const getTirForCurrentUser = async (id) => {
     let data = await TestServer.getTirStatsByUser(id);
     console.log(data.somme,'from chart tir')
-    setTir(data.somme ? data.somme : 0) 
+    setTir(data.somme ? data.somme * 100 / 300 : 0) 
   }
 
 
