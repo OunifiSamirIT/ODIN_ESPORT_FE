@@ -19,6 +19,7 @@ const StatsD = ({id}) => {
     }
     const getConduitForCurrentUser = async (id) => {
         let data = await TestServer.getConduitStatsByUser(id);
+        console.log('conduit' , data)
         setConduit(data)
     }
     const getAgiliteForCurrentUser = async (id) => {
@@ -56,7 +57,7 @@ const StatsD = ({id}) => {
                 <StatBar exercice={'saut'} value={saut?.totalPoints ? saut?.totalPoints : 0 } />
                 <StatBar exercice={'Agilité'} value={agilite?.data?.total_score ? agilite?.data?.total_score : 0} />
                 <StatBar exercice={'Jonglage'} value={jonglage ?? 0 } />
-                <StatBar exercice={'Conduite de balle'} value={conduit == NaN  ? 0 :  conduit} />
+                <StatBar exercice={'Conduite de balle'} value={ isNaN(conduit) ? 0 : conduit} />
                 <StatBar exercice={'Tir au but'} value={tir?.somme ? tir?.somme : 0 } />
             </div>
         </>
