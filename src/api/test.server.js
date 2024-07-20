@@ -25,8 +25,8 @@ class TestService {
     const dataSlm = await responseSlm.json();
     const responseZig = await fetch(Config.LOCAL_URL + `/api/GetPointzigzag/${id}`);
     const dataZig = await responseZig.json();
-    // console.log(dataSlm.totalPoints + dataZig.totalPoints , 'thisisisisisiisisis' )
-    return  dataSlm?.totalPoints +  dataZig?.totalPoints;
+    console.log( dataZig.totalPoints , 'thisisisisisiisisis' )
+    return dataSlm?.totalPoints && dataZig?.totalPoints   ? dataSlm?.totalPoints +  dataZig?.totalPoints : 0 ;
   }
   static async getagiliteStatsByUser(id) {
   

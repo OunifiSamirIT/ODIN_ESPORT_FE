@@ -52,12 +52,12 @@ const StatsD = ({id}) => {
                 <div className="text-3xl font-bold text-blue-600 max-md:max-w-full">
                     Stats
                 </div>
-                <StatBar exercice={'vitesse'} value={vitesse?.points} />
-                <StatBar exercice={'saut'} value={saut?.totalPoints} />
-                <StatBar exercice={'Agilité'} value={agilite?.data?.total_score} />
-                <StatBar exercice={'Jonglage'} value={jonglage} />
-                <StatBar exercice={'Conduite de balle'} value={conduit} />
-                <StatBar exercice={'Tir au but'} value={tir?.somme} />
+                <StatBar exercice={'vitesse'} value={vitesse?.points ? vitesse?.points : 0} />
+                <StatBar exercice={'saut'} value={saut?.totalPoints ? saut?.totalPoints : 0 } />
+                <StatBar exercice={'Agilité'} value={agilite?.data?.total_score ? agilite?.data?.total_score : 0} />
+                <StatBar exercice={'Jonglage'} value={jonglage ?? 0 } />
+                <StatBar exercice={'Conduite de balle'} value={conduit == NaN  ? 0 :  conduit} />
+                <StatBar exercice={'Tir au but'} value={tir?.somme ? tir?.somme : 0 } />
             </div>
         </>
     )

@@ -108,7 +108,9 @@ const RadarChart = ({id}) => {
       {
         label: 'Performance',
         data: [vitesse, saut, tir, conduit, jonglage, agilite],
-        backgroundColor: 'rgba(191, 222, 254, 0.1)',
+        backgroundColor: 'rgb(255, 165, 0 , 0.5)',
+        pointBackgroundColor: 'rgb(255, 165, 0 , 0.7)',
+        pointBorderColor: '	rgb(255,69,0)',
         borderColor: '#BFDEFE',
         borderWidth: 2,
 

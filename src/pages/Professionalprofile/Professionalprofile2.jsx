@@ -52,7 +52,7 @@ const Professionalprofile2 = () => {
                             </div>
                             <div className="flex flex-col   mr-6 md:mr-0 px-6 py-8 mt-3 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                                 <div className="justify-center self-start text-3xl font-bold text-zinc-900">
-                                    Vidéo test collective
+                                    Vidéo test collective      <span className='text-sm md:ml-10 animate-pulse text-orange-500' >A Venir Bientôt ...</span>
                                 </div>
                                 <div className="flex flex-col justify-center mt-6 max-md:max-w-full">
                                     <div className="flex overflow-hidden relative flex-col justify-center items-center px-16 py-20 min-h-[380px] max-md:px-5 max-md:max-w-full">
