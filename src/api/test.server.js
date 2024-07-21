@@ -42,10 +42,7 @@ class TestService {
     return data;
   }
 
-  static async getTirStatsByUser() {
-    let user = JSON.parse(localStorage.getItem("user"));
-    let { id, username } = user ? user : { id: "", username: "" };
-
+  static async getTirStatsByUser(id) {
     const response = await fetch(Config.LOCAL_URL + `/api/test/tir/${id}`);
     const data = await response.json();
     return data.data;
