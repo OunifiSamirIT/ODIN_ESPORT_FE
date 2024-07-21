@@ -11,7 +11,7 @@ const PlayerCard = ({player}) => {
                     srcSet={player?.user?.image}
                     className="w-full aspect-[0.8]"
                 />
-                <div className="self-center mt-6 text-2xl font-bold">
+                <div className="self-center mt-6 text-2xl font-bold text-break px-2">
                     {player?.user.nom + player?.user?.prenom}
                 </div>
                 <div className="self-center text-lg font-medium text-neutral-900 text-opacity-70">
