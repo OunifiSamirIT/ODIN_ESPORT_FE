@@ -4,11 +4,11 @@ import img from "../../../assets/player21.png";
 const PlayerCard = ({ player }) => {
   return (
     <>
-      <div className="flex flex-col justify-center pb-6 bg-white rounded-[10px]  text-zinc-900">
+      <div className="flex flex-col justify-center pb-6 bg-white rounded-[10px]  shadow-md  text-zinc-900">
         <img
           loading="lazy"
           srcSet={player?.user?.image}
-          className=" object-cover w-full aspect-[0.8]"
+          className=" object-cover w-full rounded-lg aspect-[0.8]"
         />
         <div className="self-center mt-6 text-2xl text-center font-bold text-break px-2 max-sm:text-lg">
           {player?.user.nom + " " + player?.user?.prenom}
