@@ -1,4 +1,3 @@
-// RadarChart.js
 import React, { useState, useEffect } from "react";
 import { Radar } from "react-chartjs-2";
 import TestServer from "../../../api/test.server";
@@ -29,7 +28,7 @@ const RadarChart = ({ id }) => {
         ctx,
         scales: { r },
       } = chart;
-      const { grid, ticks } = r;
+      const { grid } = r;
 
       // Get the positions of the ticks
       const tickPositions = r.ticks.map((tick) =>
@@ -55,41 +54,71 @@ const RadarChart = ({ id }) => {
     },
   };
 
-  const [vitesse, setVitesse] = useState();
-  const [saut, setSaut] = useState();
-  const [tir, setTir] = useState();
-  const [conduit, setConduit] = useState();
-  const [agilite, setAgilite] = useState();
-  const [jonglage, setJonglage] = useState();
+  const [vitesse, setVitesse] = useState(0);
+  const [saut, setSaut] = useState(0);
+  const [tir, setTir] = useState(0);
+  const [conduit, setConduit] = useState(0);
+  const [agilite, setAgilite] = useState(0);
+  const [jonglage, setJonglage] = useState(0);
 
   const getVitesseForCurrentUser = async (id) => {
-    let data = await TestServer.getVitesseStatsByUser(id);
-    console.log(data, "helloV from the other side");
-    setVitesse((data?.points * 100) / 150);
+    try {
+      let data = await TestServer.getVitesseStatsByUser(id);
+      console.log("Vitesse Data: ", data);
+      setVitesse((data?.points * 100) / 150);
+    } catch (error) {
+      console.error("Error fetching vitesse data: ", error);
+    }
   };
+
   const getSautForCurrentUser = async (id) => {
-    let data = await TestServer.getSautStatsByUser(id);
-    setSaut((data?.totalPoints * 100) / 100);
+    try {
+      let data = await TestServer.getSautStatsByUser(id);
+      console.log("Saut Data: ", data);
+      setSaut((data?.totalPoints * 100) / 100);
+    } catch (error) {
+      console.error("Error fetching saut data: ", error);
+    }
   };
+
   const getConduitForCurrentUser = async (id) => {
-    let data = await TestServer.getConduitStatsByUser(id);
-    data > 100 ? setConduit(100) : setConduit((data * 100) / 100);
-    console.log(conduit, "this is from chart");
+    try {
+      let data = await TestServer.getConduitStatsByUser(id);
+      console.log("Conduit Data: ", data);
+      data > 100 ? setConduit(100) : setConduit((data * 100) / 100);
+    } catch (error) {
+      console.error("Error fetching conduit data: ", error);
+    }
   };
+
   const getAgiliteForCurrentUser = async (id) => {
-    let data = await TestServer.getagiliteStatsByUser(id);
-    console.log(data, "hello from the other side");
-    setAgilite((data?.data?.total_score * 100) / 100);
+    try {
+      let data = await TestServer.getagiliteStatsByUser(id);
+      console.log("Agilite Data: ", data);
+      setAgilite((data?.data?.total_score * 100) / 100);
+    } catch (error) {
+      console.error("Error fetching agilite data: ", error);
+    }
   };
+
   const getJonglageForCurrentUser = async (id) => {
-    let data = await TestServer.getJonglageStatsByUser(id);
-    console.log(data, "from chart");
-    setJonglage((data?.data?.points * 100) / 100);
+    try {
+      let data = await TestServer.getJonglageStatsByUser(id);
+      console.log("Jonglage Data: ", data);
+      setJonglage((data?.data?.points * 100) / 100);
+    } catch (error) {
+      console.error("Error fetching jonglage data: ", error);
+    }
   };
+
   const getTirForCurrentUser = async (id) => {
-    let data = await TestServer.getTirStatsByUser(id);
-    console.log(data.somme, "from chart tir");
-    setTir(data.somme ? (data.somme * 100) / 300 : 0);
+    try {
+      let data = await TestServer.getTirStatsByUser(id);
+      console.log("Tir Data: ", data);
+      setTir(data.somme ? (data.somme * 100) / 300 : 0);
+    } catch (error) {
+      console.error("Error fetching tir data: ", error);
+    }
   };
 
   useEffect(() => {
@@ -99,8 +128,7 @@ const RadarChart = ({ id }) => {
     getAgiliteForCurrentUser(id);
     getJonglageForCurrentUser(id);
     getTirForCurrentUser(id);
-    console.log("vittt", tir, "new");
-  }, []);
+  }, [id]);
 
   const data = {
     labels: [
@@ -115,9 +143,9 @@ const RadarChart = ({ id }) => {
       {
         label: "Performance",
         data: [vitesse, saut, tir, conduit, jonglage, agilite],
-        backgroundColor: "rgb(255, 165, 0 , 0.5)",
-        pointBackgroundColor: "rgb(255, 165, 0 , 0.7)",
-        pointBorderColor: "	rgb(255,69,0)",
+        backgroundColor: "rgba(255, 165, 0, 0.5)",
+        pointBackgroundColor: "rgba(255, 165, 0, 0.7)",
+        pointBorderColor: "rgb(255,69,0)",
         borderColor: "#BFDEFE",
         borderWidth: 2,
       },
@@ -127,24 +155,23 @@ const RadarChart = ({ id }) => {
   const options = {
     scales: {
       r: {
+        min: 0,
+        max: 100,
+        ticks: {
+          stepSize: 50,
+          showLabelBackdrop: false, // Hide the label backdrop
+          color: "#ffffff", // Color for the tick labels
+          backdropColor: "rgba(0, 0, 0, 0)", // Make the backdrop transparent
+          callback: function (value) {
+            return `${value}%`; // Append % to the tick values
+          },
+        },
         angleLines: {
           color: "#ffffff",
-          borderWidth: 4,
-        },
-        ticks: {
-          display: false,
-          drawTicks: false,
-          maxTicksLimit: 3,
-          count: 3,
-          borderDash: [6],
-          borderDashOffset: [5], // Show only the last two ticks
-          callback: function (value, index, values) {
-            return ""; // Hide the labels for these ticks
-          },
+          borderWidth: 2,
         },
         grid: {
           color: "#ffffff",
-
           lineWidth: 2,
           borderDash: [5, 5], // Create dashed lines (array of lengths)
           tickLength: 3, // Offset for dashed lines
@@ -163,7 +190,7 @@ const RadarChart = ({ id }) => {
       legend: {
         display: false,
       },
-      plugins: [dashedLinePlugin],
+      dashedLinePlugin,
     },
   };
 
