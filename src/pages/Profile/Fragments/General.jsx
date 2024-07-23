@@ -26,6 +26,7 @@ const General = ({ userInfo, sendNotification }) => {
   const modalStyle = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",
+      zIndex: 1000,
     },
     content: {
       position: "absolute",
@@ -230,8 +231,8 @@ const General = ({ userInfo, sendNotification }) => {
                         <button
                           className="flex items-center "
                           onClick={() => {
-                            sendNotification(id)
-                            sendFriendRequest()
+                            sendNotification(id);
+                            sendFriendRequest();
                           }}
                         >
                           <p>
@@ -479,7 +480,8 @@ const General = ({ userInfo, sendNotification }) => {
                     </defs>
                   </svg>
                   <div className="grow self-start mt-1">
-                    {userInfo.agent.totalPlayer} {getTranslation(
+                    {userInfo.agent.totalPlayer}{" "}
+                    {getTranslation(
                       `Players`, // -----> Englais
                       `Joueurs` //  -----> Francais
                       //   ``,  //  -----> Turkey

@@ -57,6 +57,7 @@ const Scout = ({ userInfo, sendNotification }) => {
   const modalStyle = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",
+      zIndex: 1000,
     },
     content: {
       position: "absolute",
@@ -233,8 +234,8 @@ const Scout = ({ userInfo, sendNotification }) => {
                         <button
                           className="flex items-center "
                           onClick={() => {
-                            sendNotification(id)
-                            sendFriendRequest()
+                            sendNotification(id);
+                            sendFriendRequest();
                           }}
                         >
                           <p>

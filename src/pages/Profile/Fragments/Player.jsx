@@ -10,7 +10,7 @@ import Modal from "react-modal";
 import { Context } from "../../../index";
 import Social from "../components/social";
 import VerifyBadge from "../../../assets/badgeVerify.svg";
-const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
+const { PDFDocument, rgb, StandardFonts } = require("pdf-lib");
 
 const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
@@ -53,6 +53,7 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
   const modalStyle = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",
+      zIndex: 1000,
     },
     content: {
       position: "absolute",
@@ -109,9 +110,6 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
     isFriendAccepted();
   }, [id]);
 
-
-
-
   return (
     <>
       <div className="flex gap-y-4 flex-col items-center md:px-[30px] max-sm:px-2 py-6 bg-white rounded-[10px] ">
@@ -136,7 +134,14 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
                   }
                   className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
                 />
-                {userInfo?.user.profil === 'player' && userInfo?.user.isPremuim && <img className="absolute right-0 bottom-1" src={VerifyBadge} alt="verification Badge" />}
+                {userInfo?.user.profil === "player" &&
+                  userInfo?.user.isPremuim && (
+                    <img
+                      className="absolute right-0 bottom-1"
+                      src={VerifyBadge}
+                      alt="verification Badge"
+                    />
+                  )}
               </a>
 
               {/* Modale d'agrandissement de l'image */}
@@ -244,8 +249,8 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
                         <button
                           className="flex items-center "
                           onClick={() => {
-                            sendNotification(id)
-                            sendFriendRequest()
+                            sendNotification(id);
+                            sendFriendRequest();
                           }}
                         >
                           <p>
@@ -307,7 +312,7 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
                       </div>
                     ) : (
                       <div>
-                        <button onClick={() => { }}>
+                        <button onClick={() => {}}>
                           <svg
                             className="fill-white"
                             width="37"
@@ -378,7 +383,7 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
               )}`}
               style={{ marginRight: "8px", width: "25px" }}
             ></span>
-            { }
+            {}
             <div className="grow self-start mt-1">
               {userInfo.user.countryresidence}
             </div>
