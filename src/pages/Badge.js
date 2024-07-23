@@ -4618,13 +4618,13 @@ function Badge({ userpf }) {
                       <Link key={index} to={`/profile/${user.user.id}`}>
                         {" "}
                         <div className="flex flex-col w-full">
-                          <div className="flex flex-col grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
+                          <div className="flex flex-col     grow p-6 mx-auto w-full text-xs bg-white rounded-xl text-zinc-900 max-md:px-5 max-md:mt-6">
                             <img
                               loading="lazy"
                               src={user.user.image}
-                              className="self-center max-w-full rounded-full aspect-square w-[120px]"
+                              className="self-center max-w-full object-cover rounded-full aspect-square w-[120px]"
                             />
-    <div className="self-center mt-4 text-xl font-medium text-black break-words text-center max-w-full">
+                            <div className="self-center max-sm:text-wrap text-center mt-4 text-xl font-medium text-black whitespace-nowrap">
                               {user.user.prenom} {user.user.nom}
                             </div>
                             <div className="flex gap-5 justify-between mt-4 w-full">
