@@ -237,7 +237,7 @@ const SlideMenu = ({setMobileNotificationPopUpContainer, isActive, setPopupNotif
 
             <div className="w-[100%] flex-1 flex justify-center separator hover-effect">
               <a
-                className="flex gap-2 h-[100%] mr-12 my-auto text-base font-medium text-white whitespace-nowrap slideMenuBtn"
+                className="flex gap-2 h-[100%] ml-9 my-auto text-base font-medium text-white whitespace-nowrap slideMenuBtn"
                 href={"/home"}
               >
                 <img
@@ -254,7 +254,7 @@ const SlideMenu = ({setMobileNotificationPopUpContainer, isActive, setPopupNotif
 
             <div className="w-[100%] flex-1 flex justify-center separator hover-effect">
               <a
-                className="flex gap-2 h-[100%] mr-[66px] my-auto text-base font-medium text-white whitespace-nowrap slideMenuBtn"
+                className="flex gap-2 h-[100%] ml-9 my-auto text-base font-medium text-white whitespace-nowrap slideMenuBtn"
                 href={`/profile/${user?.id}`}
               >
                 <img
@@ -271,7 +271,7 @@ const SlideMenu = ({setMobileNotificationPopUpContainer, isActive, setPopupNotif
 
             <div className="w-[100%] flex-1 flex justify-center separator hover-effect">
               <a
-                className="flex gap-2 h-[100%] mr-4 my-auto text-base font-medium text-white whitespace-nowrap slideMenuBtn"
+                className="flex gap-2 h-[100%] ml-9 my-auto text-base font-medium text-white whitespace-nowrap slideMenuBtn"
                 href={"/setting/personal"}
               >
                 <img
@@ -288,7 +288,7 @@ const SlideMenu = ({setMobileNotificationPopUpContainer, isActive, setPopupNotif
 
             <div
               onClick={handleLogout}
-              className="flex gap-2 slideMenuBtn my-auto text-base font-medium text-white whitespace-nowrap  logout-hover-effect"
+              className="flex gap-2 slideMenuBtn pl-9 text-base font-medium text-white whitespace-nowrap  logout-hover-effect"
             >
               <img
                 loading="lazy"

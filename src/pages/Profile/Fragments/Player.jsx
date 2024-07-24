@@ -358,7 +358,7 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
             </div>
           </div>
         </div>
-        <div className="pl-[16px] md:pl-[0px] grid grid-cols-2   md:gap-x-2 max-md:gap-x-4 md:ml-[100px] max:lg-[150px] md:-mt-16 flex justify-center md:justify-between text-sm flex-wrap md:flex-nowrap">
+        <div className="pl-[16px] md:pl-[0px] grid grid-cols-2   md:gap-x-2 max-md:gap-x-4 md:ml-[100px] max:lg-[150px] md:-mt-8 flex justify-center md:justify-between text-sm flex-wrap md:flex-nowrap">
           <div className="flex gap-2 justify-left items-center py-2">
             <img
               loading="lazy"

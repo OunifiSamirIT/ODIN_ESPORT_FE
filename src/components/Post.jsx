@@ -1419,7 +1419,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           forWichAction: "share",
           actionId: article?.video ? 1 : 0,
           postId: idAfterPostCreated,
-          postImage: article?.image ? article?.image : "",
+          postImage: article?.image ? article?.image : article?.video ? article?.video : "",
         });
 
       }
@@ -2227,7 +2227,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         forWichAction: "like",
                         actionId: article?.video ? 1 : 0,
                         postId: article.id,
-                        postImage: article?.image ? article?.image : "",
+                        postImage: article?.image ? article?.image : article?.video ? article?.video : "",
                       });
                       await handleLikeClick(article.id, 1);
                       await fetchLikesForArticle(article.id);
@@ -2603,9 +2603,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         actionId: article?.video ? 1 : 0,
                                         postId: article.id,
                                         content: comment.description,
-                                        postImage: article?.image
-                                          ? article?.image
-                                          : "",
+                                        postImage: article?.image ? article?.image : article?.video ? article?.video : "",
+
                                       });
 
                                       await fetchLikesForComment(comment.id);
@@ -2959,9 +2958,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 : 0,
                                               postId: article.id,
                                               content: replyInput,
-                                              postImage: article?.image
-                                                ? article?.image
-                                                : "",
+                                              postImage: article?.image ? article?.image : article?.video ? article?.video : "",
+
                                             }
                                           );
                                           addReply(
@@ -3026,9 +3024,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     actionId: article?.video? 1 : 0,
                                     postId: article.id,
                                     content: comment,
-                                    postImage: article?.image
-                                      ? article?.image
-                                      : "",
+                                    postImage: article?.image ? article?.image : article?.video ? article?.video : "",
+
                                   });
 
                                   addComment(article.id);
@@ -3433,7 +3430,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               forWichAction: "like",
                               actionId: article?.video ? 1 : 0,
                               postId: article.id,
-                              postImage: article?.image ? article?.image : "",
+                              postImage: article?.image ? article?.image : article?.video ? article?.video : "",
                             });
                             await handleLikeClick(article.id, 1);
                             await fetchLikesForArticle(article.id);
@@ -3826,9 +3823,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   : 0,
                                                 postId: article.id,
                                                 content: comment.description,
-                                                postImage: article?.image
-                                                  ? article?.image
-                                                  : "",
+                                                postImage: article?.image ? article?.image : article?.video ? article?.video : "",
+
                                               }
                                             );
                                             await fetchLikesForComment(
@@ -4222,9 +4218,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                         : 0,
                                                     postId: article.id,
                                                     content: replyInput,
-                                                    postImage: article?.image
-                                                      ? article?.image
-                                                      : "",
+                                                    postImage: article?.image ? article?.image : article?.video ? article?.video : "",
+
                                                   }
                                                 );
                                                 addReply(
@@ -4298,9 +4293,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               : 0,
                                             postId: article.id,
                                             content: comment,
-                                            postImage: article?.image
-                                              ? article?.image
-                                              : "",
+                                            postImage: article?.image ? article?.image : article?.video ? article?.video : "",
+
                                           }
                                         );
 

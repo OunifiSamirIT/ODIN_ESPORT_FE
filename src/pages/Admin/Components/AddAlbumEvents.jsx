@@ -32,21 +32,22 @@ const AddEvent = () => {
 
 
     //send odin event notification 
-    let sendNotification = (forWichAction, postImage, postId, content)  => {NotificationService.instantSend(socket, 
+    let sendNotification = ( postId, content, eventImage)  => 
+       { console.log("evvvent", eventImage, "con",content )
+        {NotificationService.instantSend(socket, 
         {
           toUser_id: "-1",
-          forWichAction: forWichAction,
+          forWichAction: "event",
           actionId: "0",
           postId: postId,
-          postImage: postImage,
+          postImage: eventImage,
           fromUser_id: "X1X223XF",
           content: content,
-          fromUser_id: "X1X223XF",
           fromUser_name: "event",
           fromUser_image: "",
 
         })
-    }
+    }}
     
     const navigate = useNavigate();
 
@@ -83,8 +84,11 @@ const AddEvent = () => {
             const result = await res.json()
             const lastEventCreated = await result
             const eventId = lastEventCreated.event[0].id
+            const eventImage = lastEventCreated.event[0].ImagesAlbumevents[0].image_url
             console.log("🚀 ~ onSubmit ~ result:",  lastEventCreated.event[0].id)
-            sendNotification("event", "", eventId, data.AlbumName)
+            console.log("🚀 ~ onSubmit ~ resultimage:",  eventImage)
+            let content=data.AlbumName
+            sendNotification(eventId, content, eventImage)
 
             toast.success('Event ete ajoutée', {
                 position: "top-right",

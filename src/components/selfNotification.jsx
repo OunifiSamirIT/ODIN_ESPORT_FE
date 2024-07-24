@@ -17,12 +17,23 @@ import campContentImg from "../assets/campContentImg.png";
 import notContentPlay from "../assets/notContentplay.png";
 import eventContentImg from "../assets/eventContentImg.png";
 import { Navigate } from "react-router-dom";
+import VideoThumbnail from 'react-video-thumbnail'; 
+import moment from "moment/moment";
+// import 'moment/locale/fr';
+// import 'moment/locale/en';
+import "../../node_modules/moment/locale/fr";
+import "../../node_modules/moment/locale/en-ca";
 
 export default function SelfNot({
   deleteNotContent,
   notData,
   getNotificationForCurrentUser,
 }) {
+
+  const storedLanguage = localStorage.getItem("language");
+  const language = storedLanguage ? storedLanguage.toLowerCase() : "";
+  moment.locale(language === "fr" ? "fr" : "en");
+
   let [isNotificationOppened, setPopupNotIsOpened] = useState(false);
   let uniqueClass = (Math.random() + 1)
     .toString(32)
@@ -346,7 +357,11 @@ export default function SelfNot({
               )}
             </div>
             <div className="timeNotCon text-[#9E9E9E]">
-              {time.split(":")[0] + ":" + time.split(":")[1]}
+              {moment(notData?.createdAt).isAfter(
+                      moment().subtract(1, "hour")
+                    )
+                      ? moment(notData?.createdAt).fromNow(true)
+                      : moment(notData?.createdAt).fromNow()}
             </div>
           </div>
           {/* <img src={remove} alt="" onClick={showHideDeltebtn}/> */}
@@ -367,21 +382,21 @@ export default function SelfNot({
             notData.forWichAction == "likeComment" ||
             notData.forWichAction == "replyComment") && (
             <>
-              {notData.actionId == 1 && notData.postImage == "" && (
+              {notData.actionId == 1  && (
                 <div className="relative flex justify-center items-center  w-[50px] h-[50px]">
-                  <img
-                    src={postContentImg}
-                    alt=""
-                    className="absolute"
-                    style={{
-                      borderRadius: 5,
-                      // filter: "blur(2px)",
-                      marginBottom: 7,
-                      marginTop: 7,
-                      filter: "brightness(0) ",
-                      opacity: 0.1,
-                    }}
-                  />
+                   <VideoThumbnail
+            videoUrl={notData.postImage}
+            style={{
+              // filter: "blur(2px)",
+              marginBottom: 7,
+              marginTop: 7,
+              width: 20,
+              borderRadius:10
+
+            }}
+            thumbnailHandler={(thumbnail) => console.log(thumbnail)}
+           
+            />
                   <img
                     src={notContentPlay}
                     alt=""
@@ -396,7 +411,7 @@ export default function SelfNot({
                 </div>
               )}
 
-              {notData.postImage && notData.actionId == 0 && (
+              { notData.actionId == 0 && (
                 <img
                   loading="lazy"
                   src={
@@ -457,8 +472,9 @@ export default function SelfNot({
             </div>
           )}
           {notData.forWichAction == "event" && (
+
             <img
-              src={eventContentImg}
+              src={notData.postImage ? notData.postImage : eventContentImg}
               alt=""
               style={{
                 borderRadius: 5,

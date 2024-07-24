@@ -147,7 +147,8 @@ const FriendRequest = () => {
                       <div key={index} className="col-span-1">
                         <div  style={dark_light_bg}  className="flex flex-col items-center grow p-6 mx-auto w-full text-xs  rounded-[10px]  max-md:px-5 max-md:mt-6">
                           <Link
-                            to={`/profile/${item?.friendRequest?.receiver?.id}`}
+    className="flex items-center flex-col "
+to={`/profile/${item?.friendRequest?.receiver?.id}`}
                           >
                             <img
                               loading="lazy"
@@ -158,7 +159,7 @@ const FriendRequest = () => {
                               }
                               className=" max-w-full rounded-full aspect-square w-[120px]"
                             />
-                            <div className="self-center mt-4 text-xl font-medium">
+                            <div className="self-center text-center mt-4 text-xl font-medium">
                               {item?.friendRequest?.receiver?.nom}{" "}
                               {item?.friendRequest?.receiver?.prenom}
                             </div>
