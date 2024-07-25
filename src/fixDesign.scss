@@ -871,3 +871,61 @@ flex: 1;
 .isActive svg, .isActive path {
   fill: #2E71EB;
 }
+
+.loaderCOn {
+  .innerLoadShareVIdeo {
+    animation: progress 5s forwards linear;
+    position: relative;
+    @keyframes progress {
+      10% {
+        width: 30%;
+      }
+
+      20% {
+        width: 30%;
+      }
+      
+
+      70% {
+        width: 75%;
+      }
+
+      
+      95% {
+        width: 100%;
+      }
+      
+
+      to {
+        width:100%;
+      }
+    }
+  }
+
+  .innerLoadShareVIdeo::after {
+    content: "0%";
+    animation: percentage 5s forwards linear;
+    color: white;
+    position: absolute;
+    right: 4px;
+    @keyframes percentage {
+      10% {
+        content: "10%";
+      }
+
+      20% {
+        content: "20%";
+      }
+      
+
+      70% {
+        content: "70%";
+      }
+
+      to {
+        content: "100%";
+      }
+    }
+  }
+
+}

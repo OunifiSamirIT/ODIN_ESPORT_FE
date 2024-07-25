@@ -14,7 +14,6 @@ import '../../../../node_modules/moment/locale/fr';
 import '../../../../node_modules/moment/locale/en-ca';
 
 
-
 import NotificationService from "../../../api/notification.server";
 import { io } from 'socket.io-client';
 import { BiSolidHeart } from "react-icons/bi";
@@ -62,6 +61,7 @@ const ChallengeDetais = () => {
     const [ReplyShow, setReplyShow] = useState(false);
     const [commentToEdit, setCommentToEdit] = useState(false);
     const [showDropdownlikes, setShowDropdownlikes] = useState(false);
+    const [videoModal, setvideoModal] = useState(false);
     const video = useRef();
     const participantVideo = useRef();
     const handleEditComment = (comment) => {
@@ -107,7 +107,12 @@ const ChallengeDetais = () => {
         if (isPlaying) {
             video.current.pause();
         } else {
+            setvideoModal(true)
+            setTimeout(() => {
+                
             video.current.play();
+            }, 500);
+
         }
         setIsPlaying(!isPlaying);
     }
@@ -565,6 +570,23 @@ const ChallengeDetais = () => {
     const [videoName, setVideoName] = useState()
     return (<>
         {
+            videoModal && <div style={{
+                backdropFilter: "blur(3px)",
+            }} className="videmodal fixed top-20 bg-[#11111140]   left-0 z-40 h-full w-full">
+                <button onClick={() => {setvideoModal(false) ;video.current.play(); setIsPlaying(false);} } className="absolute z-50  top-3 border-2 border-white p-2  w-12 h-12 rounded-full left-1/2 text-white  bg-orange-400 -translate-x-1/2 rotate-45">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 112v288M400 256H112"/></svg>
+                </button >
+                    <video  onClick={playVideo} ref={video} class="object-contain w-full h-full aspect-square"
+                        src={`${challenges.video}`}
+                    >
+                    </video>
+                    {!isPlaying && <svg onClick={playVideo} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 size-[40px]  flex  cursor-pointer" width="79" height="78" viewBox="0 0 79 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M29.1241 55.8515H28.154C28.0849 55.8261 28.0145 55.8045 27.9432 55.7867C26.2758 55.4558 25.0525 54.0157 25.0516 52.331C25.0453 43.6342 25.0453 34.9373 25.0516 26.2405C25.0553 25.678 25.1978 25.1252 25.4663 24.631C26.3302 22.9895 28.5453 22.117 30.5367 23.2824C34.4485 25.5727 38.3828 27.8215 42.3085 30.0875C45.7953 32.1034 49.2824 34.1163 52.7698 36.1264C54.3179 37.0223 55.0065 38.6317 54.5443 40.2732C54.2635 41.2702 53.6259 41.9734 52.7343 42.4874C46.2143 46.2438 39.7055 50.02 33.1777 53.7634C31.8585 54.5202 30.63 55.4575 29.1241 55.8515Z" fill="white" />
+                        <circle cx="39.3922" cy="39.3004" r="38.1207" stroke="white" />
+                    </svg>}
+            </div>
+        }
+        {
             isOpen && <div className="bg-black/70  fixed inset-0  z-50 h-full w-full  overflow-hidden flex justify-center items-center px-8 ">
                 <div ref={ref} className="flex flex-col px-4 py-8 max-w-full bg-white rounded-[10px] w-[936px]">
                     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col  text-base bg-white rounded-xl max-w-[936px] text-zinc-900 ">
@@ -658,6 +680,14 @@ const ChallengeDetais = () => {
                             }</div>
                         </div>
                         {error && <p className="text-red-500 text-center">{error}</p>}
+                                {
+                                    loading && !error &&
+                                    <div className="loaderCOn w-[60%]  h-5 rounded-full bg-gray-400 mx-auto" >
+                                        <div className="innerLoadShareVIdeo bg-blue-600 w-8 h-5 rounded-full ">
+
+                                        </div>
+                                    </div>
+                                }
                         <div className="flex flex-col">
                             <div className="flex gap-2 justify-center self-center px-8 py-2 mt-8 font-medium cursor-pointer bg-blue-600 hover:bg-blue-500 text-white whitespace-nowrap border-2 border-blue-500 border-solid rounded-[30px] max-md:px-5">
                                 <button type="submit" disabled={loading}> {loading ? 'loading ...'  :
@@ -967,9 +997,9 @@ const ChallengeDetais = () => {
                                         </svg>
 
                                         <div>{vote}</div>
-                                        {showDropdownVotes && userVote.length > 0 ? (<div ref={VoteModelRef} className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-4 md:mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+                                        {showDropdownVotes && userVote.length > 0 ? (<div ref={VoteModelRef} className="absolute  overflow-y-scroll hiddenScrollRightMenu translate-x-[38%] md:translate-x-4  top-0 md:top-0 z-[3] h-[180px] mt-4 md:mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
                                             <div className="py-2 px-4">
-                                                <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
+                                                <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]   font-semibold">
                                                     {getTranslation(
                                                         `Who Voted for this post?`, // -----> Englais
                                                         `Qui a Voté sur cette publication?`, //  -----> Francais
@@ -1011,7 +1041,7 @@ const ChallengeDetais = () => {
 
                                         <div>{likes}</div>
 
-                                        {showDropdownlikes && userslikearticle.length > 0 ? (<div ref={likeModelRef} className="absolute overflow-y-scroll overflow-hidden hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-4 md:mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+                                        {showDropdownlikes && userslikearticle.length > 0 ? (<div ref={likeModelRef} className="absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:translate-x-4 top-0 md:top-0 z-[3] h-[180px] mt-4 md:mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
                                             <div className="py-2 px-4">
                                                 <h3 className="md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
                                                     {getTranslation(
@@ -1386,7 +1416,9 @@ const ChallengeDetais = () => {
             </div></Link>
             <div className="flex flex-col mt-3 md:mt-0 px-8 py-10 bg-white rounded-[10px]  col-span-2">
                 <div className="flex overflow-hidden relative flex-col justify-center items-center">
-                    <video onClick={playVideo} ref={video} class="object-cover w-full h-[320px] aspect-square"
+                    <video style={{
+
+}} onClick={playVideo}  class="object-cover w-full h-[320px] aspect-square"
                         src={`${challenges.video}`}
                     >
                     </video>
