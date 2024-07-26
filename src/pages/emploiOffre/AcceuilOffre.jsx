@@ -534,18 +534,12 @@ function AcceuilOffre() {
                   <div className="mt-2 md:mt-6  self-start  font-serif text-xl max-md:max-w-full">
                     Description :
                   </div>
-                  <div className="mt-2 text-lg text-neutral-900 text-break text-opacity-70 max-md:max-w-full">
-                    { albumDetails?.description.length > 198 && !isReaMore ? 
+                  <div style={{
+                        whiteSpace: "pre-line"
+
+                  }} className="mt-2 text-lg text-neutral-900 text-break text-opacity-70 max-md:max-w-full">
                     
-                    albumDetails?.description.slice(0, 198) : albumDetails?.description} 
-                    {" "}
-                    { albumDetails?.description.length > 198 && !isReaMore && <button onClick={() => setReaMore(true)} className="bg-blue-600 ml-1 rounded-full text-white text-sm px-2 py-1">
-                      {getTranslation(
-                        `read more ...`, // -----> Englais
-                        `En savoir plus ...` //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )}                    </button> } 
+                   { albumDetails?.description }
 
                   </div>
                   <div className="flex gap-2 self-start ml-1 mt-6 text-xl font-serif whitespace-nowrap text-zinc-900">
