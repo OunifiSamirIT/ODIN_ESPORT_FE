@@ -4510,7 +4510,7 @@ function Badge({ userpf }) {
                             src={agents?.user?.image}
                             className="self-center max-w-full rounded-full aspect-square w-[120px]"
                           />
-                          <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap">
+                          <div className="self-center mt-4 text-xl font-medium text-black whitespace-nowrap text-wrap text-center">
                             {agents?.user?.prenom} {agents?.user?.nom}
                           </div>
 

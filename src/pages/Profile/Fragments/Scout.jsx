@@ -163,7 +163,7 @@ const Scout = ({ userInfo, sendNotification }) => {
                         /> */}
             <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
               <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
-                <p className="break-all text-pretty">
+                <p className="text-pretty">
                   {userInfo?.user.nom} {userInfo?.user.prenom}
                 </p>
               </div>

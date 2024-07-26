@@ -153,7 +153,7 @@ const General = ({ userInfo, sendNotification }) => {
             </div>
             <div className="flex-col items-center pl-[16px]  max-w-full h-full md:pt-[5px]">
               <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
-                <p className="break-all">
+                <p className="">
                   {userInfo?.user.nom} {userInfo?.user.prenom}
                 </p>
               </div>

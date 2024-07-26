@@ -173,7 +173,7 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
             /> */}
             <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
               <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
-                <p className="break-all">
+                <p className="">
                   {userInfo?.user.nom} {userInfo?.user.prenom}
                 </p>
               </div>

@@ -4624,7 +4624,7 @@ function Badge({ userpf }) {
                               src={user.user.image}
                               className="self-center max-w-full object-cover rounded-full aspect-square w-[120px]"
                             />
-                            <div className="self-center max-sm:text-wrap text-center mt-4 text-xl font-medium text-black whitespace-nowrap">
+                            <div className="self-center max-sm:text-wrap mt-4 text-xl font-medium text-black whitespace-nowrap text-wrap text-center">
                               {user.user.prenom} {user.user.nom}
                             </div>
                             <div className="flex gap-5 justify-between mt-4 w-full">
