@@ -105,7 +105,7 @@ function FriendsSlider() {
                     <img
                       src={value?.user?.image}
                       alt="avater"
-                      className="shadow-sm rounded-circle w-16 h-16"
+                      className="shadow-sm object-cover rounded-circle w-16 h-16"
                     />
                   </figure>
                 </Link>

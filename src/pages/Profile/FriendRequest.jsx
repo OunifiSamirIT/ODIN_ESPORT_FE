@@ -159,7 +159,7 @@ to={`/profile/${item?.friendRequest?.receiver?.id}`}
                               }
                               className=" max-w-full rounded-full aspect-square w-[120px]"
                             />
-                            <div className="self-center text-center mt-4 text-xl font-medium">
+                            <div className="self-center h-16 md:flex items-center justify-center text-center mt-4 text-xl font-medium">
                               {item?.friendRequest?.receiver?.nom}{" "}
                               {item?.friendRequest?.receiver?.prenom}
                             </div>
@@ -237,10 +237,17 @@ to={`/profile/${item?.friendRequest?.receiver?.id}`}
                                 className="shrink-0 w-5 aspect-square"
                                 style={dark_img}
                               />
-                              <div>
+                              <div className="">
                                 {getTranslation(
-                                  `Country of residence`, // -----> English
-                                  `Pays de résidence` // -----> French
+                                  `Country of`, // -----> English
+                                  `Pays de` // -----> French
+                                  // ``, // -----> Turkish
+                                  // ``, // -----> German
+                                )}
+                                <br />
+                                {getTranslation(
+                                  ` residence`, // -----> English
+                                  ` résidence` // -----> French
                                   // ``, // -----> Turkish
                                   // ``, // -----> German
                                 )}

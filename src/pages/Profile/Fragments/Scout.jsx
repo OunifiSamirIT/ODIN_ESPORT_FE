@@ -129,7 +129,7 @@ const Scout = ({ userInfo, sendNotification }) => {
                   srcSet={
                     userInfo?.user.image ? userInfo?.user.image : Placeholder
                   }
-                  className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+                  className="max-w-full object-cover rounded-full aspect-square w-[100px] md:w-[120px]"
                 />
               </a>
 
@@ -163,7 +163,7 @@ const Scout = ({ userInfo, sendNotification }) => {
                         /> */}
             <div className="flex-col items-center  max-w-full pl-[16px] h-full md:pt-[5px]">
               <div className="text-xl font-bold text-zinc-900 flex gap-2 flex-wrap whitespace-normal">
-                <p className="text-pretty">
+                <p className="">
                   {userInfo?.user.nom} {userInfo?.user.prenom}
                 </p>
               </div>

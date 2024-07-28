@@ -132,7 +132,7 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
                   srcSet={
                     userInfo?.user.image ? userInfo?.user.image : Placeholder
                   }
-                  className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+                  className="max-w-full object-cover rounded-full aspect-square w-[100px] md:w-[120px]"
                 />
                 {userInfo?.user.profil === "player" &&
                   userInfo?.user.isPremuim && (
@@ -240,7 +240,7 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
                       </svg>
 
                       {acceptedFriend ? (
-                        <div className="">
+                        <div className="text-nowrap">
                           {acceptedFriend?.status == "pending"
                             ? "En Atente"
                             : "ami(e)"}

@@ -126,7 +126,7 @@ const General = ({ userInfo, sendNotification }) => {
                   srcSet={
                     userInfo?.user.image ? userInfo?.user.image : Placeholder
                   }
-                  className="max-w-full rounded-full aspect-square w-[100px] md:w-[120px]"
+                  className="max-w-full object-cover rounded-full aspect-square w-[100px] md:w-[120px]"
                 />
               </a>
 

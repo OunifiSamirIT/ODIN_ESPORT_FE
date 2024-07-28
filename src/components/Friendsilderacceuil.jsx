@@ -99,11 +99,11 @@ function FriendsSlider() {
                 className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center"
               >
                 <Link to={`/profile/${value?.user?.id}`}>
-                  <figure className="avatar mb-1 d-flex justify-content-center align-items-center">
+                  <figure className="avatar mb-1  d-flex justify-content-center align-items-center">
                     <img
                       src={value?.user?.image}
                       alt="avatar"
-                      className="shadow-sm rounded-circle w-16 h-16"
+                      className="shadow-sm object-cover rounded-circle w-16 h-16"
                     />
                   </figure>
                 </Link>

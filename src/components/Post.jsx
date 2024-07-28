@@ -1515,7 +1515,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           : placeholder
                       }
                       // src={article.user.user?.image}
-                      className="  shadow-sm rounded-full w-[52px] aspect-square"
+                      className=" object-cover shadow-sm rounded-full w-[52px] aspect-square"
                       alt="post"
                     />{" "}
                   </figure>
@@ -1773,6 +1773,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               index > 0 && imageCount === 3
                                 ? "object-cover h-[250px]"
                                 : ""
+                            } ${
+                              images.length >= 4 &&
+                                "object-cover"
                             } ${
                               index === 3 && images.length > 4
                                 ? "opacity-50 md:h-[250px]"
@@ -3096,10 +3099,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                 className="  relative flex flex-col py-2    rounded-[10px] md:w-full w-[425px]  max-md:my-10"
               >
                 <div className="  flex flex-col md:flex-row h-screen w-screen  bg-black md:pr-0">
-                  <div className="  bg-black  ">
+                  <div className="    max-md:flex items-center justify-end max-md:-translate-x-7   ">
                     <svg
                       onClick={handleCloseModalSHOWGallery}
-                      className="  ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 md:size-14 size-14  "
+                      className="  ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 max-md:translate-y-3  md:size-14 size-14  "
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 62 62"
                       width="62"
@@ -3109,7 +3112,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
                     </svg>
                   </div>
-                  <div className="  flex flex-col w-full  md:w-[70%] bg-black    -py-10">
+                  <div className="  flex flex-col w-full  md:w-[70%]  max-md:h-[85%] -py-10 ">
                     <Swiper
                       modules={[Pagination, Navigation]}
                       navigation={true}
@@ -3119,12 +3122,12 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       }
                       centeredSlides={true}
                       spaceBetween={80}
-                      className="   flex items-center justify-between w-full h-full my-2"
+                      className="  flex items-center justify-between w-full h-full my-2"
                     >
                       {images.map((imageUrl, index) => (
                         <SwiperSlide
                           key={index}
-                          className="  flex justify-center items-center "
+                          className="   flex justify-center items-center "
                         >
                           <div className="  flex justify-between items-center w-full h-full ">
                             <img

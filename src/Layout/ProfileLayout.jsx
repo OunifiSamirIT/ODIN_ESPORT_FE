@@ -155,13 +155,13 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 flex-wrap ">
                                             {Invitation.map((item, index) => {
                                                 return (<div key={index} className="flex flex-col max-sm:flex-1">
-                                                    {item.receiver && <a href={`/profile/${item.receiver.id}`} className="bg-zinc-100 text-wrap flex flex-col grow items-center px-2 py-4 w-full text-base break-all whitespace-nowrap rounded-[10px]  text-zinc-900">
+                                                    {item.receiver && <a href={`/profile/${item.receiver.id}`} className="bg-zinc-100 text-wrap flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px]  text-zinc-900">
                                                         <img
                                                             loading="lazy"
                                                             srcSet={item.receiver.image ? item.receiver.image : PlaceHolder}
-                                                            className="w-50  aspect-square rounded-full"
+                                                            className="w-50  aspect-square object-cover rounded-full"
                                                         />
-                                                        <div className="mt-2 text-sm text-pretty font-bold">{item.receiver.nom}  {item.receiver.prenom}</div>
+                                                        <div className="mt-2 text-sm text-pretty font-bold text-wrap text-center">{item.receiver.nom}  {item.receiver.prenom}</div>
                                                         <div className="text-xs font-light ">
                                                             {/* {item.receiver.profil == 'other' ? item.receiver.profil.profession : ''} */}
                                                             {item.receiver.profil == 'player' ? ' Joueur' : ''}
@@ -186,13 +186,13 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                                 )}</button>
                                                         </div>}
                                                     </a>}
-                                                    {item.sender && <a href={`/profile/${item.sender.id}`} className="w-full flex flex-col grow items-center px-2 py-4 w-full text-base text-wrap break-all rounded-[10px] bg-zinc-100 text-zinc-900">
+                                                    {item.sender && <a href={`/profile/${item.sender.id}`} className="w-full flex flex-col grow items-center px-2 py-4 w-full text-base text-wrap rounded-[10px] bg-zinc-100 text-zinc-900">
                                                         <img
                                                             loading="lazy"
                                                             srcSet={item.sender.image ? item.sender.image : PlaceHolder}
-                                                            className="w-50  aspect-square rounded-full"
+                                                            className="w-50 object-cover aspect-square rounded-full"
                                                         />
-                                                        <p className="mt-2 text-sm text-pretty font-bold whitespace-normal">{item.sender.nom}{item.sender.prenom}</p>
+                                                        <p className="mt-2 text-sm text-pretty font-bold text-wrap  text-center">{item.sender.nom} {item.sender.prenom}</p>
                                                         <div className="text-sm font-light">
                                                             {/* {item.receiver.profil == 'other' ? item.receiver.profil.profession : ''} */}
                                                             {item.sender.profil == 'player' ? ' Joueur' : ''}

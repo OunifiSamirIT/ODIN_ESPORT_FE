@@ -502,13 +502,13 @@ const More = () => {
                       )}{" "}
                     </div>
                   </div>
-                  <div className="flex  gap-2  justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
+                  <div className="flex   justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">
                     {CurrentUser?.player?.skillsInProfile
                       .split(",")
                       .filter((item) => item !== "")
                       .map((item) => {
                         return (
-                          <div className="justify-center px-4 py-2 border-2 border-blue-600 border-solid rounded-[30px]">
+                          <div className="justify-center px-4 py-2 m-1 border-2 border-blue-600 border-solid rounded-[30px] text-wrap text-center">
                             {item}
                           </div>
                         );
