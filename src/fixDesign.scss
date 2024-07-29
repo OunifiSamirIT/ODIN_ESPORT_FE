@@ -863,9 +863,16 @@ flex: 1;
 
 //Home Page custom css 
 .isActive{
-  transform: scale(1.25);
+  transform: scale(1);
   color: #2E71EB;
-  transition: all 1s ease-in-out;
+  animation: scalingNavBtn .3s forwards;
+}
+@keyframes scalingNavBtn {
+  to {
+  transform: scale(1.25);
+
+  }
+  
 }
 
 .isActive svg, .isActive path {
