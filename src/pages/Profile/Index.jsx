@@ -1064,13 +1064,13 @@ const Index = () => {
   // };
   const getPhotoClass = (numPhotos) => {
     if (numPhotos === 1) {
-      return "w-[57%] md:w-[63%]";
+      return "w-[100%] max-md:h-full md:w-[63%]";
     } else if (numPhotos === 2) {
-      return "w-[33%] md:w-[35%]";
+      return "w-[100%] md:w-[35%]";
     } else if (numPhotos === 3) {
-      return "w-[30%] md:w-[31.2%]";
+      return "w-[100%] md:w-[31.2%]";
     }
-    return "w-[30%] md:w-[31.2%]"; // default case for more than 3 photos
+    return "w-[100%] md:w-[31.2%]"; // default case for more than 3 photos
   };
 
   const PhotoGrid = ({ articlesWithPhoto }) => {
@@ -1114,12 +1114,12 @@ const Index = () => {
 
         {isOpen && (
           <div className="bg-black/70 fixed inset-0 z-50 h-full w-full flex justify-center items-center ">
-            <div className="relative flex flex-col py-2 rounded-[10px] md:w-full w-[425px] max-md:my-10">
-              <div className="flex flex-row h-screen pr-[90px] bg-black md:pr-0">
-                <div className="bg-black">
-                  <svg
+            <div className="relative flex flex-col py-2 rounded-[10px] md:w-full w-[100%]  h-full max-md:my-10">
+              <div className="flex flex-col h-screen  bg-black md:pr-0  h-full">
+              <div className="    max-md:flex items-center  h-full justify-end max-md:-translate-x-7   ">
+              <svg
                     onClick={closeModal}
-                    className="ml-10 md:mx-0 -mr-8 cursor-pointer mt-2 md:size-14 size-14"
+                    className="  ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 max-md:translate-y-3  md:size-14 size-14  "
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 62 62"
                     width="80"
@@ -1129,7 +1129,7 @@ const Index = () => {
                     <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
                   </svg>
                 </div>
-                <div className="flex flex-col w-[90%] md:ml-4 md:w-[95%] bg-black py-10">
+                <div className="flex flex-col w-[100%] h-full md:ml-4 md:w-[95%]  py-10">
                   <Swiper
                     navigation={true}
                     initialSlide={currentImageIndex}
@@ -1138,7 +1138,7 @@ const Index = () => {
                     }
                     centeredSlides={true}
                     spaceBetween={80}
-                    className="mySwiperprofile flex items-center justify-between w-full h-full my-2"
+                    className="mySwiperprofile flex items-center justify-center w-full h-full my-2"
                   >
                     {allPhotos.map((photo, index) => (
                       <SwiperSlide
@@ -1149,7 +1149,7 @@ const Index = () => {
                           <img
                             src={photo.url}
                             alt={`Image ${index}`}
-                            className="w-full h-full object-contain"
+                            className="w-full -mt-10 h-full object-contain"
                           />
                         </div>
                       </SwiperSlide>
@@ -1613,8 +1613,8 @@ const Index = () => {
               ) : (
                 <div className="w-full mt-4 text-center">
                   {getTranslation(
-                    `No photos at the moment.`, // -----> Englais
-                    ` Aucune Photo pour le moment.` //  -----> Francais
+                    `No Video at the moment.`, // -----> Englais
+                    ` Aucune vedeo pour le moment.` //  -----> Francais
                     //   ``,  //  -----> Turkey
                     //   `` ,  //  -----> Allemagne
                   )}
