@@ -110,7 +110,7 @@ const Article = () => {
                   <div className="flex flex-col px-8 pt-6 pb-7 mt-8 bg-white rounded-[10px] max-md:px-5 max-md:max-w-full">
                     <div
                       style={{ backgroundImage: `url(${banner})` }}
-                      className="bg-cover relative flex-col justify-center py-14 pr-20 pl-20 text-2xl font-bold text-white min-h-[147px] max-md:pr-8 max-md:pl-5 max-md:mr-2 max-md:max-w-full"
+                      className="bg-cover rounded-[10px] relative flex-col justify-center py-14 pr-20 pl-20 text-2xl font-bold text-white min-h-[147px] max-md:pr-8 max-md:pl-5 max-md:mr-2 max-md:max-w-full"
                     >
                       {getTranslation(
                         `Elevate Your Game, Seize Your Future!`, // -----> Englais
@@ -217,7 +217,7 @@ const Article = () => {
                 </div>
               </div>
               <div className="flex flex-col ml-5 w-[35%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col px-5 mt-2.5 max-md:mt-10">
+                <div className="flex flex-col md:px-5 mt-2.5 max-md:mt-10">
                   <div className="tal2 text-3xl font-bold text-zinc-900">
                     {getTranslation(
                       `Newsletter`, // -----> Englais
