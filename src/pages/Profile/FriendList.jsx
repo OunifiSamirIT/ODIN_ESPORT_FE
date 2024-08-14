@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import HomeLayout from "../../Layout/HomeLayout";
 import Placeholder from "../../assets/placeholder.jpg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Config } from "../../config";
 import { Context } from "../../index";
 import { paysAllInfo } from "../../assets/data/Country";
-
 const FriendList = () => {
   const storedUserData = JSON.parse(localStorage.getItem("user"));
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
-
+  const { id } = useParams()
   const [FriendRequest, setFriendRequest] = useState([]);
   const fetchFriendRequest = async () => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${storedUserData.id}/getFriends`
+      `${Config.LOCAL_URL}/api/user/${id}/getFriends`
     );
     const result = await response.json();
     setFriendRequest(result.data);
@@ -40,8 +39,14 @@ const FriendList = () => {
       window.location.reload();
     }
   };
-  const [user, setUser] = useState([]);
+  const [owner, setOwner] = useState(false)
 
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    if (storedUserData.id == id) {
+      setOwner(true)
+    }
+  }, [id, user])
   useEffect(() => {
     const storedUserData = JSON.parse(localStorage.getItem("user"));
     const id = storedUserData ? storedUserData.id : null;
@@ -59,7 +64,7 @@ const FriendList = () => {
     fetchFriendRequest();
   }, []);
 
-  const id = storedUserData.id ? storedUserData.id : null;
+  const userId = storedUserData.id ? storedUserData.id : null;
   const userProfileType = storedUserData ? storedUserData.profil : null;
   const shouldHideForProfiles = ["other", "player"];
   const shouldShowAgentItem = ["player"].includes(userProfileType);
@@ -104,12 +109,12 @@ const FriendList = () => {
                     </svg>
                   </div>
                   <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                  {getTranslation(
-                    `Home`, // -----> Englais
-                    `Acceuil` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}
+                    {getTranslation(
+                      `Home`, // -----> Englais
+                      `Acceuil` //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )}
                   </div>
                 </div>
               </Link>
@@ -148,12 +153,12 @@ const FriendList = () => {
                     </svg>
                   </div>
                   <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                  {getTranslation(
-                    `Profile`, // -----> Englais
-                    `Profil` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}
+                    {getTranslation(
+                      `Profile`, // -----> Englais
+                      `Profil` //  -----> Francais
+                      //   ``,  //  -----> Turkey
+                      //   `` ,  //  -----> Allemagne
+                    )}
                   </div>
                 </div>{" "}
               </Link>
@@ -220,12 +225,12 @@ const FriendList = () => {
                         </svg>
                       </div>
                       <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                      {getTranslation(
-                    `Players`, // -----> Englais
-                    `Joueurs` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}
+                        {getTranslation(
+                          `Players`, // -----> Englais
+                          `Joueurs` //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )}
                       </div>
                     </div>{" "}
                   </Link>
@@ -371,13 +376,13 @@ const FriendList = () => {
         </div>
         <div className="md:col-span-6 col-span-8 w-full   flex flex-col  md:px-0 ">
           <div className="justify-center items-start px-8 py-6 text-3xl font-bold whitespace-nowrap bg-white rounded-[10px] text-zinc-900 max-md:px-5 max-md:max-w-full">
-           
+
             {getTranslation(
-                        `Friends list`, // -----> Englais
-                        `  List des amis` //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )}
+              `Friends list`, // -----> Englais
+              `  Liste  des amis` //  -----> Francais
+              //   ``,  //  -----> Turkey
+              //   `` ,  //  -----> Allemagne
+            )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 ">
             {FriendRequest.length <= 0 && (
@@ -404,7 +409,7 @@ const FriendList = () => {
                         }
                         className="self-center max-w-full rounded-full aspect-square w-[120px]"
                       />
-                      <div className="self-center mt-4 text-xl font-medium text-black">
+                      <div className="self-center text-center mt-4 text-xl font-medium text-black">
                         {item?.receiver?.nom} {item?.receiver?.prenom}
                       </div>
                       <div className="flex gap-4 justify-between mt-4 w-full">
@@ -488,7 +493,7 @@ const FriendList = () => {
                           <div>{item.receiver?.countryresidence}</div>
                         </div>
                       </div>
-                      <div className="flex gap-2 justify-between mt-4 text-base font-medium text-white whitespace-nowrap">
+                      <div className={`${owner ? '' : 'flex-1'} flex gap-2 justify-center mt-4 text-base font-medium text-white whitespace-nowrap`}>
                         <Link
                           to={`/profile/${item.receiver.id}`}
                           className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5"
@@ -500,7 +505,7 @@ const FriendList = () => {
                             //   `` ,  //  -----> Allemagne
                           )}
                         </Link>
-                        <button
+                        {owner && <button
                           onClick={() => deleteInviation(item.receiverId)}
                           className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5"
                         >
@@ -510,7 +515,7 @@ const FriendList = () => {
                             //   ``,  //  -----> Turkey
                             //   `` ,  //  -----> Allemagne
                           )}
-                        </button>
+                        </button>}
                       </div>
                     </div>
                   )}
@@ -523,7 +528,7 @@ const FriendList = () => {
                         }
                         className="self-center max-w-full rounded-full aspect-square w-[120px]"
                       />
-                      <div className="self-center mt-4 text-xl font-medium text-black">
+                      <div className="self-center text-center mt-4 text-xl font-medium text-black">
                         {item?.sender?.nom} {item?.sender?.prenom}
                       </div>
                       <div className="flex gap-4 justify-between mt-4 w-full">
@@ -611,7 +616,7 @@ const FriendList = () => {
                           <div>{item.sender?.countryresidence}</div>
                         </div>
                       </div>
-                      <div className="flex gap-2 justify-between mt-4 text-base font-medium text-white whitespace-nowrap">
+                      <div className={`${owner ? '' : 'flex-1'} flex gap-2 justify-center mt-4 text-base font-medium text-white whitespace-nowrap`}>
                         <Link
                           to={`/profile/${item.sender.id}`}
                           className="justify-center px-6 py-2 bg-blue-600 rounded-[30px] max-md:px-5"
@@ -623,7 +628,7 @@ const FriendList = () => {
                             //   `` ,  //  -----> Allemagne
                           )}
                         </Link>
-                        <button
+                        {owner && <button
                           onClick={() => deleteInviation(item.receiverId)}
                           className="justify-center px-6 py-2 bg-orange-500 rounded-[30px] max-md:px-5"
                         >
@@ -633,7 +638,7 @@ const FriendList = () => {
                             //   ``,  //  -----> Turkey
                             //   `` ,  //  -----> Allemagne
                           )}
-                        </button>
+                        </button>}
                       </div>
                     </div>
                   )}

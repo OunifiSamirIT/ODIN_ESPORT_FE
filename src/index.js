@@ -661,7 +661,7 @@ function Root() {
                   element={<MoreProfile />}
                 />
                 <Route exact path={`/friends`} element={<FriendRequest />} />
-                <Route exact path={`/friendsList`} element={<FriendList />} />
+                <Route exact path={`/friendsList/:id`} element={<FriendList />} />
                 {/* blog routes */}
 
                 <Route exact path="/blog" element={<Blog />} />
