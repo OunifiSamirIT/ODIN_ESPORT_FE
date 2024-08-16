@@ -5,11 +5,23 @@ import { Config } from "../config";
 import LanguageToggler from "../fixDesignComponents/languageToggler";
 import { Context } from "../index";
 import gsap from "gsap";
+import secureLocalStorage from "react-secure-storage";
 
-const SlideMenu = ({setMobileNotificationPopUpContainer, isActive, setPopupNotificationHidden,setIsActive, setHumberger, Hamburger, notificationData, deleteNotData, setnotificationData, NotificationService }) => {
-  const [lang, setLang] = useState('Français')
-  const [user, setUser] = useState({})
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+const SlideMenu = ({
+  setMobileNotificationPopUpContainer,
+  isActive,
+  setPopupNotificationHidden,
+  setIsActive,
+  setHumberger,
+  Hamburger,
+  notificationData,
+  deleteNotData,
+  setnotificationData,
+  NotificationService,
+}) => {
+  const [lang, setLang] = useState("Français");
+  const [user, setUser] = useState({});
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   useEffect(() => {
@@ -79,48 +91,44 @@ const SlideMenu = ({setMobileNotificationPopUpContainer, isActive, setPopupNotif
         <img
           alt="user iamge"
           loading="lazy"
-          onClick={() => {setHumberger(!Hamburger)
-
+          onClick={() => {
+            setHumberger(!Hamburger);
 
             if (!Hamburger) {
-                  gsap
-          .timeline()
-          .to(".mobilePopUpNotificationCon", {
-            duration: 0.2,
-            opacity: 0,
-            pointerEvents: "none",
-            y: 0,
-
-          })
-          .to(".loadingNot .loaderCon .inner", {
-            duration: 0,
-            width: "0%",
-          })
-          .to(".loadingNot .loaderCon .inner", {
-            duration: 0,
-            opacity: 1,
-          })
-          .to(".loadingNot .loaderCon .inner", {
-            duration: 0,
-            display: "block",
-          })
-          .to(".mobilePopUpNotificationCon .showAllnot", {
-            duration: 0,
-            display: "none",
-          })
-          .to(".mobilePopUpNotificationCon .showAllnot", {
-            duration: 0,
-            opacity: 0,
-            onComplete: () => {
-              setPopupNotificationHidden(true)
-      setMobileNotificationPopUpContainer(false)
+              gsap
+                .timeline()
+                .to(".mobilePopUpNotificationCon", {
+                  duration: 0.2,
+                  opacity: 0,
+                  pointerEvents: "none",
+                  y: 0,
+                })
+                .to(".loadingNot .loaderCon .inner", {
+                  duration: 0,
+                  width: "0%",
+                })
+                .to(".loadingNot .loaderCon .inner", {
+                  duration: 0,
+                  opacity: 1,
+                })
+                .to(".loadingNot .loaderCon .inner", {
+                  duration: 0,
+                  display: "block",
+                })
+                .to(".mobilePopUpNotificationCon .showAllnot", {
+                  duration: 0,
+                  display: "none",
+                })
+                .to(".mobilePopUpNotificationCon .showAllnot", {
+                  duration: 0,
+                  opacity: 0,
+                  onComplete: () => {
+                    setPopupNotificationHidden(true);
+                    setMobileNotificationPopUpContainer(false);
+                  },
+                });
             }
-          })
-            }
-          }
-        
-        }
-           
+          }}
           srcSet={user?.image ? user?.image : UserImage}
           className="md:hidden  self-stretch aspect-square  rounded-full  h-[60px] relative pointer"
         />

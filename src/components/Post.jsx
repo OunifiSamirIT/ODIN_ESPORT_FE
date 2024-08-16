@@ -78,6 +78,7 @@ import AdminImg from "../assets/ODIN22.png";
 import SkeletonArticleCard from "../pages/HomePage/HomeSkeletonPost";
 import EditPost from "../pages/EditPost";
 import { Context } from "../index";
+import secureLocalStorage from "react-secure-storage";
 function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const {
     register,
@@ -126,7 +127,19 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const [showDropdown, setShowDropdown] = useState(null);
   const [showDropdownedit, setShowDropdownedit] = useState(null);
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
+  const {
+    _currentLang,
+    _setLang,
+    getTranslation,
+    dark_light_bg,
+    dark_fill_svg,
+    dark_img,
+    dark_bg,
+    dark_border,
+    dark_gray_color,
+    dark_gray_svg,
+    _currentTheme,
+  } = React.useContext(Context);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -193,10 +206,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   };
   const handleClickpartageshow = async (articleId) => {
-   
-
     setShowDropdownpartage(!showDropdownpartage);
-    
   };
   let _ref_toggelcomment = useRef(null);
 
@@ -293,7 +303,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
   const [likesData, setLikesData] = useState(null); // State to store likes data
   const [likesDataComment, setLikesDataComment] = useState(null); // State to store likes data
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   //   const fetchLikesForArticle = async (articleId) => {
   //     const userId = storedUserData.id ? storedUserData.id : null;
@@ -1042,7 +1052,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       // setCommentInputVisible()
     }
   };
-  
+
   const handleDeleteReplyClick = (id) => {
     const confirmDelete = window.confirm(
       "Êtes-vous sûr de vouloir supprimer cette publication ?"
@@ -1255,36 +1265,39 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
         const userId = article.userId;
         const comt = article.id;
 
-        const [userDataResponse, commentsResponse, likesCountResponse,         shareCountResponse, ] =
-          await Promise.all([
-            fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
-              res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
-              (res) => res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
-              (res) => res.json()
-            ),
-            fetch(`${Config.LOCAL_URL}/api/articles/partage`).then((res) =>
-              res.json()
-            ),
-          ]);
+        const [
+          userDataResponse,
+          commentsResponse,
+          likesCountResponse,
+          shareCountResponse,
+        ] = await Promise.all([
+          fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
+            res.json()
+          ),
+          fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
+            (res) => res.json()
+          ),
+          fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then((res) =>
+            res.json()
+          ),
+          fetch(`${Config.LOCAL_URL}/api/articles/partage`).then((res) =>
+            res.json()
+          ),
+        ]);
 
         const likesCount = likesCountResponse.find(
           (count) =>
             count.articleId === article.articleId ||
             count.articleId === article.id
         );
-       
+
         const shareCount = shareCountResponse.reduce((acc, share) => {
           if (share.articleId === article.id) {
             return share.shareCount;
           }
           return acc;
         }, 0);
-  
-  
+
         return {
           ...article,
           user: userDataResponse,
@@ -1292,7 +1305,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           commentsCount: commentsResponse.commentCount,
           likesCount: likesCount ? likesCount.likesCount : 0,
           shareCount: shareCount,
-         
         };
       });
       const reversedArticlesWithPromises = articlesWithPromises; // Reverse the order
@@ -1339,7 +1351,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   }, [article.sharedFrom]);
   const displayArticle = originalArticle || article;
-  console.log("🚀 -----------------------~ Post ~ displayArticle:", displayArticle)
+  console.log(
+    "🚀 -----------------------~ Post ~ displayArticle:",
+    displayArticle
+  );
 
   // const handlePostSubmitPartage = async (data) => {
   //   try {
@@ -1385,12 +1400,12 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       } else {
         formData.append("sharedFrom", article.id);
       }
-     
+
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
       });
-    
+
       if (response.status === 200) {
         toast.success("Partager avec success voir votre profile  !", {
           position: "top-right",
@@ -1408,20 +1423,24 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           `${Config.LOCAL_URL}/api/articles?size=1&page=0`
         );
         const result = await res.json();
-        const idAfterPostCreated = result.rows[0].id
+        const idAfterPostCreated = result.rows[0].id;
 
-        console.log("🚀 ~ handlePostSubmitPartage ~ postAfterCreateaz1:", idAfterPostCreated)
-        
-        
-       
+        console.log(
+          "🚀 ~ handlePostSubmitPartage ~ postAfterCreateaz1:",
+          idAfterPostCreated
+        );
+
         NotificationService.instantSend(socket, {
           toUser_id: article?.user?.user?.id,
           forWichAction: "share",
           actionId: article?.video ? 1 : 0,
           postId: idAfterPostCreated,
-          postImage: article?.image ? article?.image : article?.video ? article?.video : "",
+          postImage: article?.image
+            ? article?.image
+            : article?.video
+            ? article?.video
+            : "",
         });
-
       }
       // const newArticle = await response.json();
       // addNewArticle(newArticle);
@@ -1491,8 +1510,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   }, []);
 
-
-
   return (
     <>
       <div className="  flex flex-col  w-full -mt-2   max-md:ml-0 max-md:w-full">
@@ -1521,7 +1538,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                   </figure>
                 </Link>
 
-                <h4  style={dark_light_bg} className="  fw-700 font-xssss mt-1">
+                <h4 style={dark_light_bg} className="  fw-700 font-xssss mt-1">
                   <Link to={`/profile/${article?.user?.user?.id}`}>
                     {article?.user?.user?.nom} {"   "}
                     {article?.user?.user?.prenom}{" "}
@@ -1573,15 +1590,15 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       <path
                         d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
                         style={dark_fill_svg}
-                        />
+                      />
                       <path
                         d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
                         style={dark_fill_svg}
-                        />
+                      />
                       <path
                         d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
                         style={dark_fill_svg}
-                        />
+                      />
                     </svg>
 
                     {showDropdown === article.id &&
@@ -1671,7 +1688,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               </div>
 
               <div class=" p-0  mt-2">
-                <p style={dark_light_bg} className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2">
+                <p
+                  style={dark_light_bg}
+                  className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2"
+                >
                   {!showFullText && article?.description?.length > 295
                     ? article?.description?.substring(0, 295) + "..."
                     : article.description}
@@ -1704,8 +1724,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                   </div>
                 </div>
               )}
-
-             
 
               <div className="  card-body d-block p-0 mb-1">
                 <div
@@ -1773,10 +1791,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               index > 0 && imageCount === 3
                                 ? "object-cover h-[250px]"
                                 : ""
-                            } ${
-                              images.length >= 4 &&
-                                "object-cover"
-                            } ${
+                            } ${images.length >= 4 && "object-cover"} ${
                               index === 3 && images.length > 4
                                 ? "opacity-50 md:h-[250px]"
                                 : "md:h-[250px]"
@@ -1810,7 +1825,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
               {article?.sharedFrom && article?.sharedArticle && (
                 <div
-                  style={{...dark_light_bg, ...dark_border}}
+                  style={{ ...dark_light_bg, ...dark_border }}
                   key={article?.sharedArticle?.id}
                   className="  card w-100 flex flex-col shadow-xss rounded-xxl  p-4 mb-3"
                 >
@@ -1830,7 +1845,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         />
                       </figure>
                     </Link>
-                    <h4 style={dark_light_bg} className="  fw-700 font-xssss mt-1">
+                    <h4
+                      style={dark_light_bg}
+                      className="  fw-700 font-xssss mt-1"
+                    >
                       <Link
                         to={`/profile/${article?.sharedArticle?.userspartage?.id}`}
                       >
@@ -1881,7 +1899,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     </h4>
                   </div>
                   <div className="  p-0 mt-2">
-                    <p style={dark_light_bg}  className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 ">
+                    <p
+                      style={dark_light_bg}
+                      className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2 "
+                    >
                       {!showFullText &&
                       article?.sharedArticle?.description?.length > 295
                         ? article?.sharedArticle?.description.substring(
@@ -2097,7 +2118,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     </span> */}
                     <div>
                       <span className="  text-md py-1 px-2 relative z-[2] ">
-                        <div className="  " style={dark_gray_color} > {article.likesCount}</div>
+                        <div className="  " style={dark_gray_color}>
+                          {" "}
+                          {article.likesCount}
+                        </div>
 
                         {showDropdownlikes && (
                           <div
@@ -2156,7 +2180,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         style={dark_gray_svg}
                       />
                     </svg>
-                    <span style={dark_gray_color}  className="  text-md py-1">
+                    <span style={dark_gray_color} className="  text-md py-1">
                       {article.commentsCount}
                     </span>
                   </div>
@@ -2164,15 +2188,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     onClick={() => handleClickpartageshow(article.id)}
                     className="  flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
                   >
-                    <BiSolidShare
-                        style={dark_gray_svg}
-                        className="   size-5"/>
-                    
+                    <BiSolidShare style={dark_gray_svg} className="   size-5" />
+
                     <div>
-                    <span className="  text-md py-1 px-2 relative z-[2] ">
-                        <div className="  " 
-                        style={dark_gray_color}
-                        > {article.shareCount}</div>
+                      <span className="  text-md py-1 px-2 relative z-[2] ">
+                        <div className="  " style={dark_gray_color}>
+                          {" "}
+                          {article.shareCount}
+                        </div>
 
                         {showDropdownpartage && (
                           <div
@@ -2199,16 +2222,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       <figure className="  avatar me-3">
                                         <img
                                           srcSet={
-                                            p?.image
-                                              ? p?.image
-                                              : placeholder
+                                            p?.image ? p?.image : placeholder
                                           }
                                           // src={article?.user?.user??.image}
                                           className="  shadow-sm rounded-full w-[32px] aspect-square"
                                         />{" "}
                                       </figure>
                                     </Link>
-                                   <p className="  text-black "> {p?.nom} {p?.prenom}</p>
+                                    <p className="  text-black ">
+                                      {" "}
+                                      {p?.nom} {p?.prenom}
+                                    </p>
                                   </li>
                                 ))}
                               </ul>
@@ -2219,7 +2243,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     </div>
                   </div>
                 </div>
-                <span className={`h-[0.5px] block w-full duration-300 mb-3 ${_currentTheme ? "bg-[#888] " : "bg-gray-200 "}`}></span>
+                <span
+                  className={`h-[0.5px] block w-full duration-300 mb-3 ${
+                    _currentTheme ? "bg-[#888] " : "bg-gray-200 "
+                  }`}
+                ></span>
 
                 <span className="  flex justify-between items-center mb-0 ml-0 p-0 -mt-1 font-bold w-full">
                   <button
@@ -2230,7 +2258,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         forWichAction: "like",
                         actionId: article?.video ? 1 : 0,
                         postId: article.id,
-                        postImage: article?.image ? article?.image : article?.video ? article?.video : "",
+                        postImage: article?.image
+                          ? article?.image
+                          : article?.video
+                          ? article?.video
+                          : "",
                       });
                       await handleLikeClick(article.id, 1);
                       await fetchLikesForArticle(article.id);
@@ -2263,14 +2295,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       ) : (
                         <span className="  flex flex-row">
                           {" "}
-                          <BiHeart style={dark_light_bg} className="  size-6"  />
+                          <BiHeart style={dark_light_bg} className="  size-6" />
                           <div className="  flex items-center gap-2">
                             <span
                               className="  text-xs md:text-md"
                               style={{
                                 marginLeft: "1px",
                                 marginTop: "2px",
-                                ...dark_light_bg
+                                ...dark_light_bg,
                               }}
                             >
                               {getTranslation(
@@ -2300,12 +2332,15 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       {selectedArticleId === article.id ? (
                         <div className="  flex gap-2 flex-row md:flex-row items-center">
                           <img
-                          style={dark_img} 
+                            style={dark_img}
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="  w-5 aspect-square fill-zinc-900"
                           />
-                          <div style={dark_light_bg} className="  flex gap-2 text-xs md:text-md">
+                          <div
+                            style={dark_light_bg}
+                            className="  flex gap-2 text-xs md:text-md"
+                          >
                             {getTranslation(
                               `Comment`, // -----> Englais
                               `Commenter` //  -----> Francais
@@ -2315,13 +2350,15 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       ) : (
                         <div className="  flex gap-2 flex-row md:flex-row items-center">
                           <img
-                          style={dark_img} 
-
+                            style={dark_img}
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="  w-5 aspect-square fill-zinc-900"
                           />
-                          <div style={dark_light_bg}  className="  flex gap-2 text-xs md:text-md">
+                          <div
+                            style={dark_light_bg}
+                            className="  flex gap-2 text-xs md:text-md"
+                          >
                             {" "}
                             <span>
                               {getTranslation(
@@ -2341,7 +2378,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     }}
                   >
                     <div className="  flex flex-row gap-x-4">
-                    
                       {selectedArticleId === article.id ? (
                         <div className="  flex gap-2 flex-row md:flex-row items-center">
                           <BiShare className="  size-6" />
@@ -2393,7 +2429,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               </figure>
                             </Link>
                             <div className="  flex flex-col w-full">
-                              <div style={dark_bg} className="  w-full flex flex-col py-2  rounded-[15px] md:rounded-[20px] max-w-[510px]">
+                              <div
+                                style={dark_bg}
+                                className="  w-full flex flex-col py-2  rounded-[15px] md:rounded-[20px] max-w-[510px]"
+                              >
                                 <div className="  flex gap-4 justify-between px-3 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
                                   <div className="  flex flex-col py-1 font-light ">
                                     <Link
@@ -2463,16 +2502,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       >
                                         <path
                                           d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                      style={dark_fill_svg}
-/>
+                                          style={dark_fill_svg}
+                                        />
                                         <path
                                           d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
                                           style={dark_fill_svg}
-                                          />
+                                        />
                                         <path
                                           d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
                                           style={dark_fill_svg}
-                                          />
+                                        />
                                       </svg>
 
                                       {showDropdownComment === comment?.id &&
@@ -2606,8 +2645,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         actionId: article?.video ? 1 : 0,
                                         postId: article.id,
                                         content: comment.description,
-                                        postImage: article?.image ? article?.image : article?.video ? article?.video : "",
-
+                                        postImage: article?.image
+                                          ? article?.image
+                                          : article?.video
+                                          ? article?.video
+                                          : "",
                                       });
 
                                       await fetchLikesForComment(comment.id);
@@ -2640,18 +2682,23 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           </span>
                                         ) : (
                                           <span className="  flex flex-row">
-                                            <BiHeart style={dark_gray_color} className="  size-6 " />
+                                            <BiHeart
+                                              style={dark_gray_color}
+                                              className="  size-6 "
+                                            />
                                             <div className="  flex items-center gap-2">
                                               <span
                                                 className="  text-xs md:text-md"
                                                 style={{
                                                   marginLeft: "1px",
                                                   marginTop: "2px",
-                                                                                                    
                                                 }}
                                               ></span>
                                             </div>
-                                            <div style={dark_gray_color} className="  flex-col mt-1 ml-2">
+                                            <div
+                                              style={dark_gray_color}
+                                              className="  flex-col mt-1 ml-2"
+                                            >
                                               {comment.likesCount}
                                             </div>
                                           </span>
@@ -2691,7 +2738,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           alt="post"
                                         />
                                       </figure>
-                                      <div style={dark_bg} className="  w-full flex flex-col py-2 rounded-[20px] max-w-[510px]">
+                                      <div
+                                        style={dark_bg}
+                                        className="  w-full flex flex-col py-2 rounded-[20px] max-w-[510px]"
+                                      >
                                         <div className="  flex gap-4 justify-between px-2 md:px-6 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
                                           <div className="  flex flex-col py-1 font-light ">
                                             <div className="  fw-700 font-xssss mt-1">
@@ -2763,7 +2813,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 <path
                                                   d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
                                                   style={dark_fill_svg}
-/>
+                                                />
                                                 <path
                                                   d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
                                                   style={dark_fill_svg}
@@ -2849,7 +2899,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 overflowY: "auto",
                                                 scrollbarWidth: "none",
                                                 ...dark_border,
-                                                ...dark_bg
+                                                ...dark_bg,
                                               }}
                                               value={editedReply}
                                               onChange={(e) =>
@@ -2931,7 +2981,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         }
                                         className="  w-full px-2 mb-2 rounded-[15px] md:rounded-[30px]  mr-3 h-12"
                                         style={dark_bg}
-
                                       />
                                       <button
                                         onClick={() => {
@@ -2956,13 +3005,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                             {
                                               toUser_id: comment.userId,
                                               forWichAction: "reply",
-                                              actionId: article?.video
-                                                ? 1
-                                                : 0,
+                                              actionId: article?.video ? 1 : 0,
                                               postId: article.id,
                                               content: replyInput,
-                                              postImage: article?.image ? article?.image : article?.video ? article?.video : "",
-
+                                              postImage: article?.image
+                                                ? article?.image
+                                                : article?.video
+                                                ? article?.video
+                                                : "",
                                             }
                                           );
                                           addReply(
@@ -3024,11 +3074,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                   NotificationService.instantSend(socket, {
                                     toUser_id: article?.user?.user?.id,
                                     forWichAction: "comment",
-                                    actionId: article?.video? 1 : 0,
+                                    actionId: article?.video ? 1 : 0,
                                     postId: article.id,
                                     content: comment,
-                                    postImage: article?.image ? article?.image : article?.video ? article?.video : "",
-
+                                    postImage: article?.image
+                                      ? article?.image
+                                      : article?.video
+                                      ? article?.video
+                                      : "",
                                   });
 
                                   addComment(article.id);
@@ -3140,204 +3193,203 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       ))}
                     </Swiper>
                   </div>
-                
-                  
-                  <div  style={dark_light_bg} className="  hidden md:flex flex-col w-[30%] p-10 ">
-                    <div className="    rounded-lg -mt-4">
-                    <div className="  card-body p-0 d-flex">
-                <Link to={`/profile/${article?.user?.user?.id}`}>
-                  <figure className="  avatar me-3">
-                    <img
-                      srcSet={
-                        article?.user?.user?.image
-                          ? article?.user?.user?.image
-                          : placeholder
-                      }
-                      // src={article.user.user?.image}
-                      className="  shadow-sm rounded-full w-[52px] aspect-square"
-                      alt="post"
-                    />{" "}
-                  </figure>
-                </Link>
 
-                <h4 style={dark_light_bg} className="  fw-700  font-xssss mt-1">
-                  <Link to={`/profile/${article?.user?.user?.id}`}>
-                    {article?.user?.user?.nom} {"   "}
-                    {article?.user?.user?.prenom}{" "}
-                  </Link>
-                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {article?.user?.user?.profil == "other"
-                      ? article.user.other?.profession
-                      : ""}
-                    {article?.user?.user?.profil == "player" ? " Joueur" : ""}
-                    {article?.user?.user?.profil == "coach"
-                      ? " Entraîneur"
-                      : ""}
-                    {article?.user?.user?.profil == "agent" &&
-                    article.user.agent?.typeresponsable == "players"
-                      ? "Manager de Joueur"
-                      : ""}
-                    {article?.user?.user?.profil == "agent" &&
-                    article.user.agent?.typeresponsable == "club"
-                      ? "Manager de CLub"
-                      : ""}
-                    {article?.user?.user?.profil == "scout" ? "Scout" : ""}
-                  </span>
-                  {/* <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  <div
+                    style={dark_light_bg}
+                    className="  hidden md:flex flex-col w-[30%] p-10 "
+                  >
+                    <div className="    rounded-lg -mt-4">
+                      <div className="  card-body p-0 d-flex">
+                        <Link to={`/profile/${article?.user?.user?.id}`}>
+                          <figure className="  avatar me-3">
+                            <img
+                              srcSet={
+                                article?.user?.user?.image
+                                  ? article?.user?.user?.image
+                                  : placeholder
+                              }
+                              // src={article.user.user?.image}
+                              className="  shadow-sm rounded-full w-[52px] aspect-square"
+                              alt="post"
+                            />{" "}
+                          </figure>
+                        </Link>
+
+                        <h4
+                          style={dark_light_bg}
+                          className="  fw-700  font-xssss mt-1"
+                        >
+                          <Link to={`/profile/${article?.user?.user?.id}`}>
+                            {article?.user?.user?.nom} {"   "}
+                            {article?.user?.user?.prenom}{" "}
+                          </Link>
+                          <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                            {article?.user?.user?.profil == "other"
+                              ? article.user.other?.profession
+                              : ""}
+                            {article?.user?.user?.profil == "player"
+                              ? " Joueur"
+                              : ""}
+                            {article?.user?.user?.profil == "coach"
+                              ? " Entraîneur"
+                              : ""}
+                            {article?.user?.user?.profil == "agent" &&
+                            article.user.agent?.typeresponsable == "players"
+                              ? "Manager de Joueur"
+                              : ""}
+                            {article?.user?.user?.profil == "agent" &&
+                            article.user.agent?.typeresponsable == "club"
+                              ? "Manager de CLub"
+                              : ""}
+                            {article?.user?.user?.profil == "scout"
+                              ? "Scout"
+                              : ""}
+                          </span>
+                          {/* <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                   {article?.createdAt}
 
 </span> */}
-                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {moment(article?.createdAt).format("DD MMMM YYYY")}{" "}
-                    {"  -  "}
-                    {moment(article?.createdAt).isAfter(
-                      moment().subtract(1, "hour")
-                    )
-                      ? moment(article?.createdAt).fromNow(true)
-                      : moment(article?.createdAt).fromNow()}
-                  </span>
-                </h4>
+                          <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                            {moment(article?.createdAt).format("DD MMMM YYYY")}{" "}
+                            {"  -  "}
+                            {moment(article?.createdAt).isAfter(
+                              moment().subtract(1, "hour")
+                            )
+                              ? moment(article?.createdAt).fromNow(true)
+                              : moment(article?.createdAt).fromNow()}
+                          </span>
+                        </h4>
 
-
-
-                            
-            
-                {storedUserData.id == article?.user?.user?.id && (
-                  <div
-                    className="  ms-auto relative cursor-pointer"
-                    onClick={() => handleMoreClick(article)}
-                  >
-                    <svg
-                      width="31"
-                      height="21"
-                      viewBox="0 0 31 21"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                        style={dark_fill_svg}
-/>
-                      <path
-                        d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
-                        style={dark_fill_svg}
-                      />
-                      <path
-                        d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
-                        style={dark_fill_svg}
-                      />
-                    </svg>
-
-                    {showDropdown === article.id &&
-                      article?.user?.user &&
-                      article?.user?.user?.id === storedUserData.id && (
-                        <div className="  absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                          <button
-                            className="  block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
-                            // onClick={() =>
-                            //   handleEditClick(selectedArticle)
-                            // }
-                            ref={_ref_toggelcomment}
-                            onClick={() => handleEdit(article.id)}
-                          >
-                            <label
-                              className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
-                              // onClick={() => handleEditClick(article)}
-                            >
-                              <svg
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <g clip-path="url(#clip0_3133_71907)">
-                                  <path
-                                    d="M1.2325 12.4487C0.763627 12.9175 0.500142 13.5533 0.5 14.2163L0.5 15.4994H1.78312C2.44611 15.4992 3.08189 15.2357 3.55062 14.7669L11.89 6.4275L9.57187 4.10938L1.2325 12.4487Z"
-                                    fill="black"
-                                  />
-                                  <path
-                                    d="M14.9651 1.03527C14.8129 0.882917 14.6322 0.762055 14.4332 0.679593C14.2343 0.597132 14.0211 0.554688 13.8057 0.554688C13.5904 0.554687 13.3771 0.597132 13.1782 0.679593C12.9793 0.762055 12.7985 0.882917 12.6463 1.03527L10.4551 3.22715L12.7732 5.54527L14.9651 3.35402C15.1174 3.20183 15.2383 3.0211 15.3208 2.82216C15.4032 2.62323 15.4457 2.40999 15.4457 2.19465C15.4457 1.9793 15.4032 1.76606 15.3208 1.56713C15.2383 1.36819 15.1174 1.18746 14.9651 1.03527Z"
-                                    fill="black"
-                                  />
-                                </g>
-                                <defs>
-                                  <clipPath id="clip0_3133_71907">
-                                    <rect
-                                      width="15"
-                                      height="15"
-                                      fill="black"
-                                      transform="translate(0.5 0.5)"
-                                    />
-                                  </clipPath>
-                                </defs>
-                              </svg>
-                              <span>
-                                {getTranslation(
-                                  `Edit`, // -----> Englais
-                                  `Modifier` //  -----> Francais
-                                )}
-                              </span>
-
-                              {/* <Link to={`/editPost/${article.id}`}>
-                                          <span>Edit</span>
-                                        </Link>{" "} */}
-                            </label>
-                          </button>
-
-                          <button
-                            className="  flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
-                            onClick={() => handleDeleteClick(article.id)}
+                        {storedUserData.id == article?.user?.user?.id && (
+                          <div
+                            className="  ms-auto relative cursor-pointer"
+                            onClick={() => handleMoreClick(article)}
                           >
                             <svg
-                              width="19"
-                              height="20"
-                              viewBox="0 0 19 20"
+                              width="31"
+                              height="21"
+                              viewBox="0 0 31 21"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M17.5 3.33333H14.0825C13.695 1.43417 12.0125 0 10 0H8.33333C6.32167 0 4.63833 1.43417 4.25083 3.33333H0.833333C0.373333 3.33333 0 3.70583 0 4.16667C0 4.6275 0.373333 5 0.833333 5H1.55L2.63 16.2325C2.83667 18.3808 4.62 20 6.7775 20H11.55C13.7108 20 15.4942 18.3775 15.6983 16.2267L16.7617 5H17.4992C17.9592 5 18.3325 4.6275 18.3325 4.16667C18.3325 3.70583 17.96 3.33333 17.5 3.33333ZM8.33333 1.66667H10C11.085 1.66667 12.0017 2.36583 12.3467 3.33333H5.9875C6.3325 2.36583 7.24833 1.66667 8.33333 1.66667ZM12.2558 13.5775C12.5817 13.9033 12.5817 14.43 12.2558 14.7558C12.0933 14.9183 11.88 15 11.6667 15C11.4533 15 11.24 14.9183 11.0775 14.7558L9.16667 12.845L7.25583 14.7558C7.09333 14.9183 6.88 15 6.66667 15C6.45333 15 6.24 14.9183 6.0775 14.7558C5.75167 14.43 5.75167 13.9033 6.0775 13.5775L7.98833 11.6667L6.0775 9.75583C5.75167 9.43 5.75167 8.90333 6.0775 8.5775C6.40333 8.25167 6.93 8.25167 7.25583 8.5775L9.16667 10.4883L11.0775 8.5775C11.4033 8.25167 11.93 8.25167 12.2558 8.5775C12.5817 8.90333 12.5817 9.43 12.2558 9.75583L10.345 11.6667L12.2558 13.5775Z"
-                                fill="black"
+                                d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
+                                style={dark_fill_svg}
+                              />
+                              <path
+                                d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
+                                style={dark_fill_svg}
+                              />
+                              <path
+                                d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
+                                style={dark_fill_svg}
                               />
                             </svg>
-                            <span className="  text-base">
-                              {getTranslation(
-                                `Delete`, // -----> Englais
-                                `Supprimer` //  -----> Francais
+
+                            {showDropdown === article.id &&
+                              article?.user?.user &&
+                              article?.user?.user?.id === storedUserData.id && (
+                                <div className="  absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                  <button
+                                    className="  block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                                    // onClick={() =>
+                                    //   handleEditClick(selectedArticle)
+                                    // }
+                                    ref={_ref_toggelcomment}
+                                    onClick={() => handleEdit(article.id)}
+                                  >
+                                    <label
+                                      className="  flex items-center gap-2 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+                                      // onClick={() => handleEditClick(article)}
+                                    >
+                                      <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 16 16"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <g clip-path="url(#clip0_3133_71907)">
+                                          <path
+                                            d="M1.2325 12.4487C0.763627 12.9175 0.500142 13.5533 0.5 14.2163L0.5 15.4994H1.78312C2.44611 15.4992 3.08189 15.2357 3.55062 14.7669L11.89 6.4275L9.57187 4.10938L1.2325 12.4487Z"
+                                            fill="black"
+                                          />
+                                          <path
+                                            d="M14.9651 1.03527C14.8129 0.882917 14.6322 0.762055 14.4332 0.679593C14.2343 0.597132 14.0211 0.554688 13.8057 0.554688C13.5904 0.554687 13.3771 0.597132 13.1782 0.679593C12.9793 0.762055 12.7985 0.882917 12.6463 1.03527L10.4551 3.22715L12.7732 5.54527L14.9651 3.35402C15.1174 3.20183 15.2383 3.0211 15.3208 2.82216C15.4032 2.62323 15.4457 2.40999 15.4457 2.19465C15.4457 1.9793 15.4032 1.76606 15.3208 1.56713C15.2383 1.36819 15.1174 1.18746 14.9651 1.03527Z"
+                                            fill="black"
+                                          />
+                                        </g>
+                                        <defs>
+                                          <clipPath id="clip0_3133_71907">
+                                            <rect
+                                              width="15"
+                                              height="15"
+                                              fill="black"
+                                              transform="translate(0.5 0.5)"
+                                            />
+                                          </clipPath>
+                                        </defs>
+                                      </svg>
+                                      <span>
+                                        {getTranslation(
+                                          `Edit`, // -----> Englais
+                                          `Modifier` //  -----> Francais
+                                        )}
+                                      </span>
+
+                                      {/* <Link to={`/editPost/${article.id}`}>
+                                          <span>Edit</span>
+                                        </Link>{" "} */}
+                                    </label>
+                                  </button>
+
+                                  <button
+                                    className="  flex items-center gap-2 px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
+                                    onClick={() =>
+                                      handleDeleteClick(article.id)
+                                    }
+                                  >
+                                    <svg
+                                      width="19"
+                                      height="20"
+                                      viewBox="0 0 19 20"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M17.5 3.33333H14.0825C13.695 1.43417 12.0125 0 10 0H8.33333C6.32167 0 4.63833 1.43417 4.25083 3.33333H0.833333C0.373333 3.33333 0 3.70583 0 4.16667C0 4.6275 0.373333 5 0.833333 5H1.55L2.63 16.2325C2.83667 18.3808 4.62 20 6.7775 20H11.55C13.7108 20 15.4942 18.3775 15.6983 16.2267L16.7617 5H17.4992C17.9592 5 18.3325 4.6275 18.3325 4.16667C18.3325 3.70583 17.96 3.33333 17.5 3.33333ZM8.33333 1.66667H10C11.085 1.66667 12.0017 2.36583 12.3467 3.33333H5.9875C6.3325 2.36583 7.24833 1.66667 8.33333 1.66667ZM12.2558 13.5775C12.5817 13.9033 12.5817 14.43 12.2558 14.7558C12.0933 14.9183 11.88 15 11.6667 15C11.4533 15 11.24 14.9183 11.0775 14.7558L9.16667 12.845L7.25583 14.7558C7.09333 14.9183 6.88 15 6.66667 15C6.45333 15 6.24 14.9183 6.0775 14.7558C5.75167 14.43 5.75167 13.9033 6.0775 13.5775L7.98833 11.6667L6.0775 9.75583C5.75167 9.43 5.75167 8.90333 6.0775 8.5775C6.40333 8.25167 6.93 8.25167 7.25583 8.5775L9.16667 10.4883L11.0775 8.5775C11.4033 8.25167 11.93 8.25167 12.2558 8.5775C12.5817 8.90333 12.5817 9.43 12.2558 9.75583L10.345 11.6667L12.2558 13.5775Z"
+                                        fill="black"
+                                      />
+                                    </svg>
+                                    <span className="  text-base">
+                                      {getTranslation(
+                                        `Delete`, // -----> Englais
+                                        `Supprimer` //  -----> Francais
+                                      )}
+                                    </span>
+                                  </button>
+                                </div>
                               )}
-                            </span>
-                          </button>
-                        </div>
-                      )}
-                  </div>
-                )}
-              </div>
-              <div class=" p-0  mt-2">
-                <p className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2">
-                  {!showFullText && article?.description?.length > 295
-                    ? article?.description?.substring(0, 295) + "..."
-                    : article.description}
-                  {article?.description?.length > 295 && (
-                    <button
-                      onClick={toggleText}
-                      className="  text-blue-600  hover:text-blue-400 focus:outline-none"
-                    >
-                      {showFullText ? "Voir moins" : "Voir plus"}
-                    </button>
-                  )}
-                </p>
-              </div>
+                          </div>
+                        )}
+                      </div>
+                      <div class=" p-0  mt-2">
+                        <p className="  rounded-md break-inside-avoid-page text-wrap text-base w-full mb-2">
+                          {!showFullText && article?.description?.length > 295
+                            ? article?.description?.substring(0, 295) + "..."
+                            : article.description}
+                          {article?.description?.length > 295 && (
+                            <button
+                              onClick={toggleText}
+                              className="  text-blue-600  hover:text-blue-400 focus:outline-none"
+                            >
+                              {showFullText ? "Voir moins" : "Voir plus"}
+                            </button>
+                          )}
+                        </p>
+                      </div>
                       <div className="  flex gap-4 justify-between  w-full text-xs font-light whitespace-nowrap text-neutral-500 ">
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       <div
+                        <div
                           onClick={() => handleClicklikeshow(article.id)}
                           className="  flex gap-2.5 items-center justify-center no-underline hover:underline decoration-blue-600 decoration-2 cursor-pointer py-2.5"
                         >
@@ -3351,14 +3403,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                             <path
                               d="M11.7267 0C10.9723 0.0117335 10.2344 0.222313 9.58752 0.610472C8.94058 0.998631 8.40753 1.55062 8.04219 2.21071C7.67684 1.55062 7.14379 0.998631 6.49686 0.610472C5.84993 0.222313 5.11203 0.0117335 4.35767 0C3.15514 0.0522469 2.02216 0.578304 1.20626 1.46324C0.390358 2.34818 -0.0421438 3.52007 0.00324311 4.72288C0.00324311 9.26153 7.3428 14.5036 7.65498 14.726L8.04219 15L8.4294 14.726C8.74158 14.5049 16.0811 9.26153 16.0811 4.72288C16.1265 3.52007 15.694 2.34818 14.8781 1.46324C14.0622 0.578304 12.9292 0.0522469 11.7267 0Z"
                               style={dark_fill_svg}
-                              />
+                            />
                           </svg>
                           {/* <span className="  text-md py-1">
                       {article.likesCount}
                     </span> */}
                           <div>
                             <span className="  text-md py-1 px-2 relative z-[2] ">
-                              <div className="  " style={dark_light_bg}> {article.likesCount}</div>
+                              <div className="  " style={dark_light_bg}>
+                                {" "}
+                                {article.likesCount}
+                              </div>
 
                               {showDropdownlikes && (
                                 <div
@@ -3417,7 +3472,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               style={dark_fill_svg}
                             />
                           </svg>
-                          <span style={dark_light_bg} className="  text-md py-1">
+                          <span
+                            style={dark_light_bg}
+                            className="  text-md py-1"
+                          >
                             {article.commentsCount}
                           </span>
                         </div>
@@ -3433,7 +3491,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               forWichAction: "like",
                               actionId: article?.video ? 1 : 0,
                               postId: article.id,
-                              postImage: article?.image ? article?.image : article?.video ? article?.video : "",
+                              postImage: article?.image
+                                ? article?.image
+                                : article?.video
+                                ? article?.video
+                                : "",
                             });
                             await handleLikeClick(article.id, 1);
                             await fetchLikesForArticle(article.id);
@@ -3466,14 +3528,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                             ) : (
                               <span className="  flex flex-row">
                                 {" "}
-                                <BiHeart style={dark_light_bg} className="  size-6" />
+                                <BiHeart
+                                  style={dark_light_bg}
+                                  className="  size-6"
+                                />
                                 <div className="  flex items-center gap-2">
                                   <span
                                     className="  text-xs md:text-md"
                                     style={{
                                       marginLeft: "1px",
                                       marginTop: "2px",
-                                      ...dark_light_bg
+                                      ...dark_light_bg,
                                     }}
                                   >
                                     {getTranslation(
@@ -3507,7 +3572,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/032d07496a162fcc1dacc68205935d5de475ec8fa549523d67ab13f0fd7e026d?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="  w-5 aspect-square fill-zinc-900"
                                   style={dark_img}
-
                                 />
                                 <div className="  flex gap-2 text-xs md:text-md">
                                   {getTranslation(
@@ -3597,7 +3661,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     </figure>
                                   </Link>
                                   <div className="  flex flex-col w-full">
-                                    <div style={dark_bg} className="  w-full flex flex-col py-2 rounded-[15px] md:rounded-[20px] max-w-[510px]">
+                                    <div
+                                      style={dark_bg}
+                                      className="  w-full flex flex-col py-2 rounded-[15px] md:rounded-[20px] max-w-[510px]"
+                                    >
                                       <div className="  flex gap-4 justify-between px-3 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
                                         <div className="  flex flex-col py-1 font-light">
                                           <Link
@@ -3674,7 +3741,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               <path
                                                 d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
                                                 style={dark_fill_svg}
-/>
+                                              />
                                               <path
                                                 d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
                                                 style={dark_fill_svg}
@@ -3759,7 +3826,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               maxHeight: "300px",
                                               overflowY: "auto",
                                               scrollbarWidth: "none",
-                                              ...dark_light_bg
+                                              ...dark_light_bg,
                                             }}
                                             value={editedComment}
                                             onChange={(e) =>
@@ -3826,8 +3893,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   : 0,
                                                 postId: article.id,
                                                 content: comment.description,
-                                                postImage: article?.image ? article?.image : article?.video ? article?.video : "",
-
+                                                postImage: article?.image
+                                                  ? article?.image
+                                                  : article?.video
+                                                  ? article?.video
+                                                  : "",
                                               }
                                             );
                                             await fetchLikesForComment(
@@ -3863,18 +3933,24 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 </span>
                                               ) : (
                                                 <span className="  flex flex-row">
-                                                  <BiHeart style={dark_light_bg} className="  size-6 " />
+                                                  <BiHeart
+                                                    style={dark_light_bg}
+                                                    className="  size-6 "
+                                                  />
                                                   <div className="  flex items-center gap-2">
                                                     <span
                                                       className="  text-xs md:text-md"
                                                       style={{
                                                         marginLeft: "1px",
                                                         marginTop: "2px",
-                                                        ...dark_light_bg
+                                                        ...dark_light_bg,
                                                       }}
                                                     ></span>
                                                   </div>
-                                                  <div  style={dark_light_bg} className="  flex-col mt-1 ml-2">
+                                                  <div
+                                                    style={dark_light_bg}
+                                                    className="  flex-col mt-1 ml-2"
+                                                  >
                                                     {comment.likesCount}
                                                   </div>
                                                 </span>
@@ -3920,17 +3996,26 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   alt="post"
                                                 />
                                               </figure>
-                                              <div style={dark_bg} className="  w-full flex flex-col py-2 rounded-[20px] max-w-[510px]">
+                                              <div
+                                                style={dark_bg}
+                                                className="  w-full flex flex-col py-2 rounded-[20px] max-w-[510px]"
+                                              >
                                                 <div className="  flex gap-4 justify-between px-2 md:px-6 w-full max-md:flex-nowrap max-md:px-5 max-md:max-w-full">
                                                   <div className="  flex flex-col py-1 font-light text-zinc-900">
-                                                    <div style={dark_bg} className="  fw-700 font-xssss mt-1">
+                                                    <div
+                                                      style={dark_bg}
+                                                      className="  fw-700 font-xssss mt-1"
+                                                    >
                                                       {reply.user &&
                                                         reply.user.user
                                                           .nom}{" "}
                                                       {reply.user &&
                                                         reply.user.user.prenom}
                                                     </div>
-                                                    <div style={dark_bg} className="  mt-1 text-xs">
+                                                    <div
+                                                      style={dark_bg}
+                                                      className="  mt-1 text-xs"
+                                                    >
                                                       {/* {reply.user &&
                                                   reply.user.user
                                                     .profil} */}
@@ -3965,7 +4050,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                         </div>
                                                       )}
                                                     </div>
-                                                    <div style={dark_light_bg} className="  mt-1 text-xs">
+                                                    <div
+                                                      style={dark_light_bg}
+                                                      className="  mt-1 text-xs"
+                                                    >
                                                       {moment(
                                                         reply?.createdAt
                                                       ).format(
@@ -4007,16 +4095,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                       >
                                                         <path
                                                           d="M2.5 13C3.88071 13 5 11.8807 5 10.5C5 9.11929 3.88071 8 2.5 8C1.11929 8 0 9.11929 0 10.5C0 11.8807 1.11929 13 2.5 13Z"
-                                                      style={dark_fill_svg}
-/>
+                                                          style={dark_fill_svg}
+                                                        />
                                                         <path
                                                           d="M15.5 13C16.8807 13 18 11.8807 18 10.5C18 9.11929 16.8807 8 15.5 8C14.1193 8 13 9.11929 13 10.5C13 11.8807 14.1193 13 15.5 13Z"
                                                           style={dark_fill_svg}
-                                                          />
+                                                        />
                                                         <path
                                                           d="M28.5 13C29.8807 13 31 11.8807 31 10.5C31 9.11929 29.8807 8 28.5 8C27.1193 8 26 9.11929 26 10.5C26 11.8807 27.1193 13 28.5 13Z"
                                                           style={dark_fill_svg}
-                                                          />
+                                                        />
                                                       </svg>
 
                                                       {showDropdownReply ===
@@ -4096,7 +4184,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                         height: "150px",
                                                         overflowY: "auto",
                                                         scrollbarWidth: "none",
-                                                        ...dark_light_bg
+                                                        ...dark_light_bg,
                                                       }}
                                                       value={editedReply}
                                                       onChange={(e) =>
@@ -4107,14 +4195,13 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                     ></textarea>
                                                   ) : (
                                                     <div
-
                                                       className="  text-wrap"
                                                       style={{
                                                         resize: "none",
                                                         maxHeight: "300px",
                                                         overflowY: "auto",
                                                         scrollbarWidth: "none",
-                                                        ...dark_bg
+                                                        ...dark_bg,
                                                       }}
                                                     >
                                                       {reply.description}
@@ -4215,14 +4302,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   {
                                                     toUser_id: comment.userId,
                                                     forWichAction: "reply",
-                                                    actionId:
-                                                    article?.video
-                                                        ? 1
-                                                        : 0,
+                                                    actionId: article?.video
+                                                      ? 1
+                                                      : 0,
                                                     postId: article.id,
                                                     content: replyInput,
-                                                    postImage: article?.image ? article?.image : article?.video ? article?.video : "",
-
+                                                    postImage: article?.image
+                                                      ? article?.image
+                                                      : article?.video
+                                                      ? article?.video
+                                                      : "",
                                                   }
                                                 );
                                                 addReply(
@@ -4272,8 +4361,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     <input
                                       type="text"
                                       value={comment}
-                                      style={ dark_bg}
-
+                                      style={dark_bg}
                                       placeholder="Ecrire un commentaire .."
                                       onChange={(e) =>
                                         setComment(e.target.value)
@@ -4291,13 +4379,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           {
                                             toUser_id: article?.user?.user?.id,
                                             forWichAction: "comment",
-                                            actionId: article?.video
-                                              ? 1
-                                              : 0,
+                                            actionId: article?.video ? 1 : 0,
                                             postId: article.id,
                                             content: comment,
-                                            postImage: article?.image ? article?.image : article?.video ? article?.video : "",
-
+                                            postImage: article?.image
+                                              ? article?.image
+                                              : article?.video
+                                              ? article?.video
+                                              : "",
                                           }
                                         );
 
@@ -4332,8 +4421,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       )}
                     </div>
                   </div>
-
-
                 </div>
               </div>
             </div>
@@ -4390,12 +4477,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               </div>
                             }
                           </div>
-                          
                         </div>
-                        
+
                         <div className="  flex flex-col w-full gap-y-2">
                           <textarea
-                          style={dark_border}
+                            style={dark_border}
                             className="  flex max-h-fit px-2 pt-2 h-28 justify-center bg-transparent rounded-[8px] md:rounded-[10px] theme-"
                             placeholder="Quoi de neuf ?"
                             name="description"
@@ -4441,7 +4527,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 />
                               </figure>
                             </Link>
-                            <h4 style={dark_bg} className="  fw-700 font-xssss mt-1">
+                            <h4
+                              style={dark_bg}
+                              className="  fw-700 font-xssss mt-1"
+                            >
                               <Link
                                 to={`/profile/${
                                   displayArticle.user?.user?.id ||
@@ -4453,7 +4542,10 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                 {displayArticle.user?.user?.prenom ||
                                   displayArticle.userspartage?.prenom}
                               </Link>
-                              <span style={dark_bg} className="  d-block font-xssss fw-500 mt-1 lh-3 ">
+                              <span
+                                style={dark_bg}
+                                className="  d-block font-xssss fw-500 mt-1 lh-3 "
+                              >
                                 {displayArticle.user?.user?.profil === "other"
                                   ? displayArticle.user?.other?.profession
                                   : ""}
@@ -4602,8 +4694,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           )}
                         </div>
                       )}
-
-                     
 
                       {posting ? (
                         <Loadingpartage />

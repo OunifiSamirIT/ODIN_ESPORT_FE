@@ -54,10 +54,10 @@ import AdminImg from "../../assets/ODIN22.png";
 import SkeletonArticleCard from "./HomeSkeletonPost";
 import CreatePost from "../../components/CreatePostss";
 import CreatePostModal from "../../components/CreatePostModal";
-import Card from './../Challenge/Component/Card';
+import Card from "./../Challenge/Component/Card";
 import { Context } from "../../index";
+import secureLocalStorage from "react-secure-storage";
 function Home() {
-
   const { dark_bg } = React.useContext(Context);
 
   const [data, setData] = useState([]);
@@ -229,24 +229,25 @@ function Home() {
     }
   };
 
-
-  // challange event 
-  const [challenges, setChallenges] = useState([])
+  // challange event
+  const [challenges, setChallenges] = useState([]);
   const fetchChallenges = async () => {
-      const response = await fetch(`${Config.LOCAL_URL}/api/challenges`)
-      const result = await response.json()
-      console.log(result)
-      setChallenges(result.challenges)
-  }
+    const response = await fetch(`${Config.LOCAL_URL}/api/challenges`);
+    const result = await response.json();
+    console.log(result);
+    setChallenges(result.challenges);
+  };
   useEffect(() => {
-      console.log(challenges)
-      fetchChallenges()
-  }, [])
+    console.log(challenges);
+    fetchChallenges();
+  }, []);
 
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -259,7 +260,8 @@ function Home() {
     }
   }, []);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  console.log(storedUserData, "User data______________");
 
   const id = storedUserData.id ? storedUserData.id : null;
 
@@ -271,7 +273,6 @@ function Home() {
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
- 
 
   return (
     <>
@@ -313,7 +314,7 @@ function Home() {
                     .map((_, index) => <SkeletonArticleCard key={index} />)}
 
                 <div>
-                {/* <div className="bg-white rounded-md shadow-md  h-[450px] mb-6">
+                  {/* <div className="bg-white rounded-md shadow-md  h-[450px] mb-6">
   {(() => {
     const item = challenges[challenges.length - 1]; // Get the last item in the array
     return (

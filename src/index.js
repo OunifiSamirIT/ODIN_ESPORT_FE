@@ -125,6 +125,7 @@ import Professionalprofile2 from "./pages/Professionalprofile/Professionalprofil
 import HomeBusiness from "./pages/bussinessComponents/HomeBusiness.jsx";
 import AdminLogin from "./pages/Admin/LoginAdmin.jsx";
 import { useLocation } from "react-router-dom";
+import secureLocalStorage from "react-secure-storage";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null);
@@ -397,10 +398,10 @@ function Root() {
 
     if (status) {
       // If authenticated, store the token in localStorage
-      localStorage.setItem("accessToken", token);
+      secureLocalStorage.setItem("user", token);
     } else {
       // If not authenticated, remove the token from localStorage
-      localStorage.removeItem("accessToken");
+      secureLocalStorage.removeItem("cryptedUser");
     }
   };
   function RootRoutes() {
@@ -661,7 +662,11 @@ function Root() {
                   element={<MoreProfile />}
                 />
                 <Route exact path={`/friends`} element={<FriendRequest />} />
-                <Route exact path={`/friendsList/:id`} element={<FriendList />} />
+                <Route
+                  exact
+                  path={`/friendsList/:id`}
+                  element={<FriendList />}
+                />
                 {/* blog routes */}
 
                 <Route exact path="/blog" element={<Blog />} />

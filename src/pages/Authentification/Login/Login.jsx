@@ -3,6 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Config } from "../../../config";
 import { Context } from "../../../index";
+import secureLocalStorage from "react-secure-storage";
 function Login({ setAuthStatus }) {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const [verificationMessage, setVerificationMessage] = useState("");
@@ -51,8 +52,13 @@ function Login({ setAuthStatus }) {
       const result = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("user", JSON.stringify(result));
-        localStorage.setItem("accessToken", result.accessToken);
+        // localStorage.setItem("user", JSON.stringify(result));
+        // localStorage.setItem("accessToken", result.accessToken);
+        //------------------> localstorage crypté
+        secureLocalStorage.setItem("cryptedUser", JSON.stringify(result));
+        console.log("cryptedUser", secureLocalStorage.getItem("cryptedUser"));
+
+        //------------------> localstorage crypté
 
         // Call the setAuthStatus function with the token
         setAuthStatus(true, result.accessToken);

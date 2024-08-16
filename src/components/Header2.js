@@ -33,6 +33,7 @@ import DesktopNotificationPopup from "./DesktopNotificationPopup";
 import Sun from "../assets/sun.png";
 import Moon from "../assets/moon.png";
 import Horizontal from "./HomePage/HorizontalNavigation";
+import secureLocalStorage from "react-secure-storage";
 
 function Header() {
   let { handleDarkModeToggler } = React.useContext(Context);
@@ -297,7 +298,10 @@ function Header() {
 
         function getLink() {
           const url = {
-            LOCAL_URL: Config.LOCAL_URL ==  "http://localhost:5000" ? "http://localhost:3000" :"https://odinesport.com/",
+            LOCAL_URL:
+              Config.LOCAL_URL == "http://localhost:5000"
+                ? "http://localhost:3000"
+                : "https://odinesport.com/",
           };
           if (
             lastNotificationData.forWichAction == "like" ||
@@ -308,9 +312,7 @@ function Header() {
             return url.LOCAL_URL + "/onepost/" + lastNotificationData.postId;
           }
 
-          if (
-            lastNotificationData.forWichAction == "AcceptRequest"
-          ) {
+          if (lastNotificationData.forWichAction == "AcceptRequest") {
             //localhost:3000/friends
             http: return (
               url.LOCAL_URL + "/profile/" + lastNotificationData.fromUser_id
@@ -333,13 +335,19 @@ function Header() {
           }
 
           if (lastNotificationData.forWichAction == "camp") {
-            return url.LOCAL_URL + "/defaultgroup/" + lastNotificationData.postId;
+            return (
+              url.LOCAL_URL + "/defaultgroup/" + lastNotificationData.postId
+            );
           }
           if (lastNotificationData.forWichAction == "challenge") {
-            return url.LOCAL_URL + "/challenges/" + lastNotificationData.postId ;
+            return url.LOCAL_URL + "/challenges/" + lastNotificationData.postId;
           }
           if (lastNotificationData.forWichAction == "event") {
-            return url.LOCAL_URL + "/defaultgroupevent/" + lastNotificationData.postId;
+            return (
+              url.LOCAL_URL +
+              "/defaultgroupevent/" +
+              lastNotificationData.postId
+            );
           }
         }
         //  let bodyContent =  lastNotificationData.fromUser_name + " " + getBodyContent()
@@ -378,9 +386,8 @@ function Header() {
     }, 1000);
   };
 
-  const [latestNotificationLength, setLatestNotificationLength]  = useState(0) 
+  const [latestNotificationLength, setLatestNotificationLength] = useState(0);
   useEffect(() => {
-    
     const socketInstance = io(Config.LOCAL_URL, { transports: ["websocket"] });
     setSocket(socketInstance);
 
@@ -414,14 +421,17 @@ function Header() {
     setTimeout(() => {
       setNotifyBlocked(false);
     }, 6000);
-    if (!isNotifyBlocked && notificationData.length != 0 && notificationData.length >= latestNotificationLength) {
+    if (
+      !isNotifyBlocked &&
+      notificationData.length != 0 &&
+      notificationData.length >= latestNotificationLength
+    ) {
       // alert(notificationData.length >= latestNotificationLength)
       // animateRinging()
       animateBell();
       notifyBrowser();
       tone.current.play();
-      setLatestNotificationLength(notificationData.length)
-      
+      setLatestNotificationLength(notificationData.length);
     }
   }, [notificationData.length]);
 
@@ -449,7 +459,7 @@ function Header() {
     }));
   };
   // Fetch user information based on the id from localStorage
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [isOpen, setIsOpen] = useState(null);
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState(null);
@@ -551,8 +561,8 @@ function Header() {
 
   const handleLogout = () => {
     // Clear the authentication token from localStorage
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
+    secureLocalStorage.removeItem("cryptedUser");
+    secureLocalStorage.removeItem("user");
 
     // Update the authentication state to false
 
@@ -757,13 +767,13 @@ function Header() {
               </div>
             </div>
           </div>
-          <Horizontal className={``}/>
+          <Horizontal className={``} />
           <div className="flex items-center">
             <span className=" mr-5 ">
               <LanguageToggler isIcon={true} hide={true} color={true} />
             </span>
-            
-{/* <span style={{ 
+
+            {/* <span style={{ 
   marginRight: 40
 }}>
   <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-8 h-8 bg-[#2E71EB] cursor-pointer rounded-full justify-center items-center -ml-4">
