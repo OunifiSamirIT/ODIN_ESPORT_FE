@@ -1523,7 +1523,21 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               className="  card w-100 shadow-xss rounded-xxl border-0 mt-3 -px-4  p-4 "
             >
               <div className="  card-body p-0 d-flex">
-                <Link to={`/profile/${article?.user?.user?.id}`}>
+                {
+                  article?.user?.user?.id == 1005 ? 
+                  <figure className="  avatar me-3">
+                    <img
+                      srcSet={
+                        article?.user?.user?.image
+                          ? article?.user?.user?.image
+                          : placeholder
+                      }
+                      // src={article.user.user?.image}
+                      className=" object-cover shadow-sm rounded-full w-[52px] aspect-square"
+                      alt="post"
+                    />{" "}
+                  </figure>
+                  : <Link to={`/profile/${article?.user?.user?.id}`}>
                   <figure className="  avatar me-3">
                     <img
                       srcSet={
@@ -1537,13 +1551,30 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     />{" "}
                   </figure>
                 </Link>
+                }
 
-                <h4 style={dark_light_bg} className="  fw-700 font-xssss mt-1">
+                <h4  style={dark_light_bg} className="  fw-700 font-xssss mt-1">
+                 {
+                  article?.user?.user?.id == 1005 ? 
+                  <>
+                  {article?.user?.user?.nom} {"   "}
+                  {article?.user?.user?.prenom}{" "}</>
+                  :
                   <Link to={`/profile/${article?.user?.user?.id}`}>
-                    {article?.user?.user?.nom} {"   "}
-                    {article?.user?.user?.prenom}{" "}
-                  </Link>
-                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  {article?.user?.user?.nom} {"   "}
+                  {article?.user?.user?.prenom}{" "}
+                </Link>
+                 }
+                 
+                  {
+                  article?.user?.user?.id == 1005 ? 
+
+                    <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                      Admin
+                      </span>
+
+                    :
+                    <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                     {article?.user?.user?.profil == "other"
                       ? article.user.other?.profession
                       : ""}
@@ -1561,6 +1592,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       : ""}
                     {article?.user?.user?.profil == "scout" ? "Scout" : ""}
                   </span>
+                  }
                   {/* <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                   {article?.createdAt}
 
@@ -3194,57 +3226,79 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     </Swiper>
                   </div>
 
-                  <div
-                    style={dark_light_bg}
-                    className="  hidden md:flex flex-col w-[30%] p-10 "
-                  >
+                  <div  style={dark_light_bg} className="  hidden md:flex flex-col w-[30%] p-10 ">
                     <div className="    rounded-lg -mt-4">
-                      <div className="  card-body p-0 d-flex">
-                        <Link to={`/profile/${article?.user?.user?.id}`}>
-                          <figure className="  avatar me-3">
-                            <img
-                              srcSet={
-                                article?.user?.user?.image
-                                  ? article?.user?.user?.image
-                                  : placeholder
-                              }
-                              // src={article.user.user?.image}
-                              className="  shadow-sm rounded-full w-[52px] aspect-square"
-                              alt="post"
-                            />{" "}
-                          </figure>
-                        </Link>
+                    <div className="  card-body p-0 d-flex">
+                      {
+                                          article?.user?.user?.id == 1005 ? 
+                                          <figure className="  avatar me-3">
+                    <img
+                      srcSet={
+                        article?.user?.user?.image
+                          ? article?.user?.user?.image
+                          : placeholder
+                      }
+                      // src={article.user.user?.image}
+                      className="  shadow-sm rounded-full w-[52px] aspect-square"
+                      alt="post"
+                    />{" "}
+                  </figure>
+                  :
+                  <Link to={`/profile/${article?.user?.user?.id}`}>
+                  <figure className="  avatar me-3">
+                    <img
+                      srcSet={
+                        article?.user?.user?.image
+                          ? article?.user?.user?.image
+                          : placeholder
+                      }
+                      // src={article.user.user?.image}
+                      className="  shadow-sm rounded-full w-[52px] aspect-square"
+                      alt="post"
+                    />{" "}
+                  </figure>
+                </Link>
+                        
+                      }
+                
 
-                        <h4
-                          style={dark_light_bg}
-                          className="  fw-700  font-xssss mt-1"
-                        >
-                          <Link to={`/profile/${article?.user?.user?.id}`}>
-                            {article?.user?.user?.nom} {"   "}
-                            {article?.user?.user?.prenom}{" "}
-                          </Link>
-                          <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                            {article?.user?.user?.profil == "other"
-                              ? article.user.other?.profession
-                              : ""}
-                            {article?.user?.user?.profil == "player"
-                              ? " Joueur"
-                              : ""}
-                            {article?.user?.user?.profil == "coach"
-                              ? " Entraîneur"
-                              : ""}
-                            {article?.user?.user?.profil == "agent" &&
-                            article.user.agent?.typeresponsable == "players"
-                              ? "Manager de Joueur"
-                              : ""}
-                            {article?.user?.user?.profil == "agent" &&
-                            article.user.agent?.typeresponsable == "club"
-                              ? "Manager de CLub"
-                              : ""}
-                            {article?.user?.user?.profil == "scout"
-                              ? "Scout"
-                              : ""}
-                          </span>
+                <h4 style={dark_light_bg} className="  fw-700  font-xssss mt-1">
+                  {
+                                          article?.user?.user?.id == 1005 ? 
+<>
+{article?.user?.user?.nom} {"   "}
+{article?.user?.user?.prenom}{" "}</>
+                                          :
+                                          <Link to={`/profile/${article?.user?.user?.id}`}>
+                                          {article?.user?.user?.nom} {"   "}
+                                          {article?.user?.user?.prenom}{" "}
+                                        </Link>
+                  }
+                  
+                  {article?.user?.user?.id == 1005 ? 
+                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                  Admin
+                  </span>
+:
+                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                    {article?.user?.user?.profil == "other"
+                      ? article.user.other?.profession
+                      : ""}
+                    {article?.user?.user?.profil == "player" ? " Joueur" : ""}
+                    {article?.user?.user?.profil == "coach"
+                      ? " Entraîneur"
+                      : ""}
+                    {article?.user?.user?.profil == "agent" &&
+                    article.user.agent?.typeresponsable == "players"
+                      ? "Manager de Joueur"
+                      : ""}
+                    {article?.user?.user?.profil == "agent" &&
+                    article.user.agent?.typeresponsable == "club"
+                      ? "Manager de CLub"
+                      : ""}
+                    {article?.user?.user?.profil == "scout" ? "Scout" : ""}
+                  </span>
+}
                           {/* <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                   {article?.createdAt}
 

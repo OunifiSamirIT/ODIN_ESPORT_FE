@@ -508,23 +508,26 @@ function Header() {
   const handleSearch = (event) => {
     const searchString = event.target.value.toLowerCase();
     setSearchTerm(searchString);
-    if (searchString.trim() === "") {
+    if (searchString.trim() === "" ) {
       setSearchResults([]);
     } else {
-      const filteredTargets = search
-        .filter((item) => item.titre.toLowerCase().includes(searchString))
-        .map((target) => ({ ...target, origin: "Page" }));
+      if (!"ODIN ESPORT".toLowerCase().includes(searchString)) {
 
-      const filteredUsers = users
-        .filter((user) => {
-          const fullName =
-            `${user?.user?.nom} ${user?.user?.prenom}`.toLowerCase();
-          return fullName.includes(searchString);
-        })
-        .map((user) => ({ ...user.user, origin: "Personne" }));
-
-      setSearchResults([...filteredTargets, ...filteredUsers]);
-    }
+        const filteredTargets = search
+          .filter((item) => item.titre.toLowerCase().includes(searchString))
+          .map((target) => ({ ...target, origin: "Page" }));
+  
+        const filteredUsers = users
+          .filter((user) => {
+            const fullName =
+              `${user?.user?.nom} ${user?.user?.prenom}`.toLowerCase();
+            return fullName.includes(searchString);
+          })
+          .map((user) => ({ ...user.user, origin: "Personne" }));
+  
+        setSearchResults([...filteredTargets, ...filteredUsers]);
+      }
+      }
   };
 
   const toggleActive = () => setIsOpen(!isActive);
