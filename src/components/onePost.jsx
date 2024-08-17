@@ -53,6 +53,8 @@ import {
 import AdminImg from "../assets/ODIN22.png";
 import CreatePost from "../components/CreatePostss";
 import CreatePostModal from "../components/CreatePostModal";
+import secureLocalStorage from "react-secure-storage";
+
 function OnePost() {
   const { idP } = useParams();
   const [data, setData] = useState([]);
@@ -236,7 +238,7 @@ function OnePost() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -249,7 +251,7 @@ function OnePost() {
     }
   }, []);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const id = storedUserData.id ? storedUserData.id : null;
 

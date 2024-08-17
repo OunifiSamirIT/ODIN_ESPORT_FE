@@ -6,12 +6,14 @@ import Appfooter from "../../../components/Appfooter";
 import Popupchat from "../../../components/Popupchat";
 import { useForm } from "react-hook-form";
 import { Config } from "../../../config";
+import secureLocalStorage from "react-secure-storage";
+
 const AddEvent = () => {
   const navigate = useNavigate();
 
   const { register, handleSubmit, setValue } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -26,7 +28,7 @@ const AddEvent = () => {
       method: "POST",
       body: formData,
     });
-    navigate("/home");
+    // navigate("/home");
   };
 
   const handleFileChange = async () => {

@@ -15,6 +15,7 @@ import { Context } from "../index";
 
 import { io } from 'socket.io-client';
 import NotificationService from "../api/notification.server";
+import secureLocalStorage from "react-secure-storage";
 
 const ProfileLayout = ({ children, onChange, user }) => {
 
@@ -62,7 +63,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const [player, setPlayer] = useState(null)
     const [agent, setAgent] = useState(null)
     const [skills, setSkills] = useState([])
-    const LocalStorageID = JSON.parse(localStorage.getItem("user"));
+    const LocalStorageID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const [owner, setOwner] = useState(false)
     const [acceptedFriend, setAcceptedFriend] = useState(false)
     const [invitationSend, setInvitationSend] = useState(false);

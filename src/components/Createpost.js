@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Config } from "../config";
 import Userdefault from "../assets/userdefault.jpg";
+import secureLocalStorage from "react-secure-storage";
 
 const Createpost = ({ setPostsData, storedUserData }) => {
   const {
@@ -20,13 +21,33 @@ const Createpost = ({ setPostsData, storedUserData }) => {
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
-  const handleFileChange = (e, type) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    setFileType(type);
+  // const handleFileChange = (e, type) => {
+  //   const selectedFile = e.target.files[0];
+  //   setFile(selectedFile);
+  //   setFileType(type);
 
-    const previewURL = URL.createObjectURL(selectedFile);
-    setPreviewImage(previewURL);
+  //   const previewURL = URL.createObjectURL(selectedFile);
+  //   setPreviewImage(previewURL);
+  // };
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/jpg' , 'image/png', 'image/gif', 'video/mp4'];
+
+    if (selectedFile && allowedTypes.includes(selectedFile.type)) {
+      setFile(selectedFile);
+      setFileType(selectedFile.type);
+
+      // Create a preview URL if the file is an image or video
+      if (selectedFile.type.startsWith('image/') || selectedFile.type.startsWith('video/')) {
+        const previewURL = URL.createObjectURL(selectedFile);
+        setPreviewImage(previewURL);
+      } else {
+        setPreviewImage(null);
+      }
+    } else {
+      alert('File type not allowed.');
+      e.target.value = ''; // Clear the input
+    }
   };
 
   const handlePostSubmit = async (data) => {
@@ -77,7 +98,7 @@ const Createpost = ({ setPostsData, storedUserData }) => {
         <figure className="avatar position-absolute ms-2 mt-1 top-5">
           {
             <img
-              src={localStorage.getItem("user").image || Userdefault}
+              src={secureLocalStorage.getItem("cryptedUser").image || Userdefault}
               className="rounded-full object-fill w-10 h-10"
             />
           }
@@ -91,7 +112,12 @@ const Createpost = ({ setPostsData, storedUserData }) => {
             placeholder="What's on your mind?"
           ></textarea>
 
-          <input type="file" onChange={(e) => handleFileChange(e, "image")} />
+          <input 
+          type="file"
+          accept=".jpg, .jpeg, .png, .gif, .mp4" 
+
+           onChange={(e) => handleFileChange(e, "image")}
+            />
 
           <button type="submit">Create Post</button>
         </form>

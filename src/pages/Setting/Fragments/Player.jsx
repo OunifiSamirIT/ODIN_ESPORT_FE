@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../../config";
 import { Context } from "../../../index";
+import secureLocalStorage from "react-secure-storage";
+
 const Player = ({ userInfo, fetchUserInfo }) => {
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [imagePreviewlic, setImagePreviewlic] = useState(null);
 
   const [errMsg, setErrMsg] = useState("");
@@ -764,7 +766,7 @@ const Player = ({ userInfo, fetchUserInfo }) => {
                             {...register("file")}
                             type="file"
                             name="file"
-                            accept="*"
+                            accept=".pdf"
                             placeholder="sfgf"
                             onChange={handleFileChangeLicense}
                             className={`grow my-auto w-2 inset-0 opacity-0`}

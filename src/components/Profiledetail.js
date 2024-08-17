@@ -1,11 +1,13 @@
 import React, { Component, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Config } from "../config";
+import secureLocalStorage from "react-secure-storage";
+
 function Profiledetail() {
   const [agents, setAgents] = useState([]);
   const [players, setPlayers] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const id = storedUserData.id;
 
   useEffect(() => {

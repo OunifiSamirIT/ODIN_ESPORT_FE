@@ -11,6 +11,8 @@ import "flag-icon-css/css/flag-icons.min.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ProfileSideBar from "../components/ProfileSideBar";
+import secureLocalStorage from "react-secure-storage";
+
 const pays = [
   {
     id: 1,
@@ -6023,7 +6025,7 @@ const Information = () => {
     );
   };
   const [userInfo, setUserInfo] = useState(null);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const id = storedUserData.id;
   useEffect(() => {
     const fetchUserInfo = async () => {

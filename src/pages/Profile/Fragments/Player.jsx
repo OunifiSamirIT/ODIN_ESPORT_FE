@@ -10,12 +10,14 @@ import Modal from "react-modal";
 import { Context } from "../../../index";
 import Social from "../components/social";
 import VerifyBadge from "../../../assets/badgeVerify.svg";
+import secureLocalStorage from "react-secure-storage";
+
 const { PDFDocument, rgb, StandardFonts } = require("pdf-lib");
 
 const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const { id } = useParams();
   const isOwner = storedUserData.id == id;
   const navigate = useNavigate();

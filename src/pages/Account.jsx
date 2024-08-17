@@ -7,6 +7,8 @@ import Rightchat from "../components/Rightchat";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
 import { Config } from "../config";
+import secureLocalStorage from "react-secure-storage";
+
 function Account() {
   const [errMsg, setErrMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -85,7 +87,7 @@ function Account() {
   };
 
   const [userInfo, setUserInfo] = useState(null);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const id = storedUserData.id;
   useEffect(() => {
     const fetchUserInfo = async () => {

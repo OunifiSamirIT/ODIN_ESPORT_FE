@@ -8,13 +8,13 @@ import Loading from './Loading';
 import placeholder from "../assets/placeholder.jpg"
 import { useRef } from 'react';
 import { Context } from "../index";
-
+import secureLocalStorage from "react-secure-storage";
 
 function CreatePost({ setArticles, onClose }) {
   const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg } = React.useContext(Context);
 
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const {
     register,
     handleSubmit,
@@ -136,7 +136,7 @@ function CreatePost({ setArticles, onClose }) {
     setData("")
   }
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {

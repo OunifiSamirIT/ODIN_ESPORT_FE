@@ -8,9 +8,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../../config";
 import { Context } from "../../../index";
+import secureLocalStorage from "react-secure-storage";
 
 const Entraineur = ({ userInfo }) => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const MultiValueContainer = ({ children, ...props }) => {
         return (
             <components.MultiValueContainer {...props}>

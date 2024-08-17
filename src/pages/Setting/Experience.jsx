@@ -8,6 +8,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../config";
 import { Context } from "../../index";
+import secureLocalStorage from "react-secure-storage";
+
 const Experience = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -151,7 +153,7 @@ const Experience = () => {
   useEffect(() => {
     fetchExperience();
   }, []);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const fetchExperience = async () => {
     try {
       const response = await fetch(

@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import secureLocalStorage from "react-secure-storage";
 
 const Social = ({ userInfo }) => {
   const [facebook, setFacebook] = useState();
@@ -32,7 +33,7 @@ const Social = ({ userInfo }) => {
     resolver: yupResolver(schema),
     defaultValues: {},
   });
-  const LocalStorageID = JSON.parse(localStorage.getItem("user"));
+  const LocalStorageID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const handleSocialUpdate = () => {
     const formData = new FormData();
     formData.append("fb", facebook);

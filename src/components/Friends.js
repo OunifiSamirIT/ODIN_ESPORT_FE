@@ -65,7 +65,7 @@ function Friends() {
   };
   useEffect(() => {
     // Get user ID from local storage
-    const userId = JSON.parse(localStorage.getItem("user"))?.id;
+    const userId = JSON.parse(secureLocalStorage.getItem("cryptedUser"))?.id;
 
     // Fetch user info using user ID
     if (userId) {

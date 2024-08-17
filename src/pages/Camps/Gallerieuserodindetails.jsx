@@ -11,6 +11,7 @@ import Modal from "react-modal";
 import { Config } from "../../config";
 import LeftMenu from "../../components/LeftMenu";
 import { Context } from "../../index";
+import secureLocalStorage from "react-secure-storage";
 
 const Album = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -49,13 +50,13 @@ const Album = () => {
   const { id: campsId } = useParams();
   const [albumDetails, setAlbumDetails] = useState(null);
   const [inscriptions, setInscriptions] = useState([]);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const userId = storedUserData ? storedUserData.id : null;
   const [isUserPreinscribed, setIsUserPreinscribed] = useState(false); // Add this line
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {

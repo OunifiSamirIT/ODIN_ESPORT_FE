@@ -5,6 +5,8 @@ import Darkbutton from "../components/Darkbutton";
 import Logo from "../assets/ODIN22.png";
 import SlideMenu from "./SlideMenu";
 import "../components/Hamburger.css";
+import secureLocalStorage from "react-secure-storage";
+
 function Header() {
   const handleClick = () => {
     // Use setState to update showMenu
@@ -13,7 +15,7 @@ function Header() {
     }));
   };
   // Fetch user information based on the id from localStorage
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const id = storedUserData.id ? storedUserData.id : null;
   const [isOpen, setIsOpen] = useState(null);
   const [user, setUser] = useState(null);

@@ -62,6 +62,7 @@ import { UserTag } from "../../components/UserTag";
 import moment from "moment";
 import CreatePostModal from "../../components/CreatePostModalProfile";
 import Post from "../../components/Post";
+import secureLocalStorage from "react-secure-storage";
 
 const Index = () => {
   const { id } = useParams();
@@ -422,7 +423,7 @@ const Index = () => {
     }
   };
 
-  const LocalStorageID = JSON.parse(localStorage.getItem("user"));
+  const LocalStorageID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const isOwner = LocalStorageID.id == id;
 
   const fetchArticles = async () => {
@@ -678,7 +679,7 @@ const Index = () => {
     try {
       if (articleId) {
         // Retrieve user information from local storage
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`, {
           method: "POST",
@@ -737,7 +738,7 @@ const Index = () => {
   const addReply = async (commentId, replyText) => {
     try {
       if (commentId && replyText) {
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
         const response = await fetch(`${Config.LOCAL_URL}/api/replies`, {
           method: "POST",
@@ -874,9 +875,10 @@ const Index = () => {
     setValue,
     formState: { errors },
   } = useForm();
+//-----------------------------------------------------------
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {

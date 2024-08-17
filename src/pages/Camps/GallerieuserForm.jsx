@@ -21,6 +21,7 @@ import { Config } from "../../config";
 import Header from "../../components/Header2";
 
 import { Context } from "../../index";
+import secureLocalStorage from "react-secure-storage";
 
 const schema = yup.object().shape({
   passport: yup.string().required("Ce Champs est obligatoire !"),
@@ -55,7 +56,7 @@ const Album = () => {
   };
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -133,7 +134,7 @@ const Album = () => {
         .then(() => {
           // If validation passes, proceed with form submission
 
-          const storedUserData = JSON.parse(localStorage.getItem("user"));
+          const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
           const userId = storedUserData ? storedUserData.id : null;
           const campsId = id;
 

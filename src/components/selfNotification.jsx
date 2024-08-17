@@ -23,6 +23,7 @@ import moment from "moment/moment";
 // import 'moment/locale/en';
 import "../../node_modules/moment/locale/fr";
 import "../../node_modules/moment/locale/en-ca";
+import secureLocalStorage from "react-secure-storage";
 
 export default function SelfNot({
   deleteNotContent,
@@ -44,7 +45,7 @@ export default function SelfNot({
 
   const [currentUser, setCurrentUser] = useState([]);
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     setCurrentUser(user);
   }, []);
   let moreNotContent = () => {

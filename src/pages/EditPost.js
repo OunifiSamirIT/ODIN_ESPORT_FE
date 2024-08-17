@@ -15,6 +15,7 @@ import Loading from "../components/Loading";
 import { useForm } from "react-hook-form";
 import { Config } from "../config";
 import { Context } from "../index";
+import secureLocalStorage from "react-secure-storage";
 
 function EditPost({ articleId, onClose }) {
   // const { articleId } = useParams();
@@ -137,7 +138,7 @@ function EditPost({ articleId, onClose }) {
       description: "", // Change this to the initial value of the description if available
     }));
   };
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const id = storedUserData.id ? storedUserData.id : null;
 

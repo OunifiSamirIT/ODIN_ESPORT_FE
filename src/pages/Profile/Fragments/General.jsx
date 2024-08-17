@@ -8,11 +8,12 @@ import { paysAllInfo } from "../../../assets/data/Country";
 import Modal from "react-modal";
 import { Context } from "../../../index";
 import Social from "../components/social";
+import secureLocalStorage from "react-secure-storage";
 
 const General = ({ userInfo, sendNotification }) => {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const { id } = useParams();
   const isOwner = storedUserData.id == id;
 

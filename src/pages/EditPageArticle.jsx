@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Config } from "../config";
+import secureLocalStorage from "react-secure-storage";
+
 const EditPage = () => {
   const { articleId } = useParams();
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ const EditPage = () => {
     const previewURL = URL.createObjectURL(selectedFile);
     setPreviewImage(previewURL);
   };
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const handleUpdateArticle = async () => {
     try {
       if (!editArticle.description) {

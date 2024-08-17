@@ -9,6 +9,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Config } from "../config";
 import Select, { components } from "react-select";
 import LeftMenu from "../components/LeftMenu";
+import secureLocalStorage from "react-secure-storage";
 
 const paysAllInfo = [
   {
@@ -4213,7 +4214,7 @@ function Badge({ userpf }) {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -4226,7 +4227,7 @@ function Badge({ userpf }) {
     }
   }, []);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const id = storedUserData.id ? storedUserData.id : null;
 

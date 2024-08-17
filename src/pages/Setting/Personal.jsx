@@ -23,6 +23,8 @@ import DatePicker from "react-datepicker";
 import { Langue } from "../../assets/data/Langue";
 
 import { Config } from "../../config";
+import secureLocalStorage from "react-secure-storage";
+
 const Personal = ({ userInfo }) => {
   const [selectedLanguages, setSelectedLanguages] = useState({
     value: "",
@@ -95,7 +97,7 @@ const Personal = ({ userInfo }) => {
     };
   });
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [user, setUser] = useState([]);
   const [file, setFile] = useState(null);
 

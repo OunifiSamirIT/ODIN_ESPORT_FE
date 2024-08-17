@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Config } from "../../config";
 import Header from "../../components/Header2";
 import { Context } from "../../index";
+import secureLocalStorage from "react-secure-storage";
 
 const Album = () => {
   const [isActive, setIsActive] = useState(false);
@@ -23,7 +24,7 @@ const Album = () => {
     navigate(`/defaultgroup/${id}`);
   };
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const userId = storedUserData ? storedUserData.id : null;
 
     const fetchAlbums = async () => {

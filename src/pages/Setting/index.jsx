@@ -10,8 +10,10 @@ import HomeLayout from "../../Layout/HomeLayout";
 import { Config } from "../../config";
 import { Context } from "../../index";
 import { ToastContainer } from "react-toastify";
+import secureLocalStorage from "react-secure-storage";
+
 const Index = () => {
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [currentTab, setCurrentTab] = useState("personal");
 
   const { tab } = useParams();

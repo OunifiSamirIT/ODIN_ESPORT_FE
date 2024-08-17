@@ -5,8 +5,10 @@ import { Link, useParams } from "react-router-dom";
 import { Config } from "../../config";
 import { Context } from "../../index";
 import { paysAllInfo } from "../../assets/data/Country";
+import secureLocalStorage from "react-secure-storage";
+
 const FriendList = () => {
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const { id } = useParams()
   const [FriendRequest, setFriendRequest] = useState([]);
@@ -48,7 +50,7 @@ const FriendList = () => {
     }
   }, [id, user])
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {

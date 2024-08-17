@@ -7,10 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Config } from "../../config";
 import { Context } from "../../index";
+import secureLocalStorage from "react-secure-storage";
 
 const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
   const ref = useRef(null);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [isPasswordOpen, setIsPasswordOpen] = useState(false);
   const [isEmailOpen, setIsEmailOpen] = useState(false);
   const [step1, setStep1] = useState(false);
@@ -719,7 +720,7 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
           </div>
         </div>
         <div className="justify-center items-start overflow-hidden py-3.5 pr-16 pl-4 mt-2 text-base whitespace-nowrap border border-solid bg-zinc-100 border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5 max-md:max-w-full">
-          {userInfo?.user.email}
+          {storedUserData?.email}
         </div>
         {/* <div className="flex gap-4 justify-between px-4 mt-6 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
           <img

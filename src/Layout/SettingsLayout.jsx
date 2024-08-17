@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import {Context} from "../index";
+import secureLocalStorage from "react-secure-storage";
 
 const SettingsLayout = ({ children, setCurrentTab, tab , setDeleteModal }) => {
     const {_currentLang, _setLang, getTranslation} = React.useContext(Context)
 
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     // const [currentTab, setCurrentTab] = useState('')
     const navigate = useNavigate();
 

@@ -1,14 +1,15 @@
 import React, { Component, useEffect, useState } from "react";
 import { Config } from "../config";
+import secureLocalStorage from "react-secure-storage";
 
 function Contacts() {
   const [userpf, setUserpf] = useState(null);
   const [suggestedFriends, setSuggestedFriends] = useState([]);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("user"))?.id;
+    const userId = JSON.parse(secureLocalStorage.getItem("cryptedUser"))?.id;
 
     if (userId) {
       fetch(`${Config.BASE_URL} /api/user/${userId}`)

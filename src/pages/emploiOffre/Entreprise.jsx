@@ -12,6 +12,8 @@ import Select, { components } from "react-select";
 import { useEffect } from "react";
 import * as yup from "yup";
 import Email from "./../Email";
+import secureLocalStorage from "react-secure-storage";
+
 function Entreprise() {
   const { register, setValue, getValues } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -76,7 +78,7 @@ function Entreprise() {
     });
   };
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [user, setUser] = useState([]);
   let navigate = useNavigate();
 
@@ -97,7 +99,7 @@ function Entreprise() {
   });
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -205,7 +207,7 @@ function Entreprise() {
   // for left slide barre ---------------------------------
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {

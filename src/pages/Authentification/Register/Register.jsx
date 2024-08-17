@@ -7240,7 +7240,7 @@ function Register() {
                                 <input
                                   type="file"
                                   name="file"
-                                  accept="*"
+                                  accept="image/*"
                                   onChange={handleFileChangeLicense}
                                   className="absolute inset-0 opacity-0 md:w-full h-full cursor-pointer"
                                 />

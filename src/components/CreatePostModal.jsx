@@ -6,6 +6,7 @@ import FriendsSlider from "./Friendsilderacceuil";
 import placeholder from "../assets/placeholder.jpg";
 import { Config } from "../config";
 import { Context } from "../index";
+import secureLocalStorage from "react-secure-storage";
 
 function CreatePostModal({ fetchDataOnbegin }) {
   const [user, setUser] = useState([]);
@@ -39,7 +40,7 @@ function CreatePostModal({ fetchDataOnbegin }) {
     setIsModaldOpen(true);
   };
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {

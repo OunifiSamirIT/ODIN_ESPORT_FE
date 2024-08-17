@@ -14,9 +14,10 @@ import moment from "moment/moment";
 // import 'moment/locale/en';
 import "../../node_modules/moment/locale/fr";
 import "../../node_modules/moment/locale/en-ca";
+import secureLocalStorage from "react-secure-storage";
 
 function CreatePost({ setArticles, onClose }) {
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const {
     register,
     handleSubmit,
@@ -142,7 +143,7 @@ function CreatePost({ setArticles, onClose }) {
     setData("");
   };
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {

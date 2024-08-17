@@ -17,6 +17,7 @@ import DatePicker from "react-datepicker";
 import { Config } from "../../config";
 import Index from "./../Setting/index";
 import moment from "moment";
+import secureLocalStorage from "react-secure-storage";
 
 function HomeOffre() {
   const [album, setAlbum] = useState([]);
@@ -187,7 +188,7 @@ function HomeOffre() {
   };
   const [user, setUser] = useState([]);
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
     if (id) {
       fetch(`${Config.LOCAL_URL}/api/user/${id}`)
@@ -198,7 +199,7 @@ function HomeOffre() {
         .catch((error) => console.error("Error fetching user data:", error));
     }
   }, []);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const id = storedUserData.id ? storedUserData.id : null;
   const userProfileType = storedUserData ? storedUserData.profil : null;
   const shouldHideForProfiles = ["other", "player"];

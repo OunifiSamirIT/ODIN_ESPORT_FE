@@ -6,9 +6,10 @@ import { Config } from "../../../config";
 import { Context } from "../../../index";
 import Social from "../components/social";
 import Modal from "react-modal";
+import secureLocalStorage from "react-secure-storage";
 
 const Scout = ({ userInfo, sendNotification }) => {
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const { id } = useParams();
   const isOwner = storedUserData.id == id;
   const [acceptedFriend, setAcceptedFriend] = useState(false);

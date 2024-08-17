@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { Config } from "../config";
 import { Context } from "../index";
+import secureLocalStorage from "react-secure-storage";
 
 function FriendsSlider() {
   const {
@@ -29,7 +30,7 @@ function FriendsSlider() {
         }
         const data = await response.json();
         // Récupérez l'ID de l'utilisateur connecté à partir du local storage
-        const storedUserData = JSON.parse(localStorage.getItem("user"));
+        const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
         const id = storedUserData ? storedUserData.id : null;
         // Filtrez les utilisateurs pour exclure l'utilisateur connecté
 

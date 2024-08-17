@@ -23,6 +23,7 @@ import CustomButton from "../../components/CustomButton";
 import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import secureLocalStorage from "react-secure-storage";
 
 import {
   BiEditAlt,
@@ -317,7 +318,7 @@ function Home() {
     }
   };
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const fetchArticles = async () => {
     try {
@@ -532,7 +533,7 @@ function Home() {
   // }
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -583,7 +584,7 @@ function Home() {
     try {
       if (articleId) {
         // Retrieve user information from local storage
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
         const response = await fetch(
           "https://odine-sport.com/api/commentaires/",
@@ -645,7 +646,7 @@ function Home() {
     try {
       if (commentId && replyText) {
         // Retrieve user information from local storage
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
         const response = await fetch(
           `https://odine-sport.com/api/replies`, // Update the endpoint here

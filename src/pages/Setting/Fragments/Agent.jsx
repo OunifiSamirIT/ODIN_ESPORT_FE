@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../../config";
 // import {Context} from "../../index"
 import { Context } from "../../../index";
+import secureLocalStorage from "react-secure-storage";
+
 const Agent = ({ userInfo }) => {
     const [selectedCountries, setSelectedCountries] = useState([])
     const options = paysAllInfo.map((country, index) => {
@@ -31,7 +33,7 @@ const Agent = ({ userInfo }) => {
     });
     const { _currentLang, _setLang, getTranslation } = React.useContext(Context)
 
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const MultiValueContainer = ({ children, ...props }) => {
         return (
             <components.MultiValueContainer {...props}>

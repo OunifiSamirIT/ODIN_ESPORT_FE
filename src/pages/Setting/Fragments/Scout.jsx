@@ -8,6 +8,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Config } from "../../../config";
 import { Context } from "../../../index";
+import secureLocalStorage from "react-secure-storage";
+
 const Scout = ({ userInfo }) => {
   const [selectedCountries, setSelectedCountries] = useState([]);
 
@@ -124,7 +126,7 @@ const Scout = ({ userInfo }) => {
     defaultValues: {},
   });
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const handleDestructureCountries = (stringValue) => {
     const countryLabelsArray = stringValue.split(",");
     return countryLabelsArray.map((countryLabel) => {

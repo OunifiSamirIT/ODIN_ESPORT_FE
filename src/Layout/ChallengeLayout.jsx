@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { Config } from "../config";
 import LeftMenu from "../components/LeftMenu";
 
+import secureLocalStorage from "react-secure-storage";
 
 
 const ChallengeLayout = ({ children }) => {
@@ -16,7 +17,7 @@ const ChallengeLayout = ({ children }) => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -32,7 +33,7 @@ const ChallengeLayout = ({ children }) => {
 
   }, []);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
 
   const id = storedUserData.id ? storedUserData.id : null;

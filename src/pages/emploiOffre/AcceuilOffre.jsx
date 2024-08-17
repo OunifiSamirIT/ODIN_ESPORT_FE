@@ -14,6 +14,7 @@ import { useEffect } from "react";
 
 import { Config } from "../../config";
 import moment from "moment";
+import secureLocalStorage from "react-secure-storage";
 
 function AcceuilOffre() {
   const emailRef = useRef(null);
@@ -69,7 +70,7 @@ function AcceuilOffre() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -82,7 +83,7 @@ function AcceuilOffre() {
     }
   }, []);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const id = storedUserData.id ? storedUserData.id : null;
 

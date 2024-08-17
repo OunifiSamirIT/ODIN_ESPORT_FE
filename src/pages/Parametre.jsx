@@ -12,6 +12,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import SlideMenu from "../components/SlideMenu";
 import Logo from "../assets/ODIN22.png";
+import secureLocalStorage from "react-secure-storage";
+
 const pays = [
   {
     id: 1,
@@ -5477,7 +5479,7 @@ const Parametre = () => {
   });
 
   const [userInfo, setUserInfo] = useState(null);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const id = storedUserData.id;
   useEffect(() => {
     const fetchUserInfo = async () => {

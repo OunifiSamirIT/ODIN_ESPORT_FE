@@ -6,6 +6,8 @@ import Pagetitle from "../components/Pagetitle";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
 import { Config } from "../config";
+import secureLocalStorage from "react-secure-storage";
+
 const ImageModal = ({ imageUrl, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75">
@@ -28,7 +30,7 @@ const ImageModal = ({ imageUrl, onClose }) => {
 
 function Storie() {
   const [galleryItems, setGalleryItems] = useState([]);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [selectedImage, setSelectedImage] = useState(null);
   const [filterType, setFilterType] = useState(null);
 

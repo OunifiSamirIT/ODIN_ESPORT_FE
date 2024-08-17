@@ -17,6 +17,7 @@ import '../../../../node_modules/moment/locale/en-ca';
 import NotificationService from "../../../api/notification.server";
 import { io } from 'socket.io-client';
 import { BiSolidHeart } from "react-icons/bi";
+import secureLocalStorage from "react-secure-storage";
 
 const ChallengeDetais = () => {
 
@@ -222,7 +223,7 @@ const ChallengeDetais = () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/challenges/${challengeId}`)
         const result = await response.json()
         console.log("alooo ", result)
-        const connectedUserId = JSON.parse(localStorage.getItem("user"));
+        const connectedUserId = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
         console.log(connectedUserId, "effhehehhee")
 
         // Vérifier si l'ID du participant connecté est dans la liste des participants
@@ -302,7 +303,7 @@ const ChallengeDetais = () => {
         checkIfParticipate(challenges)
         console.log('changed')
     }, [challenges])
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const onSubmit = async (data) => {
         setIsLoading(true)
         const formData = new FormData();
@@ -389,7 +390,7 @@ const ChallengeDetais = () => {
         try {
             if (commentId && replyText) {
                 // Retrieve user information from local storage
-                const user = JSON.parse(localStorage.getItem("user"));
+                const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
                 const response = await fetch(
                     `${Config.LOCAL_URL}/api/commentaire/reply/create`, // Update the endpoint here

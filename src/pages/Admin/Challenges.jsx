@@ -6,8 +6,10 @@ import Popupchat from "../../components/Popupchat";
 import Pagetitle from "../../components/Pagetitle";
 import { Link } from "react-router-dom";
 import { Config } from "../../config";
+import secureLocalStorage from "react-secure-storage";
+
 const Event = () => {
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [challenges, setChallenges] = useState([]);
   const fetchChallenges = async () => {
     const response = await fetch(`${Config.LOCAL_URL}/api/challenges`);

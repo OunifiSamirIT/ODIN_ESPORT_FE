@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Header from "../../components/Header2";
 import { useEffect } from "react";
+import secureLocalStorage from "react-secure-storage";
+
 const Professionalprofile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -13,7 +15,7 @@ const Professionalprofile = () => {
     { axis: "Puissance", value: 63 },
   ];
   useEffect(() => {
-    const storedData = localStorage.getItem("user");
+    const storedData = secureLocalStorage.getItem("cryptedUser");
 
     if (storedData) {
       const parsedStoredData = JSON.parse(storedData);

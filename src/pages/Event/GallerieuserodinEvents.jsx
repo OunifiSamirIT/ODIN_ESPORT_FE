@@ -17,6 +17,7 @@ import { Config } from "../../config";
 import LeftMenu from "../../components/LeftMenu";
 import { Context } from "../../index";
 import Index from "../Profile/Index";
+import secureLocalStorage from "react-secure-storage";
 
 const Album = () => {
   const [album, setAlbum] = useState([]);
@@ -177,7 +178,7 @@ const Album = () => {
     setFilteredCamps(filteredData);
   };
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -190,7 +191,7 @@ const Album = () => {
     }
   }, []);
 
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const id = storedUserData.id ? storedUserData.id : null;
 

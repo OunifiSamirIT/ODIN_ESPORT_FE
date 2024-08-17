@@ -7,9 +7,10 @@ import { useParams } from 'react-router-dom'
 import { Config } from '../../config'
 import PDFGenerator from '../../components/testCompoenent'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import secureLocalStorage from "react-secure-storage";
 
 const Professionalprofile2 = () => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
     const {id}  = useParams()
     const [player, setPlayer] = useState(null)

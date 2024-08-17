@@ -8,12 +8,14 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Config } from "../../../config";
+import secureLocalStorage from "react-secure-storage";
+
 const AddEvent = () => {
   const navigate = useNavigate();
 
   const { register, handleSubmit, setValue, getValues } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const onSubmit = async (data) => {
     const formData = new FormData();

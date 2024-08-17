@@ -1,10 +1,12 @@
 import React, { Component, useEffect, useState } from "react";
 import { Config } from "../config";
+import secureLocalStorage from "react-secure-storage";
+
 function ProfilecardThree() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {

@@ -6,6 +6,7 @@ import Rightchat from "../components/Rightchat";
 import Pagetitle from "../components/Pagetitle";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
+import secureLocalStorage from "react-secure-storage";
 
 function Member() {
   const [friendRequests, setFriendRequests] = useState(null);
@@ -13,7 +14,7 @@ function Member() {
 
   useEffect(() => {
     // Get user ID from local storage
-    const userId = JSON.parse(localStorage.getItem("user"))?.id;
+    const userId = JSON.parse(secureLocalStorage.getItem("cryptedUser"))?.id;
 
     // Fetch user info using user ID
     if (userId) {

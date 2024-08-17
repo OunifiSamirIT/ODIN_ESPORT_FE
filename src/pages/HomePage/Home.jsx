@@ -49,7 +49,7 @@
 //     const previewURL = URL.createObjectURL(selectedFile);
 //     setPreviewImage(previewURL);
 //   };
-//   const storedUserData = JSON.parse(localStorage.getItem("user"));
+//   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
 //   const handlePostSubmit = async (data) => {
 //     try {

@@ -22,6 +22,8 @@ import { Langue } from "../../assets/data/Langue";
 import { paysAllInfo } from "../../assets/data/Country";
 import Other from "./../Setting/Fragments/Other";
 import Social from "./components/social";
+import secureLocalStorage from "react-secure-storage";
+
 const More = () => {
   const { id } = useParams();
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
@@ -38,11 +40,11 @@ const More = () => {
   const [Invitation, setInvitation] = useState([]);
   const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
   const [CurrentUser, setCurrentUser] = useState(null);
-  const LocalStorageID = JSON.parse(localStorage.getItem("user"));
+  const LocalStorageID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [experience, setExperience] = useState([]);
 
-  // const user = JSON.parse(localStorage.getItem("user"));
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  // const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const isOwner = storedUserData.id == id;
   const sendFriendRequest = async () => {
     const response = await fetch(

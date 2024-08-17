@@ -4,10 +4,11 @@ import Header from "../components/Header";
 import Appfooter from "../components/Appfooter";
 import Popupchat from "../components/Popupchat";
 import Pagetitle from "../components/Pagetitle";
+import secureLocalStorage from "react-secure-storage";
 
 const Event = () => {
   const [event, setEvent] = useState([]);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const hanleEventApplication = async (userID, eventID) => {
     const url =

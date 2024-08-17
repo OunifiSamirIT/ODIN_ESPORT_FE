@@ -3,6 +3,7 @@ import React, { Component, useEffect, useState } from "react";
 // import 'react-image-lightbox/style.css';
 import { Link } from "react-router-dom";
 import { Config } from "../config";
+import secureLocalStorage from "react-secure-storage";
 
 const ImageModal = ({ imageUrl, onClose }) => {
   return (
@@ -25,7 +26,7 @@ const ImageModal = ({ imageUrl, onClose }) => {
 };
 function Profilephoto() {
   const [galleryItems, setGalleryItems] = useState([]);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [selectedImage, setSelectedImage] = useState(null);
   const [filterType, setFilterType] = useState(null);
 

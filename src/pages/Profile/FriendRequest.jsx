@@ -10,6 +10,7 @@ import { Context } from "../../index";
 import { io } from "socket.io-client";
 import NotificationService from "../../api/notification.server";
 import LeftMenu from "../../components/LeftMenu";
+import secureLocalStorage from "react-secure-storage";
 
 const FriendRequest = () => {
   //initialize socket
@@ -37,7 +38,7 @@ const FriendRequest = () => {
   const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -49,7 +50,7 @@ const FriendRequest = () => {
         .catch((error) => console.error("Error fetching user data:", error));
     }
   }, []);
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const [FriendRequest, setFriendRequest] = useState([]);
   const fetchFriendRequest = async () => {
     const response = await fetch(

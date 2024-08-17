@@ -14,6 +14,7 @@ import * as yup from "yup";
 import { paysAllInfo } from "../../assets/data/Country";
 import Header from "../../components/Header2";
 import { Config } from "../../config";
+import secureLocalStorage from "react-secure-storage";
 
 const Album = () => {
   const { state } = useLocation();
@@ -46,7 +47,7 @@ const Album = () => {
   };
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -95,7 +96,7 @@ const Album = () => {
         .then(() => {
           // If validation passes, proceed with form submission
 
-          const storedUserData = JSON.parse(localStorage.getItem("user"));
+          const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
           const userId = storedUserData ? storedUserData.id : null;
           const eventodinId = id;
           setLoadingForm(true)

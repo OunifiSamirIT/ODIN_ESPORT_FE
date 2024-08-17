@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { Config } from "../config";
 import Other from "../pages/Setting/Fragments/Other";
 import { Context } from "../index";
+import secureLocalStorage from "react-secure-storage";
 
 function FriendsSlider() {
   const [agents, setAgents] = useState([]);
@@ -20,7 +21,7 @@ function FriendsSlider() {
           throw new Error("Failed to fetch users error");
         }
         const data = await response.json();
-        const storedUserData = JSON.parse(localStorage.getItem("user"));
+        const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
         const id = storedUserData ? storedUserData.id : null;
 
         // Filtrez les utilisateurs pour exclure l'utilisateur connecté

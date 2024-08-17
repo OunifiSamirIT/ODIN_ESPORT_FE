@@ -1,11 +1,12 @@
 import { Config } from "../config";
 import UserServer from "./user.server";
+import secureLocalStorage from "react-secure-storage";
 
 class NotificationService {
   constructor() {}
 
   static async instantSend(socket, data) {
-    let user = JSON.parse(localStorage.getItem("user"));
+    let user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     let { id, username } = user ? user : { id: "", username: "" };
 
     console.log("instantSave id", id);
@@ -53,7 +54,7 @@ class NotificationService {
   }
 
   static async getNotificationForCurrentUser() {
-    let user = JSON.parse(localStorage.getItem("user"));
+    let user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     let { id, username } = user ? user : { id: "", username: "" };
 
     const response = await fetch(Config.LOCAL_URL + "/api/notification/");
@@ -105,7 +106,7 @@ class NotificationService {
   }
 
   static async deleteAll() {
-    let user = JSON.parse(localStorage.getItem("user"));
+    let user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     let { id, username } = user ? user : { id: "", username: "" };
 
     let response = await fetch(

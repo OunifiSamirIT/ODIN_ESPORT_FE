@@ -26,6 +26,8 @@ import {
 } from "react-icons/bi";
 import Loading from "../components/Loading";
 import { useForm } from "react-hook-form";
+import secureLocalStorage from "react-secure-storage";
+
 function Userpage() {
   const {
     register,
@@ -67,7 +69,7 @@ function Userpage() {
     const previewURL = URL.createObjectURL(selectedFile);
     setPreviewImage(previewURL);
   };
-  const storedUserData = JSON.parse(localStorage.getItem("user"));
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   const handlePostSubmit = async (data) => {
     try {
@@ -199,7 +201,7 @@ function Userpage() {
     try {
       if (articleId) {
         // Retrieve user information from local storage
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
         const response = await fetch(
           "https://odine-sport.com/api/commentaires/",
@@ -240,7 +242,7 @@ function Userpage() {
     try {
       if (commentId && replyText) {
         // Retrieve user information from local storage
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
         const response = await fetch(
           `https://odine-sport.com/api/replies`, // Update the endpoint here
@@ -280,7 +282,7 @@ function Userpage() {
   };
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {

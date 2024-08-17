@@ -495,7 +495,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   };
 
-  // const storedUserData = JSON.parse(localStorage.getItem("user"));
+  // const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   // const fetchArticles = async () => {
   //   try {
@@ -723,7 +723,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   };
 
   useEffect(() => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
@@ -774,7 +774,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     try {
       if (articleId && comment !== "") {
         // Retrieve user information from local storage
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`, {
           method: "POST",
@@ -836,7 +836,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     try {
       if (commentId && replyText) {
         // Retrieve user information from local storage
-        const user = JSON.parse(localStorage.getItem("user"));
+        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
         const response = await fetch(
           `${Config.LOCAL_URL}/api/replies`, // Update the endpoint here
@@ -1385,7 +1385,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   // };
 
   const handlePostSubmitPartage = async (data) => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
     const id = storedUserData.id ? storedUserData.id : null;
     try {

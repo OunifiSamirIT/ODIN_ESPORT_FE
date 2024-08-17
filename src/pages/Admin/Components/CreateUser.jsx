@@ -6,6 +6,7 @@ import Appfooter from "../../../components/Appfooter";
 import Popupchat from "../../../components/Popupchat";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import secureLocalStorage from "react-secure-storage";
 
 const EditUser = () => {
   const { register, handleSubmit, setValue, reset } = useForm();
@@ -24,7 +25,7 @@ const EditUser = () => {
   };
 
   const onSubmit = async (values) => {
-    const storedUserData = JSON.parse(localStorage.getItem("user"));
+    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     setValue("userId", storedUserData.id);
   };
   const generateRandomPassword = (length) => {
