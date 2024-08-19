@@ -4075,8 +4075,23 @@ function Register() {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
-  const [inputErrors, setInputErrors] = useState({});
-  const [profileError, setProfileError] = useState(false);
+  const [inputErrors, setInputErrors] = useState({
+    nom: "",
+    prenom: "",
+    login: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    numWSup: "",
+    tel: "",
+    date_naissance: "",
+    gender: "",
+    nationality: "",
+    countryresidence: "",
+    cityresidence: "",
+    image: "",
+    file: "",
+  });  const [profileError, setProfileError] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState("");
   const [scoutSkillsError, setScoutSkillsError] = useState(false);
 
@@ -4858,35 +4873,107 @@ function Register() {
     return passwordRegex.test(formData.password);
   };
 
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+
+  //   if (file) {
+  //     // Convert the selected image to a data URL
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setFormData({
+  //         ...formData,
+  //         image: file,
+  //       });
+  //       setImagePreview(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+  const allowedFileTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+    "video/mp4",
+    "video/mpeg",
+    "video/ogg",
+    "video/webm",
+    "video/x-msvideo",
+    "video/x-flv",
+    "video/x-matroska",
+    "application/pdf"
+
+  ];
+  
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-
+  
     if (file) {
-      // Convert the selected image to a data URL
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData({
-          ...formData,
-          image: file,
-        });
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+      if (allowedFileTypes.includes(file.type)) {
+        // Valid file type
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setFormData({
+            ...formData,
+            image: file,
+          });
+          setImagePreview(reader.result);
+        };
+        reader.readAsDataURL(file);
+        
+        // Clear any existing error for the image field
+        setInputErrors(prev => ({ ...prev, image: "" }));
+      } else {
+        // Invalid file type
+        setInputErrors(prev => ({
+          ...prev,
+          image: "Ce type de fichier n'est pas pris en charge. Veuillez sélectionner une image  jpeg ou png "
+        }));
+        
+        // Clear the file input
+        event.target.value = '';
+      }
     }
   };
-
   const handleFileChangeLicense = (event) => {
     const file = event.target.files[0];
-    setFile(file);
+  
     if (file) {
-      // Convert the selected image to a data URL
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreviewlic(reader.result);
-      };
-      reader.readAsDataURL(file);
+      if (allowedFileTypes.includes(file.type)) {
+        // Valid file type
+        setFile(file);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setImagePreviewlic(reader.result);
+        };
+        reader.readAsDataURL(file);
+        
+        // Clear any existing error for the file field
+        setInputErrors(prev => ({ ...prev, file: "" }));
+      } else {
+        // Invalid file type
+        setInputErrors(prev => ({
+          ...prev,
+          file: "Ce type de fichier n'est pas pris en charge. Veuillez sélectionner une image ."
+        }));
+        
+        // Clear the file input
+        event.target.value = '';
+      }
     }
   };
+  // const handleFileChangeLicense = (event) => {
+  //   const file = event.target.files[0];
+  //   setFile(file);
+  //   if (file) {
+  //     // Convert the selected image to a data URL
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setImagePreviewlic(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const handleInputChange = (e) => {
     setValidationError("");
@@ -5521,12 +5608,21 @@ function Register() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/4fe64f313a3ed145b5b50abb8a5dc1b51163bf8cf0e41b5232900227b0ae2686?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                           className="w-6 aspect-square fill-white"
                         />
-                        <input
+                        {/* <input
                           type="file"
                           name="image"
                           onChange={handleFileChange}
                           className="flex absolute opacity-0"
-                        />
+                        /> */}
+                        <input
+    type="file"
+    name="image"
+    onChange={handleFileChange}
+    className="flex absolute hidden opacity-0"
+    accept="image/*,video/*"
+  />
+ 
+
                         <span className="tal2">
                           {getTranslation(
                             `Import a photo`, // -----> Englais
@@ -5538,7 +5634,13 @@ function Register() {
                       </div>
                     </label>
                   </div>
+                  {inputErrors["image"] && (
+  <div className="text-red-500 text-xs mt-1">
+    {inputErrors["image"]}
+  </div>
+)}
                 </div>
+            
                 <div className="mt-3 md:mt-8 max-md:max-w-full">
                   <div className="flex gap-2 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
@@ -7240,9 +7342,9 @@ function Register() {
                                 <input
                                   type="file"
                                   name="file"
-                                  accept="image/*"
+                                  accept={allowedFileTypes.join(",")}
                                   onChange={handleFileChangeLicense}
-                                  className="absolute inset-0 opacity-0 md:w-full h-full cursor-pointer"
+                                  className="absolute hidden inset-0 opacity-0 md:w-full h-full cursor-pointer"
                                 />
                                 <span className="block overflow-hidden whitespace-nowrap  max-w-full">
                                   {File ? File.name : "Importer une Licence"}
@@ -7299,7 +7401,13 @@ function Register() {
                             </div>
                           )}
                           <div className="w-full max-w-sm mx-auto"></div>
+                          {inputErrors["file"] && (
+    <div className="text-red-500 text-xs mt-1">
+      {inputErrors["file"]}
+    </div>
+  )}
                         </div>
+                       
                       </div>
 
                       <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
