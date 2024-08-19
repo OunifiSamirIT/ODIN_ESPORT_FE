@@ -24,16 +24,42 @@ function FriendsSlider() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user`);
+        const token1 = secureLocalStorage.getItem("cryptedUser");
+        if (!token1) {
+          throw new Error("Token not found in storage.");
+        }
+
+        const parsedToken1 = JSON.parse(token1);
+        const token2 = parsedToken1?.token;
+
+        if (!token2) {
+          throw new Error("No token provided!");
+        }
+
+        const response = await fetch(`${Config.LOCAL_URL}/api/user`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token2}`,
+          },
+        });
+
+        if (response.status === 401) {
+          console.error("Unauthorized: Please log in again.");
+          window.location.href = "/login";
+          return;
+        }
+
         if (!response.ok) {
           throw new Error("Failed to fetch users");
         }
-        const data = await response.json();
-        // Récupérez l'ID de l'utilisateur connecté à partir du local storage
-        const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-        const id = storedUserData ? storedUserData.id : null;
-        // Filtrez les utilisateurs pour exclure l'utilisateur connecté
 
+        const data = await response.json();
+        const storedUserData = JSON.parse(
+          secureLocalStorage.getItem("cryptedUser")
+        );
+        const id = storedUserData ? storedUserData.id : null;
         const filteredData = data?.filter((agent) => agent?.user?.id !== id);
         console.log(data, "filteredData");
         setAgents(filteredData);
@@ -43,6 +69,7 @@ function FriendsSlider() {
         setLoading(false);
       }
     };
+
     fetchUsers();
   }, []);
 
