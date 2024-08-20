@@ -72,12 +72,45 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
     const navigate = useNavigate()
     const userInfo = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`);
-        const result = await response.json();
-        if (result.message) { navigate('/404') } else {
-            setCurrentUser(result)
+        try {
+          const token1 = secureLocalStorage.getItem("cryptedUser");
+          if (!token1) {
+            throw new Error("Token not found in storage.");
+          }
+      
+          const parsedToken1 = JSON.parse(token1);
+          const id = parsedToken1?.id;
+          const token2 = parsedToken1?.token;
+      
+          if (!id) {
+            throw new Error("No user ID provided!");
+          }
+      
+          if (!token2) {
+            throw new Error("No token provided!");
+          }
+      
+          const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token2}`,
+            },
+          });
+      
+          const result = await response.json();
+      
+          if (result.message) {
+            navigate('/404');
+          } else {
+            setCurrentUser(result);
+          }
+        } catch (error) {
+          console.error(error);
+          // Handle the error more gracefully, e.g., display an error message to the user
         }
-    }
+      }
     const isFriendAccepted = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${user}/checkFriends/${LocalStorageID.id}`)
         const result = await response.json();

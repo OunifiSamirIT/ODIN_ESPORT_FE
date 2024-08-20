@@ -666,9 +666,25 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
       const commentsWithUserData = await Promise.all(
         commentsWithLikes.map(async (comment) => {
-          const userResponse = await fetch(
-            `${Config.LOCAL_URL}/api/user/${comment.userId}`
-          );
+          const token = secureLocalStorage.getItem("cryptedUser");
+          if (!token) {
+            throw new Error("Token not found in storage.");
+          }
+      
+          const parsedToken = JSON.parse(token);
+          const token2 = parsedToken?.token;
+      
+          if (!token2) {
+            throw new Error("No token provided!");
+          }
+      
+          const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${comment.userId}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token2}`,
+            },
+          });
           const userData = await userResponse.json();
           return {
             ...comment,
@@ -722,25 +738,69 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   };
 
+  // useEffect(() => {
+  //   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  //   const id = storedUserData ? storedUserData.id : null;
+
+  //   if (id) {
+  //     fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+  //       .then((response) => response.json())
+  //       .then((userData) => {
+  //         setUser(userData);
+  //       })
+  //       .catch((error) => console.error("Error fetching user data:", error));
+  //   }
+  //   fetchLikesForComment(article.comments.id);
+  //   fetchLikesForArticle(article.id);
+  //   console.log("mmmmmmmmmm", article);
+  //   // fetchArticles();
+  //   // fetchAlbums();
+  // }, []);
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-    const id = storedUserData ? storedUserData.id : null;
-
-    if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
-        .then((response) => response.json())
-        .then((userData) => {
-          setUser(userData);
-        })
-        .catch((error) => console.error("Error fetching user data:", error));
+    async function fetchData() {
+      try {
+        const token1 = secureLocalStorage.getItem("cryptedUser");
+        if (!token1) {
+          throw new Error("Token not found in storage.");
+        }
+  
+        const parsedToken1 = JSON.parse(token1);
+        const id = parsedToken1?.id;
+          console.log("66666666666666666666666666", id)
+        if (!id) {
+          throw new Error("No user ID provided!");
+        }
+  
+        const token2 = parsedToken1?.token;
+  
+        if (!token2) {
+          throw new Error("No token provided!");
+        }
+  
+        if (id) {
+          const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token2}`,
+            },
+          });
+  
+          // You can use the response here if needed
+          // console.log(response);
+        }
+  
+        fetchLikesForComment(article.comments.id);
+        fetchLikesForArticle(article.id);
+      } catch (error) {
+        console.error(error);
+        // Handle the error more gracefully, e.g., display an error message to the user
+      }
     }
-    fetchLikesForComment(article.comments.id);
-    fetchLikesForArticle(article.id);
-    console.log("mmmmmmmmmm", article);
-    // fetchArticles();
-    // fetchAlbums();
+  
+    fetchData();
   }, []);
-
   const fetchAlbums = async () => {
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/album`);
@@ -3081,7 +3141,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           <figure className="  avatar">
                             <img
                               src={
-                                user.user.image ? user.user?.image : placeholder
+                                user?.user?.image ? user?.user?.image : placeholder
                               }
                               className="  shadow-sm rounded-full w-[52px] aspect-square"
                               alt="post"

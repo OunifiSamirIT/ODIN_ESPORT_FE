@@ -877,23 +877,51 @@ const Index = () => {
   } = useForm();
 //-----------------------------------------------------------
 
-  useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-    const id = storedUserData ? storedUserData.id : null;
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const token1 = secureLocalStorage.getItem("cryptedUser");
+      if (!token1) {
+        throw new Error("Token not found in storage.");
+      }
 
-    if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
-        .then((response) => response.json())
-        .then((userData) => {
-          setUser(userData);
-        })
-        .catch((error) => console.error("Error fetching user data:", error));
+      const parsedToken1 = JSON.parse(token1);
+      const id = parsedToken1?.id;
+
+      if (!id) {
+        throw new Error("No user ID provided!");
+      }
+
+      const token2 = parsedToken1?.token;
+
+      if (!token2) {
+        throw new Error("No token provided!");
+      }
+
+      if (id) {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token2}`,
+          },
+        });
+
+        // You can use the response here if needed
+        // console.log(response);
+      }
+
+      // fetchArticles();
+      // fetchAlbums();
+    } catch (error) {
+      console.error(error);
+      // Handle the error more gracefully, e.g., display an error message to the user
     }
+  }
 
-    // fetchArticles();
-    // fetchAlbums();
-  }, []);
-
+  fetchData();
+}, []);
   const storedLanguage = localStorage.getItem("language");
   const language = storedLanguage ? storedLanguage.toLowerCase() : "";
 

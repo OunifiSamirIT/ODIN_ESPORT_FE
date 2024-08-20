@@ -393,15 +393,15 @@ function Root() {
   }, []);
 
   // Define a function to set authentication status
-  const setAuthStatus = (status, token) => {
+  const setAuthStatus = (status, userData) => {
     setIsAuthenticated(status);
 
     if (status) {
       // If authenticated, store the token in localStorage
-      secureLocalStorage.setItem("user", token);
+      localStorage.setItem("Secret" , userData);
     } else {
       // If not authenticated, remove the token from localStorage
-      secureLocalStorage.removeItem("cryptedUser");
+      localStorage.removeItem("Secret", userData);
     }
   };
   function RootRoutes() {

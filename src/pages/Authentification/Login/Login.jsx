@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Config } from "../../../config";
 import { Context } from "../../../index";
 import secureLocalStorage from "react-secure-storage";
+import CryptoJS from "crypto-js";
 function Login({ setAuthStatus }) {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const [verificationMessage, setVerificationMessage] = useState("");
@@ -35,6 +36,22 @@ function Login({ setAuthStatus }) {
   } = useForm();
   const [showVerificationPopup, setShowVerificationPopup] = useState(false);
 
+  const decryptString = (encryptedText, secret) => {
+    try {
+      const ciphertext = CryptoJS.enc.Hex.parse(encryptedText);
+      const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000"); // Assurez-vous que cela correspond à l'IV utilisé côté serveur
+      const decrypted = CryptoJS.AES.decrypt(
+        { ciphertext: ciphertext },
+        CryptoJS.enc.Hex.parse(secret),
+        { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
+      );
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+      console.error("Decryption error:", error);
+      return null;
+    }
+  };
+
   const onSubmit = async (data) => {
     try {
       setIsSubmitting(true);
@@ -44,52 +61,80 @@ function Login({ setAuthStatus }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          identifier: data.identifier, // Use the value from the identifier field
+          identifier: data.identifier,
           password: data.password,
         }),
       });
-
       const result = await response.json();
-
       if (response.ok) {
+        console.log("Raw result:", result);
         // localStorage.setItem("user", JSON.stringify(result));
-        // localStorage.setItem("accessToken", result.accessToken);
-        //------------------> localstorage crypté
-        secureLocalStorage.setItem("cryptedUser", JSON.stringify(result));
-        console.log("cryptedUser", secureLocalStorage.getItem("cryptedUser"));
-
-        //------------------> localstorage crypté
-
-        // Call the setAuthStatus function with the token
-        setAuthStatus(true, result.accessToken);
-
-        const verificationResponse = await fetch(
-          `${Config.LOCAL_URL}/api/auth/check-verification/${result.id}`
+        console.log("Encrypted user saved:", localStorage.getItem("Secret"));
+        const userData = JSON.stringify(result)
+        // Decrypt the ID
+        const encryptedId = result.id;
+        const encryptedEmail = result.email;
+        console.log("Encrypted ID:", encryptedId);
+        // const encryptionSecret = process.env.REACT_APP_ENCRYPTION_SECRET;
+        const decryptedId = decryptString(
+          encryptedId,
+          process.env.REACT_APP_ENCRYPTION_SECRET
         );
-        const verificationResult = await verificationResponse.json();
+        const decryptedEmail = decryptString(
+          encryptedEmail,
+          process.env.REACT_APP_ENCRYPTION_SECRET
+        );
+        console.log("Encrypted Email:", decryptedEmail);
 
-        if (!verificationResult.isVerified) {
-          setIsEmailVerified(false);
-          setVerificationMessage(
-            <div className="bg-blue-200 text-base p-2 justify-center mt-8 mb-1 animate-pulse rounded-md">
-              {getTranslation(
-                `Check your email inbox to confirm your email address!`, // -----> Englais
-                `Vérifier votre boite email pour confirmer votre adresse  email!`, //  -----> Francais
-                ``, //  -----> Turkey
-                `` //  -----> Allemagne
-              )}
-            </div>
+        if (decryptedId) {
+          console.log("Decrypted ID:", decryptedId);
+          // Use the decrypted ID for email verification
+          const verificationResponse = await fetch(
+            `${Config.LOCAL_URL}/api/auth/check-verification/${decryptedId}`
           );
+          const verificationResult = await verificationResponse.json();
+          if (!verificationResult.isVerified) {
+            setIsEmailVerified(false);
+            setVerificationMessage(
+              <div className="bg-blue-200 text-base p-2 justify-center mt-8 mb-1 animate-pulse rounded-md">
+                {getTranslation(
+                  `Check your email inbox to confirm your email address!`,
+                  `Vérifier votre boite email pour confirmer votre adresse email!`,
+                  ``,
+                  ``
+                )}
+              </div>
+            );
+          } else {
+            setIsEmailVerified(true);
+            navigate("/home");
+          }
         } else {
-          setIsEmailVerified(true);
-          navigate("/home");
+          console.error("Failed to decrypt ID");
+          // Handle decryption error
+        }
+        // Decrypt the token
+        const encryptedToken = result.token;
+        console.log("Encrypted token:", encryptedToken);
+        const decryptedToken = decryptString(
+          encryptedToken,
+          process.env.REACT_APP_ENCRYPTION_SECRET
+        );
+        if (decryptedToken) {
+          console.log("Decrypted token:", decryptedToken);
+          // Use the decrypted token for authentication
+          setAuthStatus(true, userData);
+        } else {
+          console.error("Failed to decrypt token");
+          // Handle decryption error
         }
       } else {
+        // Handle errors (unchanged)
         if (response.status === 401) {
-          setInvalidPassword(true); // Set invalidPassword to true if the password is invalid
+          setInvalidPassword(true);
         } else {
           setErrMsg({ status: "failed", message: result.message });
-          setLoginError(true); // Set loginError to true for other login errors
+          setLoginError(true);
         }
       }
     } catch (error) {
