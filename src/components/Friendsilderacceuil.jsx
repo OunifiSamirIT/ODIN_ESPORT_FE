@@ -87,37 +87,52 @@ function FriendsSlider() {
     const fetchUsers = async () => {
       try {
         const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        // if (!storedUserData || !storedUserData.token) {
+        //   throw new Error("No token found in storage");
+        // }
+
         const tokenn = storedUserData.token;
-        const decryptedtoken = decryptString(tokenn, process.env.REACT_APP_ENCRYPTION_SECRET);
-    
-        console.log("Decrypted Token: ", decryptedtoken); // Debugging log
-    
+        // const decryptedToken = decryptString(
+        //   tokenn,
+        //   process.env.REACT_APP_ENCRYPTION_SECRET
+        // );
+
+        // if (!decryptedToken) {
+        //   throw new Error("Failed to decrypt token");
+        // }
+
+        console.log("Decrypted Token: ", tokenn);
+
         const response = await fetch(`${Config.LOCAL_URL}/api/user`, {
           method: "GET",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${decryptedtoken}`,
+            Authorization: `Bearer ${tokenn}`,
           },
         });
-    
+
+        if (response.status === 403) {
+          console.error("Forbidden: You do not have access.");
+          return;
+        }
+
         if (response.status === 401) {
           console.error("Unauthorized: Please log in again.");
           return;
         }
-    
+
         if (!response.ok) {
           throw new Error("Failed to fetch users");
         }
-    
+
         const data = await response.json();
-        console.log("Fetched Users: ", data); // Debugging log
-        // Continue with your logic...
+        console.log("Fetched Users: ", data);
       } catch (error) {
         console.error("Error fetching users:", error.message);
       }
     };
-    
+
     fetchUsers();
   }, []);
 
