@@ -6,7 +6,7 @@ import LanguageToggler from "../fixDesignComponents/languageToggler";
 import { Context } from "../index";
 import gsap from "gsap";
 import secureLocalStorage from "react-secure-storage";
-
+import CryptoJS from "crypto-js";
 const SlideMenu = ({
   setMobileNotificationPopUpContainer,
   isActive,
@@ -21,12 +21,36 @@ const SlideMenu = ({
 }) => {
   const [lang, setLang] = useState("Français");
   const [user, setUser] = useState({});
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const decryptString = (encryptedText, secret) => {
+    try {
+      const ciphertext = CryptoJS.enc.Hex.parse(encryptedText);
+      const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000"); // Assurez-vous que cela correspond à l'IV utilisé côté serveur
+      const decrypted = CryptoJS.AES.decrypt(
+        { ciphertext: ciphertext },
+        CryptoJS.enc.Hex.parse(secret),
+        { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
+      );
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+      console.error("Decryption error:", error);
+      return null;
+    }
+  };
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const idd = storedUserData.id;
+  const decryptedId = decryptString(
+    idd,
+    process.env.REACT_APP_ENCRYPTION_SECRET
+  );
+  console.log(storedUserData, "User data______________");
+
+  const id = decryptedId ? decryptedId : null;
+  console.log(id, "alooo id 2222");
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
+    fetch(`${Config.LOCAL_URL}/api/user/${id}`)
       .then((response) => response.json())
       .then((userData) => {
         console.log(user);

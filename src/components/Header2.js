@@ -34,7 +34,7 @@ import Sun from "../assets/sun.png";
 import Moon from "../assets/moon.png";
 import Horizontal from "./HomePage/HorizontalNavigation";
 import secureLocalStorage from "react-secure-storage";
-
+import CryptoJS from "crypto-js";
 function Header() {
   let { handleDarkModeToggler } = React.useContext(Context);
   let [popupNotificationIsHidden, setPopupNotificationHidden] = useState(true);
@@ -458,8 +458,30 @@ function Header() {
       showMenu: !prevState.showMenu,
     }));
   };
+  const decryptString = (encryptedText, secret) => {
+    try {
+      const ciphertext = CryptoJS.enc.Hex.parse(encryptedText);
+      const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000"); // Assurez-vous que cela correspond à l'IV utilisé côté serveur
+      const decrypted = CryptoJS.AES.decrypt(
+        { ciphertext: ciphertext },
+        CryptoJS.enc.Hex.parse(secret),
+        { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
+      );
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+      console.error("Decryption error:", error);
+      return null;
+    }
+  };
   // Fetch user information based on the id from localStorage
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const idd = storedUserData.id;
+  const decryptedId = decryptString(
+    idd,
+    process.env.REACT_APP_ENCRYPTION_SECRET
+  );
+  console.log(storedUserData, "User data______________");
+  const id = decryptedId ? decryptedId : null;
   const [isOpen, setIsOpen] = useState(null);
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState(null);
@@ -478,7 +500,7 @@ function Header() {
 
   useEffect(() => {
     // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
+    fetch(`${Config.LOCAL_URL}/api/user/${id}`)
       .then((response) => response.json())
       .then((userData) => {
         setUser(userData);
@@ -508,15 +530,14 @@ function Header() {
   const handleSearch = (event) => {
     const searchString = event.target.value.toLowerCase();
     setSearchTerm(searchString);
-    if (searchString.trim() === "" ) {
+    if (searchString.trim() === "") {
       setSearchResults([]);
     } else {
       if (!"ODIN ESPORT".toLowerCase().includes(searchString)) {
-
         const filteredTargets = search
           .filter((item) => item.titre.toLowerCase().includes(searchString))
           .map((target) => ({ ...target, origin: "Page" }));
-  
+
         const filteredUsers = users
           .filter((user) => {
             const fullName =
@@ -524,10 +545,10 @@ function Header() {
             return fullName.includes(searchString);
           })
           .map((user) => ({ ...user.user, origin: "Personne" }));
-  
+
         setSearchResults([...filteredTargets, ...filteredUsers]);
       }
-      }
+    }
   };
 
   const toggleActive = () => setIsOpen(!isActive);
@@ -543,7 +564,6 @@ function Header() {
 
   // const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
 
-  const id = storedUserData.id ? storedUserData.id : null;
   const userProfileType = storedUserData ? storedUserData.profil : null;
 
   const shouldHideForProfiles = ["other", "player"];

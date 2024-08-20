@@ -8,6 +8,7 @@ import { Context } from "../index";
 import { io } from "socket.io-client";
 import NotificationService from "../api/notification.server";
 import secureLocalStorage from "react-secure-storage";
+import CryptoJS from "crypto-js";
 function Friends() {
   //initialize socket
 
@@ -30,7 +31,31 @@ function Friends() {
   };
   // const [friendRequests, setFriendRequests] = useState(null);
   const [userpf, setUserpf] = useState(null);
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const decryptString = (encryptedText, secret) => {
+    try {
+      const ciphertext = CryptoJS.enc.Hex.parse(encryptedText);
+      const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000"); // Assurez-vous que cela correspond à l'IV utilisé côté serveur
+      const decrypted = CryptoJS.AES.decrypt(
+        { ciphertext: ciphertext },
+        CryptoJS.enc.Hex.parse(secret),
+        { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
+      );
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+      console.error("Decryption error:", error);
+      return null;
+    }
+  };
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const idd = storedUserData.id;
+  const decryptedId = decryptString(
+    idd,
+    process.env.REACT_APP_ENCRYPTION_SECRET
+  );
+  console.log(storedUserData, "User data______________");
+
+  const id = decryptedId ? decryptedId : null;
+  console.log(id, "alooo id 2222");
   const [friendRequests, setFriendRequests] = useState([]);
   const {
     _currentLang,
@@ -43,7 +68,7 @@ function Friends() {
 
   const acceptInvitation = async (id) => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${storedUserData.id}/acceptFriend/${id}`,
+      `${Config.LOCAL_URL}/api/user/${id}/acceptFriend/${id}`,
       {
         method: "PUT",
       }
