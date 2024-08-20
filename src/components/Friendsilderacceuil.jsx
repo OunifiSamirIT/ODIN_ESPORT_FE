@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { Config } from "../config";
 import { Context } from "../index";
 import secureLocalStorage from "react-secure-storage";
+import CryptoJS from "crypto-js";
 
 function FriendsSlider() {
   const {
@@ -20,56 +21,103 @@ function FriendsSlider() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const sliderRef = useRef();
-
+  const decryptString = (encryptedText, secret) => {
+    try {
+      const ciphertext = CryptoJS.enc.Hex.parse(encryptedText);
+      const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000"); // Assurez-vous que cela correspond à l'IV utilisé côté serveur
+      const decrypted = CryptoJS.AES.decrypt(
+        { ciphertext: ciphertext },
+        CryptoJS.enc.Hex.parse(secret),
+        { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
+      );
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+      console.error("Decryption error:", error);
+      return null;
+    }
+  };
   useEffect(() => {
+    // const fetchUsers = async () => {
+    //   try {
+    //     const token1 = secureLocalStorage.getItem("cryptedUser");
+    //     if (!token1) {
+    //       throw new Error("Token not found in storage.");
+    //     }
+
+    //     const parsedToken1 = JSON.parse(token1);
+    //     const token2 = parsedToken1?.token;
+
+    //     if (!token2) {
+    //       throw new Error("No token provided!");
+    //     }
+
+    //     const response = await fetch(`${Config.LOCAL_URL}/api/user`, {
+    //       method: "GET",
+    //       credentials: "include",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `Bearer ${token2}`,
+    //       },
+    //     });
+
+    //     if (response.status === 401) {
+    //       console.error("Unauthorized: Please log in again.");
+    //       window.location.href = "/login";
+    //       return;
+    //     }
+
+    //     if (!response.ok) {
+    //       throw new Error("Failed to fetch users");
+    //     }
+
+    //     const data = await response.json();
+    //     const storedUserData = JSON.parse(
+    //       secureLocalStorage.getItem("cryptedUser")
+    //     );
+    //     const id = storedUserData ? storedUserData.id : null;
+    //     const filteredData = data?.filter((agent) => agent?.user?.id !== id);
+    //     console.log(data, "filteredData");
+    //     setAgents(filteredData);
+    //     setLoading(false);
+    //   } catch (error) {
+    //     setError(error.message);
+    //     setLoading(false);
+    //   }
+    // };
     const fetchUsers = async () => {
       try {
-        const token1 = secureLocalStorage.getItem("cryptedUser");
-        if (!token1) {
-          throw new Error("Token not found in storage.");
-        }
-
-        const parsedToken1 = JSON.parse(token1);
-        const token2 = parsedToken1?.token;
-
-        if (!token2) {
-          throw new Error("No token provided!");
-        }
-
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData.token;
+        const decryptedtoken = decryptString(tokenn, process.env.REACT_APP_ENCRYPTION_SECRET);
+    
+        console.log("Decrypted Token: ", decryptedtoken); // Debugging log
+    
         const response = await fetch(`${Config.LOCAL_URL}/api/user`, {
           method: "GET",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token2}`,
+            Authorization: `Bearer ${decryptedtoken}`,
           },
         });
-
+    
         if (response.status === 401) {
           console.error("Unauthorized: Please log in again.");
-          window.location.href = "/login";
           return;
         }
-
+    
         if (!response.ok) {
           throw new Error("Failed to fetch users");
         }
-
+    
         const data = await response.json();
-        const storedUserData = JSON.parse(
-          secureLocalStorage.getItem("cryptedUser")
-        );
-        const id = storedUserData ? storedUserData.id : null;
-        const filteredData = data?.filter((agent) => agent?.user?.id !== id);
-        console.log(data, "filteredData");
-        setAgents(filteredData);
-        setLoading(false);
+        console.log("Fetched Users: ", data); // Debugging log
+        // Continue with your logic...
       } catch (error) {
-        setError(error.message);
-        setLoading(false);
+        console.error("Error fetching users:", error.message);
       }
     };
-
+    
     fetchUsers();
   }, []);
 

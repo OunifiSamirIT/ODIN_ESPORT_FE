@@ -79,6 +79,8 @@ import SkeletonArticleCard from "../pages/HomePage/HomeSkeletonPost";
 import EditPost from "../pages/EditPost";
 import { Context } from "../index";
 import secureLocalStorage from "react-secure-storage";
+import CryptoJS from "crypto-js";
+
 function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const {
     register,
@@ -303,7 +305,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
   const [likesData, setLikesData] = useState(null); // State to store likes data
   const [likesDataComment, setLikesDataComment] = useState(null); // State to store likes data
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   //   const fetchLikesForArticle = async (articleId) => {
   //     const userId = storedUserData.id ? storedUserData.id : null;
@@ -1043,8 +1044,30 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       setShowDropdown(null);
     }
   };
+  const decryptString = (encryptedText, secret) => {
+    try {
+      const ciphertext = CryptoJS.enc.Hex.parse(encryptedText);
+      const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000"); // Assurez-vous que cela correspond à l'IV utilisé côté serveur
+      const decrypted = CryptoJS.AES.decrypt(
+        { ciphertext: ciphertext },
+        CryptoJS.enc.Hex.parse(secret),
+        { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
+      );
+      return decrypted.toString(CryptoJS.enc.Utf8);
+    } catch (error) {
+      console.error("Decryption error:", error);
+      return null;
+    }
+  };
+  // Fetch user information based on the id from localStorage
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const idd = storedUserData.id;
+  const decryptedId = decryptString(
+    idd,
+    process.env.REACT_APP_ENCRYPTION_SECRET
+  );
 
-  const id = storedUserData.id ? storedUserData.id : null;
+  const id = decryptedId ? decryptedId : null;
 
   const userProfileType = storedUserData ? storedUserData.profil : null;
 
@@ -1411,10 +1434,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   }, [article.sharedFrom]);
   const displayArticle = originalArticle || article;
-  console.log(
-    "🚀 -----------------------~ Post ~ displayArticle:",
-    displayArticle
-  );
+ 
 
   // const handlePostSubmitPartage = async (data) => {
   //   try {
