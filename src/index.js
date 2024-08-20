@@ -373,10 +373,7 @@ function Root() {
   // end ________________________dark mode methods and state
   useEffect(() => {
     // Check if there's a valid token in localStorage
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    
 
     // start ________________________initialize translation
 
