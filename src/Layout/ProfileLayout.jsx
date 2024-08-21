@@ -73,29 +73,17 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const navigate = useNavigate()
     const userInfo = async () => {
         try {
-          const token1 = secureLocalStorage.getItem("cryptedUser");
-          if (!token1) {
-            throw new Error("Token not found in storage.");
-          }
+            const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+            const tokenn = storedUserData.token;
+    
+        const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
       
-          const parsedToken1 = JSON.parse(token1);
-          const id = parsedToken1?.id;
-          const token2 = parsedToken1?.token;
-      
-          if (!id) {
-            throw new Error("No user ID provided!");
-          }
-      
-          if (!token2) {
-            throw new Error("No token provided!");
-          }
-      
-          const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+          const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDataID.id}`, {
             method: "GET",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token2}`,
+              Authorization: `Bearer ${tokenn}`,
             },
           });
       
