@@ -22,18 +22,12 @@ const Horizontal = ({ className }) => {
       return null;
     }
   };
-  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-  const idd = storedUserData.id;
-  const decryptedId = decryptString(
-    idd,
-    process.env.REACT_APP_ENCRYPTION_SECRET
-  );
-  console.log(storedUserData, "User data______________");
-
-  const id = decryptedId ? decryptedId : null;
-  console.log(id, "alooo id 2222");
+  const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const id = storedUserDatad ? storedUserDatad.id : null;
+  // const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  // const tokenn = storedUserData.token;
   console.log("this is location", location);
-  const userProfileType = storedUserData ? storedUserData.profil : null;
+  const userProfileType = storedUserDatad ? storedUserDatad.profil : null;
   const shouldHideForProfiles = ["other", "player"];
   const shouldShowAgentItem = ["player"].includes(userProfileType);
   const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);

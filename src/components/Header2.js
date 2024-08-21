@@ -522,10 +522,8 @@
 //     const fetchUsers = async () => {
 //       try {
 //         const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-        
 
 //         const tokenn = storedUserData.token;
-       
 
 //         console.log("Decrypted Token: ", tokenn);
 
@@ -812,8 +810,7 @@
 //                               </div>
 //                               {/* <div className="flex text-gray-400 text-xs pt-1 ">
 //                          {item.titre || item?.profil == 'other' ? item?.other?.profession : ''}
-                         
-                         
+
 //                          </div> */}
 //                             </a>
 //                           </li>
@@ -831,7 +828,7 @@
 //               <LanguageToggler isIcon={true} hide={true} color={true} />
 //             </span>
 
-//             {/* <span style={{ 
+//             {/* <span style={{
 //   marginRight: 40
 // }}>
 //   <div onClick={handleDarkModeToggler} className="darkModeSwitcher  flex w-8 h-8 bg-[#2E71EB] cursor-pointer rounded-full justify-center items-center -ml-4">
@@ -1793,8 +1790,11 @@ function Header() {
     }));
   };
   // Fetch user information based on the id from localStorage
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-  console.log("qqqqqqqqqqqqq", storedUserData)
+  const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData.token;
+  console.log("qqqqqqqqqqqqq", storedUserData);
   const [isOpen, setIsOpen] = useState(null);
   const [user, setUser] = useState(null);
   const [users, setUsers] = useState(null);
@@ -1813,23 +1813,22 @@ function Header() {
 
   useEffect(() => {
     const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-        const tokenn = storedUserData.token;
+    const tokenn = storedUserData.token;
 
-    const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-        
-
-    console.log("eeeeeeeeeeeee", tokenn)
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserDatad ? storedUserDatad.id : null;
+    console.log("eeeeeeeeeeeee", tokenn);
     // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`${Config.LOCAL_URL}/api/user/${storedUserDataID.id}`, {
+    fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
       method: "GET",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${tokenn}`,
       },
-    }
-    )
-
+    })
       .then((response) => response.json())
       .then((userData) => {
         setUser(userData);
@@ -1847,19 +1846,20 @@ function Header() {
       .catch((error) => console.error("Error fetching data:", error));
 
     // Fetch users
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserDatad ? storedUserDatad.id : null;
     const storedUserData = JSON.parse(localStorage.getItem("Secret"));
     const tokenn = storedUserData.token;
-
-    fetch(`${Config.LOCAL_URL}/api/user`
-    , {
+    fetch(`${Config.LOCAL_URL}/api/user`, {
       method: "GET",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${tokenn}`,
       },
-    }
-    )
+    })
       .then((response) => response.json())
       .then((userData) => {
         setUsers(userData);
