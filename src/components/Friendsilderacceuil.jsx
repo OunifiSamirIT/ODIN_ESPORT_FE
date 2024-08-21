@@ -87,19 +87,10 @@ function FriendsSlider() {
     const fetchUsers = async () => {
       try {
         const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-        // if (!storedUserData || !storedUserData.token) {
-        //   throw new Error("No token found in storage");
-        // }
+        
 
         const tokenn = storedUserData.token;
-        // const decryptedToken = decryptString(
-        //   tokenn,
-        //   process.env.REACT_APP_ENCRYPTION_SECRET
-        // );
-
-        // if (!decryptedToken) {
-        //   throw new Error("Failed to decrypt token");
-        // }
+       
 
         console.log("Decrypted Token: ", tokenn);
 

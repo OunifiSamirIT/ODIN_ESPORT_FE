@@ -307,7 +307,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const [likesDataComment, setLikesDataComment] = useState(null); // State to store likes data
 
   //   const fetchLikesForArticle = async (articleId) => {
-  //     const userId = storedUserData.id ? storedUserData.id : null;
+  //     const userId = storedUserData?.id ? storedUserData?.id : null;
 
   //     try {
   //         const response = await fetch(
@@ -327,7 +327,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   //     }
   // };
   const fetchLikesForArticle = async (articleId) => {
-    const userId = storedUserData.id ? storedUserData.id : null;
+    const userId = storedUserData?.id ? storedUserData?.id : null;
 
     try {
       const response = await fetch(
@@ -356,7 +356,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   };
 
   const fetchLikesForComment = async (commentId) => {
-    const userId = storedUserData.id ? storedUserData.id : null;
+    const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+
+    const userId = storedUserDataID?.id ? storedUserDataID?.id : null;
 
     try {
       const response = await fetch(
@@ -384,6 +386,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   };
   const handleLikeClick = async (articleId, emoji) => {
+    const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+
     try {
       const response = await fetch(
         `${Config.LOCAL_URL}/api/likes/article/${articleId}`,
@@ -393,7 +397,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: storedUserData.id,
+            userId: storedUserDataID?.id,
             articleId: articleId,
             emoji: emoji,
           }),
@@ -438,6 +442,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   };
 
   const handleLikeComment = async (commentId) => {
+    const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+
     try {
       const response = await fetch(
         `${Config.LOCAL_URL}/api/likes/comment/${commentId}`,
@@ -447,7 +453,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: storedUserData.id,
+            userId: storedUserDataID?.id,
             commentId: commentId,
             emoji: 1,
           }),
@@ -496,80 +502,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   };
 
-  // const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-
-  // const fetchArticles = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await fetch(`${Config.LOCAL_URL}/api/articles`);
-  //     const result = await response.json();
-  //     console.log(response, "arttttt")
-  //     const articlesWithPromises = result.rows.map(async (article) => {
-  //       const userId = article.userId;
-  //       const comt = article.id;
-  //       const rep = article.commentaire[0]
-  //       console.log(rep, "ssssssssssssssssssssssss")
-
-  //       const [userDataResponse, commentsResponse, likesCountResponse, replyresponse, likesCountResponseReply] =
-  //         await Promise.all([
-  //           fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
-  //             res.json()
-  //           ),
-  //           fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
-  //             (res) => res.json()
-  //           ),
-  //           fetch(`${Config.LOCAL_URL}/api/likes/article/allLikes`).then(
-  //             (res) => res.json()
-  //           ),
-  //           fetch(`${Config.LOCAL_URL}/api/replies/${rep}`).then(
-  //             (res) => res.json()
-  //           ),
-  //           fetch(`${Config.LOCAL_URL}/api/likes/comment/allLikes`).then(
-  //             (res) => res.json()
-  //           ),
-  //         ]);
-
-  //       const likesCount = likesCountResponse.find(
-  //         (count) =>
-  //           count.articleId === article.articleId ||
-  //           count.articleId === article.id
-  //       );
-  //       const likesCountreplys = likesCountResponseReply.find(
-  //         (count) =>
-  //           count.commentId === article.comments.comm_id ||
-  //           count.commentId === comments.comm_id
-  //       );
-  //       return {
-  //         ...article,
-  //         user: userDataResponse,
-  //         comments: commentsResponse.commentsData,
-  //         commentsCount: commentsResponse.commentCount,
-  //         likesCount: likesCount ? likesCount.likesCount : 0,
-  //         replys: replyresponse.replysData,
-  //         likecomentcount: likesCountreplys ? likesCountreplys.likecomentcount : 0,
-  //       };
-  //     });
-
-  //     let newArticles = await Promise.all(articlesWithPromises);
-  //     newArticles = newArticles.reverse(); // Reverse the order of all articles
-  //     const initialArticles = newArticles.slice(0, 50); // Get the first 10 articles
-  //     console.log("🚀 ~ fetchArticles ~ initialArticles:--------------", initialArticles);
-  //     setArticles(initialArticles);
-  //     setTotalItems(result.totalItems);
-  //     setTotalPages(result.totalPages);
-
-  //     // Load the remaining articles after initial set is loaded
-  //     const remainingArticles = newArticles.slice(50);
-  //     if (remainingArticles.length > 0) {
-  //       await loadRemainingArticles(remainingArticles.reverse()); // Reverse the order of remaining articles
-  //     }
-  //   } catch (error) {
-
-  //   } finally {
-  //     setLoading(false);
-  //   }
-
-  // };
+ 
 
   const loadRemainingArticles = (remainingArticles) => {
     setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
@@ -590,7 +523,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   };
   const handlePostSubmit = async (data) => {
     try {
-      if (!storedUserData.id) {
+      if (!storedUserData?.id) {
         // Handle validation errors or missing user data
         return;
       }
@@ -598,7 +531,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       const formData = new FormData();
       formData.append("titre", "Your default title");
       formData.append("description", data.description);
-      formData.append("userId", storedUserData.id);
+      formData.append("userId", storedUserData?.id);
       formData.append("type", "Your default type");
       formData.append("file", file);
       formData.append("fileType", fileType);
@@ -667,23 +600,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
       const commentsWithUserData = await Promise.all(
         commentsWithLikes.map(async (comment) => {
-          const token = secureLocalStorage.getItem("cryptedUser");
-          if (!token) {
-            throw new Error("Token not found in storage.");
-          }
-      
-          const parsedToken = JSON.parse(token);
-          const token2 = parsedToken?.token;
-      
-          if (!token2) {
-            throw new Error("No token provided!");
-          }
+          const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+          const tokenn = storedUserData.token;
+
+          const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+
       
           const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${comment.userId}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token2}`,
+              Authorization: `Bearer ${tokenn}`,
             },
           });
           const userData = await userResponse.json();
@@ -715,10 +642,21 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       );
       const repliesData = await repliesResponse.json();
 
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData.token;
+      
       const repliesWithUserData = await Promise.all(
         repliesData.map(async (reply) => {
           const userResponse = await fetch(
             `${Config.LOCAL_URL}/api/user/${reply.userId}`
+            , {
+              method: "GET",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+              },
+            }
           );
           const userData = await userResponse.json();
           console.log("replyyyyyyyyyyyy", userData);
@@ -741,7 +679,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
   // useEffect(() => {
   //   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-  //   const id = storedUserData ? storedUserData.id : null;
+  //   const id = storedUserData ? storedUserData?.id : null;
 
   //   if (id) {
   //     fetch(`${Config.LOCAL_URL}/api/user/${id}`)
@@ -757,34 +695,25 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   //   // fetchArticles();
   //   // fetchAlbums();
   // }, []);
+ 
+ 
   useEffect(() => {
     async function fetchData() {
       try {
-        const token1 = secureLocalStorage.getItem("cryptedUser");
-        if (!token1) {
-          throw new Error("Token not found in storage.");
-        }
-  
-        const parsedToken1 = JSON.parse(token1);
-        const id = parsedToken1?.id;
-          console.log("66666666666666666666666666", id)
-        if (!id) {
-          throw new Error("No user ID provided!");
-        }
-  
-        const token2 = parsedToken1?.token;
-  
-        if (!token2) {
-          throw new Error("No token provided!");
-        }
-  
+   
+        // Fetch user information based on the id from localStorage
+        const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+        const id = storedUserDatad?.id;
+       
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData.token;
         if (id) {
           const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
             method: "GET",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token2}`,
+              Authorization: `Bearer ${tokenn}`,
             },
           });
   
@@ -1061,7 +990,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   };
   // Fetch user information based on the id from localStorage
   const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-  const idd = storedUserData.id;
+  const idd = storedUserData?.id;
   const decryptedId = decryptString(
     idd,
     process.env.REACT_APP_ENCRYPTION_SECRET
@@ -1347,14 +1276,25 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       const articlesWithPromises = result.rows.map(async (article) => {
         const userId = article.userId;
         const comt = article.id;
-
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData.token;
         const [
           userDataResponse,
           commentsResponse,
           likesCountResponse,
           shareCountResponse,
         ] = await Promise.all([
-          fetch(`${Config.LOCAL_URL}/api/user/${userId}`).then((res) =>
+          fetch(`${Config.LOCAL_URL}/api/user/${userId}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
+
+
+          ).then((res) =>
             res.json()
           ),
           fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
@@ -1442,7 +1382,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
   //     const formData = new FormData();
   //     formData.append("description", data.description || ""); // Append empty string if description is null
-  //     formData.append("userId", storedUserData.id);
+  //     formData.append("userId", storedUserData?.id);
 
   //     // Determine the original article to be shared
   //     if(originalArticle){
@@ -1467,13 +1407,13 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const handlePostSubmitPartage = async (data) => {
     const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
-    const id = storedUserData.id ? storedUserData.id : null;
+    const id = storedUserData?.id ? storedUserData?.id : null;
     try {
       setPosting(true);
 
       const formData = new FormData();
       formData.append("description", data.description || "");
-      formData.append("userId", storedUserData.id);
+      formData.append("userId", storedUserData?.id);
 
       if (originalArticle) {
         formData.append("sharedFrom", originalArticle.id);
@@ -1687,7 +1627,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       : moment(article?.createdAt).fromNow()}
                   </span>
                 </h4>
-                {storedUserData.id == article?.user?.user?.id && (
+                {storedUserData?.id == article?.user?.user?.id && (
                   <div
                     className="  ms-auto relative cursor-pointer"
                     onClick={() => handleMoreClick(article)}
@@ -1715,7 +1655,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
                     {showDropdown === article.id &&
                       article?.user?.user &&
-                      article?.user?.user?.id === storedUserData.id && (
+                      article?.user?.user?.id === storedUserData?.id && (
                         <div className="  absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                           <button
                             className="  block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
@@ -2383,7 +2323,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     <span className="  flex items-center flex-col md:flex-row gap-2 ">
                       {likesData &&
                       likesData.some(
-                        (like) => like.userId === storedUserData.id
+                        (like) => like.userId === storedUserData?.id
                       ) ? (
                         <span className="  flex flex-row">
                           {" "}
@@ -2551,9 +2491,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       to={`/profile/${comment?.user?.user?.id}`}
                                     >
                                       <div className="  fw-700 font-xssss mt-1">
-                                        {comment.user && comment.user.user.nom}{" "}
-                                        {comment.user &&
-                                          comment.user.user.prenom}
+                                        {comment?.user && comment?.user?.user?.nom}{" "}
+                                        {comment?.user &&
+                                          comment?.user?.user?.prenom}
                                       </div>{" "}
                                     </Link>
                                     <div className="  mt-1 text-xs">
@@ -2597,7 +2537,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     </div>
                                   </div>
 
-                                  {storedUserData.id ==
+                                  {storedUserData?.id ==
                                     comment?.user?.user?.id && (
                                     <div
                                       className="   relative cursor-pointer"
@@ -2629,7 +2569,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       {showDropdownComment === comment?.id &&
                                         comment?.user?.user &&
                                         comment?.user?.user?.id ===
-                                          storedUserData.id && (
+                                          storedUserData?.id && (
                                           <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                             <button
                                               className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
@@ -2773,7 +2713,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       {likesDataComment &&
                                         (likesDataComment.some(
                                           (like) =>
-                                            like.userId === storedUserData.id &&
+                                            like.userId === storedUserData?.id &&
                                             like.commentId === comment.id
                                         ) ? (
                                           <span className="  flex flex-row">
@@ -2907,7 +2847,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   ).fromNow()}
                                             </div>
                                           </div>
-                                          {storedUserData.id ==
+                                          {storedUserData?.id ==
                                             reply?.user?.user?.id && (
                                             <div
                                               className="  ms-auto relative cursor-pointer"
@@ -2939,7 +2879,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               {showDropdownReply === reply.id &&
                                                 reply?.user?.user &&
                                                 reply?.user?.user?.id ===
-                                                  storedUserData.id && (
+                                                  storedUserData?.id && (
                                                   <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                     <button
                                                       className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
@@ -3394,7 +3334,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </span>
                         </h4>
 
-                        {storedUserData.id == article?.user?.user?.id && (
+                        {storedUserData?.id == article?.user?.user?.id && (
                           <div
                             className="  ms-auto relative cursor-pointer"
                             onClick={() => handleMoreClick(article)}
@@ -3422,7 +3362,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
                             {showDropdown === article.id &&
                               article?.user?.user &&
-                              article?.user?.user?.id === storedUserData.id && (
+                              article?.user?.user?.id === storedUserData?.id && (
                                 <div className="  absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                   <button
                                     className="  block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
@@ -3638,7 +3578,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           <span className="  flex items-center flex-col md:flex-row gap-2 ">
                             {likesData &&
                             likesData.some(
-                              (like) => like.userId === storedUserData.id
+                              (like) => like.userId === storedUserData?.id
                             ) ? (
                               <span className="  flex flex-row">
                                 {" "}
@@ -3857,7 +3797,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           </div>
                                         </div>
 
-                                        {storedUserData.id ==
+                                        {storedUserData?.id ==
                                           comment?.user?.user?.id && (
                                           <div
                                             className="   relative cursor-pointer"
@@ -3890,7 +3830,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               comment?.id &&
                                               comment?.user?.user &&
                                               comment?.user?.user?.id ===
-                                                storedUserData.id && (
+                                                storedUserData?.id && (
                                                 <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                   <button
                                                     className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
@@ -4046,7 +3986,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               (likesDataComment.some(
                                                 (like) =>
                                                   like.userId ===
-                                                    storedUserData.id &&
+                                                    storedUserData?.id &&
                                                   like.commentId === comment.id
                                               ) ? (
                                                 <span className="  flex flex-row">
@@ -4210,7 +4150,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                           ).fromNow()}
                                                     </div>
                                                   </div>
-                                                  {storedUserData.id ==
+                                                  {storedUserData?.id ==
                                                     reply?.user?.user?.id && (
                                                     <div
                                                       className="  ms-auto relative cursor-pointer"
@@ -4246,7 +4186,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                         reply?.user?.user &&
                                                         reply?.user?.user
                                                           ?.id ===
-                                                          storedUserData.id && (
+                                                          storedUserData?.id && (
                                                           <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                             <button
                                                               className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"

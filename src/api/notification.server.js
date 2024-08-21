@@ -10,7 +10,7 @@ class NotificationService {
     let { id, username } = user ? user : { id: "", username: "" };
 
     console.log("instantSave id", id);
-    let userData = await UserServer.fetchUserById(id);
+    let userData = await UserServer.fetchUserById(user.id);
     let fullUserName = userData?.user?.nom + " " + userData?.user?.prenom;
     let userImage = userData?.user?.image;
 

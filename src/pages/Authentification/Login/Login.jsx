@@ -52,6 +52,8 @@ function Login({ setAuthStatus }) {
     }
   };
 
+
+   
   const onSubmit = async (data) => {
     try {
       setIsSubmitting(true);
@@ -74,7 +76,13 @@ function Login({ setAuthStatus }) {
         // Decrypt the ID
         const encryptedId = result.id;
         const encryptedEmail = result.email;
-        console.log("Encrypted ID:", encryptedId);
+        const encryptedimage = result.image;
+        const encryptedlogin = result.login;
+        const encryptedprofil = result.profil;
+        const encryptedroles = result.roles[0];
+        const encryptedtoken = result.token;
+        const encryptedusername = result.username;
+        
         // const encryptionSecret = process.env.REACT_APP_ENCRYPTION_SECRET;
         const decryptedId = decryptString(
           encryptedId,
@@ -84,7 +92,48 @@ function Login({ setAuthStatus }) {
           encryptedEmail,
           process.env.REACT_APP_ENCRYPTION_SECRET
         );
+
+        const decryptedlogin = decryptString(
+          encryptedlogin,
+          process.env.REACT_APP_ENCRYPTION_SECRET
+        );
+        const decryptedprofil = decryptString(
+          encryptedprofil,
+          process.env.REACT_APP_ENCRYPTION_SECRET
+        );
+
+        const decryptedimage = decryptString(
+          encryptedimage,
+          process.env.REACT_APP_ENCRYPTION_SECRET
+        );
+        const decryptedTokenn = decryptString(
+          encryptedtoken,
+          process.env.REACT_APP_ENCRYPTION_SECRET
+        );
+
+        const decryptedrole = decryptString(
+          encryptedroles,
+          process.env.REACT_APP_ENCRYPTION_SECRET
+        );
+        const decryptedusername = decryptString(
+          encryptedusername,
+          process.env.REACT_APP_ENCRYPTION_SECRET
+        );
+        
         console.log("Encrypted Email:", decryptedEmail);
+
+        const Alldata ={"id":decryptedId,"username":decryptedusername,"email":decryptedEmail,
+        "login":decryptedlogin,"profil":decryptedprofil,"image":decryptedimage,"roles":decryptedrole,"token":decryptedTokenn}
+        secureLocalStorage.setItem("cryptedUser", JSON.stringify(Alldata));
+        console.log("cryptedUser", secureLocalStorage.getItem("cryptedUser"));
+        
+
+
+        console.log("Encrypted AlldataAlldataAlldataAlldata:", Alldata);
+
+
+
+
 
         if (decryptedId) {
           console.log("Decrypted ID:", decryptedId);
