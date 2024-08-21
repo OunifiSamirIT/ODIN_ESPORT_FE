@@ -10,26 +10,52 @@ function FriendsSlider() {
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg } = React.useContext(Context);
+  const {
+    _currentLang,
+    _setLang,
+    getTranslation,
+    dark_light_bg,
+    dark_fill_svg,
+    dark_img,
+    dark_bg,
+  } = React.useContext(Context);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user`);
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData?.token;
+
+        const response = await fetch(`${Config.LOCAL_URL}/api/user`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
+
+        if (response.status === 403) {
+          console.error("Forbidden: You do not have access.");
+          return;
+        }
+
+        if (response.status === 401) {
+          console.error("Unauthorized: Please log in again.");
+          return;
+        }
 
         if (!response.ok) {
-          throw new Error("Failed to fetch users error");
+          throw new Error("Failed to fetch users");
         }
+
         const data = await response.json();
-        const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-        const id = storedUserData ? storedUserData.id : null;
-
-        // Filtrez les utilisateurs pour exclure l'utilisateur connecté
-        const filteredData = data.filter((agent) => agent?.user?.id !== id);
-
-        setAgents(filteredData);
+        setAgents(data);
         setLoading(false);
+
+        console.log("Fetched Users: ", data);
       } catch (error) {
+        console.error("Error fetching users:", error.message);
         setError(error.message);
         setLoading(false);
       }
@@ -67,9 +93,10 @@ function FriendsSlider() {
   };
 
   return (
-    <div 
-    style={dark_light_bg}
-    className="flex flex-col mt-1 w-full rounded-md shadow-sm">
+    <div
+      style={dark_light_bg}
+      className="flex flex-col mt-1 w-full rounded-md shadow-sm"
+    >
       {/* <div className="flex gap-2 justify-between px-6 pt-4 max-md:px-5">
                 <div className="text-lg font-bold text-zinc-900">
                     Personnes que
@@ -79,9 +106,7 @@ function FriendsSlider() {
               
             </div> */}
       <div className="flex justify-between items-center px-6 pt-3 max-md:px-5">
-        <div 
-    style={dark_light_bg}
-    className="text-lg font-bold">
+        <div style={dark_light_bg} className="text-lg font-bold">
           {getTranslation(
             ` People you might know`, // -----> Englais
             `Personnes que vous pourriez connaître` //  -----> Francais
@@ -95,12 +120,14 @@ function FriendsSlider() {
         <Slider ref={sliderRef} style={{ width: "93%" }} {...friendSettings}>
           {agents.map((value, index) => (
             <div
-    style={dark_bg}
-
+              style={dark_bg}
               key={index}
               className="card w150 d-block border-0  rounded-3 overflow-hidden mb-3 me-3 "
             >
-              <div style={dark_bg} className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center">
+              <div
+                style={dark_bg}
+                className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center"
+              >
                 <Link to={`/profile/${value?.user?.id}`}>
                   <figure className="avatar mb-1  d-flex justify-content-center align-items-center">
                     <img
@@ -110,7 +137,10 @@ function FriendsSlider() {
                     />
                   </figure>
                 </Link>
-                <h4 style={dark_bg} className="fw-700 font-xssss mt-3 mb-1 d-block w-100">
+                <h4
+                  style={dark_bg}
+                  className="fw-700 font-xssss mt-3 mb-1 d-block w-100"
+                >
                   {" "}
                   {value?.user?.nom} {value?.user?.prenom}{" "}
                 </h4>
