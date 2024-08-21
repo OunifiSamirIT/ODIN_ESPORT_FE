@@ -576,51 +576,118 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   };
 
+  // const fetchCommentsForArticle = async (articleId) => {
+  //   try {
+  //     const commentsResponse = await fetch(
+  //       `${Config.LOCAL_URL}/api/commentaires/?articleId=${articleId}`
+  //     );
+  //     const commentsData = await commentsResponse.json();
+  //          console.log("commentaire dataaaaaaaaaaaaaaaaaaaaa", commentsData)
+          
+
+  //     const commentsWithLikes = await Promise.all(
+  //       commentsData.map(async (comment) => {
+  //         // Fetch likes count for each comment
+  //         const likesCountResponse = await fetch(
+  //           `${Config.LOCAL_URL}/api/likes/comment/${comment.id}/count`
+  //         );
+  //         const likesCountData = await likesCountResponse.json();
+
+  //         return {
+  //           ...comment,
+  //           likesCount: likesCountData.count,
+  //         };
+  //       })
+  //     );
+
+  //     const commentsWithUserData = await Promise.all(
+  //       commentsWithLikes.map(async (comment) => {
+  //         const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  //         const tokenn = storedUserData.token;
+
+  //         const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+
+      
+  //         const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${comment.userId}`, {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${tokenn}`,
+  //           },
+  //         });
+  //         const userData = await userResponse.json();
+  //         return {
+  //           ...comment,
+  //           user: userData,
+  //         };
+  //       })
+  //     );
+
+  //     setArticles((prevArticles) => {
+  //       return prevArticles.map((prevArticle) =>
+  //         prevArticle.id === articleId
+  //           ? { ...prevArticle, comments: commentsWithUserData }
+  //           : prevArticle
+  //       );
+  //     });
+
+  //     // handleLikeComment(); // You may want to remove this line depending on your requirements
+  //   } catch (error) {
+  //     console.error(`Error fetching comments for article ${articleId}:`, error);
+  //   }
+  // };
+
   const fetchCommentsForArticle = async (articleId) => {
     try {
+      // Fetch comments for the given articleId
       const commentsResponse = await fetch(
         `${Config.LOCAL_URL}/api/commentaires/?articleId=${articleId}`
       );
       const commentsData = await commentsResponse.json();
-
+      console.log("Commentaire data:", commentsData);
+  
+      // Fetch likes count for each comment
       const commentsWithLikes = await Promise.all(
         commentsData.map(async (comment) => {
-          // Fetch likes count for each comment
           const likesCountResponse = await fetch(
             `${Config.LOCAL_URL}/api/likes/comment/${comment.id}/count`
           );
           const likesCountData = await likesCountResponse.json();
-
+  
           return {
             ...comment,
             likesCount: likesCountData.count,
           };
         })
       );
-
+  console.log("commentsWithLikes", commentsWithLikes)
+      // Fetch user data for each comment
       const commentsWithUserData = await Promise.all(
         commentsWithLikes.map(async (comment) => {
           const storedUserData = JSON.parse(localStorage.getItem("Secret"));
           const tokenn = storedUserData.token;
+          console.log("tokenntokenntokenn", tokenn)
 
-          const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-
-      
-          const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${comment.userId}`, {
+  
+          const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${comment?.userId}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${tokenn}`,
             },
           });
+
           const userData = await userResponse.json();
+          console.log("userData", userData)
+
           return {
             ...comment,
             user: userData,
           };
         })
       );
-
+  
+      // Update the articles state with the comments and user data
       setArticles((prevArticles) => {
         return prevArticles.map((prevArticle) =>
           prevArticle.id === articleId
@@ -628,13 +695,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
             : prevArticle
         );
       });
-
-      // handleLikeComment(); // You may want to remove this line depending on your requirements
     } catch (error) {
       console.error(`Error fetching comments for article ${articleId}:`, error);
     }
   };
-
+  
   const fetchRepliesForComment = async (commentId) => {
     try {
       const repliesResponse = await fetch(
@@ -644,7 +709,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
       const storedUserData = JSON.parse(localStorage.getItem("Secret"));
       const tokenn = storedUserData.token;
-      
+
       const repliesWithUserData = await Promise.all(
         repliesData.map(async (reply) => {
           const userResponse = await fetch(
@@ -706,7 +771,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
         const id = storedUserDatad?.id;
        
         const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-        const tokenn = storedUserData.token;
+        const tokenn = storedUserData?.token;
         if (id) {
           const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
             method: "GET",
