@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 import Swal from "sweetalert2";
+import { Config } from "./config";
 
 export const AuthContext = createContext();
 
@@ -12,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const tokenn = storedUserData?.token;
     if (tokenn) {
       try {
-        const response = await fetch("http://localhost:5000/api/verify", {
+        const response = await fetch(`${Config.LOCAL_URL}/api/verify`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${tokenn}`,
