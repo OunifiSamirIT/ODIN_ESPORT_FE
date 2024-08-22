@@ -1,83 +1,57 @@
-// import React, { useState, useEffect, useContext, createContext } from "react";
-// import Cookies from "js-cookie";
-// import { jwtDecode } from "jwt-decode";
-// import CryptoJS from "crypto-js";
+import React, { createContext, useState } from "react";
+import secureLocalStorage from "react-secure-storage";
+import Swal from "sweetalert2";
 
-// const AuthContext = createContext(null);
+export const AuthContext = createContext();
 
-// export const AuthProvider = ({ children, navigate }) => {
-//   const [userInfo, setUserInfo] = useState(null);
-//   const [csrfToken, setCsrfToken] = useState(null);
-//   const [refreshToken, setRefreshToken] = useState(null);
+export const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState(null);
 
-//   useEffect(() => {
-//     const user = Cookies.get("user");
-//     const refreshToken = Cookies.get("refreshToken");
+  const checkTokenExpiration = async () => {
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
+    if (tokenn) {
+      try {
+        const response = await fetch("http://localhost:5000/api/verify", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
 
-//     console.log("user from Cookies:", user);
-//     console.log("RefreshToken from Cookies:", refreshToken);
+        const data = await response.json();
+        console.log(data, "alooo doneee veriffff");
+        console.log(response.status, "aloo statuss");
 
-//     if (user) {
-//       try {
-//         const decoded = jwtDecode(user);
-//         setUserInfo(decoded);
-//         console.log("Decoded access token:", decoded);
-//       } catch (error) {
-//         console.error("Failed to decode access token:", error);
-//       }
-//     }
+        if (data.message === "Unauthorized!") {
+          // Afficher une alerte avec SweetAlert pour token non autorisé
+          Swal.fire({
+            icon: "warning",
+            title: "Session expirée",
+            text: "Votre session a expiré. Veuillez vous reconnecter.",
+            confirmButtonColor: "#2E71EB",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/Login";
+              localStorage.removeItem("Secret");
+              secureLocalStorage.removeItem("cryptedUser");
+            }
+            // Rediriger vers la page de connexion après avoir cliqué sur "OK"
+          });
+        }
+      } catch (error) {
+        console.error("Erreur lors de la vérification du token:", error);
+        // Supprimer les données du localStorage en cas d'erreur
 
-//     if (refreshToken) {
-//       setRefreshToken(refreshToken);
-//       console.log("Refresh token:", refreshToken);
-//     }
-//   }, []);
+        // Afficher une alerte en cas d'erreur et rediriger
+      }
+    }
+  };
 
-//   useEffect(() => {
-//     const csrfToken = generateCsrfToken();
-//     setCsrfToken(csrfToken);
-//   }, []);
-
-//   const handleLogin = (userData) => {
-//     if (!userData || !userData.id || !userData.email) {
-//       throw new Error("Invalid user data");
-//     }
-
-//     Cookies.set("user", userData.user, { secure: true });
-//     Cookies.set("refreshToken", userData.refreshToken, { secure: true });
-
-//     setUserInfo(userData);
-//     navigate("/home");
-//   };
-
-//   const handleLogout = () => {
-//     Cookies.remove("user");
-//     Cookies.remove("refreshToken");
-//     setUserInfo(null);
-//     setRefreshToken(null);
-//     navigate("/login");
-//   };
-
-//   const verifyCsrfToken = (token) => csrfToken === token;
-
-//   return (
-//     <AuthContext.Provider
-//       value={{
-//         userInfo,
-//         refreshToken,
-//         handleLogin,
-//         handleLogout,
-//         verifyCsrfToken,
-//       }}
-//     >
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export const useAuth = () => useContext(AuthContext);
-
-// function generateCsrfToken() {
-//   const randomBytes = CryptoJS.lib.WordArray.random(16);
-//   return randomBytes.toString(CryptoJS.enc.Hex);
-// }
+  return (
+    <AuthContext.Provider value={{ token, setToken, checkTokenExpiration }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

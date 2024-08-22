@@ -1329,7 +1329,13 @@
 //   );
 // }
 // export default Header;
-import React, { Component, useState, useRef, useEffect } from "react";
+import React, {
+  Component,
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+} from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import Darkbutton from "../components/Darkbutton";
 import Logo from "../assets/ODIN22.png";
@@ -1365,6 +1371,7 @@ import Sun from "../assets/sun.png";
 import Moon from "../assets/moon.png";
 import Horizontal from "./HomePage/HorizontalNavigation";
 import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../AuthContext";
 
 function Header() {
   let { handleDarkModeToggler } = React.useContext(Context);
@@ -1373,7 +1380,11 @@ function Header() {
   let [notificationData, setnotificationData] = useState([]);
   let [isNotifyBlocked, setNotifyBlocked] = useState(true);
   let [activeBtn, setActiveBtn] = useState(true);
+  const { checkTokenExpiration } = useContext(AuthContext);
 
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
   let animateRinging = () => {
     gsap
       .timeline()
@@ -1923,14 +1934,9 @@ function Header() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear the authentication token from localStorage
+    window.location.href = "/Login";
+    localStorage.removeItem("Secret");
     secureLocalStorage.removeItem("cryptedUser");
-    secureLocalStorage.removeItem("user");
-
-    // Update the authentication state to false
-
-    // Redirect to the login page or another route
-    navigate("/login");
   };
 
   return (

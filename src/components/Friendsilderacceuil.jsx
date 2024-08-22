@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { Config } from "../config";
 import { Context } from "../index";
 import secureLocalStorage from "react-secure-storage";
-
+import { AuthContext } from "../AuthContext";
 function FriendsSlider() {
   const {
     _currentLang,
@@ -20,6 +20,11 @@ function FriendsSlider() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const sliderRef = useRef();
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
 
   useEffect(() => {
     const fetchUsers = async () => {

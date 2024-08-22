@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import UserImage from "../assets/placeholder.jpg";
 import { Config } from "../config";
@@ -7,6 +7,7 @@ import { Context } from "../index";
 import gsap from "gsap";
 import secureLocalStorage from "react-secure-storage";
 import CryptoJS from "crypto-js";
+import { AuthContext } from "../AuthContext";
 const SlideMenu = ({
   setMobileNotificationPopUpContainer,
   isActive,
@@ -19,6 +20,11 @@ const SlideMenu = ({
   setnotificationData,
   NotificationService,
 }) => {
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
   const [lang, setLang] = useState("Français");
   const [user, setUser] = useState({});
   const decryptString = (encryptedText, secret) => {

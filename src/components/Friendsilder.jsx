@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { Config } from "../config";
 import Other from "../pages/Setting/Fragments/Other";
 import { Context } from "../index";
 import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../AuthContext";
 
 function FriendsSlider() {
   const [agents, setAgents] = useState([]);
@@ -19,7 +20,11 @@ function FriendsSlider() {
     dark_img,
     dark_bg,
   } = React.useContext(Context);
+  const { checkTokenExpiration } = useContext(AuthContext);
 
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
   useEffect(() => {
     const fetchUsers = async () => {
       try {

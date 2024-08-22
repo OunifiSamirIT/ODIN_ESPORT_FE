@@ -1,4 +1,11 @@
-import React, { Component, Fragment, useState, useRef, useEffect } from "react";
+import React, {
+  Component,
+  Fragment,
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+} from "react";
 import { useForm } from "react-hook-form";
 import Header from "../components/Header2";
 import Leftnav from "../components/Leftnav";
@@ -80,7 +87,7 @@ import EditPost from "../pages/EditPost";
 import { Context } from "../index";
 import secureLocalStorage from "react-secure-storage";
 import CryptoJS from "crypto-js";
-
+import { AuthContext } from "../AuthContext";
 function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const {
     register,
@@ -152,6 +159,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const [userslikearticle, setUserslikearticle] = useState([]);
   const [showDropdownlikes, setShowDropdownlikes] = useState(false);
   const [showDropdownpartage, setShowDropdownpartage] = useState(false);
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
   const reff = useRef(null);
   const reffpartage = useRef(null);
   const handleClickOutsidelike = (event) => {
@@ -356,7 +368,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   };
 
   const fetchLikesForComment = async (commentId) => {
-    const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserDataID = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
 
     const userId = storedUserDataID?.id ? storedUserDataID?.id : null;
 
@@ -386,7 +400,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   };
   const handleLikeClick = async (articleId, emoji) => {
-    const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserDataID = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
 
     try {
       const response = await fetch(
@@ -442,7 +458,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   };
 
   const handleLikeComment = async (commentId) => {
-    const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserDataID = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
 
     try {
       const response = await fetch(
@@ -501,8 +519,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       });
     }
   };
-
- 
 
   const loadRemainingArticles = (remainingArticles) => {
     setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
@@ -583,7 +599,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   //     );
   //     const commentsData = await commentsResponse.json();
   //          console.log("commentaire dataaaaaaaaaaaaaaaaaaaaa", commentsData)
-          
 
   //     const commentsWithLikes = await Promise.all(
   //       commentsData.map(async (comment) => {
@@ -607,7 +622,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
   //         const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
-      
   //         const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${comment.userId}`, {
   //           method: "GET",
   //           headers: {
@@ -645,7 +659,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       );
       const commentsData = await commentsResponse.json();
       console.log("Commentaire data:", commentsData);
-  
+
       // Fetch likes count for each comment
       const commentsWithLikes = await Promise.all(
         commentsData.map(async (comment) => {
@@ -653,32 +667,34 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
             `${Config.LOCAL_URL}/api/likes/comment/${comment.id}/count`
           );
           const likesCountData = await likesCountResponse.json();
-  
+
           return {
             ...comment,
             likesCount: likesCountData.count,
           };
         })
       );
-  console.log("commentsWithLikes", commentsWithLikes)
+      console.log("commentsWithLikes", commentsWithLikes);
       // Fetch user data for each comment
       const commentsWithUserData = await Promise.all(
         commentsWithLikes.map(async (comment) => {
           const storedUserData = JSON.parse(localStorage.getItem("Secret"));
           const tokenn = storedUserData.token;
-          console.log("tokenntokenntokenn", tokenn)
+          console.log("tokenntokenntokenn", tokenn);
 
-  
-          const userResponse = await fetch(`${Config.LOCAL_URL}/api/user/${comment?.userId}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${tokenn}`,
-            },
-          });
+          const userResponse = await fetch(
+            `${Config.LOCAL_URL}/api/user/${comment?.userId}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+              },
+            }
+          );
 
           const userData = await userResponse.json();
-          console.log("userData", userData)
+          console.log("userData", userData);
 
           return {
             ...comment,
@@ -686,7 +702,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           };
         })
       );
-  
+
       // Update the articles state with the comments and user data
       setArticles((prevArticles) => {
         return prevArticles.map((prevArticle) =>
@@ -699,7 +715,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       console.error(`Error fetching comments for article ${articleId}:`, error);
     }
   };
-  
+
   const fetchRepliesForComment = async (commentId) => {
     try {
       const repliesResponse = await fetch(
@@ -713,8 +729,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       const repliesWithUserData = await Promise.all(
         repliesData.map(async (reply) => {
           const userResponse = await fetch(
-            `${Config.LOCAL_URL}/api/user/${reply.userId}`
-            , {
+            `${Config.LOCAL_URL}/api/user/${reply.userId}`,
+            {
               method: "GET",
               credentials: "include",
               headers: {
@@ -760,16 +776,16 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   //   // fetchArticles();
   //   // fetchAlbums();
   // }, []);
- 
- 
+
   useEffect(() => {
     async function fetchData() {
       try {
-   
         // Fetch user information based on the id from localStorage
-        const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+        const storedUserDatad = JSON.parse(
+          secureLocalStorage.getItem("cryptedUser")
+        );
         const id = storedUserDatad?.id;
-       
+
         const storedUserData = JSON.parse(localStorage.getItem("Secret"));
         const tokenn = storedUserData?.token;
         if (id) {
@@ -781,11 +797,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               Authorization: `Bearer ${tokenn}`,
             },
           });
-  
+
           // You can use the response here if needed
           // console.log(response);
         }
-  
+
         fetchLikesForComment(article.comments.id);
         fetchLikesForArticle(article.id);
       } catch (error) {
@@ -793,7 +809,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
         // Handle the error more gracefully, e.g., display an error message to the user
       }
     }
-  
+
     fetchData();
   }, []);
   const fetchAlbums = async () => {
@@ -1356,12 +1372,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               "Content-Type": "application/json",
               Authorization: `Bearer ${tokenn}`,
             },
-          }
-
-
-          ).then((res) =>
-            res.json()
-          ),
+          }).then((res) => res.json()),
           fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
             (res) => res.json()
           ),
@@ -1439,7 +1450,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     }
   }, [article.sharedFrom]);
   const displayArticle = originalArticle || article;
- 
 
   // const handlePostSubmitPartage = async (data) => {
   //   try {
@@ -1470,7 +1480,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   // };
 
   const handlePostSubmitPartage = async (data) => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
 
     const id = storedUserData?.id ? storedUserData?.id : null;
     try {
@@ -1608,8 +1620,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               className="  card w-100 shadow-xss rounded-xxl border-0 mt-3 -px-4  p-4 "
             >
               <div className="  card-body p-0 d-flex">
-                {
-                  article?.user?.user?.id == 1005 ? 
+                {article?.user?.user?.id == 1005 ? (
                   <figure className="  avatar me-3">
                     <img
                       srcSet={
@@ -1622,62 +1633,60 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       alt="post"
                     />{" "}
                   </figure>
-                  : <Link to={`/profile/${article?.user?.user?.id}`}>
-                  <figure className="  avatar me-3">
-                    <img
-                      srcSet={
-                        article?.user?.user?.image
-                          ? article?.user?.user?.image
-                          : placeholder
-                      }
-                      // src={article.user.user?.image}
-                      className=" object-cover shadow-sm rounded-full w-[52px] aspect-square"
-                      alt="post"
-                    />{" "}
-                  </figure>
-                </Link>
-                }
-
-                <h4  style={dark_light_bg} className="  fw-700 font-xssss mt-1">
-                 {
-                  article?.user?.user?.id == 1005 ? 
-                  <>
-                  {article?.user?.user?.nom} {"   "}
-                  {article?.user?.user?.prenom}{" "}</>
-                  :
+                ) : (
                   <Link to={`/profile/${article?.user?.user?.id}`}>
-                  {article?.user?.user?.nom} {"   "}
-                  {article?.user?.user?.prenom}{" "}
-                </Link>
-                 }
-                 
-                  {
-                  article?.user?.user?.id == 1005 ? 
+                    <figure className="  avatar me-3">
+                      <img
+                        srcSet={
+                          article?.user?.user?.image
+                            ? article?.user?.user?.image
+                            : placeholder
+                        }
+                        // src={article.user.user?.image}
+                        className=" object-cover shadow-sm rounded-full w-[52px] aspect-square"
+                        alt="post"
+                      />{" "}
+                    </figure>
+                  </Link>
+                )}
 
+                <h4 style={dark_light_bg} className="  fw-700 font-xssss mt-1">
+                  {article?.user?.user?.id == 1005 ? (
+                    <>
+                      {article?.user?.user?.nom} {"   "}
+                      {article?.user?.user?.prenom}{" "}
+                    </>
+                  ) : (
+                    <Link to={`/profile/${article?.user?.user?.id}`}>
+                      {article?.user?.user?.nom} {"   "}
+                      {article?.user?.user?.prenom}{" "}
+                    </Link>
+                  )}
+
+                  {article?.user?.user?.id == 1005 ? (
                     <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                       Admin
-                      </span>
-
-                    :
+                    </span>
+                  ) : (
                     <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {article?.user?.user?.profil == "other"
-                      ? article.user.other?.profession
-                      : ""}
-                    {article?.user?.user?.profil == "player" ? " Joueur" : ""}
-                    {article?.user?.user?.profil == "coach"
-                      ? " Entraîneur"
-                      : ""}
-                    {article?.user?.user?.profil == "agent" &&
-                    article.user.agent?.typeresponsable == "players"
-                      ? "Manager de Joueur"
-                      : ""}
-                    {article?.user?.user?.profil == "agent" &&
-                    article.user.agent?.typeresponsable == "club"
-                      ? "Manager de CLub"
-                      : ""}
-                    {article?.user?.user?.profil == "scout" ? "Scout" : ""}
-                  </span>
-                  }
+                      {article?.user?.user?.profil == "other"
+                        ? article.user.other?.profession
+                        : ""}
+                      {article?.user?.user?.profil == "player" ? " Joueur" : ""}
+                      {article?.user?.user?.profil == "coach"
+                        ? " Entraîneur"
+                        : ""}
+                      {article?.user?.user?.profil == "agent" &&
+                      article.user.agent?.typeresponsable == "players"
+                        ? "Manager de Joueur"
+                        : ""}
+                      {article?.user?.user?.profil == "agent" &&
+                      article.user.agent?.typeresponsable == "club"
+                        ? "Manager de CLub"
+                        : ""}
+                      {article?.user?.user?.profil == "scout" ? "Scout" : ""}
+                    </span>
+                  )}
                   {/* <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                   {article?.createdAt}
 
@@ -2556,7 +2565,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       to={`/profile/${comment?.user?.user?.id}`}
                                     >
                                       <div className="  fw-700 font-xssss mt-1">
-                                        {comment?.user && comment?.user?.user?.nom}{" "}
+                                        {comment?.user &&
+                                          comment?.user?.user?.nom}{" "}
                                         {comment?.user &&
                                           comment?.user?.user?.prenom}
                                       </div>{" "}
@@ -2778,7 +2788,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                       {likesDataComment &&
                                         (likesDataComment.some(
                                           (like) =>
-                                            like.userId === storedUserData?.id &&
+                                            like.userId ===
+                                              storedUserData?.id &&
                                             like.commentId === comment.id
                                         ) ? (
                                           <span className="  flex flex-row">
@@ -3166,7 +3177,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           <figure className="  avatar">
                             <img
                               src={
-                                user?.user?.image ? user?.user?.image : placeholder
+                                user?.user?.image
+                                  ? user?.user?.image
+                                  : placeholder
                               }
                               className="  shadow-sm rounded-full w-[52px] aspect-square"
                               alt="post"
@@ -3311,79 +3324,86 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     </Swiper>
                   </div>
 
-                  <div  style={dark_light_bg} className="  hidden md:flex flex-col w-[30%] p-10 ">
+                  <div
+                    style={dark_light_bg}
+                    className="  hidden md:flex flex-col w-[30%] p-10 "
+                  >
                     <div className="    rounded-lg -mt-4">
-                    <div className="  card-body p-0 d-flex">
-                      {
-                                          article?.user?.user?.id == 1005 ? 
-                                          <figure className="  avatar me-3">
-                    <img
-                      srcSet={
-                        article?.user?.user?.image
-                          ? article?.user?.user?.image
-                          : placeholder
-                      }
-                      // src={article.user.user?.image}
-                      className="  shadow-sm rounded-full w-[52px] aspect-square"
-                      alt="post"
-                    />{" "}
-                  </figure>
-                  :
-                  <Link to={`/profile/${article?.user?.user?.id}`}>
-                  <figure className="  avatar me-3">
-                    <img
-                      srcSet={
-                        article?.user?.user?.image
-                          ? article?.user?.user?.image
-                          : placeholder
-                      }
-                      // src={article.user.user?.image}
-                      className="  shadow-sm rounded-full w-[52px] aspect-square"
-                      alt="post"
-                    />{" "}
-                  </figure>
-                </Link>
-                        
-                      }
-                
+                      <div className="  card-body p-0 d-flex">
+                        {article?.user?.user?.id == 1005 ? (
+                          <figure className="  avatar me-3">
+                            <img
+                              srcSet={
+                                article?.user?.user?.image
+                                  ? article?.user?.user?.image
+                                  : placeholder
+                              }
+                              // src={article.user.user?.image}
+                              className="  shadow-sm rounded-full w-[52px] aspect-square"
+                              alt="post"
+                            />{" "}
+                          </figure>
+                        ) : (
+                          <Link to={`/profile/${article?.user?.user?.id}`}>
+                            <figure className="  avatar me-3">
+                              <img
+                                srcSet={
+                                  article?.user?.user?.image
+                                    ? article?.user?.user?.image
+                                    : placeholder
+                                }
+                                // src={article.user.user?.image}
+                                className="  shadow-sm rounded-full w-[52px] aspect-square"
+                                alt="post"
+                              />{" "}
+                            </figure>
+                          </Link>
+                        )}
 
-                <h4 style={dark_light_bg} className="  fw-700  font-xssss mt-1">
-                  {
-                                          article?.user?.user?.id == 1005 ? 
-<>
-{article?.user?.user?.nom} {"   "}
-{article?.user?.user?.prenom}{" "}</>
-                                          :
-                                          <Link to={`/profile/${article?.user?.user?.id}`}>
-                                          {article?.user?.user?.nom} {"   "}
-                                          {article?.user?.user?.prenom}{" "}
-                                        </Link>
-                  }
-                  
-                  {article?.user?.user?.id == 1005 ? 
-                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                  Admin
-                  </span>
-:
-                  <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
-                    {article?.user?.user?.profil == "other"
-                      ? article.user.other?.profession
-                      : ""}
-                    {article?.user?.user?.profil == "player" ? " Joueur" : ""}
-                    {article?.user?.user?.profil == "coach"
-                      ? " Entraîneur"
-                      : ""}
-                    {article?.user?.user?.profil == "agent" &&
-                    article.user.agent?.typeresponsable == "players"
-                      ? "Manager de Joueur"
-                      : ""}
-                    {article?.user?.user?.profil == "agent" &&
-                    article.user.agent?.typeresponsable == "club"
-                      ? "Manager de CLub"
-                      : ""}
-                    {article?.user?.user?.profil == "scout" ? "Scout" : ""}
-                  </span>
-}
+                        <h4
+                          style={dark_light_bg}
+                          className="  fw-700  font-xssss mt-1"
+                        >
+                          {article?.user?.user?.id == 1005 ? (
+                            <>
+                              {article?.user?.user?.nom} {"   "}
+                              {article?.user?.user?.prenom}{" "}
+                            </>
+                          ) : (
+                            <Link to={`/profile/${article?.user?.user?.id}`}>
+                              {article?.user?.user?.nom} {"   "}
+                              {article?.user?.user?.prenom}{" "}
+                            </Link>
+                          )}
+
+                          {article?.user?.user?.id == 1005 ? (
+                            <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                              Admin
+                            </span>
+                          ) : (
+                            <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
+                              {article?.user?.user?.profil == "other"
+                                ? article.user.other?.profession
+                                : ""}
+                              {article?.user?.user?.profil == "player"
+                                ? " Joueur"
+                                : ""}
+                              {article?.user?.user?.profil == "coach"
+                                ? " Entraîneur"
+                                : ""}
+                              {article?.user?.user?.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "players"
+                                ? "Manager de Joueur"
+                                : ""}
+                              {article?.user?.user?.profil == "agent" &&
+                              article.user.agent?.typeresponsable == "club"
+                                ? "Manager de CLub"
+                                : ""}
+                              {article?.user?.user?.profil == "scout"
+                                ? "Scout"
+                                : ""}
+                            </span>
+                          )}
                           {/* <span className="  d-block font-xssss fw-500 mt-1 lh-3 text-grey-500">
                   {article?.createdAt}
 
@@ -3427,7 +3447,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
                             {showDropdown === article.id &&
                               article?.user?.user &&
-                              article?.user?.user?.id === storedUserData?.id && (
+                              article?.user?.user?.id ===
+                                storedUserData?.id && (
                                 <div className="  absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                   <button
                                     className="  block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
