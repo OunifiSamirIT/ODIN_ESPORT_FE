@@ -161,6 +161,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const [showDropdownpartage, setShowDropdownpartage] = useState(false);
   const { checkTokenExpiration } = useContext(AuthContext);
 
+  const storedUserDataID = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
+
+  const userId = storedUserDataID?.id ? storedUserDataID?.id : null;
   useEffect(() => {
     checkTokenExpiration();
   }, []);
@@ -339,8 +344,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   //     }
   // };
   const fetchLikesForArticle = async (articleId) => {
-    const userId = storedUserData?.id ? storedUserData?.id : null;
+    const storedUserDataID = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
 
+    const userId = storedUserDataID?.id ? storedUserDataID?.id : null;
     try {
       const response = await fetch(
         `${Config.LOCAL_URL}/api/likes/articless/${articleId}/`
@@ -675,6 +683,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
         })
       );
       console.log("commentsWithLikes", commentsWithLikes);
+      
       // Fetch user data for each comment
       const commentsWithUserData = await Promise.all(
         commentsWithLikes.map(async (comment) => {
@@ -682,6 +691,15 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           const tokenn = storedUserData.token;
           console.log("tokenntokenntokenn", tokenn);
 
+
+
+
+
+          const storedUserDataID = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
+      
+          const userId = storedUserDataID?.id ? storedUserDataID?.id : null;
           const userResponse = await fetch(
             `${Config.LOCAL_URL}/api/user/${comment?.userId}`,
             {
@@ -726,7 +744,13 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       const storedUserData = JSON.parse(localStorage.getItem("Secret"));
       const tokenn = storedUserData.token;
 
+      const storedUserDataID = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+  
+      const userId = storedUserDataID?.id ? storedUserDataID?.id : null;
       const repliesWithUserData = await Promise.all(
+        
         repliesData.map(async (reply) => {
           const userResponse = await fetch(
             `${Config.LOCAL_URL}/api/user/${reply.userId}`,
@@ -1102,11 +1126,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const handleMoreClickComment = (comment) => {
     console.log("More clicked", comment.id);
     setSelectedComment(comment);
-
-    // Toggle the dropdown visibility
-    setShowDropdownComment((prevState) =>
-      prevState === comment.id ? null : comment.id
-    );
+    setShowDropdownComment((prevState) => prevState === comment.id ? null : comment.id);
   };
 
   const handleDeleteCommentClick = async (id, articleId) => {
@@ -2612,7 +2632,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     </div>
                                   </div>
 
-                                  {storedUserData?.id ==
+                                  {storedUserDataID?.id ==
                                     comment?.user?.user?.id && (
                                     <div
                                       className="   relative cursor-pointer"
@@ -2641,11 +2661,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         />
                                       </svg>
 
-                                      {showDropdownComment === comment?.id &&
-                                        comment?.user?.user &&
-                                        comment?.user?.user?.id ===
-                                          storedUserData?.id && (
-                                          <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+                                      {showDropdownComment === comment?.id && (
+  console.log("Dropdown should be visible for comment", comment.id),
+                                                <>  
+                                                  <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+
                                             <button
                                               className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                               onClick={() =>
@@ -2696,7 +2716,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 </span>
                                               </label>
                                             </button>
-                                          </div>
+                                          </div></>
                                         )}
                                     </div>
                                   )}
@@ -3883,7 +3903,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           </div>
                                         </div>
 
-                                        {storedUserData?.id ==
+                                        {storedUserDataID?.id ==
                                           comment?.user?.user?.id && (
                                           <div
                                             className="   relative cursor-pointer"
@@ -3912,13 +3932,12 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               />
                                             </svg>
 
-                                            {showDropdownComment ===
-                                              comment?.id &&
-                                              comment?.user?.user &&
-                                              comment?.user?.user?.id ===
-                                                storedUserData?.id && (
-                                                <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
-                                                  <button
+                                            {showDropdownComment === comment?.id && (
+  console.log("Dropdown should be visible for comment", comment.id),
+                                                <>  
+                                                  <div className="absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
+
+                                                <button
                                                     className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
                                                     onClick={() =>
                                                       handleEditClickComment(
@@ -3972,7 +3991,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                       </span>
                                                     </label>
                                                   </button>
-                                                </div>
+                                                </div></>
                                               )}
                                           </div>
                                         )}
