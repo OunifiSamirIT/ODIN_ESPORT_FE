@@ -197,6 +197,8 @@ const Personal = ({ userInfo }) => {
   };
 
   const onSubmit = async (data) => {
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
     const formDataToUpdate = new FormData();
     formDataToUpdate.append(
       "discreptionBio",
@@ -232,12 +234,18 @@ const Personal = ({ userInfo }) => {
         ? data.langueparlee?.map((lang) => lang.value).join(",")
         : ""
     );
-
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`,
       {
         method: "PUT",
-        body: formDataToUpdate,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
       }
     )
       .then((r) => {
@@ -306,7 +314,19 @@ const Personal = ({ userInfo }) => {
         (option) => option.label.props?.children[1] === countryName
       );
     };
-    fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`)
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
+    fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
+      },
+    })
       .then((response) => response.json())
       .then((userData) => {
         setUser(userData.user);
