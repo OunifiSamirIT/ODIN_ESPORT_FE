@@ -22,7 +22,14 @@ const EventSideBar = () => {
     try {
       const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
       const tokenn = storedUserDataa?.token;
-      const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
+      const response = await fetch(`${Config.LOCAL_URL}/api/albumc`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      });
       const result = await response.json();
       const response1 = await fetch(`${Config.LOCAL_URL}/api/albumevent`, {
         method: "GET",
