@@ -23,11 +23,23 @@ const Album = () => {
   const [modalHeight, setModalHeight] = useState("70%");
   const [modalWidth, setModalWidth] = useState("70%");
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
+
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -68,8 +80,18 @@ const Album = () => {
   useEffect(() => {
     const fetchAlbumDetails = async () => {
       try {
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData?.token;
         const response = await fetch(
-          `${Config.LOCAL_URL}/api/eventodin/${eventodinId}`
+          `${Config.LOCAL_URL}/api/eventodin/${eventodinId}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
         );
 
         const result = await response.json();
@@ -86,8 +108,18 @@ const Album = () => {
 
     const fetchInscriptions = async () => {
       try {
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData?.token;
         const response = await fetch(
-          `${Config.LOCAL_URL}/api/inscritinfoevent`
+          `${Config.LOCAL_URL}/api/inscritinfoevent`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
         );
 
         const result = await response.json();
@@ -123,35 +155,33 @@ const Album = () => {
   //   navigate(`/payementevent/${eventodinId}`);
   // };
 
-
   const handleAlbumButtonClick = () => {
     // setSelectedPack(pack)
-    const pack = "pack_standard"
+    const pack = "pack_standard";
     navigate(`/FormEvent/${eventodinId}`, { state: { selectedPack: pack } });
-
   };
 
   const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
     // Format the date object into the desired format
-    if (_currentLang == 'Fr') {
+    if (_currentLang == "Fr") {
       const formattedDate = dateObject.toLocaleDateString("fr-FR", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
-      return formattedDate
+      return formattedDate;
     } else {
       const formattedDate = dateObject.toLocaleDateString("en-GB", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
-      return formattedDate
+      return formattedDate;
     }
   };
 
-  const id = storedUserData.id ? storedUserData.id : null;
+  // const id = storedUserData.id ? storedUserData.id : null;
 
   const userProfileType = storedUserData ? storedUserData.profil : null;
 
@@ -216,9 +246,8 @@ const Album = () => {
                             {" "}
                             {getTranslation(
                               `Back to Events`,
-                              `Revenir aux Events`,
+                              `Revenir aux Events`
                             )}
-
                           </span>
                         </button>
                       </Link>
@@ -234,8 +263,18 @@ const Album = () => {
                           {albumDetails.album_name}
                         </div>
                         <div className="flex gap-1">
-                          <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.31749 0C6.11244 0.00242591 3.99839 0.879395 2.43911 2.43852C0.879827 3.99765 0.00264684 6.11161 0 8.31665C0 10.4583 1.65833 13.81 4.92916 18.2783C5.31854 18.8117 5.82837 19.2457 6.41716 19.5449C7.00594 19.8441 7.65705 20 8.31749 20C8.97792 20 9.62903 19.8441 10.2178 19.5449C10.8066 19.2457 11.3164 18.8117 11.7058 18.2783C14.9766 13.81 16.635 10.4583 16.635 8.31665C16.6323 6.11161 15.7551 3.99765 14.1959 2.43852C12.6366 0.879395 10.5225 0.00242591 8.31749 0ZM8.31749 11.6316C7.65822 11.6316 7.01375 11.4362 6.46559 11.0699C5.91743 10.7036 5.49018 10.183 5.23789 9.57393C4.9856 8.96484 4.91959 8.29462 5.04821 7.64802C5.17682 7.00142 5.49429 6.40748 5.96047 5.9413C6.42664 5.47513 7.02058 5.15766 7.66719 5.02904C8.31379 4.90042 8.98401 4.96643 9.5931 5.21873C10.2022 5.47102 10.7228 5.89826 11.089 6.44642C11.4553 6.99459 11.6508 7.63905 11.6508 8.29832C11.6508 9.18237 11.2996 10.0302 10.6745 10.6553C10.0494 11.2805 9.20154 11.6316 8.31749 11.6316Z" fill="#141414" fill-opacity="0.7" />
+                          <svg
+                            width="17"
+                            height="20"
+                            viewBox="0 0 17 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M8.31749 0C6.11244 0.00242591 3.99839 0.879395 2.43911 2.43852C0.879827 3.99765 0.00264684 6.11161 0 8.31665C0 10.4583 1.65833 13.81 4.92916 18.2783C5.31854 18.8117 5.82837 19.2457 6.41716 19.5449C7.00594 19.8441 7.65705 20 8.31749 20C8.97792 20 9.62903 19.8441 10.2178 19.5449C10.8066 19.2457 11.3164 18.8117 11.7058 18.2783C14.9766 13.81 16.635 10.4583 16.635 8.31665C16.6323 6.11161 15.7551 3.99765 14.1959 2.43852C12.6366 0.879395 10.5225 0.00242591 8.31749 0ZM8.31749 11.6316C7.65822 11.6316 7.01375 11.4362 6.46559 11.0699C5.91743 10.7036 5.49018 10.183 5.23789 9.57393C4.9856 8.96484 4.91959 8.29462 5.04821 7.64802C5.17682 7.00142 5.49429 6.40748 5.96047 5.9413C6.42664 5.47513 7.02058 5.15766 7.66719 5.02904C8.31379 4.90042 8.98401 4.96643 9.5931 5.21873C10.2022 5.47102 10.7228 5.89826 11.089 6.44642C11.4553 6.99459 11.6508 7.63905 11.6508 8.29832C11.6508 9.18237 11.2996 10.0302 10.6745 10.6553C10.0494 11.2805 9.20154 11.6316 8.31749 11.6316Z"
+                              fill="#141414"
+                              fill-opacity="0.7"
+                            />
                           </svg>
                           {albumDetails.location}
                         </div>
@@ -324,7 +363,9 @@ const Album = () => {
 
                                 <button
                                   className="grow"
-                                  onClick={() => handleAlbumButtonClick("pack_standard")}
+                                  onClick={() =>
+                                    handleAlbumButtonClick("pack_standard")
+                                  }
                                 >
                                   {getTranslation(
                                     `Pre-register`, // -----> Englais
@@ -383,11 +424,10 @@ const Album = () => {
         className="custom-modalCamps" // Add the desired class name
         style={{
           content: {
-
             overflow: "hidden", // Hide scroll
             position: "absolute",
             top: "50%", // Center vertically
-            left: window.innerWidth <= 767 ? '50%' : '30%' , // Center horizontally
+            left: window.innerWidth <= 767 ? "50%" : "30%", // Center horizontally
             width: modalWidth,
             height: modalHeight,
             margin: "0", // Remove default margin

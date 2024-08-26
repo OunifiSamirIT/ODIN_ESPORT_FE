@@ -47,11 +47,22 @@ const Album = () => {
   };
 
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           userData.user.gender =
@@ -87,7 +98,7 @@ const Album = () => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-  const [loadingForm , setLoadingForm] = useState(false)
+  const [loadingForm, setLoadingForm] = useState(false);
   const handleSubmit = async () => {
     try {
       // Validate form data
@@ -96,19 +107,26 @@ const Album = () => {
         .then(() => {
           // If validation passes, proceed with form submission
 
-          const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+          const storedUserData = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
           const userId = storedUserData ? storedUserData.id : null;
+          const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+          const tokenn = storedUserDataa?.token;
           const eventodinId = id;
-          setLoadingForm(true)
+          setLoadingForm(true);
           fetch(`${Config.LOCAL_URL}/api/inscritevent`, {
             method: "POST",
+            credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
             },
+
             body: JSON.stringify({
               emailsecondaire: formData.emailsecondaire,
               modepaiement: formData.modepaiement,
-              email: users.user.email,
+              email: storedUserData?.email,
               // date_validation: formData.date_validation,
               // fraisinscrit: formData.fraisinscrit,
               status: formData.status,
@@ -120,7 +138,7 @@ const Album = () => {
           })
             .then((response) => response.json())
             .then((data) => {
-              setLoadingForm(false)
+              setLoadingForm(false);
               // Reset form data after successful submission
               setFormData({
                 emailsecondaire: "",
@@ -163,6 +181,7 @@ const Album = () => {
       console.error("Error submitting form:", error);
     }
   };
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   return (
     <>
@@ -401,7 +420,7 @@ const Album = () => {
                 </div>{" "}
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-1 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-                {users?.user?.email}
+                {storedUserData?.email}
               </div>
             </div>
             <div className="flex flex-col flex-1">
@@ -539,7 +558,11 @@ const Album = () => {
               </svg>
             </div>
             <div className="flex gap-1 items-center justify-center   px-4 py-2 text-white bg-blue-600 rounded-[30px] ">
-              <button className="grow" onClick={handleSubmit} disabled={loadingForm}>
+              <button
+                className="grow"
+                onClick={handleSubmit}
+                disabled={loadingForm}
+              >
                 {getTranslation(
                   `Submit`, // -----> Englais
                   `Confirmer` //  -----> Francais

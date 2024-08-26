@@ -24,12 +24,23 @@ const Album = () => {
     navigate(`/defaultgroupevent/${id}`);
   };
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const userId = storedUserData ? storedUserData.id : null;
 
     const fetchAlbums = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumevent`);
+        const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserDataa?.token;
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumevent`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
         const result = await response.json();
 
         // Convert id to a number before filtering
@@ -101,10 +112,9 @@ const Album = () => {
           <div className="flex flex-col w-full max-w-[1115px]">
             <div className="flex gap-5 justify-between pt-4">
               <div className="flex-auto text-lg ml-2 md:text-3xl font-bold text-zinc-900">
-
                 {getTranslation(
                   ` Events that might interest yous`,
-                  `Evènement qui pourraient vous intéresser`,
+                  `Evènement qui pourraient vous intéresser`
                 )}
               </div>
             </div>
@@ -135,17 +145,16 @@ const Album = () => {
                       <div
                         className="text-left mt-2 font-sans text-sm leading-loose h-"
                         dangerouslySetInnerHTML={{
-                          __html: value.description.slice(0, 100) + '...',
+                          __html: value.description.slice(0, 100) + "...",
                         }}
                       />
                       <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
                         <div className="flex flex-col whitespace-nowrap text-zinc-900">
-                          <div className="text-xs font-light">{getTranslation(
-                            `Price`,
-                            `Prix`,
-                          )}</div>
+                          <div className="text-xs font-light">
+                            {getTranslation(`Price`, `Prix`)}
+                          </div>
                           <div className="mt-1 text-base font-semibold">
-                            {value.prix} 
+                            {value.prix}
                           </div>
                         </div>
                         <div className="flex justify-center items-center p-3 bg-blue-600 rounded-xl aspect-[1.13]">
