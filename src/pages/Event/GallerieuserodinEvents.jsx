@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/Header2";
 // import Leftnav from '../../components/Leftnav';
 // import Rightchat from '../../components/Rightchat';
@@ -18,8 +18,15 @@ import LeftMenu from "../../components/LeftMenu";
 import { Context } from "../../index";
 import Index from "../Profile/Index";
 import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../../AuthContext";
 
 const Album = () => {
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
+
   const [album, setAlbum] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);

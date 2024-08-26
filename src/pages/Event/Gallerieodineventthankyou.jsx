@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -6,8 +6,15 @@ import { Config } from "../../config";
 import Header from "../../components/Header2";
 import { Context } from "../../index";
 import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../../AuthContext";
 
 const Album = () => {
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
+
   const [isActive, setIsActive] = useState(false);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 

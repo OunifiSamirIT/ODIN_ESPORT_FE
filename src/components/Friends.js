@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Config } from "../config";
 import Placeholder from "../assets/placeholder.jpg";
@@ -9,8 +9,14 @@ import { io } from "socket.io-client";
 import NotificationService from "../api/notification.server";
 import secureLocalStorage from "react-secure-storage";
 import CryptoJS from "crypto-js";
+import { AuthContext } from "../AuthContext";
 function Friends() {
   //initialize socket
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
 
   const [socket, setSocket] = useState(null);
 

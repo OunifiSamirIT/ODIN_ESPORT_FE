@@ -1,12 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Friends from "../Friends";
 import { Context } from "../../index";
 import Events from "../Events";
 import EventSideBarItem from "./EventSideBarItem";
 import { Config } from "../../config";
 import CampSideBarItem from "./CampSideBarItem";
+import { AuthContext } from "../../AuthContext";
 
 const EventSideBar = () => {
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
+
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const [events, setEvents] = useState([]);
   const [camps, setCamps] = useState([]);

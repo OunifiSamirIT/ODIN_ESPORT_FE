@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import Leftnav from '../../components/Leftnav';
 // import Rightchat from '../../components/Rightchat';
 
@@ -15,8 +15,15 @@ import { paysAllInfo } from "../../assets/data/Country";
 import Header from "../../components/Header2";
 import { Config } from "../../config";
 import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../../AuthContext";
 
 const Album = () => {
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
+
   const { state } = useLocation();
   const selectedPack = state?.selectedPack;
   console.log(selectedPack, "aloo pack");
