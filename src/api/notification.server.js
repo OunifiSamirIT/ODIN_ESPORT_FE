@@ -6,7 +6,8 @@ class NotificationService {
   constructor() {}
 
   static async instantSend(socket, data) {
-    let user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    console.log(user, "User data______________htira");
     let { id, username } = user ? user : { id: "", username: "" };
 
     console.log("instantSave id", id);
