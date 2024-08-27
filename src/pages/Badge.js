@@ -4214,12 +4214,23 @@ function Badge({ userpf }) {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-    const id = storedUserData ? storedUserData.id : null;
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData.token;
 
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserDatad ? storedUserDatad.id : null;
+    console.log("eeeeeeeeeeeee", tokenn);
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
-        .then((response) => response.json())
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      }).then((response) => response.json())
         .then((userData) => {
           setUser(userData);
         })
