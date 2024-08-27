@@ -29,14 +29,14 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
         /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!$@%]).*$/,
         "Le mot de passe doit contenir une combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%)"
       ),
-    passwordDel: yup
-      .string()
-      .required("Le mot de passe est requis")
-      .min(8, "Le mot de passe doit contenir au moins 6 caractères")
-      .matches(
-        /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!$@%]).*$/,
-        "Le mot de passe doit contenir une combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%)"
-      ),
+    // passwordDel: yup
+    //   .string()
+    //   .required("Le mot de passe est requis")
+    //   .min(8, "Le mot de passe doit contenir au moins 6 caractères")
+    //   .matches(
+    //     /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!$@%]).*$/,
+    //     "Le mot de passe doit contenir une combinaison de chiffres, de lettres et de caractères spéciaux ( !$@%)"
+    //   ),
     newpassword: yup
       .string()
       .required("Le mot de passe est requis")
@@ -104,11 +104,23 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
 
   const handleDeleteUser = (id) => {};
   const onSubmit = async (data) => {
+    console.log('hello')
     const formDataToUpdate = new FormData();
     formDataToUpdate.append("password", data.newpassword);
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserDatad ? storedUserDatad?.id : null;
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`,
       {
+        credentials: "include",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
         method: "PUT",
         body: formDataToUpdate,
       }
@@ -140,9 +152,21 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
     if (passwordDel == "") {
       setDeletePasswordError(true);
     } else {
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
+      const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+      const id = storedUserDatad ? storedUserDatad?.id : null;
+
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/user/delete/${storedUserData.id}`,
+        `${Config.LOCAL_URL}/api/user/delete/${id}`,
         {
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
           method: "DELETE",
           body: form,
         }
@@ -421,7 +445,7 @@ const Parametre = ({ userInfo, setDeleteModal, deleteModal }) => {
                     )}
                   </div>
                 </button>
-                <button className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
+                <button type="submit" className="flex flex-1 gap-2 justify-center px-8 py-2 text-white bg-blue-600 rounded-[30px]">
                   <img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/534a656afb5625680d54ff4ea52bbe985ada0762ba3c4cc382181406f743d9e8?"

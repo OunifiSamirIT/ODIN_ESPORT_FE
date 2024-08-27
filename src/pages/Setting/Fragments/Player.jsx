@@ -183,9 +183,20 @@ const Player = ({ userInfo, fetchUserInfo }) => {
   const supprimerLicence = async (data) => {
     const formDataToUpdate = new FormData();
     formDataToUpdate.append("image", null);
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserDatad ? storedUserDatad?.id : null;
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/player/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/player/${storedUserDatad.id}`,
       {
+        credentials: "include",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
         method: "PUT",
         body: formDataToUpdate,
       }
@@ -217,10 +228,20 @@ const Player = ({ userInfo, fetchUserInfo }) => {
         formDataToUpdate.append("skills", selectedSkills);
         formDataToUpdate.append("licence", data.licence);
         formDataToUpdate.append("image", data.file[0] || null);
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData?.token;
+        const storedUserDatad = JSON.parse(
+          secureLocalStorage.getItem("cryptedUser")
+        );
+        const id = storedUserDatad ? storedUserDatad?.id : null;
         const response = await fetch(
           `${Config.LOCAL_URL}/api/player/${storedUserData.id}`,
           {
             method: "PUT",
+            headers: {
+              // "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
             body: formDataToUpdate,
           }
         )
@@ -258,12 +279,25 @@ const Player = ({ userInfo, fetchUserInfo }) => {
       formDataToUpdate.append("skills", selectedSkills);
       formDataToUpdate.append("licence", data.licence);
       formDataToUpdate.append("image", null);
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
+      const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+      const id = storedUserDatad ? storedUserDatad?.id : null;
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/player/${storedUserData.id}`,
+        
+        `${Config.LOCAL_URL}/api/player/${id}`,
         {
           method: "PUT",
-          body: formDataToUpdate,
+          credentials: "include",
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+          body : formDataToUpdate, 
         }
+
       )
         .then((r) => {
           if (r.status === 200) {

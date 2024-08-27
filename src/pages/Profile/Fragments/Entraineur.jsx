@@ -17,7 +17,6 @@ import Social from "../components/social";
 import secureLocalStorage from "react-secure-storage";
 
 const PlayerCard = ({ userInfo, sendNotification }) => {
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const { id } = useParams();
   const isOwner = storedUserData.id == id;
   const [acceptedFriend, setAcceptedFriend] = useState(false);
@@ -28,9 +27,20 @@ const PlayerCard = ({ userInfo, sendNotification }) => {
   const [imageSrc, setImageSrc] = useState(null);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
+
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData?.token;
+
   const isFriendAccepted = async () => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`
+      `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserDatad.id}`,{
+        headers : {
+          'Authorization': `Bearer ${tokenn}`
+        }
+      }
     );
     const result = await response.json();
     setAcceptedFriend(result.exists);
@@ -44,6 +54,9 @@ const PlayerCard = ({ userInfo, sendNotification }) => {
       `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`,
       {
         method: "POST",
+        headers : {
+          'Authorization': `Bearer ${tokenn}`
+        }
       }
     );
     isFriendAccepted();
@@ -56,6 +69,9 @@ const PlayerCard = ({ userInfo, sendNotification }) => {
       `${Config.LOCAL_URL}/api/user/${id}/friend-requests`,
       {
         method: "GET",
+        headers : {
+          Authorization: `Bearer ${tokenn}`,
+        }
       }
     );
     const result = await response.json();

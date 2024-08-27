@@ -51,8 +51,19 @@ const Index = () => {
   const [file, setFile] = useState(null);
   const fetchUserInfo = async () => {
     try {
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
+      const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+      const id = storedUserDatad ? storedUserDatad?.id : null;
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/user/${storedUserData.id}`
+        `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`,{
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        }
       );
       const data = await response.json();
       setUserInfo(data);

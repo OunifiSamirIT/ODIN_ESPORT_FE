@@ -42,12 +42,15 @@ const Experience = () => {
     setEndDate(parseToDate(experience[index]?.endDate));
   };
   const handleDeleteExperience = async (id) => {
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
     const response = await fetch(
       `${Config.LOCAL_URL}/api/experience/delete/${id}`,
       {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json", // Set the content type to JSON
+           Authorization: `Bearer ${tokenn}`,
         },
       }
     );
@@ -153,15 +156,24 @@ const Experience = () => {
   useEffect(() => {
     fetchExperience();
   }, []);
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
   const fetchExperience = async () => {
     try {
+      const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+      const id = storedUserDatad ? storedUserDatad?.id : null;
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/experience/fetch/${storedUserData.id}`,
+        `${Config.LOCAL_URL}/api/experience/fetch/${storedUserDatad.id}`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json", // Set the content type to JSON
+            Authorization: `Bearer ${tokenn}`,
           },
         }
       );
@@ -180,19 +192,23 @@ const Experience = () => {
 
   const onSubmit = async (data) => {
     if (update) {
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
       const response = await fetch(
         `${Config.LOCAL_URL}/api/experience/update/${expID}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json", // Set the content type to JSON
+            
+            
           },
           body: JSON.stringify({
             club: data.club,
             niveau: data.niveau,
             startDate: formatDate(data.startDate),
             endDate: formatDate(data.endDate),
-            iduser: storedUserData.id,
+            iduser: storedUserDatad.id,
           }),
         }
       );
@@ -228,19 +244,22 @@ const Experience = () => {
         });
       }
     } else {
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
       const response = await fetch(
         `${Config.LOCAL_URL}/api/experience/create`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json", // Set the content type to JSON
+            Authorization: `Bearer ${tokenn}`,
           },
           body: JSON.stringify({
             club: data.club,
             niveau: data.niveau,
             startDate: formatDate(data.startDate),
             endDate: formatDate(data.endDate),
-            iduser: storedUserData.id,
+            iduser: storedUserDatad.id,
           }),
         }
       );

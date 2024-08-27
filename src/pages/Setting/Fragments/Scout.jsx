@@ -171,11 +171,21 @@ const Scout = ({ userInfo }) => {
     formDataToUpdate.append("totalPlayer", data.totalPlayer);
     formDataToUpdate.append("skills", selectedSkills);
     formDataToUpdate.append("region", selectedRegionsV);
-
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserDatad ? storedUserDatad?.id : null;
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/scouts/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/scouts/${storedUserDatad.id}`,
       {
         method: "PUT",
+        credentials: "include",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
         body: formDataToUpdate,
       }
     ).then((r) => {

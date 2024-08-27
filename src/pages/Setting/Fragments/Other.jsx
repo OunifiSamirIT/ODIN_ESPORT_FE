@@ -182,10 +182,22 @@ const Other = ({ userInfo }) => {
   const onSubmit = async (data) => {
     const formDataToUpdate = new FormData();
     formDataToUpdate.append("skillsAutre", data.skills.join(","));
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserDatad ? storedUserDatad?.id : null;
+
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/other/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/other/${storedUserDatad.id}`,
       {
         method: "PUT",
+        credentials: "include",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
         body: formDataToUpdate,
       }
     ).then((r) => {

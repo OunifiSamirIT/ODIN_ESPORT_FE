@@ -63,7 +63,6 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const [player, setPlayer] = useState(null)
     const [agent, setAgent] = useState(null)
     const [skills, setSkills] = useState([])
-    const LocalStorageID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const [owner, setOwner] = useState(false)
     const [acceptedFriend, setAcceptedFriend] = useState(false)
     const [invitationSend, setInvitationSend] = useState(false);
@@ -71,18 +70,17 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const [premuim, setPremuim] = useState(false)
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
     const navigate = useNavigate()
+    const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
     const userInfo = async () => {
-        try {
-            const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-            const tokenn = storedUserData.token;
-    
-        const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-      
-          const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDataID.id}`, {
+        try {    
+          const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`, {
             method: "GET",
             credentials: "include",
             headers: {
-              "Content-Type": "application/json",
               Authorization: `Bearer ${tokenn}`,
             },
           });
@@ -91,16 +89,20 @@ const ProfileLayout = ({ children, onChange, user }) => {
       
           if (result.message) {
             navigate('/404');
-          } else {
-            setCurrentUser(result);
           }
+            setCurrentUser(result);
         } catch (error) {
           console.error(error);
           // Handle the error more gracefully, e.g., display an error message to the user
         }
       }
     const isFriendAccepted = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${user}/checkFriends/${LocalStorageID.id}`)
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${user}/checkFriends/${storedUserDatad.id}`,{
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+              },
+        })
         const result = await response.json();
         setAcceptedFriend(result.exists)
     }
@@ -108,22 +110,30 @@ const ProfileLayout = ({ children, onChange, user }) => {
     useEffect(() => {
         isFriendAccepted()
         fetchAllFriendRequest()
-        if (LocalStorageID.id == id) {
+        if (storedUserDatad.id == id) {
             setOwner(true)
         }
     }, [id, user])
 
     const fetchAllFriendRequest = async () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/getFriends`, {
-            method: "GET",
+            method: "GET", 
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+              },
         });
         const result = await response.json();
         setInvitation(result.data)
     }
 
     const deleteInviation = async (id) => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${LocalStorageID.id}/delete/${id}`, {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/delete/${id}`, {
             method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+              },
         });
         if (response.status === 200) { window.location.reload() }
     }

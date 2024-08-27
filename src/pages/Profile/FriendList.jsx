@@ -8,22 +8,33 @@ import { paysAllInfo } from "../../assets/data/Country";
 import secureLocalStorage from "react-secure-storage";
 
 const FriendList = () => {
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const { id } = useParams()
   const [FriendRequest, setFriendRequest] = useState([]);
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData?.token;
   const fetchFriendRequest = async () => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/getFriends`
+      `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/getFriends`,{
+        Authorization: `Bearer ${tokenn}`,
+
+      }
     );
     const result = await response.json();
     setFriendRequest(result.data);
   };
   const deleteInviation = async (id) => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${storedUserData.id}/delete/${id}`,
+      `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/delete/${id}`,
       {
         method: "DELETE",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
       }
     );
     if (response.status === 200) {
@@ -32,9 +43,14 @@ const FriendList = () => {
   };
   const acceptInvitation = async (id) => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${storedUserData.id}/acceptFriend/${id}`,
+      `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/acceptFriend/${id}`,
       {
         method: "PUT",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+
       }
     );
     if (response.status === 200) {
@@ -50,11 +66,16 @@ const FriendList = () => {
     }
   }, [id, user])
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-    const id = storedUserData ? storedUserData.id : null;
-
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+  
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`,{
+        headers: {
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);

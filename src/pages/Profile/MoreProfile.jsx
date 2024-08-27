@@ -44,13 +44,22 @@ const More = () => {
   const [experience, setExperience] = useState([]);
 
   // const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-  const isOwner = storedUserData.id == id;
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData?.token;
+
+  const isOwner = storedUserDatad.id == id;
   const sendFriendRequest = async () => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserDatad.id}`,
       {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
       }
     );
 
@@ -71,7 +80,14 @@ const More = () => {
 
   const navigate = useNavigate();
   const fetchUser = async () => {
-    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`);
+    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`,{
+      credentials: "include",
+      headers: {
+        // "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
+      },
+
+    });
     const result = await response.json();
 
     if (result.message) {
@@ -100,7 +116,7 @@ const More = () => {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json", // Set the content type to JSON
+            Authorization: `Bearer ${tokenn}`, // Set the content type to JSON
           },
         }
       );

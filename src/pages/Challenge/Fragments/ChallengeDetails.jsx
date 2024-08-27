@@ -71,6 +71,12 @@ const ChallengeDetais = () => {
         setCommentToEdit(comment)
 
     }
+    const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
+
     const submitUpdatedComment = async (comment) => {
         console.log(comment)
         const formData = new FormData();
@@ -79,6 +85,10 @@ const ChallengeDetais = () => {
 
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/edit`, {
             method: 'PUT',
+            headers : {
+                credentials: "include",
+                Authorization: `Bearer ${tokenn}`,
+            },
             body: formData,
         })
         const result = await response.json()
@@ -125,6 +135,10 @@ const ChallengeDetais = () => {
         formData.append('participantId', showCase.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/vote`, {
             method: 'PUT',
+            headers : {
+                credentials: "include",
+                Authorization: `Bearer ${tokenn}`,
+            },
             body: formData,
         })
         const result = await response.json()
@@ -141,6 +155,10 @@ const ChallengeDetais = () => {
         console.log('fg')
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/checkVote`, {
             method: 'POST',
+            headers : {
+                credentials: "include",
+                Authorization: `Bearer ${tokenn}`,
+            },
             body: formData,
         })
         const result = await response.json()
@@ -149,7 +167,11 @@ const ChallengeDetais = () => {
         console.log(showCase)
 
         const response = fetch(`${Config.LOCAL_URL}/api/participant/delete/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers : {
+                credentials: "include",
+                Authorization: `Bearer ${tokenn}`,
+            },
         })
         const result = await response
 
@@ -162,7 +184,11 @@ const ChallengeDetais = () => {
     }
     const handleDeleteComment = async (id) => {
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/delete/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers : {
+                credentials: "include",
+                Authorization: `Bearer ${tokenn}`,
+            },
         })
         const result = await response.json()
         console.log(response)
@@ -220,7 +246,12 @@ const ChallengeDetais = () => {
 
     }
     const fetchChallenges = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/challenges/${challengeId}`)
+        const response = await fetch(`${Config.LOCAL_URL}/api/challenges/${challengeId}` , {
+            headers : {
+                credentials: "include",
+                Authorization: `Bearer ${tokenn}`,
+            }
+        })
         const result = await response.json()
         console.log("alooo ", result)
         const connectedUserId = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
@@ -247,7 +278,13 @@ const ChallengeDetais = () => {
     }
     const [likePerContectedUser, setLikesPerContectedUser] = useState([])
     const fetchCommentaire = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/fetch/${showCase.id}`)
+        console.log(showCase , "hello showcase")
+        const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/fetch/${showCase.id}`,{
+            headers : {
+                credentials: "include",
+                Authorization: `Bearer ${tokenn}`,
+            }
+        })
         const result = await response.json()
         let connectedUserLikes = [];
         const useee = result.commentaire.map((item) => {
@@ -303,7 +340,6 @@ const ChallengeDetais = () => {
         checkIfParticipate(challenges)
         console.log('changed')
     }, [challenges])
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const onSubmit = async (data) => {
         setIsLoading(true)
         const formData = new FormData();
@@ -312,8 +348,12 @@ const ChallengeDetais = () => {
         formData.append('description', data.description)
         formData.append('files', data.video[0])
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/create`, {
+            credentials: "include",
             method: 'POST',
             body: formData,
+            headers : {
+                Authorization: `Bearer ${tokenn}`,
+            }
         });
         if (response.status === 200) {
             setValue('challengeId', '')
@@ -355,7 +395,11 @@ const ChallengeDetais = () => {
             }
         })
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/delete/${myParticipants[0].id}`, {
+            credentials: "include",
             method: 'DELETE',
+            headers : {
+                Authorization: `Bearer ${tokenn}`,
+            }
         });
         if (response.status === 200) {
             window.location.reload()
@@ -375,8 +419,12 @@ const ChallengeDetais = () => {
         formData.append('challengeId', challengeId)
         formData.append('userId', storedUserData.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/create`, {
+            credentials: "include",
             method: 'POST',
-            body: formData
+            body: formData,
+            headers : {
+                Authorization: `Bearer ${tokenn}`,
+            }
         })
         if (response.status === 200) {
             fetchCommentaire()
@@ -395,9 +443,10 @@ const ChallengeDetais = () => {
                 const response = await fetch(
                     `${Config.LOCAL_URL}/api/commentaire/reply/create`, // Update the endpoint here
                     {
+                        credentials: "include",
                         method: "POST",
                         headers: {
-                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${tokenn}`,
                         },
                         body: JSON.stringify({
                             description: replyText,
@@ -449,8 +498,12 @@ const ChallengeDetais = () => {
         formData.append('challengeId', challengeId)
         formData.append('userId', storedUserData.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/like`, {
+            credentials: "include",
             method: 'PUT',
-            body: formData
+            body: formData , 
+            headers : {
+                Authorization: `Bearer ${tokenn}`,
+            }
         })
         const result = await response.json()
         console.log(result)
@@ -475,8 +528,12 @@ const ChallengeDetais = () => {
         formData.append('challengeId', challengeId)
         formData.append('userId', storedUserData.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/likeChallengesReply`, {
+            credentials: "include",
             method: 'PUT',
-            body: formData
+            body: formData , 
+            headers : {
+                Authorization: `Bearer ${tokenn}`,
+            }
         })
         fetchCommentaire()
         const result = await response.json()
@@ -491,8 +548,12 @@ const ChallengeDetais = () => {
         formData.append('challengeId', challengeId)
         formData.append('userId', storedUserData.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/checklike`, {
+            credentials: "include",
             method: 'PUT',
-            body: formData
+            body: formData,
+            headers : {
+                Authorization: `Bearer ${tokenn}`,
+            }
         })
         const didIlikedTheChallenge = await response.json()
         if (didIlikedTheChallenge.hasLiked == true) {
@@ -522,22 +583,32 @@ const ChallengeDetais = () => {
         formData.append('participantId', item.id)
 
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/checkVote`, {
+            credentials: "include",
             method: 'POST',
             body: formData,
+            headers: {
+                'Authorization': `Bearer ${tokenn}`,
+            },
         })
         const result = await response.json()
-        console.log('this tabnine', hasLiked)
         setIsVoted(result.res)
         setVote(item.votes)
         setLikes(item.likes)
         checkLike(item.id)
+        console.log('itemm' , item)
         setShowCase(item)
         fetchCommentaire()
     }
     const handleClicklikeshow = async (id) => {
         try {
             const response = await fetch(
-                `${Config.LOCAL_URL}/api/like/fetchLikelist/${id}`
+                `${Config.LOCAL_URL}/api/like/fetchLikelist/${id}`,
+                  {
+                    credentials: "include",
+                    headers : {
+                        Authorization: `Bearer ${tokenn}`,
+                    }
+                  }
             );
             if (!response.ok) {
                 throw new Error("Failed to fetch users who liked the article");
@@ -554,7 +625,12 @@ const ChallengeDetais = () => {
     const handleClickVoteshow = async (id) => {
         try {
             const response = await fetch(
-                `${Config.LOCAL_URL}/api/like/fetchVotelist/${id}`
+                `${Config.LOCAL_URL}/api/like/fetchVotelist/${id}` , {
+                    credentials: "include",
+                    headers : {
+                        Authorization: `Bearer ${tokenn}`,
+                    }
+                }
             );
             if (!response.ok) {
                 throw new Error("Failed to fetch users who liked the article");
