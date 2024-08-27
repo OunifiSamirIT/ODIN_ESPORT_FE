@@ -154,13 +154,10 @@
 //         };
 //       });
 
-
 //       // Combine articles and albums into a single array
 //       const combinedData = [...data, ...parsedArticles];
 
 //       setP((prevPage) => prevPage + 1);
-
-     
 
 //       // Update state with sorted data
 //       setData(combinedData);
@@ -389,7 +386,14 @@
 // }
 
 // export default Home;
-import React, { Component, Fragment, useState, useRef, useEffect } from "react";
+import React, {
+  Component,
+  Fragment,
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+} from "react";
 import { useForm } from "react-hook-form";
 import Post from "../../components/Post";
 import Albumsadmin from "../../components/Albumsadmin";
@@ -448,9 +452,14 @@ import CreatePostModal from "../../components/CreatePostModal";
 import Card from "./../Challenge/Component/Card";
 import { Context } from "../../index";
 import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../../AuthContext";
 function Home() {
   const { dark_bg } = React.useContext(Context);
+  const { checkTokenExpiration } = useContext(AuthContext);
 
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [eventHasMore, setEventHasMore] = useState(true);
@@ -580,26 +589,18 @@ function Home() {
         const userId = article.userId;
         const comt = article.id;
 
-
         const storedUserData = JSON.parse(localStorage.getItem("Secret"));
         const tokenn = storedUserData.token;
         const [userDataResponse, commentsResponse, likesCountResponse] =
           await Promise.all([
-            
-            fetch(`${Config.LOCAL_URL}/api/user/${userId}`
-            , {
+            fetch(`${Config.LOCAL_URL}/api/user/${userId}`, {
               method: "GET",
               credentials: "include",
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${tokenn}`,
               },
-            }
-
-
-            ).then((res) =>
-              res.json()
-            ),
+            }).then((res) => res.json()),
             fetch(`${Config.LOCAL_URL}/api/commentaires/article/${comt}`).then(
               (res) => res.json()
             ),
@@ -659,16 +660,14 @@ function Home() {
     const storedUserData = JSON.parse(localStorage.getItem("Secret"));
     const tokenn = storedUserData.token;
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`
-      , {
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
         method: "GET",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
         },
-      }
-      )
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);

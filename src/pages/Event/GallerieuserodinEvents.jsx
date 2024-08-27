@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../components/Header2";
 // import Leftnav from '../../components/Leftnav';
 // import Rightchat from '../../components/Rightchat';
@@ -18,8 +18,15 @@ import LeftMenu from "../../components/LeftMenu";
 import { Context } from "../../index";
 import Index from "../Profile/Index";
 import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../../AuthContext";
 
 const Album = () => {
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
+
   const [album, setAlbum] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -80,7 +87,16 @@ const Album = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumevent`);
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData?.token;
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumevent`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
 
         const result = await response.json();
 
@@ -178,11 +194,22 @@ const Album = () => {
     setFilteredCamps(filteredData);
   };
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const id = storedUserData ? storedUserData.id : null;
+    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDataa?.token;
 
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -465,12 +492,12 @@ const Album = () => {
                             </div>
                           </div>
                           <div className="mt-2 text-xs mx-2 text-break font-light text-black">
-                          <div
-                            className="text-left mt-2 font-sans text-sm leading-loose h-"
-                            dangerouslySetInnerHTML={{
-                              __html: value.description.slice(0,100) + '...',
-                            }}
-                          />
+                            <div
+                              className="text-left mt-2 font-sans text-sm leading-loose h-"
+                              dangerouslySetInnerHTML={{
+                                __html: value.description.slice(0, 100) + "...",
+                              }}
+                            />
                           </div>
                           <div className="flex gap-5 px-2 justify-between mt-2 max-w-full w-[282px]">
                             <div className="flex flex-col whitespace-nowrap ">

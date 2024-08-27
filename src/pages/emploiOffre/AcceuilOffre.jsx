@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Header from "../../components/Header2";
 import { Context } from "../../index";
 
@@ -15,8 +15,14 @@ import { useEffect } from "react";
 import { Config } from "../../config";
 import moment from "moment";
 import secureLocalStorage from "react-secure-storage";
+import { AuthContext } from "../../AuthContext";
 
 function AcceuilOffre() {
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
   const emailRef = useRef(null);
   const [copied, setCopied] = useState(false);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
@@ -40,22 +46,40 @@ function AcceuilOffre() {
   };
   const [userDetails, setUserDetails] = useState(null);
   const [isReaMore, setReaMore] = useState(false);
-  
+
   const { id: idoffre } = useParams();
   const [albumDetails, setAlbumDetails] = useState(null);
 
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
+        const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserDataa?.token;
         const response = await fetch(
-          `${Config.LOCAL_URL}/api/offreEmploi/${idoffre}`
+          `${Config.LOCAL_URL}/api/offreEmploi/${idoffre}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
         );
         const result = await response.json();
         setAlbumDetails(result.data);
 
         // Fetch user information using userId
         const userResponse = await fetch(
-          `${Config.LOCAL_URL}/api/user/${result.data.userId}`
+          `${Config.LOCAL_URL}/api/user/${result.data.userId}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
         );
         const userData = await userResponse.json();
         setUserDetails(userData);
@@ -70,11 +94,22 @@ function AcceuilOffre() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserDataa?.token;
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -124,12 +159,12 @@ function AcceuilOffre() {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    {getTranslation(
-                    `Home`, // -----> Englais
-                    `Acceuil` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}
+                      {getTranslation(
+                        `Home`, // -----> Englais
+                        `Acceuil` //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )}
                     </div>
                   </div>
                 </Link>
@@ -168,12 +203,12 @@ function AcceuilOffre() {
                       </svg>
                     </div>
                     <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                    {getTranslation(
-                    `Profile`, // -----> Englais
-                    `Profil` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}
+                      {getTranslation(
+                        `Profile`, // -----> Englais
+                        `Profil` //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )}
                     </div>
                   </div>{" "}
                 </Link>
@@ -240,12 +275,12 @@ function AcceuilOffre() {
                           </svg>
                         </div>
                         <div className="text-[#1d1e21] font-['Sora'] text-xl font-medium leading-[normal]">
-                        {getTranslation(
-                    `Players`, // -----> Englais
-                    `Joueurs` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}
+                          {getTranslation(
+                            `Players`, // -----> Englais
+                            `Joueurs` //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )}
                         </div>
                       </div>{" "}
                     </Link>
@@ -264,12 +299,15 @@ function AcceuilOffre() {
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cf2e6080455aed54d848487194a6ca0fa5a1f12e5bf524b2f4def505c5924b9?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                       className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                     />
-                    <div> {getTranslation(
-                    `Events`, // -----> Englais
-                    `Événements` //  -----> Francais
-                    //   ``,  //  -----> Turkey
-                    //   `` ,  //  -----> Allemagne
-                  )}</div>
+                    <div>
+                      {" "}
+                      {getTranslation(
+                        `Events`, // -----> Englais
+                        `Événements` //  -----> Francais
+                        //   ``,  //  -----> Turkey
+                        //   `` ,  //  -----> Allemagne
+                      )}
+                    </div>
                   </div>
                   <img
                     loading="lazy"
@@ -334,12 +372,15 @@ function AcceuilOffre() {
                               className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                             />
 
-                            <div> {getTranslation(
-                            `ODIN Events`, // -----> Englais
-                            `ODIN Events` //  -----> Francais
-                            //   ``,  //  -----> Turkey
-                            //   `` ,  //  -----> Allemagne
-                          )}</div>
+                            <div>
+                              {" "}
+                              {getTranslation(
+                                `ODIN Events`, // -----> Englais
+                                `ODIN Events` //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )}
+                            </div>
                           </div>
                         </div>
                       </Link>
@@ -357,12 +398,15 @@ function AcceuilOffre() {
                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a7fc5fd676e2d7354f4a7f19b0967db7f2d99a7e161c7c156ac1ce03217cf2c?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                         className="shrink-0 my-auto w-5 aspect-square fill-zinc-900"
                       />
-                      <div> {getTranslation(
-                      `Job Offers`, // -----> Englais
-                      `Offres d’emploi` //  -----> Francais
-                      //   ``,  //  -----> Turkey
-                      //   `` ,  //  -----> Allemagne
-                    )}</div>
+                      <div>
+                        {" "}
+                        {getTranslation(
+                          `Job Offers`, // -----> Englais
+                          `Offres d’emploi` //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )}
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -379,12 +423,15 @@ function AcceuilOffre() {
                           src="https://cdn.builder.io/api/v1/image/assets/TEMP/9786e68dfb8caaa3f272d19139631266c00cc57d909bc9770e440be5ee793738?apiKey=3852610df1e148bb99f71ca6c48f37ee&"
                           className="shrink-0 my-auto w-4 aspect-square fill-white"
                         />
-                        <div> {getTranslation(
-                        `Publish an Offer`, // -----> Englais
-                        ` Publier une offre` //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )}</div>
+                        <div>
+                          {" "}
+                          {getTranslation(
+                            `Publish an Offer`, // -----> Englais
+                            ` Publier une offre` //  -----> Francais
+                            //   ``,  //  -----> Turkey
+                            //   `` ,  //  -----> Allemagne
+                          )}
+                        </div>
                       </div>
                     )}
                 </Link>
@@ -458,13 +505,13 @@ function AcceuilOffre() {
                               className="shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                             />
                             <div>
-                            {getTranslation(
-                        `Expire:`, // -----> Englais
-                        `Expire le:` //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )}
-                              
+                              {getTranslation(
+                                `Expire:`, // -----> Englais
+                                `Expire le:` //  -----> Francais
+                                //   ``,  //  -----> Turkey
+                                //   `` ,  //  -----> Allemagne
+                              )}
+
                               {moment(albumDetails?.date_experie).format(
                                 "DD-MM-YYYY"
                               )}
@@ -518,12 +565,12 @@ function AcceuilOffre() {
                             className="shrink-0 my-auto w-4 aspect-square fill-neutral-900 fill-opacity-70"
                           />
                           <div>
-                          {getTranslation(
-                        `Expire:`, // -----> Englais
-                        `Expire le:` //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )}
+                            {getTranslation(
+                              `Expire:`, // -----> Englais
+                              `Expire le:` //  -----> Francais
+                              //   ``,  //  -----> Turkey
+                              //   `` ,  //  -----> Allemagne
+                            )}
                             {moment(albumDetails?.date_experie).format(
                               "DD-MM-YYYY"
                             )}
@@ -535,13 +582,13 @@ function AcceuilOffre() {
                   <div className="mt-2 md:mt-6  self-start  font-serif text-xl max-md:max-w-full">
                     Description :
                   </div>
-                  <div style={{
-                        whiteSpace: "pre-line"
-
-                  }} className="mt-2 text-lg text-neutral-900 text-break text-opacity-70 max-md:max-w-full">
-                    
-                   { albumDetails?.description }
-
+                  <div
+                    style={{
+                      whiteSpace: "pre-line",
+                    }}
+                    className="mt-2 text-lg text-neutral-900 text-break text-opacity-70 max-md:max-w-full"
+                  >
+                    {albumDetails?.description}
                   </div>
                   <div className="flex gap-2 self-start ml-1 mt-6 text-xl font-serif whitespace-nowrap text-zinc-900">
                     <img
@@ -570,12 +617,12 @@ function AcceuilOffre() {
                         alt="Copier"
                       />
                       <div>
-                      {getTranslation(
-                        `Copy`, // -----> Englais
-                        `Copier` //  -----> Francais
-                        //   ``,  //  -----> Turkey
-                        //   `` ,  //  -----> Allemagne
-                      )}
+                        {getTranslation(
+                          `Copy`, // -----> Englais
+                          `Copier` //  -----> Francais
+                          //   ``,  //  -----> Turkey
+                          //   `` ,  //  -----> Allemagne
+                        )}
                       </div>
                     </button>
                   </div>
@@ -587,7 +634,6 @@ function AcceuilOffre() {
                         //   ``,  //  -----> Turkey
                         //   `` ,  //  -----> Allemagne
                       )}
-                     
                     </div>
                   )}
                 </div>

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Config } from "../config";
 import Placeholder from "../assets/placeholder.jpg";
@@ -9,8 +9,14 @@ import { io } from "socket.io-client";
 import NotificationService from "../api/notification.server";
 import secureLocalStorage from "react-secure-storage";
 import CryptoJS from "crypto-js";
+import { AuthContext } from "../AuthContext";
 function Friends() {
   //initialize socket
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
 
   const [socket, setSocket] = useState(null);
 
@@ -31,31 +37,7 @@ function Friends() {
   };
   // const [friendRequests, setFriendRequests] = useState(null);
   const [userpf, setUserpf] = useState(null);
-  const decryptString = (encryptedText, secret) => {
-    try {
-      const ciphertext = CryptoJS.enc.Hex.parse(encryptedText);
-      const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000"); // Assurez-vous que cela correspond à l'IV utilisé côté serveur
-      const decrypted = CryptoJS.AES.decrypt(
-        { ciphertext: ciphertext },
-        CryptoJS.enc.Hex.parse(secret),
-        { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
-      );
-      return decrypted.toString(CryptoJS.enc.Utf8);
-    } catch (error) {
-      console.error("Decryption error:", error);
-      return null;
-    }
-  };
-  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-  const idd = storedUserData.id;
-  const decryptedId = decryptString(
-    idd,
-    process.env.REACT_APP_ENCRYPTION_SECRET
-  );
-  console.log(storedUserData, "User data______________");
 
-  const id = decryptedId ? decryptedId : null;
-  console.log(id, "alooo id 2222");
   const [friendRequests, setFriendRequests] = useState([]);
   const {
     _currentLang,
@@ -67,21 +49,40 @@ function Friends() {
   } = React.useContext(Context);
 
   const acceptInvitation = async (id) => {
+    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDataa?.token;
+
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${id}/acceptFriend/${id}`,
       {
         method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
       }
     );
     if (response.status === 200) {
       window.location.reload();
     }
   };
-  const deleteInviation = async (id) => {
+  const deleteInviation = async (idd) => {
+    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDataa?.token;
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserData ? storedUserData.id : null;
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${storedUserData.id}/delete/${id}`,
+      `${Config.LOCAL_URL}/api/user/${id}/delete/${idd}`,
       {
         method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
       }
     );
     if (response.status === 200) {
@@ -91,10 +92,18 @@ function Friends() {
   useEffect(() => {
     // Get user ID from local storage
     const userId = JSON.parse(secureLocalStorage.getItem("cryptedUser"))?.id;
-
+    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDataa?.token;
     // Fetch user info using user ID
     if (userId) {
-      fetch(`${Config.LOCAL_URL}/api/user/${userId}`)
+      fetch(`${Config.LOCAL_URL}/api/user/${userId}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => {
           return response.json();
         })
@@ -105,8 +114,20 @@ function Friends() {
     }
 
     const fetchFriendRequest = async () => {
+      const storedUserData = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+      const id = storedUserData ? storedUserData.id : null;
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/user/${storedUserData.id}/getPendingFriends`
+        `${Config.LOCAL_URL}/api/user/${id}/getPendingFriends`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        }
       );
       const result = await response.json();
 

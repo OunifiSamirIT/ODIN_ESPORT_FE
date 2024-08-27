@@ -28,21 +28,23 @@ const SlideMenu = ({
   const [lang, setLang] = useState("Français");
   const [user, setUser] = useState({});
 
-  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-  const storedUserDatad = JSON.parse(
-    secureLocalStorage.getItem("cryptedUser")
-  );
-  const tokenn = storedUserData?.token;
-
-
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
   useEffect(() => {
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserData ? storedUserData.id : null;
+    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDataa?.token;
     // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`,{
-       headers: {
-         Authorization: `Bearer ${tokenn}`,
-       },
+    fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
+      },
     })
       .then((response) => response.json())
       .then((userData) => {
