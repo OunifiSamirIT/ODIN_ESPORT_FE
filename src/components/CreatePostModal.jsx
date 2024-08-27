@@ -40,11 +40,19 @@ function CreatePostModal({ fetchDataOnbegin }) {
     setIsModaldOpen(true);
   };
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-    const id = storedUserData ? storedUserData.id : null;
-
+    const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const id = storedUserDataID ? storedUserDataID.id : null;
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData.token;
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);

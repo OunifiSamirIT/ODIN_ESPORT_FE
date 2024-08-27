@@ -8,14 +8,29 @@ import Popupchat from "../../components/Popupchat";
 import Load from "../../components/Load";
 import { Link } from "react-router-dom";
 import { Config } from "../../config";
+import secureLocalStorage from "react-secure-storage";
 
 const Album = () => {
   const [album, setAlbum] = useState([]);
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData.token;
 
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
+  const id = storedUserDatad ? storedUserDatad.id : null;
+  console.log("eeeeeeeeeeeee", tokenn);
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumevent`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumevent`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
 
         const result = await response.json();
 

@@ -4214,17 +4214,29 @@ function Badge({ userpf }) {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-    const id = storedUserData ? storedUserData.id : null;
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData.token;
 
-    if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
-        .then((response) => response.json())
-        .then((userData) => {
-          setUser(userData);
-        })
-        .catch((error) => console.error("Error fetching user data:", error));
-    }
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserDatad ? storedUserDatad.id : null;
+    console.log("eeeeeeeeeeeee", tokenn);
+    // Replace the API endpoint with your actual endpoint for fetching user data
+    fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((userData) => {
+        setUser(userData);
+        console.log("user from header3", user);
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
   }, []);
 
   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));

@@ -547,7 +547,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   };
   const handlePostSubmit = async (data) => {
     try {
-      if (!storedUserData?.id) {
+      if (!storedUserDataID?.id) {
         // Handle validation errors or missing user data
         return;
       }
@@ -555,7 +555,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
       const formData = new FormData();
       formData.append("titre", "Your default title");
       formData.append("description", data.description);
-      formData.append("userId", storedUserData?.id);
+      formData.append("userId", storedUserDataID?.id);
       formData.append("type", "Your default type");
       formData.append("file", file);
       formData.append("fileType", fileType);
@@ -1022,22 +1022,23 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
   const handleMoreClick = (article) => {
     console.log("More clicked", article.id);
-    // setSelectedArticle(article);
-
-    // Toggle the dropdown visibility
-    setShowDropdown((prevState) =>
-      prevState === article.id ? null : article.id
-    );
+    setShowDropdown((prevState) => prevState === article.id ? null : article.id);
   };
+
+
   const handleMoreClickreply = (reply) => {
-    console.log("More clicked", reply.id);
-    // setSelectedArticle(article);
-
-    // Toggle the dropdown visibility
-    setShowDropdownReply((prevState) =>
-      prevState === reply.id ? null : reply.id
-    );
+    console.log("More clicked for reply", reply.id);
+    setShowDropdownReply((prevState) => prevState === reply.id ? null : reply.id);
   };
+  // const handleMoreClickreply = (reply) => {
+  //   console.log("More clicked", reply.id);
+  //   // setSelectedArticle(article);
+
+  //   // Toggle the dropdown visibility
+  //   setShowDropdownReply((prevState) =>
+  //     prevState === reply.id ? null : reply.id
+  //   );
+  // };
 
   const handleDeleteClick = (id) => {
     const confirmDelete = window.confirm(
@@ -1721,7 +1722,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       : moment(article?.createdAt).fromNow()}
                   </span>
                 </h4>
-                {storedUserData?.id == article?.user?.user?.id && (
+                {storedUserDataID?.id == article?.user?.user?.id && (
                   <div
                     className="  ms-auto relative cursor-pointer"
                     onClick={() => handleMoreClick(article)}
@@ -1747,9 +1748,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                       />
                     </svg>
 
-                    {showDropdown === article.id &&
-                      article?.user?.user &&
-                      article?.user?.user?.id === storedUserData?.id && (
+                    {showDropdown === article.id && (
+
                         <div className="  absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                           <button
                             className="  block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
@@ -2417,7 +2417,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     <span className="  flex items-center flex-col md:flex-row gap-2 ">
                       {likesData &&
                       likesData.some(
-                        (like) => like.userId === storedUserData?.id
+                        (like) => like.userId === storedUserDataID?.id
                       ) ? (
                         <span className="  flex flex-row">
                           {" "}
@@ -2809,7 +2809,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                         (likesDataComment.some(
                                           (like) =>
                                             like.userId ===
-                                              storedUserData?.id &&
+                                          storedUserDataID?.id &&
                                             like.commentId === comment.id
                                         ) ? (
                                           <span className="  flex flex-row">
@@ -2943,7 +2943,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                   ).fromNow()}
                                             </div>
                                           </div>
-                                          {storedUserData?.id ==
+                                          {storedUserDataID?.id ==
                                             reply?.user?.user?.id && (
                                             <div
                                               className="  ms-auto relative cursor-pointer"
@@ -2972,10 +2972,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                 />
                                               </svg>
 
-                                              {showDropdownReply === reply.id &&
-                                                reply?.user?.user &&
-                                                reply?.user?.user?.id ===
-                                                  storedUserData?.id && (
+                                              {showDropdownReply === reply.id && (
+
                                                   <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                     <button
                                                       className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
@@ -3439,7 +3437,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </span>
                         </h4>
 
-                        {storedUserData?.id == article?.user?.user?.id && (
+                        {storedUserDataID?.id == article?.user?.user?.id && (
                           <div
                             className="  ms-auto relative cursor-pointer"
                             onClick={() => handleMoreClick(article)}
@@ -3465,10 +3463,8 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                               />
                             </svg>
 
-                            {showDropdown === article.id &&
-                              article?.user?.user &&
-                              article?.user?.user?.id ===
-                                storedUserData?.id && (
+                           {showDropdown === article.id && (
+
                                 <div className="  absolute z-10 top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                   <button
                                     className="  block  px-4 py-2 text-gray-800 hover:bg-gray-200 w-full"
@@ -3684,7 +3680,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           <span className="  flex items-center flex-col md:flex-row gap-2 ">
                             {likesData &&
                             likesData.some(
-                              (like) => like.userId === storedUserData?.id
+                              (like) => like.userId === storedUserDataID?.id
                             ) ? (
                               <span className="  flex flex-row">
                                 {" "}
@@ -4091,7 +4087,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               (likesDataComment.some(
                                                 (like) =>
                                                   like.userId ===
-                                                    storedUserData?.id &&
+                                                storedUserDataID?.id &&
                                                   like.commentId === comment.id
                                               ) ? (
                                                 <span className="  flex flex-row">
@@ -4255,7 +4251,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                           ).fromNow()}
                                                     </div>
                                                   </div>
-                                                  {storedUserData?.id ==
+                                                  {storedUserDataID?.id ==
                                                     reply?.user?.user?.id && (
                                                     <div
                                                       className="  ms-auto relative cursor-pointer"
@@ -4291,7 +4287,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                                         reply?.user?.user &&
                                                         reply?.user?.user
                                                           ?.id ===
-                                                          storedUserData?.id && (
+                                                          storedUserDataID?.id && (
                                                           <div className="  absolute top-0 right-8 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                             <button
                                                               className="  block px-4 py-1 text-gray-800 hover:bg-gray-200 w-full"
