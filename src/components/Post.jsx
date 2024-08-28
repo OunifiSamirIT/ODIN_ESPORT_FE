@@ -1042,33 +1042,51 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
   const handleDeleteClick = (id) => {
     const confirmDelete = window.confirm(
-      "Êtes-vous sûr de vouloir supprimer cette publication ?"
+      getTranslation(
+        "Are you sure you want to delete this post?",
+        "Êtes-vous sûr de vouloir supprimer cette publication ?"
+      )
     );
-
+  
     if (confirmDelete) {
       console.log("Deleting article...");
-
+  
+      // Retrieve the authentication token
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const token = storedUserData?.token;
+  
+      if (!token) {
+        console.error("No authentication token found");
+        // Handle the case where there's no token (e.g., show an error message to the user)
+        return;
+      }
+  
       fetch(`${Config.LOCAL_URL}/api/articles/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          // Add any additional headers if needed
+          "Authorization": `Bearer ${token}`, // Include the token in the Authorization header
         },
       })
         .then((response) => {
           if (!response.ok) {
+            if (response.status === 401) {
+              throw new Error("Unauthorized: Please log in again.");
+            }
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
-          onDeleteFromListAcceuillFront(id);
           return response.json();
         })
         .then((data) => {
           console.log(data.message);
+          onDeleteFromListAcceuillFront(id);
           // Optionally, you can update your UI or state to reflect the deleted article
         })
         .catch((error) => {
-          console.error(error.message);
+          console.error("Error deleting article:", error.message);
           // Handle the error or show a notification to the user
+          // For example:
+          // setErrMsg(error.message);
         })
         .finally(() => {
           // Close the dropdown after deleting

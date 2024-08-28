@@ -95,15 +95,25 @@ function EditPost({ articleId, onClose }) {
       formData.append("titre", editArticle.titre);
       formData.append("description", editArticle.description);
 
-      // if (file) {
-      //   formData.append("file", file);
-      //   formData.append("fileType", fileType || "");
-      // }
+      // Get the authentication token
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const token = storedUserData?.token;
+
+      if (!token) {
+        setErrMsg({
+          status: "failed",
+          message: "Authentication token not found",
+        });
+        return;
+      }
 
       const response = await fetch(
         `${Config.LOCAL_URL}/api/articles/${editArticle.id}`,
         {
           method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           body: formData,
         }
       );

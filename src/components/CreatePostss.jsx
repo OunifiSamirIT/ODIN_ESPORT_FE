@@ -9,12 +9,12 @@ import placeholder from "../assets/placeholder.jpg"
 import { useRef } from 'react';
 import { Context } from "../index";
 import secureLocalStorage from "react-secure-storage";
+import DOMPurify from 'dompurify'; // You'll need to install this package
 
 function CreatePost({ setArticles, onClose }) {
   const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg } = React.useContext(Context);
 
 
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const {
     register,
     handleSubmit,
@@ -38,8 +38,33 @@ function CreatePost({ setArticles, onClose }) {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const storedToken = JSON.parse(localStorage.getItem("Secret"))?.token;
 
-
+  useEffect(() => {
+    if (storedUserData?.id && storedToken) {
+      fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+          }
+          return response.json();
+        })
+        .then((userData) => {
+          setUser(userData);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          setErrMsg(getTranslation("Failed to fetch user data", "Échec de la récupération des données utilisateur"));
+        });
+    }
+  }, [storedUserData, storedToken, getTranslation]);
   const loadRemainingArticles = (remainingArticles) => {
     setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
   };
@@ -71,65 +96,144 @@ function CreatePost({ setArticles, onClose }) {
 
   const _ref_previewImage = useRef(null);
   const _ref_previewVideo = useRef(null);
-
+  const sanitizeInput = (input) => {
+    if (typeof input === 'string') {
+      // Remove any potential SQL injection attempts
+      input = input.replace(/'/g, "''");
+      // Use DOMPurify to remove any potential XSS
+      return DOMPurify.sanitize(input);
+    }
+    return input;
+  };
   const handlePostSubmit = async (data) => {
     try {
-      if (!storedUserData.id) {
-        // Handle validation errors or missing user data
+      if (!storedUserData?.id) {
+        setErrMsg(getTranslation("User not authenticated", "Utilisateur non authentifié"));
         return;
       }
 
-      // Check if neither description nor files are provided
       if (!data.description && !mediaFiles.length) {
-        setErrMsg("Ajouter quelque chose pour publier "); // Set error message
-        return; // Exit the function without submitting
+        setErrMsg(getTranslation("Add something to post", "Ajoutez quelque chose pour publier"));
+        return;
       }
 
       setPosting(true);
-      const formData = new FormData();
-      formData.append("titre", "Your default title");
-      formData.append("description", data.description || ""); // Append empty string if description is null
-      formData.append("userId", storedUserData.id);
-      formData.append("type", "Your default type");
+      setErrMsg("");
 
-      // Append media files if they exist
+      const formData = new FormData();
+      formData.append("titre", sanitizeInput("Your default title"));
+      formData.append("description", sanitizeInput(data.description || ""));
+      formData.append("type", sanitizeInput("Your default type"));
+
       if (mediaFiles.length) {
         mediaFiles.forEach((file, index) => {
-          formData.append("media", file); // Assuming "file" is the media file
+          formData.append("media", file);
         });
       }
 
       const xhr = new XMLHttpRequest();
       xhr.open("POST", `${Config.LOCAL_URL}/api/articles/`);
+      xhr.setRequestHeader("Authorization", `Bearer ${storedToken}`);
 
-      // Attach event listener to monitor upload progress
       xhr.upload.onprogress = (event) => {
-        console.log("Progress event triggered:", event.loaded, event.total);
         const percentage = (event.loaded / event.total) * 100;
-        console.log("Progress percentage:", percentage);
         setUploadProgress(Math.trunc(percentage));
       };
 
-      // Send the FormData with XMLHttpRequest
+      xhr.onload = function() {
+        if (xhr.status === 201 || xhr.status === 200) {
+          const newPost = JSON.parse(xhr.responseText);
+          setArticles(newPost); // Call the setArticles function with the new post
+          setMediaFiles([]);
+          setValue("description", "");
+          setPosting(false);
+          setErrMsg("");
+          setTimeout(() => {
+            onClose();
+          }, 2800);
+        } else {
+          setPosting(false);
+          try {
+            const errorResponse = JSON.parse(xhr.responseText);
+            setErrMsg(errorResponse.message || getTranslation("Failed to create post", "Échec de la création du post"));
+          } catch (e) {
+            setErrMsg(getTranslation("An unknown error occurred", "Une erreur inconnue s'est produite"));
+          }
+        }
+      };
+
+      xhr.onerror = function() {
+        setPosting(false);
+        setErrMsg(getTranslation("Network error occurred", "Une erreur réseau s'est produite"));
+      };
+
       xhr.send(formData);
-
-      // Reset state after successful submission
-      setMediaFiles([]);
-      setValue("description", "");
-
-      setPosting(false);
-      setErrMsg(""); // Clear error message
-
-      // Close the modal after a delay
-      setTimeout(() => {
-        onClose();
-      }, 2800);
-      console.log('mediafile',mediaFiles)
     } catch (error) {
       console.error("Error submitting post:", error);
       setPosting(false);
+      setErrMsg(getTranslation("An error occurred", "Une erreur s'est produite"));
     }
   };
+
+  // const handlePostSubmit = async (data) => {
+  //   try {
+  //     if (!storedUserData?.id) {
+  //       setErrMsg(getTranslation("User not authenticated", "Utilisateur non authentifié"));
+  //       return;
+  //     }
+
+    
+  //     // Check if neither description nor files are provided
+  //     if (!data.description && !mediaFiles.length) {
+  //       setErrMsg("Ajouter quelque chose pour publier "); // Set error message
+  //       return; // Exit the function without submitting
+  //     }
+
+  //     setPosting(true);
+  //     const formData = new FormData();
+  //     formData.append("titre", "Your default title");
+  //     formData.append("description", data.description || ""); // Append empty string if description is null
+  //     formData.append("userId", storedUserData.id);
+  //     formData.append("type", "Your default type");
+
+  //     // Append media files if they exist
+  //     if (mediaFiles.length) {
+  //       mediaFiles.forEach((file, index) => {
+  //         formData.append("media", file); // Assuming "file" is the media file
+  //       });
+  //     }
+
+  //     const xhr = new XMLHttpRequest();
+  //     xhr.open("POST", `${Config.LOCAL_URL}/api/articles/`);
+  //     xhr.setRequestHeader("Authorization", `Bearer ${storedToken}`);
+  //     // Attach event listener to monitor upload progress
+  //     xhr.upload.onprogress = (event) => {
+  //       console.log("Progress event triggered:", event.loaded, event.total);
+  //       const percentage = (event.loaded / event.total) * 100;
+  //       console.log("Progress percentage:", percentage);
+  //       setUploadProgress(Math.trunc(percentage));
+  //     };
+
+  //     // Send the FormData with XMLHttpRequest
+  //     xhr.send(formData);
+
+  //     // Reset state after successful submission
+  //     setMediaFiles([]);
+  //     setValue("description", "");
+
+  //     setPosting(false);
+  //     setErrMsg(""); // Clear error message
+
+  //     // Close the modal after a delay
+  //     setTimeout(() => {
+  //       onClose();
+  //     }, 2800);
+  //     console.log('mediafile',mediaFiles)
+  //   } catch (error) {
+  //     console.error("Error submitting post:", error);
+  //     setPosting(false);
+  //   }
+  // };
 
 
   const hendelrest = () => {

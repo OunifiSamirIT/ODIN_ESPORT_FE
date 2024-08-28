@@ -6,7 +6,7 @@ import { Config } from "../config";
 import Userdefault from "../assets/userdefault.jpg";
 import secureLocalStorage from "react-secure-storage";
 
-const Createpost = ({ setPostsData, storedUserData }) => {
+const Createpost = ({ setPostsData, storedUserDataID }) => {
   const {
     register,
     handleSubmit,
@@ -52,40 +52,65 @@ const Createpost = ({ setPostsData, storedUserData }) => {
 
   const handlePostSubmit = async (data) => {
     try {
-      if (!data.description || !storedUserData || !storedUserData.id) {
-        // Handle validation errors or missing user data
-        return;
+      setError(null);
+      setPosting(true);
+
+    
+
+      const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+      const userId = storedUserDataID?.id;
+
+      if (!userId) {
+        throw new Error(getTranslation('User ID not found.', 'ID utilisateur non trouvé.'));
       }
 
-      setPosting(true);
+      if (!data.description) {
+        throw new Error(getTranslation('Description is required.', 'La description est requise.'));
+      }
 
       const formData = new FormData();
       formData.append("titre", "Your default title");
       formData.append("description", data.description);
-      formData.append("userId", storedUserData.id);
+      formData.append("userId", userId);
       formData.append("type", "Your default type");
-      formData.append("file", file);
-      formData.append("fileType", fileType);
-
-      // Make a POST request to create a new article
-      await fetch(`${Config.LOCAL_URL}/api/articles/`, {
+      if (file) {
+        formData.append("media", file);
+      }
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData.token;
+  
+        if (!tokenn) {
+          throw new Error(getTranslation('You must be logged in to create a post.', 'Vous devez être connecté pour créer un post.'));
+        }
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`,  {
         method: "POST",
-        body: formData,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
       });
 
-      // After creating the article, fetch the updated list of articles
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
-      const updatedPostsData = await response.json();
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || getTranslation('Failed to create post.', 'Échec de la création du post.'));
+      }
 
-      // Update the list of posts and reset the preview image
-      setPostsData(updatedPostsData);
+      const newPost = await response.json();
+
+      // Fetch updated posts or add the new post to the existing list
+      setPostsData(prevPosts => [newPost, ...prevPosts]);
+
       setPreviewImage(null);
-      formData.remove("gdhssssssssssssssssssssssssghdfhdfhdfhdfhdfhdfh", file);
+      reset();
       setPosting(false);
+      onClose(); // Close the modal after successful post
     } catch (error) {
+      setError(error.message);
       setPosting(false);
     }
   };
+
 
   const menuClass = `${isOpen ? " show" : ""}`;
 
