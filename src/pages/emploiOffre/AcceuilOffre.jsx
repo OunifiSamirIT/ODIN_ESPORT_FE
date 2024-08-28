@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "../../components/Header2";
 import { Context } from "../../index";
 
@@ -15,14 +15,8 @@ import { useEffect } from "react";
 import { Config } from "../../config";
 import moment from "moment";
 import secureLocalStorage from "react-secure-storage";
-import { AuthContext } from "../../AuthContext";
 
 function AcceuilOffre() {
-  const { checkTokenExpiration } = useContext(AuthContext);
-
-  useEffect(() => {
-    checkTokenExpiration();
-  }, []);
   const emailRef = useRef(null);
   const [copied, setCopied] = useState(false);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
@@ -53,33 +47,15 @@ function AcceuilOffre() {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
-        const tokenn = storedUserDataa?.token;
         const response = await fetch(
-          `${Config.LOCAL_URL}/api/offreEmploi/${idoffre}`,
-          {
-            method: "GET",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${tokenn}`,
-            },
-          }
+          `${Config.LOCAL_URL}/api/offreEmploi/${idoffre}`
         );
         const result = await response.json();
         setAlbumDetails(result.data);
 
         // Fetch user information using userId
         const userResponse = await fetch(
-          `${Config.LOCAL_URL}/api/user/${result.data.userId}`,
-          {
-            method: "GET",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${tokenn}`,
-            },
-          }
+          `${Config.LOCAL_URL}/api/user/${result.data.userId}`
         );
         const userData = await userResponse.json();
         setUserDetails(userData);
@@ -100,16 +76,7 @@ function AcceuilOffre() {
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
-      const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
-      const tokenn = storedUserDataa?.token;
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-      })
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
