@@ -106,6 +106,9 @@ const Album = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
   const [loadingForm, setLoadingForm] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleSubmit = async () => {
     try {
       // Validate form data
@@ -134,8 +137,6 @@ const Album = () => {
               emailsecondaire: formData.emailsecondaire,
               modepaiement: formData.modepaiement,
               email: storedUserData?.email,
-              // date_validation: formData.date_validation,
-              // fraisinscrit: formData.fraisinscrit,
               status: formData.status,
               champsoptionnel: formData.champsoptionnel,
               eventodinId: eventodinId,
@@ -146,23 +147,27 @@ const Album = () => {
             .then((response) => response.json())
             .then((data) => {
               setLoadingForm(false);
-              // Reset form data after successful submission
-              setFormData({
-                emailsecondaire: "",
-                modepaiement: "",
-                // date_validation: "",
-                // fraisinscrit: "",
-                status: "",
-                champsoptionnel: "",
-                eventodinId: "",
-                userId: "",
-              });
-
-              navigate(`/thanksevent/${id}`);
-              console.log(handleSubmit, "aaloo");
+              if (data.success) {
+                // Reset form data after successful submission
+                setFormData({
+                  emailsecondaire: "",
+                  modepaiement: "",
+                  status: "",
+                  champsoptionnel: "",
+                  eventodinId: "",
+                  userId: "",
+                });
+                navigate(`/thanksevent/${id}`);
+              } else if (data.message) {
+                setErrorMessage(data.message);
+              } else {
+                setErrorMessage("An error occurred. Please try again.");
+              }
             })
             .catch((error) => {
               console.error("Error submitting form:", error);
+              setLoadingForm(false);
+              setErrorMessage("An error occurred. Please try again.");
             });
         })
         .catch((validationErrors) => {
@@ -174,20 +179,20 @@ const Album = () => {
               newErrors[error.path] = error.message;
             });
           } else {
-            // Handle the case where validationErrors.inner is not as expected
             console.error(
               "Unexpected validationErrors structure:",
               validationErrors
             );
-            // You might want to set a generic error message or handle this case differently
           }
 
           setErrors(newErrors);
         });
     } catch (error) {
       console.error("Error submitting form:", error);
+      setErrorMessage("An error occurred. Please try again.");
     }
   };
+
   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   return (
@@ -463,6 +468,11 @@ const Album = () => {
                   onChange={handleChange}
                 />{" "}
               </div>
+              {errorMessage && (
+                <div className="text-red-500 text-center mt-4">
+                  {errorMessage}
+                </div>
+              )}
             </div>
           </div>
           <div className="flex gap-5 justify-between items-start mt-8 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
