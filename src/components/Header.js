@@ -65,16 +65,30 @@ function Header() {
   };
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Clear the authentication token from localStorage
-    localStorage.removeItem("Secret");
-    secureLocalStorage.removeItem("cryptedUser");
+  const handleLogout = async () => {
+    try {
+      // Send a request to the backend to logout and clear cookies
+      const response = await fetch(`${Config.LOCAL_URL}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include", // Include credentials to handle cookies
+      });
 
-    // Update the authentication state to false
+      // Check if the response is successful
+      if (response.ok) {
+        // Clear the authentication token from localStorage
+        localStorage.removeItem("Secret");
+        secureLocalStorage.removeItem("cryptedUser");
 
-    // Redirect to the login page or another route
-    navigate("/login");
+        // Redirect to the login page or another route
+        navigate("/login");
+      } else {
+        console.error("Failed to log out");
+      }
+    } catch (error) {
+      console.error("An error occurred during logout:", error);
+    }
   };
+
   return (
     <div className="nav-header bg-white shadow-xs border-0">
       <div className=" flex justify-between items-center pl-3 w-full">
