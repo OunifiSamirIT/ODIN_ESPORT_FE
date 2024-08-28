@@ -42,7 +42,7 @@ const Album = () => {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
-
+  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const handleTermsLinkClick = () => {
     setIsModalOpen(true);
   };
@@ -56,11 +56,22 @@ const Album = () => {
   };
 
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const id = storedUserData ? storedUserData.id : null;
 
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserDataa?.token;
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           userData.user.gender =
@@ -72,8 +83,17 @@ const Album = () => {
     }
 
     const fetchAlbums = async () => {
+      const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserDataa?.token;
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
         const result = await response.json();
 
         setAlbum(result.data);
@@ -133,15 +153,20 @@ const Album = () => {
         .validate(formData, { abortEarly: false })
         .then(() => {
           // If validation passes, proceed with form submission
-
-          const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+          const storedUserData = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
           const userId = storedUserData ? storedUserData.id : null;
           const campsId = id;
+          const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+          const tokenn = storedUserDataa?.token;
 
           fetch(`${Config.LOCAL_URL}/api/inscrit/upload`, {
             method: "POST",
+            credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
             },
             body: JSON.stringify({
               emailsecondaire: formData.emailsecondaire,
@@ -154,7 +179,14 @@ const Album = () => {
               userId: userId,
             }),
           })
-            .then((response) => response.json())
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((errorData) => {
+                  throw new Error(errorData.message || "Server Error");
+                });
+              }
+              return response.json();
+            })
             .then((data) => {
               // Reset form data after successful submission
               setFormData({
@@ -172,6 +204,21 @@ const Album = () => {
             })
             .catch((error) => {
               console.error("Error submitting form:", error);
+              // Check if the error is related to invalid input
+              if (error.message.includes("Invalid input detected")) {
+                setErrors((prevErrors) => ({
+                  ...prevErrors,
+                  emailsecondaire:
+                    "Invalid input detected. Please check your email.",
+                }));
+              } else {
+                // Handle other types of errors
+                setErrors((prevErrors) => ({
+                  ...prevErrors,
+                  general:
+                    "An error occurred while submitting the form. Please try again.",
+                }));
+              }
             });
         })
         .catch((validationErrors) => {
@@ -188,13 +235,18 @@ const Album = () => {
               "Unexpected validationErrors structure:",
               validationErrors
             );
-            // You might want to set a generic error message or handle this case differently
+            newErrors.general =
+              "An error occurred during form validation. Please try again.";
           }
 
           setErrors(newErrors);
         });
     } catch (error) {
       console.error("Error submitting form:", error);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        general: "An unexpected error occurred. Please try again.",
+      }));
     }
   };
 
@@ -438,7 +490,7 @@ const Album = () => {
                 </div>
               </div>
               <div className="justify-center items-start py-3.5 pr-16 pl-4 mt-1 text-base border border-solid border-[color:var(--black-100-e-5-e-5-e-5,#E5E5E5)] rounded-[30px] max-md:pr-5">
-                {users?.user?.email}
+                {storedUserData?.email}
               </div>
             </div>
             <div className="flex flex-col flex-1">
@@ -472,6 +524,9 @@ const Album = () => {
                   onChange={handleChange}
                 />{" "}
               </div>
+              {errors.emailsecondaire && (
+                <div className="error-message">{errors.emailsecondaire}</div>
+              )}
             </div>
           </div>
           <div className="flex gap-5 justify-between items-start mt-8 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">

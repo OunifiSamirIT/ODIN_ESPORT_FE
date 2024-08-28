@@ -95,11 +95,28 @@ const SlideMenu = ({
   };
   const navigate = useNavigate();
   // Logout function
-  const handleLogout = () => {
-    // Clear the authentication token from localStorage
-    window.location.href = "/Login";
-    localStorage.removeItem("Secret");
-    secureLocalStorage.removeItem("cryptedUser");
+  const handleLogout = async () => {
+    try {
+      // Send a request to the backend to logout and clear cookies
+      const response = await fetch(`${Config.LOCAL_URL}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include", // Include credentials to handle cookies
+      });
+
+      // Check if the response is successful
+      if (response.ok) {
+        // Clear the authentication token from localStorage
+        localStorage.removeItem("Secret");
+        secureLocalStorage.removeItem("cryptedUser");
+
+        // Redirect to the login page or another route
+        navigate("/login");
+      } else {
+        console.error("Failed to log out");
+      }
+    } catch (error) {
+      console.error("An error occurred during logout:", error);
+    }
   };
 
   return (

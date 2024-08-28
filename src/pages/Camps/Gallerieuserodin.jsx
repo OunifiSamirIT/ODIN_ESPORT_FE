@@ -23,7 +23,19 @@ const Album = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const navigate = useNavigate();
-  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
+  const {
+    _currentLang,
+    _setLang,
+    getTranslation,
+    dark_light_bg,
+    dark_fill_svg,
+    dark_img,
+    dark_bg,
+    dark_border,
+    dark_gray_color,
+    dark_gray_svg,
+    _currentTheme,
+  } = React.useContext(Context);
 
   const [searchDuree, setSearchDuree] = useState("");
   const [searchPays, setSearchPays] = useState("");
@@ -57,8 +69,17 @@ const Album = () => {
 
   useEffect(() => {
     const fetchAlbums = async () => {
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
 
         const result = await response.json();
 
@@ -176,11 +197,21 @@ const Album = () => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const id = storedUserData ? storedUserData.id : null;
-
+    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDataa?.token;
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -226,7 +257,10 @@ const Album = () => {
 
             <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow  max-md:max-w-full">
-                <div style={dark_light_bg} className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 rounded-xl max-md:px-5 max-md:max-w-full">
+                <div
+                  style={dark_light_bg}
+                  className="flex flex-col px-9 pt-2 mt-3 md:mt-12 pb-2 rounded-xl max-md:px-5 max-md:max-w-full"
+                >
                   <div className="text-3xl font-bold  max-md:max-w-full">
                     {getTranslation(
                       `Search for a Camp`, // -----> Englais
@@ -263,7 +297,7 @@ const Album = () => {
                                 value={searchDuree}
                                 className="w-full"
                                 style={{
-                                  backgroundColor: "transparent"
+                                  backgroundColor: "transparent",
                                 }}
                               >
                                 {dureeOptions.map((option) => (
@@ -284,7 +318,6 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/50a0695569327f7204d974bc36853e47face4848f228a6c678484e0d7aca8146?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="aspect-[0.9] fill-zinc-900 w-[18px]"
                               style={dark_img}
-
                             />
                             <div className="grow">
                               {" "}
@@ -319,7 +352,6 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bfb1d26cb36312136826da85a4c47e65f704f7a4f080f319b159e471c18e5bc?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square"
                               style={dark_img}
-
                             />
                             <div className="grow">
                               {getTranslation(
@@ -334,8 +366,9 @@ const Album = () => {
                           <div className="flex flex-col justify-center mt-2 text-xs font-light border border-solid rounded-[30px]">
                             <Select
                               options={options}
-                              placeholder={<div style={dark_light_bg} >Pays camps</div>} 
-
+                              placeholder={
+                                <div style={dark_light_bg}>Pays camps</div>
+                              }
                               styles={{
                                 control: (provided, state) => ({
                                   ...provided,
@@ -353,13 +386,11 @@ const Album = () => {
                                   borderWidth: "none",
                                   ...dark_light_bg,
                                 }),
-                                menuList: base => ({
+                                menuList: (base) => ({
                                   ...base,
                                   // kill the white space on first and last option
-                                  color: "#111"
-                                })
-
-
+                                  color: "#111",
+                                }),
                               }}
                               onChange={(selectedOption) =>
                                 setSearchPays(
@@ -397,7 +428,6 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/a38d56790789553e5ad61b7be1f1c9794b8856c20bce58844081006640976d32?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="w-5 aspect-square"
                               style={dark_img}
-
                             />
                             <div className="grow">
                               {getTranslation(
@@ -478,7 +508,7 @@ const Album = () => {
                     {filteredCamps.map((value, index) => (
                       <div key={index} className="flex flex-col">
                         <div
-                        style={dark_light_bg}
+                          style={dark_light_bg}
                           onClick={() => handleCardClick(value.id)}
                           className="flex flex-col grow items-start pb-4 mx-auto w-full  rounded-xl"
                         >

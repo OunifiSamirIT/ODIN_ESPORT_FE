@@ -16,7 +16,19 @@ import secureLocalStorage from "react-secure-storage";
 const Album = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg, dark_border, dark_gray_color, dark_gray_svg, _currentTheme } = React.useContext(Context);
+  const {
+    _currentLang,
+    _setLang,
+    getTranslation,
+    dark_light_bg,
+    dark_fill_svg,
+    dark_img,
+    dark_bg,
+    dark_border,
+    dark_gray_color,
+    dark_gray_svg,
+    _currentTheme,
+  } = React.useContext(Context);
 
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
 
@@ -56,11 +68,21 @@ const Album = () => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const id = storedUserData ? storedUserData.id : null;
-
+    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDataa?.token;
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -70,9 +92,19 @@ const Album = () => {
   }, []);
   useEffect(() => {
     const fetchAlbumDetails = async () => {
+      const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserDataa?.token;
       try {
         const response = await fetch(
-          `${Config.LOCAL_URL}/api/albumc/${campsId}`
+          `${Config.LOCAL_URL}/api/albumc/${campsId}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
         );
 
         const result = await response.json();
@@ -88,8 +120,17 @@ const Album = () => {
     };
 
     const fetchInscriptions = async () => {
+      const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserDataa?.token;
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/inscritinfo`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/inscritinfo`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
 
         const result = await response.json();
 
@@ -138,23 +179,21 @@ const Album = () => {
     const dateObject = new Date(dateString);
 
     // Format the date object into the desired format
-    if(_currentLang == 'Fr'){
+    if (_currentLang == "Fr") {
       const formattedDate = dateObject.toLocaleDateString("fr-FR", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
-      return formattedDate 
-    }else{
+      return formattedDate;
+    } else {
       const formattedDate = dateObject.toLocaleDateString("en-GB", {
         day: "numeric",
         month: "long",
         year: "numeric",
       });
-      return formattedDate 
+      return formattedDate;
     }
-
-    
   };
 
   return (
@@ -178,10 +217,12 @@ const Album = () => {
 
             {/* left menu */}
 
-            <div  className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
+            <div className="flex flex-col md:px-0 px-3 ml-5 mr-7 mt-20 md:mt-2 w-[76%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow max-md:mt-6 max-md:max-w-full">
-                        
-                <div style={dark_light_bg} className="justify-between px-8 py-6 rounded-xl max-md:px-5 max-md:max-w-full">
+                <div
+                  style={dark_light_bg}
+                  className="justify-between px-8 py-6 rounded-xl max-md:px-5 max-md:max-w-full"
+                >
                   <div className="flex gap-5 max-md:flex-col max-md:gap-0 max-md:">
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
                       <Link to="/defaultgroup">
@@ -253,7 +294,6 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="my-auto w-px aspect-[0.04] stroke-[1px] stroke-gray-200"
                             style={dark_img}
-
                           />
                           <div className="flex flex-col flex-1">
                             <img
@@ -261,7 +301,6 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/e7fe0f54388243cde5eda2567d634e20fcaedc6593a7e131847cf26794a55f35?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
                               style={dark_img}
-
                             />
                             <div className="flex items-center justify-center mt-2">
                               {albumDetails.payscamps}
@@ -272,7 +311,6 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="my-auto w-px aspect-[0.04] stroke-[1px] stroke-gray-200"
                             style={dark_img}
-
                           />
                           <div className="flex flex-col flex-1">
                             <img
@@ -280,7 +318,6 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/545e939511a47d6db83d17be743c494bcd9b7824f609f0def7b7a0a0da2ac415?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
                               style={dark_img}
-
                             />
                             <div className="flex items-center justify-center mt-2">
                               {" "}
@@ -292,7 +329,6 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="my-auto w-px aspect-[0.04] stroke-[1px] stroke-gray-200"
                             style={dark_img}
-
                           />
                           <div className="flex flex-col flex-1">
                             <img
@@ -300,7 +336,6 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3d803e2aa84cc65dafa06294cf90b747ef51e660e2c45f13da33c1f8a6c4b0e?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center w-5 aspect-square"
                               style={dark_img}
-
                             />
 
                             <div className="flex items-center justify-center mt-2">
@@ -312,7 +347,6 @@ const Album = () => {
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d8c4e34e8ff936ac4ca2f90bbfb6d639f9c40c5ad3b863ecccfae927ceb4861?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                             className="my-auto w-px aspect-[0.04] stroke-[1px] stroke-gray-200"
                             style={dark_img}
-
                           />
                           <div className="flex flex-col flex-1">
                             <img
@@ -320,7 +354,6 @@ const Album = () => {
                               src="https://cdn.builder.io/api/v1/image/assets/TEMP/dff4dfbc9781a939e5690bf8f047fdfc420dbf36c9e00ec905ac56bf410a2e14?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                               className="self-center aspect-[0.9] fill-zinc-900 w-[18px] mr-3"
                               style={dark_img}
-
                             />
                             <div className="flex items-center justify-center mt-2">
                               {albumDetails.prix} €
@@ -335,7 +368,6 @@ const Album = () => {
                                   loading="lazy"
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/4185b5905b50428887ea8bc5135f9d41832f7a4a61c88cd3baa7301b1591ace2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="w-5 aspect-square"
-                                  
                                 />
 
                                 <button
