@@ -103,17 +103,9 @@ function Entreprise() {
       secureLocalStorage.getItem("cryptedUser")
     );
     const id = storedUserData ? storedUserData.id : null;
-    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
-    const tokenn = storedUserDataa?.token;
+
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-      })
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -206,18 +198,12 @@ function Entreprise() {
     });
 
     formDataToSubmit.append("files", formData.image || "");
-    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
-    const tokenn = storedUserDataa?.token;
     try {
       const response = await fetch(
         `${Config.LOCAL_URL}/api/offreEmploi/upload`,
         {
           method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
+          body: formDataToSubmit,
         }
       );
 
@@ -241,17 +227,9 @@ function Entreprise() {
       secureLocalStorage.getItem("cryptedUser")
     );
     const id = storedUserData ? storedUserData.id : null;
-    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
-    const tokenn = storedUserDataa?.token;
+
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-      })
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);

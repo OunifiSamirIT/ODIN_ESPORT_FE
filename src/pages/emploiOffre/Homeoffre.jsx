@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Header from "../../components/Header2";
 import {
   Link,
@@ -18,14 +18,8 @@ import { Config } from "../../config";
 import Index from "./../Setting/index";
 import moment from "moment";
 import secureLocalStorage from "react-secure-storage";
-import { AuthContext } from "../../AuthContext";
 
 function HomeOffre() {
-  const { checkTokenExpiration } = useContext(AuthContext);
-
-  useEffect(() => {
-    checkTokenExpiration();
-  }, []);
   const [album, setAlbum] = useState([]);
 
   const [selectedCard, setSelectedCard] = useState(null);
@@ -95,16 +89,7 @@ function HomeOffre() {
   // Fetch offres from the API
   const fetchOffres = async () => {
     try {
-      const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
-      const tokenn = storedUserDataa?.token;
-      const response = await fetch(`${Config.LOCAL_URL}/api/offreEmploi`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-      });
+      const response = await fetch(`${Config.LOCAL_URL}/api/offreEmploi`);
       const result = await response.json();
       setOffres(result.data);
       setFilteredoffres(result.data);
@@ -117,16 +102,9 @@ function HomeOffre() {
   }, []);
 
   const handleConfirmDelete = (e, id) => {
-    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
-    const tokenn = storedUserDataa?.token;
     e.preventDefault();
     fetch(`${Config.LOCAL_URL}/api/deleteoffre/${id}`, {
       method: "DELETE",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${tokenn}`,
-      },
     })
       .then((response) => {
         if (!response.ok) {
@@ -215,16 +193,7 @@ function HomeOffre() {
     );
     const id = storedUserData ? storedUserData.id : null;
     if (id) {
-      const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
-      const tokenn = storedUserDataa?.token;
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-      })
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
@@ -336,8 +305,7 @@ function HomeOffre() {
 
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
-    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
-    const tokenn = storedUserDataa?.token;
+
     try {
       const formDataToupdate = new FormData();
 
@@ -357,11 +325,7 @@ function HomeOffre() {
         `${Config.LOCAL_URL}/api/offreemploi/update/${value.id}`,
         {
           method: "PUT",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
+          body: formDataToupdate,
         }
       );
 
@@ -883,7 +847,7 @@ function HomeOffre() {
 
               {/* bbbbb cart */}
 
-              {filteredoffres.map((value, index) => (
+              {filteredoffres?.map((value, index) => (
                 <div
                   key={index}
                   className=" dark-light-bg flex gap-5  p-6 mt-8 text-break font-light  rounded-xl border border-solid shadow-sm border-neutral-900 border-opacity-10 text-neutral-900 flex-col max-md:px-5"
