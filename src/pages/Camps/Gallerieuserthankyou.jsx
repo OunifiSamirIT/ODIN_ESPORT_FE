@@ -24,12 +24,23 @@ const Album = () => {
     navigate(`/defaultgroup/${id}`);
   };
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+    const storedUserData = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const userId = storedUserData ? storedUserData.id : null;
 
     const fetchAlbums = async () => {
+      const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserDataa?.token;
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
         const result = await response.json();
 
         // Convert id to a number before filtering
