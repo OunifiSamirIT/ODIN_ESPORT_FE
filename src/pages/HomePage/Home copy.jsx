@@ -638,8 +638,18 @@ function Home() {
 
   // challange event
   const [challenges, setChallenges] = useState([]);
+
   const fetchChallenges = async () => {
-    const response = await fetch(`${Config.LOCAL_URL}/api/challenges`);
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData.token;
+    const response = await fetch(`${Config.LOCAL_URL}/api/challenges`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
+      },
+    });
     const result = await response.json();
     console.log(result);
     setChallenges(result.challenges);
