@@ -16,6 +16,7 @@ import gsap from "gsap";
 import { Context } from "../index";
 import PdfModal from "../pages/PdfModal";
 
+import DOMPurify from 'dompurify';
 const newDemoList = [
   {
     imageUrl: "home.jpg",
@@ -223,6 +224,45 @@ function Demo() {
     });
   };
 
+
+
+  const RATE_LIMIT = 5; // Max submissions per minute
+const SUBMISSION_TIMES = [];
+const [notification, setNotification] = useState({ message: '', type: '' });
+
+const sanitizeInput = (input) => {
+  return DOMPurify.sanitize(input, {
+    ALLOWED_TAGS: [],
+    ALLOWED_ATTR: []
+  });
+};
+const validateInput = (input, type) => {
+  switch(type) {
+    case 'email':
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
+    case 'name':
+      return /^[a-zA-Z\s]{2,30}$/.test(input);
+    case 'message':
+      return input.length > 0 && input.length <= 500;
+    default:
+      return false;
+  }
+};
+
+const checkRateLimit = () => {
+  const now = Date.now();
+  SUBMISSION_TIMES.push(now);
+  SUBMISSION_TIMES.splice(0, SUBMISSION_TIMES.length - RATE_LIMIT);
+  
+  if (SUBMISSION_TIMES.length === RATE_LIMIT) {
+    const timeDiff = now - SUBMISSION_TIMES[0];
+    if (timeDiff < 60000) { // Less than a minute
+      return false;
+    }
+  }
+  return true;
+};
+
   const [formData, setFormData] = useState({
     emailuser: "",
     nomPrenom: "",
@@ -230,14 +270,32 @@ function Demo() {
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const sanitizedValue = sanitizeInput(e.target.value);
+    setFormData(prevData => ({
+      ...prevData,
+      [e.target.name]: sanitizedValue
+    }));
+  };
+
+  const showNotification = (message, type) => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification({ message: '', type: '' }), 5000);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!checkRateLimit()) {
+      showNotification("Too many submissions. Please try again later.", "error");
+      return;
+    }
+
+    if (!validateInput(formData.emailuser, 'email') ||
+        !validateInput(formData.nomPrenom, 'name') ||
+        !validateInput(formData.message, 'message')) {
+      showNotification("Invalid input. Please check your entries.", "error");
+      return;
+    }
 
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/contact`, {
@@ -249,34 +307,16 @@ function Demo() {
       });
 
       if (response.ok) {
-        toast.success("Email envoyer avec  success", {
-          position: "top-right",
-          autoClose: 5000,
-          type: "success",
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-
-        // Reset form fields or show success message
-        setFormData({
-          emailuser: "",
-          nomPrenom: "",
-          message: "",
-        });
+        showNotification("Message sent successfully!", "success");
+        setFormData({ nomPrenom: '', emailuser: '', message: '' });
       } else {
-        console.error("Failed to submit contact form");
-        // Handle error (e.g., display error message)
+        throw new Error('Server responded with an error');
       }
     } catch (error) {
       console.error("Error submitting contact form:", error);
-      // Handle error (e.g., display error message)
+      showNotification("An error occurred. Please try again later.", "error");
     }
   };
-
   // const friendsettings = {
   //   arrows: true,
   //   dots: true,
@@ -1246,6 +1286,11 @@ function Demo() {
                     <div>
                       <ToastContainer />
                     </div>
+                    {notification.message && (
+        <div className={`notification ${notification.type}`}>
+          {notification.message}
+        </div>
+      )}
                     <form onSubmit={handleSubmit} className="flex flex-col">
                       <label htmlFor="nomPrenom" className="tal1 mt-6">
                         {getTranslation(
