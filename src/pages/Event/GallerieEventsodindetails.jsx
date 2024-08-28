@@ -154,10 +154,6 @@ const Album = () => {
     fetchInscriptions();
   }, [eventodinId, userId]);
 
-  if (!albumDetails) {
-    return <div>Loading...</div>;
-  }
-
   // const handleAlbumButtonClick = () => {
   //   navigate(`/payementevent/${eventodinId}`);
   // };
@@ -260,14 +256,14 @@ const Album = () => {
                       </Link>
                       <img
                         loading="lazy"
-                        src={albumDetails.ImagesAlbumevents[0]?.image_url}
+                        src={albumDetails?.ImagesAlbumevents[0]?.image_url}
                         className="  object-contain -md:mt-9"
                       />
                     </div>
                     <div className="flex flex-col ml-5 w-[67%] p-0 max-md:ml-0 max-md:w-full">
                       <div className="flex flex-col grow mt-0 text-base text-zinc-900 max-md:mt-10 max-md:max-w-full">
                         <div className="text-3xl font-bold text-break max-md:max-w-full">
-                          {albumDetails.album_name}
+                          {albumDetails?.album_name}
                         </div>
                         <div className="flex gap-1">
                           <svg
@@ -283,13 +279,13 @@ const Album = () => {
                               fill-opacity="0.7"
                             />
                           </svg>
-                          {albumDetails.location}
+                          {albumDetails?.location}
                         </div>
                         <div className="font-light text-break max-md:max-w-full">
                           <div
                             className="text-left mt-2 font-sans text-sm leading-loose"
                             dangerouslySetInnerHTML={{
-                              __html: albumDetails.description,
+                              __html: albumDetails?.description,
                             }}
                           />
                         </div>
@@ -302,7 +298,7 @@ const Album = () => {
                               className="self-center w-5 aspect-square"
                             />
                             <div className="flex items-center justify-center mt-2">
-                              {albumDetails.Duree}
+                              {albumDetails?.Duree}
                             </div>
                           </div>
                           <img
@@ -322,7 +318,7 @@ const Album = () => {
                               className="self-center w-5 aspect-square"
                             />
                             <div className="flex items-center justify-center mt-2">
-                              {formatDate(albumDetails.date_debut)}
+                              {formatDate(albumDetails?.date_debut)}
                             </div>
                           </div>
                           <img
@@ -338,7 +334,7 @@ const Album = () => {
                             />
 
                             <div className="flex items-center justify-center mt-2">
-                              {formatDate(albumDetails.date_fin)}
+                              {formatDate(albumDetails?.date_fin)}
                             </div>
                           </div>
                           <img
@@ -353,7 +349,7 @@ const Album = () => {
                               className="self-center aspect-[0.9] fill-zinc-900 w-[18px] mr-3"
                             />
                             <div className="flex items-center justify-center mt-2">
-                              {albumDetails.prix}
+                              {albumDetails?.prix}
                             </div>
                           </div>
                         </div>
@@ -401,7 +397,7 @@ const Album = () => {
 
                 <div className="px-4 mt-6 max-md:max-w-full">
                   <div className="flex flex-wrap gap-1">
-                    {albumDetails.ImagesAlbumevents.slice(1).map(
+                    {albumDetails?.ImagesAlbumevents.slice(1).map(
                       (image, index) => (
                         <div
                           key={index}
@@ -446,10 +442,10 @@ const Album = () => {
         }}
       >
         <button onClick={closeModal}>Close Modal</button>
-        {albumDetails.ImagesAlbumevents[selectedImageIndex] && (
+        {albumDetails?.ImagesAlbumevents[selectedImageIndex] && (
           <img
             loading="lazy"
-            src={albumDetails.ImagesAlbumevents[selectedImageIndex].image_url}
+            src={albumDetails?.ImagesAlbumevents[selectedImageIndex]?.image_url}
             alt={`Image ${selectedImageIndex}`}
             style={{
               width: "100%", // Set width to 100% for responsiveness
@@ -485,7 +481,10 @@ const Album = () => {
           }}
           onClick={() =>
             setSelectedImageIndex((prevIndex) =>
-              Math.min(prevIndex + 1, albumDetails.ImagesAlbumevents.length - 1)
+              Math.min(
+                prevIndex + 1,
+                albumDetails?.ImagesAlbumevents.length - 1
+              )
             )
           }
         >
