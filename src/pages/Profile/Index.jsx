@@ -159,9 +159,24 @@ const Index = () => {
   };
 
   const [originalArticle, setOriginalArticle] = useState(null);
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData?.token;
+
   const fetchArticleById = async (id) => {
     // Replace with your API call
-    return fetch(`${Config.LOCAL_URL}/api/articles/${id}`)
+    return fetch(`${Config.LOCAL_URL}/api/articles/${storedUserDatad.id}`,
+      {
+        credentials: "include",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+
+      }
+    )
       .then((response) => response.json())
       .then((data) => data);
   };
@@ -219,6 +234,8 @@ const Index = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+
           },
           body: JSON.stringify({
             userId: LocalStorageID.id,
@@ -227,13 +244,19 @@ const Index = () => {
           }),
         }
       );
-
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
       if (response.ok) {
         const responseData = await response.json();
 
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/article/allLikes`
+          `${Config.LOCAL_URL}/api/likes/article/allLikes`,{
+            headers: {
+              // "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
         );
         const allLikesData = await allLikesResponse.json();
 
@@ -262,12 +285,16 @@ const Index = () => {
 
   const handleLikeComment = async (commentId) => {
     try {
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
       const response = await fetch(
         `${Config.LOCAL_URL}/api/likes/comment/${commentId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+
           },
           body: JSON.stringify({
             userId: id,
@@ -280,7 +307,14 @@ const Index = () => {
       if (response.ok) {
         // Fetch updated likes count after liking
         const likesCountResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count`
+          `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count`,{
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+  
+            },
+          }
+          
         );
         const likesCountData = await likesCountResponse.json();
 
@@ -312,12 +346,16 @@ const Index = () => {
 
   const handleLikeReply = async (replyId) => {
     try {
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
       const response = await fetch(
         `${Config.LOCAL_URL}/api/likes/reply/${replyId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+
           },
           body: JSON.stringify({
             userId: id,
@@ -341,8 +379,16 @@ const Index = () => {
 
   const fetchLikesCountForCommentWithEmoji = async (commentId, emoji) => {
     try {
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count?emoji=${emoji}`
+        `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count?emoji=${emoji}`,{
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+  
+        }
       );
       const likesCountData = await response.json();
 
@@ -364,7 +410,13 @@ const Index = () => {
   const fetchLikesCountForReplyWithEmoji = async (replyId, emoji) => {
     try {
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/reply/${replyId}/count?emoji=${emoji}`
+        `${Config.LOCAL_URL}/api/likes/reply/${replyId}/count?emoji=${emoji}`,{
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+  
+        }
       );
       const likesCountData = await response.json();
 
@@ -386,7 +438,12 @@ const Index = () => {
   const fetchLikesCountForArticleWithEmoji = async (articleId, emoji) => {
     try {
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/article/${articleId}/count?emoji=${emoji}`
+        `${Config.LOCAL_URL}/api/likes/article/${articleId}/count?emoji=${emoji}`,{
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        }
       );
       const likesCountData = await response.json();
 
@@ -429,7 +486,12 @@ const Index = () => {
   const fetchArticles = async () => {
     try {
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/articles/byUser/${id}`
+        `${Config.LOCAL_URL}/api/articles/byUser/${id}`,{
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        }
       );
       const result = await response.json();
 
@@ -441,17 +503,32 @@ const Index = () => {
         const comt = article.id;
 
         const userResponse = await fetch(
-          `${Config.LOCAL_URL}/api/user/${userId}`
+          `${Config.LOCAL_URL}/api/user/${userId}`,{
+            headers: {
+              // "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
         );
         const userData = await userResponse.json();
 
         const comtResponse = await fetch(
-          `${Config.LOCAL_URL}/api/commentaires/article/${comt}`
+          `${Config.LOCAL_URL}/api/commentaires/article/${comt}`,{
+            headers: {
+              // "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
         );
         const commentsData = await comtResponse.json();
 
         const likesCountResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/article/allLikes`
+          `${Config.LOCAL_URL}/api/likes/article/allLikes`,{
+            headers: {
+              // "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
         );
         const likesCountData = await likesCountResponse.json();
 
@@ -513,10 +590,19 @@ const Index = () => {
       await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
       });
 
       // After creating the article, fetch the updated list of articles
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`);
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`,{
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      });
       const updatedPostsData = await response.json();
 
       // Update the list of posts and reset the preview image
@@ -540,7 +626,12 @@ const Index = () => {
   const fetchCommentsByArticleId = async (articleId) => {
     try {
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/commentaires/article/${articleId}`
+        `${Config.LOCAL_URL}/api/commentaires/article/${articleId}`,{
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        }
       );
       const commentsData = await response.json();
       return commentsData;
@@ -552,7 +643,12 @@ const Index = () => {
   const fetchCommentsForArticle = async (articleId) => {
     try {
       const commentsResponse = await fetch(
-        `${Config.LOCAL_URL}/api/commentaires/?articleId=${articleId}`
+        `${Config.LOCAL_URL}/api/commentaires/?articleId=${articleId}`,{
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        }
       );
       const commentsData = await commentsResponse.json();
 
@@ -560,7 +656,12 @@ const Index = () => {
         commentsData.map(async (comment) => {
           // Fetch likes count for each comment
           const likesCountResponse = await fetch(
-            `${Config.LOCAL_URL}/api/likes/comment/${comment.id}/count`
+            `${Config.LOCAL_URL}/api/likes/comment/${comment.id}/count` ,{
+              headers: {
+                // "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+              },
+            }
           );
           const likesCountData = await likesCountResponse.json();
 
@@ -574,7 +675,12 @@ const Index = () => {
       const commentsWithUserData = await Promise.all(
         commentsWithLikes.map(async (comment) => {
           const userResponse = await fetch(
-            `${Config.LOCAL_URL}/api/user/${comment.userId}`
+            `${Config.LOCAL_URL}/api/user/${comment.userId}`,{
+              headers: {
+                // "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+              },
+            }
           );
           const userData = await userResponse.json();
           return {
@@ -601,14 +707,24 @@ const Index = () => {
   const fetchRepliesForComment = async (commentId) => {
     try {
       const repliesResponse = await fetch(
-        `${Config.LOCAL_URL}/api/replies/${commentId}`
+        `${Config.LOCAL_URL}/api/replies/${commentId}`,{
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        }
       );
       const repliesData = await repliesResponse.json();
 
       const repliesWithUserData = await Promise.all(
         repliesData.map(async (reply) => {
           const userResponse = await fetch(
-            `${Config.LOCAL_URL}/api/user/${reply.userId}`
+            `${Config.LOCAL_URL}/api/user/${reply.userId}`,{
+              headers: {
+                // "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+              },
+            }
           );
           const userData = await userResponse.json();
           return {
@@ -633,7 +749,12 @@ const Index = () => {
     if (id) {
       const userId = id;
       // Fetch gallery items for the specific user ID
-      fetch(`${Config.LOCAL_URL}/api/articles/gallery/${userId}`)
+      fetch(`${Config.LOCAL_URL}/api/articles/gallery/${userId}`,{
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((data) => setGalleryItems(data.gallery))
         .catch((error) => console.error(error));
@@ -648,7 +769,12 @@ const Index = () => {
 
   const fetchAlbums = async () => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/album`);
+      const response = await fetch(`${Config.LOCAL_URL}/api/album`,{
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      });
       const result = await response.json();
 
       setAlbum(
@@ -663,7 +789,12 @@ const Index = () => {
 
   const fetchComments = async () => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`);
+      const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`,{
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response?.status}`);
       }
@@ -685,6 +816,8 @@ const Index = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+
           },
           body: JSON.stringify({
             description: comment,
@@ -744,6 +877,8 @@ const Index = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+
           },
           body: JSON.stringify({
             description: replyText,
@@ -833,7 +968,8 @@ const Index = () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          // Add any additional headers if needed
+          Authorization: `Bearer ${tokenn}`,
+
         },
       })
         .then((response) => {
@@ -877,51 +1013,51 @@ const Index = () => {
   } = useForm();
 //-----------------------------------------------------------
 
-useEffect(() => {
-  async function fetchData() {
-    try {
-      const token1 = secureLocalStorage.getItem("cryptedUser");
-      if (!token1) {
-        throw new Error("Token not found in storage.");
-      }
+// useEffect(() => {
+//   async function fetchData() {
+//     try {
+//       const token1 = secureLocalStorage.getItem("cryptedUser");
+//       if (!token1) {
+//         throw new Error("Token not found in storage.");
+//       }
 
-      const parsedToken1 = JSON.parse(token1);
-      const id = parsedToken1?.id;
+//       const parsedToken1 = JSON.parse(token1);
+//       const id = parsedToken1?.id;
 
-      if (!id) {
-        throw new Error("No user ID provided!");
-      }
+//       if (!id) {
+//         throw new Error("No user ID provided!");
+//       }
 
-      const token2 = parsedToken1?.token;
+//       const tokenn = parsedToken1?.token;
 
-      if (!token2) {
-        throw new Error("No token provided!");
-      }
+//       if (!tokenn) {
+//         throw new Error("No token provided!");
+//       }
 
-      if (id) {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token2}`,
-          },
-        });
+//       if (id) {
+//         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+//           method: "GET",
+//           credentials: "include",
+//           headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${tokenn}`,
+//           },
+//         });
 
-        // You can use the response here if needed
-        // console.log(response);
-      }
+//         // You can use the response here if needed
+//         // console.log(response);
+//       }
 
-      // fetchArticles();
-      // fetchAlbums();
-    } catch (error) {
-      console.error(error);
-      // Handle the error more gracefully, e.g., display an error message to the user
-    }
-  }
+//       // fetchArticles();
+//       // fetchAlbums();
+//     } catch (error) {
+//       console.error(error);
+//       // Handle the error more gracefully, e.g., display an error message to the user
+//     }
+//   }
 
-  fetchData();
-}, []);
+//   fetchData();
+// }, []);
   const storedLanguage = localStorage.getItem("language");
   const language = storedLanguage ? storedLanguage.toLowerCase() : "";
 
@@ -1377,7 +1513,7 @@ useEffect(() => {
 
   return (
     <>
-      <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
+      <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID.id}>
         {owner && (
           <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3 mb-3">
             <div className="card-body p-2 position-relative">

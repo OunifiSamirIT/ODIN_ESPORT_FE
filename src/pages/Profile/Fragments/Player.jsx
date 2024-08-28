@@ -27,22 +27,45 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
   const [acceptedFriend, setAcceptedFriend] = useState(false);
   // const [invitationSend, setInvitationSend] = useState(false);
   // const [Invitation, setInvitation] = useState([]);
+  
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
+  const tokenn = storedUserData?.token;
+
   const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
   const getWhatsappPrefix = (string) => {
     return string.split(",")[0].substring(1);
   };
   const isFriendAccepted = async () => {
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`
+      `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserDatad.id}`,{
+        headers :{
+          Authorization: `Bearer ${tokenn}`,
+        }
+      }
     );
     const result = await response.json();
     setAcceptedFriend(result.exists);
   };
   const sendFriendRequest = async () => {
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserDatad.id}`,
       {
         method: "POST",
+        headers :{
+          "Authorization": `Bearer ${tokenn}`,
+        }
       }
     );
     isFriendAccepted();

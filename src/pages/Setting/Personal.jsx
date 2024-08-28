@@ -5,7 +5,9 @@ import React, {
   useReducer,
   useState,
   useRef,
+  useContext
 } from "react";
+import { AuthContext } from "../../AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../../index";
 import { toast, ToastContainer } from "react-toastify";
@@ -25,11 +27,17 @@ import { Langue } from "../../assets/data/Langue";
 import { Config } from "../../config";
 import secureLocalStorage from "react-secure-storage";
 
+
 const Personal = ({ userInfo }) => {
   const [selectedLanguages, setSelectedLanguages] = useState({
     value: "",
     label: "",
   });
+  const { checkTokenExpiration } = useContext(AuthContext);
+
+  useEffect(() => {
+    checkTokenExpiration();
+  }, []);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const [inputErrors, setInputErrors] = useState({});
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -243,10 +251,13 @@ const Personal = ({ userInfo }) => {
         method: "PUT",
         credentials: "include",
         headers: {
-          "Content-Type": "application/json",
+          // "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
         },
-      }
+        body : formDataToUpdate
+        
+      },
+      
     )
       .then((r) => {
         if (r.status === 200) {

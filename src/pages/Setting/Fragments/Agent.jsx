@@ -191,14 +191,24 @@ const Agent = ({ userInfo }) => {
             formDataToUpdate.append("skills", selectedSkills);
             formDataToUpdate.append("totalTeam", data.totalTeam);
 
+            const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+            const tokenn = storedUserData?.token;
+            const storedUserDatad = JSON.parse(
+              secureLocalStorage.getItem("cryptedUser")
+            );
+            const id = storedUserDatad ? storedUserDatad?.id : null;
             const response = await fetch(
-                `${Config.LOCAL_URL}/api/agents/${storedUserData.id}`,
+                `${Config.LOCAL_URL}/api/agents/${storedUserDatad.id}`,
                 {
                     method: "PUT",
+                    credentials: "include",
+                    headers: {
+                    //   "Content-Type": "application/json",
+                      Authorization: `Bearer ${tokenn}`,
+                    },
                     body: formDataToUpdate,
                 }
             ).then((r) => {
-
                 if (r.status === 200) {
                     toast.success('Vos modifications ont été enregistrées !', {
                         position: "top-right",

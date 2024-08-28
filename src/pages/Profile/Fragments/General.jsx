@@ -13,9 +13,11 @@ import secureLocalStorage from "react-secure-storage";
 const General = ({ userInfo, sendNotification }) => {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
   const { id } = useParams();
-  const isOwner = storedUserData.id == id;
+  const isOwner = storedUserDatad.id == id;
 
   const [acceptedFriend, setAcceptedFriend] = useState(false);
   // const [invitationSend, setInvitationSend] = useState(false);
@@ -57,10 +59,16 @@ const General = ({ userInfo, sendNotification }) => {
     setImageSrc(null);
     setModalIsOpen(false);
   };
-
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData?.token;
   const isFriendAccepted = async () => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`
+      `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserDatad.id}`,{
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      }
     );
     const result = await response.json();
     setAcceptedFriend(result.exists);
@@ -72,9 +80,13 @@ const General = ({ userInfo, sendNotification }) => {
 
   const sendFriendRequest = async () => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserDatad.id}`,
       {
         method: "POST",
+        headers : {
+          Authorization: `Bearer ${tokenn}`,
+
+        }
       }
     );
     isFriendAccepted();

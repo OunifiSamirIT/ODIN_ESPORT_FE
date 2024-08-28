@@ -63,7 +63,6 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const [player, setPlayer] = useState(null)
     const [agent, setAgent] = useState(null)
     const [skills, setSkills] = useState([])
-    const LocalStorageID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
     const [owner, setOwner] = useState(false)
     const [acceptedFriend, setAcceptedFriend] = useState(false)
     const [invitationSend, setInvitationSend] = useState(false);
@@ -71,36 +70,39 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const [premuim, setPremuim] = useState(false)
     const [isCopyLinkPopupVisible, setIsCopyLinkPopupVisible] = useState(false);
     const navigate = useNavigate()
+    const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+    );
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
     const userInfo = async () => {
         try {
-            const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-            const tokenn = storedUserData.token;
-    
-        const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-      
-          const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDataID.id}`, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${tokenn}`,
-            },
-          });
-      
-          const result = await response.json();
-      
-          if (result.message) {
-            navigate('/404');
-          } else {
+            const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`, {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    Authorization: `Bearer ${tokenn}`,
+                },
+            });
+
+            const result = await response.json();
+
+            if (result.message) {
+                navigate('/404');
+            }
             setCurrentUser(result);
-          }
         } catch (error) {
-          console.error(error);
-          // Handle the error more gracefully, e.g., display an error message to the user
+            console.error(error);
+            // Handle the error more gracefully, e.g., display an error message to the user
         }
-      }
+    }
     const isFriendAccepted = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${user}/checkFriends/${LocalStorageID.id}`)
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${user}/checkFriends/${storedUserDatad.id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+            },
+        })
         const result = await response.json();
         setAcceptedFriend(result.exists)
     }
@@ -108,22 +110,36 @@ const ProfileLayout = ({ children, onChange, user }) => {
     useEffect(() => {
         isFriendAccepted()
         fetchAllFriendRequest()
-        if (LocalStorageID.id == id) {
+        if (storedUserDatad.id == id) {
             setOwner(true)
         }
     }, [id, user])
 
     const fetchAllFriendRequest = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/getFriends`, {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/getFriends`, {
             method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+            },
         });
         const result = await response.json();
         setInvitation(result.data)
     }
 
     const deleteInviation = async (id) => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${LocalStorageID.id}/delete/${id}`, {
+        const storedUserDatad = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
+          const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+          const tokenn = storedUserData?.token;
+
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/delete/${id}`, {
             method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenn}`,
+            },
         });
         if (response.status === 200) { window.location.reload() }
     }
@@ -171,13 +187,15 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                             {getTranslation(
                                                 `See All`,  // -----> Englais
                                                 `Voir Tout`, //  -----> Francais
-                                            )}                                         </Link>}
+                                            )}                                         
+                                         </Link>}
                                     </div>
                                     <div className="mt-8 max-md:max-w-full">
                                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 flex-wrap ">
-                                            {Invitation.length > 0  && Invitation.slice(0,4).map((item, index) => {
+                                            {Invitation.length > 0 && Invitation.slice(0, 4).map((item, index) => {
                                                 return (<div key={index} className="flex flex-col max-sm:flex-1">
-                                                    {item.receiver && <a href={`/profile/${item.receiver.id}`} className="bg-zinc-100 text-wrap flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px]  text-zinc-900">
+                                                    {item.receiver && <div className="bg-zinc-100 text-wrap flex flex-col grow items-center px-2 py-4 w-full text-base whitespace-nowrap rounded-[10px]  text-zinc-900">
+                                                        <a className="flex flex-col items-center" href={`/profile/${item.receiver.id}`}>
                                                         <img
                                                             loading="lazy"
                                                             srcSet={item.receiver.image ? item.receiver.image : PlaceHolder}
@@ -193,6 +211,8 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                             {item.receiver.profil == 'scout' ? 'Scout' : ''}
                                                             {item.receiver.profil == 'other' ? item?.receiver?.other_user[0]?.profession : ''}
                                                         </div>
+                                                        </a>
+                                                        
 
                                                         <div className="flex text-center md:text-base text-xs justify-center self-stretch px-7 py-2 mt-2 font-medium text-white mx-3  bg-blue-600 rounded-[30px] max-md:px-5">
                                                             <a href={`/profile/${item.receiver.id}`}>  {getTranslation(
@@ -207,23 +227,26 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                                     `Supprimer`, //  -----> Francais
                                                                 )}</button>
                                                         </div>}
-                                                    </a>}
-                                                    {item.sender && <a href={`/profile/${item.sender.id}`} className="w-full flex flex-col grow items-center px-2 py-4 w-full text-base text-wrap rounded-[10px] bg-zinc-100 text-zinc-900">
-                                                        <img
-                                                            loading="lazy"
-                                                            srcSet={item.sender.image ? item.sender.image : PlaceHolder}
-                                                            className="w-50 object-cover aspect-square rounded-full"
-                                                        />
-                                                        <p className="mt-2 text-sm text-pretty font-bold text-wrap  text-center">{item.sender.nom} {item.sender.prenom}</p>
-                                                        <div className="text-sm font-light">
-                                                            {/* {item.receiver.profil == 'other' ? item.receiver.profil.profession : ''} */}
-                                                            {item.sender.profil == 'player' ? ' Joueur' : ''}
-                                                            {/* {item.sender.profil == 'agent' && 'Agent'} */}
-                                                            {item.sender.profil == 'coach' && 'Entraineur'}
-                                                            {item.sender.profil == 'agent' && 'Agent'}
-                                                            {item.sender.profil == 'scout' ? 'Scout' : ''}
-                                                            {item.sender.profil == 'other' ? item?.sender?.other_user[0]?.profession : ''}
-                                                        </div>
+                                                    </div>}
+                                                    {item.sender && <div className="w-full flex flex-col grow items-center px-2 py-4 w-full text-base text-wrap rounded-[10px] bg-zinc-100 text-zinc-900">
+                                                        <a className="flex flex-col items-center" href={`/profile/${item.sender.id}`}>
+                                                            <img
+                                                                loading="lazy"
+                                                                srcSet={item.sender.image ? item.sender.image : PlaceHolder}
+                                                                className="w-50 object-cover aspect-square rounded-full"
+                                                            />
+                                                            <p className="mt-2 text-sm text-pretty font-bold text-wrap  text-center">{item.sender.nom} {item.sender.prenom}</p>
+                                                            <div className="text-sm font-light">
+                                                                {/* {item.receiver.profil == 'other' ? item.receiver.profil.profession : ''} */}
+                                                                {item.sender.profil == 'player' ? ' Joueur' : ''}
+                                                                {/* {item.sender.profil == 'agent' && 'Agent'} */}
+                                                                {item.sender.profil == 'coach' && 'Entraineur'}
+                                                                {item.sender.profil == 'agent' && 'Agent'}
+                                                                {item.sender.profil == 'scout' ? 'Scout' : ''}
+                                                                {item.sender.profil == 'other' ? item?.sender?.other_user[0]?.profession : ''}
+                                                            </div>
+                                                        </a>
+
 
                                                         <div className="hidden md:flex text-center justify-center self-stretch px-7 py-2 mt-2 font-medium text-white mx-3  bg-blue-600 rounded-[30px] max-md:px-5">
                                                             <a href={`/profile/${item.sender.id}`}>  {getTranslation(
@@ -238,7 +261,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
                                                                     `Supprimer`, //  -----> Francais
                                                                 )}</button>
                                                         </div>}
-                                                    </a>}
+                                                    </div>}
                                                 </div>)
                                             })}
                                         </div>

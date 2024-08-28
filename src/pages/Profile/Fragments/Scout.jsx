@@ -9,9 +9,13 @@ import Modal from "react-modal";
 import secureLocalStorage from "react-secure-storage";
 
 const Scout = ({ userInfo, sendNotification }) => {
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData?.token;
   const { id } = useParams();
-  const isOwner = storedUserData.id == id;
+  const isOwner = storedUserDatad.id == id;
   const [acceptedFriend, setAcceptedFriend] = useState(false);
   const [invitationSend, setInvitationSend] = useState(false);
   const [Invitation, setInvitation] = useState([]);
@@ -21,7 +25,11 @@ const Scout = ({ userInfo, sendNotification }) => {
 
   const isFriendAccepted = async () => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserData.id}`
+      `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserDatad.id}`,{
+        headers : {
+          Authorization: `Bearer ${tokenn}`,
+        }
+      }
     );
     const result = await response.json();
     setAcceptedFriend(result.exists);
@@ -34,9 +42,14 @@ const Scout = ({ userInfo, sendNotification }) => {
 
   const sendFriendRequest = async () => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserData.id}`,
+      `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserDatad.id}`,
       {
         method: "POST",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+
       }
     );
     isFriendAccepted();
@@ -48,6 +61,11 @@ const Scout = ({ userInfo, sendNotification }) => {
       `${Config.LOCAL_URL}/api/user/${id}/friend-requests`,
       {
         method: "GET",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+
       }
     );
     const result = await response.json();

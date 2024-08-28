@@ -51,9 +51,11 @@ function Friends() {
   const acceptInvitation = async (id) => {
     const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
     const tokenn = storedUserDataa?.token;
-
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${id}/acceptFriend/${id}`,
+      `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/acceptFriend/${id}`,
       {
         method: "PUT",
         credentials: "include",
@@ -78,9 +80,9 @@ function Friends() {
       `${Config.LOCAL_URL}/api/user/${id}/delete/${idd}`,
       {
         method: "DELETE",
-        credentials: "include",
+        // credentials: "include",
         headers: {
-          "Content-Type": "application/json",
+          // "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
         },
       }

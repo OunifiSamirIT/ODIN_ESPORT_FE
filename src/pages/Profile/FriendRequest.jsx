@@ -50,11 +50,22 @@ const FriendRequest = () => {
         .catch((error) => console.error("Error fetching user data:", error));
     }
   }, []);
-  const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
   const [FriendRequest, setFriendRequest] = useState([]);
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData?.token;
+
   const fetchFriendRequest = async () => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${storedUserData.id}/getPendingFriends`
+      `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/getPendingFriends`,{
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+
+      }
     );
     const result = await response.json();
     setFriendRequest(result);
@@ -64,6 +75,11 @@ const FriendRequest = () => {
       `${Config.LOCAL_URL}/api/user/${storedUserData.id}/delete/${id}`,
       {
         method: "DELETE",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+
       }
     );
     if (response.status === 200) {
@@ -72,9 +88,14 @@ const FriendRequest = () => {
   };
   const acceptInvitation = async (id) => {
     const response = await fetch(
-      `${Config.LOCAL_URL}/api/user/${storedUserData.id}/acceptFriend/${id}`,
+      `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/acceptFriend/${id}`,
       {
         method: "PUT",
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+
       }
     );
     if (response.status === 200) {

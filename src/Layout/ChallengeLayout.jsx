@@ -17,11 +17,19 @@ const ChallengeLayout = ({ children }) => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-    const id = storedUserData ? storedUserData.id : null;
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
 
-    if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+    if (storedUserData) {
+      fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}` , {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);

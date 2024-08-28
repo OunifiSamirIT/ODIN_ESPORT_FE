@@ -169,11 +169,23 @@ const Entraineur = ({ userInfo }) => {
                 formDataToUpdate.append("footballTactic", data.footballTactic);
                 formDataToUpdate.append("countryCoachedIn", selectedCountries);
                 formDataToUpdate.append("skills", data.skills.join(','));
+                const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+                const tokenn = storedUserData?.token;
+                const storedUserDatad = JSON.parse(
+                  secureLocalStorage.getItem("cryptedUser")
+                );
+                const id = storedUserDatad ? storedUserDatad?.id : null;
                 const response = await fetch(
-                    `${Config.LOCAL_URL}/api/coachs/${storedUserData.id}`,
+                    
+                    `${Config.LOCAL_URL}/api/coachs/${storedUserDatad.id}`,
                     {
-                        method: "PUT",
+                        method: "GET",
                         body: formDataToUpdate,
+                        credentials: "include",
+                        headers: {
+                        //   "Content-Type": "application/json",
+                          Authorization: `Bearer ${tokenn}`,
+                        },
                     }
 
                 ).then((r) => {

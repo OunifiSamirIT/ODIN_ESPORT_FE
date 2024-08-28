@@ -41,12 +41,23 @@ const Social = ({ userInfo }) => {
     formData.append("linkedin", linkedIn);
     formData.append("x", twitter);
     formData.append("tiktok", tiktok);
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const id = storedUserDatad ? storedUserDatad?.id : null;
     const response = fetch(
-      `${Config.LOCAL_URL}/api/user/${LocalStorageID.id}`,
-      {
-        method: "PUT",
-        body: formData,
-      }
+      `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+          body: formData,
+        }
     )
       .then((r) => {
         if (r.status === 200) {
