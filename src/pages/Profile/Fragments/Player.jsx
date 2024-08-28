@@ -38,10 +38,15 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
     return string.split(",")[0].substring(1);
   };
   const isFriendAccepted = async () => {
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserDatad.id}`,{
         headers :{
-          "Authorization": `Bearer ${tokenn}`,
+          Authorization: `Bearer ${tokenn}`,
         }
       }
     );
@@ -49,6 +54,11 @@ const PlayerCard = ({ userInfo, sendNotification, premuim }) => {
     setAcceptedFriend(result.exists);
   };
   const sendFriendRequest = async () => {
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${id}/sendFriendRequest/${storedUserDatad.id}`,
       {

@@ -17,7 +17,7 @@ const General = ({ userInfo, sendNotification }) => {
     secureLocalStorage.getItem("cryptedUser")
   );
   const { id } = useParams();
-  const isOwner = storedUserData.id == id;
+  const isOwner = storedUserDatad.id == id;
 
   const [acceptedFriend, setAcceptedFriend] = useState(false);
   // const [invitationSend, setInvitationSend] = useState(false);

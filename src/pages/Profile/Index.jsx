@@ -307,7 +307,14 @@ const Index = () => {
       if (response.ok) {
         // Fetch updated likes count after liking
         const likesCountResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count`
+          `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count`,{
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+  
+            },
+          }
+          
         );
         const likesCountData = await likesCountResponse.json();
 
@@ -1506,7 +1513,7 @@ const Index = () => {
 
   return (
     <>
-      <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID}>
+      <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID.id}>
         {owner && (
           <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3 mb-3">
             <div className="card-body p-2 position-relative">

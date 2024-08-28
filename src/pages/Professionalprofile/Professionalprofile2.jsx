@@ -10,12 +10,19 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import secureLocalStorage from "react-secure-storage";
 
 const Professionalprofile2 = () => {
-    const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-
+    const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
     const {id}  = useParams()
     const [player, setPlayer] = useState(null)
     const fetchPlayer = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`,{
+            headers: {
+                'Authorization': `Bearer ${tokenn}`
+            }
+        })
         const result = await response.json()
         setPlayer(result)
     }

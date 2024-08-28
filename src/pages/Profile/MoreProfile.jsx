@@ -517,7 +517,7 @@ const More = () => {
                         ` Compétences` //  -----> Francais
                         //   ``,  //  -----> Turkey
                         //   `` ,  //  -----> Allemagne
-                      )}{" "}
+                      )}{" "} 
                     </div>
                   </div>
                   <div className="flex   justify-center text-base font-semibold text-blue-600 whitespace-nowrap flex-wrap">

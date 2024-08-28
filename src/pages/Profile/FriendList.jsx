@@ -19,7 +19,10 @@ const FriendList = () => {
   const fetchFriendRequest = async () => {
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/getFriends`,{
-        Authorization: `Bearer ${tokenn}`,
+         headers:{
+           // "Content-Type": "application/json",
+           Authorization: `Bearer ${tokenn}`,
+         }
 
       }
     );
@@ -27,12 +30,17 @@ const FriendList = () => {
     setFriendRequest(result.data);
   };
   const deleteInviation = async (id) => {
+    const storedUserDatad = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/delete/${id}`,
       {
         method: "DELETE",
         headers: {
-          // "Content-Type": "application/json",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
         },
       }
@@ -61,7 +69,7 @@ const FriendList = () => {
 
   const [user, setUser] = useState([]);
   useEffect(() => {
-    if (storedUserData.id == id) {
+    if (storedUserDatad.id == id) {
       setOwner(true)
     }
   }, [id, user])
@@ -87,8 +95,8 @@ const FriendList = () => {
     fetchFriendRequest();
   }, []);
 
-  const userId = storedUserData.id ? storedUserData.id : null;
-  const userProfileType = storedUserData ? storedUserData.profil : null;
+  const userId = storedUserDatad.id ? storedUserDatad.id : null;
+  const userProfileType = storedUserDatad ? storedUserDatad.profil : null;
   const shouldHideForProfiles = ["other", "player"];
   const shouldShowAgentItem = ["player"].includes(userProfileType);
 

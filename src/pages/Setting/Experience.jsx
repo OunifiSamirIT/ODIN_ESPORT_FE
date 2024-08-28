@@ -200,7 +200,8 @@ const Experience = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json", // Set the content type to JSON
-            
+            Authorization: `Bearer ${tokenn}`,
+
             
           },
           body: JSON.stringify({

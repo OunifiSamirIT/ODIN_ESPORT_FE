@@ -27,7 +27,7 @@ const Scout = ({ userInfo, sendNotification }) => {
     const response = await fetch(
       `${Config.LOCAL_URL}/api/user/${id}/checkFriends/${storedUserDatad.id}`,{
         headers : {
-          Authorization : tokenn ,
+          Authorization: `Bearer ${tokenn}`,
         }
       }
     );

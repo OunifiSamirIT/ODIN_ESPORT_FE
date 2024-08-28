@@ -4,14 +4,29 @@ import { Context } from "../../index";
 import Events from "../Events";
 import ChallengeSideBarItem from "./ChallengeSideBarItem";
 import { Config } from "../../config";
+import secureLocalStorage from "react-secure-storage";
 
 
 const ChallengeSideBar = () => {
 
     const [challenges, setChallenges] = useState([])
     const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
+    const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
     const fetchChallenges = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/challenges`)
+        const response = await fetch(`${Config.LOCAL_URL}/api/challenges`,{
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                 Authorization: `Bearer ${tokenn}`,
+
+            },
+            // credentials: 'include',
+        })
         const result = await response.json()
         setChallenges(result.challenges)
     }

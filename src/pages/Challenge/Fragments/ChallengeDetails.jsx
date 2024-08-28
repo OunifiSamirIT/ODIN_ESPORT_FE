@@ -66,7 +66,6 @@ const ChallengeDetais = () => {
     const video = useRef();
     const participantVideo = useRef();
     const handleEditComment = (comment) => {
-        console.log('sdfsdfsdgsdf', comment);
         setEditedComment(comment.description)
         setCommentToEdit(comment)
 
@@ -74,8 +73,11 @@ const ChallengeDetais = () => {
     const storedUserDatad = JSON.parse(
         secureLocalStorage.getItem("cryptedUser")
       );
-      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-      const tokenn = storedUserData?.token;
+    const isOwner = (id) => {
+        return storedUserDatad.id == id
+    }
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData?.token;
 
     const submitUpdatedComment = async (comment) => {
         console.log(comment)
@@ -86,7 +88,6 @@ const ChallengeDetais = () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/edit`, {
             method: 'PUT',
             headers : {
-                credentials: "include",
                 Authorization: `Bearer ${tokenn}`,
             },
             body: formData,
@@ -127,16 +128,20 @@ const ChallengeDetais = () => {
         }
         setIsPlaying(!isPlaying);
     }
-
     const handleVote = async () => {
+        const storedUserDatad = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
+          const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+          const tokenn = storedUserData?.token;
         const formData = new FormData();
         formData.append('challengesId', challengeId)
-        formData.append('userId', storedUserData.id)
+        formData.append('userId', storedUserDatad.id)
         formData.append('participantId', showCase.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/vote`, {
             method: 'PUT',
             headers : {
-                credentials: "include",
+                
                 Authorization: `Bearer ${tokenn}`,
             },
             body: formData,
@@ -150,7 +155,7 @@ const ChallengeDetais = () => {
     const checkVote = async () => {
         const formData = new FormData();
         formData.append('challengesId', challengeId)
-        formData.append('userId', storedUserData.id)
+        formData.append('userId', storedUserDatad.id)
         formData.append('participantId', showCase.id)
         console.log('fg')
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/checkVote`, {
@@ -186,7 +191,7 @@ const ChallengeDetais = () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/delete/${id}`, {
             method: 'DELETE',
             headers : {
-                credentials: "include",
+
                 Authorization: `Bearer ${tokenn}`,
             },
         })
@@ -246,16 +251,20 @@ const ChallengeDetais = () => {
 
     }
     const fetchChallenges = async () => {
+        const storedUserDatad = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
+          const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+          const tokenn = storedUserData?.token;
         const response = await fetch(`${Config.LOCAL_URL}/api/challenges/${challengeId}` , {
+            credentials: "include",
             headers : {
-                credentials: "include",
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${tokenn}`,
             }
         })
         const result = await response.json()
-        console.log("alooo ", result)
         const connectedUserId = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-        console.log(connectedUserId, "effhehehhee")
 
         // Vérifier si l'ID du participant connecté est dans la liste des participants
         const connectedParticipant = challenges?.participants?.find(participant => participant?.user?.id === connectedUserId?.id);
@@ -278,10 +287,17 @@ const ChallengeDetais = () => {
     }
     const [likePerContectedUser, setLikesPerContectedUser] = useState([])
     const fetchCommentaire = async () => {
+        const storedUserDatad = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
+          const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+          const tokenn = storedUserData?.token;
         console.log(showCase , "hello showcase")
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/fetch/${showCase.id}`,{
+            credentials: "include",
             headers : {
-                credentials: "include",
+                "Content-Type": "application/json",
+
                 Authorization: `Bearer ${tokenn}`,
             }
         })
@@ -290,7 +306,7 @@ const ChallengeDetais = () => {
         const useee = result.commentaire.map((item) => {
             console.log('sfkjgjsfgj', item)
             item.like.map((i) => {
-                if (i.userId == storedUserData.id) {
+                if (i.userId == storedUserDatad.id) {
                     connectedUserLikes.push(i)
                     setLikesPerContectedUser(connectedUserLikes)
                 }
@@ -317,15 +333,14 @@ const ChallengeDetais = () => {
         reRange()
     }
         , [challenges])
-    const isOwner = (id) => {
-        return storedUserData.id == id
-    }
+        
+
     const checkIfParticipate = (challenges) => {
         console.log(challenges)
         if (challenges.participants) {
             if (challenges.participants.length > 0) {
                 challenges.participants.map((item) => {
-                    if (item.userId == storedUserData.id) {
+                    if (item.userId == storedUserDatad.id) {
                         setHasParticipated(true)
                     }
                 })
@@ -342,9 +357,14 @@ const ChallengeDetais = () => {
     }, [challenges])
     const onSubmit = async (data) => {
         setIsLoading(true)
+        const storedUserDatad = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
+          const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+          const tokenn = storedUserData?.token;
         const formData = new FormData();
         formData.append('challengeId', challengeId)
-        formData.append('userId', storedUserData.id)
+        formData.append('userId', storedUserDatad.id)
         formData.append('description', data.description)
         formData.append('files', data.video[0])
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/create`, {
@@ -413,15 +433,20 @@ const ChallengeDetais = () => {
     const [userslikearticle, setUserslikearticle] = useState([]);
     const EditDropDown = useRef()
     const handleCommentaire = async () => {
+        const storedUserDatad = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
+          const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+          const tokenn = storedUserData?.token;
         const formData = new FormData()
         formData.append('participantId', showCase.id)
         formData.append('description', commentairetext)
         formData.append('challengeId', challengeId)
-        formData.append('userId', storedUserData.id)
+        formData.append('userId', storedUserDatad.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/create`, {
-            credentials: "include",
             method: 'POST',
             body: formData,
+            credentials: "include",
             headers : {
                 Authorization: `Bearer ${tokenn}`,
             }
@@ -493,10 +518,15 @@ const ChallengeDetais = () => {
     const [hasLiked, setHasLiked] = useState(false)
     const [hasLikedReply, setHasLikedReply] = useState([])
     const handleLike = async () => {
+        const storedUserDatad = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+          );
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData?.token;
         const formData = new FormData()
         formData.append('participantId', showCase.id)
         formData.append('challengeId', challengeId)
-        formData.append('userId', storedUserData.id)
+        formData.append('userId', storedUserDatad.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/like`, {
             credentials: "include",
             method: 'PUT',
@@ -526,7 +556,7 @@ const ChallengeDetais = () => {
         formData.append('participantId', showCase.id)
         formData.append('commentId', commentId)
         formData.append('challengeId', challengeId)
-        formData.append('userId', storedUserData.id)
+        formData.append('userId', storedUserDatad.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/likeChallengesReply`, {
             credentials: "include",
             method: 'PUT',
@@ -546,7 +576,7 @@ const ChallengeDetais = () => {
         const formData = new FormData()
         formData.append('participantId', participantId)
         formData.append('challengeId', challengeId)
-        formData.append('userId', storedUserData.id)
+        formData.append('userId', storedUserDatad.id)
         const response = await fetch(`${Config.LOCAL_URL}/api/commentaire/checklike`, {
             credentials: "include",
             method: 'PUT',
@@ -579,7 +609,7 @@ const ChallengeDetais = () => {
         console.log('hello from here' + item)
         const formData = new FormData();
         formData.append('challengesId', challengeId)
-        formData.append('userId', storedUserData.id)
+        formData.append('userId', storedUserDatad.id)
         formData.append('participantId', item.id)
 
         const response = await fetch(`${Config.LOCAL_URL}/api/participant/checkVote`, {
@@ -644,6 +674,10 @@ const ChallengeDetais = () => {
             console.error(error);
         }
     }
+    useEffect(() => {
+        console.log('dropDown' , dropdown)
+    },[dropdown])
+    
     const [videoName, setVideoName] = useState()
     return (<>
         {
@@ -857,7 +891,6 @@ const ChallengeDetais = () => {
                                         //   ``,  //  -----> Turkey
                                         //   `` ,  //  -----> Allemagne
                                     )
-
                                 } </button>
 
 
@@ -1213,7 +1246,7 @@ const ChallengeDetais = () => {
                                                                 </defs>
                                                             </svg>
                                                             }
-                                                            {dropdown && dropdown.id == item.id && dropdown.user.id == storedUserData.id ? (
+                                                            {dropdown && dropdown.id == item.id && dropdown.user.id == storedUserDatad.id ? (
                                                                 <div ref={EditDropDown} className="absolute top-4 right-5 mt-2 w-32 bg-white border rounded-md shadow-lg">
                                                                     <button
                                                                         onClick={() => handleEditComment(item)}
