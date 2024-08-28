@@ -1,10 +1,15 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Context } from "../index";
+import secureLocalStorage from "react-secure-storage";
 
 const ProfileSideBar = () => {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
-
+  const handleLogout = () => {
+    window.location.href = "/Login";
+    localStorage.removeItem("Secret");
+    secureLocalStorage.removeItem("cryptedUser");
+  };
   return (
     <div className="flex-col px-4 py-5 mt-4 w-full bg-white rounded-xl text-zinc-900 hidden md:flex">
       {/* <div className="text-blue-600">Informations Personnelles</div> */}
@@ -44,7 +49,7 @@ const ProfileSideBar = () => {
         />
         <button
           type="submit"
-          onClick={() => console.log("logout")}
+          onClick={handleLogout}
           className="flex-auto"
         >
           {getTranslation(

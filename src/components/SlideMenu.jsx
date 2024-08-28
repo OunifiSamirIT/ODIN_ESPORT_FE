@@ -97,11 +97,9 @@ const SlideMenu = ({
   // Logout function
   const handleLogout = () => {
     // Clear the authentication token from localStorage
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-    // Update the authentication state to false
-    // Redirect to the login page or another route
-    navigate("/login");
+    window.location.href = "/Login";
+    localStorage.removeItem("Secret");
+    secureLocalStorage.removeItem("cryptedUser");
   };
 
   return (

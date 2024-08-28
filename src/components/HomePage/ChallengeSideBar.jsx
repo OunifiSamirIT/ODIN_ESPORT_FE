@@ -40,7 +40,7 @@ const ChallengeSideBar = () => {
                     </a>
                 </div>
                 <div className="flex flex-col gap-y-3">
-                {challenges.slice(0, 2).map((item) => {
+                {challenges?.slice(0, 2).map((item) => {
                     return(<ChallengeSideBarItem item={item}/>)
                 })}
                 </div>

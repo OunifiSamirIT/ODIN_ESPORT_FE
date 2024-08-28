@@ -67,8 +67,8 @@ function Header() {
 
   const handleLogout = () => {
     // Clear the authentication token from localStorage
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
+    localStorage.removeItem("Secret");
+    secureLocalStorage.removeItem("cryptedUser");
 
     // Update the authentication state to false
 
