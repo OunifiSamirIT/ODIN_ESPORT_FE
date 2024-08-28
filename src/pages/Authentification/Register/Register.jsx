@@ -25,6 +25,7 @@ import { Context } from "../../../index";
 // import "react-modal/styles.css";
 import checkedMark from "../../../assets/check-mark.png";
 import PdfModal from "../../../pages/PdfModal";
+import secureLocalStorage from "react-secure-storage";
 
 const paysAllInfo = [
   {
@@ -4131,15 +4132,7 @@ function Register() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  // const handleSelection = (selectedValue) => {
-  //   setFormData({
-  //     ...formData,
-  //     Licence: selectedValue,
-  //   });
-  //   setUploadEnabled(selectedValue === "Oui");
-  //   // Clear the image preview when the selection changes
-  //   setImagePreviewlic(null);
-  // };
+ 
 
   const handleSelection = (selectedValue) => {
     // Set formData.Licence to the selected value
@@ -4873,22 +4866,7 @@ function Register() {
     return passwordRegex.test(formData.password);
   };
 
-  // const handleFileChange = (event) => {
-  //   const file = event.target.files[0];
-
-  //   if (file) {
-  //     // Convert the selected image to a data URL
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setFormData({
-  //         ...formData,
-  //         image: file,
-  //       });
-  //       setImagePreview(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
+  
   const allowedFileTypes = [
     "image/jpeg",
     "image/png",
@@ -4962,18 +4940,7 @@ function Register() {
       }
     }
   };
-  // const handleFileChangeLicense = (event) => {
-  //   const file = event.target.files[0];
-  //   setFile(file);
-  //   if (file) {
-  //     // Convert the selected image to a data URL
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setImagePreviewlic(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
+  
 
   const handleInputChange = (e) => {
     setValidationError("");
@@ -5429,8 +5396,10 @@ function Register() {
 
         const idusercode = responseData.user.id;
         const useremail = responseData.user.email;
-        localStorage.setItem("idusercode", idusercode);
-        localStorage.setItem("useremail", useremail);
+        
+        // Use secureLocalStorage instead of localStorage
+        secureLocalStorage.setItem("idusercode", idusercode);
+        secureLocalStorage.setItem("useremail", useremail);
         navigate("/codeverification");
       } else {
         const errorData = await response.json();

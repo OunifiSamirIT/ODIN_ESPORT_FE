@@ -3,6 +3,7 @@ import { Config } from "../../../config";
 import { useNavigate } from "react-router";
 import Header from "../../../components/Header3";
 import { Context } from "../../../index";
+import secureLocalStorage from "react-secure-storage";
 const VerificationCode = () => {
   const [code, setCode] = useState(Array(6).fill(""));
   const [error, setError] = useState(false);
@@ -12,10 +13,9 @@ const VerificationCode = () => {
   const inputRefs = useRef([]);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   useEffect(() => {
-    const storedUserId = localStorage.getItem("idusercode");
-    const storedEmail = localStorage.getItem("useremail");
+    const storedUserId = secureLocalStorage.getItem("idusercode");
+    const storedEmail = secureLocalStorage.getItem("useremail");
     setUserId(storedUserId);
-    setEmail(storedEmail);
     setEmail(storedEmail || "");
   }, []);
 

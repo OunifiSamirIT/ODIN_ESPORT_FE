@@ -43,7 +43,6 @@ const ChallengeSideBar = () => {
                             `Challenge qui pourraient vous intéresser` //  -----> Francais
                         )}
                     </h4>
-                    {/* <span className='ml-2 font-bold text-red-500 bg-slate-300 rounded-full h-8 w-6'><p className='ml-2'>{pendingFriendRequests?.length}</p> </span> */}
                     <a
                         href="/challenges"
                         className="text-nowrap ms-auto text-sm font-medium text-blue-600"

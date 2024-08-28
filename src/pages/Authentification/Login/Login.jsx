@@ -18,15 +18,10 @@ function Login({ setAuthStatus }) {
   // Use state to track whether to reload the component
   const [shouldReload, setShouldReload] = useState(false);
 
-  // Check if the component needs to be reloaded when the route changes
   useEffect(() => {
-    // Set the reload state to true when the route changes
     setShouldReload(true);
 
-    // You can perform any additional logic or data fetching needed on reload
-
-    // Example: Force a re-fetch of user data or perform other actions
-    // fetchData();
+    
   }, [location.pathname]);
   const navigate = useNavigate();
   const {
@@ -131,6 +126,8 @@ function Login({ setAuthStatus }) {
 
         console.log("Encrypted AlldataAlldataAlldataAlldata:", Alldata);
 
+        secureLocalStorage.removeItem("idusercode");
+        secureLocalStorage.removeItem("useremail");
 
 
 
