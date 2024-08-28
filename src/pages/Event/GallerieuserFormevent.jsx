@@ -157,12 +157,9 @@ const Album = () => {
                   eventodinId: "",
                   userId: "",
                 });
-
                 navigate(`/thanksevent/${id}`);
-              } else if (data.message === "Invalid input detected.") {
-                setErrorMessage(
-                  "Invalid input detected. Please check your input."
-                );
+              } else if (data.message) {
+                setErrorMessage(data.message);
               } else {
                 setErrorMessage("An error occurred. Please try again.");
               }
@@ -195,6 +192,7 @@ const Album = () => {
       setErrorMessage("An error occurred. Please try again.");
     }
   };
+
   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
   return (
