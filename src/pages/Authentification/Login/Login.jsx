@@ -5,7 +5,7 @@ import { Config } from "../../../config";
 import { Context } from "../../../index";
 import secureLocalStorage from "react-secure-storage";
 import CryptoJS from "crypto-js";
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw } from "lucide-react";
 
 function Login({ setAuthStatus }) {
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
@@ -35,7 +35,6 @@ function Login({ setAuthStatus }) {
     setShouldReload(true);
   }, [location.pathname]);
 
-
   const decryptString = (encryptedText, secret) => {
     try {
       const ciphertext = CryptoJS.enc.Hex.parse(encryptedText);
@@ -52,12 +51,14 @@ function Login({ setAuthStatus }) {
     }
   };
 
-
   const generateCaptcha = () => {
-    const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*()_+-=[]{}|;:,.<>?';
-    let result = '';
+    const characters =
+      "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+    let result = "";
     for (let i = 0; i < 6; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
     }
     setCaptchaCode(result);
   };
@@ -69,7 +70,10 @@ function Login({ setAuthStatus }) {
   }, [showCaptcha]);
   const onSubmit = async (data) => {
     if (showCaptcha && userCaptchaInput !== captchaCode) {
-      setErrMsg({ status: "failed", message: "Invalid CAPTCHA. Please try again." });
+      setErrMsg({
+        status: "failed",
+        message: "Invalid CAPTCHA. Please try again.",
+      });
       generateCaptcha();
       return;
     }
@@ -91,7 +95,7 @@ function Login({ setAuthStatus }) {
         console.log("Raw result:", result);
         // localStorage.setItem("user", JSON.stringify(result));
         console.log("Encrypted user saved:", localStorage.getItem("Secret"));
-        const userData = JSON.stringify(result)
+        const userData = JSON.stringify(result);
         // Decrypt the ID
         const encryptedId = result.id;
         const encryptedEmail = result.email;
@@ -101,7 +105,7 @@ function Login({ setAuthStatus }) {
         const encryptedroles = result.roles[0];
         const encryptedtoken = result.token;
         const encryptedusername = result.username;
-        
+
         // const encryptionSecret = process.env.REACT_APP_ENCRYPTION_SECRET;
         const decryptedId = decryptString(
           encryptedId,
@@ -138,23 +142,26 @@ function Login({ setAuthStatus }) {
           encryptedusername,
           process.env.REACT_APP_ENCRYPTION_SECRET
         );
-        
+
         console.log("Encrypted Email:", decryptedEmail);
 
-        const Alldata ={"id":decryptedId,"username":decryptedusername,"email":decryptedEmail,
-        "login":decryptedlogin,"profil":decryptedprofil,"image":decryptedimage,"roles":decryptedrole,"token":decryptedTokenn}
+        const Alldata = {
+          id: decryptedId,
+          username: decryptedusername,
+          email: decryptedEmail,
+          login: decryptedlogin,
+          profil: decryptedprofil,
+          image: decryptedimage,
+          roles: decryptedrole,
+          token: decryptedTokenn,
+        };
         secureLocalStorage.setItem("cryptedUser", JSON.stringify(Alldata));
         console.log("cryptedUser", secureLocalStorage.getItem("cryptedUser"));
-        
-
 
         console.log("Encrypted AlldataAlldataAlldataAlldata:", Alldata);
 
         secureLocalStorage.removeItem("idusercode");
         secureLocalStorage.removeItem("useremail");
-
-
-
 
         if (decryptedId) {
           console.log("Decrypted ID:", decryptedId);
@@ -198,8 +205,8 @@ function Login({ setAuthStatus }) {
           console.error("Failed to decrypt token");
           // Handle decryption error
         }
-      }  else {
-        setLoginAttempts(prevAttempts => {
+      } else {
+        setLoginAttempts((prevAttempts) => {
           const newAttempts = prevAttempts + 1;
           if (newAttempts >= 3) {
             setShowCaptcha(true);
@@ -225,9 +232,9 @@ function Login({ setAuthStatus }) {
     }
   };
 
-  const handleRecaptchaChange = (value) => {
-    setRecaptchaValue(value);
-  };
+  // const handleRecaptchaChange = (value) => {
+  //   setRecaptchaValue(value);
+  // };
   const handleVerificationClose = () => {
     setShowVerificationPopup(false);
   };
@@ -326,7 +333,7 @@ function Login({ setAuthStatus }) {
                       `` //  -----> Allemagne
                     )}
                   </div>
-                  
+
                   <input
                     type="text"
                     {...register("identifier")}
@@ -383,105 +390,137 @@ function Login({ setAuthStatus }) {
                       )}
                     </div>
                   )} */}
-{showCaptcha && (
-          <div className="mt-6 bg-white p-6 rounded-lg shadow-md transition-all duration-300 ease-in-out">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-gray-700">
-                {getTranslation("Verify you're human", "Vérifiez que vous êtes humain", "", "")}
-              </h3>
-              <button
-                type="button"
-                onClick={generateCaptcha}
-                className="p-2 text-blue-600 hover:text-blue-800 transition-colors duration-200 ease-in-out"
-                aria-label="Refresh CAPTCHA"
-              >
-                <RefreshCw size={20} />
-              </button>
-            </div>
-            <div className="bg-gray-100 p-4 rounded-md mb-4 relative overflow-hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="60" className="select-none">
-                <defs>
-                  <linearGradient id="captchaGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#4a90e2" />
-                    <stop offset="50%" stopColor="#63b3ed" />
-                    <stop offset="100%" stopColor="#4a90e2" />
-                  </linearGradient>
-                </defs>
-                <rect width="100%" height="60" fill="url(#captchaGradient)" opacity="0.1" />
-                {captchaCode.split('').map((char, index) => (
-                  <text
-                    key={index}
-                    x={`${(index + 1) * 16}%`}
-                    y="50%"
-                    dy="0.35em"
-                    textAnchor="middle"
-                    fill="#2d3748"
-                    fontFamily="Arial, sans-serif"
-                    fontSize="24"
-                    fontWeight="bold"
-                    transform={`rotate(${Math.random() * 20 - 10}, ${(index + 1) * 16}%, 50%)`}
-                  >
-                    {char}
-                  </text>
-                ))}
-                <path d={`M0 30 Q${Math.random() * 50 + 25},${Math.random() * 20 + 20} 100,30`} stroke="#4a90e2" strokeWidth="2" fill="none" />
-              </svg>
-            </div>
-            <div className="relative">
-              <input
-                type="text"
-                value={userCaptchaInput}
-                onChange={(e) => setUserCaptchaInput(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out"
-                placeholder={getTranslation("Enter CAPTCHA", "Entrez le CAPTCHA", "", "")}
-              />
-              <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <span className="text-gray-400">{userCaptchaInput.length}/6</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-          <div className="flex gap-2 justify-between mt-4 max-md:flex-wrap max-md:max-w-full">
-            <div className="flex w-full gap-2 justify-between">
-              <div className="flex flex-col justify-center aspect-[2]"></div>
-              <div className="tal2 grow text-base whitespace-nowrap text-zinc-900">
-                <button
-                  type="submit"
-                  className="justify-center flex w-full text-center items-center px-10 py-2 md:text-base text-sm font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full hover:bg-blue-900 duration-150 border-5 border-blue-0 border-spacing-3 focus:border-blue-400 focus:outline-none-500"
-                >
-                  {getTranslation(
-                    "Log In",
-                    "Se connecter",
-                    "",
-                    ""
+                  {showCaptcha && (
+                    <div className="mt-6 bg-white p-6 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                      <div className="flex justify-between items-center mb-4">
+                        <h3 className="text-lg font-semibold text-gray-700">
+                          {getTranslation(
+                            "Verify you're human",
+                            "Vérifiez que vous êtes humain",
+                            "",
+                            ""
+                          )}
+                        </h3>
+                        <button
+                          type="button"
+                          onClick={generateCaptcha}
+                          className="p-2 text-blue-600 hover:text-blue-800 transition-colors duration-200 ease-in-out"
+                          aria-label="Refresh CAPTCHA"
+                        >
+                          <RefreshCw size={20} />
+                        </button>
+                      </div>
+                      <div className="bg-gray-100 p-4 rounded-md mb-4 relative overflow-hidden">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="100%"
+                          height="60"
+                          className="select-none"
+                        >
+                          <defs>
+                            <linearGradient
+                              id="captchaGradient"
+                              x1="0%"
+                              y1="0%"
+                              x2="100%"
+                              y2="0%"
+                            >
+                              <stop offset="0%" stopColor="#4a90e2" />
+                              <stop offset="50%" stopColor="#63b3ed" />
+                              <stop offset="100%" stopColor="#4a90e2" />
+                            </linearGradient>
+                          </defs>
+                          <rect
+                            width="100%"
+                            height="60"
+                            fill="url(#captchaGradient)"
+                            opacity="0.1"
+                          />
+                          {captchaCode.split("").map((char, index) => (
+                            <text
+                              key={index}
+                              x={`${(index + 1) * 16}%`}
+                              y="50%"
+                              dy="0.35em"
+                              textAnchor="middle"
+                              fill="#2d3748"
+                              fontFamily="Arial, sans-serif"
+                              fontSize="24"
+                              fontWeight="bold"
+                              transform={`rotate(${Math.random() * 20 - 10}, ${
+                                (index + 1) * 16
+                              }%, 50%)`}
+                            >
+                              {char}
+                            </text>
+                          ))}
+                          <path
+                            d={`M0 30 Q${Math.random() * 50 + 25},${
+                              Math.random() * 20 + 20
+                            } 100,30`}
+                            stroke="#4a90e2"
+                            strokeWidth="2"
+                            fill="none"
+                          />
+                        </svg>
+                      </div>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={userCaptchaInput}
+                          onChange={(e) => setUserCaptchaInput(e.target.value)}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out"
+                          placeholder={getTranslation(
+                            "Enter CAPTCHA",
+                            "Entrez le CAPTCHA",
+                            "",
+                            ""
+                          )}
+                        />
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                          <span className="text-gray-400">
+                            {userCaptchaInput.length}/6
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   )}
-                </button>
-              </div>
-            </div>
-          </div>
-          {!isEmailVerified && verificationMessage}
-          {invalidPassword && (
-            <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
-              {getTranslation(
-                "Invalid Password!",
-                "Mot de passe invalide !",
-                "",
-                ""
-              )}
-            </div>
-          )}
-          {loginError && (
-            <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
-              {getTranslation(
-                "Account does not exist! Please check your credentials!",
-                "Compte inexistant! Vérifier vos coordonnées!",
-                "",
-                ""
-              )}
-            </div>
-          )}
-        </form>
+
+                  <div className="flex gap-2 justify-between mt-4 max-md:flex-wrap max-md:max-w-full">
+                    <div className="flex w-full gap-2 justify-between">
+                      <div className="flex flex-col justify-center aspect-[2]"></div>
+                      <div className="tal2 grow text-base whitespace-nowrap text-zinc-900">
+                        <button
+                          type="submit"
+                          className="justify-center flex w-full text-center items-center px-10 py-2 md:text-base text-sm font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full hover:bg-blue-900 duration-150 border-5 border-blue-0 border-spacing-3 focus:border-blue-400 focus:outline-none-500"
+                        >
+                          {getTranslation("Log In", "Se connecter", "", "")}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  {!isEmailVerified && verificationMessage}
+                  {invalidPassword && (
+                    <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
+                      {getTranslation(
+                        "Invalid Password!",
+                        "Mot de passe invalide !",
+                        "",
+                        ""
+                      )}
+                    </div>
+                  )}
+                  {loginError && (
+                    <div className="bg-red-100 text-sm mt-8 animate-pulse rounded-md">
+                      {getTranslation(
+                        "Account does not exist! Please check your credentials!",
+                        "Compte inexistant! Vérifier vos coordonnées!",
+                        "",
+                        ""
+                      )}
+                    </div>
+                  )}
+                </form>
                 <div className="flex gap-2 justify-between px-2 py-2 mt-2 text-base max-md:flex-wrap max-md:px-5 max-md:max-w-full flex-col">
                   <div className="flex-auto text-zinc-900  text-sm md:text-base text-center">
                     {getTranslation(

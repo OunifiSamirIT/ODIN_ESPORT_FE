@@ -4932,7 +4932,7 @@ function Register() {
         // Invalid file type
         setInputErrors(prev => ({
           ...prev,
-          file: "Ce type de fichier n'est pas pris en charge. Veuillez sélectionner une image ."
+          file: "Ce type de fichier n'est pas pris en charge. Veuillez sélectionner une image ou pdf ."
         }));
         
         // Clear the file input
