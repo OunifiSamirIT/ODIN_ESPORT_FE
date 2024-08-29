@@ -10,6 +10,7 @@ const Createpost = ({ setPostsData, storedUserDataID }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -18,7 +19,7 @@ const Createpost = ({ setPostsData, storedUserDataID }) => {
   const [previewImage, setPreviewImage] = useState(null);
   const [posting, setPosting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [error, setError] = useState(null);
   const toggleOpen = () => setIsOpen(!isOpen);
 
   // const handleFileChange = (e, type) => {
@@ -31,22 +32,31 @@ const Createpost = ({ setPostsData, storedUserDataID }) => {
   // };
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    const allowedTypes = ['image/jpeg', 'image/jpg' , 'image/png', 'image/gif', 'video/mp4'];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+      "image/gif",
+      "video/mp4",
+    ];
 
     if (selectedFile && allowedTypes.includes(selectedFile.type)) {
       setFile(selectedFile);
       setFileType(selectedFile.type);
 
       // Create a preview URL if the file is an image or video
-      if (selectedFile.type.startsWith('image/') || selectedFile.type.startsWith('video/')) {
+      if (
+        selectedFile.type.startsWith("image/") ||
+        selectedFile.type.startsWith("video/")
+      ) {
         const previewURL = URL.createObjectURL(selectedFile);
         setPreviewImage(previewURL);
       } else {
         setPreviewImage(null);
       }
     } else {
-      alert('File type not allowed.');
-      e.target.value = ''; // Clear the input
+      alert("File type not allowed.");
+      e.target.value = ""; // Clear the input
     }
   };
 
@@ -55,17 +65,20 @@ const Createpost = ({ setPostsData, storedUserDataID }) => {
       setError(null);
       setPosting(true);
 
-    
-
-      const storedUserDataID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+      const storedUserDataID = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
       const userId = storedUserDataID?.id;
 
       if (!userId) {
-        throw new Error(getTranslation('User ID not found.', 'ID utilisateur non trouvé.'));
+        throw new Error("User ID not found.", "ID utilisateur non trouvé.");
       }
 
       if (!data.description) {
-        throw new Error(getTranslation('Description is required.', 'La description est requise.'));
+        throw new Error(
+          "Description is required.",
+          "La description est requise."
+        );
       }
 
       const formData = new FormData();
@@ -78,11 +91,14 @@ const Createpost = ({ setPostsData, storedUserDataID }) => {
       }
       const storedUserData = JSON.parse(localStorage.getItem("Secret"));
       const tokenn = storedUserData.token;
-  
-        if (!tokenn) {
-          throw new Error(getTranslation('You must be logged in to create a post.', 'Vous devez être connecté pour créer un post.'));
-        }
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`,  {
+
+      if (!tokenn) {
+        throw new Error(
+          "You must be logged in to create a post.",
+          "Vous devez être connecté pour créer un post."
+        );
+      }
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -93,24 +109,26 @@ const Createpost = ({ setPostsData, storedUserDataID }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || getTranslation('Failed to create post.', 'Échec de la création du post.'));
+        throw new Error(
+          errorData.message || "Failed to create post.",
+          "Échec de la création du post."
+        );
       }
 
       const newPost = await response.json();
 
       // Fetch updated posts or add the new post to the existing list
-      setPostsData(prevPosts => [newPost, ...prevPosts]);
+      setPostsData((prevPosts) => [newPost, ...prevPosts]);
 
       setPreviewImage(null);
       reset();
       setPosting(false);
-      onClose(); // Close the modal after successful post
+      // Close the modal after successful post
     } catch (error) {
       setError(error.message);
       setPosting(false);
     }
   };
-
 
   const menuClass = `${isOpen ? " show" : ""}`;
 
@@ -123,7 +141,9 @@ const Createpost = ({ setPostsData, storedUserDataID }) => {
         <figure className="avatar position-absolute ms-2 mt-1 top-5">
           {
             <img
-              src={secureLocalStorage.getItem("cryptedUser").image || Userdefault}
+              src={
+                secureLocalStorage.getItem("cryptedUser").image || Userdefault
+              }
               className="rounded-full object-fill w-10 h-10"
             />
           }
@@ -137,12 +157,11 @@ const Createpost = ({ setPostsData, storedUserDataID }) => {
             placeholder="What's on your mind?"
           ></textarea>
 
-          <input 
-          type="file"
-          accept=".jpg, .jpeg, .png, .gif, .mp4" 
-
-           onChange={(e) => handleFileChange(e, "image")}
-            />
+          <input
+            type="file"
+            accept=".jpg, .jpeg, .png, .gif, .mp4"
+            onChange={(e) => handleFileChange(e, "image")}
+          />
 
           <button type="submit">Create Post</button>
         </form>
