@@ -77,7 +77,7 @@ const ProfileLayout = ({ children, onChange, user }) => {
     const tokenn = storedUserData?.token;
     const userInfo = async () => {
         try {
-            const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`, {
+            const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
                 method: "GET",
                 credentials: "include",
                 headers: {
