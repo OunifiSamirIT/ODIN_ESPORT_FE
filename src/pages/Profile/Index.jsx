@@ -1073,7 +1073,7 @@ const Index = () => {
         {isOpen && (
           <div className="bg-black/70 fixed inset-0 z-50 h-full w-full flex justify-center items-center ">
             <div className="relative flex flex-col py-2 rounded-[10px] md:w-full w-[100%]  h-full max-md:my-10">
-              <div className="flex flex-col h-screen  bg-black md:pr-0  h-full">
+              <div className="flex flex-col h-screen  bg-black md:pr-0  ">
                 <div className="    max-md:flex items-center  h-full justify-end max-md:-translate-x-7   ">
                   <svg
                     onClick={closeModal}
@@ -1107,7 +1107,7 @@ const Index = () => {
                           <img
                             src={photo.url}
                             alt={`Image ${index}`}
-                            className="w-full -mt-10 h-full object-contain"
+                            className="w-full -mt-10 h-screen md:h-full object-contain"
                           />
                         </div>
                       </SwiperSlide>
