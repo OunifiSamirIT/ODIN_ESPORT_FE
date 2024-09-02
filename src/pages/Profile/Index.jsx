@@ -159,24 +159,19 @@ const Index = () => {
   };
 
   const [originalArticle, setOriginalArticle] = useState(null);
-  const storedUserDatad = JSON.parse(
-    secureLocalStorage.getItem("cryptedUser")
-  );
+  const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const storedUserData = JSON.parse(localStorage.getItem("Secret"));
   const tokenn = storedUserData?.token;
 
   const fetchArticleById = async (id) => {
     // Replace with your API call
-    return fetch(`${Config.LOCAL_URL}/api/articles/${storedUserDatad.id}`,
-      {
-        credentials: "include",
-        headers: {
-          // "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-
-      }
-    )
+    return fetch(`${Config.LOCAL_URL}/api/articles/${storedUserDatad.id}`, {
+      credentials: "include",
+      headers: {
+        // "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => data);
   };
@@ -235,7 +230,6 @@ const Index = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
-
           },
           body: JSON.stringify({
             userId: LocalStorageID.id,
@@ -251,7 +245,8 @@ const Index = () => {
 
         // Fetch allLikes to get the updated likes counts for all articles
         const allLikesResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/article/allLikes`,{
+          `${Config.LOCAL_URL}/api/likes/article/allLikes`,
+          {
             headers: {
               // "Content-Type": "application/json",
               Authorization: `Bearer ${tokenn}`,
@@ -294,7 +289,6 @@ const Index = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
-
           },
           body: JSON.stringify({
             userId: id,
@@ -307,14 +301,13 @@ const Index = () => {
       if (response.ok) {
         // Fetch updated likes count after liking
         const likesCountResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count`,{
+          `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count`,
+          {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${tokenn}`,
-  
             },
           }
-          
         );
         const likesCountData = await likesCountResponse.json();
 
@@ -355,7 +348,6 @@ const Index = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
-
           },
           body: JSON.stringify({
             userId: id,
@@ -382,12 +374,12 @@ const Index = () => {
       const storedUserData = JSON.parse(localStorage.getItem("Secret"));
       const tokenn = storedUserData?.token;
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count?emoji=${emoji}`,{
+        `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count?emoji=${emoji}`,
+        {
           headers: {
             // "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
           },
-  
         }
       );
       const likesCountData = await response.json();
@@ -410,12 +402,12 @@ const Index = () => {
   const fetchLikesCountForReplyWithEmoji = async (replyId, emoji) => {
     try {
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/reply/${replyId}/count?emoji=${emoji}`,{
+        `${Config.LOCAL_URL}/api/likes/reply/${replyId}/count?emoji=${emoji}`,
+        {
           headers: {
             // "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
           },
-  
         }
       );
       const likesCountData = await response.json();
@@ -438,7 +430,8 @@ const Index = () => {
   const fetchLikesCountForArticleWithEmoji = async (articleId, emoji) => {
     try {
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/article/${articleId}/count?emoji=${emoji}`,{
+        `${Config.LOCAL_URL}/api/likes/article/${articleId}/count?emoji=${emoji}`,
+        {
           headers: {
             // "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
@@ -486,7 +479,8 @@ const Index = () => {
   const fetchArticles = async () => {
     try {
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/articles/byUser/${id}`,{
+        `${Config.LOCAL_URL}/api/articles/byUser/${id}`,
+        {
           headers: {
             // "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
@@ -503,7 +497,8 @@ const Index = () => {
         const comt = article.id;
 
         const userResponse = await fetch(
-          `${Config.LOCAL_URL}/api/user/${userId}`,{
+          `${Config.LOCAL_URL}/api/user/${userId}`,
+          {
             headers: {
               // "Content-Type": "application/json",
               Authorization: `Bearer ${tokenn}`,
@@ -513,7 +508,8 @@ const Index = () => {
         const userData = await userResponse.json();
 
         const comtResponse = await fetch(
-          `${Config.LOCAL_URL}/api/commentaires/article/${comt}`,{
+          `${Config.LOCAL_URL}/api/commentaires/article/${comt}`,
+          {
             headers: {
               // "Content-Type": "application/json",
               Authorization: `Bearer ${tokenn}`,
@@ -523,7 +519,8 @@ const Index = () => {
         const commentsData = await comtResponse.json();
 
         const likesCountResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/article/allLikes`,{
+          `${Config.LOCAL_URL}/api/likes/article/allLikes`,
+          {
             headers: {
               // "Content-Type": "application/json",
               Authorization: `Bearer ${tokenn}`,
@@ -597,7 +594,7 @@ const Index = () => {
       });
 
       // After creating the article, fetch the updated list of articles
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`,{
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         headers: {
           // "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
@@ -626,7 +623,8 @@ const Index = () => {
   const fetchCommentsByArticleId = async (articleId) => {
     try {
       const response = await fetch(
-        `${Config.LOCAL_URL}/api/commentaires/article/${articleId}`,{
+        `${Config.LOCAL_URL}/api/commentaires/article/${articleId}`,
+        {
           headers: {
             // "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
@@ -643,7 +641,8 @@ const Index = () => {
   const fetchCommentsForArticle = async (articleId) => {
     try {
       const commentsResponse = await fetch(
-        `${Config.LOCAL_URL}/api/commentaires/?articleId=${articleId}`,{
+        `${Config.LOCAL_URL}/api/commentaires/?articleId=${articleId}`,
+        {
           headers: {
             // "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
@@ -656,7 +655,8 @@ const Index = () => {
         commentsData.map(async (comment) => {
           // Fetch likes count for each comment
           const likesCountResponse = await fetch(
-            `${Config.LOCAL_URL}/api/likes/comment/${comment.id}/count` ,{
+            `${Config.LOCAL_URL}/api/likes/comment/${comment.id}/count`,
+            {
               headers: {
                 // "Content-Type": "application/json",
                 Authorization: `Bearer ${tokenn}`,
@@ -675,7 +675,8 @@ const Index = () => {
       const commentsWithUserData = await Promise.all(
         commentsWithLikes.map(async (comment) => {
           const userResponse = await fetch(
-            `${Config.LOCAL_URL}/api/user/${comment.userId}`,{
+            `${Config.LOCAL_URL}/api/user/${comment.userId}`,
+            {
               headers: {
                 // "Content-Type": "application/json",
                 Authorization: `Bearer ${tokenn}`,
@@ -707,7 +708,8 @@ const Index = () => {
   const fetchRepliesForComment = async (commentId) => {
     try {
       const repliesResponse = await fetch(
-        `${Config.LOCAL_URL}/api/replies/${commentId}`,{
+        `${Config.LOCAL_URL}/api/replies/${commentId}`,
+        {
           headers: {
             // "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
@@ -719,7 +721,8 @@ const Index = () => {
       const repliesWithUserData = await Promise.all(
         repliesData.map(async (reply) => {
           const userResponse = await fetch(
-            `${Config.LOCAL_URL}/api/user/${reply.userId}`,{
+            `${Config.LOCAL_URL}/api/user/${reply.userId}`,
+            {
               headers: {
                 // "Content-Type": "application/json",
                 Authorization: `Bearer ${tokenn}`,
@@ -749,7 +752,7 @@ const Index = () => {
     if (id) {
       const userId = id;
       // Fetch gallery items for the specific user ID
-      fetch(`${Config.LOCAL_URL}/api/articles/gallery/${userId}`,{
+      fetch(`${Config.LOCAL_URL}/api/articles/gallery/${userId}`, {
         headers: {
           // "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
@@ -769,7 +772,7 @@ const Index = () => {
 
   const fetchAlbums = async () => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/album`,{
+      const response = await fetch(`${Config.LOCAL_URL}/api/album`, {
         headers: {
           // "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
@@ -789,7 +792,7 @@ const Index = () => {
 
   const fetchComments = async () => {
     try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`,{
+      const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`, {
         headers: {
           // "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
@@ -817,7 +820,6 @@ const Index = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
-
           },
           body: JSON.stringify({
             description: comment,
@@ -878,7 +880,6 @@ const Index = () => {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
-
           },
           body: JSON.stringify({
             description: replyText,
@@ -969,7 +970,6 @@ const Index = () => {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
-
         },
       })
         .then((response) => {
@@ -1011,53 +1011,53 @@ const Index = () => {
     setValue,
     formState: { errors },
   } = useForm();
-//-----------------------------------------------------------
+  //-----------------------------------------------------------
 
-// useEffect(() => {
-//   async function fetchData() {
-//     try {
-//       const token1 = secureLocalStorage.getItem("cryptedUser");
-//       if (!token1) {
-//         throw new Error("Token not found in storage.");
-//       }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const token1 = secureLocalStorage.getItem("cryptedUser");
+  //       if (!token1) {
+  //         throw new Error("Token not found in storage.");
+  //       }
 
-//       const parsedToken1 = JSON.parse(token1);
-//       const id = parsedToken1?.id;
+  //       const parsedToken1 = JSON.parse(token1);
+  //       const id = parsedToken1?.id;
 
-//       if (!id) {
-//         throw new Error("No user ID provided!");
-//       }
+  //       if (!id) {
+  //         throw new Error("No user ID provided!");
+  //       }
 
-//       const tokenn = parsedToken1?.token;
+  //       const tokenn = parsedToken1?.token;
 
-//       if (!tokenn) {
-//         throw new Error("No token provided!");
-//       }
+  //       if (!tokenn) {
+  //         throw new Error("No token provided!");
+  //       }
 
-//       if (id) {
-//         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
-//           method: "GET",
-//           credentials: "include",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${tokenn}`,
-//           },
-//         });
+  //       if (id) {
+  //         const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+  //           method: "GET",
+  //           credentials: "include",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${tokenn}`,
+  //           },
+  //         });
 
-//         // You can use the response here if needed
-//         // console.log(response);
-//       }
+  //         // You can use the response here if needed
+  //         // console.log(response);
+  //       }
 
-//       // fetchArticles();
-//       // fetchAlbums();
-//     } catch (error) {
-//       console.error(error);
-//       // Handle the error more gracefully, e.g., display an error message to the user
-//     }
-//   }
+  //       // fetchArticles();
+  //       // fetchAlbums();
+  //     } catch (error) {
+  //       console.error(error);
+  //       // Handle the error more gracefully, e.g., display an error message to the user
+  //     }
+  //   }
 
-//   fetchData();
-// }, []);
+  //   fetchData();
+  // }, []);
   const storedLanguage = localStorage.getItem("language");
   const language = storedLanguage ? storedLanguage.toLowerCase() : "";
 
@@ -1230,13 +1230,13 @@ const Index = () => {
   // };
   const getPhotoClass = (numPhotos) => {
     if (numPhotos === 1) {
-      return "w-[100%] max-md:h-full md:w-[63%]";
+      return "w-[57%] max-md:h-full md:w-[63%]";
     } else if (numPhotos === 2) {
-      return "w-[100%] md:w-[35%]";
+      return "w-[33%] md:w-[35%]";
     } else if (numPhotos === 3) {
-      return "w-[100%] md:w-[31.2%]";
+      return "w-[29.5%] md:w-[31.2%]";
     }
-    return "w-[100%] md:w-[31.2%]"; // default case for more than 3 photos
+    return "w-[29.5%] md:w-[31.2%]"; // default case for more than 3 photos
   };
 
   const PhotoGrid = ({ articlesWithPhoto }) => {
@@ -1282,8 +1282,8 @@ const Index = () => {
           <div className="bg-black/70 fixed inset-0 z-50 h-full w-full flex justify-center items-center ">
             <div className="relative flex flex-col py-2 rounded-[10px] md:w-full w-[100%]  h-full max-md:my-10">
               <div className="flex flex-col h-screen  bg-black md:pr-0  h-full">
-              <div className="    max-md:flex items-center  h-full justify-end max-md:-translate-x-7   ">
-              <svg
+                <div className="    max-md:flex items-center  h-full justify-end max-md:-translate-x-7   ">
+                  <svg
                     onClick={closeModal}
                     className="  ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 max-md:translate-y-3  md:size-14 size-14  "
                     xmlns="http://www.w3.org/2000/svg"
