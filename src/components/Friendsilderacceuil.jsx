@@ -71,7 +71,15 @@ function FriendsSlider() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center  bg-gray-100">
+        <div className="text-center">
+          <p className="text-lg font-medium text-blue-600 animate-bounce">
+            Loading...
+          </p>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
