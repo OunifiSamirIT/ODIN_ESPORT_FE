@@ -4080,7 +4080,17 @@ function Badge({ userpf }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/players`);
+        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+        const tokenn = storedUserData?.token;
+        const storedUserDatad = JSON.parse(
+          secureLocalStorage.getItem("cryptedUser")
+        );
+        const response = await fetch(`${Config.LOCAL_URL}/api/players`,{
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
         const result = await response.json();
         setData(result);
         setFilteredUsers(result); // Initialize filteredUsers with all users by default

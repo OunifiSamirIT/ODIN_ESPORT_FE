@@ -131,7 +131,7 @@ import { AuthProvider } from "./AuthContext.js";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null);
-
+console.log = function() {}
 function Root() {
   let currentUrl = window.location;
   const [isAuthenticated, setIsAuthenticated] = useState(true);
