@@ -5,6 +5,7 @@ import { Config } from "../config";
 import { Context } from "../index";
 import secureLocalStorage from "react-secure-storage";
 import { AuthContext } from "../AuthContext";
+
 function FriendsSlider() {
   const {
     _currentLang,
@@ -56,10 +57,17 @@ function FriendsSlider() {
         }
 
         const data = await response.json();
-        setAgents(data);
+
+        // Trier les utilisateurs par ID dans l'ordre décroissant (les plus récents en premier)
+        const sortedData = data.sort((a, b) => b.user.id - a.user.id);
+
+        // Mélanger aléatoirement les utilisateurs
+        const shuffledData = sortedData.sort(() => Math.random() - 0.5);
+
+        setAgents(shuffledData);
         setLoading(false);
 
-        console.log("Fetched Users: ", data);
+        console.log("Fetched Users: ", shuffledData);
       } catch (error) {
         console.error("Error fetching users:", error.message);
         setError(error.message);
