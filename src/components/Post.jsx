@@ -1529,7 +1529,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     const id = storedUserDatad?.id ? storedUserDatad?.id : null;
     try {
       setPosting(true);
-      //cc
+
       const formData = new FormData();
       formData.append("description", data.description || "");
       formData.append("userId", storedUserDatad?.id);
