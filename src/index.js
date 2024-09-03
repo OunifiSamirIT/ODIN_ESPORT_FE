@@ -131,8 +131,8 @@ import { AuthProvider } from "./AuthContext.js";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null);
-// console.log = function() {}
-// console.error = function() {}
+console.log = function() {}
+console.error = function() {}
 
 function Root() {
   let currentUrl = window.location;
