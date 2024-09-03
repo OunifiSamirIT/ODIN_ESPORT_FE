@@ -801,38 +801,40 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   //   // fetchAlbums();
   // }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // Fetch user information based on the id from localStorage
-        const storedUserDatad = JSON.parse(
-          secureLocalStorage.getItem("cryptedUser")
-        );
-        const id = storedUserDatad?.id;
+  const fetchData = async () => {
+    try {
+      // Fetch user information based on the id from localStorage
+      const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
+      if (storedUserDatad) {
+        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
+        const result = await response.json()
+        console.log(result , "response")
+        setUser(result)
 
-        const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-        const tokenn = storedUserData?.token;
-        if (id) {
-          const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${tokenn}`,
-            },
-          });
-
-          // You can use the response here if needed
-          // console.log(response);
-        }
-
-        fetchLikesForComment(article.comments.id);
-        fetchLikesForArticle(article.id);
-      } catch (error) {
-        console.error(error);
-        // Handle the error more gracefully, e.g., display an error message to the user
+        // You can use the response here if needed
+        // console.log(response);
       }
+
+      fetchLikesForComment(article.comments.id);
+      fetchLikesForArticle(article.id);
+    } catch (error) {
+      console.error(error);
+      // Handle the error more gracefully, e.g., display an error message to the user
     }
+  }
+  useEffect(() => {
+
 
     fetchData();
   }, []);
@@ -1519,11 +1521,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   // };
 
   const handlePostSubmitPartage = async (data) => {
-    const storedUserData = JSON.parse(
+    const storedUserDatad = JSON.parse(
       secureLocalStorage.getItem("cryptedUser")
     );
 
-    const id = storedUserData?.id ? storedUserData?.id : null;
+    const id = storedUserDatad?.id ? storedUserDatad?.id : null;
     try {
       setPosting(true);
 
@@ -1537,9 +1539,17 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
         formData.append("sharedFrom", article.id);
       }
 
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+      const tokenn = storedUserData?.token;
+
       const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
         method: "POST",
         body: formData,
+        headers: {
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenn}`,
+        },
+
       });
 
       if (response.status === 200) {
@@ -1556,7 +1566,13 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
         });
 
         const res = await fetch(
-          `${Config.LOCAL_URL}/api/articles?size=1&page=0`
+          `${Config.LOCAL_URL}/api/articles?size=1&page=0`,{
+            headers: {
+              // "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
+            },
+          }
+          
         );
         const result = await res.json();
         const idAfterPostCreated = result.rows[0].id;
@@ -4624,14 +4640,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               <div
                 ref={reffPartage}
                 style={dark_light_bg}
-                className="  relative  flex flex-col overflow-auto md:mt-0 p-2 max-w-full rounded-[10px] w-[625px] max-md:px-5 max-md:my-10"
+                className="  relative  flex flex-col overflow-auto h-fit  md:mt-0 p-2 max-w-full rounded-[10px] w-[625px]"
               >
-                <div className="  flex flex-col">
+                <div className="  flex flex-col h-fit">
                   <form
-                    className="  h-[695px] mb-2 flex flex-col"
+                    className="  h-fit mb-2 flex flex-col"
                     onSubmit={handleSubmit(handlePostSubmitPartage)}
                   >
-                    <div className="  card-body flex flex-col  d-flex p-0">
+                    <div className="flex flex-col  d-flex p-0 h-fit ">
                       <div className="  flex flex-col w-full mb-2">
                         <div className="  flex flex-row mb-3 ">
                           <img

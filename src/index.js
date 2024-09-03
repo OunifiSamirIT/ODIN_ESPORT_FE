@@ -132,6 +132,8 @@ const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null);
 console.log = function() {}
+console.error = function() {}
+
 function Root() {
   let currentUrl = window.location;
   const [isAuthenticated, setIsAuthenticated] = useState(true);
