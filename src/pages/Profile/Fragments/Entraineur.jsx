@@ -18,7 +18,10 @@ import secureLocalStorage from "react-secure-storage";
 
 const PlayerCard = ({ userInfo, sendNotification }) => {
   const { id } = useParams();
-  const isOwner = storedUserData.id == id;
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
+  const isOwner = storedUserDatad.id == id;
   const [acceptedFriend, setAcceptedFriend] = useState(false);
   const [invitationSend, setInvitationSend] = useState(false);
   const [Invitation, setInvitation] = useState([]);
@@ -27,10 +30,6 @@ const PlayerCard = ({ userInfo, sendNotification }) => {
   const [imageSrc, setImageSrc] = useState(null);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
 
-
-  const storedUserDatad = JSON.parse(
-    secureLocalStorage.getItem("cryptedUser")
-  );
   const storedUserData = JSON.parse(localStorage.getItem("Secret"));
   const tokenn = storedUserData?.token;
 
