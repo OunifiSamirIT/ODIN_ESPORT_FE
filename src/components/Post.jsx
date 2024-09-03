@@ -1521,6 +1521,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   // };
 
   const handlePostSubmitPartage = async (data) => {
+    console.log('clicked')
     const storedUserDatad = JSON.parse(
       secureLocalStorage.getItem("cryptedUser")
     );
@@ -1531,7 +1532,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
 
       const formData = new FormData();
       formData.append("description", data.description || "");
-      formData.append("userId", storedUserData?.id);
+      formData.append("userId", storedUserDatad?.id);
 
       if (originalArticle) {
         formData.append("sharedFrom", originalArticle.id);
@@ -4640,9 +4641,9 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
               <div
                 ref={reffPartage}
                 style={dark_light_bg}
-                className="  relative  flex flex-col overflow-auto h-fit  md:mt-0 p-2 max-w-full rounded-[10px] w-[625px]"
+                className="scale-75 relative flex flex-col overflow-auto h-fit  md:mt-0 p-2 max-w-full rounded-[10px] w-[625px]"
               >
-                <div className=" scale-75 flex flex-col h-fit">
+                <div className="flex flex-col h-fit">
                   <form
                     className="  h-fit mb-2 flex flex-col"
                     onSubmit={handleSubmit(handlePostSubmitPartage)}
