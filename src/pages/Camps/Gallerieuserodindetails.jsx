@@ -66,7 +66,17 @@ const Album = () => {
   const userId = storedUserData ? storedUserData.id : null;
   const [isUserPreinscribed, setIsUserPreinscribed] = useState(false); // Add this line
   const [user, setUser] = useState([]);
-
+  const [checkCampIsOver,setcheckCampIsOver] = useState(false)
+  const checkIsCampOver = (date) => {
+    const endDate = new Date(date);
+    const currentDate = new Date();
+    if (currentDate > endDate) {
+      setcheckCampIsOver(true)
+    } else {
+      setcheckCampIsOver(false)
+    }
+  
+  }
   useEffect(() => {
     const storedUserData = JSON.parse(
       secureLocalStorage.getItem("cryptedUser")
@@ -111,6 +121,7 @@ const Album = () => {
 
         if (result.message === "done" && result.data) {
           setAlbumDetails(result.data);
+          checkIsCampOver(result.data.date_fin)
         } else {
           console.error("No data received from the API for album details");
         }
@@ -362,15 +373,16 @@ const Album = () => {
                         </div>
                         {!isUserPreinscribed &&
                           userProfileType === "player" && (
-                            <div className="flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
+                            <div className={`flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap ${checkCampIsOver ? 'bg-gray-600' : 'bg-blue-600' } rounded-[30px] max-md:px-5 max-md:max-w-full`}>
                               <div className="flex gap-2">
                                 <img
                                   loading="lazy"
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/4185b5905b50428887ea8bc5135f9d41832f7a4a61c88cd3baa7301b1591ace2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
                                   className="w-5 aspect-square"
+
                                 />
 
-                                <button
+                                {!checkCampIsOver ? <button
                                   className="grow"
                                   onClick={handleAlbumButtonClick}
                                 >
@@ -380,7 +392,12 @@ const Album = () => {
                                     //   ``,  //  -----> Turkey
                                     //   `` ,  //  -----> Allemagne
                                   )}{" "}
-                                </button>
+                                </button> : <p>{getTranslation(
+                                    `Camps is over`, // -----> Englais
+                                    `le Camp est terminé` //  -----> Francais
+                                    //   ``,  //  -----> Turkey
+                                    //   `` ,  //  -----> Allemagne
+                                  )}{" "}</p>}
                               </div>
                             </div>
                           )}

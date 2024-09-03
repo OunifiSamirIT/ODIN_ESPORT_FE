@@ -16,7 +16,16 @@ import { AuthContext } from "../../AuthContext";
 
 const Album = () => {
   const { checkTokenExpiration } = useContext(AuthContext);
-
+  const checkIsEventOver = (date) => {
+    const endDate = new Date(date);
+    const currentDate = new Date();
+    if (currentDate > endDate) {
+      setcheckEventIsOver(true)
+    } else {
+      setcheckEventIsOver(false)
+    }
+  
+  }
   useEffect(() => {
     checkTokenExpiration();
   }, []);
@@ -26,7 +35,7 @@ const Album = () => {
   const [eventTogglerIsOpenned, setEventTogglerIsOpenned] = useState(false);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
   const [user, setUser] = useState([]);
-
+  const [checkEventIsOver,setcheckEventIsOver] = useState(false)
   const [modalHeight, setModalHeight] = useState("70%");
   const [modalWidth, setModalWidth] = useState("70%");
   useEffect(() => {
@@ -105,6 +114,7 @@ const Album = () => {
 
         if (result.message === "done" && result.data) {
           setAlbumDetails(result.data);
+          checkIsEventOver(result.data.date_fin)
         } else {
           console.error("No data received from the API for album details");
         }
@@ -354,10 +364,10 @@ const Album = () => {
                           </div>
                         </div>
 
-                        {!isUserPreinscribed &&
+                        {!isUserPreinscribed  ?
                           userProfileType === "player" && (
-                            <div className="flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap bg-blue-600 rounded-[30px] max-md:px-5 max-md:max-w-full">
-                              <div className="flex gap-2">
+                            <div className={`flex justify-center items-center px-16 py-2 mt-4 font-medium text-white whitespace-nowrap ${checkEventIsOver ? 'bg-gray-500'  : 'bg-blue-600'} rounded-[30px] max-md:px-5 max-md:max-w-full`}>
+{!checkEventIsOver ? <div className="flex gap-2">
                                 <img
                                   loading="lazy"
                                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/4185b5905b50428887ea8bc5135f9d41832f7a4a61c88cd3baa7301b1591ace2?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
@@ -366,9 +376,7 @@ const Album = () => {
 
                                 <button
                                   className="grow"
-                                  onClick={() =>
-                                    handleAlbumButtonClick("pack_standard")
-                                  }
+                                  onClick={() => handleAlbumButtonClick("pack_standard")}
                                 >
                                   {getTranslation(
                                     `Pre-register`, // -----> Englais
@@ -377,9 +385,9 @@ const Album = () => {
                                     //   `` ,  //  -----> Allemagne
                                   )}
                                 </button>
-                              </div>
+                              </div> : <p>Event terminée</p>}
                             </div>
-                          )}
+                          ) : null }
                         {isUserPreinscribed && (
                           <div className="flex justify-center items-center px-4 py-3 mt-4 font-medium text-green-600 bg-green-100 rounded-md">
                             {getTranslation(

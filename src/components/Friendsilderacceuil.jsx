@@ -59,10 +59,10 @@ function FriendsSlider() {
         const data = await response.json();
 
         // Trier les utilisateurs par ID dans l'ordre décroissant (les plus récents en premier)
-        const sortedData = data.sort((a, b) => b.user.id - a.user.id);
+        // const sortedData = data.sort((a, b) => b.user.id - a.user.id);
 
         // Mélanger aléatoirement les utilisateurs
-        const shuffledData = sortedData.sort(() => Math.random() - 0.5);
+        const shuffledData = data.sort(() => Math.random() - 0.5);
 
         setAgents(shuffledData);
         setLoading(false);
