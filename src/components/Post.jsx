@@ -4642,7 +4642,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                 style={dark_light_bg}
                 className="  relative  flex flex-col overflow-auto h-fit  md:mt-0 p-2 max-w-full rounded-[10px] w-[625px]"
               >
-                <div className="  flex flex-col h-fit">
+                <div className=" scale-75 flex flex-col h-fit">
                   <form
                     className="  h-fit mb-2 flex flex-col"
                     onSubmit={handleSubmit(handlePostSubmitPartage)}
@@ -4691,7 +4691,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         <div className="  flex flex-col w-full gap-y-2">
                           <textarea
                             style={dark_border}
-                            className="  flex max-h-fit px-2 pt-2 h-28 justify-center bg-transparent rounded-[8px] md:rounded-[10px] theme-"
+                            className="  flex max-h-fit px-2 pt-2 h-16 justify-center bg-transparent rounded-[8px] md:rounded-[10px] theme-"
                             placeholder="Quoi de neuf ?"
                             name="description"
                             {...register("description")}
@@ -4925,8 +4925,6 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                   className="   absolute bottom-6 ri opacity-0 w-36 h-10 left-11    py-2 text-white  rounded-full "
                   onClick={() => handleCloseModal(true)}
                 >
-                  {" "}
-                  Xddddddddddddddddd{" "}
                 </button>
               </div>
               <ToastContainer />
