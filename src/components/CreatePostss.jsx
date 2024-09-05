@@ -64,7 +64,7 @@ function CreatePost({ setArticles, onClose }) {
           setErrMsg(getTranslation("Failed to fetch user data", "Échec de la récupération des données utilisateur"));
         });
     }
-  }, [storedUserData, storedToken, getTranslation]);
+  }, [JSON.stringify(storedUserData), storedToken]);
   const loadRemainingArticles = (remainingArticles) => {
     setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
   };

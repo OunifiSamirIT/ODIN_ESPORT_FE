@@ -7,6 +7,7 @@ import Profilesearch from "../assets/Profilesearch.png";
 import { useEffect } from "react";
 import { Config } from "../config";
 import Header from "./Header2";
+import secureLocalStorage from "react-secure-storage";
 
 function Searchpage() {
   const iconImages = {
@@ -21,8 +22,20 @@ function Searchpage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
+  const storedUserDatad = JSON.parse(
+    secureLocalStorage.getItem("cryptedUser")
+  );
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData?.token;
+
   useEffect(() => {
-    fetch(`${Config.LOCAL_URL}/api/AllTarget`)
+    fetch(`${Config.LOCAL_URL}/api/AllTarget`, {
+      headers: {
+        // "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
+      },
+
+    })
       .then((response) => response.json())
       .then((data) => {
         setSearch(data);
@@ -30,7 +43,13 @@ function Searchpage() {
       .catch((error) => console.error("Error fetching data:", error));
 
     // Fetch users
-    fetch(`${Config.LOCAL_URL}/api/user`)
+    fetch(`${Config.LOCAL_URL}/api/user`, {
+      headers: {
+        // "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
+      },
+
+    })
       .then((response) => response.json())
       .then((userData) => {
         setUsers(userData);
@@ -93,7 +112,7 @@ function Searchpage() {
                   {searchResults.map((item, index) => (
                     <React.Fragment key={index}>
                       {index === 0 ||
-                      searchResults[index - 1].origin !== item.origin ? (
+                        searchResults[index - 1].origin !== item.origin ? (
                         <li className="text-gray-500 text-sm px-2 py-1">
                           {item.origin === "Page" ? "Pages" : "Personnes"}
                         </li>
