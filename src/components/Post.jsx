@@ -2326,7 +2326,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                     className="  mt-1 py-2 flex flex-row  items-center"
                                   >
                                     <Link to={`/profile/${like.userId}`}>
-                                      <figure className="  avatar me-3">
+                                      <figure className="  avatar mr-5">
                                         <img
                                           srcSet={
                                             like?.user?.image
@@ -2334,7 +2334,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                               : placeholder
                                           }
                                           // src={article?.user?.user??.image}
-                                          className="  shadow-sm rounded-full w-[32px] aspect-square"
+                                          className="  shadow-sm rounded-full min-w-[32px]  max-w-[32px] aspect-square"
                                         />{" "}
                                       </figure>
                                     </Link>
@@ -2381,7 +2381,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                         {showDropdownpartage && (
                           <div
                             ref={reffpartage}
-                            className="  absolute overflow-y-scroll hiddenScrollRightMenu translate-x-0 md:-translate-x-96 top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
+                            className="  absolute overflow-y-scroll hiddenScrollRightMenu -translate-x-[100%] top-0 md:top-0 z-[3] h-[180px] mt-2 bg-white border border-gray-300 rounded-md shadow-lg"
                           >
                             <div className="  py-2 px-4">
                               <h3 className="  md:text-lg text-md text-wrap w-[200px] md:w-[300px]  font-semibold">
@@ -3648,7 +3648,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                                           className="  mt-1 py-2 flex flex-row  items-center"
                                         >
                                           <Link to={`/profile/${like.userId}`}>
-                                            <figure className="  avatar me-3">
+                                            <figure className="  avatar me-3 ">
                                               <img
                                                 srcSet={
                                                   like?.user?.image
@@ -4637,11 +4637,11 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
           )}
 
           {isModaldOpenPartage && (
-            <div className="  bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-center px-8">
+            <div className="  bg-black/70 fixed inset-0 z-50 h-full w-full overflow-auto flex justify-center items-start py-20 px-8">
               <div
                 ref={reffPartage}
                 style={dark_light_bg}
-                className="scale-75 relative flex flex-col overflow-auto h-fit  md:mt-0 p-2 max-w-full rounded-[10px] w-[625px]"
+                className=" relative flex flex-col overflow-auto h-fit  md:mt-0 p-2 max-w-full rounded-[10px] w-[625px]"
               >
                 <div className="flex flex-col h-fit">
                   <form
@@ -4820,65 +4820,103 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                           </div>
 
                           {displayArticle?.image && (
-                            <div className="  card-body d-block p-0 mb-3">
-                              <div
-                                className={`grid ${
-                                  imageCount === 1
-                                    ? "grid-cols-1"
-                                    : imageCount === 2
-                                    ? "grid-cols-2"
-                                    : imageCount === 3
-                                    ? "grid-cols-1 sm:grid-cols-2"
-                                    : "grid-cols-2 sm:grid-cols-2 md:grid-cols-2"
-                                }`}
-                              >
-                                {images.slice(0, 4).map((imageUrl, index) => (
-                                  <div
-                                    key={index}
-                                    className={`p-1 relative ${
-                                      imageCount === 3 && index === 0
-                                        ? "col-span-2"
-                                        : ""
-                                    }`}
-                                  >
-                                    {imageUrl && (
-                                      <img
-                                        className={`w-full ${
-                                          imageCount === 1
-                                            ? "h-full"
-                                            : imageCount === 2
-                                            ? "h-full md:h-56"
-                                            : "h-56"
-                                        } ${
-                                          index === 0 &&
-                                          article?.image?.split(";").length ===
-                                            3
-                                            ? "h-full md:h-56 object-cover"
-                                            : "object-cover h-56"
-                                        } ${
-                                          index === 3 && images.length > 4
-                                            ? "opacity-50"
-                                            : ""
-                                        }`}
-                                        src={imageUrl}
-                                        alt={`Image ${index + 1}`}
-                                        style={{
-                                          marginBottom: "0",
-                                          borderRadius: "0",
-                                        }}
-                                      />
-                                    )}
-                                    {index === 3 && images.length > 4 && (
-                                      <div className="  absolute inset-0 flex items-center justify-center  bg-opacity-50 rounded-md text-black">
-                                        <button className="  flex items-center text-lg">
-                                          +{images.length - 4}
-                                        </button>
-                                      </div>
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
+                             <div className="  card-body d-block p-0 mb-1">
+                             <div
+                               onClick={handlePlusClick}
+                               className={`grid ${
+                                 imageCount === 1
+                                   ? "grid-cols-1"
+                                   : imageCount === 2
+                                   ? "grid-cols-2"
+                                   : "grid-cols-2 sm:grid-cols-2 md:grid-cols-2"
+                               }`}
+                             >
+                               {images.slice(0, 4).map((imageUrl, index) => (
+                                 <div
+                                   key={index}
+                                   className={`p-1 relative ${
+                                     imageCount === 3 && index === 0 ? "col-span-2" : ""
+                                   }`}
+                                 >
+                                   {imageUrl && (
+                                     <div
+                                       className={`relative w-full ${
+                                         imageCount === 1
+                                           ? "md:h-[400px] h-[350px] single-image-container"
+                                           : imageCount === 2
+                                           ? "h-full md:h-[250px]"
+                                           : "w-full h-44"
+                                       } ${
+                                         index === 0 && imageCount === 3
+                                           ? "min-h-56 md:h-56 object-cover"
+                                           : ""
+                                       } ${
+                                         index > 0 && imageCount === 3
+                                           ? "w-full h-[250px]"
+                                           : "w-full h-44"
+                                       } ${
+                                         index === 3 && images.length > 4
+                                           ? "opacity-50 md:h-[250px]"
+                                           : "md:h-[250px]"
+                                       } ${
+                                         imageCount === 4
+                                           ? "h-full md:h-[250px]"
+                                           : "w-full h-44"
+                                       }`}
+                                       style={{ overflow: "hidden" }}
+                                     >
+                                       {imageCount === 1 && (
+                                         <div
+                                           className="  absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-md"
+                                           style={{ backgroundImage: `url(${imageUrl})` }}
+                                         ></div>
+                                       )}
+                                       <img
+                                         className={`relative w-full ${
+                                           imageCount === 1
+                                             ? "md:h-[400px] h-[350px] object-contain"
+                                             : imageCount === 2
+                                             ? "h-full md:h-[250px] object-cover"
+                                             : "w-full h-44"
+                                         } ${
+                                           index === 0 && imageCount === 3
+                                             ? "min-h-56 md:h-56 object-cover"
+                                             : ""
+                                         } ${
+                                           index > 0 && imageCount === 3
+                                             ? "object-cover h-[250px]"
+                                             : ""
+                                         } ${images.length >= 4 && "object-cover"} ${
+                                           index === 3 && images.length > 4
+                                             ? "opacity-50 md:h-[250px]"
+                                             : "md:h-[250px]"
+                                         } ${
+                                           imageCount === 4
+                                             ? "h-full object-cover md:h-[250px]"
+                                             : "w-full h-44"
+                                         }`}
+                                         src={imageUrl}
+                                         alt={`Image ${index + 1}`}
+                                         style={{
+                                           marginBottom: "0",
+                                           borderRadius: "0",
+                                           zIndex: 1,
+                                         }}
+                                       />
+                                     </div>
+                                   )}
+                                   {index === 3 && images.length > 4 && (
+                                     <div
+                                       className="  absolute inset-0 flex items-center justify-center bg-opacity-50 text-black font-bold text-xl"
+                                       onClick={handlePlusClick}
+                                     >
+                                       +{images.length - 4}
+                                     </div>
+                                   )}
+                                 </div>
+                               ))}
+                             </div>
+                           </div>
                           )}
 
                           {displayArticle?.video && (
