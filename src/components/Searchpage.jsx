@@ -83,9 +83,9 @@ function Searchpage() {
     <>
       <div className=" ">
         <Header />
-        <div className=" md:flex pl-7 pr-2 pt-4 w-full min-w-[200px]">
-          <div className="flex md:hidden items-center mt-16 relative ">
-            <div className="flex items-center whitespace-nowrap bg-gray-100 pr-2 pl-2 h-11 w-[250px] rounded-full mr-4 border border-black absolute top-0">
+        <div className=" md:flex px-4 pt-4 w-full min-w-full">
+          <div className="flex md:hidden items-center justify-center mt-16 relative ">
+            <div className="flex items-center whitespace-nowrap bg-gray-100 pr-2 pl-2 h-11 w-[250px] rounded-full border border-black absolute top-0">
               <input
                 type="text"
                 onChange={handleSearch}
@@ -106,13 +106,12 @@ function Searchpage() {
                 />
               </svg>
             </div>
-            <div className="">
               {searchResults.length > 0 && (
-                <ul className="bg-white shadow-md rounded-md mt-1 px-4 py-2 max-h-[600px] absolute top-[40px]  min-w-[350px] overflow-y-scroll ">
+                <ul className="mt-3 bg-white shadow-md rounded-[10px] px-4 py-2 max-h-[600px] absolute top-[40px] min-w-[300px] overflow-y-scroll ">
                   {searchResults.map((item, index) => (
                     <React.Fragment key={index}>
                       {index === 0 ||
-                        searchResults[index - 1].origin !== item.origin ? (
+                      searchResults[index - 1].origin !== item.origin ? (
                         <li className="text-gray-500 text-sm px-2 py-1">
                           {item.origin === "Page" ? "Pages" : "Personnes"}
                         </li>
@@ -144,7 +143,6 @@ function Searchpage() {
                   ))}
                 </ul>
               )}
-            </div>
           </div>
         </div>
       </div>
