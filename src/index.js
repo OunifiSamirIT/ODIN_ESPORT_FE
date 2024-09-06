@@ -131,8 +131,8 @@ import { AuthProvider } from "./AuthContext.js";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null);
-console.log = function() {}
-console.error = function() {}
+// console.log = function() {}
+// console.error = function() {}
 
 function Root() {
   let currentUrl = window.location;
@@ -483,26 +483,178 @@ function Root() {
         >
           <BrowserRouter basename={"/"}>
             <Routes>
-            <Route exact path="/admin" element={<AdminRoute><AdminHome /></AdminRoute>} />
+              <Route
+                exact
+                path="/admin"
+                element={
+                  <AdminRoute>
+                    <AdminHome />
+                  </AdminRoute>
+                }
+              />
 
-              <Route exact path="/admin/users" element={<AdminRoute><Users /></AdminRoute>} />
-              <Route exact path="/admin/playerpack" element={<AdminRoute><Playerpack /></AdminRoute>} />
-              <Route exact path="/admin/users/create" element={<AdminRoute><CreateUser /></AdminRoute>} />
-              <Route exact path="/admin/users/edit/:id" element={<AdminRoute><EditUser /></AdminRoute>} />
-              <Route exact path="admin/events" element={<AdminRoute><EventA /></AdminRoute>} />
-              <Route exact path="/admin/album" element={<AdminRoute><Album /></AdminRoute>} />
-              <Route exact path="/admin/albumcamps" element={<AdminRoute><Albumcamps /></AdminRoute>} />
-              <Route exact path="/admin/albumevents" element={<AdminRoute><Albumevents /></AdminRoute>} />
-              <Route exact path="/admin/offreemploi" element={<AdminRoute><AddOffreemploi /></AdminRoute>} />
-              <Route exact path="/admin/albumevents/create" element={<AdminRoute><AddAlbumEvents /></AdminRoute>} />
-              <Route exact path="/admin/album/create" element={<AdminRoute><AddAlbum /></AdminRoute>} />
-              <Route exact path="/admin/albumcamps/create" element={<AdminRoute><AddAlbumcamps /></AdminRoute>} />
-              <Route exact path="/admin/blog" element={<AdminRoute><AdminBlog /></AdminRoute>} />
-              <Route exact path="/admin/blog/create" element={<AdminRoute><AddArticle /></AdminRoute>} />
-              <Route exact path="/admin/blog/edit/:articleId" element={<AdminRoute><EditBlog /></AdminRoute>} />
-              <Route exact path="/admin/challenge" element={<AdminRoute><AdminChallenges /></AdminRoute>} />
-              <Route exact path="/admin/challenge/create" element={<AdminRoute><AddChallenge /></AdminRoute>} />
-              <Route exact path="/admin/challenge/update/:articleId" element={<AdminRoute><EditBlog /></AdminRoute>} />
+              <Route
+                exact
+                path="/admin/users"
+                element={
+                  <AdminRoute>
+                    <Users />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/playerpack"
+                element={
+                  <AdminRoute>
+                    <Playerpack />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/users/create"
+                element={
+                  <AdminRoute>
+                    <CreateUser />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/users/edit/:id"
+                element={
+                  <AdminRoute>
+                    <EditUser />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="admin/events"
+                element={
+                  <AdminRoute>
+                    <EventA />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/album"
+                element={
+                  <AdminRoute>
+                    <Album />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/albumcamps"
+                element={
+                  <AdminRoute>
+                    <Albumcamps />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/albumevents"
+                element={
+                  <AdminRoute>
+                    <Albumevents />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/offreemploi"
+                element={
+                  <AdminRoute>
+                    <AddOffreemploi />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/albumevents/create"
+                element={
+                  <AdminRoute>
+                    <AddAlbumEvents />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/album/create"
+                element={
+                  <AdminRoute>
+                    <AddAlbum />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/albumcamps/create"
+                element={
+                  <AdminRoute>
+                    <AddAlbumcamps />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/blog"
+                element={
+                  <AdminRoute>
+                    <AdminBlog />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/blog/create"
+                element={
+                  <AdminRoute>
+                    <AddArticle />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/blog/edit/:articleId"
+                element={
+                  <AdminRoute>
+                    <EditBlog />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/challenge"
+                element={
+                  <AdminRoute>
+                    <AdminChallenges />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/challenge/create"
+                element={
+                  <AdminRoute>
+                    <AddChallenge />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                exact
+                path="/admin/challenge/update/:articleId"
+                element={
+                  <AdminRoute>
+                    <EditBlog />
+                  </AdminRoute>
+                }
+              />
               <Route exact path="/" element={<Demo />} />
               <Route exact path="/Test" element={<Test />} />
               <Route

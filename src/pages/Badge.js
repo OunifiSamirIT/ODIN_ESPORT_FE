@@ -4085,7 +4085,7 @@ function Badge({ userpf }) {
         const storedUserDatad = JSON.parse(
           secureLocalStorage.getItem("cryptedUser")
         );
-        const response = await fetch(`${Config.LOCAL_URL}/api/players`,{
+        const response = await fetch(`${Config.LOCAL_URL}/api/players`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${tokenn}`,
@@ -4240,17 +4240,19 @@ function Badge({ userpf }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${tokenn}`,
         },
-      }).then((response) => response.json())
+      })
+        .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
         })
         .catch((error) => console.error("Error fetching user data:", error));
+      console.log(user, "lelo");
     }
   }, []);
 
   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
 
-  const id = storedUserData.id ? storedUserData.id : null;
+  const id = storedUserData?.id ? storedUserData?.id : null;
 
   const userProfileType = storedUserData ? storedUserData.profil : null;
 

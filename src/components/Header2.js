@@ -1913,7 +1913,7 @@ function Header() {
   // const shouldShowAgentItem = ["player", "other"].includes(userProfileType);
 
   // const shouldShowForProfile = !shouldHideForProfiles.includes(userProfileType);
-  const id = storedUserDatad.id ? storedUserDatad.id : null;
+  // const id = storedUserDatad.id ? storedUserDatad.id : null;
   const userProfileType = storedUserDatad ? storedUserDatad.profil : null;
 
   const shouldHideForProfiles = ["other", "player"];

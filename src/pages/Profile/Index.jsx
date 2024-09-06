@@ -474,7 +474,7 @@ const Index = () => {
   };
 
   const LocalStorageID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-  const isOwner = LocalStorageID.id == id;
+  // const isOwner = LocalStorageID.id == id;
 
   const fetchArticles = async () => {
     try {
@@ -1305,7 +1305,7 @@ const Index = () => {
 
   return (
     <>
-      <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID.id}>
+      <ProfileLayout onChange={handleProfileFeed} user={LocalStorageID?.id}>
         {owner && (
           <div className="mt-4 card w-100  rounded-[10px]   border-0 p-3 mb-3">
             <div className="card-body p-2 position-relative">
