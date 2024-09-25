@@ -4092,7 +4092,8 @@ function Register() {
     cityresidence: "",
     image: "",
     file: "",
-  });  const [profileError, setProfileError] = useState(false);
+  });
+  const [profileError, setProfileError] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState("");
   const [scoutSkillsError, setScoutSkillsError] = useState(false);
 
@@ -4132,7 +4133,6 @@ function Register() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
- 
 
   const handleSelection = (selectedValue) => {
     // Set formData.Licence to the selected value
@@ -4866,7 +4866,6 @@ function Register() {
     return passwordRegex.test(formData.password);
   };
 
-  
   const allowedFileTypes = [
     "image/jpeg",
     "image/png",
@@ -4879,13 +4878,12 @@ function Register() {
     "video/x-msvideo",
     "video/x-flv",
     "video/x-matroska",
-    "application/pdf"
-
+    "application/pdf",
   ];
-  
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-  
+
     if (file) {
       if (allowedFileTypes.includes(file.type)) {
         // Valid file type
@@ -4898,24 +4896,25 @@ function Register() {
           setImagePreview(reader.result);
         };
         reader.readAsDataURL(file);
-        
+
         // Clear any existing error for the image field
-        setInputErrors(prev => ({ ...prev, image: "" }));
+        setInputErrors((prev) => ({ ...prev, image: "" }));
       } else {
         // Invalid file type
-        setInputErrors(prev => ({
+        setInputErrors((prev) => ({
           ...prev,
-          image: "Ce type de fichier n'est pas pris en charge. Veuillez sélectionner une image  jpeg ou png "
+          image:
+            "Ce type de fichier n'est pas pris en charge. Veuillez sélectionner une image  jpeg ou png ",
         }));
-        
+
         // Clear the file input
-        event.target.value = '';
+        event.target.value = "";
       }
     }
   };
   const handleFileChangeLicense = (event) => {
     const file = event.target.files[0];
-  
+
     if (file) {
       if (allowedFileTypes.includes(file.type)) {
         // Valid file type
@@ -4925,22 +4924,21 @@ function Register() {
           setImagePreviewlic(reader.result);
         };
         reader.readAsDataURL(file);
-        
+
         // Clear any existing error for the file field
-        setInputErrors(prev => ({ ...prev, file: "" }));
+        setInputErrors((prev) => ({ ...prev, file: "" }));
       } else {
         // Invalid file type
-        setInputErrors(prev => ({
+        setInputErrors((prev) => ({
           ...prev,
-          file: "Ce type de fichier n'est pas pris en charge. Veuillez sélectionner une image ou pdf ."
+          file: "Ce type de fichier n'est pas pris en charge. Veuillez sélectionner une image ou pdf .",
         }));
-        
+
         // Clear the file input
-        event.target.value = '';
+        event.target.value = "";
       }
     }
   };
-  
 
   const handleInputChange = (e) => {
     setValidationError("");
@@ -5396,7 +5394,7 @@ function Register() {
 
         const idusercode = responseData.user.id;
         const useremail = responseData.user.email;
-        
+
         // Use secureLocalStorage instead of localStorage
         secureLocalStorage.setItem("idusercode", idusercode);
         secureLocalStorage.setItem("useremail", useremail);
@@ -5584,14 +5582,12 @@ function Register() {
                           className="flex absolute opacity-0"
                         /> */}
                         <input
-    type="file"
-    name="image"
-    onChange={handleFileChange}
-    className="flex absolute hidden opacity-0"
-    accept="image/*,video/*"
-  />
- 
-
+                          type="file"
+                          name="image"
+                          onChange={handleFileChange}
+                          className="flex absolute hidden opacity-0"
+                          accept="image/*,video/*"
+                        />
                         <span className="tal2">
                           {getTranslation(
                             `Import a photo`, // -----> Englais
@@ -5604,12 +5600,11 @@ function Register() {
                     </label>
                   </div>
                   {inputErrors["image"] && (
-  <div className="text-red-500 text-xs mt-1">
-    {inputErrors["image"]}
-  </div>
-)}
+                    <div className="text-red-500 text-xs mt-1">
+                      {inputErrors["image"]}
+                    </div>
+                  )}
                 </div>
-            
                 <div className="mt-3 md:mt-8 max-md:max-w-full">
                   <div className="flex gap-2 md:gap-5 max-md:flex-col max-md:gap-0 max-md:">
                     <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
@@ -7371,12 +7366,11 @@ function Register() {
                           )}
                           <div className="w-full max-w-sm mx-auto"></div>
                           {inputErrors["file"] && (
-    <div className="text-red-500 text-xs mt-1">
-      {inputErrors["file"]}
-    </div>
-  )}
+                            <div className="text-red-500 text-xs mt-1">
+                              {inputErrors["file"]}
+                            </div>
+                          )}
                         </div>
-                       
                       </div>
 
                       <div className="flex gap-4 self-start px-4 mt-8 text-lg text-black whitespace-nowrap">
@@ -9727,10 +9721,10 @@ function Register() {
                                 `` //  -----> Allemagne
                               )}
                             </option>
-                            <option value="Médecin d'équipe">
+                            <option value="Médecin Equipe">
                               {getTranslation(
                                 `Team Doctor`, // -----> Englais
-                                `Médecin d'équipe`, //  -----> Francais
+                                `Médecin Equipe`, //  -----> Francais
                                 ``, //  -----> Turkey
                                 `` //  -----> Allemagne
                               )}
@@ -10176,7 +10170,7 @@ function Register() {
                                   {[
                                     getTranslation(
                                       `Team spirit`,
-                                      `Esprit d'équipe`
+                                      `Esprit Equipe`
                                     ),
 
                                     getTranslation(
@@ -10272,7 +10266,7 @@ function Register() {
                                 </div>
                               )}
 
-                              {formData.profession === "Médecin d'équipe" && (
+                              {formData.profession === "Médecin Equipe" && (
                                 <div className="form-group icon-input mb-3 flex flex-wrap">
                                   {[
                                     getTranslation(
@@ -10366,12 +10360,12 @@ function Register() {
 
                                     getTranslation(
                                       `Fitness assessment`,
-                                      `Évaluation de condition physique`
+                                      `Evaluation de condition physique`
                                     ),
 
                                     getTranslation(
                                       `Training planning`,
-                                      `Planification de l'entraînement`
+                                      `Planification Entraînement`
                                     ),
                                   ].map((skillsAutre) => (
                                     <div
