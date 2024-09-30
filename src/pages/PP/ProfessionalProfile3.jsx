@@ -26,12 +26,7 @@ export default function ProfessionalProfile3() {
       <div className="testValuesContainer">
         <nav>
           <ul>
-            <li>Vitesse</li>
-            <li>Saut</li>
-            <li>Agilité</li>
-            <li>Tir de balle</li>
-            <li>Jonglage</li>
-            <li>Conduite</li>
+         
           </ul>
         </nav>
         <main>
