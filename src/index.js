@@ -128,6 +128,7 @@ import AdminLogin from "./pages/Admin/LoginAdmin.jsx";
 import { useLocation } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
 import { AuthProvider } from "./AuthContext.js";
+import ProfessionalProfile3 from "./pages/PP/ProfessionalProfile3.jsx";
 const rootElement = document.getElementById("root");
 
 export const Context = React.createContext(null);
@@ -747,6 +748,12 @@ function Root() {
                     exact
                     path={`/professionalprofile/:id`}
                     element={<Professionalprofile2 />}
+                  />
+
+                  <Route
+                    exact
+                    path={`/pp`}
+                    element={<ProfessionalProfile3 />}
                   />
 
                   <Route exact path="/gallery" element={<Gallery />} />
