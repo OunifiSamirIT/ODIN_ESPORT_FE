@@ -29,12 +29,12 @@ export default function ProfessionalProfile3() {
       <div className="testValuesContainer">
         <nav>
           <ul>
-            <li onClick={() => setCurrentTestWindow(1)}>Vitesse</li>
-            <li onClick={() => setCurrentTestWindow(2)}>Saut</li>
-            <li onClick={() => setCurrentTestWindow(3)}>Agilité</li>
-            <li onClick={() => setCurrentTestWindow(4)}>Tir de balle</li>
-            <li onClick={() => setCurrentTestWindow(5)}>Jonglage</li>
-            <li onClick={() => setCurrentTestWindow(6)}>Conduite</li>
+            <li className={`${ currentTestWindow == 1 && "active"}`} onClick={() => setCurrentTestWindow(1)}>Vitesse</li>
+            <li className={`${ currentTestWindow == 2 && "active"}`}   onClick={() => setCurrentTestWindow(2)}>Saut</li>
+            <li className={`${ currentTestWindow == 3 && "active"}`}  onClick={() => setCurrentTestWindow(3)}>Agilité</li>
+            <li className={`${ currentTestWindow == 4 && "active"}`}  onClick={() => setCurrentTestWindow(4)}>Tir de balle</li>
+            <li className={`${ currentTestWindow == 5 && "active"}`}  onClick={() => setCurrentTestWindow(5)}>Jonglage</li>
+            <li className={`${ currentTestWindow == 6 && "active"}`}  onClick={() => setCurrentTestWindow(6)}>Conduite</li>
           </ul>
         </nav>
         <main>
@@ -99,7 +99,10 @@ let CustomStatBar = ({ title, data = [{}] }) => {
               <p>Pied Fort</p>
               <p>0 U</p></div>
             <div className="barCon">
+              <div className="wrapper">
               <div className="progressBar" style={{}}></div>
+
+              </div>
             </div>
           </>
         ))

@@ -179,10 +179,16 @@
                     padding: 20px 0;
                     border-radius: 5px;
                     transition: .3s;
+                    cursor: pointer;
+
+                    &.active {
+                        background-color: rgb(46, 113, 235);
+                        color: white;
+
+                    }
 
                     &:hover {
                         background-color: rgba(46, 113, 235, 0.80);
-                        cursor: pointer;
                         color: white;
                     }
                 }
@@ -222,18 +228,22 @@
                     background-color: #D9D9D9;
                     display: flex;
                     align-items: center;
-
-                    .progressBar {
+                    .wrapper {
                         width: 0;
                         height: 120%;
-                        border-radius: 20px;
-                        background-color: red;
-                        animation: toValue .7s ease-in ;
+                        animation: toValue 1.3s ease-out  forwards;
                         @keyframes toValue {
                             to {
-                                width: var(to-val);
+                                width: 100%;
 
                             }
+                        }
+                        .progressBar {
+                            width: 50%;
+                            height: 100%;
+                            border-radius: 20px;
+                            background-color: red;
+                            
                         }
                     }
 
