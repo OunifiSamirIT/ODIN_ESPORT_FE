@@ -12,27 +12,12 @@ import FilledStar from "../../assets/StarFilled.svg";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import "./ProfessionalProle3.scss";
-import { Radar } from "react-chartjs-2";
+import RadarChart from "./RadarChart";
 
 export default function ProfessionalProfile3() {
   const [currentTestWindow, setCurrentTestWindow] = useState(1);
-
-  // useEffect(() => {
-  //   alert(currentPercentage)
-
-  //   let interval
-  //   if (currentPercentage > 60) {
-
-  //     alert("cleard")
-  //     clearInterval(interval)
-  //   }
-  //   else {
-  //      interval = setInterval(() => {
-  //       setCurrentPercentage(prev => prev + 1)
-  //     }, 100);
-  //   }
-  // }, [currentPercentage])
-
+  const [profileRating, setProfileRating] = useState(6);
+  
   return (
     <div className="profesionalProfileContainer">
       <div className="aboveContainer">
@@ -48,7 +33,7 @@ export default function ProfessionalProfile3() {
           </div>
 
           <div className="starsNdWheelContainer con">
-            <CircularPercentage percentage={50} />
+            <CircularPercentage rate={profileRating}  />
 
             <div class="point"></div>
             <div className="StarsPercentageCon">
@@ -60,7 +45,7 @@ export default function ProfessionalProfile3() {
               <div
                 className="starsFilledWrapperCon"
                 style={{
-                  maxWidth: "50%",
+                  maxWidth: (profileRating /10) * 100 + "%",
                 }}
               >
                 <div className="inner">
@@ -72,7 +57,11 @@ export default function ProfessionalProfile3() {
             </div>
           </div>
         </div>
-        <div className="statContainer con"></div>
+        <div className="statContainer con">
+        <RadarChart style={{ padding: 20 }}  />
+
+
+        </div>
       </div>
       <div className="testValuesContainer">
         <nav>
@@ -381,9 +370,10 @@ let CustomStatBar = ({ title, data = [], detail }) => {
   );
 };
 
-let CircularPercentage = ({ percentage }) => {
-  const [currentPercentage, setCurrentPercentage] = useState("0 999");
+let CircularPercentage = ({ rate }) => {
+  const [currentStrokePercentage, setStrokePercentage] = useState("0 999");
 
+  let percentage = rate/10 * 100
   const circular = useRef(null);
   useEffect(() => {
     console.log(circular.current.childNodes[0].getAttribute("r"));
@@ -391,20 +381,20 @@ let CircularPercentage = ({ percentage }) => {
     let roundRadius = circular.current.childNodes[0].getAttribute("r");
     let roundCircum = 2 * roundRadius * Math.PI;
     let roundDraw = (percentage * roundCircum) / 100;
-    setCurrentPercentage(roundDraw + " 999");
+    setStrokePercentage(roundDraw + " 999");
   }, []);
   return (
 
     <div className="wheel">
     <div className="Detail">
-      <p>4.6</p>
+      <p>{rate}</p>
       <p>Moyenne</p>
     </div>
     <svg 
       class="round"
       ref={circular}
       style={{
-        strokeDasharray: currentPercentage,
+        strokeDasharray: currentStrokePercentage,
       }}
        viewBox="0 0 324 324" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="167.048" cy="160.317" r="117.786" stroke="#F8FAFC" stroke-width="13.4613" />
@@ -418,3 +408,4 @@ let CircularPercentage = ({ percentage }) => {
     </svg></div>
   );
 };
+
