@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import imagePP from "../../assets/imagePP.png";
 import starPP from "../../assets/starPP.svg";
+import ABientot from "../../assets/ABientot.png";
 import Vitesse from "./svg/Vitesse";
 import Tir from "./svg/Tir";
 import Agilite from "./svg/Agilite";
@@ -13,17 +14,21 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import "./ProfessionalProle3.scss";
 import RadarChart from "./RadarChart";
+import Header from "../../components/Header2";
+import { useCountUp } from 'react-countup';
 
 export default function ProfessionalProfile3() {
   const [currentTestWindow, setCurrentTestWindow] = useState(1);
   const [profileRating, setProfileRating] = useState(6);
-  
   return (
     <div className="profesionalProfileContainer">
+      {/* <Header /> */}
       <div className="aboveContainer">
         <div className="seperateCon ">
           <div className="personalDetailCon con ">
-            <img src={imagePP} alt="" className="personalImage" />
+          <img src={imagePP} alt=""  
+          loading="lazy"
+          className="personalImage" />
             <div className="infoCon">
               <img src={starPP} alt="" className="star" />
               <p className="playerName">ALAN HOWLETT</p>
@@ -171,7 +176,7 @@ export default function ProfessionalProfile3() {
                 {
                   test: "Zigzag",
                   unit: "U",
-                  val: 40,
+                  val: 50,
                   min: [0],
                   averge: [50],
                   max: [100],
@@ -271,7 +276,17 @@ export default function ProfessionalProfile3() {
         </main>
       </div>
       <div className="videoContainer">
-        <h1>Vidéo test collective</h1>
+        <h1>Vidéo test collective
+        
+        </h1>
+        <span className="text-sm md:ml-5 max-sm:block animate-pulse font-normal text-orange-500">
+                    A Venir Bientôt ...
+                  </span>
+      
+        <img
+          loading="lazy"
+          src={ABientot}
+        />
       </div>
     </div>
   );
@@ -320,7 +335,7 @@ let CustomStatBar = ({ title, data = [], detail }) => {
                   <p style={{ fontWeight: "bold" }}>
                     {d.val == 0 && "0"}
                     {d.val <= d.averge && "Moyenne"}
-                    {60 < d.val && "bonne"}
+                    {d.averge < d.val && "bonne"}
                   </p>
                 ) : (
                   <p>{d.test}</p>
@@ -372,6 +387,7 @@ let CustomStatBar = ({ title, data = [], detail }) => {
 
 let CircularPercentage = ({ rate }) => {
   const [currentStrokePercentage, setStrokePercentage] = useState("0 999");
+  useCountUp({ ref: 'counter', end: rate });
 
   let percentage = rate/10 * 100
   const circular = useRef(null);
@@ -383,12 +399,17 @@ let CircularPercentage = ({ rate }) => {
     let roundDraw = (percentage * roundCircum) / 100;
     setStrokePercentage(roundDraw + " 999");
   }, []);
+
   return (
 
     <div className="wheel">
     <div className="Detail">
-      <p>{rate}</p>
-      <p>Moyenne</p>
+      <p id="counter"></p>
+      <p>
+      {rate <5 && "Faible"}
+      {rate >= 5 && "Moyenne"}
+      {rate == 5 && "Bien"}
+      </p>
     </div>
     <svg 
       class="round"

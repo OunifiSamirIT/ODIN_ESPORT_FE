@@ -54,12 +54,12 @@ const RadarChart = ({ id }) => {
     },
   };
 
-  const [vitesse, setVitesse] = useState(55);
+  const [vitesse, setVitesse] = useState(80);
   const [saut, setSaut] = useState(30);
-  const [tir, setTir] = useState(74);
-  const [conduit, setConduit] = useState(35);
-  const [agilite, setAgilite] = useState(84);
-  const [jonglage, setJonglage] = useState(57);
+  const [tir, setTir] = useState(70);
+  const [conduit, setConduit] = useState(70);
+  const [agilite, setAgilite] = useState(50);
+  const [jonglage, setJonglage] = useState(50);
 
   const getVitesseForCurrentUser = async (id) => {
     try {
