@@ -116,10 +116,70 @@
                 }
             }
 
-            .starsContainer {
+            .starsNdWheelContainer {
                 width: 100%;
                 height: 100%;
+                // display: flex;
+                // // align-items: center;
+                // // justify-content: center;
+                // // flex-direction: column;
+                // .wheelPercentageCon {
+                //     background:  conic-gradient( #2E71EB 0deg 10deg, #F8FAFC 0deg ) ;
+                //     width: 200px;
 
+                //     height: 200px;
+                //     border-radius: 200px;
+                //     display: grid;
+                //     place-items: center;
+                //     .inner {
+                //         width: 90%;
+                //         height: 90%;
+                //         border-radius: 200px;
+                //         background-color: #fff;
+
+                //         display: flex;
+                //         align-items: center;
+                //         justify-content: center;
+                //         flex-direction: column;
+                //         .percVal {
+
+                //             display: flex;
+                //             align-items: center;
+                //             justify-content: center;
+                //             flex-direction: column;
+                //         }
+                //     }
+                // }
+                .StarsPercentageCon {
+                // star width with margin 3px horizontol * 5
+                width: calc(31px * 5);
+                height: 30px;
+                    margin: 0 auto;
+                    > div {
+                        display: flex;
+                        flex-direction: row;
+                    position: absolute;
+
+                    }
+                    position: relative;
+                  .starsWrapperCon {
+                    // background-color: rebeccapurple;
+
+                    img {
+                        width: 25px;
+                        margin: 0 3px;
+                    }
+                  } 
+                  .starsFilledWrapperCon {
+                    overflow: hidden;
+                    max-width: 50%;
+                    img {
+                        width: 25px;
+                        margin: 0 3px;
+                        
+                    }
+                  }
+                }
 
                 @media screen and (max-width: 900px) {
                     width: 100%;
@@ -178,18 +238,56 @@
                     font-weight: 500;
                     padding: 20px 0;
                     border-radius: 5px;
-                    transition: .3s;
+                    transition: .5s;
                     cursor: pointer;
-
-                    &.active {
-                        background-color: rgb(46, 113, 235);
-                        color: white;
-
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: row;
+                    gap : 10px;
+                    @media screen and (max-width: 1000px) {
+                    flex-direction: column;
+                        
                     }
+                    svg {
+                        background-color: rgb(222, 233, 255);
+                        height: 50px;
+                        width: 50px;
+                        border-radius: 25px;
+                        path {
+                            transition: 0s;
+
+                        }
+                    }
+                    
 
                     &:hover {
                         background-color: rgba(46, 113, 235, 0.80);
                         color: white;
+                        svg {
+                            background-color: #427fed;
+
+                            path {
+                                fill: white;
+                                stroke: white;
+                            }
+                            
+                        }
+                    }
+
+                    &.active {
+                        background-color: rgb(46, 113, 235);
+                        color: white;
+                        svg {
+                            background-color: #427fed;
+
+                            path {
+                                fill: white;
+                                stroke: white;
+                            }
+                            
+                        }
+
                     }
                 }
             }
@@ -219,9 +317,18 @@
                 margin-top: 10px;
                     display: flex;
                 }
+                .aboveTitleBar {
+                    font-size: 13px;
+                }
+                .testVal {
+                    font-weight: bold;
+                    &.sautVal {
+                        text-align: center;
+                    }
+                }
 
                 .barCon {
-                    margin-top: 10px;
+                    margin-top: 5px;
                     width: 100%;
                     border-radius: 20px;
                     height: 4px;
@@ -231,15 +338,15 @@
                     .wrapper {
                         width: 0;
                         height: 120%;
-                        animation: toValue 1.3s ease-out  forwards;
+                        animation: toValue .9s ease-out  forwards;
                         @keyframes toValue {
+                         
                             to {
-                                width: 100%;
+                                width:100%;
 
                             }
                         }
                         .progressBar {
-                            width: 50%;
                             height: 100%;
                             border-radius: 20px;
                             background-color: red;
