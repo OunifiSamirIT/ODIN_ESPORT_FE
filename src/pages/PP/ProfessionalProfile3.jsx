@@ -10,25 +10,46 @@ import Jonglage from "./svg/Jonglage";
 import Saut from "./svg/Saut";
 import Star from "../../assets/Star.svg";
 import FilledStar from "../../assets/StarFilled.svg";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 import "./ProfessionalProle3.scss";
 import RadarChart from "./RadarChart";
-import Header from "../../components/Header2";
 import { useCountUp } from 'react-countup';
 
 export default function ProfessionalProfile3() {
   const [currentTestWindow, setCurrentTestWindow] = useState(1);
   const [profileRating, setProfileRating] = useState(6);
+  const [appearRadar, setAppearRadar] = useState(false);
+  const MobileRadar = useRef();
+
+
+   function AnimateRadarOnMobileScreen () {
+    let observer = new IntersectionObserver( entries => {
+        entries.forEach(
+            entry => {
+              if (entry.isIntersecting) {
+                setAppearRadar(true)
+              }
+            }
+        )
+    }, {
+        threshold: 1
+    })
+    
+    
+        observer.observe(MobileRadar.current)
+  }
+  useEffect(() => {
+      AnimateRadarOnMobileScreen()
+
+  }, [])
   return (
     <div className="profesionalProfileContainer">
       {/* <Header /> */}
       <div className="aboveContainer">
         <div className="seperateCon ">
           <div className="personalDetailCon con ">
-          <img src={imagePP} alt=""  
-          loading="lazy"
-          className="personalImage" />
+            <img src={imagePP} alt=""
+              loading="lazy"
+              className="personalImage" />
             <div className="infoCon">
               <img src={starPP} alt="" className="star" />
               <p className="playerName">ALAN HOWLETT</p>
@@ -38,7 +59,7 @@ export default function ProfessionalProfile3() {
           </div>
 
           <div className="starsNdWheelContainer con">
-            <CircularPercentage rate={profileRating}  />
+            <CircularPercentage rate={profileRating} />
 
             <div class="point"></div>
             <div className="StarsPercentageCon">
@@ -50,7 +71,7 @@ export default function ProfessionalProfile3() {
               <div
                 className="starsFilledWrapperCon"
                 style={{
-                  maxWidth: (profileRating /10) * 100 + "%",
+                  maxWidth: (profileRating / 10) * 100 + "%",
                 }}
               >
                 <div className="inner">
@@ -62,10 +83,24 @@ export default function ProfessionalProfile3() {
             </div>
           </div>
         </div>
-        <div className="statContainer con">
-       <div className="radarWrapper">
-       <RadarChart style={{ padding: 20 }}  />
-       </div>
+        <div className="statContainer con" ref={MobileRadar} onClick={() => setAppearRadar(true)}>
+
+          <div className="mobileRadar">
+            {
+              appearRadar &&
+              <div className="radarWrapper">
+                <RadarChart style={{ padding: 20 }} />
+              </div>
+            }
+            
+          </div>
+          <div className="desktopRadar">
+            <div className="radarWrapper">
+
+              <RadarChart style={{ padding: 20 }} />
+
+            </div>
+          </div>
 
 
         </div>
@@ -216,7 +251,7 @@ export default function ProfessionalProfile3() {
 
           {currentTestWindow === 5 && (
             <CustomStatBar
-              title="Jonglage"
+              title="Jongles"
               data={[
                 {
                   test: "Pied Fort",
@@ -279,12 +314,12 @@ export default function ProfessionalProfile3() {
       </div>
       <div className="videoContainer">
         <h1>Vidéo test collective
-        
+
         </h1>
         <span className="text-sm md:ml-5 max-sm:block animate-pulse font-normal text-orange-500">
-                    A Venir Bientôt ...
-                  </span>
-      
+          A Venir Bientôt ...
+        </span>
+
         <img
           loading="lazy"
           src={ABientot}
@@ -335,18 +370,18 @@ let CustomStatBar = ({ title, data = [], detail }) => {
               {d.currentTestWindow != 2 &&
                 (d.currentTestWindow == 3 ? (
                   <p style={{ fontWeight: "bold" }}>
-                    {getColorBarPercentage( d.val,
-                    d.min,
-                    d.averge,
-                    d.max) == "#EB2E2E" && "Faible"}
-                    {getColorBarPercentage( d.val,
-                    d.min,
-                    d.averge,
-                    d.max) == "#FF7F00"&& "Moyenne"}
-                    {getColorBarPercentage( d.val,
-                    d.min,
-                    d.averge,
-                    d.max) == "#2E71EB" && "bonne"}
+                    {getColorBarPercentage(d.val,
+                      d.min,
+                      d.averge,
+                      d.max) == "#EB2E2E" && "Faible"}
+                    {getColorBarPercentage(d.val,
+                      d.min,
+                      d.averge,
+                      d.max) == "#FF7F00" && "Moyenne"}
+                    {getColorBarPercentage(d.val,
+                      d.min,
+                      d.averge,
+                      d.max) == "#2E71EB" && "Bonne"}
                   </p>
                 ) : (
                   <p>{d.test}</p>
@@ -364,20 +399,20 @@ let CustomStatBar = ({ title, data = [], detail }) => {
             >
 
               {
-                (d.currentTestWindow == 4  || d.currentTestWindow == 6 )? (
+                (d.currentTestWindow == 4 || d.currentTestWindow == 6) ? (
                   <p style={{ fontWeight: "bold" }}>
-                    {getColorBarPercentage( d.val,
-                    d.min,
-                    d.averge,
-                    d.max) == "#EB2E2E" && "Faible"}
-                    {getColorBarPercentage( d.val,
-                    d.min,
-                    d.averge,
-                    d.max) == "#FF7F00" && "Moyenne"}
-                    {getColorBarPercentage( d.val,
-                    d.min,
-                    d.averge,
-                    d.max) == "#2E71EB" && "bonne"}
+                    {getColorBarPercentage(d.val,
+                      d.min,
+                      d.averge,
+                      d.max) == "#EB2E2E" && "Faible"}
+                    {getColorBarPercentage(d.val,
+                      d.min,
+                      d.averge,
+                      d.max) == "#FF7F00" && "Moyenne"}
+                    {getColorBarPercentage(d.val,
+                      d.min,
+                      d.averge,
+                      d.max) == "#2E71EB" && "Bonne"}
                   </p>
                 ) : (
                   <>{d.val} {d.unit}</>
@@ -420,7 +455,7 @@ let CircularPercentage = ({ rate }) => {
   const [currentStrokePercentage, setStrokePercentage] = useState("0 999");
   useCountUp({ ref: 'counter', end: rate });
 
-  let percentage = rate/10 * 100
+  let percentage = rate / 10 * 100
   const circular = useRef(null);
   useEffect(() => {
     console.log(circular.current.childNodes[0].getAttribute("r"));
@@ -434,30 +469,30 @@ let CircularPercentage = ({ rate }) => {
   return (
 
     <div className="wheel">
-    <div className="Detail">
-      <p id="counter"></p>
-      <p>
-      {rate <5 && "Faible"}
-      {rate >= 5 && "Moyenne"}
-      {rate == 5 && "Bien"}
-      </p>
-    </div>
-    <svg 
-      class="round"
-      ref={circular}
-      style={{
-        strokeDasharray: currentStrokePercentage,
-      }}
-       viewBox="0 0 324 324" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="167.048" cy="160.317" r="117.786" stroke="#F8FAFC" stroke-width="13.4613" />
-      <path d="M153.549 282.857C127.763 281.054 103.229 271.05 83.5344 254.309C63.8393 237.567 50.0152 214.965 44.0825 189.806C38.1497 164.647 40.4194 138.25 50.5599 114.473C60.7003 90.6959 78.1798 70.7855 100.444 57.6518C122.707 44.518 148.588 38.8494 174.304 41.4746C200.019 44.0997 224.221 54.8809 243.372 72.2424C262.523 89.604 275.618 112.636 280.745 137.971C285.872 163.307 282.761 189.618 271.867 213.059" stroke="url(#paint0_linear_4773_5518)" stroke-width="13.5174" stroke-linecap="round" stroke-linejoin="round" />
-      <defs>
-        <linearGradient id="paint0_linear_4773_5518" x1="270.891" y1="108.891" x2="53.1096" y2="215.109" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#2E71EB" />
-          <stop offset="1" stop-color="#10419B" />
-        </linearGradient>
-      </defs>
-    </svg></div>
+      <div className="Detail">
+        <p id="counter"></p>
+        <p>
+          {rate < 5 && "Faible"}
+          {rate >= 5 && "Moyenne"}
+          {rate == 5 && "Bien"}
+        </p>
+      </div>
+      <svg
+        class="round"
+        ref={circular}
+        style={{
+          strokeDasharray: currentStrokePercentage,
+        }}
+        viewBox="0 0 324 324" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="160.048" cy="167.317" r="117.786" stroke="#F8FAFC" stroke-width="13.4613" />
+        <path d="M153.549 282.857C127.763 281.054 103.229 271.05 83.5344 254.309C63.8393 237.567 50.0152 214.965 44.0825 189.806C38.1497 164.647 40.4194 138.25 50.5599 114.473C60.7003 90.6959 78.1798 70.7855 100.444 57.6518C122.707 44.518 148.588 38.8494 174.304 41.4746C200.019 44.0997 224.221 54.8809 243.372 72.2424C262.523 89.604 275.618 112.636 280.745 137.971C285.872 163.307 282.761 189.618 271.867 213.059" stroke="url(#paint0_linear_4773_5518)" stroke-width="13.5174" stroke-linecap="round" stroke-linejoin="round" />
+        <defs>
+          <linearGradient id="paint0_linear_4773_5518" x1="270.891" y1="108.891" x2="53.1096" y2="215.109" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#2E71EB" />
+            <stop offset="1" stop-color="#10419B" />
+          </linearGradient>
+        </defs>
+      </svg></div>
   );
 };
 

@@ -237,8 +237,25 @@
       display: flex;
       align-items: center;
       justify-content: center;
+        
+        
+      .mobileRadar {
+
+        @media screen and (min-width: 500px) {
+        display: none;
+         
+        }
+     
+      }
+
+      .desktopRadar {
+
+        @media screen and (max-width: 500px) {
+          display: none;
+        }
+      }
       
-       .radarWrapper {
+      .radarWrapper {
         opacity: 0; 
         animation: toAppear 0.7s ease-out forwards;
         @keyframes toAppear {
