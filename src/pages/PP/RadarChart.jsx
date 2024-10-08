@@ -153,9 +153,7 @@ const RadarChart = ({ id }) => {
   };
 
   const options = {
-    animation: {
-      duration: 0, // general animation time
-  },
+   
     scales: {
       r: {
         min: 0,
@@ -193,6 +191,7 @@ const RadarChart = ({ id }) => {
       dashedLinePlugin,
     },
   };
+
 
   return (
           <Radar  style={{ padding: " 0 5px" }} data={data} options={options} />

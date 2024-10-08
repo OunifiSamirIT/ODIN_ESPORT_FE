@@ -63,7 +63,9 @@ export default function ProfessionalProfile3() {
           </div>
         </div>
         <div className="statContainer con">
-        <RadarChart style={{ padding: 20 }}  />
+       <div className="radarWrapper">
+       <RadarChart style={{ padding: 20 }}  />
+       </div>
 
 
         </div>
@@ -193,7 +195,7 @@ export default function ProfessionalProfile3() {
                 {
                   test: "Avec Contrainte",
                   unit: "U",
-                  val: 60,
+                  val: 130,
                   min: [0, 50],
                   averge: [75, 100],
                   max: [125, 150],
@@ -202,7 +204,7 @@ export default function ProfessionalProfile3() {
                 {
                   test: "Sans Contrainte",
                   unit: "U",
-                  val: 130,
+                  val: 30,
                   min: [0, 50],
                   averge: [75, 100],
                   max: [125, 150],
@@ -264,7 +266,7 @@ export default function ProfessionalProfile3() {
                 {
                   test: "Slalom",
                   unit: "U",
-                  val: 60,
+                  val: 80,
                   min: [0],
                   averge: [50],
                   max: [100],
@@ -299,15 +301,15 @@ let CustomStatBar = ({ title, data = [], detail }) => {
 
   let getColorBarPercentage = (val, min, averge, max) => {
     if (max.length > 1) {
-      if (0 < val && val < min[1]) {
+      if (0 <= val && val < min[1]) {
         return "#EB2E2E";
       }
 
-      if (min[1] < val && val < averge[1]) {
+      if (min[1] <= val && val < averge[1]) {
         return "#FF7F00";
       }
 
-      if (averge[1] < val && val < max[1]) {
+      if (averge[1] <= val && val <= max[1]) {
         return "#2E71EB";
       }
     } else {
@@ -333,9 +335,18 @@ let CustomStatBar = ({ title, data = [], detail }) => {
               {d.currentTestWindow != 2 &&
                 (d.currentTestWindow == 3 ? (
                   <p style={{ fontWeight: "bold" }}>
-                    {d.val == 0 && "0"}
-                    {d.val <= d.averge && "Moyenne"}
-                    {d.averge < d.val && "bonne"}
+                    {getColorBarPercentage( d.val,
+                    d.min,
+                    d.averge,
+                    d.max) == "#EB2E2E" && "Faible"}
+                    {getColorBarPercentage( d.val,
+                    d.min,
+                    d.averge,
+                    d.max) == "#FF7F00"&& "Moyenne"}
+                    {getColorBarPercentage( d.val,
+                    d.min,
+                    d.averge,
+                    d.max) == "#2E71EB" && "bonne"}
                   </p>
                 ) : (
                   <p>{d.test}</p>
@@ -351,7 +362,27 @@ let CustomStatBar = ({ title, data = [], detail }) => {
                     : "block",
               }}
             >
-              {d.val} {d.unit}
+
+              {
+                (d.currentTestWindow == 4  || d.currentTestWindow == 6 )? (
+                  <p style={{ fontWeight: "bold" }}>
+                    {getColorBarPercentage( d.val,
+                    d.min,
+                    d.averge,
+                    d.max) == "#EB2E2E" && "Faible"}
+                    {getColorBarPercentage( d.val,
+                    d.min,
+                    d.averge,
+                    d.max) == "#FF7F00" && "Moyenne"}
+                    {getColorBarPercentage( d.val,
+                    d.min,
+                    d.averge,
+                    d.max) == "#2E71EB" && "bonne"}
+                  </p>
+                ) : (
+                  <>{d.val} {d.unit}</>
+                )
+              }
             </p>
           </div>
           <div className="barCon">

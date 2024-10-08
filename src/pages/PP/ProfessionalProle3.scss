@@ -237,18 +237,19 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0; 
-      transform: translateY(20px);
-      animation: toAppear .7s forwards; 
-        animation-delay: .5s;
-    @keyframes toAppear {
-        to {
-            opacity: 1;
-            transform: translateY(0);
+      
+       .radarWrapper {
+        opacity: 0; 
+        animation: toAppear 0.7s ease-out forwards;
+        @keyframes toAppear {
+        
+          to {
 
+            opacity: 1; 
+          }
         }
-    }
-
+       
+      }
 
       background: linear-gradient(
         52deg,
@@ -383,20 +384,22 @@
           background-color: #d9d9d9;
           display: flex;
           align-items: center;
+          overflow: hidden;
           .wrapper {
-            width: 0;
             height: 120%;
             animation: toValue 0.9s ease-out forwards;
             animation-delay: .3s    ;
             @keyframes toValue {
+            
               to {
+            background-color: transparent;
+
                 width: 100%;
               }
             }
             .progressBar {
               height: 100%;
               border-radius: 20px;
-              background-color: red;
             }
           }
         }
