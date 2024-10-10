@@ -13,12 +13,36 @@ import FilledStar from "../../assets/StarFilled.svg";
 import "./ProfessionalProle3.scss";
 import RadarChart from "./RadarChart";
 import { useCountUp } from 'react-countup';
+import secureLocalStorage from "react-secure-storage";
+import { useParams } from "react-router-dom";
+import { Config } from "../../config";
 
 export default function ProfessionalProfile3() {
   const [currentTestWindow, setCurrentTestWindow] = useState(1);
   const [profileRating, setProfileRating] = useState(6);
   const [appearRadar, setAppearRadar] = useState(false);
   const MobileRadar = useRef();
+
+
+  const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
+  const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserData?.token;
+  const { id } = useParams();
+  const [player, setPlayer] = useState(null);
+  const fetchPlayer = async () => {
+    const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${tokenn}`,
+      },
+    });
+    const result = await response.json();
+    setPlayer(result);
+    console.log("name player here", player)
+  };
+
+  useEffect(() => {
+    fetchPlayer();
+  }, []);
 
 
    function AnimateRadarOnMobileScreen () {
@@ -48,13 +72,13 @@ export default function ProfessionalProfile3() {
         <div className="seperateCon ">
           <div className="personalDetailCon con ">
             <img src={imagePP} alt=""
-              loading="lazy"
+              loading="lazy" 
               className="personalImage" />
             <div className="infoCon">
               <img src={starPP} alt="" className="star" />
-              <p className="playerName">ALAN HOWLETT</p>
-              <p className="playerNickName">bel hajj mohamed</p>
-              <div className="positionCon">Ailier Gauche </div>
+              <p className="playerName">{player?.user?.nom}</p>
+              <p className="playerNickName">{player?.user?.prenom}</p>
+              <div className="positionCon">{player?.player?.positionPlay} </div>
             </div>
           </div>
 
@@ -89,7 +113,7 @@ export default function ProfessionalProfile3() {
             {
               appearRadar &&
               <div className="radarWrapper">
-                <RadarChart style={{ padding: 20 }} />
+                <RadarChart id={id} style={{ padding: 20 }} />
               </div>
             }
             
@@ -97,7 +121,7 @@ export default function ProfessionalProfile3() {
           <div className="desktopRadar">
             <div className="radarWrapper">
 
-              <RadarChart style={{ padding: 20 }} />
+              <RadarChart id={id} style={{ padding: 20 }} />
 
             </div>
           </div>

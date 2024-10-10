@@ -13,9 +13,16 @@ class TestService {
 
   static async getSautStatsByUser(id) {
     
-    const response = await fetch(Config.LOCAL_URL + `/api/GetPointJump/${id}`);
+    const response = await fetch(Config.LOCAL_URL + `/api/GetPointJump/${id}`,{
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({userId: id }), 
+      });
+    
     const data = await response.json();
-    console.log(data)
+    console.log("saut data",data)
     return data;
   }
 
@@ -28,22 +35,43 @@ class TestService {
     console.log( dataSlm , dataZig , 'thisisisisisiisisis' )
     return  dataSlm?.totalPoints +  dataZig?.totalPoints ;
   }
-  static async getagiliteStatsByUser(id) {
+  static async getAgiliteStatsByUser(id) {
+    const response = await fetch(Config.LOCAL_URL + '/api/getAgilite', {
+      method: 'POST', // Change method to POST
+      headers: {
+        'Content-Type': 'application/json', // Specify content type
+      },
+      body: JSON.stringify({userId: id }), // Send the id in the body as JSON
+    });
   
-    const response = await fetch(Config.LOCAL_URL + `/api/test/agilite/${id}`);
     const data = await response.json();
-    console.log(data , 'no times for worry')
+    console.log(data, 'no times for worry');
     return data;
   }
+  
 
   static async getJonglageStatsByUser(id) {
-    const response = await fetch(Config.LOCAL_URL + `/api/test/jonglage/${id}`);
+    const response = await fetch(Config.LOCAL_URL + `/api/getJonglage`,{
+        method: 'POST', // Change method to POST
+        headers: {
+          'Content-Type': 'application/json', // Specify content type
+        },
+        body: JSON.stringify({userId: id }), // Send the id in the body as JSON
+      });
     const data = await response.json();
+    console.log(data, 'no times for worry jonglage');
+
     return data;
   }
 
   static async getTirStatsByUser(id) {
-    const response = await fetch(Config.LOCAL_URL + `/api/test/tir/${id}`);
+    const response = await fetch(Config.LOCAL_URL + `/api/test/tir/${id}`,{
+        method: 'POST', // Change method to POST
+        headers: {
+          'Content-Type': 'application/json', // Specify content type
+        },
+        body: JSON.stringify({userId: id }), // Send the id in the body as JSON
+      });
     const data = await response.json();
     return data.data;
   }

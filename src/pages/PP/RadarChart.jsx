@@ -93,9 +93,11 @@ const RadarChart = ({ id }) => {
 
   const getAgiliteForCurrentUser = async (id) => {
     try {
-      let data = await TestServer.getagiliteStatsByUser(id);
+      console.log("Agilite id: ", id);
+
+      let data = await TestServer.getAgiliteStatsByUser(id);
       console.log("Agilite Data: ", data);
-      setAgilite((data?.data?.total_score * 100) / 100);
+      setAgilite((data?.agilite * 100) / 100);
     } catch (error) {
       console.error("Error fetching agilite data: ", error);
     }
@@ -105,7 +107,7 @@ const RadarChart = ({ id }) => {
     try {
       let data = await TestServer.getJonglageStatsByUser(id);
       console.log("Jonglage Data: ", data);
-      setJonglage((data?.data?.points * 100) / 100);
+      setJonglage((data?.data?.total_score * 100) / 100);
     } catch (error) {
       console.error("Error fetching jonglage data: ", error);
     }
@@ -194,7 +196,7 @@ const RadarChart = ({ id }) => {
 
 
   return (
-          <Radar  style={{ padding: " 0 5px" }} data={data} options={options} />
+          <Radar   style={{ padding: " 0 5px" }} data={data} options={options} />
   );
 };
 

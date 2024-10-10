@@ -75,7 +75,7 @@ const AddEvent = () => {
             formData.append('files', file);
         });
         formData.append("userId", storedUserData.id);
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumeventodin/upload`, {
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumeventodin/create`, {
             method: 'POST',
             body: formData,
         });
