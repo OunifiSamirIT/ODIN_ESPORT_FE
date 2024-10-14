@@ -326,6 +326,7 @@ export default function ProfessionalProfile3() {
                   test: "10M",
                   unit: "sec",
                   val: vitesseData?.points_10,
+                  secondes: vitesseData?.barriere_10,
                   min: [20, 28],
                   averge: [30, 34],
                   max: [36, 50],
@@ -336,6 +337,7 @@ export default function ProfessionalProfile3() {
                   test: "20M",
                   unit: "sec",
                   val: vitesseData?.points_20,
+                  secondes: vitesseData?.barriere_20,
                   min: [20, 28],
                   averge: [30, 34],
                   max: [36, 50],
@@ -345,6 +347,7 @@ export default function ProfessionalProfile3() {
                   test: "30M",
                   unit: "sec",
                   val: vitesseData?.points_30,
+                  secondes: vitesseData?.barriere_30,
                   min: [20, 28],
                   averge: [30, 34],
                   max: [36, 50],
@@ -362,6 +365,7 @@ export default function ProfessionalProfile3() {
                   test: "Avec Contrainte",
                   unit: "M",
                   val: sautData?.totalPoints,
+                  secondes: sautData?.distances[0],
                   min: [0, 20],
                   averge: [40, 60],
                   max: [80, 100],
@@ -416,12 +420,13 @@ export default function ProfessionalProfile3() {
 
           {currentTestWindow === 5 && (
             <CustomStatBar
-              title="Jongles"
+              title="Jonglage"
               data={[
                 {
                   test: "Pied Fort",
-                  unit: "U",
-                  val: jonglageData?.jFort,
+                  unit: "Jongle",
+                  val: jonglageData?.piedFort?.total_score,
+                  secondes: jonglageData?.piedFort?.value,
                   min: [10],
                   averge: [25],
                   max: [50],
@@ -430,8 +435,9 @@ export default function ProfessionalProfile3() {
 
                 {
                   test: "Pied Faible",
-                  unit: "U",
-                  val: jonglageData?.JFaible,
+                  unit: "Jongle",
+                  val: jonglageData?.piedFaible?.total_score,
+                  secondes: jonglageData?.piedFaible?.value,
                   min: [10],
                   averge: [25],
                   max: [50],
@@ -439,8 +445,9 @@ export default function ProfessionalProfile3() {
                 },
                 {
                   test: "Deux Pieds",
-                  unit: "U",
-                  val: jonglageData?.JDeux,
+                  unit: "Jongle",
+                  val: jonglageData?.DeuxPied?.total_score,
+                  secondes: jonglageData?.DeuxPied?.value,
                   min: [10],
                   averge: [25],
                   max: [50],
@@ -562,7 +569,9 @@ let CustomStatBar = ({ title, data = [], detail }) => {
                 </p>
               ) : (
                 <>
-                  {d.val} {d.unit}
+                  <>
+                    {d.secondes ? d.secondes : d.val} {d.unit}{" "}
+                  </>
                 </>
               )}
             </p>
@@ -590,7 +599,9 @@ let CustomStatBar = ({ title, data = [], detail }) => {
               display: d.currentTestWindow == 2 ? "block" : "none",
             }}
           >
-            {d.val} {d.unit}
+            <>
+              {d.secondes ? d.secondes : d.val} {d.unit}{" "}
+            </>
           </p>
         </>
       ))}
