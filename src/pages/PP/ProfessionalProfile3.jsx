@@ -381,7 +381,7 @@ export default function ProfessionalProfile3() {
                   val: agiliteData?.total_score,
                   min: [25],
                   averge: [50],
-                  max: [75, 100],
+                  max: [100],
                   currentTestWindow: 3,
                 },
               ]}
