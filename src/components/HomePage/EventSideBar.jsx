@@ -75,9 +75,9 @@ const EventSideBar = () => {
         </div>
         <div className="flex flex-col gap-y-3">
           {events
-            .slice(0, 2)
-            .reverse()
-            .map((item, index) => {
+            ?.slice(0, 2)
+            ?.reverse()
+            ?.map((item, index) => {
               return (
                 <>
                   <EventSideBarItem item={item} />{" "}
