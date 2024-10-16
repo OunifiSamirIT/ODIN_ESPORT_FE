@@ -76,7 +76,7 @@ export default function ProfessionalProfile3() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId: id }),
+        body: JSON.stringify({ id }),
       });
 
       const data = await response.json();
@@ -226,9 +226,9 @@ export default function ProfessionalProfile3() {
       // Toutes les données sont prêtes, procéder au calcul
       const allTestData = {
         vitesse: [
-          { val: vitesseData?.points_10 },
-          { val: vitesseData?.points_20 },
-          { val: vitesseData?.points_30 },
+          { val: vitesseData?.points10M },
+          { val: vitesseData?.points20M },
+          { val: vitesseData?.points30M },
         ],
         saut: [{ val: sautData?.totalPoints }],
         agilite: [{ val: agiliteData?.total_score }],
@@ -287,7 +287,7 @@ export default function ProfessionalProfile3() {
             {isDataReady ? ( // N'affiche le composant CircularPercentage que si les données sont prêtes
               <CircularPercentage rate={profileRating} />
             ) : (
-              <p> veuillez anttendre pour terminer tout vos resultat </p> // Message de chargement si les données ne sont pas prêtes
+              <p> veuillez attendre pour terminer tout vos resultat 😃 </p> // Message de chargement si les données ne sont pas prêtes
             )}
 
             <div class="point"></div>
@@ -386,8 +386,8 @@ export default function ProfessionalProfile3() {
                 {
                   test: "10M",
                   unit: "sec",
-                  val: vitesseData?.points_10,
-                  secondes: vitesseData?.barriere_10,
+                  val: vitesseData?.points10M,
+                  secondes: vitesseData?.value10,
                   min: [20, 28],
                   averge: [30, 34],
                   max: [36, 50],
@@ -397,8 +397,8 @@ export default function ProfessionalProfile3() {
                 {
                   test: "20M",
                   unit: "sec",
-                  val: vitesseData?.points_20,
-                  secondes: vitesseData?.barriere_20,
+                  val: vitesseData?.points20M,
+                  secondes: vitesseData?.value20,
                   min: [20, 28],
                   averge: [30, 34],
                   max: [36, 50],
@@ -407,8 +407,8 @@ export default function ProfessionalProfile3() {
                 {
                   test: "30M",
                   unit: "sec",
-                  val: vitesseData?.points_30,
-                  secondes: vitesseData?.barriere_30,
+                  val: vitesseData?.points30M,
+                  secondes: vitesseData?.value30,
                   min: [20, 28],
                   averge: [30, 34],
                   max: [36, 50],
