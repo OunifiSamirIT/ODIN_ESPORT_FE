@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import imagePP from "../../assets/imagePP.png";
 import starPP from "../../assets/starPP.svg";
 import ABientot from "../../assets/ABientot.png";
@@ -17,9 +17,11 @@ import secureLocalStorage from "react-secure-storage";
 import { useParams } from "react-router-dom";
 import { Config } from "../../config";
 
+
+
 export default function ProfessionalProfile3() {
   const [currentTestWindow, setCurrentTestWindow] = useState(1);
-  const [profileRating, setProfileRating] = useState(6);
+  const [profileRating, setProfileRating] = useState(0);
   const [appearRadar, setAppearRadar] = useState(false);
   const [sautData, setSautData] = useState(null);
   const [vitesseData, setVitesseData] = useState(null);
@@ -28,6 +30,113 @@ export default function ProfessionalProfile3() {
   const [jonglageData, setJonglageData] = useState(null);
   const [conduitData, setConduitData] = useState(null);
   const MobileRadar = useRef();
+  const calculateTotalRating = (allTestData) => {
+    let totalPoints = 0;
+    let dataAvailable = false;
+  
+    // Sum up all the 'val' properties
+    Object.entries(allTestData).forEach(([category, testCategory]) => {
+      console.log(`Processing ${category}:`, testCategory);
+      
+      if (Array.isArray(testCategory)) {
+        testCategory.forEach(test => {
+          if (test && typeof test.val === 'number' && !isNaN(test.val)) {
+            totalPoints += test.val;
+            dataAvailable = true;
+            console.log(`  Added ${test.val} points from ${category}`);
+          } else {
+            console.log(`  Invalid or missing value in ${category}:`, test);
+          }
+        });
+      } else {
+        console.log(`  ${category} is not an array:`, testCategory);
+      }
+    });
+  
+    console.log('Total points accumulated:', totalPoints);
+  
+    if (!dataAvailable) {
+      console.log('No valid data found in any category');
+      return 0;
+    }
+  
+    // Calculate the rating out of 10 (assuming max is 1000)
+    const rating = (totalPoints / 800) * 10;
+  
+    // Round to one decimal place
+    const finalRating = Math.min(Math.round(rating * 10) / 10, 10);
+    console.log('Final calculated rating:', finalRating);
+  
+    return finalRating;
+  };
+
+
+
+  useEffect(() => {
+    const savedRating = localStorage.getItem("profileRating");
+    if (savedRating) {
+      setProfileRating(parseFloat(savedRating));
+    }
+  }, []);
+
+  useEffect(() => {
+    const allTestData = {
+      vitesse: [
+        { val: vitesseData?.points_10 },
+        { val: vitesseData?.points_20 },
+        { val: vitesseData?.points_30 },
+      ],
+      saut: [{ val: sautData?.totalPoints }],
+      agilite: [{ val: agiliteData?.total_score }],
+      tir: [
+        { val: tirData?.TirContrainte?.total_score },
+        { val: tirData?.tir?.total_score },
+      ],
+      jonglage: [
+        { val: jonglageData?.piedFort?.total_score },
+        { val: jonglageData?.piedFaible?.total_score },
+        { val: jonglageData?.DeuxPied?.total_score },
+      ],
+      conduit: [
+        { val: conduitData?.zigzag?.total_score },
+        { val: conduitData?.slalom?.total_score },
+      ],
+    };
+
+    const newRating = calculateTotalRating(allTestData);
+    setProfileRating(newRating);
+
+    // Save the updated rating to local storage
+    localStorage.setItem("profileRating", newRating);
+  }, [vitesseData, sautData, agiliteData, tirData, jonglageData, conduitData]);
+  // const profileRating = calculateTotalRating(allTestData);
+  // const profileRating = useMemo(() => {
+  //   const allTestData = {
+  //     vitesse: [
+  //       { val: vitesseData?.points_10 },
+  //       { val: vitesseData?.points_20 },
+  //       { val: vitesseData?.points_30 }
+  //     ],
+  //     saut: [{ val: sautData?.totalPoints }],
+  //     agilite: [{ val: agiliteData?.total_score }],
+  //     tir: [
+  //       { val: tirData?.TirContrainte?.total_score },
+  //       { val: tirData?.tir?.total_score }
+  //     ],
+  //     jonglage: [
+  //       { val: jonglageData?.piedFort?.total_score },
+  //       { val: jonglageData?.piedFaible?.total_score },
+  //       { val: jonglageData?.DeuxPied?.total_score }
+  //     ],
+  //     conduit: [
+  //       { val: conduitData?.zigzag?.total_score },
+  //       { val: conduitData?.slalom?.total_score }
+  //     ]
+  //   };
+  //   console.log('All test data:', allTestData);
+
+  //   return calculateTotalRating(allTestData);
+  // }, [vitesseData, sautData, agiliteData, tirData, jonglageData, conduitData]);
 
   const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const storedUserData = JSON.parse(localStorage.getItem("Secret"));
@@ -227,7 +336,7 @@ export default function ProfessionalProfile3() {
           </div>
 
           <div className="starsNdWheelContainer con">
-            <CircularPercentage rate={profileRating} />
+            <CircularPercentage rate={profileRating } />
 
             <div class="point"></div>
             <div className="StarsPercentageCon">
@@ -365,7 +474,7 @@ export default function ProfessionalProfile3() {
                   test: "Avec Contrainte",
                   unit: "M",
                   val: sautData?.totalPoints,
-                  secondes: sautData?.distances[0],
+                  secondes: sautData?.distances,
                   min: [0, 20],
                   averge: [40, 60],
                   max: [80, 100],
