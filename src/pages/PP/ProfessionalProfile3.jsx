@@ -17,8 +17,6 @@ import secureLocalStorage from "react-secure-storage";
 import { useParams } from "react-router-dom";
 import { Config } from "../../config";
 
-
-
 export default function ProfessionalProfile3() {
   const [currentTestWindow, setCurrentTestWindow] = useState(1);
   const [profileRating, setProfileRating] = useState(0);
@@ -30,56 +28,19 @@ export default function ProfessionalProfile3() {
   const [jonglageData, setJonglageData] = useState(null);
   const [conduitData, setConduitData] = useState(null);
   const MobileRadar = useRef();
-  const calculateTotalRating = (allTestData) => {
-    let totalPoints = 0;
-    let dataAvailable = false;
-  
-    // Sum up all the 'val' properties
-    Object.entries(allTestData).forEach(([category, testCategory]) => {
-      console.log(`Processing ${category}:`, testCategory);
-      
-      if (Array.isArray(testCategory)) {
-        testCategory.forEach(test => {
-          if (test && typeof test.val === 'number' && !isNaN(test.val)) {
-            totalPoints += test.val;
-            dataAvailable = true;
-            console.log(`  Added ${test.val} points from ${category}`);
-          } else {
-            console.log(`  Invalid or missing value in ${category}:`, test);
-          }
-        });
-      } else {
-        console.log(`  ${category} is not an array:`, testCategory);
-      }
-    });
-  
-    console.log('Total points accumulated:', totalPoints);
-  
-    if (!dataAvailable) {
-      console.log('No valid data found in any category');
-      return 0;
-    }
-  
-    // Calculate the rating out of 10 (assuming max is 1000)
-    const rating = (totalPoints / 800) * 10;
-  
-    // Round to one decimal place
-    const finalRating = Math.min(Math.round(rating * 10) / 10, 10);
-    console.log('Final calculated rating:', finalRating);
-  
-    return finalRating;
-  };
-
-
-
   useEffect(() => {
-    const savedRating = localStorage.getItem("profileRating");
-    if (savedRating) {
-      setProfileRating(parseFloat(savedRating));
+    if (
+      !vitesseData ||
+      !sautData ||
+      !agiliteData ||
+      !tirData ||
+      !jonglageData ||
+      !conduitData
+    ) {
+      // Les données ne sont pas encore prêtes, on attend qu'elles soient chargées
+      return;
     }
-  }, []);
 
-  useEffect(() => {
     const allTestData = {
       vitesse: [
         { val: vitesseData?.points_10 },
@@ -103,41 +64,20 @@ export default function ProfessionalProfile3() {
       ],
     };
 
-    const newRating = calculateTotalRating(allTestData);
+    let totalPoints = 0;
+    Object.values(allTestData).forEach((category) => {
+      category.forEach((item) => {
+        if (item && typeof item.val === "number" && !isNaN(item.val)) {
+          totalPoints += item.val;
+        }
+      });
+    });
+
+    const rating = (totalPoints / 800) * 10;
+    const newRating = Math.min(Math.round(rating * 10) / 10, 10);
+
     setProfileRating(newRating);
-
-    // Save the updated rating to local storage
-    localStorage.setItem("profileRating", newRating);
   }, [vitesseData, sautData, agiliteData, tirData, jonglageData, conduitData]);
-  // const profileRating = calculateTotalRating(allTestData);
-  // const profileRating = useMemo(() => {
-  //   const allTestData = {
-  //     vitesse: [
-  //       { val: vitesseData?.points_10 },
-  //       { val: vitesseData?.points_20 },
-  //       { val: vitesseData?.points_30 }
-  //     ],
-  //     saut: [{ val: sautData?.totalPoints }],
-  //     agilite: [{ val: agiliteData?.total_score }],
-  //     tir: [
-  //       { val: tirData?.TirContrainte?.total_score },
-  //       { val: tirData?.tir?.total_score }
-  //     ],
-  //     jonglage: [
-  //       { val: jonglageData?.piedFort?.total_score },
-  //       { val: jonglageData?.piedFaible?.total_score },
-  //       { val: jonglageData?.DeuxPied?.total_score }
-  //     ],
-  //     conduit: [
-  //       { val: conduitData?.zigzag?.total_score },
-  //       { val: conduitData?.slalom?.total_score }
-  //     ]
-  //   };
-  //   console.log('All test data:', allTestData);
-
-  //   return calculateTotalRating(allTestData);
-  // }, [vitesseData, sautData, agiliteData, tirData, jonglageData, conduitData]);
-
   const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const storedUserData = JSON.parse(localStorage.getItem("Secret"));
   const tokenn = storedUserData?.token;
@@ -336,7 +276,7 @@ export default function ProfessionalProfile3() {
           </div>
 
           <div className="starsNdWheelContainer con">
-            <CircularPercentage rate={profileRating } />
+            <CircularPercentage rate={profileRating} />
 
             <div class="point"></div>
             <div className="StarsPercentageCon">
@@ -719,19 +659,29 @@ let CustomStatBar = ({ title, data = [], detail }) => {
 };
 
 let CircularPercentage = ({ rate }) => {
-  const [currentStrokePercentage, setStrokePercentage] = useState("0 999");
-  useCountUp({ ref: "counter", end: rate });
-
-  let percentage = (rate / 10) * 100;
+  console.log(rate, "rateeeingggg");
   const circular = useRef(null);
-  useEffect(() => {
-    console.log(circular.current.childNodes[0].getAttribute("r"));
 
-    let roundRadius = circular.current.childNodes[0].getAttribute("r");
-    let roundCircum = 2 * roundRadius * Math.PI;
-    let roundDraw = (percentage * roundCircum) / 100;
-    setStrokePercentage(roundDraw + " 999");
-  }, []);
+  useEffect(() => {
+    if (circular.current) {
+      const circle = circular.current.querySelector("circle");
+      const path = circular.current.querySelector("path");
+
+      if (circle && path) {
+        const radius = circle.getAttribute("r");
+        const circumference = 2 * Math.PI * radius;
+        const fillPercentage = (rate / 10) * 100; // Convertir le rate en pourcentage
+        const dashOffset =
+          circumference - (fillPercentage / 100) * circumference;
+
+        path.style.strokeDasharray = `${circumference} ${circumference}`;
+        path.style.strokeDashoffset = dashOffset;
+      }
+    }
+    console.log(rate, "alooorate1");
+  }, [rate]);
+  console.log(rate, "alooorate2");
+  useCountUp({ ref: "counter", end: rate, decimals: 1 });
 
   return (
     <div className="wheel">
@@ -739,16 +689,13 @@ let CircularPercentage = ({ rate }) => {
         <p id="counter"></p>
         <p>
           {rate < 5 && "Faible"}
-          {rate >= 5 && "Moyenne"}
-          {rate == 5 && "Bien"}
+          {rate > 5 && rate < 7 && "Moyenne"}
+          {rate >= 7 && "Bien"}
         </p>
       </div>
       <svg
-        class="round"
+        className="round"
         ref={circular}
-        style={{
-          strokeDasharray: currentStrokePercentage,
-        }}
         viewBox="0 0 324 324"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -758,14 +705,14 @@ let CircularPercentage = ({ rate }) => {
           cy="167.317"
           r="117.786"
           stroke="#F8FAFC"
-          stroke-width="13.4613"
+          strokeWidth="13.4613"
         />
         <path
           d="M153.549 282.857C127.763 281.054 103.229 271.05 83.5344 254.309C63.8393 237.567 50.0152 214.965 44.0825 189.806C38.1497 164.647 40.4194 138.25 50.5599 114.473C60.7003 90.6959 78.1798 70.7855 100.444 57.6518C122.707 44.518 148.588 38.8494 174.304 41.4746C200.019 44.0997 224.221 54.8809 243.372 72.2424C262.523 89.604 275.618 112.636 280.745 137.971C285.872 163.307 282.761 189.618 271.867 213.059"
           stroke="url(#paint0_linear_4773_5518)"
-          stroke-width="13.5174"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="13.5174"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <defs>
           <linearGradient
@@ -776,8 +723,8 @@ let CircularPercentage = ({ rate }) => {
             y2="215.109"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="#2E71EB" />
-            <stop offset="1" stop-color="#10419B" />
+            <stop stopColor="#2E71EB" />
+            <stop offset="1" stopColor="#10419B" />
           </linearGradient>
         </defs>
       </svg>
