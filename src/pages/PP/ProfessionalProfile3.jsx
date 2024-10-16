@@ -28,56 +28,8 @@ export default function ProfessionalProfile3() {
   const [jonglageData, setJonglageData] = useState(null);
   const [conduitData, setConduitData] = useState(null);
   const MobileRadar = useRef();
-  useEffect(() => {
-    if (
-      !vitesseData ||
-      !sautData ||
-      !agiliteData ||
-      !tirData ||
-      !jonglageData ||
-      !conduitData
-    ) {
-      // Les données ne sont pas encore prêtes, on attend qu'elles soient chargées
-      return;
-    }
+  const [isDataReady, setIsDataReady] = useState(false); // Flag pour indiquer que les données sont prêtes
 
-    const allTestData = {
-      vitesse: [
-        { val: vitesseData?.points_10 },
-        { val: vitesseData?.points_20 },
-        { val: vitesseData?.points_30 },
-      ],
-      saut: [{ val: sautData?.totalPoints }],
-      agilite: [{ val: agiliteData?.total_score }],
-      tir: [
-        { val: tirData?.TirContrainte?.total_score },
-        { val: tirData?.tir?.total_score },
-      ],
-      jonglage: [
-        { val: jonglageData?.piedFort?.total_score },
-        { val: jonglageData?.piedFaible?.total_score },
-        { val: jonglageData?.DeuxPied?.total_score },
-      ],
-      conduit: [
-        { val: conduitData?.zigzag?.total_score },
-        { val: conduitData?.slalom?.total_score },
-      ],
-    };
-
-    let totalPoints = 0;
-    Object.values(allTestData).forEach((category) => {
-      category.forEach((item) => {
-        if (item && typeof item.val === "number" && !isNaN(item.val)) {
-          totalPoints += item.val;
-        }
-      });
-    });
-
-    const rating = (totalPoints / 800) * 10;
-    const newRating = Math.min(Math.round(rating * 10) / 10, 10);
-
-    setProfileRating(newRating);
-  }, [vitesseData, sautData, agiliteData, tirData, jonglageData, conduitData]);
   const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const storedUserData = JSON.parse(localStorage.getItem("Secret"));
   const tokenn = storedUserData?.token;
@@ -255,6 +207,62 @@ export default function ProfessionalProfile3() {
   useEffect(() => {
     AnimateRadarOnMobileScreen();
   }, []);
+  useEffect(() => {
+    // Vérifie que toutes les données nécessaires sont présentes
+    if (
+      vitesseData?.points_10 !== undefined &&
+      vitesseData?.points_20 !== undefined &&
+      vitesseData?.points_30 !== undefined &&
+      sautData?.totalPoints !== undefined &&
+      tirData?.TirContrainte?.total_score !== undefined &&
+      agiliteData?.total_score !== undefined &&
+      tirData?.tir?.total_score !== undefined &&
+      jonglageData?.piedFort?.total_score !== undefined &&
+      jonglageData?.piedFaible?.total_score !== undefined &&
+      jonglageData?.DeuxPied?.total_score !== undefined &&
+      conduitData?.zigzag?.total_score !== undefined &&
+      conduitData?.slalom?.total_score !== undefined
+    ) {
+      // Toutes les données sont prêtes, procéder au calcul
+      const allTestData = {
+        vitesse: [
+          { val: vitesseData?.points_10 },
+          { val: vitesseData?.points_20 },
+          { val: vitesseData?.points_30 },
+        ],
+        saut: [{ val: sautData?.totalPoints }],
+        agilite: [{ val: agiliteData?.total_score }],
+        tir: [
+          { val: tirData?.TirContrainte?.total_score },
+          { val: tirData?.tir?.total_score },
+        ],
+        jonglage: [
+          { val: jonglageData?.piedFort?.total_score },
+          { val: jonglageData?.piedFaible?.total_score },
+          { val: jonglageData?.DeuxPied?.total_score },
+        ],
+        conduit: [
+          { val: conduitData?.zigzag?.total_score },
+          { val: conduitData?.slalom?.total_score },
+        ],
+      };
+
+      let totalPoints = 0;
+      Object.values(allTestData).forEach((category) => {
+        category.forEach((item) => {
+          if (item && typeof item.val === "number" && !isNaN(item.val)) {
+            totalPoints += item.val;
+          }
+        });
+      });
+
+      const rating = (totalPoints / 800) * 10;
+      const newRating = Math.min(Math.round(rating * 10) / 10, 10);
+
+      setProfileRating(newRating);
+      setIsDataReady(true); // Les données sont maintenant prêtes et le calcul est fait
+    }
+  }, [vitesseData, sautData, agiliteData, tirData, jonglageData, conduitData]);
   return (
     <div className="profesionalProfileContainer">
       {/* <Header /> */}
@@ -276,7 +284,11 @@ export default function ProfessionalProfile3() {
           </div>
 
           <div className="starsNdWheelContainer con">
-            <CircularPercentage rate={profileRating} />
+            {isDataReady ? ( // N'affiche le composant CircularPercentage que si les données sont prêtes
+              <CircularPercentage rate={profileRating} />
+            ) : (
+              <p> veuillez anttendre pour terminer tout vos resultat </p> // Message de chargement si les données ne sont pas prêtes
+            )}
 
             <div class="point"></div>
             <div className="StarsPercentageCon">
@@ -659,7 +671,6 @@ let CustomStatBar = ({ title, data = [], detail }) => {
 };
 
 let CircularPercentage = ({ rate }) => {
-  console.log(rate, "rateeeingggg");
   const circular = useRef(null);
 
   useEffect(() => {
@@ -678,9 +689,8 @@ let CircularPercentage = ({ rate }) => {
         path.style.strokeDashoffset = dashOffset;
       }
     }
-    console.log(rate, "alooorate1");
   }, [rate]);
-  console.log(rate, "alooorate2");
+
   useCountUp({ ref: "counter", end: rate, decimals: 1 });
 
   return (
@@ -731,3 +741,5 @@ let CircularPercentage = ({ rate }) => {
     </div>
   );
 };
+
+// Utilisation dans ton composant principal
