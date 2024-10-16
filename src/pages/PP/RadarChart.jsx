@@ -57,7 +57,7 @@ const RadarChart = ({ id }) => {
   const [vitesse, setVitesse] = useState(80);
   const [saut, setSaut] = useState(30);
   const [tir, setTir] = useState(70);
-  const [conduit, setConduit] = useState(70);
+  const [conduit, setConduit] = useState();
   const [agilite, setAgilite] = useState(50);
   const [jonglage, setJonglage] = useState(50);
 
@@ -85,7 +85,7 @@ const RadarChart = ({ id }) => {
     try {
       let data = await TestServer.getConduitStatsByUser(id);
       console.log("Conduit Data: ", data);
-      data > 100 ? setConduit(100) : setConduit((data * 100) / 100);
+      (data?.slalom?.total_score + data?.zigzag?.total_score)  > 200 ? setConduit(100) : setConduit(((data?.slalom?.total_score + data?.zigzag?.total_score) ) * 100/ 200);
     } catch (error) {
       console.error("Error fetching conduit data: ", error);
     }
@@ -97,7 +97,7 @@ const RadarChart = ({ id }) => {
 
       let data = await TestServer.getAgiliteStatsByUser(id);
       console.log("Agilite Data: ", data);
-      setAgilite((data?.agilite * 100) / 100);
+      setAgilite((data?.total_score * 100) / 100);
     } catch (error) {
       console.error("Error fetching agilite data: ", error);
     }
@@ -106,8 +106,9 @@ const RadarChart = ({ id }) => {
   const getJonglageForCurrentUser = async (id) => {
     try {
       let data = await TestServer.getJonglageStatsByUser(id);
-      console.log("Jonglage Data: ", data);
-      setJonglage((data?.data?.total_score * 100) / 100);
+      const sommeallscore = data?.jFort + data?.JFaible + data?.JDeux 
+      console.log("Jonglage Data: ", sommeallscore);
+      setJonglage(((sommeallscore ) * 100) / 150);
     } catch (error) {
       console.error("Error fetching jonglage data: ", error);
     }
@@ -115,13 +116,23 @@ const RadarChart = ({ id }) => {
 
   const getTirForCurrentUser = async (id) => {
     try {
-      let data = await TestServer.getTirStatsByUser(id);
-      console.log("Tir Data: ", data);
-      setTir(data.somme ? (data.somme * 100) / 300 : 0);
+        const Alldata = await TestServer.getTirStatsByUser(id);
+        console.log("Tir Data: ", Alldata); // Now this should show the data correctly
+        
+        if (!Alldata) {
+            console.error("No data returned from API");
+            return;
+        }
+
+        const sommetir = (Alldata.TirContrainte?.total_score || 0) + (Alldata.tir?.total_score || 0);
+        setTir(((sommetir) * 100) / 300);
+        console.log("taux tir" , tir)
+
     } catch (error) {
-      console.error("Error fetching tir data: ", error);
+        console.error("Error fetching tir data: ", error);
     }
-  };
+};
+  
 
   useEffect(() => {
     getVitesseForCurrentUser(id);
@@ -191,6 +202,20 @@ const RadarChart = ({ id }) => {
         display: false,
       },
       dashedLinePlugin,
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            const value = tooltipItem.raw;
+            const formattedValue = parseFloat(value).toFixed(2); 
+
+            const displayValue = parseFloat(formattedValue); 
+            const percentage = displayValue + "%";
+
+            const label = tooltipItem.label; 
+            return `Taux performance:  ${percentage}`;
+          },
+        },
+      },
     },
   };
 

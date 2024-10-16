@@ -13,7 +13,7 @@ class TestService {
 
   static async getSautStatsByUser(id) {
     
-    const response = await fetch(Config.LOCAL_URL + `/api/GetPointJump/${id}`,{
+    const response = await fetch(Config.LOCAL_URL + `/api/getSaut`,{
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json', 
@@ -28,12 +28,25 @@ class TestService {
 
   static async getConduitStatsByUser(id) {
 
-    const responseSlm = await fetch(Config.LOCAL_URL + `/api/GetPointslalom/${id}`);
+    const responseSlm = await fetch(Config.LOCAL_URL + `/api/getConduit`, {
+        method: 'POST', // Change method to POST
+        headers: {
+          'Content-Type': 'application/json', // Specify content type
+        },
+        body: JSON.stringify({userId: id }), // Send the id in the body as JSON
+      });
     const dataSlm = await responseSlm.json();
-    const responseZig = await fetch(Config.LOCAL_URL + `/api/GetPointzigzag/${id}`);
-    const dataZig = await responseZig.json();
-    console.log( dataSlm , dataZig , 'thisisisisisiisisis' )
-    return  dataSlm?.totalPoints +  dataZig?.totalPoints ;
+    console.log("salom data here", dataSlm)
+    // const responseZig = await fetch(Config.LOCAL_URL + `/api/GetPointzigzag/${id}`, {
+    //     method: 'POST', // Change method to POST
+    //     headers: {
+    //       'Content-Type': 'application/json', // Specify content type
+    //     },
+    //     body: JSON.stringify({userId: id }), // Send the id in the body as JSON
+    //   });
+    // const dataZig = await responseZig.json();
+    // console.log( dataSlm , dataZig , 'thisisisisisiisisis' )
+    return  dataSlm 
   }
   static async getAgiliteStatsByUser(id) {
     const response = await fetch(Config.LOCAL_URL + '/api/getAgilite', {
@@ -45,7 +58,7 @@ class TestService {
     });
   
     const data = await response.json();
-    console.log(data, 'no times for worry');
+    console.log(data, 'no times for worry vitesse');
     return data;
   }
   
@@ -65,16 +78,22 @@ class TestService {
   }
 
   static async getTirStatsByUser(id) {
-    const response = await fetch(Config.LOCAL_URL + `/api/test/tir/${id}`,{
-        method: 'POST', // Change method to POST
+    const response = await fetch(Config.LOCAL_URL + `/api/getTir`, {
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // Specify content type
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({userId: id }), // Send the id in the body as JSON
-      });
+        body: JSON.stringify({ userId: id }),
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json();
-    return data.data;
-  }
+    console.log("Raw API Response: ", data); // Log the raw response
+    return data; // Return the entire data object
+}
 
 }
 
