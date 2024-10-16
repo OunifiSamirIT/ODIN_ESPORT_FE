@@ -85,7 +85,12 @@ const RadarChart = ({ id }) => {
     try {
       let data = await TestServer.getConduitStatsByUser(id);
       console.log("Conduit Data: ", data);
-      (data?.slalom?.total_score + data?.zigzag?.total_score)  > 200 ? setConduit(100) : setConduit(((data?.slalom?.total_score + data?.zigzag?.total_score) ) * 100/ 200);
+      data?.slalom?.total_score + data?.zigzag?.total_score > 200
+        ? setConduit(100)
+        : setConduit(
+            ((data?.slalom?.total_score + data?.zigzag?.total_score) * 100) /
+              200
+          );
     } catch (error) {
       console.error("Error fetching conduit data: ", error);
     }
@@ -106,9 +111,13 @@ const RadarChart = ({ id }) => {
   const getJonglageForCurrentUser = async (id) => {
     try {
       let data = await TestServer.getJonglageStatsByUser(id);
-      const sommeallscore = data?.jFort + data?.JFaible + data?.JDeux 
+      console.log(data, "aloo donee");
+      const sommeallscore =
+        data?.piedFort?.total_score +
+        data?.piedFaible?.total_score +
+        data?.DeuxPied?.total_score;
       console.log("Jonglage Data: ", sommeallscore);
-      setJonglage(((sommeallscore ) * 100) / 150);
+      setJonglage((sommeallscore * 100) / 150);
     } catch (error) {
       console.error("Error fetching jonglage data: ", error);
     }
@@ -116,23 +125,23 @@ const RadarChart = ({ id }) => {
 
   const getTirForCurrentUser = async (id) => {
     try {
-        const Alldata = await TestServer.getTirStatsByUser(id);
-        console.log("Tir Data: ", Alldata); // Now this should show the data correctly
-        
-        if (!Alldata) {
-            console.error("No data returned from API");
-            return;
-        }
+      const Alldata = await TestServer.getTirStatsByUser(id);
+      console.log("Tir Data: ", Alldata); // Now this should show the data correctly
 
-        const sommetir = (Alldata.TirContrainte?.total_score || 0) + (Alldata.tir?.total_score || 0);
-        setTir(((sommetir) * 100) / 300);
-        console.log("taux tir" , tir)
+      if (!Alldata) {
+        console.error("No data returned from API");
+        return;
+      }
 
+      const sommetir =
+        (Alldata.TirContrainte?.total_score || 0) +
+        (Alldata.tir?.total_score || 0);
+      setTir((sommetir * 100) / 300);
+      console.log("taux tir", tir);
     } catch (error) {
-        console.error("Error fetching tir data: ", error);
+      console.error("Error fetching tir data: ", error);
     }
-};
-  
+  };
 
   useEffect(() => {
     getVitesseForCurrentUser(id);
@@ -166,7 +175,6 @@ const RadarChart = ({ id }) => {
   };
 
   const options = {
-   
     scales: {
       r: {
         min: 0,
@@ -176,7 +184,6 @@ const RadarChart = ({ id }) => {
           showLabelBackdrop: false, // Hide the label backdrop
           color: "transparent", // Color for the tick labels
           backdropColor: "rgba(0, 0, 0, 0)", // Make the backdrop transparent
-         
         },
         angleLines: {
           color: "#ffffff",
@@ -206,12 +213,12 @@ const RadarChart = ({ id }) => {
         callbacks: {
           label: function (tooltipItem) {
             const value = tooltipItem.raw;
-            const formattedValue = parseFloat(value).toFixed(2); 
+            const formattedValue = parseFloat(value).toFixed(2);
 
-            const displayValue = parseFloat(formattedValue); 
+            const displayValue = parseFloat(formattedValue);
             const percentage = displayValue + "%";
 
-            const label = tooltipItem.label; 
+            const label = tooltipItem.label;
             return `Taux performance:  ${percentage}`;
           },
         },
@@ -219,10 +226,7 @@ const RadarChart = ({ id }) => {
     },
   };
 
-
-  return (
-          <Radar   style={{ padding: " 0 5px" }} data={data} options={options} />
-  );
+  return <Radar style={{ padding: " 0 5px" }} data={data} options={options} />;
 };
 
 export default RadarChart;
