@@ -210,9 +210,9 @@ export default function ProfessionalProfile3() {
   useEffect(() => {
     // Vérifie que toutes les données nécessaires sont présentes
     if (
-      vitesseData?.points_10 !== undefined &&
-      vitesseData?.points_20 !== undefined &&
-      vitesseData?.points_30 !== undefined &&
+      vitesseData?.points10M !== undefined &&
+      vitesseData?.points20M !== undefined &&
+      vitesseData?.points30M !== undefined &&
       sautData?.totalPoints !== undefined &&
       tirData?.TirContrainte?.total_score !== undefined &&
       agiliteData?.total_score !== undefined &&
