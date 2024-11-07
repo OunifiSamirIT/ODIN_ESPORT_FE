@@ -49,7 +49,7 @@ export default function ProfessionalProfile3() {
   // Function to fetch saut data
   const fetchSaut = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/getSaut", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/getSaut`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export default function ProfessionalProfile3() {
   };
   const fetchVitesse = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/getvitesse", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/getvitesse`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +96,7 @@ export default function ProfessionalProfile3() {
   };
   const fetchAgilite = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/getAgilite", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/getAgilite`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -117,7 +117,7 @@ export default function ProfessionalProfile3() {
   };
   const fetchTirBall = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/getTir", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/getTir`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -138,7 +138,7 @@ export default function ProfessionalProfile3() {
   };
   const fetchJonglage = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/getJonglage", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/getJonglage`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -159,7 +159,7 @@ export default function ProfessionalProfile3() {
   };
   const fetchConduit = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/getConduit", {
+      const response = await fetch(`${Config.LOCAL_URL}/api/getConduit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -265,12 +265,11 @@ export default function ProfessionalProfile3() {
     }
   }, [vitesseData, sautData, agiliteData, tirData, jonglageData, conduitData]);
   return (
- <>
-      <Header />
-      <div className="profesionalProfileContainer mt-16">
-      {/* <Header /> */}
+ <> 
  
-      <div className="aboveContainer">
+      <Header />
+      <div className="profesionalProfileContainer">
+      <div className="aboveContainer mt-16">
         <div className="seperateCon ">
           <div className="personalDetailCon con ">
             <img
@@ -291,7 +290,7 @@ export default function ProfessionalProfile3() {
             {isDataReady ? ( // N'affiche le composant CircularPercentage que si les données sont prêtes
               <CircularPercentage rate={profileRating} />
             ) : (
-              <p> veuillez attendre pour terminer tout vos resultat 😃 </p> // Message de chargement si les données ne sont pas prêtes
+              <p> veuillez attendre pour terminer tout vos resultat </p> // Message de chargement si les données ne sont pas prêtes
             )}
 
             <div class="point"></div>
