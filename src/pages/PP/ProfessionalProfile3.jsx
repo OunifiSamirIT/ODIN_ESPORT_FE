@@ -273,7 +273,7 @@ export default function ProfessionalProfile3() {
         <div className="seperateCon ">
           <div className="personalDetailCon con ">
             <img
-              src={imagePP}
+              src={player?.user?.image}
               alt=""
               loading="lazy"
               className="personalImage"
