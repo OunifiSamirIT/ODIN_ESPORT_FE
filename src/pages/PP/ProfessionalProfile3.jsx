@@ -16,6 +16,7 @@ import { useCountUp } from "react-countup";
 import secureLocalStorage from "react-secure-storage";
 import { useParams } from "react-router-dom";
 import { Config } from "../../config";
+import Header from "../../components/Header2";
 
 export default function ProfessionalProfile3() {
   const [currentTestWindow, setCurrentTestWindow] = useState(1);
@@ -264,8 +265,11 @@ export default function ProfessionalProfile3() {
     }
   }, [vitesseData, sautData, agiliteData, tirData, jonglageData, conduitData]);
   return (
-    <div className="profesionalProfileContainer">
+ <>
+      <Header />
+      <div className="profesionalProfileContainer mt-16">
       {/* <Header /> */}
+ 
       <div className="aboveContainer">
         <div className="seperateCon ">
           <div className="personalDetailCon con ">
@@ -554,6 +558,8 @@ export default function ProfessionalProfile3() {
         <img loading="lazy" src={ABientot} />
       </div>
     </div>
+ </>
+
   );
 }
 
