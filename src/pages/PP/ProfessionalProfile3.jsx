@@ -70,6 +70,10 @@ export default function ProfessionalProfile3() {
       console.error("Error fetching saut:", error);
     }
   };
+
+  useEffect(() => {
+     console.log(jonglageData , "jonggg")
+  },[jonglageData])
   const fetchVitesse = async () => {
     try {
       const response = await fetch(`${Config.LOCAL_URL}/api/getvitesse`, {
@@ -257,7 +261,7 @@ export default function ProfessionalProfile3() {
         });
       });
 
-      const rating = (totalPoints / 800) * 10;
+      const rating = (totalPoints / 1000) * 10;
       const newRating = Math.min(Math.round(rating * 10) / 10, 10);
 
       setProfileRating(newRating);
@@ -676,74 +680,46 @@ let CustomStatBar = ({ title, data = [], detail }) => {
 };
 
 let CircularPercentage = ({ rate }) => {
-  const circular = useRef(null);
-
-  useEffect(() => {
-    if (circular.current) {
-      const circle = circular.current.querySelector("circle");
-      const path = circular.current.querySelector("path");
-
-      if (circle && path) {
-        const radius = circle.getAttribute("r");
-        const circumference = 2 * Math.PI * radius;
-        const fillPercentage = (rate / 10) * 100; // Convertir le rate en pourcentage
-        const dashOffset =
-          circumference - (fillPercentage / 100) * circumference;
-
-        path.style.strokeDasharray = `${circumference} ${circumference}`;
-        path.style.strokeDashoffset = dashOffset;
-      }
-    }
-  }, [rate]);
-
+  const [currentStrokePercentage, setStrokePercentage] = useState("0 999");
   useCountUp({ ref: "counter", end: rate, decimals: 1 });
+  let percentage = rate/10 * 100
+  const circular = useRef(null);
+  useEffect(() => {
+    console.log(circular.current.childNodes[0].getAttribute("r"));
+
+    let roundRadius = circular.current.childNodes[0].getAttribute("r");
+    let roundCircum = 2 * roundRadius * Math.PI;
+    let roundDraw = (percentage * roundCircum) / 100;
+    setStrokePercentage(roundDraw + " 999");
+  }, []);
 
   return (
+
     <div className="wheel">
-      <div className="Detail">
-        <p id="counter"></p>
-        <p>
-          {rate < 5 && "Faible"}
-          {rate > 5 && rate < 7 && "Moyenne"}
-          {rate >= 7 && "Bien"}
-        </p>
-      </div>
-      <svg
-        className="round"
-        ref={circular}
-        viewBox="0 0 324 324"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="160.048"
-          cy="167.317"
-          r="117.786"
-          stroke="#F8FAFC"
-          strokeWidth="13.4613"
-        />
-        <path
-          d="M153.549 282.857C127.763 281.054 103.229 271.05 83.5344 254.309C63.8393 237.567 50.0152 214.965 44.0825 189.806C38.1497 164.647 40.4194 138.25 50.5599 114.473C60.7003 90.6959 78.1798 70.7855 100.444 57.6518C122.707 44.518 148.588 38.8494 174.304 41.4746C200.019 44.0997 224.221 54.8809 243.372 72.2424C262.523 89.604 275.618 112.636 280.745 137.971C285.872 163.307 282.761 189.618 271.867 213.059"
-          stroke="url(#paint0_linear_4773_5518)"
-          strokeWidth="13.5174"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <defs>
-          <linearGradient
-            id="paint0_linear_4773_5518"
-            x1="270.891"
-            y1="108.891"
-            x2="53.1096"
-            y2="215.109"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#2E71EB" />
-            <stop offset="1" stopColor="#10419B" />
-          </linearGradient>
-        </defs>
-      </svg>
+    <div className="Detail">
+      <p id="counter"></p>
+      <p>
+      {rate <5 && "Faible"}
+      {rate >= 5 && "Moyenne"}
+      {rate == 5 && "Bien"}
+      </p>
     </div>
+    <svg 
+      class="round"
+      ref={circular}
+      style={{
+        strokeDasharray: currentStrokePercentage,
+      }}
+       viewBox="0 0 324 324" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="167.048" cy="160.317" r="117.786" stroke="#10419B" stroke-width="13.4613" />
+      <path d="M153.549 282.857C127.763 281.054 103.229 271.05 83.5344 254.309C63.8393 237.567 50.0152 214.965 44.0825 189.806C38.1497 164.647 40.4194 138.25 50.5599 114.473C60.7003 90.6959 78.1798 70.7855 100.444 57.6518C122.707 44.518 148.588 38.8494 174.304 41.4746C200.019 44.0997 224.221 54.8809 243.372 72.2424C262.523 89.604 275.618 112.636 280.745 137.971C285.872 163.307 282.761 189.618 271.867 213.059" stroke="url(#paint0_linear_4773_5518)" stroke-width="13.5174" stroke-linecap="round" stroke-linejoin="round" />
+      <defs>
+        <linearGradient id="paint0_linear_4773_5518" x1="270.891" y1="108.891" x2="53.1096" y2="215.109" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#ffffff00" />
+          <stop offset="1" stop-color="#ffffff00" />
+        </linearGradient>
+      </defs>
+    </svg></div>
   );
 };
 
