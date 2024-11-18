@@ -165,7 +165,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     secureLocalStorage.getItem("cryptedUser")
   );
 
-  const userId = storedUserDataID?.id ? storedUserDataID?.id : null;
+  const userId = parseInt(storedUserDataID?.id); 
   useEffect(() => {
     checkTokenExpiration();
   }, []);
@@ -2452,7 +2452,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     <span className="  flex items-center flex-col md:flex-row gap-2 ">
                       {likesData &&
                       likesData.some(
-                        (like) => like.userId === storedUserDataID?.id
+                        (like) => like.userId === userId
                       ) ? (
                         <span className="  flex flex-row">
                           {" "}
