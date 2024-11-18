@@ -42,6 +42,8 @@ function CreatePost({ setArticles, onClose }) {
   const storedToken = JSON.parse(localStorage.getItem("Secret"))?.token;
 
   useEffect(() => {
+    console.log("🚀 ~ CreatePost ~ storedUserData:", storedUserData.id)
+
     if (storedUserData?.id && storedToken) {
       fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`, {
         method: "GET",
@@ -69,29 +71,60 @@ function CreatePost({ setArticles, onClose }) {
     setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
   };
 
-
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
-
-    // Filter out media files based on type
     const imageFiles = selectedFiles.filter(file => file.type.startsWith('image/'));
     const videoFile = selectedFiles.find(file => file.type.startsWith('video/'));
 
-    // Update state with media files
-    setMediaFiles([...imageFiles, videoFile].filter(Boolean));
+    // Update media files array while maintaining existing files
+    setMediaFiles(prevFiles => [...prevFiles, ...imageFiles, videoFile].filter(Boolean));
 
-    // Set preview images for each uploaded image
+    // Update preview images while maintaining existing previews
     const imagePreviewURLs = imageFiles.map(file => URL.createObjectURL(file));
-    setPreviewImage(imagePreviewURLs);
+    setPreviewImage(prevPreviews => [...prevPreviews, ...imagePreviewURLs]);
 
-    // Set video preview URL
     if (videoFile) {
       const videoPreviewURL = URL.createObjectURL(videoFile);
       setVideoPreviewUrl(videoPreviewURL);
-    } else {
-      setVideoPreviewUrl(null);
     }
   };
+
+  const handleRemoveImage = (index) => {
+    setPreviewImage(prevPreviews => {
+      const newPreviews = [...prevPreviews];
+      newPreviews.splice(index, 1);
+      return newPreviews;
+    });
+
+    setMediaFiles(prevFiles => {
+      const newFiles = [...prevFiles];
+      newFiles.splice(index, 1);
+      return newFiles;
+    });
+  };
+
+  // const handleFileChange = (e) => {
+  //   const selectedFiles = Array.from(e.target.files);
+
+  //   // Filter out media files based on type
+  //   const imageFiles = selectedFiles.filter(file => file.type.startsWith('image/'));
+  //   const videoFile = selectedFiles.find(file => file.type.startsWith('video/'));
+
+  //   // Update state with media files
+  //   setMediaFiles([...imageFiles, videoFile].filter(Boolean));
+
+  //   // Set preview images for each uploaded image
+  //   const imagePreviewURLs = imageFiles.map(file => URL.createObjectURL(file));
+  //   setPreviewImage(imagePreviewURLs);
+
+  //   // Set video preview URL
+  //   if (videoFile) {
+  //     const videoPreviewURL = URL.createObjectURL(videoFile);
+  //     setVideoPreviewUrl(videoPreviewURL);
+  //   } else {
+  //     setVideoPreviewUrl(null);
+  //   }
+  // };
 
 
   const _ref_previewImage = useRef(null);
@@ -124,13 +157,15 @@ function CreatePost({ setArticles, onClose }) {
       formData.append("titre", sanitizeInput("Your default title"));
       formData.append("description", sanitizeInput(data.description || ""));
       formData.append("type", sanitizeInput("Your default type"));
-
-      if (mediaFiles.length) {
-        mediaFiles.forEach((file, index) => {
-          formData.append("media", file);
-        });
-      }
-
+      formData.append("userId" , storedUserData.id)
+      // if (mediaFiles.length) {
+      //   mediaFiles.forEach((file, index) => {
+      //     formData.append("media", file);
+      //   });
+      // }
+      mediaFiles.forEach((file, index) => {
+        formData.append("media", file);
+      });
       const xhr = new XMLHttpRequest();
       xhr.open("POST", `${Config.LOCAL_URL}/api/articles/`);
       xhr.setRequestHeader("Authorization", `Bearer ${storedToken}`);
@@ -175,66 +210,7 @@ function CreatePost({ setArticles, onClose }) {
     }
   };
 
-  // const handlePostSubmit = async (data) => {
-  //   try {
-  //     if (!storedUserData?.id) {
-  //       setErrMsg(getTranslation("User not authenticated", "Utilisateur non authentifié"));
-  //       return;
-  //     }
-
-    
-  //     // Check if neither description nor files are provided
-  //     if (!data.description && !mediaFiles.length) {
-  //       setErrMsg("Ajouter quelque chose pour publier "); // Set error message
-  //       return; // Exit the function without submitting
-  //     }
-
-  //     setPosting(true);
-  //     const formData = new FormData();
-  //     formData.append("titre", "Your default title");
-  //     formData.append("description", data.description || ""); // Append empty string if description is null
-  //     formData.append("userId", storedUserData.id);
-  //     formData.append("type", "Your default type");
-
-  //     // Append media files if they exist
-  //     if (mediaFiles.length) {
-  //       mediaFiles.forEach((file, index) => {
-  //         formData.append("media", file); // Assuming "file" is the media file
-  //       });
-  //     }
-
-  //     const xhr = new XMLHttpRequest();
-  //     xhr.open("POST", `${Config.LOCAL_URL}/api/articles/`);
-  //     xhr.setRequestHeader("Authorization", `Bearer ${storedToken}`);
-  //     // Attach event listener to monitor upload progress
-  //     xhr.upload.onprogress = (event) => {
-  //       console.log("Progress event triggered:", event.loaded, event.total);
-  //       const percentage = (event.loaded / event.total) * 100;
-  //       console.log("Progress percentage:", percentage);
-  //       setUploadProgress(Math.trunc(percentage));
-  //     };
-
-  //     // Send the FormData with XMLHttpRequest
-  //     xhr.send(formData);
-
-  //     // Reset state after successful submission
-  //     setMediaFiles([]);
-  //     setValue("description", "");
-
-  //     setPosting(false);
-  //     setErrMsg(""); // Clear error message
-
-  //     // Close the modal after a delay
-  //     setTimeout(() => {
-  //       onClose();
-  //     }, 2800);
-  //     console.log('mediafile',mediaFiles)
-  //   } catch (error) {
-  //     console.error("Error submitting post:", error);
-  //     setPosting(false);
-  //   }
-  // };
-
+ 
 
   const hendelrest = () => {
     setData("")
@@ -336,7 +312,7 @@ function CreatePost({ setArticles, onClose }) {
                       {errMsg?.message}
                     </span>
                   )}
-                  {previewImage && previewImage.map((image, index) => (
+                  {/* {previewImage && previewImage.map((image, index) => (
                     <div key={index} className="relative mb-3">
                       <button
                         onClick={() => {
@@ -349,7 +325,15 @@ function CreatePost({ setArticles, onClose }) {
                           setFileType(null); // Clear the fileType when removing images
                         }}
                         className="absolute top-0 right-0 z-10 bg-white rounded-full p-[3px] text-white"
-                      >
+                      > */}
+
+                      
+{previewImage && previewImage.map((image, index) => (
+      <div key={index} className="relative mb-3">
+        <button
+          onClick={() => handleRemoveImage(index)}
+          className="absolute top-0 right-0 z-10 bg-white rounded-full p-[3px] text-white"
+        >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-6 w-6 bg-orange-500 rounded-full"
@@ -372,39 +356,7 @@ function CreatePost({ setArticles, onClose }) {
                       />
                     </div>
                   ))}
-                  {/* {previewImage && (
-  <div className="relative mb-3">
-    <button
-       onClick={() => {
-        setPreviewImage(null);
-        setFile(null);
-        setFileType(null);
-        
-      }}
-      className="absolute top-0 right-0 z-10 bg-white rounded-full p-[3px] text-white"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 bg-orange-500 rounded-full"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M6 18L18 6M6 6l12 12"
-        />
-      </svg>
-    </button>
-    <img
-      src={previewImage}
-            alt="Preview"
-      className="rounded-xxl self-center md:max-h-[600px] max-h-[350px] w-100 object-contain"
-    />
-  </div>
-)} */}
+              
                   {videoPreviewUrl && (
                     <div className="w-full rounded-xl px-1 bg-gray-200">
                       <div
@@ -465,27 +417,7 @@ function CreatePost({ setArticles, onClose }) {
 
             <div className="flex flex-col w-full   mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
               <div className="flex w-full justify-between  mr-3">
-                {/* <label
-      htmlFor="imgUpload"
-      className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark"
-    >
-      <input
-        type="file"
-        onChange={handleFileChange}
-        className="hidden"
-        id="imgUpload"
-        accept=".jpg, .png, .jpeg"
-      />
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/17e551e68fdbcd650c5d3478899a198aaa88ca7d52f6efdc1e5c1cb201ebab45?apiKey=1233a7f4653a4a1e9373ae2effa8babd&"
-        className="aspect-square w-[25px]"
-      />
-      <span className="d-none-xs ml-2">{ getTranslation(
-            `Photo`,  // -----> Englais
-              `Photo`, //  -----> Francais
-                           )  }</span>
-    </label> */}
+              
                 <label htmlFor="imgUpload" className="d-flex align-items-center mt-1 font-xssss fw-600 ls-1 text-grey-700 text-dark">
                   <input
                     type="file"

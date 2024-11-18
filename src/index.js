@@ -18,7 +18,6 @@ import AddArticle from "./pages/Admin/Components/AddArticle";
 import SingleArticle from "./pages/Blog/Article.jsx";
 import EditBlog from "./pages/Admin/Components/editArticle.jsx";
 import Unauthorized from "./pages/Admin/unauthorized.jsx";
-import Exempleryadh from "../src/pages/Professionalprofile/Components/exemple.jsx"
 import Demo from "./demo/Demo";
 
 import Home from "./pages/HomePage/Home.jsx";
@@ -657,7 +656,6 @@ function Root() {
                 }
               />
               <Route exact path="/" element={<Demo />} />
-              <Route exact path="/exeryadh" element={<Exempleryadh />} />
               
               <Route exact path="/Test" element={<Test />} />
               <Route
