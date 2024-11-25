@@ -146,7 +146,7 @@ function FriendsSlider() {
             >
               <div
                 style={dark_bg}
-                className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center"
+                className="card-body d-flex flex-column justify-content-center align-items-center w-100 ps-3 pe-3 pb-4 text-center h-60"
               >
                 <Link to={`/profile/${value?.user?.id}`}>
                   <figure className="avatar mb-1 d-flex justify-content-center align-items-center">
@@ -159,11 +159,11 @@ function FriendsSlider() {
                 </Link>
                 <h4
                   style={dark_bg}
-                  className="fw-700 font-xssss mt-3 mb-1 d-block w-100"
+                  className="fw-700 font-xssss mt-3 mb-1 d-block w-100 overflow-hidden"
                 >
                   {value?.user?.nom} {value?.user?.prenom}
                 </h4>
-                <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-3 lh-2">
+                <p className="fw-500 font-xsssss text-grey-500 mt-0 mb-3 lh-2 w-full h-4 overflow-hidden">
                   {value.user?.profil === "other" && value?.other?.profession}
                   {value.user?.profil === "player" && "Joueur"}
                   {value.user?.profil === "coach" && "Entraineur"}
