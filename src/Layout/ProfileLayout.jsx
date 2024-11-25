@@ -108,6 +108,10 @@ const ProfileLayout = ({ children, onChange, user }) => {
     }
 
     useEffect(() => {
+        const storedUserDatad = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+        );
+
         isFriendAccepted()
         fetchAllFriendRequest()
         if (storedUserDatad.id == id) {

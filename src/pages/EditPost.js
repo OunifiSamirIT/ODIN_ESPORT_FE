@@ -205,9 +205,11 @@ function EditPost({ articleId, onClose }) {
             </div>
           </div>
           {isFormSubmitted && (
-            <div className="flex self-center justify-center items-center text-center px-2.5 py-2 mt-6 md:text-md  text:sm md:mx-12 font-medium text-gray-800 bg-green-200 rounded-lg">
-              Votre Poste a éte modifie avec succès
-            </div>
+          <div 
+          className="flex self-center justify-center text-sm items-center text-center px-2.5 py-2 mt-6 md:text-md text:sm md:mx-12 font-medium text-gray-800 bg-green-200 rounded-lg break-words">
+          Votre Poste a éte modifie avec succès
+        </div>
+        
           )}
 
           <div className="flex flex-col md:flex-row gap-y-2 justify-between py-2 mr-4 w-full text-base font-medium flex-nowrap">

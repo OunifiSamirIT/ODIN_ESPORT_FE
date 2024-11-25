@@ -1,143 +1,99 @@
-import React from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Config } from "../config";
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
 import CustomButton from "../components/CustomButton";
 import Loading from './Loading';
-import placeholder from "../assets/placeholder.jpg"
-import { useRef } from 'react';
+import placeholder from "../assets/placeholder.jpg";
 import { Context } from "../index";
 import secureLocalStorage from "react-secure-storage";
-import DOMPurify from 'dompurify'; // You'll need to install this package
+import DOMPurify from 'dompurify';
 
-function CreatePost({ setArticles, onClose }) {
-  const { _currentLang, _setLang, getTranslation, dark_light_bg, dark_fill_svg, dark_img, dark_bg } = React.useContext(Context);
-
-
+const CreatePost = ({ setArticles, onClose }) => {
+  const { getTranslation, dark_light_bg } = useContext(Context);
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue
   } = useForm();
+
   const [user, setUser] = useState([]);
   const [errMsg, setErrMsg] = useState("");
-  const [data, setData] = useState({ description: "", otherField: "" });
-  const [imageFiles, setImageFiles] = useState([]);
-  const [videoFile, setVideoFile] = useState(null);
-  const [mediaFiles, setMediaFiles] = useState([]); // State for storing media files
-  const [file, setFile] = useState([]);
-
-  const [fileType, setFileType] = useState(null);
+  const [mediaFiles, setMediaFiles] = useState([]); // Combined state for all media files
   const [previewImage, setPreviewImage] = useState([]);
-  const [posting, setPosting] = useState(false);
-  const [postsData, setPostsData] = useState([]);
   const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
+  const [posting, setPosting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const textAreaRef = useRef(null);
+  const [textareaHeight, setTextareaHeight] = useState('70px');
+
   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const storedToken = JSON.parse(localStorage.getItem("Secret"))?.token;
-
-  useEffect(() => {
-    console.log("🚀 ~ CreatePost ~ storedUserData:", storedUserData.id)
-
-    if (storedUserData?.id && storedToken) {
-      fetch(`${Config.LOCAL_URL}/api/user/${storedUserData.id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${storedToken}`,
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch user data');
-          }
-          return response.json();
-        })
-        .then((userData) => {
-          setUser(userData);
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-          setErrMsg(getTranslation("Failed to fetch user data", "Échec de la récupération des données utilisateur"));
-        });
-    }
-  }, [JSON.stringify(storedUserData), storedToken]);
-  const loadRemainingArticles = (remainingArticles) => {
-    setArticles((prevArticles) => [...prevArticles, ...remainingArticles]);
-  };
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     const imageFiles = selectedFiles.filter(file => file.type.startsWith('image/'));
     const videoFile = selectedFiles.find(file => file.type.startsWith('video/'));
 
-    // Update media files array while maintaining existing files
-    setMediaFiles(prevFiles => [...prevFiles, ...imageFiles, videoFile].filter(Boolean));
+    // Update media files state
+    const newMediaFiles = [...mediaFiles];
+    
+    // Add new image files
+    imageFiles.forEach(file => {
+      newMediaFiles.push({
+        file,
+        type: 'image',
+        preview: URL.createObjectURL(file)
+      });
+    });
 
-    // Update preview images while maintaining existing previews
-    const imagePreviewURLs = imageFiles.map(file => URL.createObjectURL(file));
-    setPreviewImage(prevPreviews => [...prevPreviews, ...imagePreviewURLs]);
-
+    // Add video file if exists
     if (videoFile) {
-      const videoPreviewURL = URL.createObjectURL(videoFile);
-      setVideoPreviewUrl(videoPreviewURL);
+      newMediaFiles.push({
+        file: videoFile,
+        type: 'video',
+        preview: URL.createObjectURL(videoFile)
+      });
+    }
+
+    setMediaFiles(newMediaFiles);
+    
+    // Update preview states
+    const newPreviewImages = imageFiles.map(file => URL.createObjectURL(file));
+    setPreviewImage(prev => [...prev, ...newPreviewImages]);
+    
+    if (videoFile) {
+      setVideoPreviewUrl(URL.createObjectURL(videoFile));
     }
   };
 
-  const handleRemoveImage = (index) => {
-    setPreviewImage(prevPreviews => {
-      const newPreviews = [...prevPreviews];
-      newPreviews.splice(index, 1);
-      return newPreviews;
-    });
-
-    setMediaFiles(prevFiles => {
-      const newFiles = [...prevFiles];
+  const handleRemoveMedia = (e, index) => {
+    // Prevent form submission and event bubbling
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Clean up object URL to prevent memory leaks
+    URL.revokeObjectURL(mediaFiles[index].preview);
+    
+    // Remove the media file from the array
+    setMediaFiles(prev => {
+      const newFiles = [...prev];
       newFiles.splice(index, 1);
       return newFiles;
     });
-  };
 
-  // const handleFileChange = (e) => {
-  //   const selectedFiles = Array.from(e.target.files);
-
-  //   // Filter out media files based on type
-  //   const imageFiles = selectedFiles.filter(file => file.type.startsWith('image/'));
-  //   const videoFile = selectedFiles.find(file => file.type.startsWith('video/'));
-
-  //   // Update state with media files
-  //   setMediaFiles([...imageFiles, videoFile].filter(Boolean));
-
-  //   // Set preview images for each uploaded image
-  //   const imagePreviewURLs = imageFiles.map(file => URL.createObjectURL(file));
-  //   setPreviewImage(imagePreviewURLs);
-
-  //   // Set video preview URL
-  //   if (videoFile) {
-  //     const videoPreviewURL = URL.createObjectURL(videoFile);
-  //     setVideoPreviewUrl(videoPreviewURL);
-  //   } else {
-  //     setVideoPreviewUrl(null);
-  //   }
-  // };
-
-
-  const _ref_previewImage = useRef(null);
-  const _ref_previewVideo = useRef(null);
-  const sanitizeInput = (input) => {
-    if (typeof input === 'string') {
-      // Remove any potential SQL injection attempts
-      input = input.replace(/'/g, "''");
-      // Use DOMPurify to remove any potential XSS
-      return DOMPurify.sanitize(input);
+    // Update preview states based on media type
+    if (mediaFiles[index].type === 'image') {
+      setPreviewImage(prev => {
+        const newPreviews = [...prev];
+        newPreviews.splice(index, 1);
+        return newPreviews;
+      });
+    } else if (mediaFiles[index].type === 'video') {
+      setVideoPreviewUrl(null);
     }
-    return input;
   };
+
   const handlePostSubmit = async (data) => {
     try {
       if (!storedUserData?.id) {
@@ -157,15 +113,13 @@ function CreatePost({ setArticles, onClose }) {
       formData.append("titre", sanitizeInput("Your default title"));
       formData.append("description", sanitizeInput(data.description || ""));
       formData.append("type", sanitizeInput("Your default type"));
-      formData.append("userId" , storedUserData.id)
-      // if (mediaFiles.length) {
-      //   mediaFiles.forEach((file, index) => {
-      //     formData.append("media", file);
-      //   });
-      // }
-      mediaFiles.forEach((file, index) => {
-        formData.append("media", file);
+      formData.append("userId", storedUserData.id);
+
+      // Append only the file objects to formData
+      mediaFiles.forEach((mediaItem, index) => {
+        formData.append("media", mediaItem.file);
       });
+
       const xhr = new XMLHttpRequest();
       xhr.open("POST", `${Config.LOCAL_URL}/api/articles/`);
       xhr.setRequestHeader("Authorization", `Bearer ${storedToken}`);
@@ -178,22 +132,23 @@ function CreatePost({ setArticles, onClose }) {
       xhr.onload = function() {
         if (xhr.status === 201 || xhr.status === 200) {
           const newPost = JSON.parse(xhr.responseText);
-          setArticles(newPost); // Call the setArticles function with the new post
+          setArticles(newPost);
+          
+          // Clean up all previews and reset states
+          mediaFiles.forEach(media => URL.revokeObjectURL(media.preview));
           setMediaFiles([]);
+          setPreviewImage([]);
+          setVideoPreviewUrl(null);
           setValue("description", "");
           setPosting(false);
           setErrMsg("");
+          
           setTimeout(() => {
             onClose();
           }, 2800);
         } else {
           setPosting(false);
-          try {
-            const errorResponse = JSON.parse(xhr.responseText);
-            setErrMsg(errorResponse.message || getTranslation("Failed to create post", "Échec de la création du post"));
-          } catch (e) {
-            setErrMsg(getTranslation("An unknown error occurred", "Une erreur inconnue s'est produite"));
-          }
+          handleError(xhr);
         }
       };
 
@@ -209,6 +164,18 @@ function CreatePost({ setArticles, onClose }) {
       setErrMsg(getTranslation("An error occurred", "Une erreur s'est produite"));
     }
   };
+  const _ref_previewImage = useRef(null);
+  const _ref_previewVideo = useRef(null);
+  const sanitizeInput = (input) => {
+    if (typeof input === 'string') {
+      // Remove any potential SQL injection attempts
+      input = input.replace(/'/g, "''");
+      // Use DOMPurify to remove any potential XSS
+      return DOMPurify.sanitize(input);
+    }
+    return input;
+  };
+  
 
  
 
@@ -242,8 +209,7 @@ function CreatePost({ setArticles, onClose }) {
 
     // fetchArticles();
   }, []);
-  const [textareaHeight, setTextareaHeight] = useState('70px');
-  const textAreaRef = useRef(null);
+ 
 
   const handleChange = (e) => {
     if (e && textAreaRef.current) {
@@ -329,11 +295,12 @@ function CreatePost({ setArticles, onClose }) {
 
                       
 {previewImage && previewImage.map((image, index) => (
-      <div key={index} className="relative mb-3">
-        <button
-          onClick={() => handleRemoveImage(index)}
-          className="absolute top-0 right-0 z-10 bg-white rounded-full p-[3px] text-white"
-        >
+          <div key={index} className="relative mb-3">
+            <button
+              type="button" // Explicitly set button type to prevent form submission
+              onClick={(e) => handleRemoveMedia(e, index)}
+              className="absolute top-0 right-0 z-10 bg-white rounded-full p-[3px] text-white"
+            >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-6 w-6 bg-orange-500 rounded-full"
@@ -379,6 +346,8 @@ function CreatePost({ setArticles, onClose }) {
                           setVideoPreviewUrl(null);
                           setFile(null);
                           setFileType(null);
+                          setMediaFiles(prev => prev.filter(item => item.type !== 'video'));
+
 
                         }}
                         className="absolute top-0 right-0 z-10 bg-white rounded-full p-[3px] text-white"
