@@ -441,7 +441,7 @@ const Personal = ({ userInfo }) => {
                   <img
                     loading="lazy"
                     alt="logo"
-                    srcSet={imagePreview ? imagePreview : user.image}
+                    srcSet={imagePreview ? imagePreview : user?.image}
                     className="rounded-full border-2 aspect-square w-full max-w-[178px]"
                   />
                 ) : (

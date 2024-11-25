@@ -11,7 +11,10 @@ import secureLocalStorage from "react-secure-storage";
 function CreatePostModal() {
   const [user, setUser] = useState([]);
   const { _currentLang, _setLang, getTranslation } = React.useContext(Context);
-
+  const [articles, setArticles] = useState([]);
+  const handleSetArticles = (newArticle) => {
+    setArticles(prevArticles => Array.isArray(prevArticles) ? [...prevArticles, newArticle] : [newArticle]);
+  };
   const ref = useRef(null);
   const [isModaldOpen, setIsModaldOpen] = useState(false);
   const handleClickOutside = (event) => {
@@ -174,8 +177,7 @@ function CreatePostModal() {
               )}
             </h4>
 
-            <CreatePost onClose={handleCloseModal} />
-          </div>
+            <CreatePost setArticles={handleSetArticles} onClose={handleCloseModal} />          </div>
         </div>
       )}
     </div>

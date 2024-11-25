@@ -147,16 +147,7 @@ const Index = () => {
       document.removeEventListener("mousedown", handleClickOutsideGallery);
     };
   }, []);
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutsideGalleryvideo);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutsideGalleryvideo);
-  //   };
 
-  // }, []);
-  const handleClick = () => {
-    setShowMenu(!showMenu);
-  };
 
   const [originalArticle, setOriginalArticle] = useState(null);
   const storedUserDatad = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
@@ -209,269 +200,12 @@ const Index = () => {
 
   const [repliesVisible, setRepliesVisible] = useState({});
 
-  const toggleRepliesVisibility = async (commentId) => {
-    setRepliesVisible((prevVisibility) => ({
-      ...prevVisibility,
-      [commentId]: !prevVisibility[commentId],
-    }));
 
-    // Fetch replies if not already loaded
-    if (!repliesVisible[commentId]) {
-      await fetchRepliesForComment(commentId);
-    }
-  };
+ 
 
-  const handleLikeClick = async (articleId, emoji) => {
-    try {
-      const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/article/${articleId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-          body: JSON.stringify({
-            userId: LocalStorageID.id,
-            articleId: articleId,
-            emoji: emoji,
-          }),
-        }
-      );
-      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-      const tokenn = storedUserData?.token;
-      if (response.ok) {
-        const responseData = await response.json();
+  
 
-        // Fetch allLikes to get the updated likes counts for all articles
-        const allLikesResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/article/allLikes`,
-          {
-            headers: {
-              // "Content-Type": "application/json",
-              Authorization: `Bearer ${tokenn}`,
-            },
-          }
-        );
-        const allLikesData = await allLikesResponse.json();
-
-        // Update the state based on the received likes count
-        setArticles((prevArticles) =>
-          prevArticles.map((article) => {
-            const updatedLikesCount =
-              allLikesData.find((like) => like.articleId === article.id)
-                ?.likesCount || 0;
-            return article.id === articleId
-              ? { ...article, likesCount: updatedLikesCount }
-              : article;
-          })
-        );
-      } else {
-        toast.error("Error liking/unliking the article. Please try again.", {
-          position: "top-right",
-        });
-      }
-    } catch (error) {
-      toast.error("An unexpected error occurred. Please try again later.", {
-        position: "top-right",
-      });
-    }
-  };
-
-  const handleLikeComment = async (commentId) => {
-    try {
-      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-      const tokenn = storedUserData?.token;
-      const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/comment/${commentId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-          body: JSON.stringify({
-            userId: id,
-            commentId: commentId,
-            emoji: 1,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        // Fetch updated likes count after liking
-        const likesCountResponse = await fetch(
-          `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${tokenn}`,
-            },
-          }
-        );
-        const likesCountData = await likesCountResponse.json();
-
-        // Update the state with the new likes count
-        setArticles((prevArticles) =>
-          prevArticles.map((article) => {
-            const updatedComments = article.comments.map((c) =>
-              c.id === commentId
-                ? { ...c, likesCount: likesCountData.count }
-                : c
-            );
-            return article.id === selectedArticleId
-              ? { ...article, comments: updatedComments }
-              : article;
-          })
-        );
-      } else {
-        // Handle error
-        toast.error("Error liking/unliking the comment. Please try again.", {
-          position: "top-right",
-        });
-      }
-    } catch (error) {
-      toast.error("An unexpected error occurred. Please try again later.", {
-        position: "top-right",
-      });
-    }
-  };
-
-  const handleLikeReply = async (replyId) => {
-    try {
-      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-      const tokenn = storedUserData?.token;
-      const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/reply/${replyId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-          body: JSON.stringify({
-            userId: id,
-            replyId: replyId,
-            emoji: 1, // Assuming 1 for liking
-          }),
-        }
-      );
-
-      if (response.ok) {
-        // Fetch updated replies after liking
-        fetchRepliesForComment(replyId);
-      } else {
-        // Handle error
-        console.error("Error liking/unliking the reply. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error adding like:", error);
-    }
-  };
-
-  const fetchLikesCountForCommentWithEmoji = async (commentId, emoji) => {
-    try {
-      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-      const tokenn = storedUserData?.token;
-      const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/comment/${commentId}/count?emoji=${emoji}`,
-        {
-          headers: {
-            // "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-        }
-      );
-      const likesCountData = await response.json();
-
-      // Display a success notification
-      toast.success(
-        `Likes count for comment ${commentId}: ${likesCountData.count}`
-      );
-    } catch (error) {
-      console.error(
-        `Error fetching likes count for comment ${commentId} with emoji ${emoji}:`,
-        error
-      );
-
-      // Display an error notification
-      toast.error("Error fetching likes count");
-    }
-  };
-
-  const fetchLikesCountForReplyWithEmoji = async (replyId, emoji) => {
-    try {
-      const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/reply/${replyId}/count?emoji=${emoji}`,
-        {
-          headers: {
-            // "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-        }
-      );
-      const likesCountData = await response.json();
-
-      // Display a success notification
-      toast.success(
-        `Likes count for reply ${replyId}: ${likesCountData.count}`
-      );
-    } catch (error) {
-      console.error(
-        `Error fetching likes count for reply ${replyId} with emoji ${emoji}:`,
-        error
-      );
-
-      // Display an error notification
-      toast.error("Error fetching likes count");
-    }
-  };
-
-  const fetchLikesCountForArticleWithEmoji = async (articleId, emoji) => {
-    try {
-      const response = await fetch(
-        `${Config.LOCAL_URL}/api/likes/article/${articleId}/count?emoji=${emoji}`,
-        {
-          headers: {
-            // "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-        }
-      );
-      const likesCountData = await response.json();
-
-      // Display a success notification
-      toast.success(
-        `Likes count for article ${articleId}: ${likesCountData.count}`
-      );
-    } catch (error) {
-      console.error(
-        `Error fetching likes count for article ${articleId} with emoji ${emoji}:`,
-        error
-      );
-
-      // Display an error notification
-      toast.error("Error fetching likes count");
-    }
-  };
-
-  const handleFileChange = (e, type) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    setFileType(type);
-
-    if (type === "video") {
-      const videoPreviewURL = URL.createObjectURL(selectedFile);
-      setVideoPreviewUrl(videoPreviewURL);
-      // Clear the image preview if there was one
-      setPreviewImage(null);
-    } else {
-      const imagePreviewURL = URL.createObjectURL(selectedFile);
-      setPreviewImage(imagePreviewURL);
-      // Clear the video preview if there was one
-      setVideoPreviewUrl(null);
-    }
-  };
+ 
 
   const LocalStorageID = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   // const isOwner = LocalStorageID.id == id;
@@ -551,201 +285,8 @@ const Index = () => {
     }
   };
 
-  const handleReplyClick = async (commentId) => {
-    setReplyInput(""); // Clear the reply input
-    setReplyingToCommentId(commentId);
-    setRepliesVisible((prevVisibility) => ({
-      ...prevVisibility,
-      [commentId]: !prevVisibility[commentId],
-    }));
 
-    // Fetch replies if not already loaded
-    if (!repliesVisible[commentId]) {
-      await fetchRepliesForComment(commentId);
-    }
-  };
-  const handlePostSubmit = async (data) => {
-    try {
-      if (!LocalStorageID.id) {
-        // Handle validation errors or missing user data
-        return;
-      }
-      if (!data.description && !file) {
-        // Handle validation errors or missing user data
-        return;
-      }
-      setPosting(true);
-      const formData = new FormData();
-      formData.append("titre", "Your default title");
-      formData.append("description", data.description);
-      formData.append("userId", LocalStorageID.id);
-      formData.append("type", "Your default type");
-      formData.append("file", file);
-      formData.append("fileType", fileType);
 
-      // Make a POST request to create a new article
-      await fetch(`${Config.LOCAL_URL}/api/articles/`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          // "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-      });
-
-      // After creating the article, fetch the updated list of articles
-      const response = await fetch(`${Config.LOCAL_URL}/api/articles/`, {
-        headers: {
-          // "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-      });
-      const updatedPostsData = await response.json();
-
-      // Update the list of posts and reset the preview image
-      setPostsData(updatedPostsData);
-      setPreviewImage(null);
-
-      setPosting(false);
-      setValue("description", "");
-      window.location.reload();
-      fetchArticles();
-    } catch (error) {
-      setPosting(false);
-    }
-  };
-
-  const handlePhotoVideoClick = () => {
-    // Trigger click event on the file input
-    fileInputRef.current.click();
-  };
-  const menuClass = `${isOpen ? " show" : ""}`;
-  const fetchCommentsByArticleId = async (articleId) => {
-    try {
-      const response = await fetch(
-        `${Config.LOCAL_URL}/api/commentaires/article/${articleId}`,
-        {
-          headers: {
-            // "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-        }
-      );
-      const commentsData = await response.json();
-      return commentsData;
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const fetchCommentsForArticle = async (articleId) => {
-    try {
-      const commentsResponse = await fetch(
-        `${Config.LOCAL_URL}/api/commentaires/?articleId=${articleId}`,
-        {
-          headers: {
-            // "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-        }
-      );
-      const commentsData = await commentsResponse.json();
-
-      const commentsWithLikes = await Promise.all(
-        commentsData.map(async (comment) => {
-          // Fetch likes count for each comment
-          const likesCountResponse = await fetch(
-            `${Config.LOCAL_URL}/api/likes/comment/${comment.id}/count`,
-            {
-              headers: {
-                // "Content-Type": "application/json",
-                Authorization: `Bearer ${tokenn}`,
-              },
-            }
-          );
-          const likesCountData = await likesCountResponse.json();
-
-          return {
-            ...comment,
-            likesCount: likesCountData.count,
-          };
-        })
-      );
-
-      const commentsWithUserData = await Promise.all(
-        commentsWithLikes.map(async (comment) => {
-          const userResponse = await fetch(
-            `${Config.LOCAL_URL}/api/user/${comment.userId}`,
-            {
-              headers: {
-                // "Content-Type": "application/json",
-                Authorization: `Bearer ${tokenn}`,
-              },
-            }
-          );
-          const userData = await userResponse.json();
-          return {
-            ...comment,
-            user: userData,
-          };
-        })
-      );
-
-      setArticles((prevArticles) => {
-        return prevArticles.map((prevArticle) =>
-          prevArticle.id === articleId
-            ? { ...prevArticle, comments: commentsWithUserData }
-            : prevArticle
-        );
-      });
-
-      // handleLikeComment(); // You may want to remove this line depending on your requirements
-    } catch (error) {
-      console.error(`Error fetching comments for article ${articleId}:`, error);
-    }
-  };
-
-  const fetchRepliesForComment = async (commentId) => {
-    try {
-      const repliesResponse = await fetch(
-        `${Config.LOCAL_URL}/api/replies/${commentId}`,
-        {
-          headers: {
-            // "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-        }
-      );
-      const repliesData = await repliesResponse.json();
-
-      const repliesWithUserData = await Promise.all(
-        repliesData.map(async (reply) => {
-          const userResponse = await fetch(
-            `${Config.LOCAL_URL}/api/user/${reply.userId}`,
-            {
-              headers: {
-                // "Content-Type": "application/json",
-                Authorization: `Bearer ${tokenn}`,
-              },
-            }
-          );
-          const userData = await userResponse.json();
-          return {
-            ...reply,
-            user: userData,
-          };
-        })
-      );
-
-      setArticleComments((prevComments) => {
-        const updatedComments = { ...prevComments };
-        updatedComments[commentId] = repliesWithUserData;
-        return updatedComments;
-      });
-    } catch (error) {
-      console.error(`Error fetching replies for comment ${commentId}:`, error);
-    }
-  };
   const [galleryItems, setGalleryItems] = useState([]);
 
   useEffect(() => {
@@ -790,221 +331,11 @@ const Index = () => {
     }
   };
 
-  const fetchComments = async () => {
-    try {
-      const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`, {
-        headers: {
-          // "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response?.status}`);
-      }
 
-      const data = await response.json();
-      setComments(data);
-    } catch (error) {
-      console.error("Error fetching comments:", error.message);
-    }
-  };
-
-  const addComment = async (articleId) => {
-    try {
-      if (articleId) {
-        // Retrieve user information from local storage
-        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-
-        const response = await fetch(`${Config.LOCAL_URL}/api/commentaires/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-          body: JSON.stringify({
-            description: comment,
-            userId: user.id,
-            articleId: articleId,
-          }),
-        });
-
-        const newComment = await response.json();
-
-        // Update the state with the new comment immediately
-        setArticleComments((prevComments) => {
-          const updatedComments = { ...prevComments };
-          updatedComments[articleId] = [
-            ...(updatedComments[articleId] || []),
-            newComment,
-          ];
-          return updatedComments;
-        });
-
-        // Update the article count in the state
-        setArticles((prevArticles) => {
-          return prevArticles.map((article) => {
-            if (article.id === articleId) {
-              return {
-                ...article,
-                commentsCount: (article.commentsCount || 0) + 1,
-              };
-            }
-            return article;
-          });
-        });
-
-        // Fetch comments for the article (optional, depending on your use case)
-        await fetchCommentsForArticle(articleId);
-
-        // Reset the comment input field
-        setComment("");
-      }
-    } catch (error) {
-      console.error("Error adding comment:", error);
-    }
-  };
 
   useEffect(() => {}, [articleComments]);
 
-  const handleEditClick = (article) => {
-    setEditArticle(article);
-  };
-
-  const addReply = async (commentId, replyText) => {
-    try {
-      if (commentId && replyText) {
-        const user = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-
-        const response = await fetch(`${Config.LOCAL_URL}/api/replies`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokenn}`,
-          },
-          body: JSON.stringify({
-            description: replyText,
-            userId: user.id,
-            nom: user.login,
-            imageuser: user.image,
-            commentaireId: commentId,
-          }),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          await fetchRepliesForComment(commentId);
-        }
-
-        setReplyInput("");
-        setReplyingToCommentId(null);
-      }
-    } catch (error) {
-      console.error("Error adding reply:", error);
-    }
-  };
-
-  // Define a function to calculate the time difference
-  const calculateTimeDifference = (createdAt) => {
-    // Assuming createdAt is in the format of "MM-DD-YYYY HH:mm:ss"
-    const createdAtDate = new Date(createdAt);
-    const currentDate = new Date();
-
-    const timeDifferenceInSeconds = Math.floor(
-      (currentDate - createdAtDate) / 1000
-    );
-
-    if (timeDifferenceInSeconds < 60) {
-      return `${timeDifferenceInSeconds} seconds ago`;
-    } else if (timeDifferenceInSeconds < 3600) {
-      const minutes = Math.floor(timeDifferenceInSeconds / 60);
-      return `${minutes} ${minutes === 1 ? "minute" : "minutes"} ago`;
-    } else if (timeDifferenceInSeconds < 86400) {
-      const hours = Math.floor(timeDifferenceInSeconds / 3600);
-      return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
-    } else {
-      const days = Math.floor(timeDifferenceInSeconds / 86400);
-      return `${days} ${days === 1 ? "day" : "days"} ago`;
-    }
-  };
-
-  const toggleComments = (articleId) => {
-    setSelectedArticleId((prevSelectedArticleId) =>
-      prevSelectedArticleId === articleId ? null : articleId
-    );
-  };
-
-  const copyLinkToClipboard = (articleId) => {
-    // Assuming you have the URL of your articles, replace 'YOUR_BASE_URL' with the actual base URL
-    const articleUrl = `${Config.LOCAL_URL}/articles/${articleId}`;
-
-    // Copy the URL to the clipboard
-    navigator.clipboard
-      .writeText(articleUrl)
-      .then(() => {
-        console.log("Link copied to clipboard");
-      })
-      .catch((err) => {
-        console.error("Failed to copy link to clipboard", err);
-      });
-  };
-
-  const handleMoreClick = (article) => {
-    toggleOpen(!isOpen);
-    setSelectedArticle(article);
-    setShowDropdown(article.id);
-  };
-
-  const handleDeleteClick = (id) => {
-    const confirmDelete = window.confirm(
-      getTranslation(
-        `Are you sure you want to delete this post?`, // -----> Englais
-        ` Êtes-vous sûr de vouloir supprimer cette publication ?` //  -----> Francais
-        //   ``,  //  -----> Turkey
-        //   `` ,  //  -----> Allemagne
-      )
-    );
-
-    if (confirmDelete) {
-      fetch(`${Config.LOCAL_URL}/api/articles/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenn}`,
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response?.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data.message);
-          // Optionally, you can update your UI or state to reflect the deleted article
-        })
-        .catch((error) => {
-          console.error(error.message);
-          // Handle the error or show a notification to the user
-        })
-        .finally(() => {
-          window.location.reload();
-          // Close the dropdown after deleting
-          setShowDropdown(null);
-        });
-    } else {
-      // User canceled the deletion
-      setShowDropdown(null);
-    }
-  };
-  const formatDate = (dateString) => {
-    const dateObject = new Date(dateString);
-    // Format the date object into the desired format
-    return dateObject.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  };
+ 
   const {
     register,
     handleSubmit,
@@ -1021,43 +352,199 @@ const Index = () => {
   Modal.setAppElement("#root");
 
   const getPhotoClass = (numPhotos) => {
-    if (numPhotos === 1) {
+    if (numPhotos === 0) {
       return "w-[57%] max-md:h-full md:w-[63%]";
-    } else if (numPhotos === 2) {
+    } else if (numPhotos === 1) {
       return "w-[33%] md:w-[35%]";
-    } else if (numPhotos === 3) {
+    } else if (numPhotos === 2) {
       return "w-[29.5%] md:w-[31.2%]";
     }
     return "w-[29.5%] md:w-[31.2%]"; // default case for more than 3 photos
   };
+//   const [currentIndex, setCurrentIndex] = useState(currentImageIndex);
 
+//   const goToNextSlide = () => {
+//     if (currentIndex < allPhotos.length - 1) {
+//       setCurrentIndex(currentIndex + 1);
+//     }
+//   };
+  
+//   const goToPrevSlide = () => {
+//     if (currentIndex > 0) {
+//       setCurrentIndex(currentIndex - 1);
+//     }
+//   };
+//   const PhotoGrid = ({ articlesWithPhoto }) => {
+//     const [isOpen, setIsOpen] = useState(false);
+//     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+//     const allPhotos = [];
+//     articlesWithPhoto.forEach((article) => {
+//       article.image.split(";").forEach((imageUrl) => {
+//         allPhotos.push({ url: imageUrl });
+//       });
+//     });
+
+//     allPhotos.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+//     const handlePlusClick = (index) => {
+//       setCurrentImageIndex(index);
+//       setIsOpen(true);
+//     };
+
+//     const closeModal = () => {
+//       setIsOpen(false);
+//     };
+
+//     const photoClass = getPhotoClass(allPhotos.length);
+
+//     return (
+//       <div>
+//         <div className="flex flex-wrap md:gap-x-3 md:gap-y-3 md:m-4 gap-3 m-2 md:pl-2 pt-1 md:pt-1 ">
+//           {allPhotos.map((photo, index) => (
+//             <div key={index} className={`h-48 md:h-72 ${photoClass}`}>
+//               <img
+//                 src={photo.url}
+//                 alt={`Photo ${index}`}
+//                 className="w-full h-full object-cover rounded-lg cursor-pointer"
+//                 onClick={() => handlePlusClick(index)}
+//               />
+//             </div>
+//           ))}
+//         </div>
+
+//         {isOpen && (
+//           <div className="bg-black/70 fixed inset-0 z-50 h-full w-full flex justify-center items-center ">
+//             <div className="relative flex flex-col py-2 rounded-[10px] md:w-full w-[100%]  h-full max-md:my-10">
+//               <div className="flex flex-col h-screen  bg-black md:pr-0  ">
+//                 <div className="    max-md:flex items-center  h-full justify-end max-md:-translate-x-7   ">
+//                   <svg
+//                     onClick={closeModal}
+//                     className="  ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 max-md:translate-y-3  md:size-14 size-14  "
+//                     xmlns="http://www.w3.org/2000/svg"
+//                     viewBox="0 0 62 62"
+//                     width="80"
+//                     height="80"
+//                     fill="#fff"
+//                   >
+//                     <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
+//                   </svg>
+//                 </div>
+//                 <div className="flex flex-col w-[100%] h-full md:ml-4 md:w-[95%]  py-10">
+//                 <Swiper
+//   modules={[Pagination, Navigation]}
+//   navigation={{
+//     prevEl: '.custom-prev',
+//     nextEl: '.custom-next',
+//     enabled: true,
+//   }}
+//   initialSlide={currentIndex}
+//   controller={{ control: true }}
+//   onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
+//   slidesPerView={1}
+//   allowTouchMove={false}
+//   speed={300}
+//   spaceBetween={0}
+//   className="mySwiperprofile flex items-center justify-center w-full h-full my-2"
+// >
+//   <button 
+//     className="custom-prev absolute left-4 z-50 bg-black/50 rounded-full p-2"
+//     onClick={goToPrevSlide}
+//   >
+//     <svg width="24" height="24" viewBox="0 0 24 24">
+//       <path fill="white" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+//     </svg>
+//   </button>
+//   <button 
+//     className="custom-next absolute right-4 z-50 bg-black/50 rounded-full p-2"
+//     onClick={goToNextSlide}
+//   >
+//     <svg width="24" height="24" viewBox="0 0 24 24">
+//       <path fill="white" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+//     </svg>
+//   </button>
+  
+//   {allPhotos.map((photo, index) => (
+//     <SwiperSlide
+//       key={index}
+//       className="flex justify-center items-center"
+//     >
+//       <div className="flex justify-between items-center w-full h-full">
+//         <img
+//           src={photo.url}
+//           alt={`Image ${index}`}
+//           className="w-full -mt-10 h-screen md:h-full object-contain"
+//         />
+//       </div>
+//     </SwiperSlide>
+//   ))}
+// </Swiper>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         )}
+//       </div>
+//     );
+//   };
+  // SwiperCore.use([Pagination, Navigation]);
   const PhotoGrid = ({ articlesWithPhoto }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+    const [currentIndex, setCurrentIndex] = useState(0);
+  
     const allPhotos = [];
     articlesWithPhoto.forEach((article) => {
       article.image.split(";").forEach((imageUrl) => {
         allPhotos.push({ url: imageUrl });
       });
     });
-
+  
     allPhotos.sort((a, b) => new Date(b.date) - new Date(a.date));
-
+  
     const handlePlusClick = (index) => {
-      setCurrentImageIndex(index);
+      setCurrentIndex(index);
       setIsOpen(true);
     };
-
+  
     const closeModal = () => {
       setIsOpen(false);
     };
-
+  
+    const goToNextSlide = () => {
+      if (currentIndex < allPhotos.length - 1) {
+        setCurrentIndex(currentIndex + 1);
+      }
+    };
+  
+    const goToPrevSlide = () => {
+      if (currentIndex > 0) {
+        setCurrentIndex(currentIndex - 1);
+      }
+    };
+  
     const photoClass = getPhotoClass(allPhotos.length);
-
+  
+    // Handle keyboard navigation
+    useEffect(() => {
+      const handleKeyDown = (e) => {
+        if (!isOpen) return;
+        
+        if (e.key === 'ArrowRight') {
+          goToNextSlide();
+        } else if (e.key === 'ArrowLeft') {
+          goToPrevSlide();
+        } else if (e.key === 'Escape') {
+          closeModal();
+        }
+      };
+  
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [currentIndex, isOpen]);
+  
     return (
       <div>
-        <div className="flex flex-wrap md:gap-x-3 md:gap-y-3 md:m-4 gap-3 m-2 md:pl-2 pt-1 md:pt-1 ">
+        <div className="flex flex-wrap md:gap-x-3 md:gap-y-3 md:m-4 gap-3 m-2 md:pl-2 pt-1 md:pt-1">
           {allPhotos.map((photo, index) => (
             <div key={index} className={`h-48 md:h-72 ${photoClass}`}>
               <img
@@ -1069,15 +556,16 @@ const Index = () => {
             </div>
           ))}
         </div>
-
+  
         {isOpen && (
-          <div className="bg-black/70 fixed inset-0 z-50 h-full w-full flex justify-center items-center ">
-            <div className="relative flex flex-col py-2 rounded-[10px] md:w-full w-[100%]  h-full max-md:my-10">
-              <div className="flex flex-col h-screen  bg-black md:pr-0  ">
-                <div className="    max-md:flex items-center  h-full justify-end max-md:-translate-x-7   ">
+          <div className="bg-black/70 fixed inset-0 z-50 h-full w-full flex justify-center items-center">
+            <div className="relative flex flex-col py-2 rounded-[10px] md:w-full w-[100%] h-full max-md:my-10">
+              <div className="flex flex-col h-screen bg-black md:pr-0">
+                {/* Close button */}
+                <div className="max-md:flex items-center h-full justify-end max-md:-translate-x-7">
                   <svg
                     onClick={closeModal}
-                    className="  ml-1 md:fixed z-50 -mr-[50px] cursor-pointer  mt-2 max-md:translate-y-3  md:size-14 size-14  "
+                    className="ml-1 md:fixed z-50 -mr-[50px] cursor-pointer mt-2 max-md:translate-y-3 md:size-14 size-14"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 62 62"
                     width="80"
@@ -1087,32 +575,46 @@ const Index = () => {
                     <path d="M13.292 12L21.774 1.633c.35-.427.286-1.057-.142-1.407-.428-.348-1.057-.287-1.407.142L12 10.421 3.774.367c-.351-.429-.98-.49-1.407-.142-.428.351-.491.98-.142 1.407L10.708 12 2.226 22.367c-.35.427-.286 1.057.142 1.407.425.348 1.056.288 1.407-.142L12 13.579l8.226 10.053c.351.43.982.489 1.407.142.428-.351.491-.98.142-1.407L13.292 12z" />
                   </svg>
                 </div>
-                <div className="flex flex-col w-[100%] h-full md:ml-4 md:w-[95%]  py-10">
-                  <Swiper
-                    navigation={true}
-                    initialSlide={currentImageIndex}
-                    onSlideChange={(swiper) =>
-                      setCurrentImageIndex(swiper.activeIndex)
-                    }
-                    centeredSlides={true}
-                    spaceBetween={80}
-                    className="mySwiperprofile flex items-center justify-center w-full h-full my-2"
-                  >
-                    {allPhotos.map((photo, index) => (
-                      <SwiperSlide
-                        key={index}
-                        className="flex justify-center items-center"
-                      >
-                        <div className="flex justify-between items-center w-full h-full">
-                          <img
-                            src={photo.url}
-                            alt={`Image ${index}`}
-                            className="w-full -mt-10 h-screen md:h-full object-contain"
-                          />
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
+  
+                {/* Main image container */}
+                <div className="flex flex-col w-[100%] h-full md:ml-4 md:w-[95%] py-10 relative">
+                  <div className="flex items-center justify-center h-full">
+                    {/* Previous button */}
+                    <button
+                      className="absolute left-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors"
+                      onClick={goToPrevSlide}
+                      disabled={currentIndex === 0}
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="white" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                      </svg>
+                    </button>
+  
+                    {/* Current image */}
+                    <div className="w-full h-full flex items-center justify-center">
+                      <img
+                        src={allPhotos[currentIndex].url}
+                        alt={`Image ${currentIndex}`}
+                        className="w-full -mt-10 h-screen md:h-full object-contain"
+                      />
+                    </div>
+  
+                    {/* Next button */}
+                    <button
+                      className="absolute right-4 z-50 bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors"
+                      onClick={goToNextSlide}
+                      disabled={currentIndex === allPhotos.length - 1}
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="white" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+                      </svg>
+                    </button>
+                  </div>
+  
+                  {/* Optional: Image counter */}
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white bg-black/50 px-4 py-2 rounded-full">
+                    {currentIndex + 1} / {allPhotos.length}
+                  </div>
                 </div>
               </div>
             </div>
@@ -1121,8 +623,6 @@ const Index = () => {
       </div>
     );
   };
-  SwiperCore.use([Pagination, Navigation]);
-
   const VideoGrid = ({ articlesWithVideo }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [currentImageIndexVideo, setCurrentImageIndexVideo] = useState(0);
@@ -1329,109 +829,7 @@ const Index = () => {
             </div>
           </div>
         )}
-        {/* {profileFeed === "photo" && (
-          <div className="w-full mt-3">
-            <div>
-              <div>
-                {articles.length > 0 ?
-                  (
-                    articlesWithPhoto.map((article) => (
-                      <div
-                        key={article.id}
-                        className="card w-100 shadow-xss rounded-xxl border-0 px-4 py-2 mt-3"
-                      >
-                        <div className="card-body p-0 d-flex">
-                          <figure className="avatar me-3">
-                            <img
-                              src={
-                                article?.user?.user?.image
-                                  ? article?.user?.user?.image
-                                  : PlaceHolder
-                              }
-                              className="avatar me-3shadow-sm rounded-full aspect-square w-16 h-16 mr-2"
-                              alt="post"
-                            />
-                          </figure>
-                          <div className="flex flex-col">
-                            <span className="text-base text-grey-900">
-                              {article.user.user.nom} {article.user.user.prenom}
-                            </span>
-                            <span className="d-block font-xssss fw-500 text-grey-500">
-                              {article.user.user.profil == "other"
-                                ? article.user.other?.profession
-                                : ""}
-                              {article.user.user.profil == "player"
-                                ? " Joueur"
-                                : ""}
-                              {article.user.user.profil == "agent" &&
-                                article.user.agent?.typeresponsable == "players"
-                                ? "Manager de Joueur"
-                                : ""}
-                              {article.user.user.profil == "agent" &&
-                                article.user.agent?.typeresponsable == "club"
-                                ? "Manager de CLub"
-                                : ""}
-                              {article.user.user.profil == "scout" ? "Scout" : ""}
-                            </span>
-                            <span className="d-block font-xssss fw-500 text-grey-500">
-
-                              {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-                              {
-                                moment(article?.createdAt).isAfter(moment().subtract(1, 'hour')) ?
-                                  moment(article?.createdAt).fromNow(true) :
-                                  moment(article?.createdAt).fromNow()
-                              }
-
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="card-body d-block p-0 mb-3">
-                          <div className="row ps-2 pe-2">
-                            <div className="col-sm-12 p-1">
-                              <div className="card-body d-block p-0 mb-3">
-                                <div className="row ps-2 pe-2">
-                                  {article?.image.split(';').map((imageUrl, index) => (
-                                    <div key={index} className="col-sm-12 col-md-6 col-lg-4 p-1">
-                                      <img
-                                        className="w-100 h-auto rounded-lg mb-2"
-                                        src={imageUrl}
-                                        alt={`Image ${index}`}
-                                      />
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))
-
-
-                  ) : (
-                    <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-                      Aucun Photo pour le moment
-                    </div>
-                  )}
-              </div>
-            </div>
-          </div>
-        )} */}
-
-        {/* <div>
-          {profileFeed === "photo" && (
-            <div className="w-full mt-3">
-              {articlesWithPhoto.length > 0 ? (
-                <PhotoGrid articlesWithPhoto={articlesWithPhoto} />
-              ) : (
-                <div className="w-full mt-4 text-center">
-                  Aucun Photo pour le moment
-                </div>
-              )}
-            </div>
-          )}
-        </div> */}
+      
         <div>
           {profileFeed === "photo" && (
             <div className="w-full bg-white mt-3 rounded-[12px] flex ">
@@ -1453,117 +851,7 @@ const Index = () => {
 
         <div>
           {profileFeed === "video" && (
-            // <div className="w-full mt-4 text-center">
-            //   <div>
-            //     <div>
-            //       {articlesWithVideo.length > 0 ? (
-            //         articlesWithVideo.map((article) => (
-            //           <div
-            //             key={article.id}
-            //             className="card w-100 shadow-xss rounded-xxl  border-0 p-4 mb-3"
-            //           >
-            //             <div className="card-body p-0 d-flex">
-            //               <figure className="avatar me-3">
-            //                 <img
-            //                   src={
-            //                     article?.user?.user.image
-            //                       ? article?.user?.user.image
-            //                       : PlaceHolder
-            //                   }
-            //                   className="shadow-sm rounded-full w-[52px] aspect-square"
-            //                   alt="post"
-            //                 />
-            //               </figure>
-            //               <div className="flex flex-col items-start space-y-1">
-            //                 <span className="text-base text-grey-900 font-semibold">
-            //                   {article.user.user.nom} {article.user.user.prenom}
-            //                 </span>
-            //                 <span className="text-sm text-grey-500">
-            //                   {article.user.user.profil === "other"
-            //                     ? article.user.other?.profession
-            //                     : ""}
-            //                   {article.user.user.profil === "player"
-            //                     ? " Joueur"
-            //                     : ""}
-            //                   {article.user.user.profil === "agent" &&
-            //                     article.user.agent?.typeresponsable === "players"
-            //                     ? "Manager de Joueur"
-            //                     : ""}
-            //                   {article.user.user.profil === "agent" &&
-            //                     article.user.agent?.typeresponsable === "club"
-            //                     ? "Manager de Club"
-            //                     : ""}
-            //                   {article.user.user.profil === "scout"
-            //                     ? "Scout"
-            //                     : ""}
-            //                 </span>
-            //                 <span className="text-sm text-grey-500">
-            //                   {moment(article?.createdAt).format('DD MMMM YYYY')} {' - '}
-            //                   {
-            //                     moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
-            //                       ? moment(article?.createdAt).fromNow(true)
-            //                       : moment(article?.createdAt).fromNow()
-            //                   }
-            //                 </span>
-            //               </div>
-
-            //               {/* <div className=" flex flex-col">
-            //               <span className="text-base text-grey-900">
-            //                 {article.user.user.nom} {article.user.user.prenom}
-            //               </span>
-            //               <span className="d-block font-xssss fw-500 text-grey-500">
-            //                 {article.user.user.profil === "other"
-            //                   ? article.user.other?.profession
-            //                   : ""}
-            //                 {article.user.user.profil === "player"
-            //                   ? " Joueur"
-            //                   : ""}
-            //                 {article.user.user.profil === "agent" &&
-            //                   article.user.agent?.typeresponsable === "players"
-            //                   ? "Manager de Joueur"
-            //                   : ""}
-            //                 {article.user.user.profil === "agent" &&
-            //                   article.user.agent?.typeresponsable === "club"
-            //                   ? "Manager de CLub"
-            //                   : ""}
-            //                 {article.user.user.profil === "scout"
-            //                   ? "Scout"
-            //                   : ""}
-            //               </span>
-            //               <span className="d-block font-xssss fw-500 text-grey-500">
-            //                 {moment(article?.createdAt).format('DD MMMM YYYY')} {'  -  '}
-            //                 {
-            //                   moment(article?.createdAt).isAfter(moment().subtract(1, 'hour'))
-            //                     ? moment(article?.createdAt).fromNow(true)
-            //                     : moment(article?.createdAt).fromNow()
-            //                 }
-            //               </span>
-            //             </div> */}
-            //             </div>
-            //             <div className="card-body d-block mt-2 p-0 mb-3">
-            //               <div className="row ps-2 pe-2">
-            //                 <div className="col-sm-12 p-1">
-            //                   {article.video && (
-            //                     <div className="card-body p-0 mb-3 overflow-hidden">
-            //                       <video controls className="w-100 md:max-h-[600px] max-h-[350px]">
-            //                         <source src={article.video} type="video/mp4" />
-            //                         Your browser does not support the video tag.
-            //                       </video>
-            //                     </div>
-            //                   )}
-            //                 </div>
-            //               </div>
-            //             </div>
-            //           </div>
-            //         ))
-            //       ) : (
-            //         <div className="w-full mt-4 col-xl-8 col-xxl-9 col-lg-8 text-center">
-            //           Aucun Video pour le moment
-            //         </div>
-            //       )}
-            //     </div>
-            //   </div>
-            // </div>
+            
 
             <div className="w-full bg-white mt-3 rounded-[12px] flex ">
               {articlesWithVideo.length > 0 ? (

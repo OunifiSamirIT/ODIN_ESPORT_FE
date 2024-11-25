@@ -1829,10 +1829,10 @@ function Header() {
     const storedUserDatad = JSON.parse(
       secureLocalStorage.getItem("cryptedUser")
     );
-    const id = storedUserDatad ? storedUserDatad.id : null;
+    const iddd = storedUserDatad ? storedUserDatad?.id : null;
     console.log("eeeeeeeeeeeee", tokenn);
     // Replace the API endpoint with your actual endpoint for fetching user data
-    fetch(`${Config.LOCAL_URL}/api/user/${id}`, {
+    fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}`, {
       method: "GET",
       credentials: "include",
       headers: {

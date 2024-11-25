@@ -108,6 +108,10 @@ const ProfileLayout = ({ children, onChange, user }) => {
     }
 
     useEffect(() => {
+        const storedUserDatad = JSON.parse(
+            secureLocalStorage.getItem("cryptedUser")
+        );
+
         isFriendAccepted()
         fetchAllFriendRequest()
         if (storedUserDatad.id == id) {
@@ -115,17 +119,37 @@ const ProfileLayout = ({ children, onChange, user }) => {
         }
     }, [id, user])
 
+    // const fetchAllFriendRequest = async () => {
+    //     const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/getFriends`, {
+    //         method: "GET",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: `Bearer ${tokenn}`,
+    //         },
+    //     });
+    //     const result = await response.json();
+    //     setInvitation(result.data)
+    // }
+
     const fetchAllFriendRequest = async () => {
-        const response = await fetch(`${Config.LOCAL_URL}/api/user/${storedUserDatad.id}/getFriends`, {
+        try {
+          const response = await fetch(`${Config.LOCAL_URL}/api/user/${id}/getFriends`, {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${tokenn}`,
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokenn}`,
             },
-        });
-        const result = await response.json();
-        setInvitation(result.data)
-    }
+          });
+          const result = await response.json();
+          setInvitation(result.data);
+        } catch (error) {
+          console.error("Failed to fetch friends:", error);
+        }
+      };
+    
+
+
+        console.log("🚀 ~ fetchAllFriendRequest ~ setInvitation:", Invitation)
 
     const deleteInviation = async (id) => {
         const storedUserDatad = JSON.parse(

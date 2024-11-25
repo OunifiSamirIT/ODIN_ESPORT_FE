@@ -168,7 +168,17 @@ function HomeOffre() {
   const handleContratChange = (e) => {
     setSelectedTypeContrat(e.target.value);
   };
+  const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDataa?.token;
 
+
+
+
+
+    let storedUserDataupdate = JSON.parse(
+      secureLocalStorage.getItem("cryptedUser")
+    );
+    const idupdate = storedUserDataupdate ? storedUserDataupdate.id : null;
   const handleSearch = () => {
     const filteredData = offres.filter((offr) => {
       // Format date_debut and date_fin
@@ -188,19 +198,38 @@ function HomeOffre() {
   };
   const [user, setUser] = useState([]);
   useEffect(() => {
-    const storedUserData = JSON.parse(
+
+  
+    const storedUserDataa = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDataa?.token;
+
+
+
+
+
+    let storedUserData = JSON.parse(
       secureLocalStorage.getItem("cryptedUser")
     );
     const id = storedUserData ? storedUserData.id : null;
+    console.log("🚀 ~ useEffect ~ id:", id)
+
+
+
+    
     if (id) {
-      fetch(`${Config.LOCAL_URL}/api/user/${id}`)
+      fetch(`${Config.LOCAL_URL}/api/user/${id}`,{
+        headers: {
+          Authorization: `Bearer ${tokenn}`,
+        },
+
+      })
         .then((response) => response.json())
         .then((userData) => {
           setUser(userData);
         })
         .catch((error) => console.error("Error fetching user data:", error));
-    }
-  }, []);
+    }
+  }, []);
   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
   const id = storedUserData.id ? storedUserData.id : null;
   const userProfileType = storedUserData ? storedUserData.profil : null;
@@ -1417,7 +1446,7 @@ function HomeOffre() {
                       {/* offer to update */}
 
                       <div className="relative " key={value.id}>
-                        {storedUserData.id === value.userId && (
+                        {idupdate == value.userId && (
                           <>
                             <button
                               className="absolute right-0 px-4 py-1 text-black bg-white rounded-full"

@@ -160,12 +160,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   const [showDropdownlikes, setShowDropdownlikes] = useState(false);
   const [showDropdownpartage, setShowDropdownpartage] = useState(false);
   const { checkTokenExpiration } = useContext(AuthContext);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState(null);
 
   const storedUserDataID = JSON.parse(
     secureLocalStorage.getItem("cryptedUser")
   );
 
-  const userId = storedUserDataID?.id ? storedUserDataID?.id : null;
+  const userId = parseInt(storedUserDataID?.id); 
   useEffect(() => {
     checkTokenExpiration();
   }, []);
@@ -1042,61 +1044,152 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
   //   );
   // };
 
-  const handleDeleteClick = (id) => {
+  // const handleDeleteClick = (id) => {
+  //   const confirmDelete = window.confirm(
+  //     getTranslation(
+  //       "Are you sure you want to delete this post?",
+  //       "Êtes-vous sûr de vouloir supprimer cette publication ?"
+  //     )
+  //   );
+  
+  //   if (confirmDelete) {
+  //     console.log("Deleting article...");
+  
+  //     // Retrieve the authentication token
+  //     const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  //     const token = storedUserData?.token;
+  //     const storedUserDatad = JSON.parse(
+  //       secureLocalStorage.getItem("cryptedUser")
+  //     );
+
+
+  // const idd = storedUserData?.id;
+  // const decryptedId = decryptString(
+  //   idd,
+  //   process.env.REACT_APP_ENCRYPTION_SECRET
+  // );
+
+  // const id = decryptedId ? decryptedId : null;
+  //     if (!token) {
+  //       console.error("No authentication token found");
+  //       // Handle the case where there's no token (e.g., show an error message to the user)
+  //       return;
+  //     }
+  
+  //     fetch(`${Config.LOCAL_URL}/api/articles/${id}`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Authorization": `Bearer ${token}`, // Include the token in the Authorization header
+  //       },
+  //     })
+  //       .then((response) => {
+  //         if (!response.ok) {
+  //           if (response.status === 401) {
+  //             throw new Error("Unauthorized: Please log in again.");
+  //           }
+  //           throw new Error(`HTTP error! Status: ${response.status}`);
+  //         }
+  //         return response.json();
+  //       })
+  //       .then((data) => {
+  //         console.log(data.message);
+  //         onDeleteFromListAcceuillFront(id);
+  //         // Optionally, you can update your UI or state to reflect the deleted article
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error deleting article:", error.message);
+  //         // Handle the error or show a notification to the user
+  //         // For example:
+  //         // setErrMsg(error.message);
+  //       })
+  //       .finally(() => {
+  //         // Close the dropdown after deleting
+  //         setShowDropdown(null);
+  //       });
+  //   } else {
+  //     // User canceled the deletion
+  //     setShowDropdown(null);
+  //   }
+  // };
+  const handleDeleteClick = async (id) => {
+    if (!id) {
+      setError('Invalid article ID');
+      return;
+    }
+
     const confirmDelete = window.confirm(
       getTranslation(
         "Are you sure you want to delete this post?",
         "Êtes-vous sûr de vouloir supprimer cette publication ?"
       )
     );
-  
-    if (confirmDelete) {
-      console.log("Deleting article...");
-  
-      // Retrieve the authentication token
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      setIsDeleting(true);
+      setError(null);
+
+      // Get authentication data
       const storedUserData = JSON.parse(localStorage.getItem("Secret"));
-      const token = storedUserData?.token;
-  
-      if (!token) {
-        console.error("No authentication token found");
-        // Handle the case where there's no token (e.g., show an error message to the user)
-        return;
+       const token = storedUserData.token;
+      const idd = storedUserData?.id;
+      const decryptedId = decryptString(
+        idd,
+        process.env.REACT_APP_ENCRYPTION_SECRET
+      );
+      const userId = decryptedId || null;
+
+      const storedUserDatad = JSON.parse(
+        secureLocalStorage.getItem("cryptedUser")
+      );
+
+      if (!storedUserData?.token) {
+        throw new Error("No authentication token found");
       }
-  
-      fetch(`${Config.LOCAL_URL}/api/articles/${id}`, {
+
+     
+      if (!userId) {
+        throw new Error("Invalid user ID");
+      }
+
+      // Make the delete request
+      const response = await fetch(`${Config.LOCAL_URL}/api/articles/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`, // Include the token in the Authorization header
+          "Authorization": `Bearer ${token}`,
         },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            if (response.status === 401) {
-              throw new Error("Unauthorized: Please log in again.");
-            }
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data.message);
-          onDeleteFromListAcceuillFront(id);
-          // Optionally, you can update your UI or state to reflect the deleted article
-        })
-        .catch((error) => {
-          console.error("Error deleting article:", error.message);
-          // Handle the error or show a notification to the user
-          // For example:
-          // setErrMsg(error.message);
-        })
-        .finally(() => {
-          // Close the dropdown after deleting
-          setShowDropdown(null);
-        });
-    } else {
-      // User canceled the deletion
-      setShowDropdown(null);
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error("Unauthorized: Please log in again.");
+        }
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Call the delete callback if it exists
+      if (typeof onDeleteFromListAcceuillFront === 'function') {
+        onDeleteFromListAcceuillFront(id);
+      }
+
+      // Update articles list if setArticles is provided
+      if (typeof setArticles === 'function') {
+        setArticles(prevArticles => prevArticles.filter(article => article.id !== id));
+      }
+
+      console.log("Article deleted successfully:", data.message);
+    } catch (error) {
+      console.error("Error deleting article:", error.message);
+      setError(error.message);
+    } finally {
+      setIsDeleting(false);
     }
   };
   const decryptString = (encryptedText, secret) => {
@@ -1156,6 +1249,14 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
     );
 
     if (confirmDelete) {
+      const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+  const idd = storedUserData?.id;
+  const decryptedId = decryptString(
+    idd,
+    process.env.REACT_APP_ENCRYPTION_SECRET
+  );
+
+  const id = decryptedId ? decryptedId : null;
       try {
         await fetch(`${Config.LOCAL_URL}/api/commentaires/${id}`, {
           method: "DELETE",
@@ -2452,7 +2553,7 @@ function Post({ article, setArticles, onDeleteFromListAcceuillFront }) {
                     <span className="  flex items-center flex-col md:flex-row gap-2 ">
                       {likesData &&
                       likesData.some(
-                        (like) => like.userId === storedUserDataID?.id
+                        (like) => like.userId === userId
                       ) ? (
                         <span className="  flex flex-row">
                           {" "}

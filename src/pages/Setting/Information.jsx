@@ -14,13 +14,13 @@ const Information = ({ userInfo, fetchUserInfo }) => {
         <ToastContainer />
       </div>
       {/* {userInfo.user.profil === 'scout'  &&  <Scout userInfo={userInfo}/>} */}
-      {userInfo?.user.profil === "player" && (
+      {userInfo?.user?.profil === "player" && (
         <Player userInfo={userInfo} fetchUserInfo={fetchUserInfo} />
       )}
-      {userInfo?.user.profil === "coach" && <Entraineur userInfo={userInfo} />}
-      {userInfo?.user.profil === "other" && <Other userInfo={userInfo} />}
-      {userInfo?.user.profil === "agent" && <Agent userInfo={userInfo} />}
-      {userInfo?.user.profil === "scout" && <Scout userInfo={userInfo} />}
+      {userInfo?.user?.profil === "coach" && <Entraineur userInfo={userInfo} />}
+      {userInfo?.user?.profil === "other" && <Other userInfo={userInfo} />}
+      {userInfo?.user?.profil === "agent" && <Agent userInfo={userInfo} />}
+      {userInfo?.user?.profil === "scout" && <Scout userInfo={userInfo} />}
     </>
   );
 };
