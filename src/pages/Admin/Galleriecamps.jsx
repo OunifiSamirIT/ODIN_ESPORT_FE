@@ -11,11 +11,16 @@ import { Config } from "../../config";
 
 const Album = () => {
   const [album, setAlbum] = useState([]);
-
+  const storedUserDatad = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserDatad.token;
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`);
+        const response = await fetch(`${Config.LOCAL_URL}/api/albumc`,{
+          headers: {
+            Authorization: `Bearer ${tokenn}`,
+          },
+        });
         const result = await response.json();
 
         setAlbum(result.data);

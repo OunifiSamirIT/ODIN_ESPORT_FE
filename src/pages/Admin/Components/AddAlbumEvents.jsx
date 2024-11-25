@@ -60,7 +60,8 @@ const AddEvent = () => {
     } = useForm();
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-
+    const storedUserDatad = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserDatad.token;
     const onSubmit = async (data) => {
         const formData = new FormData();
         console.log(data.file)
@@ -78,10 +79,19 @@ const AddEvent = () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/albumeventodin/create`, {
             method: 'POST',
             body: formData,
+            headers: {
+                
+                Authorization: `Bearer ${tokenn}`,
+              },
         });
 
         if (response.status === 200) {
-            const res = await fetch(`${Config.LOCAL_URL}/api/lastOdinEvent`)
+            const res = await fetch(`${Config.LOCAL_URL}/api/lastOdinEvent`,{
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${tokenn}`,
+                  },
+            })
             const result = await res.json()
             const lastEventCreated = await result
             const eventId = lastEventCreated.event[0].id

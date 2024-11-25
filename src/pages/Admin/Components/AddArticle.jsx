@@ -23,12 +23,14 @@ const AddArticle = () => {
     setArticle(e);
     setValue("article", JSON.stringify(e));
   };
-
+  const storedUserDatad = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserDatad.token;
   const onSubmit = async (data) => {
     const response = await fetch(`${Config.LOCAL_URL}/api/blog/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
       },
       body: JSON.stringify(data),
     });
@@ -72,6 +74,9 @@ const AddArticle = () => {
         const response = await fetch(`${Config.LOCAL_URL}/api/blog/upload`, {
           method: "POST",
           body: formData,
+          headers: {
+            Authorization: `Bearer ${tokenn}`,
+          },
         });
 
         if (response.ok) {

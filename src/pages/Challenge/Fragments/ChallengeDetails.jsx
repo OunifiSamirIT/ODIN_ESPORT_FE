@@ -1461,7 +1461,7 @@ const ChallengeDetais = () => {
 
                                     <img
                                         src={
-                                            storedUserData.image ? storedUserData.image : placeholder
+                                            storedUserDatad.image ? storedUserDatad.image : placeholder
                                         }
                                         className="shadow-sm rounded-full  shrink-0 md:h-[64px] md:w-[64px] h-[38px] w-[38px] object-cover"
                                         alt="post"

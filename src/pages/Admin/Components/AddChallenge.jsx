@@ -70,6 +70,8 @@ const AddArticle = () => {
     }
 
 
+    const storedUserData = JSON.parse(localStorage.getItem("Secret"));
+    const tokenn = storedUserData.token;
 
     const onSubmit = async (data) => {
         const formData = new FormData();
@@ -81,8 +83,10 @@ const AddArticle = () => {
         formData.append('files',data.video[0])
         const response = await fetch(`${Config.LOCAL_URL}/api/challenges/create`, {
             method: 'POST',
-
             body: formData,
+            headers: {
+                Authorization: `Bearer ${tokenn}`,
+              },
         });
         if (response.status === 200) {
             setValue('name', '')

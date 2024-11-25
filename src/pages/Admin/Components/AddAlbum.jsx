@@ -14,7 +14,8 @@ const AddEvent = () => {
   const { register, handleSubmit, setValue } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-
+  const storedUserDatad = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserDatad.token;
   const onSubmit = async (data) => {
     const formData = new FormData();
 
@@ -27,6 +28,10 @@ const AddEvent = () => {
     await fetch(`${Config.LOCAL_URL}/api/album/upload`, {
       method: "POST",
       body: formData,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenn}`,
+      },
     });
     // navigate("/home");
   };

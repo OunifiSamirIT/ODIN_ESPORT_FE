@@ -16,7 +16,8 @@ const AddEvent = () => {
   const { register, handleSubmit, setValue, getValues } = useForm();
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const storedUserData = JSON.parse(secureLocalStorage.getItem("cryptedUser"));
-
+  const storedUserDatad = JSON.parse(localStorage.getItem("Secret"));
+  const tokenn = storedUserDatad.token;
   const onSubmit = async (data) => {
     const formData = new FormData();
 
@@ -35,6 +36,9 @@ const AddEvent = () => {
     await fetch(`${Config.LOCAL_URL}/api/offreEmploi/upload`, {
       method: "POST",
       body: formData,
+      headers: {
+        Authorization: `Bearer ${tokenn}`,
+      },
     });
     navigate("/homeoffre");
   };
